@@ -1109,6 +1109,24 @@
             <param name="compacted">The list of compacted vertices</param>
             <returns>The number of orphan vertices removed.</returns>
         </member>
+        <member name="M:devDept.Geometry.Utility.GetCpuCount(System.Int32,System.Int32[]@,System.Int32[]@)">
+            <summary>
+            Gets the number of logical processors.
+            </summary>
+            <param name="len">Total number of the items to process</param>
+            <param name="startIndex">Array of start indices</param>
+            <param name="endIndex">Array of end indices</param>
+            <returns>The number of logical processors</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.GetProgress(System.Int32[],System.Int32[],System.Int32)">
+            <summary>
+            Gets progress value from parallel tasks.
+            </summary>
+            <param name="index">Current task index</param>
+            <param name="startIndex">Current task start index</param>
+            <param name="cpuCount">The number of logical processors</param>
+            <returns>The progress value.</returns>
+        </member>
         <member name="T:devDept.Geometry.IndexLineComparer">
             <summary>
             Compares two <see cref="T:devDept.Geometry.IndexLine"/> objects. 
@@ -2139,7 +2157,8 @@
             </summary>
             <param name="P">First point (Origin)</param>
             <param name="Q">Second point (X axis)</param>
-            <param name="R">Third plane (Y axis</param>
+            <param name="R">Third point</param>
+            <remarks>The Z axis is given by the normalized cross product of PQ and PR, and then the Y axis is obtained by the cross product of Z axis and X axis. So Y axis mey not be aligned with PR.</remarks>
         </member>
         <member name="M:devDept.Geometry.Plane.#ctor(System.Double[])">
             <summary>
@@ -4193,6 +4212,45 @@
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
         </member>
         <member name="M:devDept.Geometry.Mirror.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance with the data needed to serialize the target object.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="T:devDept.Geometry.Align3D">
+            <summary>
+            Transformation that aligns an orthonormal frame with another.
+            </summary>
+            <seealso cref="T:devDept.Geometry.Transformation"/>
+        </member>
+        <member name="M:devDept.Geometry.Align3D.#ctor(devDept.Geometry.Plane,devDept.Geometry.Plane)">
+            <summary>
+            Standard constructor: builds a transformation that brings originalFrame onto destinationFrame.
+            </summary>
+            <param name="originalFrame">First frame</param>
+            <param name="destinationFrame">Second frame</param>
+        </member>
+        <member name="M:devDept.Geometry.Align3D.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="p1A">First point of first frame</param>
+            <param name="p1B">First point of second frame</param>
+            <param name="p2A">Second point of first frame</param>
+            <param name="p2B">Second point of second frame</param>
+            <param name="p3A">Third point of first frame</param>
+            <param name="p3B">Third point of second frame</param>
+            <remarks>The two frames are orthonormal, obtained with the plane constructor by three points.</remarks>
+        </member>
+        <member name="M:devDept.Geometry.Align3D.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for deserializing objects.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="M:devDept.Geometry.Align3D.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance with the data needed to serialize the target object.
             </summary>

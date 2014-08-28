@@ -843,6 +843,13 @@
             Contains a collection of utility methods and constants.
             </summary>
         </member>
+        <member name="M:devDept.Geometry.UtilityEx.SmartAdd(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
+            <summary>
+            Returns a CompositeCurve if the number of curves is bigger than one.
+            </summary>
+            <param name="curveList">The list of curves</param>
+            <returns>The curve itself or a CompositeCurve if the curve number is bigger than one.</returns>
+        </member>
         <member name="M:devDept.Geometry.UtilityEx.Unlock(System.String)">
             <summary>
             Validates the license in Console applications (without user interface).
@@ -6716,11 +6723,6 @@
             Solid3D face loop definition.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.Loop.Outer">
-            <summary>
-            The loop nature. This flag helps when you define a hole in a surface without defining the outer trim loop.
-            </summary>
-        </member>
         <member name="F:devDept.Eyeshot.Entities.Solid3D.Loop.Sense">
             <summary>
             The loop orientation. True means same sense.
@@ -6743,14 +6745,6 @@
             </summary>
             <param name="segments">The array of oriented edges that compose the loop.</param>
             <param name="sense">The loop sense</param>
-        </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.Loop.#ctor(devDept.Eyeshot.Entities.Solid3D.OrientedEdge[],System.Boolean,System.Boolean)">
-            <summary>
-            Standard constructor.
-            </summary>
-            <param name="segments">The array of oriented edges that compose the loop.</param>
-            <param name="sense">The loop sense</param>
-            <param name="outer">The loop nature</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.Loop.Clone">
             <summary>
@@ -7052,6 +7046,12 @@
             <param name="untrimmed">The surface</param>
             <param name="contours">A list of 3D contours</param>
             <returns>One or more trimmed surfaces.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.DropLoopsAndCheckDirection(System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},devDept.Eyeshot.Entities.Surface.RepSurf,System.Boolean,System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Boolean@)">
+            <summary>
+            Drop loops and in the case it finds an inverted contour returns the needFlip flag as true.
+            </summary>
+            <returns>True if direction is fine or drop failed, false otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.FillGaps(devDept.Eyeshot.Entities.Surface.RepSurf,System.Collections.Generic.List{System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve}}@,System.Double,System.Collections.Generic.List{devDept.Eyeshot.Entities.Surface.PointEx},System.Collections.Generic.List{devDept.Eyeshot.Entities.Surface.PointEx},System.Int32,System.Boolean)">
             <summary>
@@ -7589,6 +7589,7 @@
             </summary>
             <param name="rs">The resulting revolved surface (when possible)</param>
             <returns>True if the operation succeeds, false otherwise. If the surface is already a <see cref="T:devDept.Eyeshot.Entities.RevolvedSurface"/>, it returns false.</returns>
+            <remarks>It only converts surfaces with angle of revolution of 2PI.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.TryGetTabulated(devDept.Eyeshot.Entities.TabulatedSurface@)">
             <summary>
@@ -7608,6 +7609,7 @@
             Converts this generic surface to <see cref="T:devDept.Eyeshot.Entities.PlanarSurface"/>, <see cref="T:devDept.Eyeshot.Entities.TabulatedSurface"/> or <see cref="T:devDept.Eyeshot.Entities.RevolvedSurface"/> (when possible).
             </summary>
             <returns>The new surface when possible, null/Nothing otherwise.</returns>
+            <remarks>When the surface is already a <see cref="T:devDept.Eyeshot.Entities.PlanarSurface"/>, <see cref="T:devDept.Eyeshot.Entities.TabulatedSurface"/> or <see cref="T:devDept.Eyeshot.Entities.RevolvedSurface"/>, the method returns null/Nothing.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.PointAt(devDept.Geometry.Point2D)">
             <summary>
@@ -8287,6 +8289,11 @@
             Reverses the surface V direction.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.SwapUV">
+            <summary>
+            Swaps the U and V directions of the surface.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.IsPlanar(System.Double,devDept.Geometry.Plane@)">
             <summary>
             Checks if the surface is planar.
@@ -8658,34 +8665,6 @@
             <summary>
             Gets surface normal direction.
             </summary>
-        </member>
-        <member name="T:devDept.Eyeshot.Entities.Surface.Contour">
-            <summary>
-            3D closed contour definition.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Surface.Contour.Loop">
-            <summary>
-            The 3D closed contour curve.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Surface.Contour.Outer">
-            <summary>
-            The outer status flag.
-            </summary>
-        </member>
-        <member name="M:devDept.Eyeshot.Entities.Surface.Contour.#ctor(devDept.Eyeshot.Entities.ICurve)">
-            <summary>
-            Loop only constructor.
-            </summary>
-            <param name="loop"></param>
-        </member>
-        <member name="M:devDept.Eyeshot.Entities.Surface.Contour.#ctor(devDept.Eyeshot.Entities.ICurve,System.Boolean)">
-            <summary>
-            Standard contructor.
-            </summary>
-            <param name="loop"></param>
-            <param name="outer"></param>
         </member>
         <member name="F:devDept.Eyeshot.Entities.Surface.solType.InfiniteSol">
             <summary>
@@ -11919,8 +11898,7 @@
             <summary>
             Draws ovelaying UI elements.
             </summary>
-            <param name="drawScale">The drawing scale</param>
-            <param name="zoomRect">The zoom rectange</param>
+            <param name="myParams">THe draw parameters</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.Draw3D(devDept.Eyeshot.ViewportLayout.DrawSceneParams)">
             <summary>
@@ -12690,6 +12668,10 @@
             <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
             <param name="closest">The closest vertex as a 3D point</param>
             <returns>The entity index if the closest vertex it's nearer than <paramref name="maxDistance"/>, -1 otherwise.</returns>
+            <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
+            of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>. 
+            Also, the <paramref name="closest"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closest"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,devDept.Geometry.Point3D@)">
             <summary>
@@ -12700,6 +12682,10 @@
             <param name="entType">Entity type</param>
             <param name="closest">The closest vertex as a 3D point</param>
             <returns>The entity index if the closest vertex it's nearer than <paramref name="maxDistance"/> and the entity type is <paramref name="entType"/>, -1 otherwise.</returns>
+            <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
+            of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>.
+            Also, the <paramref name="closest"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closest"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,System.Int32@)">
             <summary>
@@ -12709,6 +12695,10 @@
             <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
             <param name="closestIndex">The closest vertex index</param>
             <returns>The entity index if the closest vertex it's nearer than <paramref name="maxDistance"/>, -1 otherwise.</returns>
+            <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
+            of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>.
+            Also, the <paramref name="closest"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closest"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,System.Int32@)">
             <summary>
@@ -12719,6 +12709,10 @@
             <param name="entType">Entity type</param>
             <param name="closestIndex">The closest vertex index</param>
             <returns>The entity index if the closest vertex it's nearer than <paramref name="maxDistance"/> and the entity type is <paramref name="entType"/>, -1 otherwise.</returns>
+            <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
+            of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>.
+            Also, the <paramref name="closest"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closest"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursor(System.Drawing.Point)">
             <summary>
@@ -12726,6 +12720,8 @@
             </summary>
             <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.ViewportLayout.PickBoxSize"/> parameter.</remarks>
             <returns>The index of the entity, -1 otherwise.</returns>
+            <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
+            of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> </remarks>
             <example>
                 The following code fragment demonstrate how to highlight the entity under the mouse
                 cursor.
@@ -14936,10 +14932,6 @@
         <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean,System.Boolean,System.Boolean)" -->
         <member name="M:devDept.Eyeshot.Viewport.RenderToBitmapInternal(devDept.Eyeshot.Viewport.RenderToBitmapParams)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
-            <param name="drawScale">The bitmap scale</param>
-            <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
-            <param name="drawBackground">If false, the drawing of the background is skipped</param>
-            <param name="hdwAcceleration">If true, use the hardware acceleration</param>
             <returns>The 24-bit image.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.FitViewportSize(System.Drawing.Size,System.Drawing.Size,System.Double,System.Boolean)">
@@ -17195,6 +17187,14 @@
             <param name="length">The distance between points</param>
             <returns>An array of 3D points.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.ICurve.GetPointsByLengthPerSegment(System.Double)">
+            <summary>
+            Subdivides the curve by the distance provided, for LinearPaths and CompositeCurves it does it segmentwise.
+            </summary>
+            <param name="length">The distance between points</param>
+            <returns>An array of 3D points.</returns>
+            <remarks>In LinearPaths and CompositeCurves, this method is applied to each segment.</remarks>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.Extrude(devDept.Eyeshot.Entities.Line,System.Double,devDept.Eyeshot.Entities.meshNatureType)">
             <summary>
             Extrudes this curve along the specified direction.
@@ -17438,6 +17438,13 @@
         <member name="M:devDept.Eyeshot.Entities.CompositeCurve.GetPointsByLength(System.Double)">
             <summary>
             Subdivides the curve by the distance provided.
+            </summary>
+            <param name="length">The distance between points</param>
+            <returns>An array of 3D points.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.CompositeCurve.GetPointsByLengthPerSegment(System.Double)">
+            <summary>
+            Subdivides each segment of the curve by the distance provided.
             </summary>
             <param name="length">The distance between points</param>
             <returns>An array of 3D points.</returns>
@@ -18300,6 +18307,11 @@
         </member>
         <member name="T:devDept.Eyeshot.BoundingBox">
             <summary>Bounding box settings.</summary>
+        </member>
+        <member name="F:devDept.Eyeshot.BoundingBox.modelSizeLabel">
+            <summary>
+            The label of the box size.
+            </summary>
         </member>
         <member name="M:devDept.Eyeshot.BoundingBox.#ctor">
             <summary>Empty constructor.</summary>
@@ -23832,6 +23844,13 @@
             <param name="length">The distance</param>
             <returns>An array of 3D points.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.LinearPath.GetPointsByLengthPerSegment(System.Double)">
+            <summary>
+            Subdivides each segment of the curve by the distance provided.
+            </summary>
+            <param name="length">The distance</param>
+            <returns>An array of 3D points.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.LinearPath.MergeWith(devDept.Eyeshot.Entities.LinearPath)">
             <summary>
             Merges this linear path with a consecutive linear path.
@@ -26935,17 +26954,17 @@
             <summary>
             Standard constructor
             </summary>
-            <param name="actionMode"></param>
-            <param name="axis"></param>
+            <param name="actionMode">The action mode</param>
+            <param name="axis">The axis on which the transformation is performed</param>
         </member>
         <member name="P:devDept.Eyeshot.ObjectManipulator.ObjectManipulatorEventArgs.ActionMode">
             <summary>
-            The current action mode.
+            Gets the current action mode.
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.ObjectManipulator.ObjectManipulatorEventArgs.Axis">
             <summary>
-            The axis on which the transformation is performed.
+            Gets the axis on which the transformation is performed.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ObjectManipulator.ObjectManipulatorEventHandler">
@@ -28785,6 +28804,14 @@
             <returns>The mesh object.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Triangulation.EarClipping.WriteXML(System.String,System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point2D}})">
+            <summary>
+            Write the EarClipping contours to an XML file for debugging purpose.
+            </summary>
+            <param name="fileName">The file name</param>
+            <param name="outer">The outer contour</param>
+            <param name="inners">The inner contours</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Triangulation.EarClipping.WriteXML(System.String,System.Collections.Generic.List{devDept.Geometry.IntPoint},System.Collections.Generic.List{System.Collections.Generic.List{devDept.Geometry.IntPoint}})">
             <summary>
             Write the EarClipping contours to an XML file for debugging purpose.
             </summary>
