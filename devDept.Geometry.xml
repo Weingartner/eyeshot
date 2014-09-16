@@ -720,8 +720,8 @@
             </summary>
             <param name="v1">First Vector</param>
             <param name="v2">Second Vector</param>
-            <param name="rotAxis">Roation Axis</param>
-            <returns>The angle in degrees between the vectors</returns>
+            <param name="rotAxis">Rotation Axis</param>
+            <returns>The angle in degrees between the vectors, measured in clockwise direction.</returns>
         </member>
         <member name="M:devDept.Geometry.Utility.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,System.Double)">
             <summary>
@@ -921,6 +921,17 @@
             <param name="frustum">The frustum planes equations</param>
             <returns>True if the triangle is inside or is crossing the frustum.</returns>
         </member>
+        <member name="M:devDept.Geometry.Utility.InsideOrCrossingFrustumQuad(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.PlaneEquation[])">
+            <summary>
+            Checks whether the quad is inside or crossing the frustum defined by the given planes.
+            </summary>
+            <param name="pt1">The first quad vertex</param>
+            <param name="pt2">The second quad vertex</param>
+            <param name="pt3">The third quad vertex </param>
+            <param name="pt4">The fourth quad vertex </param>
+            <param name="frustum">The frustum planes equations</param>
+            <returns>True if the quad is inside or is crossing the frustum.</returns>
+        </member>
         <member name="M:devDept.Geometry.Utility.IsSegmentInsideOrCrossing(devDept.Geometry.PlaneEquation[],devDept.Geometry.Segment3D)">
             <summary>
             Tells if a segment is inside or crossing the given frustum.
@@ -1068,7 +1079,7 @@
             <param name="vector1">First vector</param>
             <param name="vector2">Second vector</param>
             <param name="rotAxis">The rotation axis</param>
-            <param name="angle">The angle in degrees</param>
+            <param name="angle">The angle in degrees, measured in clockwise direction.</param>
         </member>
         <member name="M:devDept.Geometry.Utility.AreEqual(System.Collections.IList,System.Collections.IList)">
             <summary>
@@ -1135,21 +1146,6 @@
         <member name="T:devDept.Geometry.Equation">
             <summary>
             Matrix equation definition.
-            </summary>
-        </member>
-        <member name="F:devDept.Geometry.Equation.nonZeroStart">
-            <summary>
-            Non zero values starting position.
-            </summary>
-        </member>
-        <member name="F:devDept.Geometry.Equation.nonZeroEnd">
-            <summary>
-            Non zero values ending position.
-            </summary>
-        </member>
-        <member name="F:devDept.Geometry.Equation.elements">
-            <summary>
-            List of elements with something to do with this dof.
             </summary>
         </member>
         <member name="F:devDept.Geometry.Equation.restrained">
@@ -1920,6 +1916,14 @@
             </summary>
             <param name="t">Value to test</param>
             <param name="bTestOpenInterval">If false, t is tested to see if it satisfies min &lt;= t &lt;= max. If true, t is tested to see if it satisfies min &lt; t &lt; max.</param>
+            <returns>True if t is in the interval and false if t is not in the interval.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Interval.Includes(System.Double,System.Double)">
+            <summary>
+            Tests a value t to see if it is inside the interval within a given tolerance.
+            </summary>
+            <param name="t">Value to test</param>
+            <param name="tol">t is tested to see if it satisfies min - tol &lt; t &lt; max + tol.</param>
             <returns>True if t is in the interval and false if t is not in the interval.</returns>
         </member>
         <member name="M:devDept.Geometry.Interval.Union(devDept.Geometry.Interval,devDept.Geometry.Interval)">
@@ -4019,6 +4023,7 @@
             <summary>
             Gets or sets the 4x4 matrix.
             </summary>
+            <remarks>The first index is the row index, the second is the column index.</remarks>
         </member>
         <member name="P:devDept.Geometry.Transformation.MatrixAsVectorByRow">
             <summary>Gets the 4x4 matrix as an array of doubles ordered by row.</summary>

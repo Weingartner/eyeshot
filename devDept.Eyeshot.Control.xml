@@ -872,6 +872,15 @@
             <param name="curve">The curve to analyze</param>
             <returns>True if the curve is oriented clockwise, false otherwise.</returns>
         </member>
+        <member name="M:devDept.Geometry.UtilityEx.AllVerticesInScreenPolygon(devDept.Eyeshot.ScreenPolygonParams,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Int32)">
+            <summary>
+            Tells if a collection of vertices is fully contained inside a polygon defined in screen coordinates. 
+            </summary>
+            <param name="data">The screen polygon params</param>
+            <param name="vertices">The collection of vertices</param>
+            <param name="count">The number of vertices to consider</param>
+            <returns>True if all the vertices are contained in the screen polygon.</returns>
+        </member>
         <member name="M:devDept.Geometry.UtilityEx.VertexInScreenPolygon(devDept.Geometry.Point3D,System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double[],System.Int32[])">
             <summary>
             Checks whether a 3D vertex is inside the given screen polygon.
@@ -953,6 +962,34 @@
             <param name="loops">The list of 2D contours</param>
             <param name="tolerance">The tolerance used to tessellate contours</param>
             <returns>The outer loop index</returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingFrustumQuad(devDept.Eyeshot.FrustumParams,System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Checks whether the quad are inside or crossing the frustum defined by the given planes.
+            </summary>
+            <param name="myParams">The frustum parameters</param>
+            <param name="vertices">Vertices list</param>
+            <returns>True if the quad is inside or crossing the frustum.</returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingFrustum(devDept.Eyeshot.FrustumParams,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
+            <summary>
+            Checks whether the triangles are inside or crossing the frustum defined by the given planes.
+            </summary>
+            <param name="myParams">The frustum parameters</param>
+            <param name="vertices">Vertices list</param>
+            <param name="triangles">Triangles list</param>
+            <returns>True if the triangles are inside or crossing the frustum.</returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingScreenPolygonQuad(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.ScreenPolygonParams)">
+            <summary>
+            Checks whether the quad is inside or crossing the given screen polygon.
+            </summary>
+            <param name="pt1">The first vertex</param>
+            <param name="pt2">The second vertex</param>
+            <param name="pt3">The third vertex </param>
+            <param name="pt4">The fourth vertex </param>
+            <param name="myParams">The screen polygon parameters</param>
+            <returns>True if the quad is inside or is crossing the screen polygon.</returns>
         </member>
         <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingScreenPolygon(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.ScreenPolygonParams)">
             <summary>
@@ -1401,6 +1438,7 @@
             Constructor.
             </summary>
             <param name="chordalErr">The chordal error</param>
+            <remarks>This constructor can't be used for calling the <see cref="M:devDept.Eyeshot.Entities.Entity.Regen(devDept.Eyeshot.RegenParams)"/> on BlockReference entities, call one of the other constructors instead.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.RegenParams.#ctor(System.Double,devDept.Eyeshot.ViewportLayout)">
             <summary>
@@ -3060,6 +3098,7 @@
             This overload can be used with entities that don't display texts and textures.
             </overloads>
             <param name="chordalErr">Chordal error</param>
+            <remarks>Can't be called on BlockReference entities. Call one of the other overloads for BlockReference entities.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.Compile(devDept.Eyeshot.CompileParams)">
             <summary>
@@ -3083,6 +3122,22 @@
             command.
             </remarks>
             <param name="transform">The transformation to be applied</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.ThroughTriangleQuad(devDept.Eyeshot.FrustumParams,System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Tells if the quad defined by the vertices is inside the selection area defined by the edge list.
+            </summary>
+            <param name="data">The frustum parameters</param>
+            <param name="vertices">The vertices of the quad</param>
+            <returns>True if the quad intersects the selection area</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.ThroughTriangleScreenPolygonQuad(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Eyeshot.ScreenPolygonParams)">
+            <summary>
+            Tells if the quad defined by the vertices is inside the selection area defined by the screen polygon.
+            </summary>
+            <param name="vertices">The vertices of the quad</param>
+            <param name="data">The screen polygon parameters</param>
+            <returns>True if the quad intersects the screen polygon</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.ThroughTriangleScreenPolygon(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Double[],System.Int32[],System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block})">
             <summary>
@@ -4623,6 +4678,121 @@
             <param name="planeEquation">The cutting plane equation</param>
             <returns>An array of arrays of 3D points representing each section contour.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.MergeFinalLoops(System.Collections.Generic.List{devDept.Geometry.Point3D[]})">
+            <summary>
+            Gets the loop list, merging the open loops with start or end point in common.
+            </summary>
+            <param name="loops">Collection of loops</param>
+            <returns>The loop list.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.MergeLoopsWithCommonVertex(devDept.Geometry.Point3D[],devDept.Geometry.Point3D[])">
+            <summary>
+            Merges two loops that have the start or end point in common in one loop.
+            </summary>
+            <param name="loop1"></param>
+            <param name="loop2"></param>
+            <returns>The merged loop.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.CleanEdgesWithOneIntersectionOnVertex(System.Collections.Generic.List{devDept.Eyeshot.Entities.Mesh.EdgeIntersect},System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Mark as processed the edges that have only one intersections (i.e. in one vertex) and their triangles.
+            </summary>
+            <param name="intersections"></param>
+            <param name="vertices"></param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.GetSortedTriangleVertices(devDept.Geometry.IndexTriangle)">
+            <summary>
+            Gets the sorted list of the triangle vertices indices.
+            </summary>
+            <param name="i">The index of the triangle</param>
+            <param name="triangles">The list of triangles</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.MarkEdgeNotOnPlane(devDept.Eyeshot.Entities.Mesh.EdgeIntersect,System.Collections.Generic.List{devDept.Eyeshot.Entities.Mesh.EdgeIntersect},System.Collections.Generic.IComparer{devDept.Eyeshot.Entities.Mesh.EdgeIntersect})">
+            <summary>
+            Mark only the edges that are not on the plane.
+            </summary>
+            <param name="edge"></param>
+            <param name="intersections"></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.GetReverse(devDept.Geometry.PlaneEquation,devDept.Eyeshot.Entities.Mesh.EdgeIntersect,System.Collections.Generic.LinkedList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Tells if a loop must be reversed, based on the first segment of the loop, the normal of the mum triangle of the edge and the plane equation. 
+            </summary>
+            <param name="planeEquation">The plane equation</param>
+            <param name="edge">The current edge</param>
+            <param name="loop1">The loop</param>
+            <param name="triangles">The triangles collection</param>
+            <param name="vertices">The vertices collection</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.GetEdgeIntersections(devDept.Geometry.PlaneEquation,devDept.Eyeshot.Entities.Mesh.EdgeIntersectComparer,System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Gets the list of edges instersecting the plane, ordered on both the first vertex (V1) and on the second one (V2).
+            </summary>
+            <param name="planeEquation">The plane equation</param>
+            <param name="comparer">The comparer class. The edges are ordered first on V1 and then on V2</param>
+            <param name="triangles">The triangles list</param>
+            <param name="vertices">The vertices list</param>
+            <returns>The ordered list of intersecting edges</returns>
+            <remarks>THe first vertex (V1) of the edge is always less than the second vertex (v2)
+            The edges with the intersection on one vertex are discarded, as well as the edges on the plane that are between triangles on the plane.
+            </remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.IntersectSegment(devDept.Geometry.Segment3D,devDept.Geometry.PlaneEquation,devDept.Geometry.Point3D@)">
+            <summary>
+            Intersects the segment with the plane.
+            </summary>
+            <param name="seg"></param>
+            <param name="planeEquation"></param>
+            <param name="intersectionPoint">The intersection point</param>
+            <returns>The result of intersection.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.GetAnotherIncidentEdge(System.Collections.Generic.List{devDept.Eyeshot.Entities.Mesh.EdgeIntersect},System.Int32@,devDept.Eyeshot.Entities.Mesh.EdgeIntersect@,System.Int32@,System.Boolean[],devDept.Eyeshot.Entities.Mesh.EdgeIntersectComparerOneComponent,System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Get another edge incident on the vertex that collides with the intersection.
+            </summary>
+            <param name="intersections">The list of intersections</param>
+            <param name="edgeIndex">The index of the current edge</param>
+            <param name="edge">The current edge</param>
+            <param name="triangleIndex">THe triangle adjacent to the edge</param>
+            <param name="trianglesProcessed">The list of flags of processed triangles</param>
+            <param name="comparerOneComponent">The edge comparer</param>
+            <param name="vertices">The edge vertices</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.GetUnprocessedEdge(System.Collections.Generic.List{devDept.Eyeshot.Entities.Mesh.EdgeIntersect},devDept.Eyeshot.Entities.Mesh.EdgeIntersect,devDept.Eyeshot.Entities.Mesh.EdgeIntersectComparerOneComponent)">
+            <summary>
+            Gets an edge not yet processed adjacent to the current edge.
+            </summary>
+            <param name="edgesWithIntersections">The list of edge intersections</param>
+            <param name="currentEdge">The current  edge</param>
+            <param name="processedEdges">The processed edges flags</param>
+            <param name="comparerOneComponent">The edge comparer</param>
+            <returns>The adjacent edge index</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.GetEdgeRange(System.Collections.Generic.List{devDept.Eyeshot.Entities.Mesh.EdgeIntersect},System.Int32,System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            Gets the range of edges in the <paramref name="intersections"/> list starting with <paramref name="vertexIndex"/> vertex.
+            </summary>
+            <param name="edgesWithIntersections">The list of intersecting edges, ordered on the first vertex (V1)</param>
+            <param name="vertexIndex"></param>
+            <param name="startPos"></param>
+            <param name="minIndex">Index of the <see cref="!:intersections"/> list where the edges with first vertex <paramref name="vertexIndex"/> start</param>
+            <param name="maxIndex">Index of the <see cref="!:intersections"/> list where the edges with first vertex <paramref name="vertexIndex"/> end</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.FindOtherEdgeOfTriangleIntersecting(devDept.Eyeshot.Entities.Mesh.EdgeIntersect,System.Int32,System.Collections.Generic.List{devDept.Eyeshot.Entities.Mesh.EdgeIntersect},System.Collections.Generic.IComparer{devDept.Eyeshot.Entities.Mesh.EdgeIntersect},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Finds the other edge of the triangle that is intersected by the plane.
+            </summary>
+            <param name="currentEdge">The current edge on which the intersection was found</param>
+            <param name="triangleIndex">The triangle adjacent to the edge</param>
+            <param name="intersections">The list of intersections with the relative edge</param>
+            <param name="comparer">The comparer</param>
+            <param name="triangles">The triangles list</param>
+            <returns>The index of the other edge of the triangle intersected by the plane.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.SplitDisjoint">
             <summary>
             Divides into separate objects meshes that do not connect, but are still one object.
@@ -4870,12 +5040,6 @@
             <param name="weldNow">If true, the two meshes are welded immediately.</param>
             <remarks>If you need to merge several meshes it's far more efficient to weld them only at the last MergeWith call.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Mesh.MergeWith(devDept.Eyeshot.Entities.Mesh)">
-            <summary>
-            Merges two compatible mesh objects.
-            </summary>
-            <param name="mesh">The mesh object to merge</param>
-        </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.MergeWith(devDept.Eyeshot.Entities.Quad,System.Boolean)">
             <summary>
             Merges the mesh with a <see cref="T:devDept.Eyeshot.Entities.Quad"/> entity that shares an edge with the mesh.
@@ -4964,6 +5128,43 @@
             </summary>
             <remarks> If true, no geometry is generated by the <see cref="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardVector(System.Boolean)"/>, <see cref="M:devDept.Eyeshot.ViewportLayout.WriteToFileVector(System.Boolean,System.String)"/>,
             <see cref="!:ViewportLayout.WriteToFileVectorAutodesk"/>, <see cref="M:devDept.Eyeshot.ViewportLayout.Print"/> and all other methods that use the <see cref="T:devDept.Eyeshot.HiddenLinesView"/> class.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.EdgeIntersect.ToString">
+            <summary>
+            Converts this 3D point to a human readable string.
+            </summary>
+            <returns>A string that represents this 3d point.</returns>
+        </member>
+        <member name="T:devDept.Eyeshot.Entities.Mesh.IntersectionResult">
+            <summary>
+            Result type of segment - plane intersection.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Mesh.IntersectionResult.OnPlane">
+            <summary>
+            The semgnet is on Plane.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Mesh.IntersectionResult.FirstPoint">
+            <summary>
+            The intersection is on the first endpoint.
+            </summary>
+            
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Mesh.IntersectionResult.SecondPoint">
+            <summary>
+            The intersection in on the second endpoint.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Mesh.IntersectionResult.Inside">
+            <summary>
+            The intersection is inside.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Mesh.IntersectionResult.Outside">
+            <summary>
+            The instersection is outside the segment.
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.Entities.MultilineText">
             <summary>
@@ -6118,6 +6319,12 @@
             <seealso cref="T:devDept.Eyeshot.Entities.RadialDim">RadialDim class</seealso>
             <seealso cref="T:devDept.Eyeshot.Entities.DiametricDim">DiametricDim class</seealso>
         </member>
+        <member name="M:devDept.Eyeshot.TextStyleDictionary.#ctor(devDept.Eyeshot.TextStyleDictionary)">
+            <summary>
+            Copy constructor.
+            </summary>
+            <param name="another">The other dictionary</param>
+        </member>
         <member name="M:devDept.Eyeshot.TextStyleDictionary.Add(System.String,devDept.Eyeshot.TextStyleData)">
             <summary>
             Adds one <see cref="T:devDept.Eyeshot.TextStyleData"/> to this dictionary.
@@ -6459,6 +6666,16 @@
             Returns true if the angle is between 90 and 270 degrees.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.Dimension.TextGap">
+            <summary>
+            Gets or sets the gap (in world units) between the dimension line and the text.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Dimension.ArrowheadSize">
+            <summary>
+            Gets or sets the size of the arrow head.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.Entities.Dimension.LinearScale">
             <summary>
             Get or set the global scale factor for linear dimensions.
@@ -6555,6 +6772,16 @@
             Specifies the offset of extension lines from the origin points.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.AngularDim.LeftArrowhead">
+            <summary>
+            Gets or sets the left arrow head type.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.AngularDim.RightArrowhead">
+            <summary>
+            Gets or sets the right arrow head type.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.Entities.AngularDim.Origin">
             <summary>
             Gets or sets the origin point.
@@ -6595,17 +6822,31 @@
             </summary>
             <param name="outer">The outer shell</param>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToSurface">
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToSurface(System.Double)">
             <summary>
             Converts this solid to a list of individual surfaces.
             </summary>
-            <returns></returns>
+            <param name="tol">Regeneration tolerance</param>
+            <returns>An array of <see cref="T:devDept.Eyeshot.Entities.Surface"/> objects.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToSurface">
+            <summary>
+            Converts this solid to a list of individual surfaces using current triangulation.
+            </summary>
+            <returns>An array of <see cref="T:devDept.Eyeshot.Entities.Surface"/> objects.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToMesh(System.Double,devDept.Eyeshot.Entities.meshNatureType)">
             <summary>
             Converts this solid to a Mesh.
             </summary>
-            <returns></returns>
+            <param name="tol">Regeneration tolerance</param>
+            <returns>The Mesh object.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToMesh(devDept.Eyeshot.Entities.meshNatureType)">
+            <summary>
+            Converts this solid to a Mesh using current triangulation.
+            </summary>
+            <returns>The Mesh object.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.CreateBox(System.Double,System.Double,System.Double)">
             <summary>Creates a box primitive.</summary>
@@ -6696,21 +6937,37 @@
             </summary>
             <returns>The new solid object.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.Shell.ConvertToSurface(devDept.Eyeshot.Entities.Entity)">
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.Shell.ConvertToSurface(devDept.Eyeshot.Entities.Entity,System.Double)">
             <summary>
             Converts this shell to a list of individual surfaces.
             </summary>
-            <param name="parent">The parent entity</param>
-            <returns>A list of entities</returns>
+            <param name="parent">The parent entity (can be null/Nothing)</param>
+            <param name="tol">Regeneration tolerance</param>
+            <returns>An array of entities</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.Shell.ConvertToSurface(devDept.Eyeshot.Entities.Entity)">
+            <summary>
+            Converts this shell to a list of individual surfaces using current triangulation.
+            </summary>
+            <param name="parent">The parent entity (can be null/Nothing)</param>
+            <returns>An array of entities</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.Shell.ConvertToMesh(devDept.Eyeshot.Entities.Entity,System.Double,devDept.Eyeshot.Entities.meshNatureType)">
             <summary>
             Converts this shell to a list of individual meshes.
             </summary>
-            <param name="parent">The parent entity</param>
-            <param name="tolerance">The tolerance</param>
+            <param name="parent">The parent entity (can be null/Nothing)</param>
+            <param name="tol">The tolerance</param>
             <param name="meshNature">The Mesh <see cref="T:devDept.Eyeshot.Entities.meshNatureType">nature</see></param>
-            <returns>A list of entities</returns>
+            <returns>The resulting mesh object</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.Shell.ConvertToMesh(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.meshNatureType)">
+            <summary>
+            Converts this shell to a list of individual meshes using current triangulation.
+            </summary>
+            <param name="parent">The parent entity (can be null/Nothing)</param>
+            <param name="meshNature">The Mesh <see cref="T:devDept.Eyeshot.Entities.meshNatureType">nature</see></param>
+            <returns>The resulting mesh object</returns>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Solid3D.Shell.IsClosed">
             <summary>
@@ -7398,6 +7655,13 @@
             <param name="meshNature">The desired Mesh nature</param>
             <returns>The resulting Mesh object.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.ConvertToMesh(devDept.Eyeshot.Entities.meshNatureType)">
+            <summary>
+            Converts this surface to a <see cref="T:devDept.Eyeshot.Entities.Mesh"/> object using current triangulation.
+            </summary>
+            <param name="meshNature">The desired Mesh nature</param>
+            <returns>The resulting Mesh object.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.areaF(System.Double,System.Double)">
             <summary>
             area needs to integrate a function over an interval
@@ -7429,12 +7693,28 @@
             <param name="curveList">A list of NURBS curves</param>
             <param name="degU">The degree in the U direction</param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.SkinU(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32,System.Boolean)">
+            <summary>
+            Creates a surface from skinning. The skinning is performed in the U direction.
+            </summary>
+            <param name="curveList">A list of NURBS curves</param>
+            <param name="degU">The degree in the U direction</param>
+            <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.SkinV(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32)">
             <summary>
             Creates a surface from skinning. The skinning is performed in the V direction.
             </summary>
             <param name="curveList">A list of curves</param>
             <param name="degV">The degree in the V direction</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.SkinV(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32,System.Boolean)">
+            <summary>
+            Creates a surface from skinning. The skinning is performed in the V direction.
+            </summary>
+            <param name="curveList">A list of curves</param>
+            <param name="degV">The degree in the V direction</param>
+            /// <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.SkinFirstKnotVectorV(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Curve},System.Int32)">
             <summary>
@@ -7528,6 +7808,15 @@
             <param name="curveList">The skinning curves</param>
             <param name="degree">The desired surface degree</param>
             <returns>The resulting surface if the operation succeeds, null/Nothing otherwise.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.Loft(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32,System.Boolean)">
+            <summary>
+            Creates a surface from skinning. 
+            </summary>
+            <param name="curveList">The skinning curves</param>
+            <param name="degree">The desired surface degree</param>
+            <returns>The resulting surface if the operation succeeds, null/Nothing otherwise.</returns>
+            /// <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.CreatePlanar(devDept.Eyeshot.Entities.ICurve)">
             <summary>Creates a planar surface bounded by the contour provided.</summary>
@@ -11602,6 +11891,13 @@
             <param name="trackBall">if true, the rotation is applied after the current rotation, else it's applied before</param>
             <param name="animate">If true performs an animation when changing the view</param>
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.OrientCamera(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Orients the Camera between the two specified points.
+            </summary>
+            <param name="location">The new camera location</param>
+            <param name="target">The new camera target</param>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.IsSelectByPickAction">
             <summary>
             Tells if the current <see cref="P:devDept.Eyeshot.ViewportLayout.ActionMode"/> is one of the ByPick ones.
@@ -11751,6 +12047,11 @@
             <returns></returns>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.DrawEntities(devDept.Eyeshot.ViewportLayout.DrawSceneParams,System.Boolean,System.Boolean)">
+            <summary>
+            Entities drawing.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.DrawEntities(devDept.Eyeshot.ViewportLayout.DrawSceneParams,System.Boolean,devDept.Eyeshot.ViewportLayout.renderedDrawingType,System.Boolean)">
             <summary>
             Entities drawing.
             </summary>
@@ -12257,25 +12558,33 @@
         <member name="M:devDept.Eyeshot.ViewportLayout.OnAnimationTimerTick(System.Object,System.EventArgs)">
             <summary>Occurs every timer tick. Call base class method when overriding.</summary>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.PageSetup">
+        <member name="M:devDept.Eyeshot.ViewportLayout.PageSetup(System.Boolean)">
             <summary>Opens the Page Setup dialog.</summary>
             <remarks>Margins are disabled because the Eyeshot parameterless printing
             engine prints to the entire printable area of the selected paper format.</remarks>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.Print"></seealso>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.PrintPreview(System.Drawing.Size)"></seealso>
+            <param name="allowMargins">If true, the margins can be changed</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.PrintPreview(System.Drawing.Size)">
              <summary>Computes the hidden lines and opens the Print Preview dialog.</summary>
             <param name="printPreviewDlgClientSize">Size of the Print Preview form client area</param>
             <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>
              <seealso cref="M:devDept.Eyeshot.ViewportLayout.Print"></seealso>
-             <seealso cref="M:devDept.Eyeshot.ViewportLayout.PageSetup"></seealso>
+             <seealso cref="M:devDept.Eyeshot.ViewportLayout.PageSetup(System.Boolean)"></seealso>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.Print">
              <summary>Computes the hidden lines and opens the Print dialog.</summary>
             <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>
-             <seealso cref="M:devDept.Eyeshot.ViewportLayout.PageSetup"></seealso>
+             <seealso cref="M:devDept.Eyeshot.ViewportLayout.PageSetup(System.Boolean)"></seealso>
              <seealso cref="M:devDept.Eyeshot.ViewportLayout.PrintPreview(System.Drawing.Size)"></seealso>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.ConvertPrintAreaFromMetricToInches(System.Drawing.Printing.PrintPageEventArgs,System.Drawing.RectangleF@)">
+            <summary>
+            Converts the print area from tens Of a millimiter to hundredths of an inch.
+            </summary>
+            <param name="e"></param>
+            <param name="printable"></param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size)">
             <summary>
@@ -12475,7 +12784,7 @@
             </summary>
             <remarks><see cref="P:devDept.Eyeshot.Viewport.SavedViews"/></remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygon(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Int32[]@)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygon(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
             Selects each entity crossing the specified selection polygon.
             </summary>
@@ -12485,7 +12794,7 @@
             <param name="removed">The list of entity indices of entities removed from selection</param>
             <remarks>Call <see cref="M:System.Windows.Forms.Control.Invalidate(System.Drawing.Region)"/> to see the effect of this function.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygonEnclosed(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Int32[]@)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygonEnclosed(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
             Selects each entity completely enclosed in the specified selection rectangle.
             </summary>
@@ -12495,7 +12804,7 @@
             <param name="invert">If true, inverts current selection status</param>
             <remarks>Call <see cref="M:System.Windows.Forms.Control.Invalidate(System.Drawing.Region)"/> to see the effect of this function.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygonVisibleOnly(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Int32[]@)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygonVisibleOnly(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
             Selects each visible entity in the specified selection polygon.
             </summary>
@@ -12505,7 +12814,7 @@
             <param name="invert">If true, inverts current selection status</param>
             <remarks>Call <see cref="M:System.Windows.Forms.Control.Invalidate(System.Drawing.Region)"/> to see the effect of this function.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionVisibleOnly(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Int32[]@)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionVisibleOnly(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
             Selects only visible entities in the specified rectangle.
             </summary>
@@ -12525,7 +12834,7 @@
             <param name="invert">If true, inverts current selection status</param>
             <remarks>Call <see cref="M:System.Windows.Forms.Control.Invalidate(System.Drawing.Region)"/> to see the effect of this function.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelection(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Int32[]@)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelection(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
             Selects each entity crossing the specified selection rectangle.
             </summary>
@@ -12564,7 +12873,7 @@
             <param name="min"></param>
             <returns></returns> 
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionEnclosed(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Int32[]@)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionEnclosed(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
             Selects each entity completely enclosed in the specified selection rectangle.
             </summary>
@@ -12664,7 +12973,7 @@
             <summary>
             Looks for the model vertex closer to the mouse cursor.
             </summary>
-            <param name="mousePos">Mouse position</param>
+            <param name="mousePos">Mouse position (zero on top)</param>
             <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
             <param name="closest">The closest vertex as a 3D point</param>
             <returns>The entity index if the closest vertex it's nearer than <paramref name="maxDistance"/>, -1 otherwise.</returns>
@@ -12677,7 +12986,7 @@
             <summary>
             Looks for the model vertex closer to the mouse cursor skipping entities different from entType.
             </summary>
-            <param name="mousePos">Mouse position</param>
+            <param name="mousePos">Mouse position (zero on top)</param>
             <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
             <param name="entType">Entity type</param>
             <param name="closest">The closest vertex as a 3D point</param>
@@ -12691,7 +13000,7 @@
             <summary>
             Looks for the model vertex closer to the mouse cursor.
             </summary>
-            <param name="mousePos">Mouse position</param>
+            <param name="mousePos">Mouse position (zero on top)</param>
             <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
             <param name="closestIndex">The closest vertex index</param>
             <returns>The entity index if the closest vertex it's nearer than <paramref name="maxDistance"/>, -1 otherwise.</returns>
@@ -12704,7 +13013,7 @@
             <summary>
             Looks for the model vertex closer to the mouse cursor skipping entities different from entType.
             </summary>
-            <param name="mousePos">Mouse position</param>
+            <param name="mousePos">Mouse position (zero on top)</param>
             <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
             <param name="entType">Entity type</param>
             <param name="closestIndex">The closest vertex index</param>
@@ -12803,7 +13112,7 @@
             Finds the closest triangle to the viewer of the specified entity.
             </summary>
             <param name="ent">The entity</param>
-            <param name="mousePos">Mouse cursor position</param>
+            <param name="mousePos">Mouse cursor position (zero on top)</param>
             <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle"/> found under the mouse cursor.</returns>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Geometry.Point3D@)"/>             
             <remarks>If the entity is inside a <see cref="T:devDept.Eyeshot.Entities.BlockReference"/>, it must be set as current.</remarks>
@@ -12870,10 +13179,11 @@
             <param name="selectionEntityMode">The kind of entities to select</param>
             <returns></returns>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.GetVisibleEntitiesFromBackBuffer(devDept.Eyeshot.Viewport,System.Drawing.Rectangle,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetVisibleEntitiesFromBackBuffer``1(System.Collections.Generic.IList{``0},devDept.Eyeshot.Viewport,System.Drawing.Rectangle,System.Boolean)">
             <summary>
             Returns the indices of the entities read from the back buffer in the selectionBox.
             </summary>
+            <param name="entList">The list of entities</param>
             <param name="viewport">The viewport</param>
             <param name="selectionBox">Selection rectangle in screen coordinates</param>
             <param name="firstOnly">If true, returns the first entity that is found in the selectionBox</param>
@@ -13455,6 +13765,26 @@
             Light 4 attribute.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.Light5">
+            <summary>
+            Light 5 attribute.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.Light6">
+            <summary>
+            Light 6 attribute.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.Light7">
+            <summary>
+            Light 7 attribute.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.Light8">
+            <summary>
+            Light 8 attribute.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.AmbientLight">
             <summary>
             Gets or sets the ambient light intensity.
@@ -13468,7 +13798,7 @@
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.GroundPlaneDistance">
             <summary>
-            Gets or sets the distance between the ground plane and the model's bounding box. 
+            Gets or sets the distance between the ground plane and the model's bounding box expressed as a fraction of the model height. 
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.PlanarShadowOpacity">
@@ -13784,12 +14114,13 @@
             <param name="vertexCode">Vertex program source code.</param>
             <param name="fragmentCode">Fragment program source code.</param>
         </member>
-        <member name="M:devDept.Eyeshot.Shader.ComposeStrings(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport)">
+        <member name="M:devDept.Eyeshot.Shader.ComposeStrings(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Int32)">
             <summary>
             Method used internally to compose the shader code.
             </summary>
             <param name="viewportLayout">The viewport layout</param>
             <param name="viewport">The viewport</param>
+            <param name="nLights">Number of active lights</param>
         </member>
         <member name="M:devDept.Eyeshot.Shader.Compile">
             <summary>
@@ -14065,7 +14396,7 @@
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventHandler">
             <summary>
-            Represents the method that will handle the <see cref="E:devDept.Eyeshot.ViewportLayout.SelectionChanged"/> and  <see cref="!:ViewportLayout.LabelSelectionChanged"/>event. 
+            Represents the method that will handle the <see cref="E:devDept.Eyeshot.ViewportLayout.SelectionChanged"/> and  <see cref="E:devDept.Eyeshot.Viewport.LabelSelectionChanged"/>event. 
             </summary>
             <param name="sender">The source of the event.</param>
             <param name="e">A <see cref="T:System.EventArgs"/> object that contains the event data.</param>
@@ -14264,6 +14595,11 @@
             <typeparam name="T">The handler type</typeparam>
             <param name="hWnd">The Windows handle that need touch or gesture events</param>
             <returns>TouchHandler or Gesture Handler</returns>
+        </member>
+        <member name="P:devDept.Eyeshot.PhongShader.nLights">
+            <summary>
+            Number of active lights. The active lights are the first "numberOfActiveLights", (meaning [0, numberOfActiveLights-1])
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.Viewport">
             <summary>
@@ -15196,6 +15532,13 @@
             <param name="animate">If true performs an animation when changing the view</param>
             <seealso cref="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Int32)"/>
             <seealso cref="M:devDept.Eyeshot.Viewport.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.OrientCamera(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Orients the Camera between the two specified points.
+            </summary>
+            <param name="location">The new camera location</param>
+            <param name="target">The new camera target</param>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.RotateCamera(System.Drawing.Point,System.Drawing.Point)">
             <summary>
@@ -16521,6 +16864,16 @@
             Solves the step record and extracts the actual line data. 
             </summary>
         </member>
+        <member name="T:devDept.Eyeshot.Iges.OffsetSurface">
+            <summary>
+            Utility class to write a Line (Type 140) in IGES format
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Iges.OffsetSurface.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Used during import.
+            </summary>
+        </member>
         <member name="T:StepTranslator.CompositeCurveSegment">
             <summary>
             
@@ -17179,6 +17532,7 @@
             <param name="tolerance">Tolereance</param>
             <param name="sharp">If false, offset curves are connected with an arc.</param>
             <returns>The offset curve if the operation is successful, null/Nothing otherwise.</returns>
+            <remarks>It doesn't work if the number of offset curves is different from the number of curves to be offsetted. For more complex cases use <see cref="M:devDept.Eyeshot.Entities.LinearPath.QuickOffset(System.Double,devDept.Geometry.Plane)"/></remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.GetPointsByLength(System.Double)">
             <summary>
@@ -17484,6 +17838,18 @@
             <param name="i1">The second intersection point (when it exists)</param>
             <returns>True if the intersection is found, false when the two entities don't touch.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+            <summary>
+            Finds the intersection between an Arc/Circle and a Line entity.
+            </summary>
+            <param name="line">The line entity</param>
+            <param name="arc">The arc/circle entity</param>
+            <param name="pln">The plane where the two entities lay</param>
+            <param name="infiniteLine">If true, we look for intersections even outide the boundaries of the line.</param>
+            <param name="i0">The first intersection point (when it exists)</param>
+            <param name="i1">The second intersection point (when it exists)</param>
+            <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
             <summary>
             Finds the intersection between two Arc/Circle entities.
@@ -17560,7 +17926,7 @@
             Radial dimension entity.
             </summary>
             <remarks>Text font can be changed using the Viewport.Entities.Font property and calling the Viewport.Entities.Regen() method.</remarks>
-            <seealso cref="!:EntityList.Font"/>
+            <seealso cref="T:System.Drawing.Font"/>
             <seealso cref="T:devDept.Eyeshot.Entities.LinearDim"/>
         </member>
         <member name="M:devDept.Eyeshot.Entities.RadialDim.#ctor(devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D,System.Double)">
@@ -17594,6 +17960,16 @@
             </summary>
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.RadialDim.CenterMarkSize">
+            <summary>
+            Gets or sets the size of the center mark.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.RadialDim.Arrowhead">
+            <summary>
+            Gets or sets the arrow head type.
+            </summary>
         </member>
         <member name="P:devDept.Eyeshot.Entities.RadialDim.Radius">
             <summary>
@@ -17632,6 +18008,16 @@
             Creates a deep copy of this diametric dimension.
             </summary>
             <returns>The new diametric dimension object.</returns>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.DiametricDim.LeftArrowhead">
+            <summary>
+            Gets or sets the left arrow head type.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.DiametricDim.RightArrowhead">
+            <summary>
+            Gets or sets the right arrow head type.
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.Entities.dimElementPositionType">
             <summary>
@@ -17717,6 +18103,16 @@
             Specifies the offset of extension lines from the origin points.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.LinearDim.LeftArrowhead">
+            <summary>
+            Gets or sets the left arrow head type.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.LinearDim.RightArrowhead">
+            <summary>
+            Gets or sets the right arrow head type.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.Entities.LinearDim.ExtLine1">
             <summary>
             Gets or sets the first extension line point.
@@ -17766,6 +18162,12 @@
             <param name="topColor">Top color, applies only to gradient styles.</param>
             <param name="intermediateColorPosition">Intermediate color position expressed in percent of viewport height from top.</param>
             <param name="image">Image, applies only to gradient style.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.BackgroundSettings.#ctor(devDept.Eyeshot.BackgroundSettings)">
+            <summary>
+            Copy constructor.
+            </summary>
+            <param name="another">The other BackgroundSettings object</param>
         </member>
         <member name="P:devDept.Eyeshot.BackgroundSettings.Style">
             <summary>Gets or sets the viewport background style.</summary>
@@ -18594,6 +18996,7 @@
         </member>
         <member name="T:devDept.Eyeshot.DisplayModeSettingsFlat">
             <summary>Display Mode settings for Flat mode.</summary>
+            <remarks>There is no option for EdgeColorMethod and for ShowInternalWires because they would not be visible due to the flat shading.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.DisplayModeSettingsFlat.#ctor">
             <summary>
@@ -18752,9 +19155,61 @@
             <param name="active">Light status</param>
             <param name="yieldShadow">When true the light yields shadows</param>
         </member>
+        <member name="M:devDept.Eyeshot.LightSettings.#ctor(devDept.Geometry.Vector3D,System.Drawing.Color,System.Drawing.Color,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.LightType,devDept.Geometry.Point3D,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>Standard constructor.</summary>
+            <param name="direction">Direction</param>
+            <param name="color">Color</param>
+            <param name="specular">Specular color</param>
+            <param name="stationary">Light behaviour, set false to mimic the Sun</param>
+            <param name="active">Light status</param>
+            <param name="yieldShadow">When true the light yields shadows</param>
+            <param name="type">Light type</param>
+            <param name="position">Position of the light (spot or point lights only)</param>
+            <param name="spotAngle">Angle of the spot light cone in degrees (range 0 - 180) (spot lights only)</param>
+            <param name="spotExponent">Exponent that determines how the light is focused inside the spot light cone (spot lights only)</param>
+            <param name="constantAttenuation">Constant attenuation (point and spot lights only)</param>
+            <param name="linearAttenuation">Linear attenuation (point and spot lights only)</param>
+            <param name="quadraticAttenuation">Quadratic attenuation (point and spot lights only)</param>
+        </member>
         <member name="P:devDept.Eyeshot.LightSettings.Direction">
             <summary>Gets or sets the light direction.</summary>
             <remarks>Not meaningful for point lights.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.LightSettings.Type">
+            <summary>
+            Gets or sets the light type.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.LightSettings.Position">
+            <summary>
+            Gets or sets the position of the spot or point light.
+            </summary>
+            <remarks>Not meaningful for directional lights.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.LightSettings.SpotAngle">
+            <summary>
+            Gets or sets the angle of the spot light cone in radians (range [0, PI/2]).
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.LightSettings.SpotExponent">
+            <summary>
+            Gets or sets the exponent that determines how the light is focused inside the spot light cone (range [0, 128]).
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.LightSettings.ConstantAttenuation">
+            <summary>
+            Gets or sets the constant attenuation (point and spot lights only).
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.LightSettings.LinearAttenuation">
+            <summary>
+            Gets or sets the linear attenuation (point and spot lights only).
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.LightSettings.QuadraticAttenuation">
+            <summary>
+            Gets or sets the quadratic attenuation (point and spot lights only).
+            </summary>
         </member>
         <member name="P:devDept.Eyeshot.LightSettings.Color">
             <summary>Gets or sets the light color.</summary>
@@ -18786,7 +19241,7 @@
         </member>
         <member name="P:devDept.Eyeshot.LightSettings.Stationary">
             <summary>Gets or sets the light behaviour. Set false to mimic the Sun.</summary>
-            <remarks>If true, the Light is fixed on screen, else it is fixed with the scene.</remarks>
+            <remarks>If true, the Light is fixed on screen, else it is fixed with the scene. For Directional lights only.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.LightSettings.Active">
             <summary>Gets or sets the light status.</summary>
@@ -19138,6 +19593,26 @@
         <member name="F:devDept.Eyeshot.realisticShadowQualityType.High">
             <summary>
             High shadow quality (slower).
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.LightType">
+            <summary>
+            Light type.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.LightType.Directional">
+            <summary>
+            Directional light.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.LightType.Point">
+            <summary>
+            Positional light.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.LightType.Spot">
+            <summary>
+            Spot light.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.perspectiveFitType">
@@ -21320,6 +21795,9 @@
             <summary>
             Gets or sets the triangulation output type.
             </summary>
+            <remarks>If true, the coincindent vertices of the generated mesh are not welded and the <see cref="F:devDept.Eyeshot.Entities.Mesh.meshNature"/> is set to <see cref="F:devDept.Eyeshot.Entities.meshNatureType.Plain"/>,
+            else the vertices are welded and the <see cref="F:devDept.Eyeshot.Entities.Mesh.meshNature"/> is set to <see cref="F:devDept.Eyeshot.Entities.meshNatureType.Smooth"/> 
+            The generated mesh is created with the same <see cref="P:devDept.Eyeshot.Entities.Mesh.LightWeight"/> value.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.FrameBufferObject.Changed">
             <summary>
@@ -22245,6 +22723,7 @@
             </summary>
             <param name="arc">The resulting circular curve (when possible)</param>
             <returns>True if the operation succeeds, false otherwise.</returns>
+            <remarks>It works for arcs of angle 0, PI/2, PI, and 2PI.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Curve.TryGetLine(devDept.Eyeshot.Entities.Line@)">
             <summary>
@@ -22258,6 +22737,7 @@
             Converts this generic curve to <see cref="T:devDept.Eyeshot.Entities.Line"/>, <see cref="T:devDept.Eyeshot.Entities.Arc"/> or <see cref="T:devDept.Eyeshot.Entities.Circle"/> (when possible).
             </summary>
             <returns>The new curve when possible, null/Nothing otherwise.</returns>
+            <remarks>For arcs, it works if the angle is 0, PI/2, PI or 2PI.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Curve.ShowCurvature">
             <summary>
@@ -22628,7 +23108,7 @@
             <param name="viewportLayout">The viewportLayout control</param>
             <returns>True if the polygon is closed and the selection must be performed, false otherwise.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.PolygonSelection.ComputePolygonSelection(devDept.Eyeshot.ViewportLayout,System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Int32[]@)">
+        <member name="M:devDept.Eyeshot.PolygonSelection.ComputePolygonSelection(devDept.Eyeshot.ViewportLayout,System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
             Mark points as selected
             </summary>
@@ -23111,6 +23591,7 @@
             <param name="radius">Radius</param>
             <param name="startAngleInRadians">Start angle in radians</param>
             <param name="endAngleInRadians">End angle in radians</param>
+            <remarks>Angles can be negative. StartAngle must be smaller than EndAngle.</remarks>
             <seealso cref="M:devDept.Geometry.Utility.DegToRad(System.Double)"/>
             <seealso cref="M:devDept.Geometry.Utility.RadToDeg(System.Double)"/>
         </member>
@@ -23122,6 +23603,7 @@
             <param name="radius">Radius</param>
             <param name="startAngleInRadians">Start angle in radians</param>
             <param name="endAngleInRadians">End angle in radians</param>
+            <remarks>Angles can be negative. StartAngle must be smaller than EndAngle.</remarks>
             <seealso cref="M:devDept.Geometry.Utility.DegToRad(System.Double)"/>
             <seealso cref="M:devDept.Geometry.Utility.RadToDeg(System.Double)"/>
         </member>
@@ -23132,6 +23614,7 @@
             <param name="radius">Radius</param>
             <param name="startAngleInRadians">Start angle in radians</param>
             <param name="endAngleInRadians">End angle in radians</param>
+            <remarks>Angles can be negative. StartAngle must be smaller than EndAngle.</remarks>
             <seealso cref="M:devDept.Geometry.Utility.DegToRad(System.Double)"/>
             <seealso cref="M:devDept.Geometry.Utility.RadToDeg(System.Double)"/>
         </member>
@@ -23142,6 +23625,7 @@
             <param name="radius">Radius</param>
             <param name="startAngleInRadians">Start angle in radians</param>
             <param name="endAngleInRadians">End angle in radians</param>
+            <remarks>Angles can be negative. StartAngle must be smaller than EndAngle.</remarks>
             <seealso cref="M:devDept.Geometry.Utility.DegToRad(System.Double)"/>
             <seealso cref="M:devDept.Geometry.Utility.RadToDeg(System.Double)"/>
         </member>
@@ -23380,12 +23864,12 @@
         </member>
         <member name="F:devDept.Eyeshot.Entities.HitTriangle.FaceIndex">
             <summary>
-            Triangle index.
+            <see cref="T:devDept.Eyeshot.Entities.Solid3D.Face"/> or <see cref="!:Solid.Portion"/> index.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.HitTriangle.ShellIndex">
             <summary>
-            Triangle index.
+            <see cref="T:devDept.Eyeshot.Entities.Solid3D.Shell"/> index.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.Entities.entityNatureType">
