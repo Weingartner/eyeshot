@@ -2204,10 +2204,11 @@
         </member>
         <member name="M:devDept.Geometry.Plane.Reflect(devDept.Geometry.Vector3D)">
             <summary>
-            Reflects a point about this plane.
+            Reflects a vector about a plane.
             </summary>
             <param name="vector">Vector to reflect</param>
             <returns>The reflected vector</returns>
+            <remarks>Since the vector starts at the world origin, the reflecting plane is considered passing through it.</remarks>
         </member>
         <member name="M:devDept.Geometry.Plane.PointAt(devDept.Geometry.Point2D)">
             <summary>Evaluates a point on the plane.</summary>
@@ -3994,7 +3995,12 @@
         </member>
         <member name="M:devDept.Geometry.Transformation.IsScaleFactorUniform">
             <summary>
-            Return true if the scale factor of the transformation is the same in the X, Y and Z directions.
+            Returns true if the scale factor of the transformation is the same in the X, Y and Z directions.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Transformation.IsScaleFactorUniformForPlanar(devDept.Geometry.Plane)">
+            <summary>
+            Returns true if the scale factor of the transformation is the same in the two directions on the plane.
             </summary>
         </member>
         <member name="M:devDept.Geometry.Transformation.Dump">

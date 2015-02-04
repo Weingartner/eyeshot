@@ -6,7 +6,7 @@
         <authors>Weingartner</authors>
         <owners>Weingartner</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Eyeshot binaries</description>
+        <description>Eyeshot Nurbs</description>
     </metadata>
     <files>
         <file src="devDept.*" target="lib\net40" />

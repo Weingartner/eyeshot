@@ -11767,7 +11767,7 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SetDefaultCursor(System.Windows.Forms.Cursor)">
             <summary>
-            Setd the default cursor for the viewport control.
+            Sets the default cursor for the viewport control.
             </summary>
             <param name="cursor"></param>
         </member>
@@ -14887,6 +14887,20 @@
             <param name="distance">The new cameradistance</param>
             <param name="zoomFactor">The new camera zoomFactor</param>
         </member>
+        <member name="M:devDept.Eyeshot.Viewport.ScreenToViewport(System.Drawing.Point)">
+            <summary>
+            Converts Screen coordinates (0 on top of control) to Viewport coordinates (0 on top of viewport)
+            </summary>
+            <param name="pt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.ViewportToScreen(System.Drawing.Point)">
+            <summary>
+            Converts Viewport coordinates (0 on top of viewport) to Screen coordinates (0 on top of control)
+            </summary>
+            <param name="pt"></param>
+            <returns></returns>
+        </member>
         <member name="M:devDept.Eyeshot.Viewport.CameraViewportToScreen(System.Drawing.Point,System.Int32[])">
             <summary>
             Converts a point in camera viewport coordinates to screen coordinates.
@@ -15265,7 +15279,6 @@
             <param name="hdwAcceleration">If true, use the hardware acceleration</param>
             <returns>The 24-bit image.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean,System.Boolean,System.Boolean)" -->
         <member name="M:devDept.Eyeshot.Viewport.RenderToBitmapInternal(devDept.Eyeshot.Viewport.RenderToBitmapParams)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <returns>The 24-bit image.</returns>
@@ -15450,12 +15463,14 @@
             Fits the entire model in the viewport control's client area.
             </summary>
             <param name="selectedOnly">If true, fits only selected entities.</param>
+            <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.ZoomFit(System.Boolean,devDept.Eyeshot.perspectiveFitType,System.Int32)">
             <summary>
             Fits the entire model in the viewport control's client area.
             </summary>
             <param name="selectedOnly">If true, fits only selected entities.</param>
+            <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
             <param name="margin">Pixels margin from the border</param>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.ZoomFit(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,devDept.Eyeshot.perspectiveFitType)">
@@ -15464,22 +15479,26 @@
             </summary>
             <param name="entList">The list of entities to be fitted</param>
             <param name="selectedOnly">If true, fits only selected entities.</param>
+            <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.ZoomFit(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,devDept.Eyeshot.perspectiveFitType,System.Int32)">
+        <member name="M:devDept.Eyeshot.Viewport.ZoomFit(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,devDept.Eyeshot.perspectiveFitType,System.Int32,System.Boolean)">
             <summary>
             Fits the entire model in the viewport control's client area.
             </summary>
             <param name="entList">The list of entities to be fitted</param>
             <param name="selectedOnly">If true, fits only selected entities.</param>
+            <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
             <param name="margin">Pixels margin from the border</param>
+            <param name="fitLabels">If true, fits also the labels</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.ZoomFitInternal(devDept.Eyeshot.ViewportLayout,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,devDept.Eyeshot.perspectiveFitType,System.Boolean,System.Boolean,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.ZoomFitInternal(devDept.Eyeshot.ViewportLayout,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,System.Boolean,devDept.Eyeshot.perspectiveFitType,System.Boolean,System.Boolean,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Fits the entire model in the viewport control's client area.
             </summary>
             <param name="viewportLayout"> </param>
             <param name="entList">The list of entities to be fitted</param>
             <param name="selectedOnly">If true, fits only selected entities.</param>
+            <param name="fitLabels"></param>
             <param name="perspectiveFitMode"> </param>
             <param name="recurse"> </param>
             <param name="forceFitOnEntities"> </param>
@@ -18672,6 +18691,19 @@
             <param name="reverse">Zoom by mouse wheel direction</param>
             <param name="speed">Zoom speed</param>
             <param name="boxColor">Color of the zoom window box</param>
+            <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
+        </member>
+        <member name="M:devDept.Eyeshot.ZoomSettings.#ctor(devDept.Eyeshot.MouseButton,System.Int32,System.Boolean,devDept.Eyeshot.zoomStyleType,System.Boolean,System.Double,System.Drawing.Color,devDept.Eyeshot.perspectiveFitType,System.Boolean)">
+            <summary>Standard constructor.</summary>
+            <param name="mouseButton">Zoom mouse button and modifier key</param>
+            <param name="keysStep">Zoom by arrow keys step (in pixels)</param>
+            <param name="enabled">False to disable view zoom</param>
+            <param name="mode">Zoom mode</param>
+            <param name="reverse">Zoom by mouse wheel direction</param>
+            <param name="speed">Zoom speed</param>
+            <param name="boxColor">Color of the zoom window box</param>
+            <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
+            <param name="fitLabels">Zoom fit mode for labels</param>
         </member>
         <member name="P:devDept.Eyeshot.ZoomSettings.BoxColor">
             <summary>
@@ -18696,6 +18728,11 @@
         <member name="P:devDept.Eyeshot.ZoomSettings.PerspectiveFitMode">
             <summary>
             Gets or sets the zoom fit accuracy in perspective projection mode.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ZoomSettings.FitLabels">
+            <summary>
+            Gets or sets the zoom fit mode for labels.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.PanSettings">
@@ -20490,6 +20527,13 @@
             <exclude/>
             <excludetoc/>
         </member>
+        <member name="M:devDept.Eyeshot.BarBase.Contains(System.Drawing.Point)">
+            <summary>
+            Tells if a point in viewport coordinates is over one of the buttons.
+            </summary>
+            <param name="mousePos">Mouse cursor position (zero on top) in viewport coordinates (<see cref="M:devDept.Eyeshot.Viewport.ScreenToViewport(System.Drawing.Point)"/>) </param>
+            <returns>True if the point is over the button</returns>        
+        </member>
         <member name="T:devDept.Eyeshot.ToolBar">
             <summary>
             Viewport ToolBar.
@@ -20514,13 +20558,6 @@
             Copy constructor.
             </summary>
             <param name="another">The othe ToolBar object</param>
-        </member>
-        <member name="M:devDept.Eyeshot.ToolBar.Contains(System.Drawing.Point)">
-            <summary>
-            Tells if a point in screen coordinates is over one of the toolBar Buttons.
-            </summary>
-            <param name="mousePos">Mouse cursor position (zero on top)</param>
-            <returns>True if the point is over the button</returns>
         </member>
         <member name="P:devDept.Eyeshot.ToolBar.Visible">
             <summary>
@@ -20656,7 +20693,7 @@
             <summary>
             Tells if a point in screen coordinates is inside the button.
             </summary>
-            <param name="mousePos">Mouse cursor position (zero on top)</param>
+            <param name="mousePos">Mouse cursor position (zero on top) in viewport coordinates (see <see cref="M:devDept.Eyeshot.Viewport.ScreenToViewport(System.Drawing.Point)"/>) </param>
             <returns>True if the point is inside the button</returns>
         </member>
         <member name="M:devDept.Eyeshot.ToolBarButton.DrawImage(System.Drawing.Graphics,devDept.Eyeshot.colorThemeType,System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -21191,6 +21228,21 @@
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
         </member>
+        <member name="M:devDept.Eyeshot.Labels.Label.GetScreenOffset">
+            <summary>
+            Gets the offset in screen coordinates.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Labels.Label.GetWorldPoints(devDept.Eyeshot.Camera,System.Int32[],System.Int32)">
+            <summary>
+            Gets the world points of the label corners at the depth of the AnchorPoint.
+            </summary>
+            <param name="camera"></param>
+            <param name="viewFrame"></param>
+            <param name="controlHeight"></param>
+            <returns></returns>
+        </member>
         <member name="P:devDept.Eyeshot.Labels.Label.Size">
             <summary>
             Gets the size of the label.
@@ -21377,6 +21429,17 @@
             <summary>
             Cut selected entities into the clipboard.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Labels.LabelList.#ctor">
+            <summary>
+            Empty constructor.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Labels.LabelList.#ctor(devDept.Eyeshot.Viewport)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="viewport"></param>
         </member>
         <member name="M:devDept.Eyeshot.Labels.LabelList.Remove(devDept.Eyeshot.Labels.Label)">
             <summary>
@@ -23020,6 +23083,11 @@
             </summary>
             <returns>True if the operation succeeded, false otherwise.</returns>
         </member>
+        <member name="P:devDept.Eyeshot.ReadIGES.ModelSpaceScale">
+            <summary>
+            Gets IGES model space scale. The ratio of model space to real-world space.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.ReadIGES.Simplify">
             <summary>
             Controls if generic surfaces are converted to <see cref="T:devDept.Eyeshot.Entities.PlanarSurface"/>, <see cref="!:TabulatedSurface"/> or <see cref="T:devDept.Eyeshot.Entities.RevolvedSurface"/> to improve import speed.
@@ -23785,11 +23853,6 @@
             Bar entity. A line drawn like a cylinder.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.Entities.Bar.slices">
-            <summary>
-            Number of faces of the cylinder approximation.
-            </summary>
-        </member>
         <member name="F:devDept.Eyeshot.Entities.Bar.radius">
             <summary>
             Bar radius.
@@ -23836,6 +23899,11 @@
             </summary>
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Bar.Slices">
+            <summary>
+            Gets or sets the number of faces of the cylinder approximation.
+            </summary>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Bar.Radius">
             <summary>
@@ -23993,6 +24061,11 @@
             </summary>
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Joint.SubdivisionLevel">
+            <summary>
+            Gets or sets the number of recursive subdivisions of the sphere.
+            </summary>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Joint.Position">
             <summary>
@@ -24379,6 +24452,14 @@
             <param name="miterLimit">The higher the miter limit setting, the sharper the corner can be while retaining its miter.</param>
             <returns>An array of curves.</returns>
             <remarks>For open linear paths, different corner types are not supported.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.LinearPath.Inflate(System.Double,System.Double)">
+            <summary>
+            Inflates this linear path of the desired amount.
+            </summary>
+            <param name="amount">The inflate amount</param>
+            <param name="tol">The tessellation tolerance</param>
+            <returns>The resulting array of closed contours.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.LinearPath.Pocket(System.Double,devDept.Geometry.Plane)">
             <summary>
@@ -24783,11 +24864,13 @@
             <returns>True if label is successfully removed; otherwise, false. This method also
             returns false if label was not found in this collection.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.BlockDictionary.RemoveLayer(System.Int32)">
+        <member name="M:devDept.Eyeshot.BlockDictionary.RemoveLayer(System.Int32,System.Boolean)">
             <summary>
             Utility function to remove a layer.
             </summary>
             <param name="layerIndex">The layer to be removed</param>
+            <param name="reassignLayerIndex">If true, re-assigns the layer for the entities unremoved</param>        
+            <returns>The blocks from which the entities are removed</returns>
         </member>
         <member name="P:devDept.Eyeshot.BlockDictionary.Item(System.String)">
             <summary>
@@ -25392,18 +25475,72 @@
             Gets or sets picture width.
             </summary>
         </member>
+        <member name="T:devDept.Eyeshot.ITriangleSupportsColor">
+            <summary>
+            Interface for <see cref="T:devDept.Geometry.IndexTriangle"/> that supports colors.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsColor.R">
+            Color red component.
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsColor.G">
+            Color green component.
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsColor.B">
+            Color blue component.
+        </member>
+        <member name="T:devDept.Eyeshot.ITriangleSupportsNormals">
+            <summary>
+            Interface for <see cref="T:devDept.Geometry.IndexTriangle"/> that supports normals.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsNormals.N1">
+            <summary>
+            First vertex normal.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsNormals.N2">
+            <summary>
+            Second vertex normal.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsNormals.N3">
+            <summary>
+            Third vertex normal.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.ITriangleSupportsTextureCoords">
+            <summary>
+            Interface for <see cref="T:devDept.Geometry.IndexTriangle"/> that supports texture coordinates.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsTextureCoords.T1">
+            <summary>
+            First vertex texture index.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsTextureCoords.T2">
+            <summary>
+            Second vertex texture index.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ITriangleSupportsTextureCoords.T3">
+            <summary>
+            Third vertex texture index.
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.ColorTriangle">
             <summary>
             Mesh's triangle with color definition.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.ColorTriangle.R">
+        <member name="P:devDept.Eyeshot.ColorTriangle.R">
             Color red component.
         </member>
-        <member name="F:devDept.Eyeshot.ColorTriangle.G">
+        <member name="P:devDept.Eyeshot.ColorTriangle.G">
             Color green component.
         </member>
-        <member name="F:devDept.Eyeshot.ColorTriangle.B">
+        <member name="P:devDept.Eyeshot.ColorTriangle.B">
             Color blue component.
         </member>
         <member name="T:devDept.Eyeshot.RichTriangle">
@@ -25411,17 +25548,17 @@
             Mesh's rich triangle definition.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.RichTriangle.T1">
+        <member name="P:devDept.Eyeshot.RichTriangle.T1">
             <summary>
             First vertex texture index.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.RichTriangle.T2">
+        <member name="P:devDept.Eyeshot.RichTriangle.T2">
             <summary>
             Second vertex texture index.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.RichTriangle.T3">
+        <member name="P:devDept.Eyeshot.RichTriangle.T3">
             <summary>
             Third vertex texture index.
             </summary>
@@ -25431,17 +25568,17 @@
             Mesh's smooth triangle definition.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.SmoothTriangle.N1">
+        <member name="P:devDept.Eyeshot.SmoothTriangle.N1">
             <summary>
             First vertex normal.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.SmoothTriangle.N2">
+        <member name="P:devDept.Eyeshot.SmoothTriangle.N2">
             <summary>
             Second vertex normal.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.SmoothTriangle.N3">
+        <member name="P:devDept.Eyeshot.SmoothTriangle.N3">
             <summary>
             Third vertex normal.
             </summary>
@@ -25451,13 +25588,13 @@
             Mesh's smooth triangle with color definition.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.ColorSmoothTriangle.R">
+        <member name="P:devDept.Eyeshot.ColorSmoothTriangle.R">
             Color red component.
         </member>
-        <member name="F:devDept.Eyeshot.ColorSmoothTriangle.G">
+        <member name="P:devDept.Eyeshot.ColorSmoothTriangle.G">
             Color green component.
         </member>
-        <member name="F:devDept.Eyeshot.ColorSmoothTriangle.B">
+        <member name="P:devDept.Eyeshot.ColorSmoothTriangle.B">
             Color blue component.
         </member>
         <member name="T:devDept.Eyeshot.RichSmoothTriangle">
@@ -25465,17 +25602,17 @@
             Mesh's smooth triangle with material definition.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.RichSmoothTriangle.T1">
+        <member name="P:devDept.Eyeshot.RichSmoothTriangle.T1">
             <summary>
             First vertex texture index.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.RichSmoothTriangle.T2">
+        <member name="P:devDept.Eyeshot.RichSmoothTriangle.T2">
             <summary>
             Second vertex texture index.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.RichSmoothTriangle.T3">
+        <member name="P:devDept.Eyeshot.RichSmoothTriangle.T3">
             <summary>
             Third vertex texture index.
             </summary>
@@ -27310,6 +27447,14 @@
             <param name="centerOnEntities">If true, positions the manipulator in the center of the selected entities</param>
             <seealso cref="T:devDept.Eyeshot.ObjectManipulator"/>        
         </member>
+        <member name="M:devDept.Eyeshot.ObjectManipulator.Enable(devDept.Geometry.Transformation,System.Boolean,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
+            <summary>
+            Activates the ObjectManipulator to move the given entities.
+            </summary>
+            <param name="initialTransform">The initial transformation</param>
+            <param name="centerOnEntities">If true, positions the manipulator in the center of the entities</param>
+            <param name="entities">The entities to move</param>
+        </member>
         <member name="M:devDept.Eyeshot.ObjectManipulator.Apply">
             <summary>
             Applies the transformation of the <see cref="T:devDept.Eyeshot.ObjectManipulator"/> on the selected entities and hides it.
@@ -27622,7 +27767,7 @@
             <summary>Gets or sets the specular reflectance of the material.</summary>
         </member>
         <member name="P:devDept.Eyeshot.Material.Environment">
-            <summary> Gets or sets the environment reflectance of the material </summary>
+            <summary> Gets or sets the environment reflectance of the material (range 0-1).</summary>
         </member>
         <member name="P:devDept.Eyeshot.Material.Shininess">
             <summary>Gets or sets the specular exponent of the material (range 0-1).</summary>
@@ -27805,6 +27950,13 @@
             <param name="index">The zero-based starting index of the range of <see cref="T:devDept.Eyeshot.Entities.Entity">entities</see> to remove</param>
             <param name="count">The number of <see cref="T:devDept.Eyeshot.Entities.Entity">entities</see> to remove</param>
         </member>
+        <member name="M:devDept.Eyeshot.EntityList.GetVisualRefinementTolerance">
+            <summary>
+            Gets the internal refinement tolerance used by the <see cref="M:devDept.Eyeshot.EntityList.Regen"/> method, computed automatically from the scene dimensions.
+            </summary>
+            <returns>The refinement tolerance</returns>
+            <remarks>It can be overridden to return a different tolerance.</remarks>
+        </member>
         <member name="M:devDept.Eyeshot.EntityList.Regen">
             <summary>
             Regens only entities that need it. Each entity is automatically regenerated
@@ -27903,11 +28055,12 @@
             Pastes copied entities from the clipboard.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.EntityList.RemoveLayer(System.Int32)">
+        <member name="M:devDept.Eyeshot.EntityList.RemoveLayer(System.Int32,System.Boolean)">
             <summary>
             Utility function to remove a layer.
             </summary>
             <param name="layerIndex">The layer to be removed</param>
+            <param name="reassignLayerIndex">If true, re-assigns the layer for the entities unremoved</param>
         </member>
         <member name="M:devDept.Eyeshot.EntityList.Translate(devDept.Geometry.Vector3D)">
             <summary>
@@ -28588,6 +28741,12 @@
             Distance between foci, commonly called "2c".
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.Ellipse.Domain">
+            <summary>
+            Gets or sets the ellipse's domain.
+            The parameter t on an ellipse is not the angle of ellipse.PointAt(t) with the X-axis, even if t is in [0, 2*PI].
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.EllipticalArc">
             <summary>
             Elliptical arc entity.
@@ -28745,6 +28904,18 @@
             </summary>
             <returns>The new elliptical arc object.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.EllipticalArc.GetIntervalOfAngles(System.Double,System.Double,System.Double,System.Double,System.Double@,System.Double@)">
+            <summary>
+            Gets an interval of angles corresponding to and interval of parameters.
+            </summary>
+            <param name="rx">Radius X</param>
+            <param name="ry">Radius Y</param>
+            <param name="startParam">Start parameter</param>
+            <param name="endParam">End parameter</param>
+            <param name="startAngleInRadians">Start angle in radians</param>
+            <param name="endAngleInRadians">End angle in radians</param>
+            <returns>True if the interval of parameters is decreasing.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.EllipticalArc.TrimBy(devDept.Geometry.Point3D,System.Boolean)">
             <summary>
             Trims the arc at the limit point projection.
@@ -28784,7 +28955,10 @@
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.Entities.EllipticalArc.Domain">
-            <summary>Gets or sets the arc's domains in radians.</summary>
+            <summary>
+            Gets or sets the elliptical arc's domain.
+            The parameter t on an elliptical arc is not the angle of ellipticalArc.PointAt(t) with the X-axis, even if t is in [0, 2*PI].
+            </summary>
         </member>
         <member name="P:devDept.Eyeshot.Entities.EllipticalArc.DomainInDegrees">
             <summary>Gets the arc's domains in degrees.</summary>
