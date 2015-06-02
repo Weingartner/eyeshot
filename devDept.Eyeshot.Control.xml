@@ -2072,6 +2072,43 @@
             <param name="fitAfterViewChange">If true, fits the view when the view orientation changes</param>
             <param name="enabled">The enabled status</param>
         </member>
+        <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image)">
+            <summary>Standard constructor.</summary>
+            <param name="position">Position</param>
+            <param name="visible">Visibility status</param>
+            <param name="highlightColor">Color of highlight</param>
+            <param name="animateCamera">If true, animates the camera when changing the orientation</param>
+            <param name="animateCameraDuration">The duration in milliseconds of the camera animations</param>
+            <param name="frontString">String of the front face</param>
+            <param name="backString">String of the back face</param>
+            <param name="leftString">String of the left face</param>
+            <param name="rightString">String of the right face</param>
+            <param name="topString">String of the top face</param>
+            <param name="bottomString">String of the bottom face</param>
+            <param name="frontFaceColor">The color of the front face</param>
+            <param name="backFaceColor">The color of the back face</param>
+            <param name="leftFaceColor">The color of the left face</param>
+            <param name="rightFaceColor">The color of the right face</param>
+            <param name="topFaceColor">The color of the top face</param>
+            <param name="bottomFaceColor">The color of the bottom face</param>
+            <param name="frontRingLabel">Front orientation ring label</param>
+            <param name="backRingLabel">Back orientation ring label</param>
+            <param name="leftRingLabel">Left orientation ring label</param>
+            <param name="rightRingLabel">Right orientation ring label</param>
+            <param name="showRing">If true, shows the ring under the view cube</param>
+            <param name="font">The font used to draw the strings on the cube faces and the labels on the ring</param>
+            <param name="textColor">The color used to draw the strings on the cube faces</param>
+            <param name="edgeColor">The color used to draw the cube edges</param>
+            <param name="size">The size in pixels</param>
+            <param name="fitAfterViewChange">If true, fits the view when the view orientation changes</param>
+            <param name="enabled">The enabled status</param>
+            <param name="frontFace">The front face image</param>
+            <param name="backFace">The back face image</param>
+            <param name="leftFace">The left face image</param>
+            <param name="rightFace">The right face image</param>
+            <param name="topFace">The top face image</param>
+            <param name="bottomFace">The bottom face image</param>
+        </member>
         <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.ViewCubeIcon)">
             <summary>
             Copy constructor.
@@ -2223,6 +2260,42 @@
             <summary>
             The position on sceeen.
             </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewCubeIcon.FrontImage">
+            <summary>
+            Gets or sets the front face image.
+            </summary>
+            <remarks>If null, the <see cref="P:devDept.Eyeshot.ViewCubeIcon.FrontString"/> is used instead.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewCubeIcon.BackImage">
+            <summary>
+            Gets or sets the back face image.
+            </summary>
+            <remarks>If null, the <see cref="P:devDept.Eyeshot.ViewCubeIcon.BackString"/> is used instead.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewCubeIcon.LeftImage">
+            <summary>
+            Gets or sets the left face image.
+            </summary>
+            <remarks>If null, the <see cref="P:devDept.Eyeshot.ViewCubeIcon.LeftString"/> is used instead.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewCubeIcon.RightImage">
+            <summary>
+            Gets or sets the right face image.
+            </summary>
+            <remarks>If null, the <see cref="P:devDept.Eyeshot.ViewCubeIcon.RightString"/> is used instead.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewCubeIcon.TopImage">
+            <summary>
+            Gets or sets the top face image.
+            </summary>
+            <remarks>If null, the <see cref="P:devDept.Eyeshot.ViewCubeIcon.TopString"/> is used instead.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewCubeIcon.BottomImage">
+            <summary>
+            Gets or sets the bottom face image.
+            </summary>
+            <remarks>If null, the <see cref="P:devDept.Eyeshot.ViewCubeIcon.BottomString"/> is used instead.</remarks>
         </member>
         <member name="T:devDept.Eyeshot.Entities.Mesh">
              <example>
@@ -5444,6 +5517,13 @@
             </summary>
             <remarks>When <see cref="P:devDept.Eyeshot.Entities.Text.Simplify"/> is true.</remarks>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Text.ConvertToMesh(devDept.Eyeshot.ViewportLayout)">
+            <summary>
+            Converts the text to a list of meshes.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/></param>
+            <returns>The list of meshes.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Text.ConvertToLinearPath(System.Double,devDept.Eyeshot.ViewportLayout)">
             <summary>
             Converts the text outlines to LinearPath.
@@ -5738,6 +5818,13 @@
             </summary>
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.MultilineText.ConvertToMesh(devDept.Eyeshot.ViewportLayout)">
+            <summary>
+            Converts the text to a list of meshes.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/></param>
+            <returns>The list of meshes.</returns>
         </member>
         <member name="P:devDept.Eyeshot.Entities.MultilineText.Alignment">
             <summary>
@@ -6430,6 +6517,12 @@
             Character data class. Used internally to store characters data.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.FontStyleCharData.GetMeshes">
+            <summary>
+            Gets the cloned meshes of the FontStyleCharData.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:devDept.Eyeshot.FontStyleCharData.#ctor(System.String,System.IntPtr,System.String,System.Drawing.FontStyle,System.Double)">
             <summary>
             
@@ -6741,6 +6834,17 @@
             <param name="dimLinePos">Dimension line position. Affects text position when the text cannot fit between extension lines.</param>
             <param name="textHeight">Text height</param>
             <param name="sketchPlane">The sketch plane</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.AngularDim.#ctor(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Line,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
+            <summary>
+            Two lines constructor.
+            </summary>
+            <param name="dimPlane">The dimension plane</param>
+            <param name="line1">First line</param>
+            <param name="line2">Second line</param>
+            <param name="quadrantPoint">The two lines subdivide the round angle in four quadrants,  this point help to select the desired one.</param>
+            <param name="dimLinePos">Dimension line position. Affects text position when the text cannot fit between extension lines and affects the Arc drawing position</param>
+            <param name="textHeight">Text height</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.AngularDim.Clone">
             <summary>
@@ -7816,7 +7920,7 @@
             <param name="curveList">The skinning curves</param>
             <param name="degree">The desired surface degree</param>
             <returns>The resulting surface if the operation succeeds, null/Nothing otherwise.</returns>
-            /// <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
+            <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.CreatePlanar(devDept.Eyeshot.Entities.ICurve)">
             <summary>Creates a planar surface bounded by the contour provided.</summary>
@@ -11503,6 +11607,11 @@
             <param name="index">The index from which the entities must be increased</param>
             <param name="increment">The increment to apply to the entities >= "index"</param>
         </member>
+        <member name="F:devDept.Eyeshot.ViewportLayout.fontDefs">
+            <summary>
+            Dictionary of FontData for each FontFamilyName.
+            </summary>
+        </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.hasFocus">
             <summary>
             Hold the focus status.
@@ -12733,6 +12842,14 @@
             </summary>
             <param name="p1">Window's diagonal start point in screen coordinates</param>
             <param name="p2">Window's diagonal end point in screen coordinates</param>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetCameraRotation(devDept.Eyeshot.viewType)">
+            <summary>
+            Gets the <see cref="P:devDept.Eyeshot.Camera.Rotation"/> <see cref="T:devDept.Geometry.Quaternion"/> that describes the orientation of the given view.
+            </summary>
+            <param name="view">The view to set</param>
+            <returns>The <see cref="P:devDept.Eyeshot.Camera.Rotation"/> <see cref="T:devDept.Geometry.Quaternion"/>.</returns>
+            <remarks>This method can be overridden to change the orientations of the <see cref="P:devDept.Eyeshot.ViewportLayout.ViewCubeIcon"/> faces.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SetView(devDept.Eyeshot.viewType)">
             <summary>
@@ -27923,6 +28040,16 @@
             Entity collection.
             </summary>
             <remarks>When overriding a method of this class, never forget to call its base class implementation.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.EntityList.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">
+            <summary>
+            Finds all 3D points where the provided coplanar curves intersect.
+            </summary>
+            <returns>The list of intersection points.</returns>
+            <param name="C1">The first curve</param>
+            <param name="C2">The second curve</param>
+            <param name="plane">The plane where the two curves lay</param>
+            <remarks>For PROFESSIONAL edition, this method doesn't work for Ellipses, Elliptical Arcs and CompositeCurve containing Ellipses or Elliptical Arcs.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.EntityList.#ctor">
             <summary>

@@ -4000,7 +4000,7 @@
         </member>
         <member name="M:devDept.Geometry.Transformation.IsScaleFactorUniformForPlanar(devDept.Geometry.Plane)">
             <summary>
-            Returns true if the scale factor of the transformation is the same in the two directions on the plane.
+            Returns true if the scale factor of the transformation is the same in the two directions of the plane.
             </summary>
         </member>
         <member name="M:devDept.Geometry.Transformation.Dump">
