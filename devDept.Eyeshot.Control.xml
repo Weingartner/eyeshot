@@ -2250,6 +2250,11 @@
             Gets or sets the Font used to draw the strings on the cube faces and the labels on the ring
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.ViewCubeIcon.InitialRotation">
+            <summary>
+            Gets or sets the initial rotation of the ViewCubeIcon.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.ViewCubeIcon.Enabled">
             <summary>
             Gets or sets the enabled status.
@@ -14980,6 +14985,14 @@
             <param name="fit">If true fits the view</param>
             <param name="animate">If true performs an animation when changing the view</param>
         </member>
+        <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Quaternion,System.Boolean,System.Boolean)">
+            <summary>
+            Sets the specified view.
+            </summary>
+            <param name="rotation">View rotation</param>
+            <param name="fit">If true fits the view</param>
+            <param name="animate">If true performs an animation when changing the view</param>
+        </member>
         <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Eyeshot.viewType,System.Boolean,System.Int32,System.Boolean)">
             <summary>
             Sets the specified view.
@@ -14989,7 +15002,16 @@
             <param name="margin">Pixels margin from the border, if <see cref="!:fit"/> is true</param>
             <param name="animate">If true performs an animation when changing the view</param>                
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.SetViewInternal(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.viewType,System.Boolean,System.Int32,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Quaternion,System.Boolean,System.Int32,System.Boolean)">
+            <summary>
+            Sets the specified view.
+            </summary>
+            <param name="rotation">View rotation</param>
+            <param name="fit">If true fits the view</param>
+            <param name="margin">Pixels margin from the border, if <see cref="!:fit"/> is true</param>
+            <param name="animate">If true performs an animation when changing the view</param>                
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.SetViewInternal(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.viewType,devDept.Geometry.Quaternion,System.Boolean,System.Int32,System.Boolean)">
             <summary>
             Sets the specified view.
             </summary>
