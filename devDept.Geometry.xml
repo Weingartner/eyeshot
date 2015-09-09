@@ -4,6 +4,486 @@
         <name>devDept.Geometry</name>
     </assembly>
     <members>
+        <member name="T:devDept.Geometry.PointNormalUv">
+            <summary>
+            Surface point definition.
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.PointUv">
+            <summary>
+            Surface point definition.
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.PointU">
+            <summary>
+            Curve point definition.
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.Point3D">
+            <summary>
+            Defines a 3D point. 
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.Point2D">
+            <summary>
+            Defines a 2D point. 
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.IVertex">
+            <summary>
+            Common properties of vertices.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.IVertex.ToArray">
+            <summary>
+            Gets the vertex position as a double array.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.#ctor">
+            <summary>
+            Empty constructor.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.#ctor(System.Double,System.Double)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="x">Point's X coordinate</param>
+            <param name="y">Point's Y coordinate</param>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.#ctor(System.Double[])">
+            <summary>
+            Double array constructor.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.Clone">
+            <summary>
+            Creates a deep copy of this 2D point.
+            </summary>
+            <returns>The new 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.ToArray">
+            <summary>
+            Returns an array of point's coordinates.
+            </summary>
+            <returns>The double array.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.IsValid">
+            <summary>
+            Returns true if the point's coordinates are resonable values.
+            </summary>
+            <returns>True if the point is valid, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.op_Addition(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+            <summary>
+            Addition between two 2D points.
+            </summary>
+            <param name="a">First 2D point</param>
+            <param name="b">Second 2D point</param>
+            <returns>The resulting 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.op_Subtraction(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+            <summary>
+            Subtraction between two 2D points.
+            </summary>
+            <param name="a">First 2D point</param>
+            <param name="b">Second 2D point</param>
+            <returns>The resulting 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.op_Multiply(System.Double,devDept.Geometry.Point2D)">
+            <summary>
+            Product between a scalar value and a 2D point.
+            </summary>
+            <param name="s">Scalar value</param>
+            <param name="p">The 2D point</param>
+            <returns>The resulting 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.op_Multiply(devDept.Geometry.Point2D,System.Double)">
+            <summary>
+            Product between a 2D point and a scalar value.
+            </summary>
+            <param name="s">Scalar value</param>
+            <param name="p">The 2D point</param>
+            <returns>The resulting 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.op_Division(devDept.Geometry.Point2D,System.Double)">
+            <summary>
+            Division between a 2D point and a scalar value.
+            </summary>
+            <param name="s">Scalar value</param>
+            <param name="p">The 2D point</param>
+            <returns>The resulting 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.ProjectTo(devDept.Geometry.Segment2D)">
+            <summary>
+            Project this point onto a 2D segment.
+            </summary>
+            <param name="seg">The 2D segment</param>
+            <returns>The projected point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.DistanceTo(devDept.Geometry.Segment2D)">
+            <summary>
+            Computes the point-line distance.
+            </summary>
+            <param name="seg">The line</param>
+            <returns>The distance between this 2D point and its projection on the line.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.ToString">
+            <summary>
+            Converts this 2D point to a human readable string.
+            </summary>
+            <returns>A string that represents this 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.ToStringXml">
+            <summary>
+            Converts this 2D point to a human readable string.
+            </summary>
+            <returns>A string that represents this 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.Distance(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+            <summary>
+            Computes the distance between two 2D points.
+            </summary>
+            <param name="a">First point</param>
+            <param name="b">Second point</param>
+            <returns>The distance between a and b.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.DistanceSquared(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+            <summary>
+            Computes the squared distance between two 2D points.
+            </summary>
+            <param name="a">First point</param>
+            <param name="b">Second point</param>
+            <returns>The squared distance between p1 and p2.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.DistanceTo(devDept.Geometry.Point2D)">
+            <summary>
+            Computes the distance to 2D point b.
+            </summary>
+            <param name="b">The other point</param>
+            <returns>The distance between this 2D point and b.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.AreEqual(devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double)">
+            <summary>
+            Compares two 2D points in the given domain.
+            </summary>
+            <param name="p1">First point</param>
+            <param name="p2">Second point</param>
+            <param name="domainSize">The 2D diagonal length of your model.</param>
+            <returns>True if the two point are coincident, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point2D.TransformBy(devDept.Geometry.Transformation)">
+            <summary>
+            Transforms the 2D point by the specified transformation.
+            </summary>
+            <param name="xform">The transformation to be applied</param>
+        </member>
+        <member name="P:devDept.Geometry.Point2D.X">
+            <summary>
+            X coordinate value.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.Point2D.Y">
+            <summary>
+            Y coordinate value.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.Point2D.MaximumCoordinate">
+            <summary>
+            Gets the absolute value of maximum coordinate.
+            </summary>
+            <returns>The absolute value of maximum coordinate.</returns>
+        </member>
+        <member name="P:devDept.Geometry.Point2D.Origin">
+            <summary>
+            Returns a 2D point at origin.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.Point2D.MinValue">
+            <summary>
+            Returns a 2D point with coordinates at double.MinValue.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.Point2D.MaxValue">
+            <summary>
+            Returns a 2D point with coordinates at double.MaxValue.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.#ctor">
+            <summary>
+            Empty constructor.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="x">X coordinate value</param>
+            <param name="y">Y coordinate value</param>
+            <param name="z">Z coordinate value</param>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.#ctor(System.Double,System.Double)">
+            <summary>
+            2D point constructor
+            </summary>
+            <param name="x">X coordinate value</param>
+            <param name="y">Y coordinate value</param>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.#ctor(System.Double[])">
+            <summary>
+            Double array constructor.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.Clone">
+            <summary>
+            Creates a deep copy of this 3D point.
+            </summary>
+            <returns>The new 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.ToArray">
+            <summary>
+            Returns an array of point's coordinates.
+            </summary>
+            <returns>The double array.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.IsInside(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Checks if the point is inside the specified volume.
+            </summary>
+            <param name="boxMin">Lower-left-front corner</param>
+            <param name="boxMax">Top-right-rear corner</param>
+            <returns>True if the point is inside, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.DistanceTo(devDept.Geometry.Point3D)">
+            <summary>
+            Computes the distance to 3D point b.
+            </summary>
+            <param name="b">The other point</param>
+            <returns>The distance between this 3D point and b.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.Distance(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Computes the distance between two 3D points.
+            </summary>
+            <param name="a">First 3D point</param>
+            <param name="b">Second 3D point</param>
+            <returns>The distance between a and b.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.ProjectTo(devDept.Geometry.Segment3D)">
+            <summary>
+            Project this point onto a 3D segment.
+            </summary>
+            <param name="seg">The 3D segment</param>
+            <returns>The projected point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.DistanceTo(devDept.Geometry.Segment3D)">
+            <summary>
+            Computes the point-line distance.
+            </summary>
+            <param name="seg">The line</param>
+            <returns>The distance between this 3D point and its projection on the line.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.DistanceSquared(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Computes the squared distance between two 3D points.
+            </summary>
+            <param name="a">First point</param>
+            <param name="b">Second point</param>
+            <returns>The squared distance between a and b.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.DistanceTo(devDept.Geometry.Plane)">
+            <summary>
+            Computes the point-plane distance.
+            </summary>
+            <param name="plane">The plane</param>
+            <returns>The distance between this 3D point and its projection on the plane.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.op_Subtraction(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Subtraction between two 3D points.
+            </summary>
+            <param name="a">First 3D point</param>
+            <param name="b">Second 3D point</param>
+            <returns>The resulting 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.op_Multiply(System.Double,devDept.Geometry.Point3D)">
+            <summary>
+            Product between a 3D point and a scalar s.
+            </summary>
+            <param name="s">Scalar value</param>
+            <param name="p">The point</param>
+            <returns>The resulting 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.op_Multiply(devDept.Geometry.Point3D,System.Double)">
+            <summary>
+            Product between a 3D point and a scalar s.
+            </summary>
+            <param name="s">Scalar value</param>
+            <param name="p">The point</param>
+            <returns>The resulting 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.op_Division(devDept.Geometry.Point3D,System.Double)">
+            <summary>
+            Division between a 3D point and a scalar s.
+            </summary>
+            <param name="s">Scalar value</param>
+            <param name="p">The point</param>
+            <returns>The resulting 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.op_Addition(devDept.Geometry.Point3D,devDept.Geometry.Vector3D)">
+            <summary>
+            Addition between a 3D point and a 3D vector.
+            </summary>
+            <param name="a">The 3D point</param>
+            <param name="b">The 3D vector</param>
+            <returns>The resulting 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.op_Subtraction(devDept.Geometry.Point3D,devDept.Geometry.Vector3D)">
+            <summary>
+            Subtraction between a 3D point and a 3D vector.
+            </summary>
+            <param name="a">The 3D point</param>
+            <param name="b">The 3D vector</param>
+            <returns>The resulting 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.op_Addition(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Addition between two 3D points.
+            </summary>
+            <param name="a">First 3D point</param>
+            <param name="b">Second 3D point</param>
+            <returns>The resulting 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.AreEqual(devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
+            <summary>
+            Compares two 3D points in the given domain.
+            </summary>
+            <param name="p1">First point</param>
+            <param name="p2">Second point</param>
+            <param name="domainSize">The 3D diagonal length of your model.</param>
+            <returns>True if the two point are coincident, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.ToString">
+            <summary>
+            Converts this 3D point to a human readable string.
+            </summary>
+            <returns>A string that represents this 3d point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.ToStringXml">
+            <summary>
+            Converts this 3D point to a human readable string.
+            </summary>
+            <returns>A string that represents this 2D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Point3D.TransformBy(devDept.Geometry.Transformation)">
+            <summary>
+            Transforms the 3D point by the specified transformation.
+            </summary>
+            <param name="xform">The transformation to be applied</param>
+        </member>
+        <member name="P:devDept.Geometry.Point3D.Z">
+            <summary>
+            Z coordinate value.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.Point3D.Origin">
+            <summary>
+            Returns the (0,0,0) point.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.Point3D.MinValue">
+            <summary>
+            Returns a 3D point with coordinates at double.MinValue.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.Point3D.MaxValue">
+            <summary>
+            Returns a 3D point with coordinates at double.MaxValue.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PointU.U">
+            <summary>
+            Parametric U value.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.PointU.Clone">
+            <summary>
+            Creates a deep copy of this 3D point.
+            </summary>
+            <returns>The new 3D point.</returns>
+        </member>
+        <member name="M:devDept.Geometry.PointU.ToString">
+            <summary>
+            Converts this 3D point to a human readable string.
+            </summary>
+            <returns>A string that represents this 3D point.</returns>
+        </member>
+        <member name="F:devDept.Geometry.PointUv.V">
+            <summary>
+            Parametric V value
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.PointUv.ToString">
+            <summary>
+            Converts this 3D point to a human readable string.
+            </summary>
+            <returns>A string that represents this 3D point.</returns>
+        </member>
+        <member name="F:devDept.Geometry.PointNormalUv.intU">
+            <summary>
+            Grid position in X.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PointNormalUv.intV">
+            <summary>
+            Grid position in Y.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PointNormalUv.Nx">
+            <summary>
+            Normal X component. 
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PointNormalUv.Ny">
+            <summary>
+            Normal Y component.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PointNormalUv.Nz">
+            <summary>
+            Normal Z component.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PointNormalUv.plotValue">
+            <summary>
+            Plot value.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PointNormalUv.colorIndex">
+            <summary>
+            Color index.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.PointNormalUv.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            3D position and parametric values constructor.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.PointNormalUv.#ctor(System.Double,System.Double,System.Double,System.Int64,System.Int64,System.Double,System.Double)">
+            <summary>
+            3D position, grid and parametric values constructor.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.PointNormalUv.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            3D position and normal constructor.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.PointNormalUv.Normal">
+            <summary>
+            Get surface normal.
+            </summary>
+        </member>
         <member name="T:devDept.Geometry.Converters.ushortHexTypeConverter">
             <exclude/>
             <excludetoc/>
@@ -34,10 +514,6 @@
         </member>
         <member name="M:devDept.Geometry.Converters.Point4DConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
             <exclude/>
-        </member>
-        <member name="T:devDept.Geometry.Converters.Point4DConverter.QuaternionConverter">
-            <exclude/>
-            <excludetoc/>
         </member>
         <member name="T:devDept.Geometry.Converters.QuaternionConverter">
             <exclude/>
@@ -102,16 +578,14 @@
             <summary>
             This method is called to obtain the results.
             </summary>
-            <param name="world">Moments of Inertia about world coordinate axes</param>
+            <param name="m">Mass</param>
         </member>
         <member name="M:devDept.Geometry.AreaAndVolume.GetResultsAboutCentroid(System.Double,devDept.Geometry.Point3D,System.Double)">
             <summary>
             This method is called to obtain the results.
             </summary>
-            <param name="xx">Second moment X</param>
-            <param name="yy">Second moment Y</param>
-            <param name="zz">Second moment Z</param>
-            <param name="centroid">Area Moments of Inertia about centroid coordinate axes</param> 
+            <param name="m">Mass</param>
+            <param name="C">3D centroid</param>
         </member>
         <member name="P:devDept.Geometry.AreaAndVolume.Centroid">
             <summary>
@@ -120,27 +594,32 @@
         </member>
         <member name="T:devDept.Geometry.AreaProperties">
             <summary>
-            Area properties of a planar polygon or area properties of a solid defined by a triangle mesh.
+            Area properties of a 2D polygon or area properties of a solid defined by a triangle mesh.
             </summary>
         </member>
         <member name="M:devDept.Geometry.AreaProperties.#ctor">
             <summary>
-            Empty constructor.
+            Empy constructor.
             </summary>
         </member>
-        <member name="M:devDept.Geometry.AreaProperties.#ctor(devDept.Geometry.Plane,System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+        <member name="M:devDept.Geometry.AreaProperties.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point3D})">
             <summary>
-            Planar polygon constructor.
+            2D polygon constructor.
             </summary>
-            <param name="pln">Polygon plane</param>
-            <param name="vList">Polygon vertices</param>
+            <param name="vList">Polygon 2D vertices</param>
         </member>
-        <member name="M:devDept.Geometry.AreaProperties.Add(devDept.Geometry.Plane,System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+        <member name="M:devDept.Geometry.AreaProperties.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
             <summary>
-            Accumulates additional segments.
+            3D face constructor.
             </summary>
-            <param name="pln">Polygon plane</param>
-            <param name="vList">Polygon vertices</param>
+            <param name="vList">Vertices</param>
+            <param name="tList">Triangles</param>
+        </member>
+        <member name="M:devDept.Geometry.AreaProperties.Add(System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Accumulates additional 2D segments.
+            </summary>
+            <param name="vList">Polygon 2D vertices</param>
         </member>
         <member name="M:devDept.Geometry.AreaProperties.Add(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
             <summary>
@@ -234,6 +713,26 @@
             Contains a collection of utility methods and constants.
             </summary>
         </member>
+        <member name="F:devDept.Geometry.Utility.TOL3">
+            <summary>
+            Constant, 1e-3.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.Utility.TOL6">
+            <summary>
+            Constant, 1e-6.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.Utility.TOL9">
+            <summary>
+            Constant, 1e-9.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.Utility.HDLGRIDSPAN">
+            <summary>
+            Integer grid span.
+            </summary>
+        </member>
         <member name="M:devDept.Geometry.Utility.FitPlane(System.Collections.Generic.IList{devDept.Geometry.Point3D})">
             <summary>
             Planar fitting of 3D points using orthogonal regression.
@@ -314,15 +813,6 @@
             Computes the bounding box of the given array of points.
             </summary>
             <param name="points">The set of points</param>
-            <param name="boxMin">The minimum point of the bounding box</param>
-            <param name="boxMax">The maximum point of the bounding box</param>
-        </member>
-        <member name="M:devDept.Geometry.Utility.ComputeBoundingRect(System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Int32,devDept.Geometry.Point2D@,devDept.Geometry.Point2D@)">
-            <summary>
-            Computes the bounding box of the given array of points.
-            </summary>
-            <param name="points">The set of points</param>
-            <param name="count">Number of points</param>
             <param name="boxMin">The minimum point of the bounding box</param>
             <param name="boxMax">The maximum point of the bounding box</param>
         </member>
@@ -595,6 +1085,11 @@
         <member name="M:devDept.Geometry.Utility.ColorToFloatArray(System.Drawing.Color)">
             <summary>
             Converts a <see cref="T:System.Drawing.Color"/> to a float[4] with components in the [0,1] range.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Utility.ColorToDoubleArray(System.Drawing.Color)">
+            <summary>
+            Converts a <see cref="T:System.Drawing.Color"/> to a double[4] with components in the [0,1] range.
             </summary>
         </member>
         <member name="M:devDept.Geometry.Utility.MmToInches(System.Double)">
@@ -1079,7 +1574,7 @@
             <param name="vector1">First vector</param>
             <param name="vector2">Second vector</param>
             <param name="rotAxis">The rotation axis</param>
-            <param name="angle">The angle in degrees, measured in clockwise direction.</param>
+            <param name="angleInDegrees">The angle in degrees, measured in clockwise direction.</param>
         </member>
         <member name="M:devDept.Geometry.Utility.AreEqual(System.Collections.IList,System.Collections.IList)">
             <summary>
@@ -1088,6 +1583,23 @@
             <param name="first">The first generic list</param>
             <param name="second">The second generic list</param>
             <returns>True if the elements of the two generic lists are the same.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.AreEqual2D(System.Double[],System.Double[],System.Double)">
+            <summary>
+            Compares two 2D points in the given domain.
+            </summary>
+            <param name="p1">First point</param>
+            <param name="p2">Second point</param>
+            <param name="domainSize">The 2D diagonal length of your model.</param>
+            <returns>True if the two point are coincident, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.Distance(System.Double[],System.Double[])">
+            <summary>
+            Computes the distance between two 2D points.
+            </summary>
+            <param name="a">First point</param>
+            <param name="b">Second point</param>
+            <returns>The distance between a and b.</returns>
         </member>
         <member name="M:devDept.Geometry.Utility.Intersect3DLines(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,devDept.Geometry.Vector3D,System.Double@,System.Double@,devDept.Geometry.Point3D@)">
             <summary>
@@ -1120,15 +1632,6 @@
             <param name="compacted">The list of compacted vertices</param>
             <returns>The number of orphan vertices removed.</returns>
         </member>
-        <member name="M:devDept.Geometry.Utility.GetCpuCount(System.Int32,System.Int32[]@,System.Int32[]@)">
-            <summary>
-            Gets the number of logical processors.
-            </summary>
-            <param name="len">Total number of the items to process</param>
-            <param name="startIndex">Array of start indices</param>
-            <param name="endIndex">Array of end indices</param>
-            <returns>The number of logical processors</returns>
-        </member>
         <member name="M:devDept.Geometry.Utility.GetProgress(System.Int32[],System.Int32[],System.Int32)">
             <summary>
             Gets progress value from parallel tasks.
@@ -1137,6 +1640,13 @@
             <param name="startIndex">Current task start index</param>
             <param name="cpuCount">The number of logical processors</param>
             <returns>The progress value.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.KahanSum(System.Double[])">
+            <summary>
+            Kahan summation.
+            </summary>
+            <param name="input">The array of values to be summed.</param>
+            <returns>The accurate summation.</returns>
         </member>
         <member name="T:devDept.Geometry.IndexLineComparer">
             <summary>
@@ -1166,436 +1676,6 @@
             <summary>
             Matrix non zero term definition.
             </summary>
-        </member>
-        <member name="T:devDept.Geometry.PointUv">
-            <summary>
-            Surface point definition.
-            </summary>
-        </member>
-        <member name="T:devDept.Geometry.PointU">
-            <summary>
-            Curve point definition.
-            </summary>
-        </member>
-        <member name="T:devDept.Geometry.Point3D">
-            <summary>
-            Defines a 3D point. 
-            </summary>
-        </member>
-        <member name="T:devDept.Geometry.Point2D">
-            <summary>
-            Defines a 2D point. 
-            </summary>
-        </member>
-        <member name="T:devDept.Geometry.IVertex">
-            <summary>
-            Common properties of vertices.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.IVertex.ToArray">
-            <summary>
-            Gets the vertex position as a double array.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.#ctor">
-            <summary>
-            Empty constructor.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.#ctor(System.Double,System.Double)">
-            <summary>
-            Standard constructor.
-            </summary>
-            <param name="x">Point's X coordinate</param>
-            <param name="y">Point's Y coordinate</param>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.#ctor(System.Double[])">
-            <summary>
-            Double array constructor.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.Clone">
-            <summary>
-            Creates a deep copy of this 2D point.
-            </summary>
-            <returns>The new 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.ToArray">
-            <summary>
-            Returns an array of point's coordinates.
-            </summary>
-            <returns>The double array.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.IsValid">
-            <summary>
-            Returns true if the point's coordinates are resonable values.
-            </summary>
-            <returns>True if the point is valid, false otherwise.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.op_Addition(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
-            <summary>
-            Addition between two 2D points.
-            </summary>
-            <param name="a">First 2D point</param>
-            <param name="b">Second 2D point</param>
-            <returns>The resulting 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.op_Subtraction(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
-            <summary>
-            Subtraction between two 2D points.
-            </summary>
-            <param name="a">First 2D point</param>
-            <param name="b">Second 2D point</param>
-            <returns>The resulting 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.op_Multiply(System.Double,devDept.Geometry.Point2D)">
-            <summary>
-            Product between a scalar value and a 2D point.
-            </summary>
-            <param name="s">Scalar value</param>
-            <param name="p">The 2D point</param>
-            <returns>The resulting 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.op_Multiply(devDept.Geometry.Point2D,System.Double)">
-            <summary>
-            Product between a 2D point and a scalar value.
-            </summary>
-            <param name="s">Scalar value</param>
-            <param name="p">The 2D point</param>
-            <returns>The resulting 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.op_Division(devDept.Geometry.Point2D,System.Double)">
-            <summary>
-            Division between a 2D point and a scalar value.
-            </summary>
-            <param name="s">Scalar value</param>
-            <param name="p">The 2D point</param>
-            <returns>The resulting 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.ProjectTo(devDept.Geometry.Segment2D)">
-            <summary>
-            Project this point onto a 2D segment.
-            </summary>
-            <param name="seg">The 2D segment</param>
-            <returns>The projected point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.DistanceTo(devDept.Geometry.Segment2D)">
-            <summary>
-            Computes the point-line distance.
-            </summary>
-            <param name="seg">The line</param>
-            <returns>The distance between this 2D point and its projection on the line.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.ToString">
-            <summary>
-            Converts this 2D point to a human readable string.
-            </summary>
-            <returns>A string that represents this 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.ToStringXml">
-            <summary>
-            Converts this 2D point to a human readable string.
-            </summary>
-            <returns>A string that represents this 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.Distance(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
-            <summary>
-            Computes the distance between two 2D points.
-            </summary>
-            <param name="a">First point</param>
-            <param name="b">Second point</param>
-            <returns>The distance between a and b.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.DistanceSquared(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
-            <summary>
-            Computes the squared distance between two 2D points.
-            </summary>
-            <param name="a">First point</param>
-            <param name="b">Second point</param>
-            <returns>The squared distance between p1 and p2.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.DistanceTo(devDept.Geometry.Point2D)">
-            <summary>
-            Computes the distance to 2D point b.
-            </summary>
-            <param name="b">The other point</param>
-            <returns>The distance between this 2D point and b.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.AreEqual(devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double)">
-            <summary>
-            Compares two 2D points in the given domain.
-            </summary>
-            <param name="p1">First point</param>
-            <param name="p2">Second point</param>
-            <param name="domainSize">The 2D diagonal length of your model.</param>
-            <returns>True if the two point are coincident, false otherwise.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.DrawGL">
-            <summary>
-            Calls glVertex2d(X, Y)
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.Point2D.TransformBy(devDept.Geometry.Transformation)">
-            <summary>
-            Transforms the 2D point by the specified transformation.
-            </summary>
-            <param name="xform">The transformation to be applied</param>
-        </member>
-        <member name="P:devDept.Geometry.Point2D.X">
-            <summary>
-            X coordinate value.
-            </summary>
-        </member>
-        <member name="P:devDept.Geometry.Point2D.Y">
-            <summary>
-            Y coordinate value.
-            </summary>
-        </member>
-        <member name="P:devDept.Geometry.Point2D.MaximumCoordinate">
-            <summary>
-            Gets the absolute value of maximum coordinate.
-            </summary>
-            <returns>The absolute value of maximum coordinate.</returns>
-        </member>
-        <member name="P:devDept.Geometry.Point2D.Origin">
-            <summary>
-            Returns a 2D point at origin.
-            </summary>
-        </member>
-        <member name="P:devDept.Geometry.Point2D.MinValue">
-            <summary>
-            Returns a 2D point with coordinates at double.MinValue.
-            </summary>
-        </member>
-        <member name="P:devDept.Geometry.Point2D.MaxValue">
-            <summary>
-            Returns a 2D point with coordinates at double.MaxValue.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.#ctor">
-            <summary>
-            Empty constructor.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.#ctor(System.Double,System.Double,System.Double)">
-            <summary>
-            Standard constructor.
-            </summary>
-            <param name="x">X coordinate value</param>
-            <param name="y">Y coordinate value</param>
-            <param name="z">Z coordinate value</param>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.#ctor(System.Double,System.Double)">
-            <summary>
-            2D point constructor
-            </summary>
-            <param name="x">X coordinate value</param>
-            <param name="y">Y coordinate value</param>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.#ctor(System.Double[])">
-            <summary>
-            Double array constructor.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.Clone">
-            <summary>
-            Creates a deep copy of this 3D point.
-            </summary>
-            <returns>The new 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.ToArray">
-            <summary>
-            Returns an array of point's coordinates.
-            </summary>
-            <returns>The double array.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.IsInside(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-            <summary>
-            Checks if the point is inside the specified volume.
-            </summary>
-            <param name="boxMin">Lower-left-front corner</param>
-            <param name="boxMax">Top-right-rear corner</param>
-            <returns>True if the point is inside, false otherwise.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.DistanceTo(devDept.Geometry.Point3D)">
-            <summary>
-            Computes the distance to 3D point b.
-            </summary>
-            <param name="b">The other point</param>
-            <returns>The distance between this 3D point and b.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.Distance(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-            <summary>
-            Computes the distance between two 3D points.
-            </summary>
-            <param name="a">First 3D point</param>
-            <param name="b">Second 3D point</param>
-            <returns>The distance between a and b.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.ProjectTo(devDept.Geometry.Segment3D)">
-            <summary>
-            Project this point onto a 3D segment.
-            </summary>
-            <param name="seg">The 3D segment</param>
-            <returns>The projected point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.DistanceTo(devDept.Geometry.Segment3D)">
-            <summary>
-            Computes the point-line distance.
-            </summary>
-            <param name="seg">The line</param>
-            <returns>The distance between this 3D point and its projection on the line.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.DistanceSquared(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-            <summary>
-            Computes the squared distance between two 3D points.
-            </summary>
-            <param name="a">First point</param>
-            <param name="b">Second point</param>
-            <returns>The squared distance between a and b.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.DistanceTo(devDept.Geometry.Plane)">
-            <summary>
-            Computes the point-plane distance.
-            </summary>
-            <param name="plane">The plane</param>
-            <returns>The distance between this 3D point and its projection on the plane.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.op_Subtraction(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-            <summary>
-            Subtraction between two 3D points.
-            </summary>
-            <param name="a">First 3D point</param>
-            <param name="b">Second 3D point</param>
-            <returns>The resulting 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.op_Multiply(System.Double,devDept.Geometry.Point3D)">
-            <summary>
-            Product between a 3D point and a scalar s.
-            </summary>
-            <param name="s">Scalar value</param>
-            <param name="p">The point</param>
-            <returns>The resulting 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.op_Multiply(devDept.Geometry.Point3D,System.Double)">
-            <summary>
-            Product between a 3D point and a scalar s.
-            </summary>
-            <param name="s">Scalar value</param>
-            <param name="p">The point</param>
-            <returns>The resulting 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.op_Division(devDept.Geometry.Point3D,System.Double)">
-            <summary>
-            Division between a 3D point and a scalar s.
-            </summary>
-            <param name="s">Scalar value</param>
-            <param name="p">The point</param>
-            <returns>The resulting 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.op_Addition(devDept.Geometry.Point3D,devDept.Geometry.Vector3D)">
-            <summary>
-            Addition between a 3D point and a 3D vector.
-            </summary>
-            <param name="a">The 3D point</param>
-            <param name="b">The 3D vector</param>
-            <returns>The resulting 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.op_Subtraction(devDept.Geometry.Point3D,devDept.Geometry.Vector3D)">
-            <summary>
-            Subtraction between a 3D point and a 3D vector.
-            </summary>
-            <param name="a">The 3D point</param>
-            <param name="b">The 3D vector</param>
-            <returns>The resulting 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.op_Addition(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-            <summary>
-            Addition between two 3D points.
-            </summary>
-            <param name="a">First 3D point</param>
-            <param name="b">Second 3D point</param>
-            <returns>The resulting 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.AreEqual(devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
-            <summary>
-            Compares two 3D points in the given domain.
-            </summary>
-            <param name="p1">First point</param>
-            <param name="p2">Second point</param>
-            <param name="domainSize">The 3D diagonal length of your model.</param>
-            <returns>True if the two point are coincident, false otherwise.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.ToString">
-            <summary>
-            Converts this 3D point to a human readable string.
-            </summary>
-            <returns>A string that represents this 3d point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.ToStringXml">
-            <summary>
-            Converts this 3D point to a human readable string.
-            </summary>
-            <returns>A string that represents this 2D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.DrawGL">
-            <summary>
-            Calls glVertex3d(X, Y, Z).
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.Point3D.TransformBy(devDept.Geometry.Transformation)">
-            <summary>
-            Transforms the 3D point by the specified transformation.
-            </summary>
-            <param name="xform">The transformation to be applied</param>
-        </member>
-        <member name="P:devDept.Geometry.Point3D.Z">
-            <summary>
-            Z coordinate value.
-            </summary>
-        </member>
-        <member name="P:devDept.Geometry.Point3D.Origin">
-            <summary>
-            Returns the (0,0,0) point.
-            </summary>
-        </member>
-        <member name="P:devDept.Geometry.Point3D.MinValue">
-            <summary>
-            Returns a 3D point with coordinates at double.MinValue.
-            </summary>
-        </member>
-        <member name="P:devDept.Geometry.Point3D.MaxValue">
-            <summary>
-            Returns a 3D point with coordinates at double.MaxValue.
-            </summary>
-        </member>
-        <member name="F:devDept.Geometry.PointU.U">
-            <summary>
-            Parametric U value.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.PointU.Clone">
-            <summary>
-            Creates a deep copy of this 3D point.
-            </summary>
-            <returns>The new 3D point.</returns>
-        </member>
-        <member name="M:devDept.Geometry.PointU.ToString">
-            <summary>
-            Converts this 3D point to a human readable string.
-            </summary>
-            <returns>A string that represents this 3D point.</returns>
-        </member>
-        <member name="F:devDept.Geometry.PointUv.V">
-            <summary>
-            Parametric V value
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.PointUv.ToString">
-            <summary>
-            Converts this 3D point to a human readable string.
-            </summary>
-            <returns>A string that represents this 3D point.</returns>
         </member>
         <member name="T:devDept.Geometry.PointTangent">
             <summary>
@@ -1729,6 +1809,21 @@
         <member name="F:devDept.Geometry.SharedFace.Dad">
             <summary>
             Index of the second triangle that shares this edge.
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.lineWeightUnitsType">
+            <summary>
+            Line weight unit system type.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.lineWeightUnitsType.Inches">
+            <summary>
+            Inches
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.lineWeightUnitsType.Millimeters">
+            <summary>
+            Millimeters
             </summary>
         </member>
         <member name="T:devDept.Geometry.linearUnitsType">
@@ -1881,6 +1976,148 @@
             </summary>
             <param name="vertices">A collection of 2D points representing the 2D mesh vertices.</param>
             <returns>The triangle quality (from 0 to 1)</returns>
+        </member>
+        <member name="T:devDept.Geometry.ITriangleSupportsColor">
+            <summary>
+            Interface for <see cref="T:devDept.Geometry.IndexTriangle"/> that supports colors.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsColor.R">
+            Color red component.
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsColor.G">
+            Color green component.
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsColor.B">
+            Color blue component.
+        </member>
+        <member name="T:devDept.Geometry.ITriangleSupportsNormals">
+            <summary>
+            Interface for <see cref="T:devDept.Geometry.IndexTriangle"/> that supports normals.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsNormals.N1">
+            <summary>
+            First vertex normal.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsNormals.N2">
+            <summary>
+            Second vertex normal.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsNormals.N3">
+            <summary>
+            Third vertex normal.
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.ITriangleSupportsTextureCoords">
+            <summary>
+            Interface for <see cref="T:devDept.Geometry.IndexTriangle"/> that supports texture coordinates.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsTextureCoords.T1">
+            <summary>
+            First vertex texture index.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsTextureCoords.T2">
+            <summary>
+            Second vertex texture index.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ITriangleSupportsTextureCoords.T3">
+            <summary>
+            Third vertex texture index.
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.ColorTriangle">
+            <summary>
+            Mesh's triangle with color definition.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ColorTriangle.R">
+            Color red component.
+        </member>
+        <member name="P:devDept.Geometry.ColorTriangle.G">
+            Color green component.
+        </member>
+        <member name="P:devDept.Geometry.ColorTriangle.B">
+            Color blue component.
+        </member>
+        <member name="T:devDept.Geometry.RichTriangle">
+            <summary>
+            Mesh's rich triangle definition.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.RichTriangle.T1">
+            <summary>
+            First vertex texture index.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.RichTriangle.T2">
+            <summary>
+            Second vertex texture index.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.RichTriangle.T3">
+            <summary>
+            Third vertex texture index.
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.SmoothTriangle">
+            <summary>
+            Mesh's smooth triangle definition.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.SmoothTriangle.N1">
+            <summary>
+            First vertex normal.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.SmoothTriangle.N2">
+            <summary>
+            Second vertex normal.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.SmoothTriangle.N3">
+            <summary>
+            Third vertex normal.
+            </summary>
+        </member>
+        <member name="T:devDept.Geometry.ColorSmoothTriangle">
+            <summary>
+            Mesh's smooth triangle with color definition.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.ColorSmoothTriangle.R">
+            Color red component.
+        </member>
+        <member name="P:devDept.Geometry.ColorSmoothTriangle.G">
+            Color green component.
+        </member>
+        <member name="P:devDept.Geometry.ColorSmoothTriangle.B">
+            Color blue component.
+        </member>
+        <member name="T:devDept.Geometry.RichSmoothTriangle">
+            <summary>
+            Mesh's smooth triangle with material definition.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.RichSmoothTriangle.T1">
+            <summary>
+            First vertex texture index.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.RichSmoothTriangle.T2">
+            <summary>
+            Second vertex texture index.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.RichSmoothTriangle.T3">
+            <summary>
+            Third vertex texture index.
+            </summary>
         </member>
         <member name="T:devDept.Geometry.Interval">
             <summary>Interval definition.</summary>
@@ -2234,12 +2471,23 @@
             <param name="intSeg">The intersection segment (when it exists)</param>
             <returns>The intersection type.</returns>
         </member>
-        <member name="M:devDept.Geometry.Plane.Intersection(devDept.Geometry.Plane,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Vector3D@)">
+        <member name="M:devDept.Geometry.Plane.Intersection(devDept.Geometry.Plane,devDept.Geometry.Plane,System.Double,devDept.Geometry.Segment3D@)">
             <summary>
             Computes the intersection of two planes.
             </summary>
             <param name="pln1">The first plane</param>
             <param name="pln2">The second plane</param>
+            <param name="tol">Tolerance used to decide if parallel planes are coincident or disjoint</param>
+            <param name="intSeg">The intersection segment (when it exists)</param>
+            <returns>The intersection type.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Plane.Intersection(devDept.Geometry.Plane,devDept.Geometry.Plane,System.Double,devDept.Geometry.Point3D@,devDept.Geometry.Vector3D@)">
+            <summary>
+            Computes the intersection of two planes.
+            </summary>
+            <param name="pln1">The first plane</param>
+            <param name="pln2">The second plane</param>
+            <param name="tol">Tolerance used to decide if parallel planes are coincident or disjoint</param>
             <param name="pt">The intersection point (when it exists)</param>
             <param name="u">The intersection direction</param>
             <returns>The intersection type.</returns>
@@ -2598,11 +2846,6 @@
             <param name="v">Second 3D vector (unit length)</param>
             <param name="tol">Dot product comparison tolerance</param>
         </member>
-        <member name="M:devDept.Geometry.Vector3D.DrawGL">
-            <summary>
-            Calls glNormal3d(X, Y, Z)
-            </summary>
-        </member>
         <member name="M:devDept.Geometry.Vector3D.TransformBy(devDept.Geometry.Transformation)">
             <summary>
             Transforms the 3D vector by the specified transformation.
@@ -2724,6 +2967,16 @@
             Returns an array of plane equation's coefficients.
             </summary>
             <returns>The double array.</returns>
+        </member>
+        <member name="T:devDept.Geometry.PointWithDisplacement">
+            <summary>
+            Defines a <see cref="T:devDept.Geometry.Point3D"/> with displacement.
+            </summary>
+        </member>
+        <member name="P:devDept.Geometry.PointWithDisplacement.Unknowns">
+            <summary>
+            Gets or sets the node displacement (defined as double[3]).
+            </summary>
         </member>
         <member name="T:devDept.Geometry.Point4D">
             <summary>
@@ -3515,6 +3768,18 @@
             <param name="t">The triangle t coordinate</param>
             <returns>True if the intersection was found, false otherwise.</returns>
         </member>
+        <member name="M:devDept.Geometry.Segment3D.Intersection(devDept.Geometry.Segment3D,devDept.Geometry.Segment3D,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+            <summary>
+            Gets the end points of the shortest segment perpendicular to two 3D segments, when it exists and is unique.
+            </summary>
+            <param name="segA">The first segment</param>
+            <param name="segB">The second segment</param>
+            <param name="infinite">If true, the Segment3Ds are treated as an infinite lines</param>
+            <param name="pointOnA">The end point on <paramref name="segA"/></param>
+            <param name="pointOnB">The end point on <paramref name="segB"/></param>
+            <returns>True if there is one shortest segment perpendicular to segA and segB, false otherwise.</returns>
+            <remarks>If <paramref name="pointOnA"/> and <paramref name="pointOnB"/> coincide, there is an intersection between the two segments. When the segments are parallel, it always returns false and the points are null.</remarks>
+        </member>
         <member name="M:devDept.Geometry.Segment3D.ToString">
             <summary>
             Converts this 3D segment to a human readable string.
@@ -3658,6 +3923,11 @@
         <member name="M:devDept.Geometry.Transformation.#ctor(System.Double[])">
             <summary>16x array of doubles constructor.</summary>
             <param name="m">The matrix as an array of 16 doubles (deeply copied) ordered by row</param>
+        </member>
+        <member name="M:devDept.Geometry.Transformation.#ctor(System.Double[],System.Boolean)">
+            <summary>16x array of doubles constructor.</summary>
+            <param name="m">The matrix as an array of 16 doubles (deeply copied) ordered by row or by column</param>
+            <param name="byRow">If true the matrix is loaded by row, else by column</param>
         </member>
         <member name="M:devDept.Geometry.Transformation.IsIdentity(System.Double)">
             <summary>
@@ -4001,6 +4271,11 @@
         <member name="M:devDept.Geometry.Transformation.IsScaleFactorUniformForPlanar(devDept.Geometry.Plane)">
             <summary>
             Returns true if the scale factor of the transformation is the same in the two directions of the plane.
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.Transformation.IsReversed">
+            <summary>
+            Returns true if the transformation is orientation-reversing, i.e. if the deteminant of the 3X3 submatrix is smaller than zero.
             </summary>
         </member>
         <member name="M:devDept.Geometry.Transformation.Dump">

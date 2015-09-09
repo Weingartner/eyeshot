@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>devDept.Eyeshot.Control</name>
+        <name>devDept.Eyeshot.Control.Wpf</name>
     </assembly>
     <members>
         <member name="T:devDept.Eyeshot.Entities.AngularDim">
@@ -1590,7 +1590,7 @@
             </summary>
             <remarks>The size of the array determines how the colors are applied to the entity: 
             1 byte per vertex is applied as a modulation factor to the <see cref="T:System.Drawing.Color"/> of the entity. This requires the use of shaders so the 
-            graphics acceleration must be turned on, <see cref="P:devDept.Eyeshot.ViewportLayout.UseShaders"/> must be true and the <see cref="P:devDept.Eyeshot.ViewportLayout.DisplayMode"/> must be <see cref="F:devDept.Eyeshot.displayType.Rendered"/>
+            graphics acceleration must be turned on, <see cref="!:ViewportLayout.UseShaders"/> must be true and the <see cref="P:devDept.Eyeshot.ViewportLayout.DisplayMode"/> must be <see cref="F:devDept.Eyeshot.displayType.Rendered"/>
             3 bytes per vertex are applied as RGB colors
             4 bytes per vertex are applied as RGBA colors (in order for the alpha transparency to work, the entity must also have a <see cref="T:System.Drawing.Color"/> with alpha &lt; 255</remarks>
         </member>
@@ -9351,31 +9351,31 @@
             Base class for all <see cref="T:devDept.Eyeshot.Viewport"/> container controls.
             </summary>
         </member>
+        <member name="T:devDept.Eyeshot.ViewportLayoutBase">
+            <summary>
+            Interaction logic for UserControl1.xaml
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.IViewportLayout.renderContext">
             <summary>
             
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.IViewportLayout.Renderer">
-            <summary>
-            Gets or sets the renderer engine.
-            </summary>
-        </member>
-        <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(System.Windows.Forms.Cursor)">
+        <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(System.Windows.Input.Cursor)">
             <summary>
             Sets the cursor.
             </summary>
-            <param name="cursor">The cursor to set</param>
-            <returns>The previous cursor</returns>
+            <param name="cursorName">The cursor</param>
+            <returns>The previous cursor.</returns>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursorInternal(System.String)">
             <summary>
             Sets the cursor.
             </summary>
-            <param name="cursorName">The name of the cursor to set</param>
-            <returns>The previous cursor</returns>
+            <param name="cursorName">The name of the cursor</param>
+            <returns>The previous cursor name.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayoutBase.GetCursorString(System.Windows.Forms.Cursor)">
+        <member name="M:devDept.Eyeshot.ViewportLayoutBase.GetCursorString(System.Windows.Input.Cursor)">
             <summary>
             Gets the string name of the cursor.
             </summary>
@@ -9389,20 +9389,21 @@
             <param name="cursor">The cursor</param>
             <returns>The cursor.</returns>
         </member>
+        <member name="P:devDept.Eyeshot.ViewportLayoutBase.renderContext">
+            <summary>
+            Graphics rendering context.
+            </summary>
+        </member>
+        <member name="E:devDept.Eyeshot.ViewportLayoutBase.InitializeScene">
+            <summary>
+            Occurs when the control is shown for the first time.
+            </summary>
+            <remark>Subscribe to this event to inizialize the scene when the window is first displayed.</remark>
+        </member>
         <member name="P:devDept.Eyeshot.ViewportLayoutBase.IsInDesignMode">
             <summary>
             Gets a value indicating whether the control is in design mode
             (running in Blend or Visual Studio).
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayoutBase.Renderer">
-            <summary>
-            Gets or sets the Renderer mode.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayoutBase.renderContext">
-            <summary>
-            Graphics rendering context.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.OnMultiTouchMove(System.Object,devDept.Eyeshot.Multitouch.TouchEventArgs)">
@@ -9633,7 +9634,7 @@
             </summary>
             <remarks>For internal use only.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ReadViewport(devDept.Eyeshot.ViewportLayout.DrawSceneParams,System.Int32,System.Int32,System.Int32,System.Int32,System.Drawing.Imaging.BitmapData,devDept.Graphics.TextureBase,System.Boolean,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.ReadViewport(devDept.Eyeshot.ViewportLayout.DrawSceneParams,System.Int32,System.Int32,System.Int32,System.Int32,System.Drawing.Imaging.BitmapData,devDept.Graphics.TextureBase,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate)">
             <summary>
             
             </summary>
@@ -9707,6 +9708,13 @@
             <param name="globalMin">Output the min corner</param>
             <param name="globalMax">Output the max corner</param>
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.SuspendDesigner(System.Boolean)">
+            <summary>
+            Suspends the events of ViewportLayout for the designer.
+            </summary>
+            <param name="suspend">If true suspends the events for the designer, else resumes them</param>
+            <remarks>For internal use only.</remarks>
+        </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.components">
             <summary> 
             Required designer variable.
@@ -9758,13 +9766,13 @@
             </summary>
             <param name="e">A <see cref="T:System.EventArgs"/> that contains the event data.</param>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.SetDefaultCursorInternal(System.Windows.Forms.Cursor)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.SetDefaultCursorInternal(System.Windows.Input.Cursor)">
             <summary>
             Sets the default cursor for the viewport control.
             </summary>
             <param name="cursor"></param>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.SetDefaultCursor(System.Windows.Forms.Cursor)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.SetDefaultCursor(System.Windows.Input.Cursor)">
             <summary>
             Sets the default cursor for the viewport control.
             </summary>
@@ -9968,6 +9976,48 @@
             <summary>
             For internal use only.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetGrid">
+            <summary>
+            Gets active viewport grid object
+            </summary>
+            <returns>The grid object of the active viewport</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetGrids">
+            <summary>
+            Gets active viewport grids collection
+            </summary>
+            <returns>The grids collection of the active viewport</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetBackground">
+            <summary>
+            Gets active viewport background object
+            </summary>
+            <returns>The background object of the active viewport</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetOriginSymbol">
+            <summary>
+            Gets the origin symbol settings in the active viewport.
+            </summary>
+            <returns>The OriginSymbol object of the active viewport</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetLegends">
+            <summary>
+            Gets active viewport legends collection
+            </summary>
+            <returns>The legends collection of the active viewport</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetCoordinateSystemIcon">
+            <summary>
+            Gets the coordinate system icon settings in the active viewport.
+            </summary>
+            <returns>The coordinate system icon settings of the active viewport</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetViewCubeIcon">
+            <summary>
+            Gets the view cube icon settings in the active viewport.
+            </summary>
+            <returns>The view cube icon settings of the active viewport</returns>
         </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.backfaceSettings">
             <summary>
@@ -10582,7 +10632,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
             <param name="drawBackground">If true, the drawing of the background is skipped</param>
@@ -10590,7 +10640,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
             <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -10599,7 +10649,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Double)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Boolean,System.Double)">
             <summary>Renders the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene to a texture.</summary>
             <param name="texture">The texture to render to</param>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
@@ -10615,7 +10665,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -10631,7 +10681,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene of the active viewport. The image can be scaled even to a poster size one.</summary>
             <param name="drawScaleFactor">The bitmap scale</param>
             <param name="drawBackground">If false, the drawing of the background is skipped</param>
@@ -10639,7 +10689,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Double,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Double,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene of the active viewport. The image can be scaled even to a poster size one.</summary>
             <param name="drawScaleFactor">The bitmap scale</param>
             <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -10648,7 +10698,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene of the active viewport. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
             <param name="drawScaleFactor">The bitmap scale factor</param>
@@ -10657,7 +10707,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene of the active viewport. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
             <param name="drawScaleFactor">The bitmap scale factor</param>
@@ -10676,7 +10726,7 @@
             <remarks>If the file exists, it's overwritten.</remarks>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.WriteToFileRaster(System.Single,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.WriteToFileRaster(System.Single,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
             <summary>Saves a raster image of the current viewport scene on disk.</summary>
             <param name="drawScaleFactor">The image scale</param>
             <param name="fileName">A string that contains the name of the file to which to save the raster image</param>
@@ -10687,7 +10737,7 @@
             <remarks>If the file exists, it's overwritten.</remarks>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.WriteToFileRaster(System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.WriteToFileRaster(System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
             <summary>Saves a raster image of the current viewport scene on disk.</summary>
             <param name="drawScaleFactor">The image scale</param>
             <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -10807,7 +10857,7 @@
             <remarks>The copied image will be a 24-bit bitmap.</remarks>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size)"/>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size,System.Boolean)">
             <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -10817,7 +10867,7 @@
             <remarks>The copied image will be a 24-bit bitmap.</remarks>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size)"/>/// 
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size,System.Double,System.Boolean)">
             <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -11684,7 +11734,7 @@
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.IsHardwareAccelerated">
             <summary>Returns true if OpenGL hardware acceleration is currently in use.</summary>
-            <seealso cref="P:devDept.Eyeshot.ViewportLayout.AskForHardwareAcceleration">AskForHardwareAcceleration Property</seealso>
+            <seealso cref="!:AskForHardwareAcceleration">AskForHardwareAcceleration Property</seealso>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.ForceHardwareAcceleration">ForceHardwareAcceleration Property</seealso>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.IsFsaaAvailable">
@@ -11740,34 +11790,24 @@
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.SplitterMoving">
             <summary>
-            When the viewport control is hosted inside a SplitContainer control an annoying repaint issue is present during SplitContainer splitter moving.
+            When the viewport control is hosted inside a Grid control with GridSplitter an annoying repaint issue is present during GridSplitter moving.
             Setting properly this flag this can be avoided.</summary>
             <example>
-            The following code fragment demonstrates the usage of the SplitterMoving flag to avoid the SplitControl repaint issue during splitter moving.
-            <code lang="CS">
-            bool first = true;
-            private void splitContainer1_SplitterMoving(object sender, SplitterCancelEventArgs e)
-            {
-            	if (first == true) {
-            		MainViewport.SplitterMoving = true;
-            		first = false;
-            	}
+            The following code fragment demonstrates the usage of the SplitterMoving flag to avoid the SplitControl repaint issue during GridSplitter moving.
+            <code lang="CS">        
+            private void GridSplitter1_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+            {        
+            		MainViewport.SplitterMoving = true;                
             }
-            private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-            {
-            	first = true;
+            private void GridSplitter1_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+            {        
             	MainViewport.SplitterMoving = false;
             }</code>
-            <code lang="VB.NET">
-            Dim first As Boolean = True
-            Private Sub SplitContainer1_SplitterMoving(ByVal sender As System.Object, ByVal e As System.Windows.Forms.SplitterCancelEventArgs) Handles SplitContainer1.SplitterMoving
-                If first = True Then
-                    MainViewport.SplitterMoving = True
-                    first = False
-                End If
+            <code lang="VB.NET">                
+            Private Sub GridSplitter1_PreviewMouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles GridSplitter1.PreviewMouseDown        
+                MainViewport.SplitterMoving = True        
             End Sub
-            Private Sub SplitContainer1_SplitterMoved(ByVal sender As System.Object, ByVal e As System.Windows.Forms.SplitterEventArgs) Handles SplitContainer1.SplitterMoved
-                first = True
+            Private Sub GridSplitter1__PreviewMouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles GridSplitter1.PreviewMouseUp                
                 MainViewport.SplitterMoving = False
             End Sub</code>
             </example>
@@ -11891,29 +11931,9 @@
             Gets or sets the active initial view in the active viewport.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.Grid">
-            <summary>
-            Gets the first XY grid settings in the active viewport.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.Grids">
-            <summary>
-            Gets or sets the XY grid settings in the active viewport.
-            </summary>
-        </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.Camera">
             <summary>
             Gets or sets the camera settings in the active viewport.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.Background">
-            <summary>
-            Gets or sets the background settings in the active viewport.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.OriginSymbol">
-            <summary>
-            Gets or sets the origin symbol settings in the active viewport.
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.ShowVertices">
@@ -11938,11 +11958,6 @@
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.Labels">
             <summary>Gets or sets the master label collection in the active viewport.</summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.Legends">
-            <summary>
-            Gets or sets the legend objects in the active viewport.
-            </summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.ShowLabels">
             <summary>
@@ -12022,16 +12037,6 @@
         <member name="P:devDept.Eyeshot.ViewportLayout.PlanarShadowOpacity">
             <summary>
             Gets or sets the planar shadow's opacity. 
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.CoordinateSystemIcon">
-            <summary>
-            Gets or sets the coordinate system icon settings in the active viewport.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.ViewCubeIcon">
-            <summary>
-            Gets or sets the view cube icon settings in the active viewport.
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.ClippingPlane1">
@@ -12135,13 +12140,6 @@
             Gets or sets the wait cursor mode. Controls if and when the wait cursor is displayed.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.AskForHardwareAcceleration">
-            <summary>
-            If true, OpenGL accelerated hardware modes are requested during viewport initialization.
-            </summary>
-            <remarks>Has no effect at runtime.</remarks>
-            <seealso cref="P:devDept.Eyeshot.ViewportLayout.IsHardwareAccelerated"/>
-        </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.AskForDirect3DLevel9_3">
             <summary>
             If true, The Direct3D feature level 9_3 is requested during viewport initialization instead of the highest feature level available.
@@ -12149,7 +12147,7 @@
             <remarks>Used for compatibility problems with old cards.</remarks>
             <remarks>Has no effect at runtime.</remarks>
             <remarks>Direct3D feature level 9_3 has some limitations and does not support all the features of higher profiles</remarks>
-            <remarks>Applies only to <see cref="F:devDept.Eyeshot.rendererType.Direct3D"/> renderer.</remarks>
+            <remarks>Applies only to <see cref="!:rendererType.Direct3D"/> renderer.</remarks>
             <seealso cref="!:ViewportLayout.Renderer"/>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.AskForFsaa">
@@ -12172,24 +12170,6 @@
             Gets or sets the number of desired samples for Full Screen Anti-Aliasing.
             The Full Screen Anti-alasing can be set with the <see cref="P:devDept.Eyeshot.ViewportLayout.AskForFsaa"/> property.
             </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.RendererVendor">
-            <summary>
-            Gets the company responsible for this GL implementation. This name does not change from release to release.
-            </summary>
-            <remarks>OpenGL only.</remarks>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.ShadingLanguageVersion">
-            <summary>
-            Gets OpenGL Shading Language version.
-            </summary>
-            <remarks>OpenGL only.</remarks>
-        </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.OpenglExtensions">
-            <summary>
-            Gets a space-separated list of supported extensions to OpenGL.
-            </summary>
-            <remarks>OpenGL only.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.MaxTextureSize">
             <summary>
@@ -12305,7 +12285,7 @@
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.KeepSceneUpright">
             <summary>
-            Gets or sets a flag that keeps the scene upright when doing SetView operations or clicking on the <see cref="P:devDept.Eyeshot.ViewportLayout.ViewCubeIcon"/> faces.
+            Gets or sets a flag that keeps the scene upright when doing SetView operations or clicking on the <see cref="T:devDept.Eyeshot.ViewCubeIcon"/> faces.
             </summary>
             <remarks>If false, the SetView operations and the mouse clicks on the ViewCubeIcon set the orientation with the up-vector closest to the current one.</remarks>
         </member>
@@ -12888,7 +12868,7 @@
             </summary>
             <param name="other">The viewport whose data is copied to this</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings)">
             <summary>
             Viewport constructor. (deprecated)
             </summary>
@@ -12911,7 +12891,7 @@
             <param name="pan">Pan settings</param>
             <param name="navigation">Navigation settings</param>               
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.viewType)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.viewType)">
             <summary>
             Viewport constructor.
             </summary>
@@ -12935,7 +12915,7 @@
             <param name="navigation">Navigation settings</param>       
             <param name="initialView">Initial View</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
             <summary>
             Viewport constructor (deprecated).
             </summary>
@@ -12957,7 +12937,7 @@
             <param name="zoom">Zoom settings</param>
             <param name="pan">Pan settings</param>        
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
             <summary>
             Viewport constructor (deprecated).
             </summary>
@@ -12980,7 +12960,7 @@
             <param name="pan">Pan settings</param>
             <param name="initialView">Initial View</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
             <summary>
             Viewport constructor (deprecated).
             </summary>
@@ -13001,7 +12981,7 @@
             <param name="zoom">Zoom settings</param>
             <param name="pan">Pan settings</param>        
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
             <summary>
             Viewport constructor (deprecated).
             </summary>
@@ -13023,7 +13003,7 @@
             <param name="pan">Pan settings</param>
             <param name="initialView">Initial View</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
             <summary>
             Viewport constructor (deprecated).
             </summary>
@@ -13044,7 +13024,7 @@
             <param name="zoom">Zoom settings</param>
             <param name="pan">Pan settings</param>        
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
             <summary>
             Viewport constructor (deprecated).
             </summary>
@@ -13066,7 +13046,7 @@
             <param name="pan">Pan settings</param>
             <param name="initialView">Initial View</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
             <summary>
             Viewport constructor (deprecated).
             </summary>
@@ -13088,7 +13068,7 @@
             <param name="zoom">Zoom settings</param>
             <param name="pan">Pan settings</param>        
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
             <summary>
             Viewport constructor (deprecated).
             </summary>
@@ -13111,7 +13091,7 @@
             <param name="pan">Pan settings</param>
             <param name="initialView">Initial View</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings)">
             <summary>
             Viewport constructor. (deprecated)
             </summary>
@@ -13134,7 +13114,7 @@
             <param name="pan">Pan settings</param>
             <param name="navigation">Settings for the <see cref="!:Camera.navigationType.Walk"/> and <see cref="!:Camera.navigationType.Fly"/> camera navigation modes</param>        
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.viewType)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.viewType)">
             <summary>
             Viewport constructor.
             </summary>
@@ -13158,7 +13138,7 @@
             <param name="navigation">Settings for the <see cref="!:Camera.navigationType.Walk"/> and <see cref="!:Camera.navigationType.Fly"/> camera navigation modes</param>
             <param name="initialView">Initial View</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon)">
             <summary>
             Viewport constructor. (deprecated)
             </summary>
@@ -13183,7 +13163,7 @@
             <param name="coordinateSystemIcon">The coordinate system icon</param>
             <param name="viewCubeIcon">The view cube icon</param>        
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon,devDept.Eyeshot.viewType)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon,devDept.Eyeshot.viewType)">
             <summary>
             Viewport constructor.
             </summary>
@@ -13209,7 +13189,7 @@
             <param name="viewCubeIcon">The view cube icon</param>
             <param name="initialView">Initial View</param>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon,devDept.Eyeshot.Viewport.SavedViewsManager)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon,devDept.Eyeshot.Viewport.SavedViewsManager)">
             <summary>
             Viewport constructor.
             </summary>
@@ -13235,7 +13215,7 @@
             <param name="viewCubeIcon">The view cube icon</param>
             <param name="savedViews">The saved views manager</param>        
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,devDept.Eyeshot.Legend[],devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid[],devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon,devDept.Eyeshot.Viewport.SavedViewsManager,devDept.Eyeshot.viewType)">
+        <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon,devDept.Eyeshot.Viewport.SavedViewsManager,devDept.Eyeshot.viewType)">
             <summary>
             Viewport constructor.
             </summary>
@@ -13858,7 +13838,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="drawScale">The bitmap scale</param>
             <param name="drawBackground">If false, the drawing of the background is skipped</param>
@@ -13866,7 +13846,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="drawScale">The bitmap scale</param>
             <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -13875,7 +13855,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
             <param name="drawScale">The bitmap scale</param>
@@ -13884,7 +13864,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
             <param name="drawScale">The bitmap scale</param>
@@ -13907,14 +13887,14 @@
             <param name="maxSize">Maximum size to constraint the maximization</param>
             <returns>The maximized size</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
             <param name="drawBackground">If true, the drawing of the background is skipped</param>
             <param name="hdwAcceleration">If true, use the hardware acceleration</param>
             <returns>The 24-bit image.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
             <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -13922,8 +13902,8 @@
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
             <returns>The 24-bit image.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean,System.Boolean,System.Boolean)" -->
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Boolean,System.Boolean)">
+        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean,System.Boolean)" -->
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -13931,9 +13911,9 @@
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
             <returns>The 24-bit image.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Boolean,System.Boolean,System.Boolean)" -->
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Drawing.Color,System.Boolean,System.Boolean)" -->
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
+        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Boolean,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Drawing.Color,System.Boolean)" -->
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -13942,14 +13922,14 @@
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
             <returns>The 24-bit image.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean,System.Boolean,System.Boolean)" -->
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Drawing.Color,System.Boolean,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Drawing.Color,System.Boolean)" -->
         <member name="M:devDept.Eyeshot.Viewport.RenderToBitmapInternal(devDept.Eyeshot.Viewport.RenderToBitmapParams,System.Drawing.Size)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
             <returns>The 24-bit image.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.WriteToFileRaster(System.Single,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.WriteToFileRaster(System.Single,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
             <summary>Saves a raster image of the current viewport scene on disk.</summary>
             <param name="drawScale">The image scale</param>
             <param name="fileName">A string that contains the name of the file to which to save the raster image</param>
@@ -13958,7 +13938,7 @@
             <param name="hdwAcceleration">If true, use the hardware acceleration</param>
             <remarks>The saved file will contain a 24-bit image.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.WriteToFileRaster(System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.WriteToFileRaster(System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
             <summary>Saves a raster image of the current viewport scene on disk.</summary>
             <param name="drawScale">The image scale</param>
             <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -13968,7 +13948,7 @@
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
             <remarks>The saved file will contain a 24-bit image.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.WriteToFileRasterInternal(devDept.Eyeshot.ViewportLayout,System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate)">
+        <member name="M:devDept.Eyeshot.Viewport.WriteToFileRasterInternal(devDept.Eyeshot.ViewportLayout,System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate)">
             <summary>Saves a raster image of the current viewport scene on disk.</summary>
             <param name="viewportLayout"></param>
             <param name="drawScale">The image scale</param>
@@ -13979,7 +13959,7 @@
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
             <remarks>The saved file will contain a 24-bit image.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean)">
             <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -13987,9 +13967,9 @@
             <param name="drawBackground">If true, the drawing of the background is skipped</param>
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
             <remarks>The copied image will be a 24-bit bitmap.</remarks>
-            <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean,System.Boolean)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean)"/>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Double,System.Boolean)">
             <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -13998,9 +13978,9 @@
             <param name="drawBackground">If true, the drawing of the background is skipped</param>
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL)</param>
             <remarks>The copied image will be a 24-bit bitmap.</remarks>
-            <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean,System.Boolean)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean)"/>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRasterInternal(devDept.Eyeshot.ViewportLayout,System.Single,System.Double,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRasterInternal(devDept.Eyeshot.ViewportLayout,System.Single,System.Double,System.Boolean)">
             <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -14009,7 +13989,7 @@
             <param name="drawBackground">If true, the drawing of the background is skipped</param>
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
             <remarks>The copied image will be a 24-bit bitmap.</remarks>
-            <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean,System.Boolean)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean)"/>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Int32)">
             <summary>
@@ -16431,7 +16411,7 @@
             <param name="fitAfterViewChange">If true, fits the view when the view orientation changes</param>
             <param name="enabled">The enabled status</param>
         </member>
-        <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image)">
+        <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource)">
             <summary>Standard constructor.</summary>
             <param name="position">Position</param>
             <param name="visible">Visibility status</param>
@@ -18888,8 +18868,7 @@
             <returns>True if the mesh is closed.</returns>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Mesh.LightWeight">
-            <remarks> If true, no geometry is generated by the hidden lines computation (see <see cref="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardVector(System.Boolean)"/>, <see cref="M:devDept.Eyeshot.ViewportLayout.WriteToFileVector(System.Boolean,System.String)"/>,
-            <see cref="M:devDept.Eyeshot.ViewportLayout.Print"/> and all the classes derived from <see cref="T:devDept.Eyeshot.HiddenLinesView"/>).</remarks>
+            <remarks> If true, no geometry is generated by the hidden lines computation (see <see cref="M:devDept.Eyeshot.ViewportLayout.Print"/> and all the classes derived from <see cref="T:devDept.Eyeshot.HiddenLinesView"/>).</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.EdgeIntersect.ToString">
             <summary>
@@ -25397,6 +25376,11 @@
         <member name="M:devDept.Eyeshot.ClipboardMetafileHelper.OpenClipboard(System.IntPtr)">
             The code samples that follow demonstrate how to add a metafile to the Clipboard so that it is visible to other applications. 
         </member>
+        <member name="M:devDept.Eyeshot.ClipboardMetafileHelper.CopyStream(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            Copies the contents of input to output. Doesn't close either stream.
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.hiddenLinesViewType">
             <summary>
             Hidden lines view type.
@@ -27616,7 +27600,7 @@
             Empty constructor.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.ToolBar.#ctor(devDept.Eyeshot.toolBarPositionType,System.Boolean,devDept.Eyeshot.ToolBarButton[])">
+        <member name="M:devDept.Eyeshot.ToolBar.#ctor(devDept.Eyeshot.toolBarPositionType,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.ToolBarButton})">
             <summary>
             Standard constructor.
             </summary>
@@ -27750,7 +27734,7 @@
             Empty constructor.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.ToolBarButton.#ctor(System.Drawing.Image,System.String,System.String,devDept.Eyeshot.toolBarButtonStyleType,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ToolBarButton.#ctor(System.Windows.Media.ImageSource,System.String,System.String,devDept.Eyeshot.toolBarButtonStyleType,System.Boolean)">
             <summary>
             Constructor.
             </summary>
@@ -27760,7 +27744,7 @@
             <param name="style">The ToolBarButton style mode</param>
             <param name="visible">The ToolBarButton visibility status</param>
         </member>
-        <member name="M:devDept.Eyeshot.ToolBarButton.#ctor(System.Drawing.Image,System.String,System.String,devDept.Eyeshot.toolBarButtonStyleType,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ToolBarButton.#ctor(System.Windows.Media.ImageSource,System.String,System.String,devDept.Eyeshot.toolBarButtonStyleType,System.Boolean,System.Boolean)">
             <summary>Constructor.
             </summary>
             <param name="buttonImage">The ToolBarButton image</param>
@@ -27770,7 +27754,7 @@
             <param name="visible">The ToolBarButton visibility status</param>
             <param name="enabled">The ToolBarButton enabled status</param>
         </member>
-        <member name="M:devDept.Eyeshot.ToolBarButton.#ctor(System.Drawing.Image,System.String,System.String,devDept.Eyeshot.toolBarButtonStyleType,System.Boolean,System.Boolean,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image,System.Drawing.Image)">
+        <member name="M:devDept.Eyeshot.ToolBarButton.#ctor(System.Windows.Media.ImageSource,System.String,System.String,devDept.Eyeshot.toolBarButtonStyleType,System.Boolean,System.Boolean,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource)">
             <summary>Constructor.
             </summary>
             <param name="buttonImage">The ToolBarButton image</param>
@@ -27829,11 +27813,6 @@
             Gets or sets the style mode of the ToolBarButton (DropDownButton is not supported).
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.ToolBarButton.Name">
-            <summary>
-            Gets or sets the name of the ToolBarButton.
-            </summary>
-        </member>
         <member name="P:devDept.Eyeshot.ToolBarButton.Visible">
             <summary>
             Gets or sets the ToolBarButton visibility status. 
@@ -27882,11 +27861,6 @@
         <member name="P:devDept.Eyeshot.ToolBarButton.ToolTipText">
             <summary>
             Gets or sets the text to show on the ToolTip.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.ToolBarButton.Tag">
-            <summary>
-            Gets or sets the toolbar button custom data.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ToolBarButton.ToolBarButtonClickEventHandler">
@@ -29273,21 +29247,6 @@
             ProcessInputCommand if necessary.
             </summary>
             <param name="message">The Windows message.</param>
-        </member>
-        <member name="T:devDept.Eyeshot.rendererType">
-            <summary>
-            Type of rendering engine.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.rendererType.OpenGL">
-            <summary>
-            Use OpenGL Renderer.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.rendererType.Direct3D">
-            <summary>
-            Use Direct3D Renderer.
-            </summary>
         </member>
         <member name="T:devDept.Eyeshot.ProgressChangedEventArgs">
             <summary>Provides data for the <see cref="E:devDept.Eyeshot.ViewportLayout.ProgressChanged"/> event.</summary>
@@ -32414,7 +32373,7 @@
             Empty constructor.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Legend.#ctor(System.Drawing.Color[])">
+        <member name="M:devDept.Eyeshot.Legend.#ctor(System.Collections.ObjectModel.ObservableCollection{System.Windows.Media.Brush})">
             <summary>
             Color table constructor.
             </summary>
@@ -32426,7 +32385,7 @@
             </summary>
             <param name="another">The legend object to copy</param>
         </member>
-        <member name="M:devDept.Eyeshot.Legend.#ctor(System.Double,System.Double,System.String,System.String,System.Drawing.Point,System.Drawing.Size,System.Boolean,System.Boolean,System.Boolean,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Font,System.Drawing.Font,System.Drawing.Color[])">
+        <member name="M:devDept.Eyeshot.Legend.#ctor(System.Double,System.Double,System.String,System.String,System.Drawing.Point,System.Drawing.Size,System.Boolean,System.Boolean,System.Boolean,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Font,System.Drawing.Font,System.Collections.ObjectModel.ObservableCollection{System.Windows.Media.Brush})">
              <summary>
              Standard constructor.
              </summary>
@@ -34468,11 +34427,11 @@
         <member name="M:devDept.Eyeshot.EntityList.UpdateBoundingBox">
             <summary>
             Computes the model bounding box and updates some important variables.
-            If the <see cref="P:devDept.Eyeshot.ViewportLayout.BoundingBox">bounding box</see>, <see cref="P:devDept.Eyeshot.ViewportLayout.Grid">grid</see>, or <see cref="!:ViewportLayout.Shadow">shadow</see> are visible, it updates them too.
+            If the <see cref="P:devDept.Eyeshot.ViewportLayout.BoundingBox">bounding box</see>, <see cref="!:ViewportLayout.Grid">grid</see>, or <see cref="!:ViewportLayout.Shadow">shadow</see> are visible, it updates them too.
             </summary>
             <remarks>Shadow is updated only if it is visible and if the model has the bounding box height bigger than zero.</remarks>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.BoundingBox"/>
-            <seealso cref="P:devDept.Eyeshot.ViewportLayout.Grid"/>
+            <seealso cref="!:ViewportLayout.Grid"/>
             <seealso cref="!:ViewportLayout.Shadow"/>
             <seealso cref="P:devDept.Eyeshot.EntityList.BoxMin"/>
             <seealso cref="P:devDept.Eyeshot.EntityList.BoxMax"/>
