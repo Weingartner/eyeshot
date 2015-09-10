@@ -5,10 +5,10 @@ open Fake
 open Fake.VersionHelper
 open Fake.NuGetHelper
 
-let assemblyPattern = "devDept.*.dll"
+let assemblyPattern = "*.dll"
 let nugetSpecFilePath = "devDept.Eyeshot.nuspec"
 
-let assemblyFile = FindFirstMatchingFile assemblyPattern "."
+let assemblyFile = FindFirstMatchingFile assemblyPattern "binaries"
 let version = GetAssemblyVersionString assemblyFile
 
 Target "CreateNuspecFile" (fun _ ->
