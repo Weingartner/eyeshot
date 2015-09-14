@@ -1311,20 +1311,6 @@
             Modelview
             </summary>
         </member>
-        <member name="M:devDept.Graphics.D3DRenderContext.GetNChunks(System.Single[],System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@,System.Int32@,System.Int32@)">
-            <summary>
-            Gets the number of chunks in which the data array needs to be split to fit in the dynamicBuffer.
-            </summary>
-            <param name="data"></param>
-            <param name="nFloatsPerVertex"></param>
-            <param name="nVerticesPerPrimitive"></param>
-            <param name="nVertices"></param>
-            <param name="nVerticesPerChunk"></param>
-            <param name="nFloatsPerChunk"></param>
-            <param name="lastChunkVertexCount"></param>
-            <param name="lastChunkFloatCount"></param>
-            <returns></returns>
-        </member>
         <member name="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture">
             <summary>
             Do the rendering on the <see cref="F:devDept.Graphics.D3DRenderContext.backBufferTexture"/> and copy it to the <see cref="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture"/> to avoid issues of synchronization with the D3DImage.

@@ -2196,6 +2196,18 @@
             This class represents location of geometry in 3D space.
             </summary>
         </member>
+        <member name="T:devDept.Eyeshot.FontDataDictionary">
+            <summary>
+            The FontData dictionary.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.FontDataDictionary.Item(System.String)">
+            <summary>
+            Text styles indexer property.
+            </summary>
+            <param name="name">The name of the text style.</param>
+            <returns>The text style with the specified name.</returns>
+        </member>
         <member name="T:devDept.Eyeshot.TextStyleDictionary">
             <summary>
             Text style dictionary class.
@@ -2243,6 +2255,14 @@
             <param name="info"></param>
             <param name="context"></param>
         </member>
+        <member name="M:devDept.Eyeshot.TextStyleDictionary.LoadFont(System.String,System.String)">
+            <summary>
+            Loads a ".shx" shape file.
+            </summary>
+            <param name="styleName">The style name</param>
+            <param name="fileName">The SHX file name</param>
+            <remarks>Call a <see cref="M:devDept.Eyeshot.EntityList.Regen"/> afterwards</remarks>
+        </member>
         <member name="P:devDept.Eyeshot.TextStyleDictionary.Item(System.String)">
             <summary>
             Text styles indexer property.
@@ -2274,6 +2294,24 @@
             Empty constructor.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.TextStyle.#ctor(System.String)">
+            <summary>
+            Filename constructor.
+            </summary>
+            <param name="fileName">The SHX file name</param>
+        </member>
+        <member name="M:devDept.Eyeshot.TextStyle.Load(System.String)">
+            <summary>
+            Loads a ".shx" shape file.
+            </summary>
+            <param name="fileName">The SHX file name</param>
+        </member>
+        <member name="M:devDept.Eyeshot.TextStyle.IsSHX">
+            <summary>
+            Tells if the TextStyle was created from a SHX file.
+            </summary>
+            <remarks>SHX text files support only the <see cref="F:System.Drawing.FontStyle.Regular"/> font style.</remarks>
+        </member>
         <member name="P:devDept.Eyeshot.TextStyle.FontFamilyName">
             <summary>
             Gets or sets te font family name.
@@ -2288,6 +2326,12 @@
             <summary>
             Gets or sets the width factor.
             </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.TextStyle.FileName">
+            <summary>
+            The SHX file name (for SHX fonts).
+            </summary>
+            <remarks>The font file can be loaded with the <see cref="M:devDept.Eyeshot.TextStyleDictionary.LoadFont(System.String,System.String)"/>.</remarks>
         </member>
         <member name="T:devDept.Eyeshot.FontData">
             <summary>
@@ -2327,7 +2371,7 @@
             Character data class. Used internally to store characters data.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.FontStyleCharData.GetMeshes">
+        <member name="M:devDept.Eyeshot.FontStyleCharData.GetEntities">
             <summary>
             Gets the cloned meshes of the FontStyleCharData.
             </summary>
@@ -2340,6 +2384,14 @@
             <param name="s">The character</param>
             <param name="renderContext">The render context</param>
             <param name="fontName">The font name</param>
+            <param name="scaleToUnitSize">Scale that converts the font to unit size</param>
+        </member>
+        <member name="M:devDept.Eyeshot.FontStyleCharData.#ctor(System.String,devDept.Graphics.RenderContextBase,devDept.Eyeshot.TextStyle,System.Double)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="s">The character</param>
+            <param name="textStyle">The text stye</param>
             <param name="scaleToUnitSize">Scale that converts the font to unit size</param>
         </member>
         <member name="T:devDept.Eyeshot.MaterialDictionary">
@@ -7632,11 +7684,13 @@
             <param name="s">The stream</param>
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynch.AddToScene(devDept.Eyeshot.ViewportLayout)">
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynch.AddToScene(devDept.Eyeshot.ViewportLayout,System.Boolean,System.String)">
             <summary>
             Adds the entities loaded from the file to the scene.
             </summary>
-            <param name="viewportLayout">The Viewport used to add the entities</param>
+            <param name="viewportLayout">The Viewport used to add the entities.</param>
+            <param name="removeJittering">When true, it put the entities loaded from the file into a block, add a BlockReference that refers to that block and call the <see cref="!:ViewportLayout.RemoveJittering()"/>.</param>
+            <param name="blockName">The name of the block that will contain the selected entities. Can be null/Nothing.</param>
         </member>
         <member name="M:devDept.Eyeshot.Translators.ReadFileAsynch.AddToScene(devDept.Eyeshot.ViewportLayout,System.Int32)">
             <summary>
@@ -7785,12 +7839,14 @@
             </summary>
             <param name="viewportLayout">The ViewportLayout control</param>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.AddToScene(devDept.Eyeshot.ViewportLayout)">
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.AddToScene(devDept.Eyeshot.ViewportLayout,System.Boolean,System.String)">
             <summary>
             Adds to the Viewport the entities loaded from the Autodesk file, along with layers and blocks. Blocks and layers contained 
             previously in the Viewport are merged.
             </summary>
             <param name="viewportLayout">The Viewport used to add entities, layers and blocks.</param>
+            <param name="removeJittering">When true, it put the entities loaded from the Autodesk file into a block, add a BlockReference that refers to that block and call the <see cref="!:ViewportLayout.RemoveJittering()"/> method.</param>
+            <param name="blockName">The name of the block that will contain the selected entities. Can be null/Nothing.</param>
         </member>
         <member name="P:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.Layers">
             <summary>
@@ -7867,11 +7923,13 @@
             </summary>
             <param name="fileName">The file to read</param>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.ReadOBJ.AddToScene(devDept.Eyeshot.ViewportLayout)">
+        <member name="M:devDept.Eyeshot.Translators.ReadOBJ.AddToScene(devDept.Eyeshot.ViewportLayout,System.Boolean,System.String)">
             <summary>
             Adds entities and materials, read from the OBJ file, to the Viewport.
             </summary>
-            <param name="viewportLayout">The Viewport used to add entities and materials</param>
+            <param name="viewportLayout">The Viewport used to add entities and materials.</param>
+            <param name="removeJittering">When true, it put the entities read from the OBJ file into a block, add a BlockReference that refers to that block and call the <see cref="!:ViewportLayout.RemoveJittering()"/> method.</param>
+            <param name="blockName">The name of the block that will contain the selected entities. Can be null/Nothing.</param>
         </member>
         <member name="M:devDept.Eyeshot.Translators.ReadOBJ.AddToScene(devDept.Eyeshot.ViewportLayout,System.Int32)">
             <summary>
@@ -9543,6 +9601,22 @@
             <summary>
             The Timer used for animation.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.RemoveJittering(System.String)">
+            <summary>        
+            Creates a block with the selected <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/>, computes the center of their bounding box, translate them all of the negative of that quantity and returns a BlockReference to that block.
+            </summary>
+            <param name="blockName">The name of the block that will contain the selected entities.</param>
+            <returns>The blockReference referring to the created block.</returns>
+            <remarks>When the entities are very far from the origin their appearance on screen may become very compromised, and the camera may shake badly when moving/rotating the view. To fix this issue you can select these entities and call this method.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.RemoveJittering(devDept.Eyeshot.Entities.BlockReference)">
+            <summary>        
+            Gets the blockreference's entities, computes the center of their bounding box, translate them all of the negative of that quantity and translate the blockreference back to the original position.
+            Computes the center of their bounding box, translate them all of the negative of that quantity and returns a BlockReference to that block.
+            </summary>
+            <param name="blockReference">The blockreference name of the block that will contain the selected entities.</param>        
+            <remarks>When the entities are very far from the origin their appearance on screen may become very compromised, and the camera may shake badly when moving/rotating the view. To fix this issue you can select these entities and call this method.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.GroupSelection">
             <summary>
@@ -12259,7 +12333,7 @@
             <summary>Print document name. It also appears during print preview preparation.</summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.AnimationStep">
-            <summary>Gets or sets the animation step. Can be a negative number.</summary>
+            <summary>Gets or sets the animation step that increments the <see cref="P:devDept.Eyeshot.ViewportLayout.AnimationFrameNumber"/> at each tick of the animation timer. Can be a negative number.</summary>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StartAnimation(System.Int32)">StartAnimation Method</seealso>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StopAnimation">StopAnimation Method</seealso>
         </member>
@@ -19807,6 +19881,18 @@
             </summary>
             <remarks>You need to call the Viewport.Entities.Regen() to see the effect of this command.</remarks>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.LinearDim.ShowExtLine1">
+            <summary>
+            When true shows the first extension line.
+            </summary>
+            <remarks>You need to call the Viewport.Entities.Regen() to see the effect of this command.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.LinearDim.ShowExtLine2">
+            <summary>
+            When true shows the second extension line.
+            </summary>
+            <remarks>You need to call the Viewport.Entities.Regen() to see the effect of this command.</remarks>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.FemMesh">
             <summary>
             Finite Element Method mesh entity. Can be 2D or 3D.
@@ -24147,6 +24233,15 @@
             <param name="endIndex">Array of end indices</param>
             <returns>The number of logical processors</returns>
         </member>
+        <member name="M:devDept.Geometry.UtilityEx.GetSubstrings(System.String,System.String,System.String)">
+            <summary>
+            Gets substring between starting and ending chars.
+            </summary>
+            <param name="input">The input string.</param>
+            <param name="start">The string that identifies the beginning.</param>
+            <param name="end">The string that identifies the end.</param>
+            <returns>The string between the start and the end.</returns>
+        </member>
         <member name="M:devDept.Geometry.UtilityEx.IsOrientedClockwise(devDept.Geometry.Transformation,devDept.Eyeshot.Entities.ICurve)">
             <summary>
             Checks if the closed curve orientation is clockwise.
@@ -24402,7 +24497,7 @@
             <param name="viewportLayout">The viewportLayout</param>
             <param name="viewport">The viewport</param>
         </member>
-        <member name="M:devDept.Eyeshot.DrawParams.#ctor(devDept.Eyeshot.ViewportLayout,System.Single,System.Single[],System.Single,System.Int32,devDept.Geometry.Transformation,System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.FontData},devDept.Eyeshot.TextStyleDictionary)">
+        <member name="M:devDept.Eyeshot.DrawParams.#ctor(devDept.Eyeshot.ViewportLayout,System.Single,System.Single[],System.Single,System.Int32,devDept.Geometry.Transformation,devDept.Eyeshot.FontDataDictionary,devDept.Eyeshot.TextStyleDictionary)">
             <summary>
             Standard constructor.
             </summary>
@@ -24496,7 +24591,7 @@
             Empty constructor.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.DrawSilhouettesParams.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Graphics.projectionType,System.Double[],System.Int32[],System.Single,System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.FontData},devDept.Eyeshot.TextStyleDictionary,devDept.Geometry.Transformation,System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block})">
+        <member name="M:devDept.Eyeshot.DrawSilhouettesParams.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Graphics.projectionType,System.Double[],System.Int32[],System.Single,devDept.Eyeshot.FontDataDictionary,devDept.Eyeshot.TextStyleDictionary,devDept.Geometry.Transformation,System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block})">
             <summary>
             Standard constructor.
             </summary>
@@ -31087,6 +31182,15 @@
             <param name="minGridProjMatrix">Projection matrix to draw from minNear to camera.near</param>
             <param name="maxGridProjMatrix">Projection matrix to draw from camera.far to maxFar. null if "whole" is true.</param>
         </member>
+        <member name="M:devDept.Eyeshot.Camera.GetProjectionMatrix(System.Double,System.Double,devDept.Eyeshot.ViewportLayout.CameraEyePosType)">
+            <summary>
+            Gets the projection matrix.
+            </summary>
+            <param name="nearDistance">The near plane distance</param>
+            <param name="farDistance">The far plane distance</param>
+            <param name="cameraEyePos">The camera 3D position (for anaglyphic 3D)</param>
+            <returns>The computed projection matrix.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Camera.SetupModelView(System.Boolean,System.Boolean,devDept.Eyeshot.ViewportLayout.CameraEyePosType)">
              <summary>
              Gives a chance to derived classes to setup camera by two points and a vector.
@@ -32361,6 +32465,11 @@
             Viewport's Fem legend.
             </summary>
         </member>
+        <member name="F:devDept.Eyeshot.Legend.ColorTableProperty">
+            <summary>
+            Gets or sets the legend color table.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.Legend.SetRange(System.Double,System.Double)">
             <summary>
             Sets the range of legend values.
@@ -32407,6 +32516,26 @@
              <param name="colorTable">Color table</param>
             <param name="alignMiddle">If true, values are vertically aligned to the middle of the color rectangles</param>
         </member>
+        <member name="F:devDept.Eyeshot.Legend.MinProperty">
+            <summary>
+            Gets or sets legend minimum value.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Legend.MaxProperty">
+            <summary>
+            Gets or sets legend maximum value.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Legend.TitleProperty">
+            <summary>
+            Gets or sets the legend title.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Legend.SubtitleProperty">
+            <summary>
+            Gets or sets the legend subtitle.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.Legend.CreateLabelsTextures(devDept.Eyeshot.ViewportLayout)">
             <summary>
             Creates the bitmaps shown next to the legend items.
@@ -32414,34 +32543,9 @@
             <param name="control">The parent control</param>
             <returns>An array of bitmaps with ColorTable.Length + 1 elements</returns>
         </member>
-        <member name="P:devDept.Eyeshot.Legend.ColorTable">
-            <summary>
-            Gets or sets the legend color table.
-            </summary>
-        </member>
         <member name="P:devDept.Eyeshot.Legend.Values">
             <summary>
             Gets the legend values.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Legend.Min">
-            <summary>
-            Gets or sets legend minimum value.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Legend.Max">
-            <summary>
-            Gets or sets legend maximum value.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Legend.Title">
-            <summary>
-            Gets or sets the legend title.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Legend.Subtitle">
-            <summary>
-            Gets or sets the legend subtitle.
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.Legend.IsSlave">
@@ -35567,6 +35671,14 @@
             <summary>
             Used to multiply adjust the screenToViewport coefficient
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.BlockReference.GetBlocksNamesInternal(System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IList{System.String},System.Boolean)">
+            <summary>
+            Gets all the blocks names used by the BlockReference (recursive loop).
+            </summary>
+            <param name="blocks">The blocks dictionary.</param>
+            <param name="blockNameList">The list of the blocks names.</param>
+            <param name="includeCurrentBlock">When true the name of the current block is added to the list.</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.BlockReference.Explode(System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block})">
             <summary>
