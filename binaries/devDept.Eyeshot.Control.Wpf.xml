@@ -5315,17 +5315,15 @@
             <returns>True if the 3D point is inside the mesh, false otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.CutBy(devDept.Geometry.Plane)">
-            <summary>
-            Geometrically cuts a Mesh object using the Plane specified.
-            </summary>
-            <param name="plane">The plane</param>
+            <summary>Cuts the part of the mesh on the positive side of a plane.
+             </summary>
+             <param name="plane">The plane</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.CutBy(devDept.Geometry.Plane,System.Boolean)">
-            <summary>
-            Geometrically cuts a Mesh object using the Plane specified.
-            </summary>
-            <param name="plane">The plane</param>
-            <param name="close">If false, the resulting mesh will not be closed</param>
+            <summary>Cuts the part of the mesh on the positive side of a plane.
+             </summary>
+             <param name="plane">The plane</param>
+             <param name="close">If false, the resulting mesh will not be closed</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.UpdateNormals">
             <summary>
@@ -7517,6 +7515,21 @@
             </summary>
             <remarks>You need to call the Viewport.Entities.Regen() to see the effect of this command.</remarks>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.AngularDim.StartAngle">
+            <summary>
+            Gets the dimension arc start angle.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.AngularDim.EndAngle">
+            <summary>
+            Gets the dimension arc end angle.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.AngularDim.Radius">
+            <summary>
+            Gets the dimension arc radius.
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.Solid3D">
             <summary>
             BRep solid entity definition.
@@ -8087,6 +8100,16 @@
             <returns>The merged surface</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.MergeKinkV(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Surface)">
+            <summary>
+            Joins two surfaces. Surfaces must be properly oriented and of the same degree.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.MergeKnotsAndPwV(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Surface)">
+            <summary>
+            Joins two surfaces. Surfaces must be properly oriented and of the same degree.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.MergeKnotsAndPwU(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Surface)">
             <summary>
             Joins two surfaces. Surfaces must be properly oriented and of the same degree.
             </summary>
@@ -13374,7 +13397,7 @@
             <param name="drawBackground">If true, the drawing of the background is skipped</param>
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Boolean,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -13383,7 +13406,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -15596,7 +15619,7 @@
              <param name="penHiddenEdge">The pen used to draw the hidden edges</param>
              <param name="penHiddenWire">The pen used to draw the hidden wireframe</param>
         </member>
-        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.Rectangle)">
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.RectangleF)">
             <summary>Window mode constructor.
             </summary>
             <param name="viewport">The viewport to process</param>
@@ -15606,7 +15629,7 @@
             <param name="keepHiddenSegments">If true, computes even the hidden edges, silhouettes, wires in separate arrays</param>
             <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>
         </member>
-        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.Rectangle,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen)">
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.RectangleF,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen)">
             <summary>Window mode constructor.
             </summary>
             <param name="viewport">The viewport to process</param>
@@ -15619,7 +15642,7 @@
             <param name="keepHiddenSegments">If true, computes even the hidden edges, silhouettes, wires in separate arrays</param>
             <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>        
         </member>
-        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.Rectangle,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen,System.Boolean)">
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.RectangleF,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen,System.Boolean)">
             <summary>Window mode constructor.
             </summary>
             <param name="viewport">The viewport to process</param>
@@ -15632,7 +15655,7 @@
             <param name="keepHiddenSegments">If true, computes even the hidden edges, silhouettes, wires in separate arrays</param>
             <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>        
         </member>
-        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.Rectangle,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen,System.Boolean,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen)">
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.RectangleF,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen,System.Boolean,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen)">
             <summary>Window mode constructor.
             </summary>
             <param name="viewport">The viewport to process</param>
@@ -15648,7 +15671,7 @@
              <param name="penHiddenEdge">The pen used to draw the hidden edges</param>
              <param name="penHiddenWire">The pen used to draw the hidden wireframe</param>
         </member>
-        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.Rectangle,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen,System.Boolean,System.Boolean,System.Boolean,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen)">
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,System.Drawing.RectangleF,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen,System.Boolean,System.Boolean,System.Boolean,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen)">
             <summary>Window mode constructor.
             </summary>
             <param name="viewport">The viewport to process</param>
@@ -15676,7 +15699,7 @@
             ConversionFactor between the viewport used internally for the computation and the original viewport.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,devDept.Eyeshot.hiddenLinesViewType,System.Drawing.Rectangle,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen,System.Boolean,System.Boolean,System.Boolean,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen)">
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.ViewportLayout,System.Double,devDept.Eyeshot.hiddenLinesViewType,System.Drawing.RectangleF,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen,System.Boolean,System.Boolean,System.Boolean,System.Drawing.Pen,System.Drawing.Pen,System.Drawing.Pen)">
             <summary>General mode Constructor.
             </summary>
             <param name="viewport">The viewport to process</param>
@@ -16435,6 +16458,13 @@
             <param name="pt"></param>
             <returns></returns>
         </member>
+        <member name="M:devDept.Eyeshot.Viewport.ScreenToViewport(System.Drawing.PointF)">
+            <summary>
+            Converts Screen coordinates (0 on top of control) to Viewport coordinates (0 on top of viewport)
+            </summary>
+            <param name="pt"></param>
+            <returns></returns>
+        </member>
         <member name="M:devDept.Eyeshot.Viewport.ViewportToScreen(System.Drawing.Point)">
             <summary>
             Converts Viewport coordinates (0 on top of viewport) to Screen coordinates (0 on top of control)
@@ -16443,6 +16473,13 @@
             <returns></returns>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.ScreenToCameraScreen(System.Drawing.Point)">
+            <summary>
+            Converts Screen coordinates (0 on top of control) to Camera Screen coordinates relative to the lower left corner of the control
+            </summary>
+            <param name="pt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.ScreenToCameraScreen(System.Drawing.PointF)">
             <summary>
             Converts Screen coordinates (0 on top of control) to Camera Screen coordinates relative to the lower left corner of the control
             </summary>
@@ -16850,7 +16887,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
             <param name="drawScale">The bitmap scale</param>
@@ -16859,7 +16896,7 @@
             <returns>The 24-bit image.</returns>
             <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.Style"/> to <see cref="F:devDept.Graphics.backgroundStyleType.None"/>.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Double,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
             <param name="drawScale">The bitmap scale</param>
@@ -16908,7 +16945,7 @@
         </member>
         <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Boolean,System.Boolean)" -->
         <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Drawing.Color,System.Boolean)" -->
-        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -16917,8 +16954,8 @@
             <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
             <returns>The 24-bit image.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Boolean,System.Boolean)" -->
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Double,System.Drawing.Color,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Drawing.Color,System.Boolean)" -->
         <member name="M:devDept.Eyeshot.Viewport.RenderToBitmapInternal(devDept.Eyeshot.Viewport.RenderToBitmapParams,System.Drawing.Size)">
             <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout"/> scene. The image can be scaled even to a poster size one.</summary>
             <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -20161,6 +20198,7 @@
             <summary>
             Gets or sets a value indicating whether the movements are enabled.
             </summary>
+            <remarks>It must be set before the control handle is created (in the Form or Window constructor).</remarks>
         </member>
         <member name="T:devDept.Eyeshot.NavigationSettings">
             <summary>
@@ -25478,7 +25516,12 @@
         </member>
         <member name="F:devDept.Eyeshot.Entities.HitTriangle.ShellOrElementIndex">
             <summary>
-            <see cref="!:Solid3D.Shell"/> or <see cref="!:Element"/> index.
+            <see cref="!:Shell"/> or <see cref="!:Element"/> index.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.HitTriangle.ParamSurfaceIndex">
+            <summary>
+            <see cref="F:devDept.Eyeshot.Entities.Solid3D.Face.Parametric"/> index.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.Entities.entityNatureType">
@@ -30740,13 +30783,6 @@
                  with the maximum. (this is the one implemented).
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.BinarySpacePartitioning.AnyEdgeIntersectWithPlane(devDept.Eyeshot.BinarySpacePartitioning.Vertex,devDept.Eyeshot.BinarySpacePartitioning.Vertex,devDept.Eyeshot.BinarySpacePartitioning.Plane,devDept.Eyeshot.BinarySpacePartitioning.Vertex@)">
-            <summary>
-            Determines if an edge bounded by (x1,y1,z1).(x2,y2,z2) intersects the plane.
-            </summary>
-            <returns>If there's an intersection, the sign of (x1,y1,z1), Sign.Negative or Positive, w.r.t. the plane is
-            returned with the intersection (ixx,iyy,izz) updated. Otherwise Zero is returned.</returns>
-        </member>
         <member name="M:devDept.Eyeshot.BinarySpacePartitioning.ConstructTree(devDept.Eyeshot.BinarySpacePartitioning.Face)">
             <summary>
             Returns a BSP tree of scene from a list of convex faces.
@@ -30813,12 +30849,24 @@
             <param name="face">face to check</param>
             <param name="plane">plane</param>
         </member>
+        <member name="M:devDept.Eyeshot.BinarySpacePartitioning.Vertex.AnyEdgeIntersectWithPlane(devDept.Eyeshot.BinarySpacePartitioning.Vertex,devDept.Eyeshot.BinarySpacePartitioning.Plane,devDept.Eyeshot.BinarySpacePartitioning.Vertex@)">
+            <summary>
+            Determines if an edge bounded by (x1,y1,z1).(x2,y2,z2) intersects the plane.
+            </summary>
+            <returns>If there's an intersection, the sign of (x1,y1,z1), Sign.Negative or Positive, w.r.t. the plane is
+            returned with the intersection (ixx,iyy,izz) updated. Otherwise Zero is returned.</returns>
+        </member>
         <member name="T:devDept.Eyeshot.BinarySpacePartitioning.Face">
             <summary>
             class that Holds transparency data for shaded mode
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.BinarySpacePartitioning.RenderedFace">
+            <summary>
+            Class that holds transparency data for Rendered mode or for Rendered and Shaded
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.BinarySpacePartitioning.RenderedTexturedFace">
             <summary>
             Class that holds transparency data for Rendered mode or for Rendered and Shaded
             </summary>

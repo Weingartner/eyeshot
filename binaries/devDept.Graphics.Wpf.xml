@@ -850,7 +850,7 @@
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawTrianglesPartial(devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[],System.Drawing.PointF[])">
             <summary>
-            Draws triangles with one normals per vertex, as part of a drawing loop (no Begin-End is done).
+            Draws triangles with one normal per vertex, as part of a drawing loop (no Begin-End is done).
             </summary>
             <param name="vertices"></param>
             <param name="normals"></param>
@@ -858,10 +858,19 @@
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawTrianglesPartialWithMaterialColor(devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[],System.Boolean)">
             <summary>
-            Draws triangles with one normals per vertex, as part of a drawing loop (no Begin-End is done), using the current material color.
+            Draws triangles with one normal per vertex, as part of a drawing loop (no Begin-End is done), using the current material color.
             </summary>
             <param name="vertices"></param>
             <param name="normals"></param>
+            <param name="addToCurrentBufferPart">If true adds the data to the current buffer part</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawTrianglesPartialWithTexture(devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[],System.Drawing.PointF[],System.Boolean)">
+            <summary>
+            Draws triangles with one normal and one texture coordinate per vertex, as part of a drawing loop (no Begin-End is done), using the current texture.
+            </summary>
+            <param name="vertices">The vertices array</param>
+            <param name="normals">The normals array</param>
+            <param name="texCoords">The texture coordiantes array</param>
             <param name="addToCurrentBufferPart">If true adds the data to the current buffer part</param>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawTriangles(devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[],System.Single[],System.Boolean)">
@@ -1081,7 +1090,7 @@
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.LockBlendState(System.Boolean)">
             <summary>
-            Locks the blend states so that the following calls to <see cref="M:devDept.Graphics.RenderContextBase.SetShader(devDept.Graphics.shaderType,devDept.Graphics.ShaderParameters,System.Boolean)"/> won't do anything until the blend states are unlocked.
+            Locks the blend state so that the following calls to <see cref="M:devDept.Graphics.RenderContextBase.SetState(devDept.Graphics.blendStateType)"/> won't do anything until the blend state is unlocked.
             </summary>
             <param name="lockBlendState"></param>
         </member>
@@ -1189,6 +1198,12 @@
             </summary>
             <remarks>For internal use only.</remarks>
             <seealso cref="M:devDept.Graphics.RenderContextBase.BeginCaptureZBufferOnce"/>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.LockDepthState(System.Boolean)">
+            <summary>
+            Locks the depth stencil state so that the following calls to <see cref="M:devDept.Graphics.RenderContextBase.SetState(devDept.Graphics.depthStencilStateType)"/> won't do anything until the state is unlocked.
+            </summary>
+            <param name="lockState">The lock status</param>
         </member>
         <member name="P:devDept.Graphics.RenderContextBase.NumberOfSplits">
             <summary>
