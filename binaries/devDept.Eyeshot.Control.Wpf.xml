@@ -15746,6 +15746,13 @@
             </summary>
             <returns>The conversion factor</returns>
         </member>
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ConvertToSegment2D(System.Collections.Generic.IList{devDept.Eyeshot.ScreenLine})">
+            <summary>
+            Converts a <see cref="T:devDept.Eyeshot.ScreenLine"/> collection to a <see cref="T:devDept.Geometry.Segment2D"/> collection.
+            </summary>
+            <param name="lines">The lines to convert</param>
+            <returns>The <see cref="T:devDept.Geometry.Segment2D"/> collection.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.GetSilhouettes">
             <summary>
             The list of 2D segments representing the view silhouettes.
