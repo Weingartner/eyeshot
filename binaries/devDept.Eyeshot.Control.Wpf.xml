@@ -7366,6 +7366,24 @@
             <param name="rgbArray">The color array defined as RGB tuples, RGBA tuples or as modulation factors (see <see cref="P:devDept.Eyeshot.Entities.FastPointCloud.ColorArray"/> documentation for details)</param>
             <param name="pointSize">Point size </param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.FastPointCloud.CentroidDownsampling(System.Double)">
+            <summary>
+            Performs a centroid downsampling to this fastpointcloud.
+            </summary>
+            <param name="voxelSize">The size of the single voxel for the grid filter.</param>        
+            <remarks>
+            You need to call ViewportLayout.Entities.Regen() to see the effect of this command.
+            </remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.FastPointCloud.CenterDownsampling(System.Double)">
+            <summary>
+            Performs a center downsampling to this fastpointcloud.
+            </summary>
+            <param name="voxelSize">The size of the single voxel for the grid filter.</param>
+            <remarks>
+            You need to call ViewportLayout.Entities.Regen() to see the effect of this command.
+            </remarks>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.FastPointCloud.FitCircle(devDept.Geometry.Plane@,System.Double@)">
             <summary>
             Fits a circle to the point cloud vertices.
@@ -14249,7 +14267,6 @@
             <summary>
             Returns the indices of the entities read from the back buffer in the selectionBox.
             </summary>
-            <param name="entList">The list of entities</param>
             <param name="viewport">The viewport</param>
             <param name="stride">The number of bytes per image row</param>
             <param name="selectionBox">Selection rectangle in screen coordinates</param>
@@ -15236,6 +15253,31 @@
             </summary>
             <param name="sender">The source of the event.</param>
             <param name="e">A <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        </member>
+        <member name="T:devDept.Eyeshot.ViewportLayout.selectionEntityType">
+            <summary>
+            The selection entity mode.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.ViewportLayout.selectionEntityType.Entities">
+            <summary>
+            Selects the entities
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.ViewportLayout.selectionEntityType.ViewCube">
+            <summary>
+            Selects the viewcube parts
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.ViewportLayout.selectionEntityType.ObjectManipulator">
+            <summary>
+            Selects the object maniuplator parts
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.ViewportLayout.selectionEntityType.Labels">
+            <summary>
+            Selects the labels
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs">
             <summary>Provides data for the <see cref="E:devDept.Eyeshot.ViewportLayout.SelectionChanged"/> event.</summary>
@@ -19195,11 +19237,6 @@
             </summary>
             <returns>The new composite curve object.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.CompositeCurve.Explode">
-            <summary>
-            Returns the list of curves as array of entities.
-            </summary>
-        </member>
         <member name="M:devDept.Eyeshot.Entities.CompositeCurve.Explode(System.Boolean)">
             <summary>
             Returns the list of curves as array of entities.
@@ -22345,6 +22382,14 @@
             <param name="renderContext">The render context </param>
             <param name="modelViewProj">The modelview projection matrix</param>
             <param name="viewFrame">The viewport rectangle in camera coordinates ([0,0] at bottom left)</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Labels.Label.Regen(devDept.Graphics.RenderContextBase,System.Single)">
+            <summary>
+            Regenerates the label creating the internal data needed to draw the label.
+            </summary>
+            <param name="renderContext">The render context</param>
+            <param name="drawScale">The drawing scale</param>
+            <remarks>It must be called explicitly only for labels that are not in the <see cref="P:devDept.Eyeshot.ViewportLayout.Labels"/> list.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Labels.Label.Draw(devDept.Graphics.RenderContextBase)">
             <summary>
@@ -25523,7 +25568,7 @@
         </member>
         <member name="F:devDept.Eyeshot.Entities.HitTriangle.ShellOrElementIndex">
             <summary>
-            <see cref="!:Shell"/> or <see cref="!:Element"/> index.
+            Shell or <see cref="!:Element"/> index.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.HitTriangle.ParamSurfaceIndex">
@@ -28713,6 +28758,7 @@
             <summary>
             Gets or sets the mesh entities used to draw the the CoordinateSystemIcon.
             </summary>
+            <remarks>To be correctly visualized the entities must have a maximum size of 7.5 units.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.CoordinateSystemIcon.Position">
             <summary>

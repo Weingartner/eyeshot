@@ -1328,7 +1328,7 @@
         </member>
         <member name="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture">
             <summary>
-            Do the rendering on the <see cref="F:devDept.Graphics.D3DRenderContext.backBufferTexture"/> and copy it to the <see cref="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture"/> to avoid issues of synchronization with the D3DImage.
+            Do the rendering on the <see cref="P:devDept.Graphics.D3DRenderContext.backBufferTexture"/> and copy it to the <see cref="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture"/> to avoid issues of synchronization with the D3DImage.
             </summary>
         </member>
         <member name="F:devDept.Graphics.D3DRenderContext.depthTexture">
@@ -1672,39 +1672,6 @@
             <param name="repeatY">If true, the texture is repeated in the Y direction</param>
             <returns></returns>
         </member>
-        <member name="M:devDept.Graphics.D3DWpfHelper.StartD3D(System.Int32,System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="msCount">Number of samples for multisampling</param>
-            <param name="msQuality">Quality level for multisample</param>
-        </member>
-        <member name="M:devDept.Graphics.Disposer.RemoveAndDispose``1(``0@)">
-            <summary>
-            Dispose an object instance and set the reference to null
-            </summary>
-            <typeparam name="TypeName">The type of object to dispose</typeparam>
-            <param name="resource">A reference to the instance for disposal</param>
-            <remarks>This method hides any thrown exceptions that might occur during disposal of the object (by design)</remarks>
-        </member>
-        <member name="M:devDept.Graphics.D3DWPFImageSource.InvalidateD3DImage">
-            <summary>
-            Updates the back buffer.
-            </summary>
-        </member>
-        <member name="M:devDept.Graphics.D3DWPFImageSource.SetBackBuffer(System.IntPtr)">
-            <summary>
-            Assigns a Direct3D surface as the source of the back buffer.
-            </summary>
-            <param name="surfacePointer">The native pointer of the Direct3D surface</param>
-        </member>
-        <member name="M:devDept.Graphics.D3DWPFImageSource.StartD3D(System.Int32,System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="msCount">Number of samples for multisampling</param>
-            <param name="msQuality">Quality level for multisample</param>
-        </member>
         <member name="T:devDept.Graphics.EntityGraphicsData">
             <summary>
             Class that holds the compiled graphics data.
@@ -1757,7 +1724,7 @@
         </member>
         <member name="F:devDept.Graphics.VBOParams.colors">
             <summary>
-            Vertices colors
+            Vertices colors (3 bytes per vertex for full color, 1 byte per vertex for color modulation).
             </summary>
         </member>
         <member name="F:devDept.Graphics.VBOParams.normals">
@@ -2555,6 +2522,130 @@
             The color applies to the ambient component of both front and back faces.
             </summary>
         </member>
+        <member name="M:devDept.Graphics.Disposer.RemoveAndDispose``1(``0@)">
+            <summary>
+            Dispose an object instance and set the reference to null
+            </summary>
+            <typeparam name="TypeName">The type of object to dispose</typeparam>
+            <param name="resource">A reference to the instance for disposal</param>
+            <remarks>This method hides any thrown exceptions that might occur during disposal of the object (by design)</remarks>
+        </member>
+        <member name="T:devDept.Graphics.D3DImageExtManager">
+            <summary>
+            Device Manager that handles interop between D3D11 and D3D9, and schedule global <see cref="E:System.Windows.Media.CompositionTarget.Rendering"/>.
+            </summary>
+            <remarks>
+            To initialize one instance per Direct3D11 device for a WPF application.
+            </remarks>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageExtManager.RenderTextureDirect3D9">
+            <summary>
+            The D3D9 shared texture
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageExtManager.SurfaceDirect3D9">
+            <summary>
+            The D3D9 shared surface
+            </summary>
+        </member>
+        <member name="M:devDept.Graphics.D3DImageExtManager.#ctor(SharpDX.Direct3D11.Device,SharpDX.Direct3D11.DeviceContext,SharpDX.Direct3D11.Texture2D)">
+            <summary>
+            Initialize a new instance of <see cref="T:devDept.Graphics.D3DImageExtManager"/>.
+            </summary>
+            <param name="device"></param>
+        </member>
+        <member name="T:devDept.Graphics.D3DImageExtManager.UpdateBackBufferCommand">
+            <summary>
+            Internal command used to push an update of the backbuffer
+            </summary>
+        </member>
+        <member name="T:devDept.Graphics.D3DImageSurface">
+            <summary>
+            A surface returned by <see cref="!:D3DImageExt.BeginDraw"/>.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageSurface.RenderTexture">
+            <summary>
+            The <see cref="T:SharpDX.Direct3D11.Texture2D"/> to render to.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageSurface.RenderTargetView">
+            <summary>
+            The <see cref="F:devDept.Graphics.D3DImageSurface.RenderTargetView"/> to render to.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageSurface.QuerySync">
+            <summary>
+            The internal query to wait for the end of the rendering.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageSurface.State">
+            <summary>
+            Current state of this surface.
+            </summary>
+        </member>
+        <member name="T:devDept.Graphics.D3DImageSurfaceState">
+            <summary>
+            Internal enum associated with a <see cref="T:devDept.Graphics.D3DImageSurface"/> to track the state of the shared surface.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageSurfaceState.Available">
+            <summary>
+            The surface is available for D3D11 rendering.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageSurfaceState.Rendered">
+            <summary>
+            The surface has been rendered and is ready to be pushed to WPF
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageSurfaceState.SubmittedToD3DImage">
+            <summary>
+            The surface has been set as a D3DImage backbuffer.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DImageSurfaceState.Disposed">
+            <summary>
+            The surface is diposed.
+            </summary>
+        </member>
+        <member name="M:devDept.Graphics.D3DWPFImageSource.Initialize(devDept.Graphics.D3DImageExtManager,System.Int32,System.Int32,SharpDX.Direct3D11.Texture2D,SharpDX.Direct3D11.Texture2DDescription,System.Int32)">
+            <summary>
+            Initialize this instance with the specified <see cref="T:devDept.Graphics.D3DImageExtManager"/>.
+            </summary>
+            <param name="d3dImageManager">The D3DImageManager instance</param>
+            <param name="renderSurfaceCount">The number of shared surface to use to render.</param>
+            <param name="width">The width of the texture</param>
+            <param name="height">The height of the texture</param>
+        </member>
+        <member name="M:devDept.Graphics.D3DWPFImageSource.InvalidateD3DImage">
+            <summary>
+            Updates the back buffer.
+            </summary>
+        </member>
+        <member name="M:devDept.Graphics.D3DWPFImageSource.SetBackBuffer(System.IntPtr)">
+            <summary>
+            Assigns a Direct3D surface as the source of the back buffer.
+            </summary>
+            <param name="surfacePointer">The native pointer of the Direct3D surface</param>
+        </member>
+        <member name="M:devDept.Graphics.D3DWPFImageSource.BeginDraw">
+            <summary>
+            Begins to draw to this instance.
+            </summary>
+            <returns>A shared surface or null if none are available.</returns>
+        </member>
+        <member name="M:devDept.Graphics.D3DWPFImageSource.EndDraw(devDept.Graphics.D3DImageSurface,System.Boolean)">
+            <summary>
+            Ends the draw for this instance. Must be called even if surface returned by <see cref="M:devDept.Graphics.D3DWPFImageSource.BeginDraw"/> was null.
+            </summary>
+            <param name="surface"></param>
+        </member>
+        <member name="T:devDept.Graphics.ClipPlanesFlags">
+            <summary>
+            The bitmask of enabled clip planes.
+            </summary>
+        </member>
         <member name="T:devDept.Graphics.ConstantBufferPerFrameData">
             <summary>
             Class that holds the application data per frame, some of which will be passed to the shader.
@@ -2580,13 +2671,13 @@
             BlockReference world matrix.
             </summary>
         </member>
-        <member name="M:devDept.Graphics.ID3DShader.Set(SharpDX.Direct3D11.DeviceContext)">
+        <member name="M:devDept.Graphics.ID3DShader.Set(SharpDX.Direct3D11.DeviceContext,System.Boolean)">
             <summary>
             Sets the shader on the device context.
             </summary>
             <param name="Context"></param>
         </member>
-        <member name="M:devDept.Graphics.D3DShader`2.#ctor(SharpDX.Direct3D11.Device,SharpDX.Direct3D.FeatureLevel,System.String,SharpDX.Direct3D11.InputElement[],devDept.Graphics.ConstantBufferSlots,devDept.Graphics.ConstantBufferSlots)">
+        <member name="M:devDept.Graphics.D3DShader`2.#ctor(SharpDX.Direct3D11.Device,SharpDX.Direct3D.FeatureLevel,System.String,SharpDX.Direct3D11.InputElement[],devDept.Graphics.ConstantBufferSlots,devDept.Graphics.ConstantBufferSlots,System.Boolean)">
             <summary>
             
             </summary>
@@ -2596,8 +2687,9 @@
             <param name="inputElements"></param>
             <param name="vertexCBSlots">The constant buffer slots for the vertex shader</param>
             <param name="pixelCBSlots">The constant buffer slots for the pixel shader</param>
+            <param name="clipPlanesSeparateShader">If true, loads a separate shader for the clipping planes evaluation</param>
         </member>
-        <member name="M:devDept.Graphics.D3DShader`2.#ctor(SharpDX.Direct3D11.Device,SharpDX.Direct3D.FeatureLevel,System.String,System.String,SharpDX.Direct3D11.InputElement[],devDept.Graphics.ConstantBufferSlots,devDept.Graphics.ConstantBufferSlots)">
+        <member name="M:devDept.Graphics.D3DShader`2.#ctor(SharpDX.Direct3D11.Device,SharpDX.Direct3D.FeatureLevel,System.String,System.String,SharpDX.Direct3D11.InputElement[],devDept.Graphics.ConstantBufferSlots,devDept.Graphics.ConstantBufferSlots,System.Boolean)">
             <summary>
             
             </summary>
@@ -2608,6 +2700,17 @@
             <param name="inputElements"></param>
             <param name="vertexCBSlots">The constant buffer slots for the vertex shader</param>
             <param name="pixelCBSlots">The constant buffer slots for the pixel shader</param>
+            <param name="clipPlanesSeparateShader">If true, loads a separate shader for the clipping planes evaluation</param>
+        </member>
+        <member name="F:devDept.Graphics.D3DShader`2.PixelShader">
+            <summary>
+            The pixel shader without the clip planes evaluation (for better performances on low hardware).
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DShader`2.PixelShaderClipPlanes">
+            <summary>
+            The pixel shader with the clip planes evaluation.
+            </summary>
         </member>
         <member name="T:devDept.Graphics.DrawEntityCallBack">
             <summary>

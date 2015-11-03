@@ -1891,6 +1891,21 @@
             Radians
             </summary>
         </member>
+        <member name="T:devDept.Geometry.FlagsHelper">
+            <summary>
+            Flags class helper.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
+        <member name="M:devDept.Geometry.FlagsHelper.SetUnset``1(``0@,``0,System.Boolean)">
+            <summary>
+            Sets or unsets a flag depending on the <paramref name="set"/> value.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="flags">The data to modify</param>
+            <param name="flag">The flag to set/unset</param>
+            <param name="set">If true, the flag is set, else it's unset</param>
+        </member>
         <member name="T:devDept.Geometry.IntPoint">
             <summary>
             2D point with integer coordinates. Optionally can be linked to a <see cref="T:devDept.Geometry.Point3D"/>.
