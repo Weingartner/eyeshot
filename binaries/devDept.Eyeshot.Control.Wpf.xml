@@ -857,15 +857,17 @@
             <param name="endIndex">Array of end indices</param>
             <returns>The number of logical processors</returns>
         </member>
-        <member name="M:devDept.Geometry.UtilityEx.GetSubstrings(System.String,System.String,System.String)">
+        <member name="M:devDept.Geometry.UtilityEx.GetSubstrings(System.String,System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
             <summary>
             Gets substring between starting and ending chars.
             </summary>
             <param name="input">The input string.</param>
             <param name="start">The string that identifies the beginning.</param>
             <param name="end">The string that identifies the end.</param>
+            <param name="options">The <see cref="T:System.Text.RegularExpressions.RegexOptions"/> for the string comparison.</param>
             <returns>The string between the start and the end.</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.ReplaceString(System.String,System.String,System.String,System.StringComparison)" -->
         <member name="M:devDept.Geometry.UtilityEx.IsOrientedClockwise(devDept.Geometry.Transformation,devDept.Eyeshot.Entities.ICurve)">
             <summary>
             Checks if the closed curve orientation is clockwise.
@@ -8451,7 +8453,7 @@
             </summary>
             <param name="curveList">A list of NURBS curves</param>
             <param name="degU">The degree in the U direction</param>
-            <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
+            <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the sections are Composite Curves with similar shape, and you want to line up the corners (and curve segments) in the resulting surface.</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.SkinV(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32)">
             <summary>
@@ -8466,7 +8468,7 @@
             </summary>
             <param name="curveList">A list of curves</param>
             <param name="degV">The degree in the V direction</param>
-            /// <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
+            /// <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the sections are Composite Curves with similar shape, and you want to line up the corners (and curve segments) in the resulting surface.</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.SkinFirstKnotVectorV(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Curve},System.Int32)">
             <summary>
@@ -13376,6 +13378,13 @@
             Draws the viewport.
             </summary>
             <param name="myParams">The parameters</param>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.DrawViewportBackground(devDept.Eyeshot.ViewportLayout.DrawSceneParams)">
+            <summary>
+            Draws the viewport background.
+            </summary>
+            <param name="data">The drawing parameters</param>
+            <remarks>Override this to draw some custom graphics before the scene is drawn.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.GetThumbnail(System.Int32)">
             <summary>
@@ -21281,6 +21290,12 @@
             </summary>
             <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineWeight"/>
         </member>
+        <member name="P:devDept.Eyeshot.HiddenLinesViewOnPaper.ScaleViewToPageUnits">
+            <summary>
+            Gets the factors to scale the view coordinates to page coordinates.
+            </summary>
+            <remarks>This data is available after the <see cref="M:devDept.Eyeshot.HiddenLinesViewOnPaper.Print(System.Drawing.Printing.PrintPageEventArgs)"/> method has been called.</remarks>
+        </member>
         <member name="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview">
             <summary>Class that prints a vectorial image of the current scene of the active viewport, opening a Print Preview dialog.</summary>
             <example>
@@ -24873,7 +24888,7 @@
             <param name="plane">The plane</param>
             <param name="active">Status</param>
         </member>
-        <member name="M:devDept.Eyeshot.ClippingPlane.Edit(System.Int32,System.Drawing.Color)">
+        <member name="M:devDept.Eyeshot.ClippingPlane.Edit(System.Double,System.Drawing.Color)">
             <summary>
             Edits a clipping plane.
             </summary>
@@ -24886,14 +24901,14 @@
             <summary>
             Applies the changes of the editing.
             </summary>
-            <see cref="M:devDept.Eyeshot.ClippingPlane.Edit(System.Int32,System.Drawing.Color)"/>
+            <see cref="M:devDept.Eyeshot.ClippingPlane.Edit(System.Double,System.Drawing.Color)"/>
             <seealso cref="M:devDept.Eyeshot.ClippingPlane.Cancel"/>
         </member>
         <member name="M:devDept.Eyeshot.ClippingPlane.Cancel">
             <summary>
             Cancels the changes of the editing.
             </summary>
-            <see cref="M:devDept.Eyeshot.ClippingPlane.Edit(System.Int32,System.Drawing.Color)"/>
+            <see cref="M:devDept.Eyeshot.ClippingPlane.Edit(System.Double,System.Drawing.Color)"/>
             <seealso cref="M:devDept.Eyeshot.ClippingPlane.Apply"/>
         </member>
         <member name="T:devDept.Eyeshot.viewType">
@@ -28897,7 +28912,7 @@
             <param name="centerOnEntities">If true, positions the manipulator in the center of the selected entities</param>
             <seealso cref="T:devDept.Eyeshot.ObjectManipulator"/>        
         </member>
-        <member name="M:devDept.Eyeshot.ObjectManipulator.EditClippingPlane(devDept.Graphics.ClippingPlaneBase,System.Int32,System.Drawing.Color)">
+        <member name="M:devDept.Eyeshot.ObjectManipulator.EditClippingPlane(devDept.Graphics.ClippingPlaneBase,System.Double,System.Drawing.Color)">
             <summary>
             Edits a clipping plane.
             </summary>
