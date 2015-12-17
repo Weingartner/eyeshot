@@ -548,6 +548,14 @@
             <remarks>In Direct3D the vertices are stored in a buffer and drawn only when it is full. In OpenGL they are drawn immediately.</remarks>
             <seealso cref="M:devDept.Graphics.RenderContextBase.EndDrawBufferedLines"/>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawBufferedPoint(devDept.Geometry.Point3D)">
+            <summary>
+            Draws a point using a buffered approach.
+            </summary>
+            <param name="v0">The  vertex</param>
+            <remarks>In Direct3D the vertices are stored in a buffer and drawn only when it is full. In OpenGL they are drawn immediately.</remarks>
+            <seealso cref="M:devDept.Graphics.RenderContextBase.EndDrawBufferedLines"/>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawLineStrip(System.Single[],System.Int32,System.Int32)">
             <summary>
             Draws a line strip of vertices.
@@ -962,7 +970,7 @@
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.EndDrawBufferedLines">
             <summary>
-            Draws the lines accumulated in the buffer (Direct3D only).
+            Draws the lines and points accumulated in the buffer (Direct3D only).
             </summary>
             <seealso cref="M:devDept.Graphics.RenderContextBase.DrawBufferedLine(devDept.Geometry.Point3D,devDept.Geometry.Point3D)"/>
         </member>
@@ -1462,7 +1470,7 @@
             Direct3D entity buffer class.
             </summary>
         </member>
-        <member name="M:devDept.Graphics.D3DEntityBuffer.ComputeStride(System.Int32,System.Int32)">
+        <member name="M:devDept.Graphics.D3DEntityBuffer.ComputeStride(System.Int32,System.Int32,System.Int32)">
             <summary>
             Computes the Stride (the number of bytes per vertex element).
             </summary>
