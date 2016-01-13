@@ -6565,6 +6565,11 @@
             </summary>
             <returns>The new linear dimension object.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Leader.GetLines">
+            <summary>
+            For the HiddenLinesView.
+            </summary>        
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Leader.Preview(devDept.Geometry.Plane,devDept.Geometry.Point3D[])">
             <summary>
             Gets the segments for the drawing preview
@@ -17314,6 +17319,12 @@
             <remarks>The orientation of the camera is performed with an animation if <see cref="P:devDept.Eyeshot.ViewportLayout.AnimateCamera"/> is true</remarks>
             <remarks>The direction points outside the screen, so the Camera is actually looking in the opposite direction.</remarks>
             <remarks>Obsolete, use <see cref="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Vector3D,System.Boolean,System.Int32,System.Boolean)"/> instead.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.UpdateCustomCenterOfRotation">
+            <summary>
+            Updates the center of rotation for the cases when the rotation is called from outside without passing from the mouse.
+            </summary>
+            <returns>True</returns>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Vector3D,System.Boolean,System.Int32,System.Boolean)">
             <summary>Sets the view direction of the camera to the specified direction.</summary>
@@ -29185,6 +29196,12 @@
             Performs semi-transparent entities pre-processing.
             </summary>
             <remarks>It is meaningful only when <see cref="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency"/> is true.</remarks>
+        </member>
+        <member name="F:devDept.Eyeshot.EntityList.invalidBBox">
+            <summary>
+            This is important to correctly compute the refinement tolerance if the UpdateBoundingBox 
+            is called with an empty scene (i.e. during the WPF initialization)
+            </summary>
         </member>
         <member name="M:devDept.Eyeshot.EntityList.UpdateBoundingBox">
             <summary>
