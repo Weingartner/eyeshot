@@ -1,9 +1,23 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>devDept.Geometry</name>
+        <name>devDept.Geometry.v9</name>
     </assembly>
     <members>
+        <member name="M:devDept.Geometry.EnumExtender.SetDisplayName(System.Enum,System.String)">
+            <summary>
+            Registers the display name for the enum value.
+            </summary>
+            <param name="value">The enum value.</param>
+            <param name="name">The display name.</param>
+        </member>
+        <member name="M:devDept.Geometry.EnumExtender.GetDisplayName(System.Enum)">
+            <summary>
+            Gets the display name for the enum value.
+            </summary>
+            <param name="value">The enum value.</param>
+            <returns></returns>
+        </member>
         <member name="T:devDept.Geometry.PointNormalUv">
             <summary>
             Surface point definition.
@@ -233,6 +247,7 @@
             <summary>
             Double array constructor.
             </summary>
+            <param name="coords">The XYZ coordinates as a double array</param>
         </member>
         <member name="M:devDept.Geometry.Point3D.Clone">
             <summary>
@@ -293,7 +308,7 @@
         </member>
         <member name="M:devDept.Geometry.Point3D.DistanceTo(devDept.Geometry.Plane)">
             <summary>
-            Computes the point-plane distance.
+            Computes the point to plane signed distance.
             </summary>
             <param name="plane">The plane</param>
             <returns>The distance between this 3D point and its projection on the plane.</returns>
@@ -429,16 +444,6 @@
             </summary>
             <returns>A string that represents this 3D point.</returns>
         </member>
-        <member name="F:devDept.Geometry.PointNormalUv.intU">
-            <summary>
-            Grid position in X.
-            </summary>
-        </member>
-        <member name="F:devDept.Geometry.PointNormalUv.intV">
-            <summary>
-            Grid position in Y.
-            </summary>
-        </member>
         <member name="F:devDept.Geometry.PointNormalUv.Nx">
             <summary>
             Normal X component. 
@@ -464,14 +469,14 @@
             Color index.
             </summary>
         </member>
+        <member name="F:devDept.Geometry.PointNormalUv.index">
+            <summary>
+            Nurbs surface triangulation Steiner point index.
+            </summary>
+        </member>
         <member name="M:devDept.Geometry.PointNormalUv.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
             3D position and parametric values constructor.
-            </summary>
-        </member>
-        <member name="M:devDept.Geometry.PointNormalUv.#ctor(System.Double,System.Double,System.Double,System.Int64,System.Int64,System.Double,System.Double)">
-            <summary>
-            3D position, grid and parametric values constructor.
             </summary>
         </member>
         <member name="M:devDept.Geometry.PointNormalUv.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
@@ -923,7 +928,7 @@
             <param name="intersMin">Intersection box min point</param>
             <param name="intersMax">Intersection box max point</param>
             <returns>The size of the intersection box</returns>
-            <see cref="M:devDept.Geometry.Utility.DoOverlapOrTouch(devDept.Geometry.IntPoint,devDept.Geometry.IntPoint,devDept.Geometry.IntPoint,devDept.Geometry.IntPoint)"/>
+            <see cref="!:DoOverlapOrTouch(devDept.Geometry.IntPoint,devDept.Geometry.IntPoint,devDept.Geometry.IntPoint,devDept.Geometry.IntPoint)"/>
         </member>
         <member name="M:devDept.Geometry.Utility.PointInPolygon``1(``0,System.Collections.Generic.IList{``0})">
             <summary>
@@ -982,6 +987,30 @@
             <param name="x3">The third triangle vertex's X-coordinate</param>
             <param name="y3">The third triangle vertex's y-coordinate</param>
             <returns>Returns true if the point is inside the triangle.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.IsPolygonConvex``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Returns true if the planar closed polygon is convex.
+            </summary>
+            <param name="vertices">The planar closed polygon vertices</param>
+            <returns>True if the polygon is convex, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.IsPolygonSelfIntersecting``1(System.Collections.Generic.IList{``0},System.Double)">
+            <summary>
+            Checks if the polygon is self-intersecting.
+            </summary>
+            <typeparam name="T">The point type</typeparam>
+            <param name="vertices">The list of vertices</param>
+            <param name="domainSize">The domain size</param>
+            <returns>True if the polygon is self intersecting, false otherwise</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.IsPolygonDegenerated``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Checks if two non-contiguos points of the polygon are equal.
+            </summary>
+            <typeparam name="T">The point type</typeparam>
+            <param name="vertices">The list of vertices</param>
+            <returns>True if the polygon is degenerated, false otherwise</returns>
         </member>
         <member name="M:devDept.Geometry.Utility.CleanTriangles(System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.List{devDept.Geometry.IndexTriangle}@,System.Collections.Generic.List{devDept.Geometry.Point3D}@)">
             <summary>
@@ -1513,6 +1542,13 @@
             <param name="splittingPlaneNormal">A 3D vector used for face splitting. A 3D vector perpendicular to the 3D face is not allowed.</param>
             <returns>The 3D normal vector.</returns>
         </member>
+        <member name="M:devDept.Geometry.Utility.ComputeTolerance(System.Double)">
+            <summary>
+            Computes visual refinement tolerance.
+            </summary>
+            <param name="sceneDiagonal">The length of the scene bounding box diagonal</param>
+            <returns>The resulting visual refinement tolerance.</returns>
+        </member>
         <member name="M:devDept.Geometry.Utility.IsClosedProfile``1(System.Collections.Generic.IList{``0})">
             <summary>
             Tells if a profile is closed, depending on a tolerance computed from its size.
@@ -1647,6 +1683,28 @@
             </summary>
             <param name="input">The array of values to be summed.</param>
             <returns>The accurate summation.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.DoubleParse(System.String)">
+            <summary>
+            Converts the string representation of a number to its double-precision equivalent in a culture invariant way.
+            </summary>
+            <param name="value">The string to convert</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.FloatParse(System.String)">
+            <summary>
+            Converts the string representation of a number to its single-precision equivalent in a culture invariant way.
+            </summary>
+            <param name="value">The string to convert</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.DoubleTryParse(System.String,System.Double@)">
+            <summary>
+            Converts the string representation of a number to its double-precision equivalent in a culture invariant way.
+            </summary>
+            <param name="value">The string to read</param>
+            <param name="result">The converted value, if the method succeded, 0 otherwise</param>
+            <returns>True if the conversion succeeded, false otherwise.</returns>
         </member>
         <member name="T:devDept.Geometry.IndexLineComparer">
             <summary>
@@ -1784,7 +1842,7 @@
             <summary>
             Shared face definition.
             </summary>
-            <seealso cref="!:GetEdgesWithoutDuplicates"/>
+            <seealso cref="M:devDept.Geometry.Utility.GetEdgesWithoutDuplicates(System.Int32[0:,0:],System.Int32)"/>
         </member>
         <member name="F:devDept.Geometry.SharedFace.V2">
             <summary>
@@ -1905,11 +1963,6 @@
             <param name="flags">The data to modify</param>
             <param name="flag">The flag to set/unset</param>
             <param name="set">If true, the flag is set, else it's unset</param>
-        </member>
-        <member name="T:devDept.Geometry.IntPoint">
-            <summary>
-            2D point with integer coordinates. Optionally can be linked to a <see cref="T:devDept.Geometry.Point3D"/>.
-            </summary>
         </member>
         <member name="T:devDept.Geometry.IndexLine">
             <summary>
@@ -3690,6 +3743,22 @@
             </summary>
             <param name="extPt">The extension point</param>
         </member>
+        <member name="M:devDept.Geometry.Segment3D.IsOnAxis(devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+            <summary>
+            Returns true if the segment lays on the axis defined by the 3D point <paramref name="center"/> and the direction <paramref name="dir"/>.
+            </summary>
+            <param name="dir">The 3D direction vector</param>
+            <param name="center">The 3D center point</param>
+            <returns>True if the segments is on the axis, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Segment3D.IsInPlane(devDept.Geometry.Plane,System.Double)">
+            <summary>
+            Checks if the 3D segment lays on the specified plane.
+            </summary>
+            <param name="plane">The plane to test</param>
+            <param name="tol">The tolerance</param>
+            <returns>True if the segment lays on the plane, false otherwise.</returns>
+        </member>
         <member name="M:devDept.Geometry.Segment3D.Project(devDept.Geometry.Point3D)">
             <summary>
             Finds the point on the (infinite) line that is closest to given point.
@@ -3760,6 +3829,11 @@
             <param name="intPoint">The intersection point (if exists)</param>
             <returns>True if the intersection was found, false otherwise.</returns>
         </member>
+        <member name="M:devDept.Geometry.Segment3D.IntersectWithInternal(devDept.Geometry.PlaneEquation,devDept.Geometry.Point3D@,System.Boolean,System.Boolean)">
+            <summary>
+            Intersects the 3D segment with a plane. (For internal use only)
+            </summary>
+        </member>
         <member name="M:devDept.Geometry.Segment3D.IntersectWith(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D@)">
             <summary>
             Intersects the 3D segment with a triangle.
@@ -3792,6 +3866,20 @@
             <param name="infinite">If true, the Segment3Ds are treated as an infinite lines</param>
             <param name="pointOnA">The end point on <paramref name="segA"/></param>
             <param name="pointOnB">The end point on <paramref name="segB"/></param>
+            <returns>True if there is one shortest segment perpendicular to segA and segB, false otherwise.</returns>
+            <remarks>If <paramref name="pointOnA"/> and <paramref name="pointOnB"/> coincide, there is an intersection between the two segments. When the segments are parallel, it always returns false and the points are null.</remarks>
+        </member>
+        <member name="M:devDept.Geometry.Segment3D.Intersection(devDept.Geometry.Segment3D,devDept.Geometry.Segment3D,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@,System.Double@,System.Double@)">
+            <summary>
+            Gets the end points of the shortest segment perpendicular to two 3D segments, when it exists and is unique.
+            </summary>
+            <param name="segA">The first segment</param>
+            <param name="segB">The second segment</param>
+            <param name="infinite">If true, the Segment3Ds are treated as an infinite lines</param>
+            <param name="pointOnA">The end point on <paramref name="segA"/></param>
+            <param name="pointOnB">The end point on <paramref name="segB"/></param>
+            <param name="paramOnA">The parameter of the end point on <paramref name="segA"/></param>
+            <param name="paramOnB">The parameter of the end point on <paramref name="segB"/></param>
             <returns>True if there is one shortest segment perpendicular to segA and segB, false otherwise.</returns>
             <remarks>If <paramref name="pointOnA"/> and <paramref name="pointOnB"/> coincide, there is an intersection between the two segments. When the segments are parallel, it always returns false and the points are null.</remarks>
         </member>

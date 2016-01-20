@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>devDept.Graphics.Wpf</name>
+        <name>devDept.Graphics.Wpf.v9</name>
     </assembly>
     <members>
         <member name="T:devDept.Graphics.CameraBase">
@@ -294,6 +294,21 @@
             Aligns the colors set in the graphics system with the current material and wire color.
             </summary>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.PushEnvironment">
+            <summary>
+            Pushes the current environment map on the stack.
+            </summary>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.PopEnvironment">
+            <summary>
+            Pops the environment map from the stack.
+            </summary>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.CloseEnvironment">
+            <summary>
+            Disables the current environment.
+            </summary>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.PushRasterizerState">
             <summary>
             Pushes the current <see cref="T:devDept.Graphics.rasterizerStateType"/> on the stack.
@@ -388,7 +403,7 @@
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.CreateTexture2D(System.Drawing.Image,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
-            Creates a 2D texture.
+            Creates a 2D texture from an image.
             </summary>
             <param name="image">The image</param>
             <param name="minFunc">Minification function</param>
@@ -398,6 +413,16 @@
             when the image is not power of two and the hardware does not support it. Else it is resized to a smaller power of two size.</param>
             <param name="repeatX">If true, the texture is repeated in the X direction</param>
             <param name="repeatY">If true, the texture is repeated in the Y direction</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.CreateTexture2D(System.Drawing.Size,System.Boolean,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType)">
+            <summary>
+            Creates a 2D Texture for rendering.
+            </summary>
+            <param name="size">The size of the texture</param>
+            <param name="depthTexture">If true, it's a depth texture</param>
+            <param name="minFilterFunc">The minification filtering function</param>
+            <param name="magFilterFunc">The magnification filtering function</param>
             <returns></returns>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.CreateTexture1D(System.Drawing.Color[],devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType,System.Boolean,System.Boolean)">
@@ -661,6 +686,23 @@
             Updates the current material with the default material.
             </summary>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawOnTextureOrBitmap(devDept.Graphics.TextureBase,devDept.Graphics.TextureBase,System.Drawing.Imaging.BitmapData,System.Int32,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate,System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Draws the scene on the specified texture or bitmapData. 
+            </summary>
+            <param name="texture">The texture to draw on</param>
+            <param name="bitmapData">The bitmap data. If null, the draw is done on the texture</param>
+            <param name="strideInPixels"></param>
+            <param name="antialiasingAvailable"></param>
+            <param name="antiAliasing"></param>
+            <param name="antialiasingSamples"></param>
+            <param name="tileWidth"></param>
+            <param name="tileHeight"></param>
+            <param name="drawSceneFunc">The draw function delegate</param>
+            <param name="drawSceneParams">The draw function parameters</param>
+            <param name="hdwAcceleration"></param>
+            <param name="transparentBackground"></param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.CompileBackground(devDept.Graphics.BackgroundSettings,System.Int32)">
             <summary>
             Compiles the background, used by the designer.
@@ -878,7 +920,7 @@
             </summary>
             <param name="vertices">The vertices array</param>
             <param name="normals">The normals array</param>
-            <param name="texCoords">The texture coordiantes array</param>
+            <param name="texCoords">The texture coordinates array</param>
             <param name="addToCurrentBufferPart">If true adds the data to the current buffer part</param>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawTriangles(devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[],System.Single[],System.Boolean)">
@@ -1063,6 +1105,13 @@
             </summary>
             <param name="texture">The texture</param>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.SetRenderTarget(devDept.Graphics.TextureBase,devDept.Graphics.TextureBase)">
+            <summary>
+            Sets the texture as a render target.
+            </summary>
+            <param name="texture">The color texture</param>
+            <param name="depthTexture">The depth texture</param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.ResetRenderTarget">
             <summary>
             Resets the default render target.
@@ -1098,7 +1147,7 @@
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.LockBlendState(System.Boolean)">
             <summary>
-            Locks the blend state so that the following calls to <see cref="M:devDept.Graphics.RenderContextBase.SetState(devDept.Graphics.blendStateType)"/> won't do anything until the blend state is unlocked.
+            Locks the blend state so that the following calls to <see cref="M:devDept.Graphics.RenderContextBase.SetShader(devDept.Graphics.shaderType,devDept.Graphics.ShaderParameters,System.Boolean)"/> won't do anything until the blend states are unlocked.
             </summary>
             <param name="lockBlendState"></param>
         </member>
@@ -1256,7 +1305,12 @@
             </summary>
             <remarks>Only the Ambient and Diffuse components are used. The other properties are inherited from the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/></remarks>
         </member>
-        <member name="P:devDept.Graphics.RenderContextBase.Environment">
+        <member name="P:devDept.Graphics.RenderContextBase.IsDirect3D">
+            <summary>
+            Tells if the graphics system is using the Direct3D renderer.
+            </summary>
+        </member>
+        <member name="P:devDept.Graphics.RenderContextBase.CurrentEnvironmentMap">
             <summary>
             Gets the environment texture.
             </summary>
@@ -1339,7 +1393,7 @@
             Do the rendering on the <see cref="P:devDept.Graphics.D3DRenderContext.backBufferTexture"/> and copy it to the <see cref="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture"/> to avoid issues of synchronization with the D3DImage.
             </summary>
         </member>
-        <member name="F:devDept.Graphics.D3DRenderContext.depthTexture">
+        <member name="F:devDept.Graphics.D3DRenderContext._depthTexture">
             <summary>
             Texture used to copy the depth buffer.
             </summary>
@@ -1392,6 +1446,17 @@
             </summary>
             <param name="rect">The rectangle to read, in screen coordinates ( 0,0 on top-left)</param>
             <returns></returns>
+        </member>
+        <member name="M:devDept.Graphics.D3DRenderContext.GetTextureSampler(SharpDX.Direct3D11.Filter,System.Boolean,System.Boolean,SharpDX.Direct3D11.Device,System.Single)">
+            <summary>
+            Gets the texture sampler or creates a new one if none is found with the required options.
+            </summary>
+            <param name="minMagFilter"></param>
+            <param name="repeatX"></param>
+            <param name="repeatY"></param>
+            <param name="device"></param>
+            <param name="maxLOD"></param>
+            <returns>The texture sampler index.</returns>
         </member>
         <member name="M:devDept.Graphics.D3DRenderContext.ResolveMultisampleTexture(devDept.Graphics.TextureBase,devDept.Graphics.TextureBase)">
             <summary>
@@ -1474,6 +1539,7 @@
             <summary>
             Computes the Stride (the number of bytes per vertex element).
             </summary>
+            <param name="bufferSize">The size of the buffer</param>
             <param name="floatLength">Length of the float array</param>
             <param name="nElements">Number of vertices in the array</param>
             <returns>The stride (number of bytes per vertex)</returns>
@@ -1583,6 +1649,11 @@
             Last chunk index.
             </summary>
         </member>
+        <member name="T:devDept.Graphics.TextureD3D_2D">
+            <summary>
+            2D color texture class for Direct3D.
+            </summary>
+        </member>
         <member name="T:devDept.Graphics.TextureBase">
             <summary>
             Base utility class to load textures. 
@@ -1666,6 +1737,11 @@
             The size of the bitmap from which the texture was created.
             </summary>
             <remarks>It can be different from <see cref="P:devDept.Graphics.TextureBase.Size"/> if the graphics card does not support the texture non power of two.</remarks>
+        </member>
+        <member name="F:devDept.Graphics.TextureD3D.sampler">
+            <summary>
+            The texture sampler. It's the index to the textureSamples list of RenderContext.
+            </summary>
         </member>
         <member name="M:devDept.Graphics.TextureD3D_2D.#ctor(devDept.Graphics.RenderContextBase,System.Drawing.Bitmap,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
@@ -1944,6 +2020,14 @@
             </summary>
             <param name="color1">The first color (WinForms) or brush (WPF) object</param>
             <param name="color2">The second color</param>
+            <returns>True if they are equal, false elsewise.</returns>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextUtility.AreEqual(System.Windows.Media.Brush,System.Windows.Media.Brush)">
+            <summary>
+            Method that checks the equality between two <see cref="T:System.Windows.Media.Brush"/> object.
+            </summary>
+            <param name="color1">The first brush color.</param>
+            <param name="color2">The second brush color.</param>
             <returns>True if they are equal, false elsewise.</returns>
         </member>
         <member name="M:devDept.Graphics.RenderContextUtility.ConvertColorTable(System.Windows.Media.Brush[])">
@@ -2631,12 +2715,6 @@
             Updates the back buffer.
             </summary>
         </member>
-        <member name="M:devDept.Graphics.D3DWPFImageSource.SetBackBuffer(System.IntPtr)">
-            <summary>
-            Assigns a Direct3D surface as the source of the back buffer.
-            </summary>
-            <param name="surfacePointer">The native pointer of the Direct3D surface</param>
-        </member>
         <member name="M:devDept.Graphics.D3DWPFImageSource.BeginDraw">
             <summary>
             Begins to draw to this instance.
@@ -2748,6 +2826,11 @@
             </summary>
             <remarks>For internal use only.</remarks>
         </member>
+        <member name="F:devDept.Graphics.ControlData.antialiasingSamples">
+            <summary>
+            Antialiasing samples requested by the user.
+            </summary>
+        </member>
         <member name="F:devDept.Graphics.ControlData.defaultMaterialShaded">
             <summary>
             Default material attributes for Shaded mode.
@@ -2757,6 +2840,11 @@
         <member name="M:devDept.Graphics.ControlData.ResetDefaultMaterial">
             <summary>
             Resets the default material.
+            </summary>
+        </member>
+        <member name="P:devDept.Graphics.ControlData.RealAntialiasingSamples">
+            <summary>
+            Antialiasing samples effectively used.
             </summary>
         </member>
         <member name="T:devDept.Graphics.HqrData">
@@ -2828,6 +2916,16 @@
             <param name="drawBuffered">If true, the images are drawn when the dynamic buffer is full, else they are drawn immediately (Direct3D only)</param>
             <remarks>The position is updated to the end of the last image drawn.</remarks>
         </member>
+        <member name="T:devDept.Graphics.TextureD3D_Depth">
+            <summary>
+            Depth texture class for Direct3D.
+            </summary>
+        </member>
+        <member name="T:devDept.Graphics.TextureD3D_1D">
+            <summary>
+            1D color texture class for Direct3D.
+            </summary>
+        </member>
         <member name="M:devDept.Graphics.TextureD3D_1D.#ctor(System.Drawing.Color[])">
             <summary>
             Creates a 1D texture, without loading it. A call to <see cref="!:Load(devDept.Graphics.RenderContextBase,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType,bool)"/> is needed to load it.
@@ -2881,12 +2979,7 @@
             Camera location.
             </summary>
         </member>
-        <member name="F:devDept.Graphics.ZBuffer.RGBValuesForSelectionSelectableOnly">
-            <summary>
-            Tells if the image captured for the selection included only the selectable entities or not.
-            </summary>
-        </member>
-        <member name="M:devDept.Graphics.ZBuffer.CaptureBackbuffer(devDept.Graphics.RenderContextBase,devDept.Graphics.IViewport,System.Boolean,System.Boolean,System.Double[],System.Drawing.Rectangle,System.Int32@,System.Int32@)">
+        <member name="M:devDept.Graphics.ZBuffer.CaptureBackbuffer(devDept.Graphics.RenderContextBase,devDept.Graphics.IViewport,System.Boolean,System.Boolean,System.Double[],System.Drawing.Rectangle,System.Int32@,System.Int32@,System.Boolean)">
             <summary>
             Captures the Back buffer image
             </summary>
@@ -2921,6 +3014,37 @@
         <member name="P:devDept.Graphics.ZBuffer.Dirty">
             <summary>
             Tells if the scene must be redrawn in order to get a correct ZBuffer
+            </summary>
+        </member>
+        <member name="T:devDept.Graphics.ZBuffer.SelectionImageData">
+            <summary>
+            Image data for selection.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
+        <member name="F:devDept.Graphics.ZBuffer.SelectionImageData.Stride">
+            <summary>
+            The number of bytes per image row.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.ZBuffer.SelectionImageData.Bpp">
+            <summary>
+            The bits per pixel.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.ZBuffer.SelectionImageData.Image">
+            <summary>
+            The image of the entities
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.ZBuffer.SelectionImageData.SelectableOnly">
+            <summary>
+            Tells if the image captured for the selection included only the selectable entities or not.
+            </summary>
+        </member>
+        <member name="P:devDept.Graphics.ZBuffer.SelectionImageData.InnerSelectionImage">
+            <summary>
+            The image of the inner parts (edges, vertices, faces).
             </summary>
         </member>
         <member name="T:devDept.Graphics.Material">
@@ -2969,7 +3093,7 @@
             <param name="shininess">Material shininess factor (0-1)</param>
             <param name="environment">Material environment intensity</param>
             <param name="texture">Material texture image</param>
-            <param name="reflection">Material's reflection image</param>
+            <param name="environmentMapping">Material's environment mapping image</param>
         </member>
         <member name="M:devDept.Graphics.Material.#ctor(System.Drawing.Color,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
@@ -3129,8 +3253,8 @@
         <member name="P:devDept.Graphics.Material.TextureImage">
             <summary>Gets or sets the material texture image.</summary>
         </member>
-        <member name="P:devDept.Graphics.Material.ReflectionImage">
-            <summary>Gets or sets the material reflection image.</summary>
+        <member name="P:devDept.Graphics.Material.EnvironmentMappingImage">
+            <summary>Gets or sets the material environment mapping image.</summary>
         </member>
         <member name="P:devDept.Graphics.Material.MinifyingFunction">
             <summary>Gets or sets the texture minifying function. The texture minifying function is used whenever
@@ -3259,6 +3383,26 @@
             Class for shader parameters.
             </summary>
         </member>
+        <member name="T:devDept.Graphics.colorThemeType">
+            <summary>
+            Color theme for UI elements.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.colorThemeType.Auto">
+            <summary>
+            Automatic background brightness detection
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.colorThemeType.Light">
+            <summary>
+            Light color
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.colorThemeType.Dark">
+            <summary>
+            Dark color
+            </summary>
+        </member>
         <member name="T:devDept.Graphics.BackgroundSettings">
             <summary>
             Viewport background settings.
@@ -3269,9 +3413,20 @@
             Empty constructor.
             </summary>
         </member>
+        <member name="M:devDept.Graphics.BackgroundSettings.#ctor(devDept.Graphics.backgroundStyleType,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Double,System.Windows.Media.ImageSource,devDept.Graphics.colorThemeType,System.Double)">
+            <summary>Standard constructor.</summary>
+            <param name="styleMode">Background style</param>
+            <param name="bottomColor">Bottom color, applies only to gradient styles.</param>
+            <param name="intermediateColor">Intermediate color, applies only to gradient styles.</param>
+            <param name="topColor">Top color, applies only to gradient styles.</param>
+            <param name="intermediateColorPosition">Intermediate color position expressed in percent of viewport height from top.</param>
+            <param name="image">Image, applies only to gradient style.</param>
+            <param name="colorTheme">Color theme</param>
+            <param name="colorThemeTransparency">Color theme transparency</param>
+        </member>
         <member name="M:devDept.Graphics.BackgroundSettings.#ctor(devDept.Graphics.backgroundStyleType,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Double,System.Windows.Media.ImageSource)">
             <summary>Standard constructor.</summary>
-            <param name="style">Background style</param>
+            <param name="styleMode">Background style</param>
             <param name="bottomColor">Bottom color, applies only to gradient styles.</param>
             <param name="intermediateColor">Intermediate color, applies only to gradient styles.</param>
             <param name="topColor">Top color, applies only to gradient styles.</param>
@@ -3284,7 +3439,7 @@
             </summary>
             <param name="another">The other BackgroundSettings object</param>
         </member>
-        <member name="P:devDept.Graphics.BackgroundSettings.Style">
+        <member name="P:devDept.Graphics.BackgroundSettings.StyleMode">
             <summary>Gets or sets the viewport background style.</summary>
             <remarks>When using CubicGradient style, you need to call the Viewport.CompileUserInterfaceElements() to see the effect of this command.</remarks>
         </member>
@@ -3301,6 +3456,7 @@
             <remarks>When using CubicGradient style, you need to call the Viewport.CompileUserInterfaceElements() to see the effect of this command.</remarks>
         </member>
         <!-- Badly formed XML comment ignored for member "P:devDept.Graphics.BackgroundSettings.IntermediateColorPosition" -->
+        <!-- Badly formed XML comment ignored for member "P:devDept.Graphics.BackgroundSettings.ColorThemeTransparency" -->
         <member name="P:devDept.Graphics.BackgroundSettings.Image">
             <summary>
             Gets or sets the background image.
@@ -3309,6 +3465,11 @@
                 You need to call the <see cref="!:ViewportLayout.CompileUserInterfaceElements()"/> to
                 see the effect of this change at run-time.
             </remarks>
+        </member>
+        <member name="P:devDept.Graphics.BackgroundSettings.ColorTheme">
+            <summary>
+            Gets or sets the user interface elements color theme.
+            </summary>
         </member>
         <member name="T:devDept.Graphics.Converters.MaterialConverter">
             <exclude/>
