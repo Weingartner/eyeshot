@@ -6,7 +6,7 @@ open Fake.VersionHelper
 open Fake.NuGetHelper
 
 let assemblyPattern = "*.dll"
-let nugetSpecFilePath = "devDept.Eyeshot.nuspec"
+let nugetSpecFilePath = "devDept.Eyeshot.Ultimate.nuspec"
 
 let assemblyFile = FindFirstMatchingFile assemblyPattern "binaries"
 let version = GetAssemblyVersionString assemblyFile
