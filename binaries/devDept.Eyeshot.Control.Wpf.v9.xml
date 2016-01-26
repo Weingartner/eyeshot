@@ -19572,7 +19572,7 @@
             </summary>
             <param name="plane">The plane to test</param>
             <param name="tol">The tolerance</param>
-            <returns>True if the curve lays on this plane, false otherwise.</returns>
+            <returns>True if the curve lays on the plane, false otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.IsLinear(System.Double,devDept.Geometry.Segment3D@)">
             <summary>
