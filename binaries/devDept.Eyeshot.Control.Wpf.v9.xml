@@ -593,6 +593,21 @@
             <param name="temporarySelection">The temporarySelection flag</param>
             <returns>If <paramref name="temporarySelection"/> is true, returns the <see cref="F:devDept.Eyeshot.selectionStatusType.Temporary"/> selection flag, else the <see cref="F:devDept.Eyeshot.selectionStatusType.Permanent"/> flag.</returns>
         </member>
+        <member name="M:devDept.Geometry.UtilityEx.CleanDuplicates(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
+            <summary>
+            Cleans duplicated curves from a contour.
+            </summary>
+            <param name="contour">The contour to be checked</param>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.GetPercentage(System.Double,System.Double,System.Double)">
+            <summary>
+            Gets the percentage in the range [0,1] interpolating the value between the minimum and maximum.
+            </summary>
+            <param name="value"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
         <member name="T:devDept.Geometry.lineWeightPrintingUnitsType">
             <summary>
             Line weight unit system type used for printing.
@@ -700,6 +715,12 @@
             <summary>
             Gets or sets the selection status.
             </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.DrawParams.ActionMode">
+            <summary>
+            Gets or sets the action mode.
+            </summary>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.ActionMode"/>
         </member>
         <member name="T:devDept.Eyeshot.colorType">
             <summary>
@@ -6846,6 +6867,11 @@
             Gets o sets the list of contours inside the region.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.Region.Edges">
+            <summary>
+            Gets the region edges.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.Entities.Region.Triangles">
             <summary>
             Gets the region triangles.
@@ -8600,12 +8626,6 @@
             <param name="meshNature">The desired Mesh nature</param>
             <returns>The resulting Mesh object.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Surface.CheckEdgeAngle">
-            <summary>
-            Checks the angle between the triangle edge and the normals at each edge end point.
-            If the angle is less than 30 or bigger than 150 degrees it's very likely that there is an edge crossing the domain.
-            </summary>
-        </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.areaF(System.Double,System.Double)">
             <summary>
             area needs to integrate a function over an interval
@@ -8733,7 +8753,7 @@
             Creates a surface from skinning. 
             </summary>
             <param name="curveList">The skinning curves</param>
-            <returns>The resulting surface if the operation succeeds, null/Nothing otherwise.</returns>
+            <returns>The resulting surface array if the operation succeeds, null/Nothing otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.Loft(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32)">
             <summary>
@@ -8741,7 +8761,7 @@
             </summary>
             <param name="curveList">The skinning curves</param>
             <param name="degree">The desired surface degree</param>
-            <returns>The resulting surface if the operation succeeds, null/Nothing otherwise.</returns>
+            <returns>The resulting surface array if the operation succeeds, null/Nothing otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.Loft(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32,System.Boolean)">
             <summary>
@@ -8749,8 +8769,8 @@
             </summary>
             <param name="curveList">The skinning curves</param>
             <param name="degree">The desired surface degree</param>
-            <returns>The resulting surface if the operation succeeds, null/Nothing otherwise.</returns>
             <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
+            <returns>The resulting surface array if the operation succeeds, null/Nothing otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.CreatePlanar(devDept.Eyeshot.Entities.ICurve)">
             <summary>Creates a planar surface bounded by the contour provided.</summary>
@@ -13481,40 +13501,34 @@
             <param name="myParams"></param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)">
-             <summary>
-             Sorts the entities so that the transparent ones are ordered from the farthest to the nearest to the camera.
-             </summary>
-             <param name="viewport">The viewport</param>
-             <returns>The sorted list of entities.</returns>
-             <remarks>It can be called in a viewportLayout derived class in the <see cref="M:devDept.Eyeshot.ViewportLayout.DrawEntities(devDept.Eyeshot.ViewportLayout.DrawSceneParams,System.Boolean,System.Boolean)"/> method when <see cref="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency"/> is false.</remarks>
-             <example>
-             Usage Sample.
-             	<code lang="CS" title="[Ordered Transparency]">
-             public class MyViewportLayout : ViewportLayout
-             {
-                
-                protected override void DrawEntities(DrawSceneParams myParams, bool withOffset, bool shadowMapPass)
+            <summary>
+            Sorts the entities so that the transparent ones are ordered from the farthest to the nearest to the camera.
+            </summary>
+            <param name="viewport">The viewport</param>
+            <returns>The sorted list of entities.</returns>
+            <remarks>It can be called in a viewportLayout derived class in the <see cref="M:devDept.Eyeshot.ViewportLayout.DrawViewport(devDept.Eyeshot.ViewportLayout.DrawSceneParams)"/> method when <see cref="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency"/> is false.</remarks>
+            <example>
+            Usage Sample.
+            	<code lang="CS" title="[Ordered Transparency]">
+            public class MyViewportLayout : ViewportLayout
+            {
+                protected override void DrawViewport(DrawSceneParams myParams)
                 {
                     myParams.Entities = SortEntitiesForTransparency(myParams.Viewport);
-            
-                    base.DrawEntities(myParams, withOffset, shadowMapPass);
-            
+                    base.DrawViewport(myParams);
                 }
-             }
-             </code>
-             	<code lang="CS" title="[Ordered Transparency]">
-             Public Class MyViewportLayout
-            	Inherits ViewportLayout
-            
-            	Protected Overrides Sub DrawEntities(myParams As DrawSceneParams, withOffset As Boolean, shadowMapPass As Boolean)
-            		myParams.Entities = SortEntitiesForTransparency(myParams.Viewport)
-            
-            		MyBase.DrawEntities(myParams, withOffset, shadowMapPass)
-            
-            	End Sub
-             End Class
-             </code>
-             </example>
+            }
+            </code>
+            	<code lang="CS" title="[Ordered Transparency]">
+            Public Class MyViewportLayout
+            Inherits ViewportLayout
+                Protected Overrides Sub DrawViewport(myParams As DrawSceneParams)
+                    myParams.Entities = SortEntitiesForTransparency(myParams.Viewport)
+                    MyBase.DrawViewport(myParams)
+                End Sub
+            End Class
+            </code>
+            </example>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.DrawShadow(System.Single)">
             <summary>
@@ -14315,6 +14329,18 @@
             <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable"/> property, otherwise no.</param>
             <param name="temporarySelection">Tells if the selection is part of a dynamic selection session (see <see cref="F:devDept.Eyeshot.actionType.SelectVisibleByPickDynamic"/>)</param>
             <remarks>Call <see cref="M:System.Windows.Forms.Control.Invalidate(System.Drawing.Region)"/> to see the effect of this function.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.SelectByFilterInternal(devDept.Eyeshot.Viewport,System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[],System.Collections.Generic.IList{System.Int32},System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="viewport"></param>
+            <param name="selectionBox"></param>
+            <param name="firstOnly"></param>
+            <param name="invert"></param>
+            <param name="added"></param>
+            <param name="removed"></param>
+            <param name="temporarySelection"></param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.GetFaceWithTriangle(devDept.Eyeshot.EyeshotDisposableCollection{devDept.Eyeshot.Entities.Mesh.FaceElement},System.Int32)">
             <summary>
@@ -15671,6 +15697,13 @@
             for the compilation and regen of the attributes.
             </summary>
         </member>
+        <member name="T:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1">
+            <summary>
+            Class that holds the parameters for the selection.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="M:devDept.Eyeshot.Entities.Entity.DrawForSelection(devDept.Eyeshot.DrawParams)"/>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Collections.Generic.IList{`0},devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Graphics.ShaderParameters,devDept.Geometry.Transformation,System.Int32,System.Boolean,devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate,System.Boolean,System.Boolean)">
             <summary>
             Constructor.
@@ -15701,6 +15734,13 @@
             <summary>
             When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable"/> property, otherwise no.
             </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate">
+            <summary>
+            Draw for selection delegate.
+            </summary>
+            <param name="ent"></param>
+            <param name="data"></param>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributes">
             <summary>
@@ -20658,6 +20698,16 @@
             <param name="rotationCenter">Rotation center mode</param>
             <param name="center">Rotation center point</param>
         </member>
+        <member name="M:devDept.Eyeshot.RotateSettings.#ctor(devDept.Eyeshot.MouseButton,System.Double,System.Boolean,System.Double,devDept.Eyeshot.rotationType,devDept.Eyeshot.rotationCenterType,devDept.Geometry.Point3D,System.Boolean)">
+            <summary>Standard constructor.</summary>
+            <param name="mouseButton">Rotate mouse button and modifier key</param>
+            <param name="step">Rotate by arrow keys step in degrees</param>
+            <param name="enabled">False to disable view rotation</param>
+            <param name="speed">Rotate speed</param>
+            <param name="rotationMode">Rotation mode</param>
+            <param name="rotationCenter">Rotation center mode</param>
+            <param name="center">Rotation center point</param>
+        </member>
         <member name="P:devDept.Eyeshot.RotateSettings.KeysStep">
             <summary>
             Gets or sets the rotate by arrow keys step (in degrees).
@@ -20681,6 +20731,11 @@
         <member name="P:devDept.Eyeshot.RotateSettings.Center">
             <summary>
             Rotation center point (used only when <see cref="P:devDept.Eyeshot.RotateSettings.RotationCenter"/> is <see cref="F:devDept.Eyeshot.rotationCenterType.Point"/>).
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.RotateSettings.ShowCenter">
+            <summary>
+            Gets or sets the rotation center visibility during the rotation.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ShortcutKeysSettings">
@@ -21565,6 +21620,11 @@
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.Properties.Resource.Cancel_b">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Properties.Resource.Cross">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
@@ -27186,6 +27246,16 @@
             <param name="v3">Third vertex</param>
             <param name="v4">Fourth vertex</param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Quad.#ctor(devDept.Geometry.Plane,devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+            <summary>
+            Sketch plane constructor.
+            </summary>
+            <param name="plane">Sketch plane</param>
+            <param name="v1">First 2D point</param>
+            <param name="v2">Second 2D point</param>
+            <param name="v3">Third 2D point</param>
+            <param name="v4">Fourth 2D point</param>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Quad.Clone">
             <summary>
             Creates a deep copy of this triangle.
@@ -29319,12 +29389,33 @@
             <param name="tolerance">The tolerance</param>
             <returns>True if the surface is flat.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.SurfTessellator.DoSubdivision(devDept.Eyeshot.Nurbs.SurfaceEx,System.Double,System.Boolean,System.Int32,System.Collections.Generic.IList{devDept.Geometry.Polygon2D},System.Boolean,devDept.Geometry.Interval,devDept.Geometry.Interval)">
+        <member name="M:devDept.Eyeshot.Entities.SurfTessellator.DoSubdivision(devDept.Eyeshot.Nurbs.SurfaceEx,System.Double,System.Boolean,System.Int32,System.Collections.Generic.IList{devDept.Geometry.Polygon2D},System.Boolean,System.Boolean,devDept.Geometry.polygonStatusType)">
             <summary>
             The recursive subdivision algorithm. Test if the surface is flat.
             If so, split it into triangles.  Otherwise, split it into two halves,
             and invoke the procedure on each half.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.SurfTessellator.CheckAngleEdge8(devDept.Geometry.Point3D[],devDept.Geometry.IndexTriangle[],System.Double,System.Double,devDept.Eyeshot.Entities.Surface,System.Double)">
+            <summary>
+            Checks angle between triangle normal and the average of vertices normals of the 8 biggest 2D triangles.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.SurfTessellator.CheckAngleCentroid8(devDept.Geometry.Point3D[],devDept.Geometry.IndexTriangle[],System.Double,System.Double,devDept.Eyeshot.Entities.Surface,System.Double)">
+            <summary>
+            Checks angle between triangle normal and the average of vertices normals of the 8 biggest 2D triangles.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.SurfTessellator.CheckAngle(devDept.Geometry.Point3D[],devDept.Geometry.IndexTriangle[],System.Double,System.Double)">
+            <summary>
+            Checks angle between triangle normal and the average of vertices normals for non skinny triangles.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Entities.SurfTessellator.DuplicateKeyComparer`1">
+            <summary>
+            Comparer for comparing two keys, handling equality as beeing greater. Use this Comparer e.g. with SortedLists or SortedDictionaries, that don't allow duplicate keys
+            </summary>
+            <typeparam name="TKey"></typeparam>
         </member>
         <member name="T:devDept.Eyeshot.Entities.CurveOnSurfaceTessellator">
             <exclude/>
@@ -30031,7 +30122,7 @@
         <member name="P:devDept.Eyeshot.CoordinateSystemIcon.Position">
             <summary>
             The position on sceeen.
-            </summary>
+            </summary>        
         </member>
         <member name="T:devDept.Eyeshot.originSymbolStyleType">
             <summary>Origin symbol style type.</summary>
@@ -30590,14 +30681,14 @@
             <param name="item">The entity to be added</param>
             <param name="layerName">The destination layer name</param>
         </member>
-        <member name="M:devDept.Eyeshot.EntityList.AddRange(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity},System.Int32)">
+        <member name="M:devDept.Eyeshot.EntityList.AddRange``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>
             Adds the <see cref="T:devDept.Eyeshot.Entities.Entity">entities</see> of the specified collection to the end of this collection using the specified layer.
             </summary>
             <param name="collection">The collection whose entities should be added to the end of this collection.</param>
             <param name="layerIndex">The destination layer index</param>
         </member>
-        <member name="M:devDept.Eyeshot.EntityList.AddRange(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity},System.Int32,System.Drawing.Color)">
+        <member name="M:devDept.Eyeshot.EntityList.AddRange``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Drawing.Color)">
             <summary>
             Adds the <see cref="T:devDept.Eyeshot.Entities.Entity">entities</see> of the specified collection to the end of this collection using the specified layer and color.
             </summary>
@@ -30605,7 +30696,7 @@
             <param name="layerIndex">The destination layer index</param>
             <param name="color">The color assigned to the entities of the collection</param>
         </member>
-        <member name="M:devDept.Eyeshot.EntityList.AddRange(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity},System.String)">
+        <member name="M:devDept.Eyeshot.EntityList.AddRange``1(System.Collections.Generic.IEnumerable{``0},System.String)">
             <summary>
             Adds the <see cref="T:devDept.Eyeshot.Entities.Entity">entities</see> of the specified collection to the end of this collection using the specified layer.
             </summary>

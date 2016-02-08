@@ -563,7 +563,14 @@
         <member name="M:devDept.Graphics.RenderContextBase.Compile(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object)">
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:devDept.Graphics.RenderContextBase.CompileVBO(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object)" -->
+        <member name="M:devDept.Graphics.RenderContextBase.CompileVBO(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object)">
+            <summary>
+            Compiles the Entity using Vertex Buffer Objects if possible.
+            </summary>
+            <param name="data">The entity graphics data</param>
+            <param name="drawEntityCallBack">The draw function (used only if VBO are not supported)</param>
+            <param name="vboParams">The parameters (of type <see cref="T:devDept.Graphics.VBOParams"/>)</param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawBufferedLine(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
             <summary>
             Draws a line using a buffered approach.
@@ -1261,6 +1268,14 @@
             Locks the depth stencil state so that the following calls to <see cref="M:devDept.Graphics.RenderContextBase.SetState(devDept.Graphics.depthStencilStateType)"/> won't do anything until the state is unlocked.
             </summary>
             <param name="lockState">The lock status</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawTextureOnScreen(System.Drawing.Rectangle,devDept.Graphics.TextureBase,devDept.Graphics.TextureBase)">
+            <summary>
+            Draws a texture on screen.
+            </summary>
+            <param name="rect">The screen rectangle where the texture will be drawn</param>
+            <param name="textureForRendering">The texture</param>
+            <param name="textureResolved">A texture used to resolve multisample textures</param>
         </member>
         <member name="P:devDept.Graphics.RenderContextBase.NumberOfSplits">
             <summary>
@@ -3438,6 +3453,14 @@
             Copy constructor.
             </summary>
             <param name="another">The other BackgroundSettings object</param>
+        </member>
+        <member name="M:devDept.Graphics.BackgroundSettings.FreezeBrightness(System.Boolean)">
+            <summary>
+            Freezes the brightness evaluation.
+            </summary>
+            <param name="freeze"></param>
+            <remarks>For internal use only.</remarks>
+            <seealso cref="P:devDept.Graphics.BackgroundSettings.IsDark"/>
         </member>
         <member name="P:devDept.Graphics.BackgroundSettings.StyleMode">
             <summary>Gets or sets the viewport background style.</summary>

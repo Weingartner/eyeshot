@@ -1012,9 +1012,18 @@
             <param name="vertices">The list of vertices</param>
             <returns>True if the polygon is degenerated, false otherwise</returns>
         </member>
+        <member name="M:devDept.Geometry.Utility.CleanQuads(System.Collections.Generic.IList{System.Int32[]},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.List{devDept.Geometry.Point3D}@)">
+            <summary>
+            Cleans a quad list from duplicated vertices.
+            </summary>
+            <param name="quads">The quad list</param>
+            <param name="vertices">The vertices list</param>
+            <param name="uniqueVertices">The vertices list without duplicates</param>
+            <returns>the vertices conversion indices</returns>
+        </member>
         <member name="M:devDept.Geometry.Utility.CleanTriangles(System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.List{devDept.Geometry.IndexTriangle}@,System.Collections.Generic.List{devDept.Geometry.Point3D}@)">
             <summary>
-            Cleans a triangles list from the duplicated vertices.
+            Cleans a triangles list from duplicated vertices.
             </summary>
             <param name="triangles">The triangles list</param>
             <param name="vertices">The vertices list</param>
@@ -1023,14 +1032,13 @@
         </member>
         <member name="M:devDept.Geometry.Utility.CleanTriangles(System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.List{devDept.Geometry.IndexTriangle}@,System.Collections.Generic.List{devDept.Geometry.Point3D}@,System.Int32[]@)">
             <summary>
-            Cleans the triangles from the duplicated vertices
+            Cleans the triangles from duplicated vertices.
             </summary>
             <param name="triangles">The triangles list</param>
             <param name="vertices">The vertices list</param>
             <param name="cleanedTriangles">The triangles list without degenerate triangles</param>
             <param name="uniqueVertices">The vertices list without the duplicated vertices</param>
-            <param name="conversionIndices"></param>
-            <returns>the vertices conversion indices</returns>
+            <param name="conversionIndices">The vertex index conversion map</param>
         </member>
         <member name="M:devDept.Geometry.Utility.AreEqual(System.Double,System.Double,System.Double)">
             <summary>
