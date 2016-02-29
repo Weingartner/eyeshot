@@ -563,13 +563,24 @@
         <member name="M:devDept.Graphics.RenderContextBase.Compile(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object)">
             <returns></returns>
         </member>
-        <member name="M:devDept.Graphics.RenderContextBase.CompileVBO(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object)">
+        <member name="M:devDept.Graphics.RenderContextBase.CompileVBO(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object,System.Boolean)">
             <summary>
             Compiles the Entity using Vertex Buffer Objects if possible.
             </summary>
             <param name="data">The entity graphics data</param>
             <param name="drawEntityCallBack">The draw function (used only if VBO are not supported)</param>
             <param name="vboParams">The parameters (of type <see cref="T:devDept.Graphics.VBOParams"/>)</param>
+            <param name="dynamic">If true the buffer is created dynamic, so it can be updated later on.</param>
+            <seealso cref="M:devDept.Graphics.RenderContextBase.UpdateVBO(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object)"/>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.UpdateVBO(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object)">
+            <summary>
+            Updates the vertex buffer object (that must have been created dynamic).
+            </summary>
+            <param name="data">The entity graphics data</param>
+            <param name="drawEntityCallBack">The draw function (used only if VBO are not supported)</param>
+            <param name="vboParams">The parameters (of type <see cref="T:devDept.Graphics.VBOParams"/>)</param>
+            <seealso cref="M:devDept.Graphics.RenderContextBase.CompileVBO(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object,System.Boolean)"/>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawBufferedLine(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
             <summary>
@@ -1418,6 +1429,11 @@
             Color texture used to render the Depth bufffer in level_9_3.
             </summary>
         </member>
+        <member name="F:devDept.Graphics.D3DRenderContext.wpfImageSource">
+            <summary>
+            The WPF Image Source object. For internal use only.
+            </summary>
+        </member>
         <member name="M:devDept.Graphics.D3DRenderContext.AddBufferData(System.Single[],SharpDX.Direct3D.PrimitiveTopology,System.Int32,System.Boolean)">
             <summary>
             Adds the array of floats to the current D3DEntityBuffer.
@@ -1617,26 +1633,47 @@
             Direct3D dynamic buffer class.
             </summary>
         </member>
-        <member name="M:devDept.Graphics.DynamicBuffer.UpdateBuffer(SharpDX.Direct3D11.DeviceContext,System.Single[],System.Int32,System.Int32,SharpDX.Direct3D.PrimitiveTopology,System.Int32)">
+        <member name="M:devDept.Graphics.DynamicBuffer.#ctor(SharpDX.Direct3D11.Device,System.Int32,System.Int32)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="device">The device</param>
+            <param name="vertexBufferSize">The vertex buffer size</param>
+            <param name="indexBufferSize">The index buffer size</param>
+        </member>
+        <member name="M:devDept.Graphics.DynamicBuffer.#ctor(SharpDX.Direct3D11.Device,System.Single[],System.Int32[],SharpDX.Direct3D.PrimitiveTopology,System.Int32)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="device">The device</param>
+            <param name="vertexData">The vertex buffer data</param>
+            <param name="indexData">The index buffer data</param>
+            <param name="topology">The topology</param>
+            <param name="nVertices">The number of vertices</param>
+        </member>
+        <member name="M:devDept.Graphics.DynamicBuffer.UpdateBuffer(System.Single[],System.Int32,System.Int32,SharpDX.Direct3D.PrimitiveTopology,System.Int32)">
             <summary>
             Updates the buffer values.
             </summary>
-            <param name="context"></param>
             <param name="data">The data to copy</param>
             <param name="offset">The zero-based offset in data at which to start copying the points</param>
             <param name="dataLength">Number of floats of "data" to copy to the buffer</param>
             <param name="topology">The primitive type to draw</param>
             <param name="nElements">Number of vertices</param>
         </member>
-        <member name="M:devDept.Graphics.DynamicBuffer.UpdateBuffer(SharpDX.Direct3D11.DeviceContext)">
+        <member name="M:devDept.Graphics.DynamicBuffer.UpdateBuffer">
             <summary>
             Updates the Buffer with the data already memorized.
             </summary>
-            <param name="context">The device context</param>
         </member>
-        <member name="P:devDept.Graphics.DynamicBuffer.BufferSize">
+        <member name="P:devDept.Graphics.DynamicBuffer.VertexBufferSize">
             <summary>
-            Gets the number of floats that the buffer can contain.
+            Gets the number of floats that the vertex buffer can contain.
+            </summary>
+        </member>
+        <member name="P:devDept.Graphics.DynamicBuffer.IndexBufferSize">
+            <summary>
+            Gets the number of integers that the index buffer can contain.
             </summary>
         </member>
         <member name="T:devDept.Graphics.vertexBufferData">
@@ -2629,14 +2666,6 @@
             The color applies to the ambient component of both front and back faces.
             </summary>
         </member>
-        <member name="M:devDept.Graphics.Disposer.RemoveAndDispose``1(``0@)">
-            <summary>
-            Dispose an object instance and set the reference to null
-            </summary>
-            <typeparam name="TypeName">The type of object to dispose</typeparam>
-            <param name="resource">A reference to the instance for disposal</param>
-            <remarks>This method hides any thrown exceptions that might occur during disposal of the object (by design)</remarks>
-        </member>
         <member name="T:devDept.Graphics.D3DImageExtManager">
             <summary>
             Device Manager that handles interop between D3D11 and D3D9, and schedule global <see cref="E:System.Windows.Media.CompositionTarget.Rendering"/>.
@@ -2812,6 +2841,14 @@
             <summary>
             The pixel shader with the clip planes evaluation.
             </summary>
+        </member>
+        <member name="M:devDept.Graphics.Disposer.RemoveAndDispose``1(``0@)">
+            <summary>
+            Dispose an object instance and set the reference to null
+            </summary>
+            <typeparam name="TypeName">The type of object to dispose</typeparam>
+            <param name="resource">A reference to the instance for disposal</param>
+            <remarks>This method hides any thrown exceptions that might occur during disposal of the object (by design)</remarks>
         </member>
         <member name="T:devDept.Graphics.DrawEntityCallBack">
             <summary>

@@ -1012,7 +1012,7 @@
             <param name="vertices">The list of vertices</param>
             <returns>True if the polygon is degenerated, false otherwise</returns>
         </member>
-        <member name="M:devDept.Geometry.Utility.CleanQuads(System.Collections.Generic.IList{System.Int32[]},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.List{devDept.Geometry.Point3D}@)">
+        <member name="M:devDept.Geometry.Utility.CleanQuads(System.Collections.Generic.IList{System.Int32[]},System.Collections.Generic.IList{devDept.Geometry.PointNormalUv},System.Collections.Generic.List{devDept.Geometry.PointNormalUv}@)">
             <summary>
             Cleans a quad list from duplicated vertices.
             </summary>
