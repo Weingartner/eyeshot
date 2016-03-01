@@ -10,6 +10,7 @@ let nugetSpecFilePath = "devDept.Eyeshot.nuspec"
 let assemblyFile = FindFirstMatchingFile assemblyPattern "binaries"
 let version = GetAssemblyVersionString assemblyFile
 
+TeamCityHelper.SetBuildNumber version
 
 Target "CreateNuGetPackage" (fun _ ->
     let setParams (p: NuGetParams) =
