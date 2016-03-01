@@ -1813,6 +1813,11 @@
             Class that holds the compiled graphics data.
             </summary>
         </member>
+        <member name="M:devDept.Graphics.EntityGraphicsData.Dispose">
+            <summary>
+            Cleans up the graphics resources.
+            </summary>
+        </member>
         <member name="F:devDept.Graphics.EntityGraphicsData.d3dBuffer">
             <summary>
             Direct3D buffer.
@@ -3190,6 +3195,7 @@
             <summary>
             Loads the texture for this material. This is done automatically the first time the material is added to the Materials collection.
             </summary>
+            <remarks>If the <see cref="P:devDept.Graphics.Material.TextureImage"/> or <see cref="P:devDept.Graphics.Material.EnvironmentMappingImage"/> are changed, this method needs to be called to update the graphics data.</remarks>
         </member>
         <member name="M:devDept.Graphics.Material.CalcMaterialPropertyMatrix(System.Int32,devDept.Graphics.elementType)">
             <summary>
@@ -3304,9 +3310,11 @@
         </member>
         <member name="P:devDept.Graphics.Material.TextureImage">
             <summary>Gets or sets the material texture image.</summary>
+            <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)"/> to make it effective.</remarks>
         </member>
         <member name="P:devDept.Graphics.Material.EnvironmentMappingImage">
             <summary>Gets or sets the material environment mapping image.</summary>
+            <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)"/> to make it effective.</remarks>
         </member>
         <member name="P:devDept.Graphics.Material.MinifyingFunction">
             <summary>Gets or sets the texture minifying function. The texture minifying function is used whenever

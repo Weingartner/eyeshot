@@ -28692,7 +28692,7 @@
             <summary>
             Gets or sets layer status (On/Off).
             </summary>
-            <remarks>When changing the visibility of a Layer, call <see cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox"/> and <see cref="M:devDept.Eyeshot.ViewportLayout.AdjustNearAndFarPlanes"/> to avoid visualization problems.</remarks>
+            <remarks>When changing the visibility of a Layer, call <see cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox"/> to avoid visualization problems.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.Layer.LineWeight">
             <summary>
@@ -28731,6 +28731,7 @@
             <summary>
             Turns all layers on.
             </summary>        
+            <remarks>When changing the visibility of a Layer, call <see cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox"/> to avoid visualization problems.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.LayerList.TurnOff(System.String)">
             <summary>
