@@ -15348,7 +15348,7 @@
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.PickBoxSize">
-            <summary>Gets or sets the pick box size.</summary>
+            <summary>Gets or sets the pick box size in pixel units.</summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.MultipleSelection">
             <summary>
