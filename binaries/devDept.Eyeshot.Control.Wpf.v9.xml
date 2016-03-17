@@ -220,7 +220,7 @@
         </member>
         <member name="T:devDept.Geometry.UtilityEx">
             <summary>
-            Contains a collection of utility methods and constants.
+            Contains a collection of utility methods and constants for internal use.
             </summary>
         </member>
         <member name="M:devDept.Geometry.UtilityEx.SmartAdd(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
@@ -704,11 +704,6 @@
         <member name="P:devDept.Eyeshot.DrawParams.Selected">
             <summary>
             The selected status.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.DrawParams.SelectInside">
-            <summary>
-            If true, the selection is done on the inside parts of the entity.
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.DrawParams.SelectionStatus">
@@ -1201,9 +1196,19 @@
             Gets or sets the maximum offset of the lines intersections on X and Y camera axes.
             </summary>
         </member>
+        <member name="T:devDept.Eyeshot.FindClosestVertexParamsBase">
+            <summary>
+            Base class for <see cref="M:devDept.Eyeshot.Entities.Entity.FindClosestVertex(devDept.Eyeshot.FindClosestVertexParams)"/> and <see cref="M:devDept.Eyeshot.Entities.Entity.FindClosestVertices(devDept.Eyeshot.FindClosestVerticesParams)"/>
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.FindClosestVertexParams">
             <summary>
             Data for <see cref="M:devDept.Eyeshot.Entities.Entity.FindClosestVertex(devDept.Eyeshot.FindClosestVertexParams)"/>
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.FindClosestVerticesParams">
+            <summary>
+            Data for <see cref="M:devDept.Eyeshot.Entities.Entity.FindClosestVertices(devDept.Eyeshot.FindClosestVerticesParams)"/>
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.IsSmallParams">
@@ -2946,6 +2951,11 @@
             Gets or sets the XData value list.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.SelectedInternal">
+            <summary>
+            Tells if the entity has internal parts selected
+            </summary>
+        </member>
         <member name="F:devDept.Eyeshot.Entities.Entity.drawData">
             <summary>
             Default graphics data.
@@ -2971,7 +2981,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.Dispose">
             <summary>
-            Cleans up OpenGL resources, like display lists, textures, etc.
+            Cleans up graphics resources, like display lists, textures, etc.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.IsSmall(devDept.Eyeshot.IsSmallParams)">
@@ -3755,12 +3765,6 @@
             Common properties for entities with selectable faces.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.IFaceSelectable.IsAnyFaceSelected">
-            <summary>
-            Tells if there is a selected face.
-            </summary>
-            <returns>True if there is a selected face</returns>
-        </member>
         <member name="M:devDept.Eyeshot.Entities.IFaceSelectable.ClearFacesSelection(devDept.Eyeshot.selectionStatusType)">
             <summary>
             Clears the <paramref name="selectionFlag"/> on the faces.
@@ -3774,11 +3778,11 @@
             <param name="selectionFlag">The selection status flag to clear</param>
             <param name="items">The element on which is written the information of the removed faces</param>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.IFaceSelectable.GetFaceTriangles(System.Int32[],System.Double)">
+        <member name="M:devDept.Eyeshot.Entities.IFaceSelectable.GetFaceTriangles(System.Int32,System.Double)">
             <summary>
-            Gets the triangles adjacent to the given triangles.
+            Gets the triangles adjacent to the given triangle.
             </summary>
-            <param name="indices">The triangles indices</param>
+            <param name="triangleIndex">The triangle index</param>
             <param name="adjacentNormalAngle">The angle (in radians) used to compare two adjacent triangles normals. If the angle between them is below this value, the triangles are considered belonging to the same face.</param>
             <returns>The list of adjacent triangles.</returns>
         </member>
@@ -3787,12 +3791,42 @@
             Draws the face.
             </summary>
             <param name="renderContext">The render context</param>
-            <param name="myParams">The list of triangles</param>
+            <param name="data">The list of triangles</param>
             <remarks>For internal use only.</remarks>
         </member>
-        <member name="P:devDept.Eyeshot.Entities.IFaceSelectable.SelectedFaces">
+        <member name="M:devDept.Eyeshot.Entities.IFaceSelectable.CompileSelectedFace(devDept.Graphics.RenderContextBase,devDept.Eyeshot.Entities.Mesh.FaceElement)">
             <summary>
-            The collection of the (sorted) selected faces. 
+            Compiles the graphics data for a face and removes the face triangles from the main triangles.
+            </summary>
+            <param name="renderContext"></param>
+            <param name="faceData"></param>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.IFaceSelectable.Faces">
+            <summary>
+            The collection of the (sorted) faces for selection. 
+            </summary>
+            <remarks>The list is constructed from the adjacent triangles as the selection is performed on the entity.</remarks>
+        </member>
+        <member name="T:devDept.Eyeshot.Entities.ISelectionInternal">
+            <summary>
+            Common properties for selecting inside.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.ISelectionInternal.ResetSelectionMode">
+            <summary>
+            Resets the <see cref="P:devDept.Eyeshot.Entities.ISelectionInternal.SelectionMode"/> to <see cref="F:devDept.Eyeshot.selectionFilterType.Entity"/> if there are no other selected inner elements.
+            </summary>
+            <remarks>Internal use only.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.ISelectionInternal.IsAnyFaceSelected">
+            <summary>
+            Tells if there is a selected face.
+            </summary>
+            <returns>True if there is a selected face</returns>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.ISelectionInternal.SelectionMode">
+            <summary>
+            Gets or sets the selection mode.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.CreateBox(System.Double,System.Double,System.Double)">
@@ -4785,14 +4819,6 @@
             </summary>
             <param name="data"></param>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Mesh.DrawFace(devDept.Graphics.RenderContextBase,System.Object)">
-            <summary>
-            Draws the face.
-            </summary>
-            <param name="renderContext">The render context</param>
-            <param name="myParams">The list of triangles</param>
-            <remarks>For internal use only.</remarks>
-        </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.DrawNormals(devDept.Eyeshot.DrawParams,System.Double)">
             <summary>
             Used by Solid entity (SolidPortions)
@@ -4919,6 +4945,12 @@
             </summary>
             <returns>True if there is a selected face</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.ResetSelectionMode">
+            <summary>
+            Resets the <see cref="P:devDept.Eyeshot.Entities.Mesh.SelectionMode"/> to <see cref="F:devDept.Eyeshot.selectionFilterType.Entity"/> if there are no other selected inner elements.
+            </summary>
+            <remarks>Internal use only.</remarks>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.#ctor">
             <summary>
             Empty constructor. <see cref="T:devDept.Eyeshot.Entities.entityNatureType">Mesh nature</see> is set to Plain.
@@ -5030,13 +5062,13 @@
             </summary>
             <returns>The mesh itself, not cloned.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Mesh.GetFaceTriangles(System.Int32[],System.Double)">
+        <member name="M:devDept.Eyeshot.Entities.Mesh.GetFaceTriangles(System.Int32,System.Double)">
             <summary>
-            Gets the triangles adjacent to the given triangles.
+            Gets the triangles adjacent to the given triangle.
             </summary>
-            <param name="indices">The triangle indices</param>
+            <param name="triangleIndex">The triangle index</param>
             <param name="adjacentNormalAngle">The angle (in radians) used to compare two adjacent triangles normals. If the angle between them is below this value, the triangles are considered belonging to the same face.</param>
-            <returns></returns>
+            <returns>The list of adjacent triangles.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.GetAdjacentTriangles(System.Int32,System.Double)">
             <summary>
@@ -5153,10 +5185,11 @@
             Gets or sets mesh texture coordinates.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Entities.Mesh.SelectedFaces">
+        <member name="P:devDept.Eyeshot.Entities.Mesh.Faces">
             <summary>
-            Collection of the selected faces.
+            The collection of the (sorted) faces for selection. 
             </summary>
+            <remarks>The list is constructed from the adjacent triangles as the selection is performed on the entity faces.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Mesh.IsClosed">
             <summary>Tells if a mesh is closed.
@@ -5165,6 +5198,11 @@
         </member>
         <member name="P:devDept.Eyeshot.Entities.Mesh.LightWeight">
             <remarks> If true, no geometry is generated by the hidden lines computation (see <see cref="M:devDept.Eyeshot.ViewportLayout.Print"/> and all the classes derived from <see cref="T:devDept.Eyeshot.HiddenLinesView"/>).</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Mesh.SelectionMode">
+            <summary>
+            Gets or sets the selection mode.
+            </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.EdgeIntersect.ToString">
             <summary>
@@ -7637,6 +7675,12 @@
             BRep solid entity definition.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.IsAnyFaceSelected">
+            <summary>
+            Tells if there is a selected face.
+            </summary>
+            <returns>True if there is a selected face</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.#ctor(devDept.Geometry.Point3D[],devDept.Eyeshot.Entities.Solid3D.Edge[],devDept.Eyeshot.Entities.Solid3D.Face[],devDept.Eyeshot.Entities.Solid3D.Face[][])">
             <summary>
             Inner shells constructor.
@@ -7657,6 +7701,12 @@
             Creates a deep copy of this Solid.
             </summary>
             <returns>The new solid object.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ResetSelectionMode">
+            <summary>
+            Resets the <see cref="P:devDept.Eyeshot.Entities.Solid3D.SelectionMode"/> to <see cref="F:devDept.Eyeshot.selectionFilterType.Entity"/> if there are no other selected inner elements.
+            </summary>
+            <remarks>Internal use only.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToSurfaces(System.Double,System.Double)">
             <summary>
@@ -7680,11 +7730,12 @@
             <param name="meshNature">The Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
             <returns>The resulting mesh object</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToMesh(devDept.Eyeshot.Entities.Mesh.natureType)">
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToMesh(devDept.Eyeshot.Entities.Mesh.natureType,System.Boolean)">
             <summary>
             Converts this Solid3D to a Mesh using current triangulation.
             </summary>
             <param name="meshNature">The Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
+            <param name="weld">If true, removes the duplicate vertices</param>
             <returns>The resulting mesh object</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.Section(devDept.Geometry.Plane,System.Double)">
@@ -7871,6 +7922,11 @@
             <param name="offsetTopE"> te last edge index of top part</param>
             <param name="edges"> edge list to be fixed</param>
             <param name="faces"> face list to be fixed</param>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Solid3D.SelectionMode">
+            <summary>
+            Gets or sets the selection mode.
+            </summary>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Solid3D.Vertices">
             <summary>
@@ -8202,6 +8258,12 @@
             <param name="p">Degree</param>
             <param name="n">Number of control points</param>
             <returns>The resulting knot vector.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.NurbsBase.UniformKnotVectorForTwist(System.Int32)">
+            <summary>
+            Constructs a uniform clamped knot vector of degree 3, in which
+            the inner nodes have multiplicity equal to p-1 = 2
+            </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.NurbsBase.BezierToPowerMatrix(System.Int32)">
             <summary>
@@ -8764,6 +8826,13 @@
             <param name="degV">The degree in the V direction</param>
             <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the sections are Composite Curves with similar shape, and you want to line up the corners (and curve segments) in the resulting surface.</param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.SkinVForTwist(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Curve},System.Int32)">
+            <summary>
+            Creates a surface from skinning. The skinning is performed in the V direction.
+            </summary>
+            <param name="myList">A list of curves (rototranslations of the same curve)</param>
+            <param name="degV">The degree in the V direction</param>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.SkinFirstKnotVectorV(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Curve},System.Int32)">
             <summary>
             Creates a surface from skinning. The skinning is performed in the V direction. It uses the first curve knot vector for all curves. 
@@ -8854,6 +8923,28 @@
             <param name="curveList">The skinning curves</param>
             <param name="degree">The desired surface degree</param>
             <param name="splitAtCorners">If True, it splits the curves at corner points. It is useful when the curves have similar shapes, and you want to line up the corners in the resulting surface.</param>
+            <returns>The resulting surface array if the operation succeeds, null/Nothing otherwise.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.ExtrudeWithTwist(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+            <summary>
+            Extrudes and twists a planar curve. 
+            </summary>
+            <param name="curve">The curve to extrude</param>
+            <param name="direction">Extrusion direction, normal to the plane of the curve</param>
+            <param name="center">Point of application for the direction, on the plane of the curve</param>
+            <param name="angle">Twist angle in radians</param>
+            <param name="numberOfSections">Number of internal sections to be interpolated, it corresponds to the the number of distinct internal knots in the surface's V direction.</param>
+            <returns>The resulting surface array if the operation succeeds, null/Nothing otherwise.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.ExtrudeWithTwist(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Double)">
+            <summary>
+            Extrudes and twists a planar curve. 
+            </summary>
+            <param name="curve">The curve to extrude</param>
+            <param name="direction">Extrusion direction, normal to the plane of the curve</param>
+            <param name="center">Point of application for the direction, on the plane of the curve</param>
+            <param name="angle">Twist angle in radians</param>
+            <param name="tol">Tolerance</param>
             <returns>The resulting surface array if the operation succeeds, null/Nothing otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.CreatePlanar(devDept.Eyeshot.Entities.ICurve)">
@@ -14436,19 +14527,6 @@
             <param name="invert">If true, inverts current selection status</param>
             <remarks>Call <see cref="M:System.Windows.Forms.Control.Invalidate(System.Drawing.Region)"/> to see the effect of this function.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionVisibleOnly(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32},System.Boolean,System.Boolean)">
-            <summary>
-            Selects only visible entities in the specified rectangle.
-            </summary>
-            <param name="selectionBox">Selection rectangle in screen coordinates</param>
-            <param name="added">The list of entity indices of entities added to selection</param>
-            <param name="removed">The list of entity indices of entities removed from selection</param>
-            <param name="firstOnly">When true, returns immediately after selecting the first entity</param>
-            <param name="invert">If true, inverts current selection status</param>
-            <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable"/> property, otherwise no.</param>
-            <param name="temporarySelection">Tells if the selection is part of a dynamic selection session (see <see cref="F:devDept.Eyeshot.actionType.SelectVisibleByPickDynamic"/>)</param>
-            <remarks>Call <see cref="M:System.Windows.Forms.Control.Invalidate(System.Drawing.Region)"/> to see the effect of this function.</remarks>
-        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionVisibleOnly(System.Drawing.Rectangle,System.Boolean,System.Boolean,devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs,System.Boolean,System.Boolean)">
             <summary>
             Selects only visible entities in the specified rectangle.
@@ -14667,28 +14745,28 @@
             Looks for the model vertex whose 2D screen projection is closer to the mouse cursor.
             </summary>
             <param name="mousePos">Mouse position (zero on top)</param>
-            <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
             <param name="closest">The closest vertex as a 3D point</param>
             <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance"/>, -1 otherwise.</returns>
             <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
             of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>. 
             Also, the <paramref name="closest"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closest"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>
+            of the <paramref name="closest"/> point you need to transform it by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)"/>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,devDept.Geometry.Point3D@)">
             <summary>
-            Looks for the model vertex whose 2D screen projection is closer to the mouse cursor skipping entities different from entType.
+            Looks for the model vertex whose 2D screen projection is closer to the mouse cursor skipping entities different from <paramref name="entType"/>.
             </summary>
             <param name="mousePos">Mouse position (zero on top)</param>
-            <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
-            <param name="entType">Entity type</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
+            <param name="entType">The type of entities to process</param>
             <param name="closest">The closest vertex as a 3D point</param>
             <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance"/> and the entity type is <paramref name="entType"/>, -1 otherwise.</returns>
             <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
             of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>.
             Also, the <paramref name="closest"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closest"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
+            of the <paramref name="closest"/> point you need to transform it by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)"/>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,System.Int32@)">
@@ -14696,43 +14774,97 @@
             Looks for the model vertex whose 2D screen projection is closer to the mouse cursor.
             </summary>
             <param name="mousePos">Mouse position (zero on top)</param>
-            <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
             <param name="closestIndex">The closest vertex index</param>
             <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance"/>, -1 otherwise.</returns>
             <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
             of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>.
             Also, the <paramref name="closestIndex"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closestIndex"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>
+            of the <paramref name="closestIndex"/> point you need to transform it by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)"/>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(devDept.Eyeshot.Entities.Entity,System.Drawing.Point,System.Double)">
+            <summary>
+            Looks for the vertex of the specified <paramref name="entity"/> whose 2D screen projection is closer to the mouse cursor.
+            </summary>
+            <param name="entity">The entity to process</param>
+            <param name="mousePos">Mouse position (zero on top)</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
+            <returns>The closest vertex, if any is found.</returns>
+            <remarks>The returned point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the point you need to transform it by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)"/>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Eyeshot.Entities.HitVertex@)">
             <summary>
-            Looks for the model vertex whose 2D screen projection is closer to the mouse cursor skipping entities different from entType.
+            Looks for the model vertex whose 2D screen projection is closer to the mouse cursor.
             </summary>
             <param name="mousePos">Mouse position (zero on top)</param>
-            <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
             <param name="closestVertex">The closest vertex</param>
-            <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance"/> and the entity type is <paramref name="entType"/>, -1 otherwise.</returns>
+            <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance"/>, -1 otherwise.</returns>
             <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
             of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>.
             Also, the <paramref name="closestVertex"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closestVertex"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
+            of the <paramref name="closestVertex"/> point you need to transform it by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)"/>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,devDept.Eyeshot.Entities.HitVertex@)">
             <summary>
-            Looks for the model vertex whose 2D screen projection is closer to the mouse cursor skipping entities different from entType.
+            Looks for the model vertex whose 2D screen projection is closer to the mouse cursor skipping entities different from <paramref name="entType"/>.
             </summary>
             <param name="mousePos">Mouse position (zero on top)</param>
-            <param name="maxDistance">Limit the search to points at this distance from mouse cursor position</param>
-            <param name="entType">Entity type</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
+            <param name="entType">The type of entities to process</param>
             <param name="closestVertex">The closest vertex, with the full information to retrieve the vertex from a <see cref="T:devDept.Eyeshot.Entities.Solid3D"/> or <see cref="!:Solid"/></param>
             <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance"/> and the entity type is <paramref name="entType"/>, -1 otherwise.</returns>
             <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/>
             of the Block referred by the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>.
             Also, the <paramref name="closestVertex"/> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closestVertex"/> point you need to transform if by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
+            of the <paramref name="closestVertex"/> point you need to transform it by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)"/>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertices(System.Drawing.Point,System.Double)">
+            <summary>
+            Looks for the model vertices whose 2D screen projections are closer to the mouse than the <paramref name="maxDistance"/>.
+            </summary>
+            <param name="mousePos">Mouse position (zero on top)</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
+            <returns>The list of vertices nearer than <paramref name="maxDistance"/>.</returns>
+            <remarks>The returned points are in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the points you need to transform them by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertices(System.Drawing.Point,System.Double,System.Type)">
+            <summary>
+            Looks for the model vertices whose 2D screen projections are closer to the mouse cursor skipping entities different from <paramref name="entType"/>.
+            </summary>
+            <param name="mousePos">Mouse position (zero on top)</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
+            <param name="entType">The type of entities to process</param>
+            <returns>The list of vertices nearer than <paramref name="maxDistance"/> and belonging to entities of type <paramref name="entType"/>.</returns>
+            <remarks>The returned points are in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the points you need to transform them by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertices(devDept.Eyeshot.Entities.Entity,System.Drawing.Point,System.Double)">
+            <summary>
+            Looks for the model vertices of the specified <paramref name="entity"/> whose 2D screen projections are closer to the mouse cursor.
+            </summary>
+            <param name="entity">The entity to process</param>
+            <param name="mousePos">Mouse position (zero on top)</param>
+            <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
+            <returns>The list of vertices of the specified <paramref name="entity"/> nearer than <paramref name="maxDistance"/>.</returns>
+            <remarks>The returned points are in the coordinate space of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the points you need to transform them by the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/> of the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/></remarks>        
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVerticesInternal(devDept.Eyeshot.Entities.Entity,System.Drawing.Point,System.Double,System.Type)">
+            <summary>
+            Gets the list of vertices closer than <paramref name="maxDistance"/>.
+            </summary>
+            <param name="entity"></param>
+            <param name="mousePos"></param>
+            <param name="maxDistance"></param>
+            <param name="entType"></param>
+            <returns>The list of vertices.</returns>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,System.Int32@)">
             <summary>
@@ -14855,7 +14987,7 @@
             <summary>
             Finds the closest triangle to the viewer of the specified entity.
             </summary>
-            <param name="ent">The entity</param>
+            <param name="entity">The entity</param>
             <param name="mousePos">Mouse cursor position</param>
             <param name="hitPoint">Closest triangle's intersection point</param>
             <param name="hitTriangleIndex">Closest triangle's index</param>
@@ -14866,7 +14998,7 @@
             <summary>
             Finds the closest triangle to the viewer of the specified entity.
             </summary>
-            <param name="ent">The entity</param>
+            <param name="entity">The entity</param>
             <param name="mousePos">Mouse cursor position (zero on top)</param>
             <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle"/> found under the mouse cursor.</returns>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Geometry.Point3D@)"/>             
@@ -23825,7 +23957,7 @@
             <summary>
             Quick constructor, 3D attaching point is (0,0,0).
             </summary>
-            <param name="color">A <see cref="P:devDept.Eyeshot.Labels.Label.Color"/> structure that indicates the color Image. this label.</param>
+            <param name="color">A <see cref="P:devDept.Eyeshot.Labels.Label.Color"/> structure that indicates the color of this label.</param>
         </member>
         <member name="M:devDept.Eyeshot.Labels.Label.#ctor(System.Double,System.Double,System.Double,System.Drawing.Color)">
             <summary>
@@ -23834,21 +23966,21 @@
             <param name="x">Anchor point's X coordinate</param>
             <param name="y">Anchor point's Y coordinate</param>
             <param name="z">Anchor point's Z coordinate</param>
-            <param name="color">A <see cref="P:devDept.Eyeshot.Labels.Label.Color"/> structure that indicates the color Image. this label</param>
+            <param name="color">A <see cref="P:devDept.Eyeshot.Labels.Label.Color"/> structure that indicates the color of this label</param>
         </member>
         <member name="M:devDept.Eyeshot.Labels.Label.#ctor(devDept.Geometry.Point3D,System.Drawing.Color)">
             <summary>
             Standard constructor.
             </summary>
             <param name="anchorPoint">Anchor point</param>
-            <param name="color">A <see cref="P:devDept.Eyeshot.Labels.Label.Color"/> structure that indicates the color Image. this label.</param>
+            <param name="color">A <see cref="P:devDept.Eyeshot.Labels.Label.Color"/> structure that indicates the color of this label.</param>
         </member>
         <member name="M:devDept.Eyeshot.Labels.Label.#ctor(devDept.Geometry.Point3D,System.Drawing.Color,System.Boolean)">
             <summary>
             Standard constructor.
             </summary>
             <param name="anchorPoint">Anchor point</param>
-            <param name="color">A <see cref="P:devDept.Eyeshot.Labels.Label.Color"/> structure that indicates the color Image. this label.</param>
+            <param name="color">A <see cref="P:devDept.Eyeshot.Labels.Label.Color"/> structure that indicates the color of this label.</param>
         </member>
         <member name="M:devDept.Eyeshot.Labels.Label.Dispose">
             <summary>
@@ -24055,7 +24187,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Labels.LabelList.Remove(devDept.Eyeshot.Labels.Label)">
             <summary>
-            Removes the first occurrence Image. a specific label from this collection.
+            Removes the first occurrence of a specific label from this collection.
             </summary>
             <param name="item">The object to remove from this collection</param>
             <returns>True if label is successfully removed; otherwise, false. This method also
@@ -24063,16 +24195,16 @@
         </member>
         <member name="M:devDept.Eyeshot.Labels.LabelList.RemoveAt(System.Int32)">
             <summary>
-            Removes the label at the specified index Image. this collection.
+            Removes the label at the specified index of this collection.
             </summary>
-            <param name="index">The zero-based index Image. the label to remove</param>
+            <param name="index">The zero-based index of the label to remove</param>
         </member>
         <member name="M:devDept.Eyeshot.Labels.LabelList.RemoveRange(System.Int32,System.Int32)">
             <summary>
-            Removes a range Image. <see cref="T:devDept.Eyeshot.Labels.Label">labels</see> from this collection.
+            Removes a range of <see cref="T:devDept.Eyeshot.Labels.Label">labels</see> from this collection.
             </summary>
-            <param name="index">The zero-based starting index Image. the range Image. <see cref="T:devDept.Eyeshot.Labels.Label">labels</see> to remove</param>
-            <param name="count">The number Image. <see cref="T:devDept.Eyeshot.Labels.Label">labels</see> to remove</param>
+            <param name="index">The zero-based starting index of the range of <see cref="T:devDept.Eyeshot.Labels.Label">labels</see> to remove</param>
+            <param name="count">The number of <see cref="T:devDept.Eyeshot.Labels.Label">labels</see> to remove</param>
         </member>
         <member name="M:devDept.Eyeshot.Labels.LabelList.Regen">
             <summary>
@@ -24087,7 +24219,7 @@
             <summary>
             Gets or sets the label at the specified index.
             </summary>
-            <param name="index">The zero-based index Image. the label to get or set</param>
+            <param name="index">The zero-based index of the label to get or set</param>
             <returns>The label at the specified index</returns>
         </member>
         <member name="T:devDept.Eyeshot.Labels.ImageOnly">

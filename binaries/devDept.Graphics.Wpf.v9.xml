@@ -2812,6 +2812,13 @@
             </summary>
             <param name="Context"></param>
         </member>
+        <member name="M:devDept.Graphics.ID3DShader.EnableClipPlanesShader(SharpDX.Direct3D11.DeviceContext,System.Boolean)">
+            <summary>
+            Enables or disables the pixel shader that uses the clipping planes (for better performances).
+            </summary>
+            <param name="context">The device context</param>
+            <param name="enable">The enable status</param>
+        </member>
         <member name="M:devDept.Graphics.D3DShader`2.#ctor(SharpDX.Direct3D11.Device,SharpDX.Direct3D.FeatureLevel,System.String,SharpDX.Direct3D11.InputElement[],devDept.Graphics.ConstantBufferSlots,devDept.Graphics.ConstantBufferSlots,System.Boolean)">
             <summary>
             
@@ -2846,6 +2853,13 @@
             <summary>
             The pixel shader with the clip planes evaluation.
             </summary>
+        </member>
+        <member name="M:devDept.Graphics.D3DShader`2.EnableClipPlanesShader(SharpDX.Direct3D11.DeviceContext,System.Boolean)">
+            <summary>
+            Enables or disables the pixel shader that uses the clipping planes (for better performances).
+            </summary>
+            <param name="context">The device context</param>
+            <param name="enable">The enable status</param>
         </member>
         <member name="M:devDept.Graphics.Disposer.RemoveAndDispose``1(``0@)">
             <summary>
