@@ -523,7 +523,7 @@
             Triangulates a set of contours/points.
             </summary>
             <param name="outerLoop">Outer contour</param>
-            <param name="innerLoops">A list of inner contours, can be null/Nothing.</param>
+            <param name="innerLoops">A list of inner contours (holes), can be null/Nothing.</param>
             <param name="points">The list of Steiner points, can be null/Nothing.</param>
             <param name="segments">The internal constraint segments, can be null/Nothing.</param>
             <returns>The resulting Mesh, null/Nothing in case of failure.</returns>
@@ -1168,7 +1168,7 @@
         </member>
         <member name="P:devDept.Eyeshot.ScreenPolygonParams.ModelViewProj">
             <summary>
-            Gets or sets the the modelView projection matrix.
+            Gets or sets the modelView projection matrix.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.OffsetOnCameraAxesParams">
@@ -1198,17 +1198,17 @@
         </member>
         <member name="T:devDept.Eyeshot.FindClosestVertexParamsBase">
             <summary>
-            Base class for <see cref="M:devDept.Eyeshot.Entities.Entity.FindClosestVertex(devDept.Eyeshot.FindClosestVertexParams)"/> and <see cref="M:devDept.Eyeshot.Entities.Entity.FindClosestVertices(devDept.Eyeshot.FindClosestVerticesParams)"/>
+            Base class for <see cref="!:Entity.FindClosestVertex(devDept.Eyeshot.FindClosestVertexParams)"/> and <see cref="!:Entity.FindClosestVertices(devDept.Eyeshot.FindClosestVerticesParams)"/>
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.FindClosestVertexParams">
             <summary>
-            Data for <see cref="M:devDept.Eyeshot.Entities.Entity.FindClosestVertex(devDept.Eyeshot.FindClosestVertexParams)"/>
+            Data for <see cref="!:Entity.FindClosestVertex(devDept.Eyeshot.FindClosestVertexParams)"/>
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.FindClosestVerticesParams">
             <summary>
-            Data for <see cref="M:devDept.Eyeshot.Entities.Entity.FindClosestVertices(devDept.Eyeshot.FindClosestVerticesParams)"/>
+            Data for <see cref="!:Entity.FindClosestVertices(devDept.Eyeshot.FindClosestVerticesParams)"/>
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.IsSmallParams">
@@ -1692,7 +1692,7 @@
             <param name="fitAfterViewChange">If true, fits the view when the view orientation changes</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Font,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean)">
-            <summary>Standard constructor.</summary>
+            <summary>Deprecated constructor.</summary>
             <param name="position">Position</param>
             <param name="visible">Visibility status</param>
             <param name="highlightColor">Color of highlight</param>
@@ -1716,7 +1716,7 @@
             <param name="enabled">The enabled status</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean)">
-            <summary>Standard constructor.</summary>
+            <summary>Deprecated constructor.</summary>
             <param name="position">Position</param>
             <param name="visible">Visibility status</param>
             <param name="highlightColor">Color of highlight</param>
@@ -1747,12 +1747,12 @@
             <param name="enabled">The enabled status</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource)">
-            <summary>Standard constructor.</summary>
+            <summary>Deprecated constructor.</summary>
             <param name="position">Position</param>
             <param name="visible">Visibility status</param>
             <param name="highlightColor">Color of highlight</param>
             <param name="animateCamera">If true, animates the camera when changing the orientation</param>
-            <param name="animateCameraDuration">The duration in milliseconds of the camera animations</param>
+            <param name="animateCameraDuration">Deprecated, see <see cref="P:devDept.Eyeshot.ViewportLayout.AnimateCameraDuration"/> </param>
             <param name="frontText">Text of the front face</param>
             <param name="backText">Text of the back face</param>
             <param name="leftText">Text of the left face</param>
@@ -1784,12 +1784,12 @@
             <param name="bottomImage">The bottom face image</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Boolean)">
-            <summary>Standard constructor.</summary>
+            <summary>Deprecated constructor.</summary>
             <param name="position">Position</param>
             <param name="visible">Visibility status</param>
             <param name="highlightColor">Color of highlight</param>
             <param name="animateCamera">If true, animates the camera when changing the orientation</param>
-            <param name="animateCameraDuration">The duration in milliseconds of the camera animations</param>
+            <param name="animateCameraDuration">Deprecated, see <see cref="P:devDept.Eyeshot.ViewportLayout.AnimateCameraDuration"/> </param>
             <param name="frontText">Text of the front face</param>
             <param name="backText">Text of the back face</param>
             <param name="leftText">Text of the left face</param>
@@ -2993,7 +2993,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],System.Boolean)">
             <summary>
-            Tells if the the entity is inside the frustum planes.
+            Tells if the entity is inside the frustum planes.
             </summary>
             <param name="frustum">The planes of the frustum</param>
             <param name="quick">If true a quick check is done, else a more accurate one is performed</param>
@@ -4641,11 +4641,35 @@
             <param name="meshNature">Nature of the resulting mesh entity</param>
             <returns>The resulting mesh object.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.Plane,System.Double)">
+            <summary>
+             Computes the contours resulting from the intersection of the face and the given plane.
+            </summary>
+            <param name="plane">The plane</param>
+            <param name="tol">The tolerance</param>
+            <returns>An array of curves representing each section contour.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation)">
             <summary>Computes the contours resulting from the intersection of the Mesh and the given plane.
             </summary>
             <param name="planeEquation">The cutting plane equation</param>
-            <returns>An array of arrays of 3D points representing each section contour.</returns>
+            <returns>An array of curves representing each section contour.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.Plane,System.Double,devDept.Geometry.SharedEdge[][]@)">
+            <summary>
+             Computes the contours resulting from the intersection of the face and the given plane.
+            </summary>
+            <param name="plane">The plane</param>
+            <param name="tol">The tolerance</param>
+            <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Eyeshot.Entities.ICurve"/> (that are all <see cref="T:devDept.Eyeshot.Entities.LinearPath"/>) belong to.</param>
+            <returns>An array of curves representing each section contour.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation,devDept.Geometry.SharedEdge[][]@)">
+            <summary>Computes the contours resulting from the intersection of the Mesh and the given plane.
+            </summary>
+            <param name="planeEquation">The cutting plane equation</param>
+            <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Eyeshot.Entities.ICurve"/> (that are all <see cref="T:devDept.Eyeshot.Entities.LinearPath"/>) belong to.</param>
+            <returns>An array of curves representing each section contour.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation,System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D})">
             <summary>Computes the contours resulting from the intersection of the Mesh and the given plane.
@@ -4653,14 +4677,21 @@
             <param name="planeEquation">The cutting plane equation</param>
             <returns>An array of arrays of 3D points representing each section contour.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Mesh.MergeFinalLoops(System.Collections.Generic.List{devDept.Geometry.Point3D[]})">
+        <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation,System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.SharedEdge[][]@)">
+            <summary>Computes the contours resulting from the intersection of the Mesh and the given plane.
+            </summary>
+            <param name="planeEquation">The cutting plane equation</param>
+            <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Eyeshot.Entities.ICurve"/> (that in this case are all <see cref="T:devDept.Eyeshot.Entities.LinearPath"/>) belong to.</param>
+            <returns>An array of arrays of 3D points representing each section contour.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.MergeFinalLoops(System.Collections.Generic.List{devDept.Eyeshot.Entities.Mesh.PointWithEdge[]})">
             <summary>
             Gets the loop list, merging the open loops with start or end point in common.
             </summary>
             <param name="loops">Collection of loops</param>
             <returns>The loop list.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Mesh.MergeLoopsWithCommonVertex(devDept.Geometry.Point3D[],devDept.Geometry.Point3D[])">
+        <member name="M:devDept.Eyeshot.Entities.Mesh.MergeLoopsWithCommonVertex(devDept.Eyeshot.Entities.Mesh.PointWithEdge[],devDept.Eyeshot.Entities.Mesh.PointWithEdge[])">
             <summary>
             Merges two loops that have the start or end point in common in one loop.
             </summary>
@@ -4691,7 +4722,7 @@
             <param name="intersections"></param>
             <param name="comparer"></param>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Mesh.GetReverse(devDept.Geometry.PlaneEquation,devDept.Eyeshot.Entities.Mesh.EdgeIntersect,System.Collections.Generic.LinkedList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+        <member name="M:devDept.Eyeshot.Entities.Mesh.GetReverse(devDept.Geometry.PlaneEquation,devDept.Eyeshot.Entities.Mesh.EdgeIntersect,System.Collections.Generic.LinkedList{devDept.Eyeshot.Entities.Mesh.PointWithEdge},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D})">
             <summary>
             Tells if a loop must be reversed, based on the first segment of the loop, the normal of the mum triangle of the edge and the plane equation. 
             </summary>
@@ -4739,7 +4770,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.GetUnprocessedEdge(System.Collections.Generic.List{devDept.Eyeshot.Entities.Mesh.EdgeIntersect},devDept.Eyeshot.Entities.Mesh.EdgeIntersect,devDept.Eyeshot.Entities.Mesh.EdgeIntersectComparerOneComponent)">
             <summary>
-            Gets an edge not yet processed adjacent to the current edge.
+            Gets an edge not yet processed adjacent to the current Edge.
             </summary>
             <param name="edgesWithIntersections">The list of edge intersections</param>
             <param name="currentEdge">The current  edge</param>
@@ -4804,7 +4835,7 @@
             <summary>
             Compiles the graphics data for the edges.
             </summary>
-            <param name="ampFactor">The amplicifcation factor (for <seealso cref="!:FemMesh"/> only)</param>
+            <param name="ampFactor">The amplification factor (for <seealso cref="!:FemMesh"/> only)</param>
             <param name="data">The compile parameters</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.CompileSelected(devDept.Eyeshot.CompileParams)">
@@ -8379,7 +8410,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.SplitOnPoles(devDept.Eyeshot.Entities.ICurve,System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve})">
             <summary>
-            Splits the curve on the the surface poles.
+            Splits the curve on the surface poles.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.DropCurve(devDept.Eyeshot.Entities.ICurve,System.Boolean,devDept.Eyeshot.Entities.Curve@)">
@@ -8933,7 +8964,7 @@
             <param name="direction">Extrusion direction, normal to the plane of the curve</param>
             <param name="center">Point of application for the direction, on the plane of the curve</param>
             <param name="angle">Twist angle in radians</param>
-            <param name="numberOfSections">Number of internal sections to be interpolated, it corresponds to the the number of distinct internal knots in the surface's V direction.</param>
+            <param name="numberOfSections">Number of internal sections to be interpolated, it corresponds to the number of distinct internal knots in the surface's V direction.</param>
             <returns>The resulting surface array if the operation succeeds, null/Nothing otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.ExtrudeWithTwist(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Double)">
@@ -16334,6 +16365,13 @@
             <param name="args"></param>
             <returns>True if the selected entities are changed and a redraw is needed.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.MultiTouch.MultiTouch.GetRelativeLocation(System.Drawing.Point)">
+            <summary>
+            Gets the location relative to the top-left corner of the viewportLayout control.
+            </summary>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
         <member name="T:devDept.Eyeshot.Multitouch.TouchHandler">
             <summary>
             Handles touch events for a hWnd
@@ -18758,12 +18796,13 @@
             </summary>
             <returns>The resulting trimmed surface(s).</returns>
         </member>
-        <member name="M:devDept.Geometry.AnalyticSurf.GetUntrimmed(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
+        <member name="M:devDept.Geometry.AnalyticSurf.GetUntrimmed(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,System.Boolean)">
             <summary>
             Gets the untrimmed parametric surface.
             </summary>
             <param name="edgeCurves">A collection of individual edge curves not organized into composite curves</param>
             <param name="sense">The surface sense, true for same sense.</param>
+            <param name="safePeriodical">When true, the periodical surface is rotated to avoid trim curves near the seam.</param>
             <returns>The resulting untrimmed surface.</returns>
         </member>
         <member name="M:devDept.Geometry.AnalyticSurf.GetVisualRep(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
@@ -18884,6 +18923,13 @@
         </member>
         <member name="M:devDept.Geometry.PlanarSurf.GetLengthAlongVector(devDept.Geometry.Plane,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Geometry.Interval@)">
             <param name="trimLoops">A list of loops as composite curves or unrolled individual segments</param>
+        </member>
+        <member name="M:devDept.Geometry.PlanarSurf.RotateAwayFromSeam(devDept.Eyeshot.Entities.RevolvedSurface@,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
+            <summary>
+            Attempts to rotate the surface three times to avoid contour segments close to the seam curve.
+            </summary>
+            <param name="rs">The revolved surface</param>
+            <param name="trimLoops">The trim loops</param>
         </member>
         <member name="P:devDept.Geometry.PlanarSurf.Plane">
             <summary>
@@ -19142,6 +19188,15 @@
             Creates a deep copy of this revolution surface.
             </summary>
             <returns>The new revolution surface object.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.AlmostOnSeamPlane(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,System.Boolean@)">
+            <summary>
+            Checks if the curve is close to seam but not perfectly on it.
+            </summary>
+            <param name="curve">The curve</param>
+            <param name="seamPlane">The revolved surface seam plane</param>
+            <param name="exactlyOnSeam">True when exactly on seam</param>
+            <returns>True if the curve is close to seam but not perfectly on it.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.GetRevArcAndNurbsRevArc(System.Boolean)">
             <summary>
@@ -19814,11 +19869,6 @@
         <member name="P:StepTranslator.StepBlock.Layer">
             <summary>
             Gives  R,G,B values for a block color.
-            </summary>
-        </member>
-        <member name="T:StepTranslator.ColorCode">
-            <summary>
-            Stuct to define R,G,B values for a entity color.
             </summary>
         </member>
         <member name="T:StepTranslator.StepCurve">
@@ -23462,7 +23512,7 @@
             <param name="enabled">The ToolBarButton enabled status</param>
         </member>
         <member name="M:devDept.Eyeshot.ToolBarButton.#ctor(System.Windows.Media.ImageSource,System.String,System.String,devDept.Eyeshot.ToolBarButton.styleType,System.Boolean,System.Boolean,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource)">
-            <summary>Constructor.
+            <summary>Deprecated constructor.
             </summary>
             <param name="buttonImage">The ToolBarButton image</param>
             <param name="name">The ToolBarButton name</param>
@@ -23472,8 +23522,20 @@
             <param name="enabled">The ToolBarButton enabled status</param>
             <param name="downImage">The ToolBarButton bitmap for the down state (optional)</param>
             <param name="hoverImage">The ToolBarButton bitmap for the mouse hover state (optional)</param>
-            <param name="disabledImage">The ToolBarButton bitmap for the disabled state (optional)</param>
-            <param name="disabledDownImage">The ToolBarButton bitmap for the disabled down state (optional)</param>
+            <param name="disabledImage">The ToolBarButton bitmap for the disabled state (DEPRECATED)</param>
+            <param name="disabledDownImage">The ToolBarButton bitmap for the disabled down state (DEPRECATED)</param>
+        </member>
+        <member name="M:devDept.Eyeshot.ToolBarButton.#ctor(System.Windows.Media.ImageSource,System.String,System.String,devDept.Eyeshot.ToolBarButton.styleType,System.Boolean,System.Boolean,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource)">
+            <summary>Standard constructor.
+            </summary>
+            <param name="buttonImage">The ToolBarButton image</param>
+            <param name="name">The ToolBarButton name</param>
+            <param name="toolTipText">The ToolBarButton tooltip text</param>
+            <param name="style">The ToolBarButton style mode</param>
+            <param name="visible">The ToolBarButton visibility status</param>
+            <param name="enabled">The ToolBarButton enabled status</param>
+            <param name="downImage">The ToolBarButton bitmap for the down state (optional)</param>
+            <param name="hoverImage">The ToolBarButton bitmap for the mouse hover state (optional)</param>
         </member>
         <member name="F:devDept.Eyeshot.ToolBarButton.Rectangle">
             <summary>
@@ -25881,7 +25943,7 @@
             <param name="stream">The file stream</param>
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteFileAsynch.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String)">
+        <member name="M:devDept.Eyeshot.Translators.WriteFileAsynch.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String)">
             <summary>
             Entity list constructor.
             </summary>
@@ -25890,7 +25952,7 @@
             <param name="blockDict">The block dictionary</param>
             <param name="fileName">The file name</param>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteFileAsynch.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream)">
+        <member name="M:devDept.Eyeshot.Translators.WriteFileAsynch.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream)">
             <summary>
             To stream with entity list constructor.
             </summary>
@@ -25956,7 +26018,7 @@
             <param name="units">The model units</param>
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteFileAsynchWithUnits.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType)">
+        <member name="M:devDept.Eyeshot.Translators.WriteFileAsynchWithUnits.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType)">
             <summary>
             Entity list constructor.
             </summary>
@@ -25966,7 +26028,7 @@
             <param name="fileName">The file name</param>
             <param name="units">The model units</param>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteFileAsynchWithUnits.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType)">
+        <member name="M:devDept.Eyeshot.Translators.WriteFileAsynchWithUnits.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType)">
             <summary>
             To stream with entity list constructor.
             </summary>
@@ -26021,7 +26083,7 @@
             <param name="originatingSystem">Originating system name</param>        
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.Boolean)">
             <summary>
             Standard constructor.
             </summary>
@@ -26033,7 +26095,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.Boolean)">
             <summary>
             Standard constructor with stream.
             </summary>
@@ -26045,7 +26107,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>        
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
             <summary>
             Tolerance constructor. The exported model will be regenerated with specified tolerance.
             </summary>
@@ -26060,7 +26122,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
             <summary>
             To stream with tolerance constructor. The exported model will be regenerated with specified tolerance.
             </summary>
@@ -26187,7 +26249,7 @@
             <param name="selectedOnly">When true, only selected entities are exported.</param>
             <remarks>If the file already exists, it will be overwritten. <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> scaling and <see cref="P:devDept.Eyeshot.Block.BasePoint"/> are not supported.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.Boolean)">
             <summary>
             Standard constructor.
             </summary>
@@ -26199,7 +26261,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.Boolean)">
             <summary>
             Standard constructor.
             </summary>
@@ -26211,7 +26273,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
             <summary>
             Tolerance constructor. The exported model will be regenerated with specified tolerance.
             </summary>
@@ -26226,7 +26288,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
             <summary>
             Tolerance constructor. The exported model will be regenerated with specified tolerance.
             </summary>
@@ -27097,13 +27159,15 @@
         </member>
         <member name="F:devDept.Eyeshot.Entities.HitVertex.Parents">
             <summary>
-            The Blockreference parents list starting from the <seealso cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>, to which the entity with the closest vertex belongs to.
+            The Blockreference parents list starting from the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/>, to which the entity with the closest vertex belongs to.
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.Entities.HitVertex.BlockEntityIndex">
+        <member name="F:devDept.Eyeshot.Entities.HitVertex.EntityIndex">
             <summary>
-            The index inside the <see cref="P:devDept.Eyeshot.Block.Entities"/> of the inner parent in case the <see cref="F:devDept.Eyeshot.Entities.HitVertex.Parents"/> list is not empty.
+            The index of the entity the vertex belongs to.
             </summary>
+            <remarks>The index refers to the <see cref="P:devDept.Eyeshot.Block.Entities"/> list of the inner-most parent of the <see cref="F:devDept.Eyeshot.Entities.HitVertex.Parents"/> list in case it is not empty, 
+            else to the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> Entities list or, if there is no current BlockReference, to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> list.</remarks>
         </member>
         <member name="F:devDept.Eyeshot.Entities.HitVertex.FaceIndex">
             <summary>
@@ -30393,7 +30457,8 @@
             <param name="visible">Visibility status</param>
             <param name="size">Size in pixels</param>
             <param name="transformation">The symbol transformation</param>
-            <param name="lighting">When false, the UI element is drawn with a flat color.</param>        
+            <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+            <param name="reactToFocus">If true, the UI element is hidden when the viewport is not current</param>
         </member>
         <member name="M:devDept.Eyeshot.CoordinateSystemBase.Dispose">
             <summary>
@@ -30509,7 +30574,7 @@
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.CoordinateSystemIcon">
-            <summary>Coordinate System icon settings. This user interface element will never be added to images and printouts.</summary>
+            <summary>Coordinate System icon settings.</summary>
         </member>
         <member name="M:devDept.Eyeshot.CoordinateSystemIcon.GetDefaultCoordinateSystemIcon">
             <summary>
@@ -30680,7 +30745,7 @@
         </member>
         <member name="P:devDept.Eyeshot.CoordinateSystemIcon.Entities">
             <summary>
-            Gets or sets the mesh entities used to draw the the CoordinateSystemIcon.
+            Gets or sets the mesh entities used to draw the CoordinateSystemIcon.
             </summary>
             <remarks>To be correctly visualized the entities must have a maximum size of 7.5 units.</remarks>
         </member>
@@ -30928,6 +30993,11 @@
             <param name="selectedBlockRef"></param>
             <returns></returns>
         </member>
+        <member name="F:devDept.Eyeshot.ObjectManipulator.RealAxis">
+            <summary>
+            The transformed rotation axis in world coordinates.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.ObjectManipulator.Enable(devDept.Geometry.Transformation,System.Boolean)">
             <summary>
              Activates the Manipulator to move the selected entities.
@@ -31046,6 +31116,12 @@
             Gets or sets the translation step distance.
             </summary>
             <remarks>Use 0 for a continuous movement. Applies only to the three translation axes, not to the translation on view ball.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.ObjectManipulator.Entities">
+            <summary>
+            Gets or sets the mesh entities used to draw the object manipulator (0 for the ball, 1 for TranslateX, 2 for TranslateY, 3 for TranslateZ, 4 for RotateX, 5 for RotateY, 6 for RotateZ).
+            </summary>
+            <remarks>The default entities have a size in the order of 10 units.</remarks>
         </member>
         <member name="E:devDept.Eyeshot.ObjectManipulator.MouseDown">
             <summary>
@@ -33019,11 +33095,11 @@
             <param name="originalLayerIndex">The original layer index</param>
             <returns>The index of the corresponding layer, if it exists, -1 otherwise.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.LayerListWithMapping.Add(System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Int32)">
+        <member name="M:devDept.Eyeshot.Translators.LayerListWithMapping.Add(devDept.Eyeshot.Layer,System.Int32)">
             <summary>
             Adds a layer saving its index in a dictionary that keeps the relation between the original index and the new index.
             </summary>
-            <param name="layers">The layers collection</param>
+            <param name="layer">The layer</param>
             <param name="originalLayerIndex">The index of the layer to add</param>
         </member>
         <member name="T:devDept.Eyeshot.Translators.WriteASC">
@@ -33092,7 +33168,7 @@
             <remarks>The material file will be NOT written.</remarks>
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.String,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.String,System.Boolean)">
             <summary>
             Standard constructor.
             </summary>
@@ -33104,7 +33180,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.IO.Stream,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.IO.Stream,System.Boolean)">
             <summary>
             Standard constructor with stream.
             </summary>
@@ -33117,7 +33193,7 @@
             <remarks>The material file will be NOT written.</remarks>
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.String,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.String,System.Double,System.Boolean)">
             <summary>
             Tolerance constructor. The exported model will be regenerated with specified tolerance.
             </summary>
@@ -33130,7 +33206,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.IO.Stream,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.IO.Stream,System.Double,System.Boolean)">
             <summary>
             To stream with tolerance constructor. The exported model will be regenerated with specified tolerance.
             </summary>
@@ -33191,7 +33267,7 @@
             <param name="tol">Tolerance used to tessellate surface entities</param>
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,System.Boolean)">
             <summary>
             Standard constructor.
             </summary>
@@ -33202,7 +33278,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,System.Boolean)">
             <summary>
             Standard constructor with stream.
             </summary>
@@ -33213,7 +33289,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,System.Double,System.Boolean)">
             <summary>
             Tolerance constructor. The exported model will be regenerated with specified tolerance.
             </summary>
@@ -33225,7 +33301,7 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,System.Double,System.Boolean)">
             <summary>
             To stream with tolerance constructor. The exported model will be regenerated with specified tolerance.
             </summary>

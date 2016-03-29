@@ -1611,7 +1611,7 @@
             <param name="topology">the primitive topology</param>
             <param name="nVertices">Number of vertices</param>
             <param name="nIndices">Number of indices</param>
-            <param name="newPart">If true adds the the vertices as a new piece with new topology, else adds them to the current piece</param>
+            <param name="newPart">If true adds the vertices as a new piece with new topology, else adds them to the current piece</param>
         </member>
         <member name="P:devDept.Graphics.D3DEntityBuffer.Stride">
             <summary>

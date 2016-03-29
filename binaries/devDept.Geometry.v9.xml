@@ -1384,6 +1384,15 @@
             <param name="vector">The vector</param>
             <returns>The vector "matrix x vect"</returns>
         </member>
+        <member name="M:devDept.Geometry.Utility.FindLoops(devDept.Geometry.Point2D[][],devDept.Geometry.Point2D[][]@,devDept.Geometry.Point2D[][][]@,System.Double)">
+            <summary>
+            Finds the outers and inners contours from a collection of 2d contours.
+            </summary>
+            <param name="loops">The collection of 2d contours</param>
+            <param name="outers">The collection of outer contours</param>
+            <param name="inners">The collection of inner contours for each contour of the <paramref name="outers"/> collection</param>
+            <param name="domainSize">The domain size</param>
+        </member>
         <member name="M:devDept.Geometry.Utility.GetOuterIndex(System.Collections.Generic.IList{devDept.Geometry.Polygon2D})">
             <summary>
             Returns the outer loop index.
@@ -2940,7 +2949,7 @@
         </member>
         <member name="P:devDept.Geometry.Vector3D.AxisZ">
             <summary>
-            Returns the the Z axis vector.
+            Returns the Z axis vector.
             </summary>
         </member>
         <member name="P:devDept.Geometry.Vector3D.IsZero">

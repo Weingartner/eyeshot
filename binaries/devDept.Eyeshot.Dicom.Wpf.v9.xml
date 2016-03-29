@@ -227,10 +227,10 @@
         </member>
         <member name="M:devDept.Eyeshot.Dicom.IodElement.IsSupportedDicomFile">
             <summary>
-            Checks the <see cref="T:devDept.Eyeshot.Dicom.Parsing.DicomVersion"/> to know if the current element is or not a supported DICOM file.
+            Checks the <see cref="T:devDept.Eyeshot.Dicom.DicomVersion"/> to know if the current element is or not a supported DICOM file.
             </summary>
             <returns>True when the current element is a supported DICOM file.</returns>
-            <remarks>If you use an external library to read the DICOM images, then you have to remember to set the <see cref="T:devDept.Eyeshot.Dicom.Parsing.DicomVersion"/> rightly.</remarks>
+            <remarks>If you use an external library to read the DICOM images, then you have to remember to set the <see cref="T:devDept.Eyeshot.Dicom.DicomVersion"/> rightly.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Dicom.IodElement.GetTransferSyntax">
             <summary>
@@ -327,128 +327,128 @@
             Gets the list of errors and warnings generated during files reading.
             </summary>
         </member>
-        <member name="T:devDept.Eyeshot.Dicom.Parsing.DicomVersion">
+        <member name="T:devDept.Eyeshot.Dicom.DicomVersion">
             <summary>
             DICOM Version
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.Dicom.Parsing.DicomVersion.NotDicom">
+        <member name="F:devDept.Eyeshot.Dicom.DicomVersion.NotDicom">
             <summary>
             Not DICOM file
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.Dicom.Parsing.DicomVersion.Dicom3">
+        <member name="F:devDept.Eyeshot.Dicom.DicomVersion.Dicom3">
             <summary>
             DICOM 3.0
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.Dicom.Parsing.DicomVersion.DicomOldType">
+        <member name="F:devDept.Eyeshot.Dicom.DicomVersion.DicomOldType">
             <summary>
             Old DICOM file
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.Dicom.Parsing.DicomVersion.DicomUnknownTransferSyntax">
+        <member name="F:devDept.Eyeshot.Dicom.DicomVersion.DicomUnknownTransferSyntax">
             <summary>
             Unknown TransferSyntax
             </summary>
         </member>
-        <member name="T:devDept.Eyeshot.Dicom.Parsing.Iod">
+        <member name="T:devDept.Eyeshot.Dicom.Iod">
             <summary>
             DICOM Instance class.
             <remarks>It represents one physical DICOM file.</remarks>
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Dicom.Parsing.Iod.#ctor(System.String)">
+        <member name="M:devDept.Eyeshot.Dicom.Iod.#ctor(System.String)">
             <summary>
             Standard constructor.
             </summary>
             <param name="fileName">The file name.</param>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.XDocument">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.XDocument">
             <summary>
             The XDocument that represents the physical DICOM file.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.FileName">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.FileName">
             <summary>
             Gets the file name.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.StudyInstanceUid">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.StudyInstanceUid">
             <summary>
             Gets the study instance UID.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.SeriesInstanceUid">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.SeriesInstanceUid">
             <summary>
             Gets the series instance UID.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.SopInstanceUid">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.SopInstanceUid">
             <summary>
             Gets the SOP instance UID.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.SopClassUid">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.SopClassUid">
             <summary>
             Gets the SOP class UID.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.SopClassName">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.SopClassName">
             <summary>
             Gets the SOP class name.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.PatientName">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.PatientName">
             <summary>
             Gets the patient name.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.Dicom.Parsing.Iod.TransferSyntaxUid">
+        <member name="P:devDept.Eyeshot.Dicom.Iod.TransferSyntaxUid">
             <summary>
             Gets the transfer syntax UID.
             </summary>
         </member>
-        <member name="T:devDept.Eyeshot.Dicom.Parsing.DicomDictionary">
+        <member name="T:devDept.Eyeshot.Dicom.DicomDictionary">
             <summary>
             Dictionary for public DICOM attributes.
             <remarks>Reference: DCIOM Standard 2009, Part 3: Information Object Definitions</remarks>
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Dicom.Parsing.DicomDictionary.GetTagIntValue(System.String)">
+        <member name="M:devDept.Eyeshot.Dicom.DicomDictionary.GetTagIntValue(System.String)">
             <summary>
             Gets the uint value of a Dicom Tag
             </summary>
             <param name="dicomTag">Dicom Tag with format like "7FE0,0010" or ("7FE0,0010")</param>
             <returns>The uint value</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Dicom.Parsing.DicomDictionary.GetTagStringValue(System.UInt32)">
+        <member name="M:devDept.Eyeshot.Dicom.DicomDictionary.GetTagStringValue(System.UInt32)">
             <summary>
             Gets the string value of a Dicom Tag
             </summary>
             <param name="dicomTag">Dicom Tag uint value</param>
             <returns>The string value</returns>
         </member>
-        <member name="T:devDept.Eyeshot.Dicom.Parsing.SopClassDictionary">
+        <member name="T:devDept.Eyeshot.Dicom.SopClassDictionary">
             <summary>
             DICOM SOP Class Dictionary
             <remarks>Reference: DICOM Standard 2009, Part 4: Service Class Specifications, Table B.5-1 Standard SOP Classes</remarks>
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Dicom.Parsing.SopClassDictionary.GetSopClassName(System.String)">
+        <member name="M:devDept.Eyeshot.Dicom.SopClassDictionary.GetSopClassName(System.String)">
             <summary>
             Gets the SOP class name.
             </summary>
             <param name="sopClassUid">The SOP class uid.</param>
             <returns>The SOP class name.</returns>
         </member>
-        <member name="T:devDept.Eyeshot.Dicom.Parsing.TransferSyntaxDictionary">
+        <member name="T:devDept.Eyeshot.Dicom.TransferSyntaxDictionary">
             <summary>
             DICOM Transfer Syntax Dictionary.
             <remarks>Reference: DCIOM Standard 2009, Part 5: Data Structures and Encoding.</remarks>
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Dicom.Parsing.TransferSyntaxDictionary.GetTransferSyntaxName(System.String)">
+        <member name="M:devDept.Eyeshot.Dicom.TransferSyntaxDictionary.GetTransferSyntaxName(System.String)">
             <summary>
             Gets the transfer syntax name.
             </summary>
