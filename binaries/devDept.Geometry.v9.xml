@@ -4,6 +4,11 @@
         <name>devDept.Geometry.v9</name>
     </assembly>
     <members>
+        <member name="T:devDept.Geometry.EnumExtender">
+            <summary>
+            Utility class to display localized text for enums.
+            </summary>
+        </member>
         <member name="M:devDept.Geometry.EnumExtender.SetDisplayName(System.Enum,System.String)">
             <summary>
             Registers the display name for the enum value.

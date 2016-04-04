@@ -135,6 +135,17 @@
             <exclude/>
             <excludetoc/>
         </member>
+        <member name="T:devDept.Graphics.D3DRenderContext">
+            <summary>
+            Direct3D render context class.
+            </summary>
+        </member>
+        <member name="T:devDept.Graphics.RenderContextBase">
+            <summary>
+            Render context base class.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.UpdateActiveLights(devDept.Graphics.LightSettings[])">
             <summary>
             Updates the active lights used for the rendering.
@@ -1414,6 +1425,12 @@
             Modelview
             </summary>
         </member>
+        <member name="T:devDept.Graphics.RenderContextBase.drawSceneFuncDelegate">
+            <summary>
+            Draw scene delegate.
+            </summary>
+            <param name="drawSceneParams"></param>
+        </member>
         <member name="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture">
             <summary>
             Do the rendering on the <see cref="P:devDept.Graphics.D3DRenderContext.backBufferTexture"/> and copy it to the <see cref="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture"/> to avoid issues of synchronization with the D3DImage.
@@ -1706,6 +1723,12 @@
             2D color texture class for Direct3D.
             </summary>
         </member>
+        <member name="T:devDept.Graphics.TextureD3D">
+            <summary>
+            Base class for Direct3D textures.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
         <member name="T:devDept.Graphics.TextureBase">
             <summary>
             Base utility class to load textures. 
@@ -1808,6 +1831,11 @@
             <param name="repeatY">If true, the texture is repeated in the Y direction</param>
             <returns></returns>
         </member>
+        <member name="T:devDept.Graphics.IEnvironment">
+            <summary>
+            Interface for the environment mapping reflections.
+            </summary>
+        </member>
         <member name="T:devDept.Graphics.EntityGraphicsData">
             <summary>
             Class that holds the compiled graphics data.
@@ -1883,11 +1911,6 @@
             The type of primitive
             </summary>
         </member>
-        <member name="T:devDept.Graphics.VertexBufferDataType">
-            <summary>
-            Direct3D vertex buffer data.
-            </summary>
-        </member>
         <member name="T:devDept.Graphics.GfxEnvironmentParams">
             <summary>
             Base class with graphics environment data.
@@ -1938,6 +1961,12 @@
             <summary>
             Gets or sets the render context.
             </summary>
+        </member>
+        <member name="T:devDept.Graphics.GfxSilhoData">
+            <summary>
+            Base class with the data to draw silhouettes.
+            </summary>
+            <remarks>For internal use only.</remarks>
         </member>
         <member name="F:devDept.Graphics.GfxSilhoData.Entity">
             <summary>
@@ -1990,7 +2019,12 @@
         </member>
         <member name="T:devDept.Graphics.IShaderTechnique">
             <summary>
-            Technique that may be made of Vertex, Pixel and Geometry shader.
+            Defines the Vertex, Pixel and Geometry shader that constitute the shader technique.
+            </summary>
+        </member>
+        <member name="T:devDept.Graphics.IShader">
+            <summary>
+            Shaders common methods.
             </summary>
         </member>
         <member name="P:devDept.Graphics.IShaderTechnique.UpdatedInFrame">
@@ -2115,16 +2149,40 @@
             <param name="bitmapImage">The image</param>
             <returns>The converted <see cref="T:System.Drawing.Bitmap"/>.</returns>
         </member>
+        <member name="T:devDept.Graphics.ShadowBase">
+            <summary>
+            Base class for planar shadows.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
         <member name="M:devDept.Graphics.ShadowBase.Dispose">
             <summary>
             Releases unmanaged resources.
             </summary>
+        </member>
+        <member name="T:devDept.Graphics.FrustumData">
+            <summary>
+            Frustum data class for shadow map computation.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
+        <member name="T:devDept.Graphics.ShadowMapData">
+            <summary>
+            Class for shadow map data.
+            </summary>
+            <remarks>For internal use only.</remarks>
         </member>
         <member name="M:devDept.Graphics.ShadowMapData.EnableForShaders(System.Int32)">
             <summary>
             Enables ShadowMap.
             </summary>
             <param name="texNumber">number of texture</param>
+        </member>
+        <member name="T:devDept.Graphics.ShadowMapData.GfxShadowParams">
+            <summary>
+            Class with the parameters necessary to draw the realistic shadows.
+            </summary>
+            <remarks>For internal use only.</remarks>
         </member>
         <member name="T:devDept.Graphics.LightSettings">
             <summary>
@@ -2750,6 +2808,12 @@
             The surface is diposed.
             </summary>
         </member>
+        <member name="T:devDept.Graphics.D3DWPFImageSource">
+            <summary>
+            Direct3D image source class.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
         <member name="M:devDept.Graphics.D3DWPFImageSource.Initialize(devDept.Graphics.D3DImageExtManager,System.Int32,System.Int32,SharpDX.Direct3D11.Texture2D,SharpDX.Direct3D11.Texture2DDescription,System.Int32)">
             <summary>
             Initialize this instance with the specified <see cref="T:devDept.Graphics.D3DImageExtManager"/>.
@@ -2775,6 +2839,11 @@
             Ends the draw for this instance. Must be called even if surface returned by <see cref="M:devDept.Graphics.D3DWPFImageSource.BeginDraw"/> was null.
             </summary>
             <param name="surface"></param>
+        </member>
+        <member name="T:devDept.Graphics.WPFUtils">
+            <summary>
+            WPF conversion utilities class.
+            </summary>
         </member>
         <member name="T:devDept.Graphics.ClipPlanesFlags">
             <summary>
@@ -3012,6 +3081,12 @@
             <param name="minFunc"></param>
             <param name="magFunc"></param>
             <param name="anisotropicFiltering"></param>
+        </member>
+        <member name="T:devDept.Graphics.IViewport">
+            <summary>
+            Viewport coordinates conversion methods.
+            </summary>
+            <remarks>For internal use only.</remarks>
         </member>
         <member name="M:devDept.Graphics.IViewport.ViewportToCameraScreen(System.Drawing.Point)">
             <summary>
@@ -3552,6 +3627,12 @@
             <summary>
             Gets or sets the user interface elements color theme.
             </summary>
+        </member>
+        <member name="T:devDept.Graphics.HSLColor">
+            <summary>
+            Hue Saturation Luminosity class.
+            </summary>
+            <remarks>For internal use only.</remarks>
         </member>
         <member name="T:devDept.Graphics.Converters.MaterialConverter">
             <exclude/>
