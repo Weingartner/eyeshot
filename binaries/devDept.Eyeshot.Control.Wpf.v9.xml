@@ -2474,12 +2474,11 @@
             <param name="meshNature">The Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
             <returns>The resulting mesh object</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToMesh(devDept.Eyeshot.Entities.Mesh.natureType,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToMesh(devDept.Eyeshot.Entities.Mesh.natureType)">
             <summary>
             Converts this Solid3D to a Mesh using current triangulation.
             </summary>
             <param name="meshNature">The Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
-            <param name="weld">If true, removes the duplicate vertices</param>
             <returns>The resulting mesh object</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.Section(devDept.Geometry.Plane,System.Double)">
@@ -4490,11 +4489,11 @@
             <summary>
             Standard constructor.
             </summary>
-            <param name="uDegree">Surface degree in the U parametric direction</param>
+            <param name="uDegree">Degree in the U parametric direction</param>
             <param name="uKnotVector">Knot vector in the U parametric direction</param>
-            <param name="vDegree">Surface degree in the V parametric direction</param>
+            <param name="vDegree">Degree in the V parametric direction</param>
             <param name="vKnotVector">Knot vector in the V parametric direction</param>
-            <param name="ctrlPoints">Surface control points</param>
+            <param name="ctrlPoints">Control points grid</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.#ctor(System.Int32,System.Double,System.Double,devDept.Geometry.Vector3D[0:,0:])">
             <summary>
@@ -4988,19 +4987,32 @@
             Gets the seam plane.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="uDegree">Degree in the U parametric direction</param>
+            <param name="uKnotVector">Knot vector in the U parametric direction</param>
+            <param name="vDegree">Degree in the V parametric direction</param>
+            <param name="vKnotVector">Knot vector in the V parametric direction</param>
+            <param name="ctrlPoints">Control points grid</param>
+            <param name="generatrix">Generatrix curve</param>
+            <param name="seamPlane">Seam plane</param>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.Clone">
             <summary>
             Creates a deep copy of this revolution surface.
             </summary>
             <returns>The new revolution surface object.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.AlmostOnSeamPlane(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,System.Boolean@)">
+        <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.AlmostOnSeamPlane(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,System.Boolean@,System.Boolean@)">
             <summary>
             Checks if the curve is close to seam but not perfectly on it.
             </summary>
             <param name="curve">The curve</param>
             <param name="seamPlane">The revolved surface seam plane</param>
             <param name="exactlyOnSeam">True when exactly on seam</param>
+            <param name="crossing">True when crosses the seam</param>
             <returns>True if the curve is close to seam but not perfectly on it.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.GetRevArcAndNurbsRevArc(System.Boolean)">
@@ -5013,6 +5025,19 @@
             <summary>
             Cylindrical surface definition.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.CylindricalSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Plane)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="uDegree">Degree in the U parametric direction</param>
+            <param name="uKnotVector">Knot vector in the U parametric direction</param>
+            <param name="vDegree">Degree in the V parametric direction</param>
+            <param name="vKnotVector">Knot vector in the V parametric direction</param>
+            <param name="ctrlPoints">Control points grid</param>
+            <param name="generatrix">Generatrix curve</param>
+            <param name="radius">Cylinder radius</param>
+            <param name="seamPlane">Revolved surface seam plane</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.CylindricalSurface.Clone">
             <summary>
@@ -5030,6 +5055,19 @@
             Spherical surface definition.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.SphericalSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Plane)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="uDegree">Degree in the U parametric direction</param>
+            <param name="uKnotVector">Knot vector in the U parametric direction</param>
+            <param name="vDegree">Degree in the V parametric direction</param>
+            <param name="vKnotVector">Knot vector in the V parametric direction</param>
+            <param name="ctrlPoints">Control points grid</param>
+            <param name="generatrix">Revolved surface generatrix curve</param>
+            <param name="radius">Sphere radius</param>
+            <param name="seamPlane">Revolved surface seam plane</param>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.SphericalSurface.Clone">
             <summary>
             Creates a deep copy of this spherical surface.
@@ -5045,6 +5083,21 @@
             <summary>
             Conical surface definition.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.ConicalSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Plane,System.Double,devDept.Geometry.Point3D)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="uDegree">Degree in the U parametric direction</param>
+            <param name="uKnotVector">Knot vector in the U parametric direction</param>
+            <param name="vDegree">Degree in the V parametric direction</param>
+            <param name="vKnotVector">Knot vector in the V parametric direction</param>
+            <param name="ctrlPoints">Control points grid</param>
+            <param name="generatrix">Revolved surface generatrix curve</param>
+            <param name="radius">Cone radius</param>
+            <param name="seamPlane">Revolved surface seam plane</param>
+            <param name="halfAngle">Cone half angle</param>
+            <param name="coneTip">Cone tip</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.ConicalSurface.Clone">
             <summary>
@@ -5076,6 +5129,20 @@
             <summary>
             Toroidal surface definition.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.ToroidalSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,System.Double,System.Double,devDept.Geometry.Plane)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="uDegree">Degree in the U parametric direction</param>
+            <param name="uKnotVector">Knot vector in the U parametric direction</param>
+            <param name="vDegree">Degree in the V parametric direction</param>
+            <param name="vKnotVector">Knot vector in the V parametric direction</param>
+            <param name="ctrlPoints">Control points grid</param>
+            <param name="generatrix">Revolved surface generatrix curve</param>
+            <param name="major">Major radius</param>
+            <param name="minor">Minor radius</param>
+            <param name="seamPlane">Revolved surface seam plane</param>
         </member>
         <member name="P:devDept.Eyeshot.Entities.ToroidalSurface.Type">
             <summary>
@@ -5112,6 +5179,18 @@
             <summary>
             Gets the tabulated surface generatrix.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.TabulatedSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Geometry.Vector3D,devDept.Eyeshot.Entities.ICurve)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="uDegree">Degree in the U parametric direction</param>
+            <param name="uKnotVector">Knot vector in the U parametric direction</param>
+            <param name="vDegree">Degree in the V parametric direction</param>
+            <param name="vKnotVector">Knot vector in the V parametric direction</param>
+            <param name="ctrlPoints">Control points grid</param>
+            <param name="theGeneratrix">Generatrix 3D vector</param>
+            <param name="theDirectrix">Directrix curve</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.TabulatedSurface.Clone">
             <summary>
@@ -7591,6 +7670,7 @@
             <summary>
             Gets or sets the mesh normals.
             </summary>
+            <remarks>The number of normals depends on the <see cref="P:devDept.Eyeshot.Entities.Mesh.MeshNature"/>.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Mesh.MeshNature">
             <summary>
@@ -7776,42 +7856,42 @@
         </member>
         <member name="F:devDept.Eyeshot.Entities.Mesh.natureType.Plain">
             <summary>
-            Plain mesh, one color shared by all triangles
+            Plain mesh (one normal per triangle), one color shared by all triangles 
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.Mesh.natureType.ColorPlain">
             <summary>
-            Plain mesh, one different color for each triangle
+            Plain mesh (one normal per triangle), one different color for each triangle
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.Mesh.natureType.MulticolorPlain">
             <summary>
-            Plain mesh, one color for each vertex
+            Plain mesh (one normal per triangle), one color for each vertex
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.Mesh.natureType.RichPlain">
             <summary>
-            Plain mesh, one material for each triangle
+            Plain mesh (one normal per triangle), one material for each triangle
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.Mesh.natureType.Smooth">
             <summary>
-            Smooth mesh, one color shared by all triangles
+            Smooth mesh (one normal per vertex), one color shared by all triangles
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.Mesh.natureType.ColorSmooth">
             <summary>
-            Smooth mesh, one different color for each triangle
+            Smooth mesh (one normal per vertex), one different color for each triangle
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.Mesh.natureType.MulticolorSmooth">
             <summary>
-            Smooth mesh, one color for each vertex
+            Smooth mesh (one normal per vertex), one color for each vertex
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.Entities.Mesh.natureType.RichSmooth">
             <summary>
-            Smooth mesh, one material for each triangle
+            Smooth mesh (one normal per vertex), one material for each triangle
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.Entities.Mesh.normalAveragingType">
@@ -12928,6 +13008,7 @@
             <summary>
             Gets or sets the text style name.
             </summary>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.TextStyles"/>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Text.Backward">
             <summary>
@@ -13467,6 +13548,17 @@
             <summary>
             Gets the planar surface plane.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.PlanarSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Geometry.Plane)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="uDegree">Degree in the U parametric direction</param>
+            <param name="uKnotVector">Knot vector in the U parametric direction</param>
+            <param name="vDegree">Degree in the V parametric direction</param>
+            <param name="vKnotVector">Knot vector in the V parametric direction</param>
+            <param name="ctrlPoints">Control points grid</param>
+            <param name="plane">Surface plane</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.PlanarSurface.Clone">
             <summary>
@@ -15416,6 +15508,11 @@
             				<td></td>
             				<td>Parametric spline</td>
             			</tr>
+                        <tr>
+            				<td align="right">114</td>
+            				<td></td>
+            				<td>Parametric spline surface</td>
+            			</tr>
             			<tr>
             				<td align="right">116</td>
             				<td></td>
@@ -15450,6 +15547,11 @@
             				<td align="right">128</td>
             				<td></td>
             				<td>Rational B-Spline Surface</td>
+            			</tr>
+               			<tr>
+            				<td align="right">140</td>
+            				<td></td>
+            				<td>Offset surface</td>
             			</tr>
             			<tr>
             				<td align="right">141</td>
@@ -22255,14 +22357,66 @@
             For internal use only.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.IsPoint">
+            <summary>
+            Tells if the line is actually a Point.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.ScreenLine.vertices">
+            <summary>
+            The line vertices.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.ScreenLine.LineId">
             <summary>
-            Used to recompose the split lines.
+            Gets a unique line id.
+            </summary>
+            <remarks>Used to recompose the split lines.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.ParentEntity">
+            <summary>
+            Gets the parent entity of the line.
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.ScreenLine.Parents">
             <summary>
-            Used to recompose the split lines.
+            Gets the list of parent BlockReferences of the parent entity of the line.
+            </summary>
+            <remarks>Used to recompose the split lines.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.Attributes">
+            <summary>
+            Gets the attributes inherited from the parent entity of the line.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.X1">
+            <summary>
+            Gets the x component of the first vertex.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.Y1">
+            <summary>
+            Gets the y component of the first vertex.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.Z1">
+            <summary>
+            Gets the z component of the first vertex.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.X2">
+            <summary>
+            Gets the x component of the second vertex.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.Y2">
+            <summary>
+            Gets the y component of the second vertex.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ScreenLine.Z2">
+            <summary>
+            Gets the z component of the second vertex.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.HiddenLinesViewSettings">
