@@ -28955,6 +28955,11 @@
             35 mm camera definition.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.Camera.renderContext">
+            <summary>
+            The render context.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.Camera.Target">
             <summary>Gets or sets camera aiming point.</summary>
             <example>
@@ -29140,6 +29145,24 @@
             <param name="cameraEyePos">camera eye position</param>
             <param name="minGridProjMatrix">Projection matrix to draw from minNear to camera.near</param>
             <param name="maxGridProjMatrix">Projection matrix to draw from camera.far to maxFar. null if "whole" is true.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Camera.ApplyPickMatrix(System.Double[],System.Double[])">
+            <summary>
+            Multiplies the <param name="projMatrix"> by the <param name="pickMatrix"></param></param>
+            </summary>
+            <param name="pickMatrix">Pick matrix</param>
+            <param name="projMatrix">Proj matrix</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Camera.GetProjectionMatrix(System.Double[],System.Double,System.Double,devDept.Eyeshot.ViewportLayout.CameraEyePosType)">
+            <summary>
+            Gets the projection matrix.
+            </summary>
+            <param name="pickMatrix"></param>
+            <param name="myNear"></param>
+            <param name="myFar"></param>
+            <param name="cameraEyePos"></param>
+            <returns></returns>
         </member>
         <member name="M:devDept.Eyeshot.Camera.GetProjectionMatrix(System.Double,System.Double,devDept.Eyeshot.ViewportLayout.CameraEyePosType)">
             <summary>
