@@ -535,6 +535,38 @@
             <param name="textureUnit">The texture unit</param>
             <returns>True if successful</returns>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.SetLinesShader(System.Boolean,devDept.Graphics.shaderType,devDept.Graphics.ShaderParameters)">
+            <summary>
+            Sets the shader for the lines with or without thick lines capabilities, adjusting also the PolygonOffset.
+            </summary>
+            <param name="thick"></param>
+            <param name="shader"></param>
+            <param name="shaderParams"></param>
+            <returns>True if the operation is successful, false otherwise</returns>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.SetPointsShader(System.Boolean,devDept.Graphics.shaderType,devDept.Graphics.ShaderParameters)">
+            <summary>
+            Sets the shader for the points with or without thick points capabilities, adjusting also the PolygonOffset.
+            </summary>
+            <param name="thick"></param>
+            <param name="shader"></param>
+            <param name="shaderParams"></param>
+            <returns>True if the operation is successful, false otherwise</returns>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.RestorePolygonOffset(System.Int32@)">
+            <summary>
+            Restores the polygon offset to draw the polygons.
+            </summary>
+            <param name="prev"></param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.RemovePolygonOffset(System.Int32@)">
+            <summary>
+            Removes the polygon offset when drawing the wires entity with Width grater than 1
+            because the wires are not influenced by the polygon offset but in Direct3D 
+            they are drawn as polygons with the geometry shader, so the PolygonOffset applies to them also.
+            </summary>
+            <param name="prev"></param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.SetMaterialFrontDiffuse(System.Drawing.Color,System.Boolean)">
             <summary>
             Sets the front faces diffuse material color.
@@ -897,6 +929,24 @@
             <param name="first">First vertex index</param>
             <param name="count">Number of vertices</param>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawPointsWithNormals(devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[],System.Int32,System.Int32)">
+            <summary>
+            Draws a set of <see cref="T:devDept.Geometry.Point3D"/> specifying a normal per vertex.
+            </summary>
+            <param name="points">The collection of vertices to draw.</param>
+            <param name="normals">The collection of normals</param>
+            <param name="first">First vertex index</param>
+            <param name="count">Number of vertices</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawPointsWithNormalsIndeterminate(devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[],System.Int32,System.Int32)">
+            <summary>
+            Draws a set of <see cref="T:devDept.Geometry.Point3D"/> specifying a normal per vertex without specifying the kind of geometry.
+            </summary>
+            <param name="points">The collection of vertices to draw.</param>
+            <param name="normals">The collection of normals</param>
+            <param name="first">First vertex index</param>
+            <param name="count">Number of vertices</param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.Draw(devDept.Graphics.EntityGraphicsData,devDept.Graphics.primitiveType)">
             <summary>
             Draws an entity.
@@ -1032,6 +1082,23 @@
             <param name="vertices"></param>
             <param name="ampFactor"></param>
             <param name="addToCurrentBufferPart">If true adds the data to the current buffer part</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.TranslateMatrixModelView(System.Double,System.Double,System.Double)">
+            <summary>
+            Translates the modelview matrix.
+            </summary>
+            <param name="x">X offset</param>
+            <param name="y">Y offset</param>
+            <param name="z">Z offset</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.RotateMatrixModelView(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Rotates the modelview matrix by <param name="angleInDegrees"> by an axis.</param>
+            </summary>
+            <param name="angleInDegrees">The rotation angle in degrees</param>
+            <param name="axisX">The rotation axis X component</param>
+            <param name="axisY">The rotation axis Y component</param>
+            <param name="axisZ">The rotation axis Z component</param>
         </member>
         <!-- Badly formed XML comment ignored for member "M:devDept.Graphics.RenderContextBase.FreeEntityGraphicsData(devDept.Graphics.EntityGraphicsData)" -->
         <member name="M:devDept.Graphics.RenderContextBase.DrawCurrentBuffer">
@@ -1488,7 +1555,7 @@
             <param name="bpp"></param>
             <returns></returns>
         </member>
-        <member name="M:devDept.Graphics.D3DRenderContext.GetTextureData(System.Drawing.Rectangle,SharpDX.Direct3D11.Texture2D)">
+        <member name="M:devDept.Graphics.D3DRenderContext.GetTextureData(System.Drawing.Rectangle,SharpDX.Direct3D11.Texture2D,System.Boolean)">
             <summary>
             Get the screen RGB pixels.
             </summary>
@@ -1643,6 +1710,11 @@
         <member name="P:devDept.Graphics.D3DEntityBuffer.currPartToDraw">
             <summary>
             The current part of the buffer to draw.
+            </summary>
+        </member>
+        <member name="T:devDept.Graphics.DynamicBufferClearAfterDraw">
+            <summary>
+            Direct3D dynamic buffer class used internally for tr.
             </summary>
         </member>
         <member name="T:devDept.Graphics.DynamicBuffer">
@@ -2232,7 +2304,7 @@
             <param name="yieldShadow">When true the light yields shadows</param>
             <param name="type">Light type</param>
             <param name="position">Position of the light (spot or point lights only)</param>
-            <param name="spotAngle">Angle of the spot light cone in degrees (range 0 - 180) (spot lights only)</param>
+            <param name="spotAngle">Half angle of the spot light cone in radians (range 0 - PI/2) (spot lights only)</param>
             <param name="spotExponent">Exponent that determines how the light is focused inside the spot light cone (spot lights only)</param>
             <param name="constantAttenuation">Constant attenuation (point and spot lights only)</param>
             <param name="linearAttenuation">Linear attenuation (point and spot lights only)</param>
@@ -2255,7 +2327,7 @@
         </member>
         <member name="P:devDept.Graphics.LightSettings.SpotAngle">
             <summary>
-            Gets or sets the angle of the spot light cone in radians (range [0, PI/2]).
+            Gets or sets the half angle of the spot light cone in radians (range [0, PI/2]).
             </summary>
         </member>
         <member name="P:devDept.Graphics.LightSettings.SpotExponent">

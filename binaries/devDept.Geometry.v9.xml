@@ -1226,21 +1226,14 @@
             <param name="polygon">The list of 2D points</param>
             <returns>Depending on the polygon direction will return a positive or negative area.</returns>
         </member>
-        <member name="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)">
+        <member name="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)">
             <summary>
-            Computes the number of arc subdivisions according to specified chordal error.
+            Computes the number of arc subdivisions according to specified chordal error and maximum angle between tangents.
             </summary>
-            <param name="radius">The arc radius</param>
-            <param name="deltaInRadians">The arc span angle (in radians)</param>
-            <param name="chordalErr">The chordal error</param>
-            <returns>The number of segments.</returns>
-        </member>
-        <member name="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double)">
-            <summary>
-            Computes the number of circle subdivisions according to specified chordal error.
-            </summary>
-            <param name="radius">The circle radius</param>
-            <param name="chordalErr">The chordal error</param>
+            <param name="radius">Arc radius</param>
+            <param name="deltaInRadians">Arc span angle (in radians)</param>
+            <param name="chordalErr">Chordal error (deviation)</param>
+            <param name="maxAngle">Maximum angle between tangents</param>
             <returns>The number of segments.</returns>
         </member>
         <member name="M:devDept.Geometry.Utility.Swap``1(``0@,``0@)">
@@ -1389,14 +1382,13 @@
             <param name="vector">The vector</param>
             <returns>The vector "matrix x vect"</returns>
         </member>
-        <member name="M:devDept.Geometry.Utility.FindLoops(devDept.Geometry.Point2D[][],devDept.Geometry.Point2D[][]@,devDept.Geometry.Point2D[][][]@,System.Double)">
+        <member name="M:devDept.Geometry.Utility.FindLoops(devDept.Geometry.Point2D[][],devDept.Geometry.Point2D[][]@,devDept.Geometry.Point2D[][][]@)">
             <summary>
             Finds the outers and inners contours from a collection of 2d contours.
             </summary>
             <param name="loops">The collection of 2d contours</param>
             <param name="outers">The collection of outer contours</param>
             <param name="inners">The collection of inner contours for each contour of the <paramref name="outers"/> collection</param>
-            <param name="domainSize">The domain size</param>
         </member>
         <member name="M:devDept.Geometry.Utility.GetOuterIndex(System.Collections.Generic.IList{devDept.Geometry.Polygon2D})">
             <summary>
@@ -1727,6 +1719,13 @@
             <param name="value">The string to read</param>
             <param name="result">The converted value, if the method succeded, 0 otherwise</param>
             <returns>True if the conversion succeeded, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Geometry.Utility.GetRandomColor(System.Random)">
+            <summary>
+            Computes a random color.
+            </summary>
+            <param name="rand">A <see cref="T:System.Random"/> class instance,</param>
+            <returns>The random color.</returns>
         </member>
         <member name="T:devDept.Geometry.IndexLineComparer">
             <summary>

@@ -304,6 +304,11 @@
             </summary>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.ActionMode"/>
         </member>
+        <member name="P:devDept.Eyeshot.DrawParams.PlanarReflections">
+            <summary>
+            Tells if the planar reflections are being drawn.
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.colorType">
             <summary>
             The type of color that needs to be set.
@@ -1940,7 +1945,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axisStart">The axis start point</param>
             <param name="axisEnd">The axis end point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="tolerance">The regeneration tolerance</param>
             <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh"/>, this is the <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType"/> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh"/> object</param>
             <returns>The resulting Mesh object.</returns>  
@@ -1953,7 +1958,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axisStart">The axis start point</param>
             <param name="axisEnd">The axis end point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="tolerance">The regeneration tolerance</param>
             <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh"/>, this is the <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType"/> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh"/> object</param>
             <returns>The resulting Mesh object.</returns>  
@@ -1966,7 +1971,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="tolerance">The regeneration tolerance</param>
             <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh"/>, this is the <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType"/> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh"/> object</param>
             <returns>The resulting Mesh object.</returns>  
@@ -1979,7 +1984,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="tolerance">The regeneration tolerance</param>
             <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh"/>, this is the <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType"/> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh"/> object</param>
             <returns>The resulting Mesh object.</returns>  
@@ -2539,6 +2544,14 @@
             </summary>
             <returns>True if the shell is closed, false otherwise.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ClosestPointTo(devDept.Geometry.Point3D,devDept.Geometry.Point3D@)">
+            <summary>
+            Computes the signed distance between a 3D point and this Solid3D object.
+            </summary>
+            <param name="P">The 3D point</param>
+            <param name="closest">The closest 3D point to P</param>
+            <returns>The signed distance with this Solid3D object.</returns>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.Solid3D.Loop">
             <summary>
             Solid3D face loop definition.
@@ -2679,6 +2692,11 @@
             Creates a deep copy of this Face.
             </summary>
             <returns>The new face object.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.Face.Flip">
+            <summary>
+            Flips the face normal.
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.Entities.Solid3D.Vertex">
             <summary>
@@ -4230,6 +4248,14 @@
             <param name="v">The V parametric coordinate of the closest point on surface to P</param>
             <remarks>It also checks the trimloops, so that the result is always on the surface.</remarks>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.ClosestPointTo(devDept.Geometry.Point3D,devDept.Geometry.Point3D@)">
+            <summary>
+            Computes the signed distance between a 3D point and this surface object.
+            </summary>
+            <param name="P">The 3D point</param>
+            <param name="closest">The closest 3D point to P</param>
+            <returns>The signed distance with this surface object.</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.Project(devDept.Geometry.Point3D,devDept.Geometry.Point2D@)">
             <summary>
             Projects a point on the surface.
@@ -5360,7 +5386,7 @@
             <param name="line">The line entity</param>
             <param name="arc">The arc/circle entity</param>
             <param name="pln">The plane where the two entities lay</param>
-            <param name="infiniteLine">If true, we look for intersections even outide the boundaries of the line.</param>
+            <param name="infiniteLine">If true, we look for intersections even outside the boundaries of the line.</param>
             <param name="i0">The first intersection point (when it exists)</param>
             <param name="i1">The second intersection point (when it exists)</param>
             <returns>True if the intersection is found, false when the two entities don't touch.</returns>
@@ -5497,6 +5523,41 @@
             </summary>
             <returns>The new diametric dimension object.</returns>
         </member>
+        <member name="T:devDept.Eyeshot.Entities.linearDimensionUnitsType">
+            <summary>    
+            Units for the linear dimension types.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.linearDimensionUnitsType.Scientific">
+            <summary>
+            Scientific
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.linearDimensionUnitsType.Decimal">
+            <summary>
+            Decimal
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.linearDimensionUnitsType.Engineering">
+            <summary>
+            Engineering
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.linearDimensionUnitsType.Architectural">
+            <summary>
+            Architectural (always displayed not stacked) 
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.linearDimensionUnitsType.Fractional">
+            <summary>
+            Fractional (always displayed not stacked)
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.linearDimensionUnitsType.WindowsDesktop">
+            <summary>
+            Decimal format using Control Panel settings for decimal separator and number grouping symbols
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.Dimension">
             <summary>
             Radial dimension entity.
@@ -5554,6 +5615,44 @@
             Gets or sets dimension text suffix.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.Dimension.LinearDimensionUnits">
+            <summary>
+            Gets or sets the units format for linear dimension.
+            </summary>
+            <remarks>AutoCAD property: DIMLUNIT</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Dimension.Precision">
+            <summary>
+            Gets or sets the precision for primary units dimension.
+            </summary>
+            <remarks>AutoCAD property: DIMDEC</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Dimension.NumberOfDecimals">
+            <summary>
+            <para>Gets or sets the number of decimal digits.</para>
+            <para>Deprecated property. Use <see cref="P:devDept.Eyeshot.Entities.Dimension.Precision"/>.</para>
+            </summary>        
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Dimension.SuppressLeadingZeros">
+            <summary>
+            Hides or shows the leading zeros.
+            </summary>
+            <remarks>AutoCAD property: DIMZIN</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Dimension.SuppressTrailingZeros">
+            <summary>
+            Hides or shows the trailing zeros.
+            </summary>
+            <remarks>AutoCAD property: DIMZIN</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Dimension.SimplifiedFraction(System.Int32,System.Int32)">
+            <summary>
+            Converts fractions into simplest form.
+            </summary>
+            <param name="num">Numerator</param>
+            <param name="den">Denominator</param>
+            <returns>The simplest fractions</returns>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Dimension.PreDrawDimensionD3D(devDept.Eyeshot.DrawParams)">
             <summary>
             Executes some preliminary steps before drawing a dimension for Direct3D renderer to support the thick lines.
@@ -5577,21 +5676,6 @@
             </summary>
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
-        </member>
-        <member name="P:devDept.Eyeshot.Entities.Dimension.NumberOfDecimals">
-            <summary>
-            Gets or sets the number of decimal digits.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Entities.Dimension.SuppressLeadingZeros">
-            <summary>
-            Hides or shows the leading zeros.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Entities.Dimension.SuppressTrailingZeros">
-            <summary>
-            Hides or shows the trailing zeros.
-            </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Dimension.NeedsToBeFlipped(System.Double)">
             <summary>
@@ -6981,7 +7065,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="endCaps">Closing Caps on both ends</param>
             <param name="meshNature">The nature of the mesh</param>
             <returns>The created mesh.</returns>
@@ -6993,7 +7077,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="endCaps">Closing Caps on both ends</param>
             <param name="meshNature">The nature of the mesh</param>
             <returns>The created mesh.</returns>
@@ -7006,7 +7090,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="endCaps">Closing Caps on both ends</param>
             <param name="meshNature">The nature of the mesh</param>
             <returns>The created mesh.</returns>
@@ -7020,7 +7104,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="endCaps">Closing Caps on both ends</param>
             <param name="meshNature">The nature of the mesh</param>
             <returns>The created mesh.</returns>
@@ -7034,7 +7118,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="endCaps">Closing Caps on both ends</param>
             <param name="meshNature">The nature of the mesh</param>
             <returns>The created mesh.</returns>
@@ -7047,7 +7131,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="meshNature">The nature of the mesh</param>
             <returns>The created mesh.</returns>
         </member>
@@ -7059,7 +7143,7 @@
             <param name="deltaAngle">Revolution delta angle in radians</param>
             <param name="axis">Axis direction</param>
             <param name="center">Axis start point</param>
-            <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double)"/></param>
+            <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)"/></param>
             <param name="natureType">The nature of the mesh</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.CreateSphere(System.Double,System.Int32,System.Int32)">
@@ -7471,6 +7555,15 @@
             </summary>
             <returns>The resulting Mesh objects.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.FixNormals(System.Double)">
+            <summary>
+            Makes triangles winding order uniform.
+            </summary>
+            <param name="angle">Angular threshold to detect flipped normals</param>
+            <returns>Number of flipped triangles.</returns>
+            <seealso cref="M:devDept.Eyeshot.Entities.Mesh.FlipNormal"/>
+            <seealso cref="M:devDept.Eyeshot.Entities.Mesh.FlipOutward"/>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.SplitBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Mesh[]@)">
             <summary>
             Splits this Mesh object by plane.
@@ -7520,6 +7613,14 @@
             <summary>
             Used by Solid entity (SolidPortions)
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Mesh.SkipWiresDraw(devDept.Eyeshot.DrawParams,devDept.Eyeshot.selectionFilterType)">
+            <summary>
+            Tells if the drawing must be skipped according to the selection status.
+            </summary>
+            <param name="data">the drawing data</param>
+            <param name="selectionMode">The entity selection mode</param>
+            <returns>True if the drawing must be skipped</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.ApplyMaterial(System.String,devDept.Eyeshot.textureMappingType,System.Double,System.Double)">
             <summary>
@@ -9479,6 +9580,8 @@
             <summary>
             Gets or sets the entity visibility status.
             </summary>
+            <seealso cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox"/>
+            <remarks>When the visibility of an entity changes, it's importnat to call <seealso cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox"/> to properly update the visualization.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Entity.EntityData">
             <summary>
@@ -9563,6 +9666,9 @@
             <param name="center">Center of the sphere</param>
             <param name="radius">Radius of the sphere</param>
             <returns>True if the sphere is inside the frustum planes.</returns>
+            <remarks>It's important when applying an on-the-fly transformation in the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)"/> to override this method and 
+            call the base method with the <paramref name="center"/> trasformed in the same way, in order to avoid undesired clipping.</remarks>
+            <seealso cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)"/>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.IsCrossingScreenPolygon(devDept.Eyeshot.ScreenPolygonParams)">
             <summary>
@@ -11775,7 +11881,7 @@
             </summary>
             <param name="curve">The curve</param>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.CurveTessellator.DoSubdivision(devDept.Eyeshot.Nurbs.CurveEx,System.Double,System.Int32)">
+        <member name="M:devDept.Eyeshot.Entities.CurveTessellator.DoSubdivision(devDept.Eyeshot.Nurbs.CurveEx,System.Double,System.Double,System.Int32,System.Double)">
             <summary>
             The recursive subdivision algorithm. Test if the curve is flat.
             If so, split it into lines.  Otherwise, split it into two halves,
@@ -11783,14 +11889,17 @@
             </summary>
             <param name="curve">The curve</param>
             <param name="tolerance">Subdivision tolerance</param>
+            <param name="maxAngle">Max allowed angle between curve segment start/end tangent</param>
             <param name="level">Recursion level</param>
+            <param name="prevAngle">Previous angle between start and end tangents</param>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.CurveTessellator.DrawSubdivision(devDept.Eyeshot.Entities.Curve,System.Double)">
+        <member name="M:devDept.Eyeshot.Entities.CurveTessellator.DrawSubdivision(devDept.Eyeshot.Entities.Curve,System.Double,System.Double)">
             <summary>
             Main entry point for subdivision.
             </summary>
             <param name="original">The curve</param>
             <param name="tolerance">Subdivision tolerance</param>
+            <param name="maxAngle">Max allowed angle between curve start/end tangents</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.CurveTessellator.AddPoint(devDept.Eyeshot.Entities.Curve,System.Int32,System.Double,System.Collections.Generic.ICollection{devDept.Geometry.Point3D})">
             <summary>Adds a subdivision point.</summary>
@@ -11800,7 +11909,7 @@
             <param name="subdPoints">Subdivision point list</param>
             <returns>The index of the last point added.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.CurveTessellator.IsCurveStraight(devDept.Eyeshot.Entities.Curve,System.Double)">
+        <member name="M:devDept.Eyeshot.Entities.CurveTessellator.IsCurveStraight(devDept.Eyeshot.Nurbs.CurveEx,System.Double,System.Double,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double@)">
             <summary>
             Test if control points in a curve is "straight" with respect to a particular tolerance. Returns true if it is.
             </summary>
@@ -11993,7 +12102,7 @@
             <param name="crvIndex">Curve index</param>
             <param name="dirflag">If true, test in U direction, else test in V</param>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.SurfTessellator.TestFlat(devDept.Eyeshot.Nurbs.SurfaceEx,System.Double,System.Double,System.Double@)">
+        <member name="M:devDept.Eyeshot.Entities.SurfTessellator.TestFlat(devDept.Eyeshot.Nurbs.SurfaceEx,System.Double,System.Double,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double@)">
             <summary>
             Check to see if a surface is flat. Tests are only performed on edges and
             directions that aren't already straight.  If an edge is flagged as straight
@@ -12001,6 +12110,8 @@
             </summary>
             <param name="s">The surface</param>
             <param name="tolerance">The tolerance</param>
+            <param name="maxAngle">Max allowed angle between surface corner normals</param>
+            <param name="prevAngle">Previous angle between surface corner normals</param>
             <returns>True if the surface is flat.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.SurfTessellator.DoSubdivision(devDept.Eyeshot.Nurbs.SurfaceEx,System.Double,System.Double,System.Boolean,System.Int32,System.Collections.Generic.IList{devDept.Geometry.Polygon2D},devDept.Geometry.polygonStatusType,System.Double@)">
@@ -12836,6 +12947,9 @@
             </example>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StartAnimation(System.Int32)">StartAnimation Method (devDept.Eyeshot.Viewport)</seealso>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StopAnimation">StopAnimation Method (devDept.Eyeshot.Viewport)</seealso>
+            <remarks>It's important when applying an on-the-fly transformation in this method to override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,System.Double,System.Boolean)"/> and call the base method with the 
+            "center" parameter trasformed in the same way, in order to avoid undesired clipping.</remarks>
+            <seealso cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,System.Double,System.Boolean)"/>
         </member>
         <member name="M:devDept.Eyeshot.Entities.BlockReference.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
@@ -14569,10 +14683,10 @@
         </member>
         <member name="T:devDept.Eyeshot.Iges.Shell">
             <summary>
-            Utility class to read a S(Type 514) in IGES format.
+            Utility class to read a Shell (Type 514) in IGES format.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Iges.Shell.#ctor(System.Int32,System.Int32)">
+        <member name="M:devDept.Eyeshot.Iges.Shell.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Int32)">
             <summary>
             Used during import.
             </summary>
@@ -15044,17 +15158,39 @@
             Utility class for loading LAS files asynchronously.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.String)">
+        <member name="T:devDept.Eyeshot.Translators.ReadLAS.formatType">
+            <summary>
+            LAS format type.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Plain">
+            <summary>
+            Plain, all the points have the same color.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Colors">
+            <summary>
+            Colors, each point has its own color.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Intensity">
+            <summary>
+            Intensity, each point has its own intensity.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.String,devDept.Eyeshot.Translators.ReadLAS.formatType)">
             <summary>
             File name constructor.
             </summary>
             <param name="fileName">The file name</param>
+            <param name="formatType">The format type. See <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType"/> enum.</param>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.IO.Stream)">
+        <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.IO.Stream,devDept.Eyeshot.Translators.ReadLAS.formatType)">
             <summary>
             Stream constructor.
             </summary>
             <param name="stream">The file stream</param>
+            <param name="formatType">The format type. See <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType"/> enum.</param>
             <remarks>The closing of the stream is delegated to you.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.ReadLAS.ReadStlFile(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
@@ -15165,6 +15301,23 @@
             Gets current stream.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynch.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32)">
+            <summary>
+            Adds to scene putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control used to add entities, layers and blocks.</param>
+            <param name="blockName">The block name</param>
+            <param name="layerIndex">The destination layer index.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynch.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32,System.Drawing.Color)">
+            <summary>
+            Adds to scene putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control used to add entities, layers and blocks.</param>
+            <param name="blockName">The block name</param>
+            <param name="layerIndex">The destination layer index.</param>
+            <param name="color">The color assigned to the entities in the model</param>
+        </member>
         <member name="M:devDept.Eyeshot.Translators.ReadFileAsynch.AddToScene(devDept.Eyeshot.ViewportLayout,System.Boolean,System.String)">
             <summary>
             Adds the entities loaded from the file to the scene.
@@ -15223,6 +15376,54 @@
             </summary>
             <param name="viewportLayout">The ViewportLayout control</param>
         </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocks.AddToScene(devDept.Eyeshot.ViewportLayout,System.Boolean,System.String)">
+            <summary>
+            Adds to the ViewportLayout the entities loaded from the Autodesk file, along with layers and blocks. Blocks and layers contained 
+            previously in the Viewport are merged.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout used to add entities, layers and blocks.</param>
+            <param name="removeJittering">When true, it put the entities loaded from the Autodesk file into a block, add a BlockReference that refers to that block and call the <see cref="!:ViewportLayout.RemoveJittering()"/> method.</param>
+            <param name="blockName">The name of the block that will contain the selected entities. Can be null/Nothing.</param>            
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocks.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32)">
+            <summary>
+            Adds to scene putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control used to add entities, layers and blocks.</param>
+            <param name="layerIndex">The destination layer index.</param>
+            <param name="blockName">The block name</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocks.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32,System.Drawing.Color)">
+            <summary>
+            Adds to scene putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control used to add entities, layers and blocks.</param>
+            <param name="blockName">The block name</param>
+            <param name="layerIndex">The destination layer index.</param>
+            <param name="color">The color assigned to the entities in the model</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocks.AddToScene(devDept.Eyeshot.ViewportLayout,System.Int32)">
+            <summary>
+            Adds the entities loaded from the file to the scene.
+            </summary>
+            <param name="viewportLayout">The Viewport used to add entities</param>
+            <param name="layerIndex">The destination layer index.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocks.AddToScene(devDept.Eyeshot.ViewportLayout,System.Int32,System.Drawing.Color)">
+            <summary>
+            Adds the entities loaded from the file to the scene.
+            </summary>
+            <param name="viewportLayout">The Viewport used to add entities</param>
+            <param name="layerIndex">The destination layer index</param>
+            <param name="color">The color assigned to the entities in the model</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocks.AddToScene(devDept.Eyeshot.ViewportLayout,System.String)">
+            <summary>
+            Adds the entities loaded from the file to the scene.
+            </summary>
+            <param name="viewportLayout">The Viewport used to add entities</param>
+            <param name="layerName">The destination layer name</param>
+        </member>
         <member name="T:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers">
             <summary>
             Adds support for layer definitions to the file loading.
@@ -15246,14 +15447,53 @@
             </summary>
             <param name="viewportLayout">The ViewportLayout control</param>
         </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.AddToScene(devDept.Eyeshot.ViewportLayout,System.Int32)">
+            <summary>
+            Adds the entities loaded from the file to the scene.
+            </summary>
+            <param name="viewportLayout">The Viewport used to add entities</param>
+            <param name="layerIndex">The destination layer index.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.AddToScene(devDept.Eyeshot.ViewportLayout,System.Int32,System.Drawing.Color)">
+            <summary>
+            Adds the entities loaded from the file to the scene.
+            </summary>
+            <param name="viewportLayout">The Viewport used to add entities</param>
+            <param name="layerIndex">The destination layer index</param>
+            <param name="color">The color assigned to the entities in the model</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.AddToScene(devDept.Eyeshot.ViewportLayout,System.String)">
+            <summary>
+            Adds the entities loaded from the file to the scene.
+            </summary>
+            <param name="viewportLayout">The Viewport used to add entities</param>
+            <param name="layerName">The destination layer name</param>
+        </member>
         <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.AddToScene(devDept.Eyeshot.ViewportLayout,System.Boolean,System.String)">
             <summary>
-            Adds to the Viewport the entities loaded from the Autodesk file, along with layers and blocks. Blocks and layers contained 
+            Adds to the ViewportLayout the entities loaded from the Autodesk file, along with layers and blocks. Blocks and layers contained 
             previously in the Viewport are merged.
             </summary>
-            <param name="viewportLayout">The Viewport used to add entities, layers and blocks.</param>
+            <param name="viewportLayout">The ViewportLayout used to add entities, layers and blocks.</param>
             <param name="removeJittering">When true, it put the entities loaded from the Autodesk file into a block, add a BlockReference that refers to that block and call the <see cref="!:ViewportLayout.RemoveJittering()"/> method.</param>
             <param name="blockName">The name of the block that will contain the selected entities. Can be null/Nothing.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32)">
+            <summary>
+            Adds to scene putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control used to add entities, layers and blocks.</param>
+            <param name="layerIndex">The destination layer index.</param>
+            <param name="blockName">The block name</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocksAndLayers.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32,System.Drawing.Color)">
+            <summary>
+            Adds to scene putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control used to add entities, layers and blocks.</param>
+            <param name="blockName">The block name</param>
+            <param name="layerIndex">The destination layer index.</param>
+            <param name="color">The color assigned to the entities in the model</param>
         </member>
         <member name="T:devDept.Eyeshot.Translators.ReadOBJ">
             <summary>
@@ -15955,6 +16195,18 @@
             <param name="originatingSystem">Originating system name</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.DuplicateBlocks">
+            <summary>
+            Copies blocks and explodes scaled BlockReferences.
+            </summary>
+            <returns>A new block dictionary with only non scaled BlockReferences</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.DuplicateEntities">
+            <summary>
+            Copies entities and explodes scaled BlockReferences.
+            </summary>
+            <returns>A new entity list with only non scaled BlockReferences</returns>
         </member>
         <member name="T:devDept.Eyeshot.Translators.LayerListWithMapping">
             <summary>
@@ -16790,7 +17042,10 @@
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.Triangulation.Mesher">
-            <summary>2D meshing.</summary>
+            <summary>
+            <para>2D meshing.</para>
+            <para>Mesher class is deprecated, please use <see cref="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.Point3D})"/> method instead.</para>
+            </summary>
             <seealso cref="T:devDept.Eyeshot.Triangulation.EarClipping">EarClipping Class</seealso>
             <seealso cref="T:devDept.Eyeshot.Triangulation.Delaunay">Delaunay Class</seealso>
             <example>
@@ -17019,7 +17274,10 @@
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.Triangulation.EarClipping">
-            <summary>2D triangulation by Ear Clipping method.</summary>
+            <summary>
+            <para>2D triangulation by Ear Clipping method.</para>
+            <para>EarClipping class is deprecated, please use <see cref="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.Point3D})"/> method instead.</para>
+            </summary>
             <seealso cref="T:devDept.Eyeshot.Triangulation.Delaunay">Delaunay Class</seealso>
             <seealso cref="T:devDept.Eyeshot.Triangulation.Mesher">Mesher Class</seealso>
             <example>
@@ -17172,7 +17430,10 @@
             <returns>The squared distance between a and b.</returns>
         </member>
         <member name="T:devDept.Eyeshot.Triangulation.Delaunay">
-            <summary>Triangulation by Delaunay method.</summary>
+            <summary>
+            <para>Triangulation by Delaunay method.</para>
+            <para>Delaunay class is deprecated, please use <see cref="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.Point3D})" /> method instead.</para>
+            </summary>
             <seealso cref="T:devDept.Eyeshot.Triangulation.EarClipping">EarClipping Class</seealso>
             <seealso cref="T:devDept.Eyeshot.Triangulation.Mesher">Mesher Class</seealso>
             <example>
@@ -17333,7 +17594,7 @@
              
             	End Sub
              
-            End Class</code></example>
+            End Class</code></example>    
         </member>
         <member name="P:devDept.Eyeshot.Triangulation.Delaunay.TriangulatingText">
             <summary>
@@ -19710,6 +19971,13 @@
             </summary>
             <returns>True if the current <see cref="P:devDept.Eyeshot.ViewportLayout.ActionMode"/> is one of the ByPolygon ones.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.CheckSmall(System.Int32,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="viewportIndex"></param>
+            <param name="forceForEntityToPreserve">If true, forces the size to 1/100 of the viewport Height. Used to compute the entity to preserve before a camera movement.</param>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SaveView(devDept.Eyeshot.Camera@)">
             <summary>
             Stores the current view in the active viewport. 
@@ -19827,6 +20095,7 @@
             <summary>
             Bounding box settings.
             </summary>
+            <remarks>You need to call the Viewport.CompileUserInterfaceElements() after assigning a new BoundingBox.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.AutoHideLabels">
             <summary>
@@ -19900,14 +20169,17 @@
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.AmbientLight">
             <summary>
-            Gets or sets the ambient light intensity.
+            Gets or sets the ambient light that is always added to the scene (multiplied by the material's ambient component).
             </summary>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.DefaultMaterial"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.Materials"/>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.DefaultMaterial">
             <summary>
             Gets or sets the default material attributes used by the entities without their own material.
             </summary>
             <remarks>Only <see cref="P:devDept.Graphics.Material.Ambient"/>, <see cref="P:devDept.Graphics.Material.Specular"/> and <see cref="P:devDept.Graphics.Material.Shininess"/> are used.</remarks>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.SelectionColor"/>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.GroundPlaneDistance">
             <summary>
@@ -19989,6 +20261,7 @@
             <summary>
             Gets or sets the color of selected entities, shared by all viewports.
             </summary>
+            <remarks>The <see cref="P:devDept.Graphics.Material.Ambient"/>, <see cref="P:devDept.Graphics.Material.Specular"/> and <see cref="P:devDept.Graphics.Material.Shininess"/> components are taken from the <see cref="P:devDept.Eyeshot.ViewportLayout.DefaultMaterial"/>.</remarks>
         </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.settingsWireframe">
             Display mode settings for Wireframe mode, shared by all viewports.
@@ -20224,6 +20497,12 @@
             <summary>
             Used when drawing a portion of the viewport
             </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.DrawSceneParams.PlanarReflections">
+            <summary>
+            Tells if the planar reflections are being drawn.
+            </summary>
+            <remarks>Can be used to skip the drawing of some entities in the planar reflections.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.DrawBackground">
             <summary>
@@ -21448,7 +21727,8 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygon(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
-            Selects each entity crossing the specified selection polygon.
+            <para>Selects each entity crossing the specified selection polygon.</para>
+            <para>This method is deprecataed. Use the overload with the <see cref="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs"/> parameter.</para>
             </summary>
             <param name="selectionPolygon">Selection polygon in camera screen coordinates</param>
             <param name="invert">If true, inverts current selection status</param>
@@ -21467,7 +21747,8 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygonEnclosed(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
-            Selects each entity completely enclosed in the specified selection rectangle.
+            <para>Selects each entity completely enclosed in the specified selection rectangle.</para>
+            <para>This method is deprecataed. Use the overload with the <see cref="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs"/> parameter.</para>
             </summary>
             <param name="selectionPolygon">Selection polygon in screen coordinates</param>
             <param name="added">The list of entity indices of entities added to selection</param>
@@ -21486,7 +21767,8 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygonVisibleOnly(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
-            Selects each visible entity in the specified selection polygon.
+            <para>Selects each visible entity in the specified selection polygon.</para>
+            <para>This method is deprecataed. Use the overload with the <see cref="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs"/> parameter.</para>
             </summary>
             <param name="selectionPolygon">Selection polygon in screen coordinates</param>
             <param name="added">The list of entity indices of entities added to selection</param>
@@ -21546,7 +21828,8 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelection(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32},System.Boolean)">
             <summary>
-            Selects each entity crossing the specified selection rectangle.
+            <para>Selects each entity crossing the specified selection rectangle.</para>
+            <para>This method is deprecataed. Use the overload with the <see cref="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs"/> parameter.</para>
             </summary>
             <param name="selectionBox">Selection rectangle in screen coordinates</param>
             <param name="added">The list of entity indices of entities added to selection</param>
@@ -21604,7 +21887,8 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionEnclosed(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
-            Selects each entity completely enclosed in the specified selection rectangle.
+            <para>Selects each entity completely enclosed in the specified selection rectangle.</para>
+            <para>This method is deprecataed. Use the overload with the <see cref="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs"/> parameter.</para>
             </summary>
             <param name="selectionBox">Selection rectangle's in screen coordinates</param>
             <param name="added">The list of entity indices of entities added to selection</param>
@@ -21991,12 +22275,13 @@
             <returns>The index of the label, -1 otherwise.</returns>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection"/>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursorInternal``1(devDept.Eyeshot.Viewport,System.Drawing.Point,System.Collections.Generic.IList{``0},devDept.Eyeshot.displayType,devDept.Eyeshot.ViewportLayout.selectionEntityType,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursorInternal``1(devDept.Eyeshot.Viewport,System.Drawing.Point,System.Collections.Generic.IList{``0},devDept.Eyeshot.displayType,devDept.Eyeshot.ViewportLayout.selectionEntityType,System.Boolean,System.Boolean)">
             <summary>
             
             </summary>
             <param name="mousePos">Mouse position in screen coordinates</param>
             <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable"/> property, otherwise no.</param>
+            <param name="discardSmall">If true, discards the entities smaller than 1% of the viewport</param>
             <returns></returns>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestTriangle(devDept.Eyeshot.Entities.IFace,System.Drawing.Point,devDept.Geometry.Point3D@,System.Int32@)">
@@ -22102,7 +22387,7 @@
             <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable"/> property, otherwise no.</param>
             <returns>The list of label indices.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.GetVisibleEntities``1(devDept.Eyeshot.Viewport,System.Drawing.Rectangle,System.Boolean,System.Collections.Generic.IList{``0},devDept.Eyeshot.ViewportLayout.selectionEntityType,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetVisibleEntities``1(devDept.Eyeshot.Viewport,System.Drawing.Rectangle,System.Boolean,System.Collections.Generic.IList{``0},devDept.Eyeshot.ViewportLayout.selectionEntityType,System.Boolean,System.Boolean)">
             <summary>
             Gets the visible entities ffrom the saved internal image or reading them from the backbuffer.
             </summary>
@@ -22118,9 +22403,9 @@
             <summary>
             Returns the indices of the entities read from the back buffer in the selectionBox.
             </summary>
-            <param name="entList">The list of entities</param>
             <param name="viewport">The viewport</param>
             <param name="stride">The number of bytes per image row</param>
+            <param name="bpp">Bytes per pixel</param>
             <param name="selectionBox">Selection rectangle in screen coordinates</param>
             <param name="firstOnly">If true, returns the first entity that is found in the selectionBox</param>
             <param name="rgbValues">The array of pixels drawn in false colors</param>
@@ -22166,15 +22451,20 @@
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs">
             <summary>Provides data for the <see cref="E:devDept.Eyeshot.ViewportLayout.SelectionChanged"/> event.</summary>
+            <seealso cref="T:devDept.Eyeshot.ViewportLayout.SelectedSubItems"/>
+            <seealso cref="T:devDept.Eyeshot.ViewportLayout.SelectedShells"/>
+            <seealso cref="T:devDept.Eyeshot.ViewportLayout.SelectedShellSubItems"/>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs.Added">
             <summary>
-            Gets the list of entity indices added to selection.
+            <para>Gets the list of entity indices added to selection.</para>
+            <para>This property is deprecataed. Use <see cref="P:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs.AddedItems"/> instead.</para>
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs.Removed">
             <summary>
-            Gets the list of entity indices removed from selection.
+            <para>Gets the list of entity indices removed from selection.</para>
+            <para>This property is deprecataed. Use <see cref="P:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs.RemovedItems"/> instead.</para>
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs.AddedItems">
@@ -22192,14 +22482,14 @@
             Class that holds the informations of the selected item.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.SelectedItem.Entity">
+        <member name="P:devDept.Eyeshot.ViewportLayout.SelectedItem.EntityIndex">
             <summary>
             Gets or sets the entity index.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.SelectedSubItems">
             <summary>
-            Class that holds the informations of the selected sub items.
+            Class that holds the informations of the selected sub items (the <see cref="!:Solid.Faces"/>, <see cref="P:devDept.Eyeshot.Entities.Mesh.Faces"/>, <see cref="P:devDept.Eyeshot.Entities.Solid3D.Edges"/> and <see cref="P:devDept.Eyeshot.Entities.Solid3D.Vertices"/>).
             </summary>
             <seealso cref="E:devDept.Eyeshot.ViewportLayout.SelectionChanged"/>
         </member>
@@ -22228,8 +22518,9 @@
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.SelectedShellSubItems">
             <summary>
-            Class that holds the informations of the selected shell items (<see cref="T:devDept.Eyeshot.Entities.Solid3D"/> only).
+            Class that holds the informations of the selected shell items (the <see cref="P:devDept.Eyeshot.Entities.Solid3D.Faces"/>).
             </summary>
+            <remarks></remarks>
             <seealso cref="E:devDept.Eyeshot.ViewportLayout.SelectionChanged"/>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.SelectedShellSubItems.ShellIndex">
@@ -22749,9 +23040,9 @@
             Gets the viewport bounds.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.GetComputedData(System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@)">
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.GetComputedLines(System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@)">
             <summary>
-            Gets the computed data.
+            Gets the computed lines for export.
             </summary>
             <param name="silho">The silhouettes</param>
             <param name="edges">The edges</param>
@@ -22760,6 +23051,14 @@
             <param name="hiddenEdges">The hidden edges</param>
             <param name="hiddenWires">The hidden wires</param>
             <remarks>For internal use.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.FilterLinesToExport(System.Collections.Generic.List{devDept.Eyeshot.ScreenLine})">
+            <summary>
+            Filters the lines to export.
+            </summary>
+            <param name="lines">The lines to filter/</param>
+            <returns>The filtered lines.</returns>
+            <remarks>Override this method to apply custom logic on the lines to be exported (for instance, export only the lines belonging to entities on a given layer).</remarks>
         </member>
         <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.PrintLines(System.Drawing.Graphics,System.Drawing.Pen,System.Collections.Generic.IList{devDept.Eyeshot.ScreenLine},System.Single)">
             <summary>Prints the computed lines.
@@ -22771,6 +23070,7 @@
             Gets the conversion factor from view coordinates to world coordinates.
             </summary>
             <returns>The conversion factor</returns>
+            <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleLinesToWorld(System.Single)"/>
         </member>
         <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ConvertToSegment2D(System.Collections.Generic.IList{devDept.Eyeshot.ScreenLine})">
             <summary>
@@ -22818,6 +23118,25 @@
             <returns>A list of 2D segments</returns>
             <remarks>They are available only if the <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.KeepHiddenSegments"/> property is true</remarks>
         </member>
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleLinesToWorld(System.Single)">
+            <summary>
+            Scales the computed lines to world coordinates and applies an extra scale factor.
+            </summary>
+            <param name="scale">The extra scale factor applied to the lines once they are converted to world coordinates.</param>
+            <remarks>The <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.Camera"/> ProjectionMode must be <see cref="F:devDept.Graphics.projectionType.Orthographic"/> to convert the lines to world.</remarks>
+            <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetEdges"/>
+            <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetSilhouettes"/>
+            <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetWires"/>
+            <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenEdges"/>
+            <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenSilhouettes"/>
+            <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenWires"/>
+        </member>
+        <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleLines(System.Single)">
+            <summary>
+            Scales the computed line by a factor.
+            </summary>
+            <param name="scale">The scale factor</param>
+        </member>
         <member name="T:devDept.Eyeshot.Viewport">
             <summary>
             Viewport settings.
@@ -22849,7 +23168,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -22896,7 +23215,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -22918,7 +23237,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -22941,7 +23260,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -22962,7 +23281,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Grid,devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -22984,7 +23303,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -23005,7 +23324,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -23027,7 +23346,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -23049,7 +23368,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.viewType)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -23072,7 +23391,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -23119,7 +23438,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Viewport.#ctor(System.Drawing.Point,System.Drawing.Size,devDept.Graphics.BackgroundSettings,devDept.Eyeshot.Camera,devDept.Eyeshot.ToolBar,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Legend},devDept.Eyeshot.displayType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.ObjectModel.ObservableCollection{devDept.Eyeshot.Grid},devDept.Eyeshot.OriginSymbol,System.Boolean,devDept.Eyeshot.RotateSettings,devDept.Eyeshot.ZoomSettings,devDept.Eyeshot.PanSettings,devDept.Eyeshot.NavigationSettings,devDept.Eyeshot.CoordinateSystemIcon,devDept.Eyeshot.ViewCubeIcon)">
             <summary>
-            Viewport constructor.
+            Deprecated constructor.
             </summary>
             <param name="location">Coordinates of the upper-left corner of the viewport relative to the upper-left corner of its container</param>
             <param name="size">Size of the viewport in pixels</param>
@@ -25529,7 +25848,7 @@
         </member>
         <member name="M:devDept.Eyeshot.MagnifyingGlassSettings.#ctor(System.Boolean,System.Drawing.Size,System.Double)">
             <summary>
-            Standard constructor.
+            Deprecated constructor.
             </summary>
             <param name="enabled">The enable status. Deprecated, use <see cref="F:devDept.Eyeshot.actionType.MagnifyingGlass"/> to enable the magnifying glass instead.</param>
             <param name="size">The lens size</param>
@@ -25537,7 +25856,7 @@
         </member>
         <member name="M:devDept.Eyeshot.MagnifyingGlassSettings.#ctor(System.Boolean,System.Drawing.Size,System.Double,System.Boolean)">
             <summary>
-            Standard constructor.
+            Deprecated constructor.
             </summary>
             <param name="enabled">The enable status. Deprecated, use <see cref="F:devDept.Eyeshot.actionType.MagnifyingGlass"/> to enable the magnifying glass instead.</param>
             <param name="size">The lens size</param>
@@ -26046,19 +26365,16 @@
         <member name="F:devDept.Eyeshot.rotationCenterType.ViewportCenter">
             <summary>
             Viewport center.
+            If the model is all inside the camera frustum, it rotates around its bounding box center.
+            Else it rotates around the viewport center at a mean depth of the current visible scene.
             </summary>
-            <remarks>"If the model is all inside the camera frustum, it rotates around its bounding box center.
-            Else it rotates around the viewport center at a mean depth of the current visible scene."
-            </remarks>
         </member>
         <member name="F:devDept.Eyeshot.rotationCenterType.CursorLocation">
             <summary>
             Current mouse cursor location.
-            </summary>
-            <remarks>
-            if the model is all inside the camera frustum, it rotates around its bounding box center. 
+            If the model is all inside the camera frustum, it rotates around its bounding box center. 
             Else it rotates around the point under the mouse. If under the mouse there is no depth, the rotation happens around the viewport center at a mean depth of the current visible scene.
-            </remarks>
+            </summary>
         </member>
         <member name="F:devDept.Eyeshot.rotationCenterType.Point">
             <summary>
@@ -27059,7 +27375,7 @@
         </member>
         <member name="P:devDept.Eyeshot.ToolBarButton.DisabledImage">
             <summary>
-            Gets or sets the Image for the disabled state.
+            Deprecated property. Gets or sets the Image for the disabled state.
             </summary>
             <remarks>Call <see cref="M:devDept.Eyeshot.ViewportLayout.CompileUserInterfaceElements"/> to apply the changes</remarks>
         </member>
@@ -28353,7 +28669,8 @@
         </member>
         <member name="M:devDept.Eyeshot.PolygonSelection.ProcessSelection(devDept.Eyeshot.ViewportLayout,System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
-            Processes the selection with a screen polygon.
+            <para>Processes the selection with a screen polygon.</para>
+            <para>This method is deprecataed. Use the overload with the <see cref="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs"/> parameter.</para>
             </summary>
             <param name="viewportLayout"></param>
             <param name="screenPolygon"></param>
@@ -29126,6 +29443,12 @@
         <member name="F:devDept.Eyeshot.Camera.pickMatrix">
             <summary>
             Matrix used to select the area to draw in the RenderToBitmap.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Camera.useProjectionMatrixForSelected">
+            <summary>
+            When drawing the depth for Direct3D with Antialiasing, must not use the 
+            different ProjectionMatrix to avoid issues with the internal selection (when pressing the CTRL button)
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Camera.LimitNearFor3DAnaglyph(System.Double)">
@@ -30331,6 +30654,12 @@
         <member name="P:devDept.Eyeshot.UserInterfaceSymbolBase.Visible">
             <summary>Visibility status.</summary>
         </member>
+        <member name="P:devDept.Eyeshot.UserInterfaceSymbolBase.Entities">
+            <summary>
+            Gets or sets the mesh entities used to draw the CoordinateSystemIcon.
+            </summary>
+            <remarks>To be correctly visualized the entities must have a maximum size of 7.5 units.</remarks>
+        </member>
         <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.OnMouseDown(System.Windows.Forms.MouseEventArgs,devDept.Eyeshot.Viewport)">
             <summary>
             Method called when the mouse is pressed on a UI element.
@@ -30525,12 +30854,6 @@
             </summary>
             <returns>The default <see cref="T:devDept.Eyeshot.CoordinateSystemIcon"/>.</returns>
             <remarks>For internal use only.</remarks>
-        </member>
-        <member name="P:devDept.Eyeshot.CoordinateSystemIcon.Entities">
-            <summary>
-            Gets or sets the mesh entities used to draw the CoordinateSystemIcon.
-            </summary>
-            <remarks>To be correctly visualized the entities must have a maximum size of 7.5 units.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor">
             <summary>Empty constructor.</summary>
@@ -31033,12 +31356,6 @@
             Gets the axis on which the transformation is performed.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.ObjectManipulator.Entities">
-            <summary>
-            Gets or sets the mesh entities used to draw the object manipulator (0 for the ball, 1 for TranslateX, 2 for TranslateY, 3 for TranslateZ, 4 for RotateX, 5 for RotateY, 6 for RotateZ).
-            </summary>
-            <remarks>The default entities have a size in the order of 10 units.</remarks>
-        </member>
         <member name="T:devDept.Eyeshot.ObjectManipulator.ObjectManipulatorEventHandler">
             <summary>
             Event handler for ObjectManipulator events.
@@ -31268,6 +31585,14 @@
             </summary>
             <seealso cref="P:devDept.Eyeshot.Entities.Entity.RegenMode"/>
         </member>
+        <member name="F:devDept.Eyeshot.EntityList._regenInProgress">
+            <summary>
+            Allows Entity.Regen() to use Parallel.For() internally 
+            Without this check, some WM_PAINT events are raised
+            before Parallel.For() is completed. This means that the control 
+            crashes because the entity is not ready to draw itself (no display list)
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.EntityList.RegenAllCurved">
             <summary>
             Regens all curved entities (<see cref="T:devDept.Eyeshot.Entities.Circle"/>, <see cref="T:devDept.Eyeshot.Entities.Arc"/>, <see cref="T:devDept.Eyeshot.Entities.Ellipse"/>, <see cref="T:devDept.Eyeshot.Entities.EllipticalArc"/>, <see cref="T:devDept.Eyeshot.Entities.Curve"/>, <see cref="T:devDept.Eyeshot.Entities.Surface"/>) to uniformize the visual refinement.
@@ -31340,6 +31665,8 @@
             <seealso cref="!:ViewportLayout.Shadow"/>
             <seealso cref="P:devDept.Eyeshot.EntityList.BoxMin"/>
             <seealso cref="P:devDept.Eyeshot.EntityList.BoxMax"/>
+            <seealso cref="P:devDept.Eyeshot.Entities.Entity.Visible"/>
+            <remarks>It's important to call it when the visibility of some entities changes.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.EntityList.Add(devDept.Eyeshot.Entities.Entity,System.Int32)">
             <summary>
@@ -31585,6 +31912,13 @@
             Returns the block reference individual entity list.
             </summary>
             <param name="br">The block reference</param>
+        </member>
+        <member name="M:devDept.Eyeshot.EntityList.Explode">
+            <summary>
+            Recursively explodes all BlockReference objects and clears the collection.
+            </summary>
+            <remarks><see cref="P:devDept.Eyeshot.ViewportLayout.Blocks"/> dictionary is not automatically cleared.</remarks>
+            <returns>The list of individual entities.</returns>
         </member>
         <member name="M:devDept.Eyeshot.EntityList.ConvertToLinearPath(devDept.Eyeshot.Entities.Text,System.Double)">
             <summary>
@@ -32259,6 +32593,14 @@
             <param name="unsorted">The list of curves</param>
             <param name="gap">The distance necessary to consider two curves disconnected</param>
             <remarks>Two curves are considered connected if the distance between their endpoints is smaller than gap.</remarks>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.DetectRegionsFromContours(devDept.Eyeshot.Entities.ICurve[],System.Double)">
+            <summary>
+            Creates an array of Regions from the curves list, automatically detecting inner and outer contours.
+            </summary>
+            <param name="contours"> The list of curves</param>
+            <param name="chordalError">The regeneration tolerance</param>
+            <returns> The resulting Region array.</returns>
         </member>
         <member name="M:devDept.Geometry.UtilityEx.FindClosestCurve(devDept.Geometry.Point3D,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,System.Double@,System.Boolean@)">
             <summary>
