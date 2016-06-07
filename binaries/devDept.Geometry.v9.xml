@@ -1404,7 +1404,7 @@
             </summary>
             <typeparam name="T">The point type</typeparam>
             <param name="loops">The list of 2D contours</param>
-            <returns>The outer loop index</returns>
+            <returns>The outer loop index, -1 if the loops aren't nested.</returns>
         </member>
         <member name="M:devDept.Geometry.Utility.GetOuterIndex(System.Collections.Generic.IList{devDept.Geometry.Polygon2D},System.Double)">
             <summary>

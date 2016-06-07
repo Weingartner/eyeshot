@@ -961,6 +961,12 @@
             <param name="data">The compiled graphics data.</param>
             <param name="primitiveType">Type of primitive to draw.</param>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawTriangles(devDept.Geometry.Point3D[])">
+            <summary>
+            Draws triangles without normals.
+            </summary>
+            <param name="vertices">The vertices</param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawTriangles(devDept.Geometry.Point3D[],devDept.Geometry.Vector3D)">
             <summary>
             Draws triangles with one normal.
@@ -1366,6 +1372,27 @@
             <param name="textureForRendering">The texture</param>
             <param name="textureResolved">A texture used to resolve multisample textures</param>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.EnableXOR(System.Boolean)">
+            <summary>
+            Enables or disables the XOR (inverted color) drawing mode.
+            </summary>
+            <param name="enable">The enable status</param>
+            <remarks>If <paramref name="enable"/> is true, it sets a white color and <see cref="F:devDept.Graphics.blendStateType.XOR"/> blend state, else it sets a <see cref="F:devDept.Graphics.blendStateType.NoBlend"/> blend state.</remarks>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.EnableXORForTexture(System.Boolean)">
+            <summary>
+            Enables or disables the XOR (inverted color) drawing mode for the texture.
+            </summary>
+            <param name="enable">The enable status</param>
+            <remarks>If <paramref name="enable"/> is true, it sets a white color and <see cref="F:devDept.Graphics.blendStateType.XOR"/> blend state, else it sets a <see cref="F:devDept.Graphics.blendStateType.NoBlend"/> blend state.
+            It also calls the <see cref="M:devDept.Graphics.RenderContextBase.EnableAlphaClip(System.Boolean)"/> to discard the transparent texture fragments.</remarks>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.EnableAlphaClip(System.Boolean)">
+            <summary>
+            Discards fragments with alpha &lt; 0.1
+            </summary>
+            <param name="enable"></param>
+        </member>
         <member name="P:devDept.Graphics.RenderContextBase.NumberOfSplits">
             <summary>
             Gets the number of splits used in the parallel split shadowmapping algorithm.
@@ -1497,6 +1524,12 @@
             Draw scene delegate.
             </summary>
             <param name="drawSceneParams"></param>
+        </member>
+        <member name="M:devDept.Graphics.D3DRenderContext.DrawTriangles(devDept.Geometry.Point3D[])">
+            <summary>
+            Draws triangles without normals.
+            </summary>
+            <param name="vertices">The vertices</param>
         </member>
         <member name="F:devDept.Graphics.D3DRenderContext.wpfColorBufferTexture">
             <summary>
@@ -2630,9 +2663,19 @@
             Destination color
             </summary>
         </member>
+        <member name="F:devDept.Graphics.blendStateBlendFactorType.InverseDestinationColor">
+            <summary>
+            Inverse destination color
+            </summary>
+        </member>
         <member name="T:devDept.Graphics.blendStateType">
             <summary>
             The blend state type.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.blendStateType.XOR">
+            <summary>
+            XOR blending state. To draw with inverted colors use a white color
             </summary>
         </member>
         <member name="T:devDept.Graphics.rasterizerClockWiseType">
@@ -2743,6 +2786,26 @@
         <member name="T:devDept.Graphics.stencilOpActionType">
             <summary>
             The stencil operation test action.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.stencilOpActionType.Replace">
+            <summary>
+            Replaces the stencil buffer entry with the stencil reference value used in the stencil test
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.stencilOpActionType.Keep">
+            <summary>
+            Keeps the value in the stencil buffer
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.stencilOpActionType.Invert">
+            <summary>
+            Increments the stencil buffer value
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.stencilOpActionType.Zero">
+            <summary>
+            Sets the stencil bufer entry to zero
             </summary>
         </member>
         <member name="T:devDept.Graphics.depthStencilStateType">
@@ -3598,6 +3661,12 @@
             <summary>
             Prepares parameters for wireframe drawing.
             </summary>
+        </member>
+        <member name="F:devDept.Graphics.ShaderParameters.AlphaClip">
+            <summary>
+            If true, discards the fragment if alpha &lt; 0.1.
+            </summary>
+            <remarks>For <see cref="F:devDept.Graphics.shaderType.Texture2DNoLights"/> shader only.</remarks>
         </member>
         <member name="T:devDept.Graphics.ReflectionShaderParameters">
             <summary>
