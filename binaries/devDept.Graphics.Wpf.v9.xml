@@ -1285,7 +1285,25 @@
             Draws lines with colored vertices.
             </summary>
             <param name="vertices">The vertices</param>
-            <param name="colors">The color of eacch vertex</param>
+            <param name="colors">The color of each vertex</param>
+            <param name="first">The index of the first vertex to draw</param>
+            <param name="count">The number of the vertices to draw</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawLines(devDept.Geometry.Point3D[],System.Drawing.Color[],System.Single[])">
+            <summary>
+            Draws lines with colored vertices specifying a different lineWidth per line.
+            </summary>
+            <param name="vertices">The vertices</param>
+            <param name="colors">The color of each vertex</param>
+            <param name="lineWidths">The line width of each line (the size of the array must be half of the <paramref name="vertices"/> array)</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawLines(devDept.Geometry.Point3D[],System.Drawing.Color[],System.Single[],System.Int32,System.Int32)">
+            <summary>
+            Draws lines with colored vertices specifying a different lineWidth per line.
+            </summary>
+            <param name="vertices">The vertices</param>
+            <param name="colors">The color of each vertex</param>
+            <param name="lineWidths">The line width of each line (the size of the array must be half of the <paramref name="vertices"/> array)</param>
             <param name="first">The index of the first vertex to draw</param>
             <param name="count">The number of the vertices to draw</param>
         </member>
@@ -1379,11 +1397,12 @@
             <param name="enable">The enable status</param>
             <remarks>If <paramref name="enable"/> is true, it sets a white color and <see cref="F:devDept.Graphics.blendStateType.XOR"/> blend state, else it sets a <see cref="F:devDept.Graphics.blendStateType.NoBlend"/> blend state.</remarks>
         </member>
-        <member name="M:devDept.Graphics.RenderContextBase.EnableXORForTexture(System.Boolean)">
+        <member name="M:devDept.Graphics.RenderContextBase.EnableXORForTexture(System.Boolean,devDept.Graphics.ShaderParameters)">
             <summary>
             Enables or disables the XOR (inverted color) drawing mode for the texture.
             </summary>
             <param name="enable">The enable status</param>
+            <param name="shaderParams">The shader parameters to update the shader</param>
             <remarks>If <paramref name="enable"/> is true, it sets a white color and <see cref="F:devDept.Graphics.blendStateType.XOR"/> blend state, else it sets a <see cref="F:devDept.Graphics.blendStateType.NoBlend"/> blend state.
             It also calls the <see cref="M:devDept.Graphics.RenderContextBase.EnableAlphaClip(System.Boolean)"/> to discard the transparent texture fragments.</remarks>
         </member>
@@ -1469,6 +1488,12 @@
             Gets the current shader.
             </summary>
         </member>
+        <member name="P:devDept.Graphics.RenderContextBase.GraphicsDataWithError">
+            <summary>
+            Gets or sets the EntityGraphicsData that caused error during the drawing.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
         <member name="P:devDept.Graphics.RenderContextBase.FrontFaceCW">
             <summary>
             Gets or sets a value telling if the current front faces are oriented clockwise.
@@ -1550,6 +1575,12 @@
             <summary>
             The WPF Image Source object. For internal use only.
             </summary>
+        </member>
+        <member name="F:devDept.Graphics.D3DRenderContext.lockRenderTargets">
+            <summary>
+            Locks the set of the render targets.
+            </summary>
+            <remarks>Necessary for correct depth reading in WPF with antialiasing (i.e. to compute the rotation point under the mouse).</remarks>
         </member>
         <member name="M:devDept.Graphics.D3DRenderContext.AddBufferData(System.Single[],SharpDX.Direct3D.PrimitiveTopology,System.Int32,System.Boolean)">
             <summary>
@@ -1946,6 +1977,18 @@
             Class that holds the compiled graphics data.
             </summary>
         </member>
+        <member name="F:devDept.Graphics.EntityGraphicsData.Parent">
+            <summary>
+            Parent object, used to identify the entity who caused an error if it was not compiled
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
+        <member name="M:devDept.Graphics.EntityGraphicsData.SetParent(System.Object)">
+            <summary>
+            Sets the parent object, used to identify the entity who caused an error if it was not compiled.
+            </summary>
+            <param name="parent"></param>
+        </member>
         <member name="M:devDept.Graphics.EntityGraphicsData.Dispose">
             <summary>
             Cleans up the graphics resources.
@@ -1981,19 +2024,39 @@
             </summary>
             <returns>True if the graphics data has been compiled.</returns>
         </member>
-        <member name="T:devDept.Graphics.VBOParams">
+        <member name="T:devDept.Graphics.VBOParamsBase">
             <summary>
-            Class that holds the parameters for VBO.
+            Base Class that holds the parameters for VBO.
             </summary>
         </member>
-        <member name="F:devDept.Graphics.VBOParams.indices">
+        <member name="F:devDept.Graphics.VBOParamsBase.indices">
             <summary>
             Triangles Indices
             </summary>
         </member>
-        <member name="F:devDept.Graphics.VBOParams.vertices">
+        <member name="F:devDept.Graphics.VBOParamsBase.vertices">
             <summary>
             Triangles vertices
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.VBOParamsBase.normals">
+            <summary>
+            Vertices normals
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.VBOParamsBase.numberOfCoordPerVertex">
+            <summary>
+            Number of coordinates per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.VBOParamsBase.primitiveMode">
+            <summary>
+            The type of primitive
+            </summary>
+        </member>
+        <member name="T:devDept.Graphics.VBOParams">
+            <summary>
+            Class that holds the parameters for VBO with normals and colors.
             </summary>
         </member>
         <member name="F:devDept.Graphics.VBOParams.colors">
@@ -2001,19 +2064,14 @@
             Vertices colors (3 bytes per vertex for full color, 1 byte per vertex for color modulation).
             </summary>
         </member>
-        <member name="F:devDept.Graphics.VBOParams.normals">
+        <member name="T:devDept.Graphics.VBOParamsTexture">
             <summary>
-            Vertices normals
+            Class that holds the parameters for VBO with normals and texture coordinates.
             </summary>
         </member>
-        <member name="F:devDept.Graphics.VBOParams.numberOfCoordPerVertex">
+        <member name="P:devDept.Graphics.VBOParamsTexture.TextureCoordinates">
             <summary>
-            Number of coordinates per vertex
-            </summary>
-        </member>
-        <member name="F:devDept.Graphics.VBOParams.primitiveMode">
-            <summary>
-            The type of primitive
+            Gets or sets the texture coordinates (1 or 2 float per vertex).
             </summary>
         </member>
         <member name="T:devDept.Graphics.GfxEnvironmentParams">
@@ -2413,7 +2471,7 @@
         </member>
         <member name="P:devDept.Graphics.LightSettings.Stationary">
             <summary>Gets or sets the light behaviour. Set false to mimic the Sun.</summary>
-            <remarks>If true, the Light is fixed on screen, else it is fixed with the scene. For Directional lights only.</remarks>
+            <remarks>If true, the Light is fixed on screen, else it is fixed with the scene.</remarks>
         </member>
         <member name="P:devDept.Graphics.LightSettings.Active">
             <summary>Gets or sets the light status.</summary>
@@ -2535,7 +2593,7 @@
         </member>
         <member name="F:devDept.Graphics.backgroundStyleType.None">
             <summary>
-            A solid color defined by Parent background color
+            A solid color defined by Parent background color. In WPF it shows the underlying controls.
             </summary>
         </member>
         <member name="F:devDept.Graphics.backgroundStyleType.Solid">
@@ -2561,6 +2619,216 @@
         <member name="T:devDept.Graphics.shaderType">
             <summary>
             Shader types definitions.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.None">
+            <summary>
+            No shader
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.BlurVert">
+            <summary>
+            Applies a gaussian blur to a texture in the vertical direction
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.BlurHor">
+            <summary>
+            Applies a gaussian blur to a texture in the horizontal direction
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.NoLights">
+            <summary>
+            Draws without lighting using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.NoLightsThickLines">
+            <summary>
+            Draws thick lines without lighting using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.NoLightsThickPoints">
+            <summary>
+            Draws thick points without lighting using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.NoLightsThickLinesStipple">
+            <summary>
+            Draws thick lines with stipple without lighting using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.NoLightsLinesStipple">
+            <summary>
+            Draws lines with stipple without lighting using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DNoLights">
+            <summary>
+            Draws without lighting using the full color of a 2D texture
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DNoLightsModulate">
+            <summary>
+            Draws without lighting with the full color of a 2D texture, modulated by the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DNoLightsDecal">
+            <summary>
+            Draws without lighting with a 2D texture in decal mode using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/> for the transparent areas of the texture
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture1DNoLights">
+            <summary>
+            Draws without lighting with a 1D texture in decal using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/> for the transparent areas of the texture
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.SingleColorModulatedByIntensity">
+            <summary>
+            Draws without lighting modulating the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/> by a factor specified per each vertex 
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.SingleColorModulatedByIntensityLines">
+            <summary>
+            Draws thick lines without lighting modulating the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/> by a factor specified per each vertex 
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.SingleColorModulatedByIntensityPoints">
+            <summary>
+            Draws thick points without lighting modulating the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/> by a factor specified per each vertex 
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColorNoLights">
+            <summary>
+            Draws without lighting specifying a color per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColorNoLightsThickLines">
+            <summary>
+            Draws thick lines without lighting specifying a color per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColorNoLightsThickPoints">
+            <summary>
+            Draws thick points without lighting specifying a color per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColorNoLightsWithNormals">
+            <summary>
+            Draws without lighting specifying a normal and a color per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColorNoLightsThickLinesPerVertex">
+            <summary>
+            Draws thick lines without lighting specifying a color and a line width per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColorNoLightsThickPointsPerVertex">
+            <summary>
+            Draws thick points without lighting specifying a color and point size per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.StandardThickLines">
+            <summary>
+            Draws thick lines with Phong lighting using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.StandardThickPoints">
+            <summary>
+            Draws thick points with Phong lighting using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Standard">
+            <summary>
+            Draws with Phong lighting using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Environment">
+            <summary>
+            Draws with Phong lighting and environment mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentTexture2D">
+            <summary>
+            Draws with Phong lighting, environment mapping and 2D texture using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2D">
+            <summary>
+            Draws with Phong lighting and 2D Texture using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DDecal">
+            <summary>
+            Draws with Phong lighting and 2D texture in Decal mode using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/> for the transparent areas of the texture
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColor">
+            <summary>
+            Draws with Phong lighting specifying a normal and color per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColorSelected">
+            <summary>
+            Draws with Phong lighting specifying a normal and color (unused) per vertex but using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentMulticolor">
+            <summary>
+            Draws with Phong lighting and environment mapping specifying a normal and color per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture1D">
+            <summary>
+            Draws with Phong lighting ad 1D texture using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentTexture1D">
+            <summary>
+            Draws with Phong lighting, environment mapping and 1D texture using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.StandardShadow">
+            <summary>
+            Draws with Phong lighting and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentShadow">
+            <summary>
+            Draws with Phong lighting, environment mapping and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentTexture2DShadow">
+            <summary>
+            Draws with Phong lighting, environment mapping, 2D texture and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DShadow">
+            <summary>
+            Draws with Phong lighting, 2D texture and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.MultiColorShadow">
+            <summary>
+            Draws with Phong lighting and shadow mapping specifying one color per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentMulticolorShadow">
+            <summary>
+            Draws with Phong lighting, environment mapping and shadow mapping specifying one color per vertex
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture1DShadow">
+            <summary>
+            Draws with Phong lighting, 1D texture and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentTexture1DShadow">
+            <summary>
+            Draws with Phong lighting, environment mapping, 1D texture and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.WriteDepth">
+            <summary>
+            Writes the depth in the red component
             </summary>
         </member>
         <member name="T:devDept.Graphics.textureEnvironmentType">
@@ -3754,7 +4022,11 @@
             <remarks>When using CubicGradient style, you need to call the Viewport.CompileUserInterfaceElements() to see the effect of this command.</remarks>
         </member>
         <!-- Badly formed XML comment ignored for member "P:devDept.Graphics.BackgroundSettings.IntermediateColorPosition" -->
-        <!-- Badly formed XML comment ignored for member "P:devDept.Graphics.BackgroundSettings.ColorThemeTransparency" -->
+        <member name="P:devDept.Graphics.BackgroundSettings.ColorThemeTransparency">
+            <summary>
+            Gets or sets button hover status, progress bar, viewcube ring (when the ViewCubeIcon.Lighting property is false), zoom window and selection boxes transparency level.
+            </summary>
+        </member>
         <member name="P:devDept.Graphics.BackgroundSettings.Image">
             <summary>
             Gets or sets the background image.

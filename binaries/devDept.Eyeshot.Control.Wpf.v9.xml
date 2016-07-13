@@ -283,6 +283,11 @@
             The Blocks dictionary.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.DrawParams.Layers">
+            <summary>
+            The layers collection.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.DrawParams.ForceGray">
             <summary>
             If true, the entity is drawn with a grayed color.
@@ -403,7 +408,7 @@
             Gets or sets the view normal.
             </summary>
         </member>
-        <member name="P:devDept.Eyeshot.DrawDirectionParams.ArrowPoints">
+        <member name="F:devDept.Eyeshot.DrawDirectionParams.ArrowPoints">
             <summary>
             Gets or sets the points or the arrow.
             </summary>
@@ -1341,6 +1346,11 @@
             </summary>
             <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/></param>
             <returns>The list of meshes.</returns>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.MultilineText.Contents">
+            <summary>
+            Gets or sets the original string of the multiline text read from the dwg.
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.Entities.OrdinateDim">
             <summary>
@@ -2420,6 +2430,12 @@
             </summary>
             <returns>True if there is a selected face</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ClearFacesSelection(devDept.Eyeshot.selectionStatusType)">
+            <summary>
+            Clears the <paramref name="selectionFlag"/> on the faces.
+            </summary>
+            <param name="selectionFlag">The selection status flag to clear</param>
+        </member>
         <member name="P:devDept.Eyeshot.Entities.Solid3D.Faces">
             <summary>
             Gets or sets outer shell face array.
@@ -2457,6 +2473,18 @@
             </summary>
             <remarks>Internal use only.</remarks>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ClearEdgesSelection(devDept.Eyeshot.selectionStatusType)">
+            <summary>
+            Clears the <paramref name="selectionFlag"/> on the edges.
+            </summary>
+            <param name="selectionFlag">The selection status flag to clear</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.ClearVerticesSelection(devDept.Eyeshot.selectionStatusType)">
+            <summary>
+            Clears the <paramref name="selectionFlag"/> on the edges.
+            </summary>
+            <param name="selectionFlag">The selection status flag to clear</param>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.ConvertToSurfaces(System.Double,System.Double)">
             <summary>
             Converts this shell to a list of individual surfaces.
@@ -2486,43 +2514,6 @@
             <param name="meshNature">The Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
             <returns>The resulting mesh object</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.Section(devDept.Geometry.Plane,System.Double)">
-            <summary>
-            Intersect the Solid3D with the plane.
-            </summary>
-            <param name="pln"> the plane to intersect</param>
-            <param name="tol"> the tolerance used during intersection</param>
-            <returns>the list of the resulting intersection curves</returns>
-        </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.Section(devDept.Eyeshot.Entities.Surface,System.Double)">
-            <summary>
-            Intersect the Solid3D with a generic Surface.
-            </summary>
-            <param name="G"> the Surface to intersect</param>
-            <param name="tol"> the tolerance used during intersection</param>
-            <returns>the list of the resulting intersection curves</returns>
-        </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.IntersectionCurves(devDept.Eyeshot.Entities.Solid3D,devDept.Eyeshot.Entities.Solid3D,System.Double,devDept.Eyeshot.Entities.ICurve[]@)">
-            <summary>
-            Returns the intersection of two Solid3D as a collection of curves.
-            </summary>
-            <param name="solidA"> The first Solid to intersect</param>
-            <param name="solidB"> The second Solid to intersect</param>
-            <param name="tol"> the tolerance used during intersection</param>
-            <param name="intCurves">The resulting intersection curves as a list of CompositeCurve</param>
-            <returns> Result of the intersection.</returns>
-        </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.IntersectionCurves(devDept.Eyeshot.Entities.Solid3D,devDept.Eyeshot.Entities.Solid3D,System.Double,devDept.Eyeshot.Entities.ICurve[]@,System.Collections.Generic.List{devDept.Geometry.Point3D}@)">
-            <summary>
-            Returns the intersection of two Solid3D as a collection of curves.
-            </summary>
-            <param name="solidA"> The first Solid to intersect</param>
-            <param name="solidB"> The second Solid to intersect</param>
-            <param name="tol"> the tolerance used during intersection</param>
-            <param name="intCurves">The resulting intersection curves as a list of CompositeCurve</param>
-            <param name="iPoints">The Points found on the edges during the intersection operation.</param>
-            <returns> Result of the intersection.</returns>
-        </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.FindClosestTriangle(devDept.Geometry.Transformation,devDept.Geometry.Segment3D)">
             <summary>
             Returns a list of triangles hit by the provided segment.
@@ -2530,13 +2521,6 @@
             <param name="transf">The transformation applied to the entity (necessary if the entity is inside a Block to propagate the BlockReference transformation)</param>
             <param name="seg">The 3D segment representing the viewing direction</param>
             <returns>The sorted list of triangles intersecting the provided segment.</returns>
-        </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.IsPointInside(devDept.Geometry.Point3D)">
-            <summary>
-            Checks if the specified point is inside the Solid3D.
-            </summary>
-            <param name="point">The 3D point</param>
-            <returns>True if the 3D point is inside the Solid3D, false otherwise.</returns>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Solid3D.IsClosed">
             <summary>
@@ -2585,56 +2569,6 @@
             Creates a deep copy of this Loop.
             </summary>
             <returns>The new loop object.</returns>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitPointPosition.OnSurface">
-            <summary>
-            The Vertex is on the Surface (Initial Point are all on the trimming surface)
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitPointPosition.Included">
-            <summary>
-            The Vertex is on the side of Solid3D that need to be included in the final result.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitPointPosition.Discarded">
-            <summary>
-            The Vertex is on the side of Solid3D that need to be removed in the final result.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.Included">
-            <summary>
-            The edge is on the side of Solid3D that need to be included in the final result.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.NeedToTrim">
-            <summary>
-            The Edge cross the Plane and need to be trimmed (an Initial Point is found on the Edge)
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.Discarded">
-            <summary>
-            The Edge is on the side of Solid3D that need to be removed in the final result.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.StartFromVertex">
-            <summary>
-            The Edge is a new Sub-edge(from a trimmed edge) and is Start vertex coincide to a vertex of the original solid3D.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.EndToVertex">
-            <summary>
-            The Edge is a new Sub-edge(from a trimmed edge) and is end vertex is of the original solid3D.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.NewEdge">
-            <summary>
-            The Edge is a new edge(from a intersection curve or a trimmed edge) that doesn't exist in the original solid3D.
-            </summary>
-        </member>
-        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.SubEdge">
-            <summary>
-            The Edge is a new edge(trimmed edge) that is a sub edge of the parent in the original solid3D.
-            </summary>
         </member>
         <member name="T:devDept.Eyeshot.Entities.Solid3D.Face">
             <summary>
@@ -2995,6 +2929,100 @@
             <param name="edges"> edge list to be fixed</param>
             <param name="faces"> face list to be fixed</param>
         </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitPointPosition.OnSurface">
+            <summary>
+            The Vertex is on the Surface (Initial Point are all on the trimming surface)
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitPointPosition.Included">
+            <summary>
+            The Vertex is on the side of Solid3D that need to be included in the final result.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitPointPosition.Discarded">
+            <summary>
+            The Vertex is on the side of Solid3D that need to be removed in the final result.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.Included">
+            <summary>
+            The edge is on the side of Solid3D that need to be included in the final result.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.NeedToTrim">
+            <summary>
+            The Edge cross the Plane and need to be trimmed (an Initial Point is found on the Edge)
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.Discarded">
+            <summary>
+            The Edge is on the side of Solid3D that need to be removed in the final result.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.StartFromVertex">
+            <summary>
+            The Edge is a new Sub-edge(from a trimmed edge) and is Start vertex coincide to a vertex of the original solid3D.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.EndToVertex">
+            <summary>
+            The Edge is a new Sub-edge(from a trimmed edge) and is end vertex is of the original solid3D.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.NewEdge">
+            <summary>
+            The Edge is a new edge(from a intersection curve or a trimmed edge) that doesn't exist in the original solid3D.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Solid3D.SplitEdgeStatus.SubEdge">
+            <summary>
+            The Edge is a new edge(trimmed edge) that is a sub edge of the parent in the original solid3D.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.Section(devDept.Geometry.Plane,System.Double)">
+            <summary>
+            Intersect the Solid3D with the plane.
+            </summary>
+            <param name="pln"> the plane to intersect</param>
+            <param name="tol"> the tolerance used during intersection</param>
+            <returns>the list of the resulting intersection curves</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.Section(devDept.Eyeshot.Entities.Surface,System.Double)">
+            <summary>
+            Intersect the Solid3D with a generic Surface.
+            </summary>
+            <param name="G"> the Surface to intersect</param>
+            <param name="tol"> the tolerance used during intersection</param>
+            <returns>the list of the resulting intersection curves</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.IntersectionCurves(devDept.Eyeshot.Entities.Solid3D,devDept.Eyeshot.Entities.Solid3D,System.Double,devDept.Eyeshot.Entities.ICurve[]@)">
+            <summary>
+            Returns the intersection of two Solid3D as a collection of curves.
+            </summary>
+            <param name="solidA"> The first Solid to intersect</param>
+            <param name="solidB"> The second Solid to intersect</param>
+            <param name="tol"> the tolerance used during intersection</param>
+            <param name="intCurves">The resulting intersection curves as a list of CompositeCurve</param>
+            <returns> Result of the intersection.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.IntersectionCurves(devDept.Eyeshot.Entities.Solid3D,devDept.Eyeshot.Entities.Solid3D,System.Double,devDept.Eyeshot.Entities.ICurve[]@,System.Collections.Generic.List{devDept.Geometry.Point3D}@)">
+            <summary>
+            Returns the intersection of two Solid3D as a collection of curves.
+            </summary>
+            <param name="solidA"> The first Solid to intersect</param>
+            <param name="solidB"> The second Solid to intersect</param>
+            <param name="tol"> the tolerance used during intersection</param>
+            <param name="intCurves">The resulting intersection curves as a list of CompositeCurve</param>
+            <param name="iPoints">The Points found on the edges during the intersection operation.</param>
+            <returns> Result of the intersection.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.IsPointInside(devDept.Geometry.Point3D)">
+            <summary>
+            Checks if the specified point is inside the Solid3D.
+            </summary>
+            <param name="point">The 3D point</param>
+            <returns>True if the 3D point is inside the Solid3D, false otherwise.</returns>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.Surface">
             <summary>
             Nurbs surface entity.
@@ -3057,7 +3085,7 @@
             </summary>
             <returns>True, if the two curves can be considered similar.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Surface.DropLoopsAndCheckDirection(System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},devDept.Eyeshot.Entities.Surface.RepSurf,System.Boolean,System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Double,System.Int32@,System.Boolean@)">
+        <member name="M:devDept.Eyeshot.Entities.Surface.DropLoopsAndCheckDirection(System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},devDept.Eyeshot.Entities.Surface.RepSurf,System.Boolean,System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Double,System.Int32@)">
             <summary>
             Drop loops and in the case it finds an inverted contour returns the needFlip flag as true.
             </summary>
@@ -9654,6 +9682,12 @@
             Gets or sets the selectable flag.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.InitGraphicsData">
+            <summary>
+            Initialize the graphics data.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
         <member name="F:devDept.Eyeshot.Entities.Entity.drawData">
             <summary>
             Default graphics data.
@@ -10231,7 +10265,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.DrawForShadow(devDept.Eyeshot.RenderParams)">
             <summary>
-            Draws the entity's shadow.
+            Draws the entity planar shadow.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.DrawFlat(devDept.Eyeshot.DrawParams)">
@@ -10437,6 +10471,11 @@
         <member name="M:devDept.Eyeshot.Entities.ICurve.Reverse">
             <summary>
             Reverses the curve direction.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.ICurve.IsPoint">
+            <summary>
+            Returns true if the curve is degenerated into a point.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.SubCurve(System.Double,System.Double,devDept.Eyeshot.Entities.ICurve@)">
@@ -12270,6 +12309,20 @@
             Constructor for deserializing objects.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.TrimCurve.IsHorizontal(System.Double)">
+            <summary>
+            Returns true if the trim curve is horizontal.
+            </summary>
+            <param name="domainV">Domain V length</param>
+            <returns>True if the line is horizontal, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.TrimCurve.IsVertical(System.Double)">
+            <summary>
+            Returns true if the trim curve is horizontal.
+            </summary>
+            <param name="domainU">Domain U length</param>
+            <returns>True if the line is horizontal, false otherwise.</returns>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.ConicBar">
             <summary>
             Conic Bar entity. A line drawn like a cone.
@@ -13029,6 +13082,32 @@
             </summary>
             <param name="blocks">The blocks dictionary</param>
             <remarks>AttributeReference entities that don't have a corresponding Attribute in the block are removed. The <see cref="P:devDept.Eyeshot.AttributeReference.Value"/> is preserved.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.BlockReference.Draw``2(devDept.Eyeshot.ViewportLayout.DrawEntitiesParams{``0,``1},devDept.Eyeshot.ViewportLayout.drawCallback{``0,``1})">
+            <summary>
+            Draws the BlockReference.
+            </summary>
+            <typeparam name="T">The graphics attributes</typeparam>
+            <typeparam name="Q">The draw parameters</typeparam>
+            <param name="myParams">The parameters</param>
+            <param name="drawCall">The draw callback</param>
+            <remarks>Override this method to do special things before or after drawing the blockreference.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.BlockReference.DrawForSelection``1(devDept.Eyeshot.ViewportLayout.DrawForSelectionParams{``0},devDept.Eyeshot.ViewportLayout.drawForSelectionCallback{``0})">
+            <summary>
+            Draws the BlockReference for the selection.
+            </summary>
+            <typeparam name="T">The entity</typeparam>
+            <param name="myParams">The parameter</param>
+            <param name="drawCall">The draw callback</param>
+            <remarks>Override this method to do special things before or after drawing the blockreference for the selection.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.BlockReference.DrawTrianglesForShadowMap(devDept.Eyeshot.DrawShadowParams)">
+            <summary>
+            Draws the triangles for the shadow map creation.
+            </summary>
+            <param name="myParams">The draw parameters</param>
+            <returns>True if successful, false otherwise/</returns>
         </member>
         <member name="T:devDept.Eyeshot.Entities.PointCloud">
             <summary>
@@ -15398,6 +15477,11 @@
             </summary>
             <param name="viewportLayout">The Viewport used to add entities</param>
             <param name="layerName">The destination layer name</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadFileAsynch.CloseStream">
+            <summary>
+            Closes the stream. Must be called by all derived classes.
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.Translators.ReadFileAsynchWithBlocks">
             <summary>
@@ -19039,7 +19123,6 @@
             
             </summary>
             <param name="myParams"></param>
-            <param name="interrupted"></param>
             <returns>False if failed.</returns>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.Mouse3D">
@@ -19391,6 +19474,11 @@
         <member name="P:devDept.Eyeshot.ViewportLayout.ErrorOccurredEventArgs.StackTrace">
             <summary>
             Gets the stack trace of the error.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.ErrorOccurredEventArgs.ObjectNotCompiled">
+            <summary>
+            Gets the object whose not compiled status caused the error.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.ErrorEventHandler">
@@ -20613,6 +20701,14 @@
             <param name="ent">The entity</param>
             <returns>True of false if the proper bit of <see cref="P:devDept.Eyeshot.DrawParams.SelectionStatus"/> is set.</returns>
         </member>
+        <member name="T:devDept.Eyeshot.ViewportLayout.DrawBaseParams`3">
+            <summary>
+            Class with parameters for drawing the entities.
+            </summary>
+            <typeparam name="T">The graphics attributes</typeparam>
+            <typeparam name="Q">The draw parameters</typeparam>
+            <typeparam name="S">The entity</typeparam>
+        </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.DrawBaseParams`3.CompileParamsForAttributes">
             <summary>
             for the compilation and regen of the attributes.
@@ -20623,11 +20719,18 @@
             for the compilation and regen of the attributes.
             </summary>
         </member>
+        <member name="T:devDept.Eyeshot.ViewportLayout.DrawEntitiesParams`2">
+            <summary>
+            Class with parameters for drawing the entities.
+            </summary>
+            <typeparam name="T">The graphics attributes</typeparam>
+            <typeparam name="Q">The draw parameters</typeparam>
+        </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1">
             <summary>
             Class that holds the parameters for the selection.
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">The entity type</typeparam>
             <seealso cref="M:devDept.Eyeshot.Entities.Entity.DrawForSelection(devDept.Eyeshot.DrawParams)"/>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Collections.Generic.IList{`0},devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Graphics.ShaderParameters,devDept.Geometry.Transformation,System.Int32,System.Boolean,devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate,System.Boolean,System.Boolean)">
@@ -20665,8 +20768,8 @@
             <summary>
             Draw for selection delegate.
             </summary>
-            <param name="ent"></param>
-            <param name="data"></param>
+            <param name="ent">The entity</param>
+            <param name="data">The draw parameters</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ComputeNonCurrentEntityColor(devDept.Eyeshot.Entities.Entity,System.Drawing.Color)">
             <summary>
@@ -20679,32 +20782,39 @@
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributes">
             <summary>
-            Base class for attributes propagation.
+            Base attributes class for attributes propagation.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.GfxAttributes.PropagateLayer0(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.LayerList)">
+            <summary>
+            Propagates the layer color only if the layer is != "0".
+            </summary>
+            <param name="ent"></param>
+            <param name="layers"></param>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesColor">
             <summary>
-            Class that propagates the color attribute.
+            Attributes class that propagates the color attribute.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesWireMaterialOrColor">
             <summary>
-            Class that propagates the lineWeight and material color, if material is present, else the color. Used for HDL.
+            Attributes class that propagates the lineWeight and material color, if material is present, else the color. Used for HDL.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesMaterialOrColor">
             <summary>
-            Class that propagates the material color, if material is present, else the color. Used for edges and silhouettes.
+            Attributes class that propagates the material color, if material is present, else the color. Used for edges and silhouettes.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesColorAndMaterial">
             <summary>
-            Class that propagates the material.diffuse attribute. Used for transparency.
+            Attributes class that propagates the material.diffuse attribute. Used for transparency.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesHDLWiresSingleColor">
             <summary>
-            Class that propagates the Color and keeps the WireColor.
+            Attributes class that propagates the Color and keeps the WireColor.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.GfxAttributesHDLWiresSingleColor.WireColor">
@@ -20714,43 +20824,60 @@
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesHDL">
             <summary>
-            Class that propagates the Color and sets the WireColor to the value of the Color.
+            Attributes class that propagates the Color and sets the WireColor to the value of the Color.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesHDLMaterialWiresSingleColor">
             <summary>
-            Class that propagates the Material and keeps the WireColor.
+            Attributes class that propagates the Material and keeps the WireColor.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesHDLMaterial">
             <summary>
-            Class that propagates the Material and sets the WireColor to the value of the Color.
+            Attributes class that propagates the Material and sets the WireColor to the value of the Color.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesHDLSingleColor">
             <summary>
-            Class that does not propagate anything.
+            Attributes class that does not propagate anything.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesHDLSingleColorWiresEntityColor">
             <summary>
-            Class that propagates only the wire color.
+            Attributes class that propagates only the wire color.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesWire">
             <summary>
-            Class that propagates Color, LineWeight, LineTypePattern and LineTypePatternLength.
+            Attributes class that propagates Color, LineWeight, LineTypePattern and LineTypePatternLength.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesRendered">
             <summary>
-            Class that propagates also the Material.
+            Attributes class that propagates also the Material.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.skipWire">
             <summary>
             Skip Wireframe during drawing of shadowMap.
             </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.ViewportLayout.DrawTransparentEntityDelegate`1">
+            <summary>
+            Callback for drawing the transparent entities.
+            </summary>
+            <typeparam name="T">The draw parameters</typeparam>
+            <param name="gfxData">The draw parameters</param>
+            <param name="ent">The entity</param>
+            <param name="attributes">The graphics attributes</param>
+        </member>
+        <member name="T:devDept.Eyeshot.ViewportLayout.drawCallback`2">
+            <summary>
+            Entities drawing callback.
+            </summary>
+            <typeparam name="T">The graphics attributes</typeparam>
+            <typeparam name="Q">The draw parameters</typeparam>
+            <param name="myParams">The parameters</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.PropagateAttributesAndProcessBlockReference``2(devDept.Eyeshot.ViewportLayout.DrawEntitiesParams{``0,``1},devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.ViewportLayout.GfxAttributes,devDept.Eyeshot.ViewportLayout.drawCallback{``0,``1})">
             <summary>
@@ -22019,6 +22146,13 @@
             <summary>
             Selects the labels
             </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.ViewportLayout.drawForSelectionCallback`1">
+            <summary>
+            Delegate method for DrawForSelection.
+            </summary>
+            <typeparam name="T">Entity</typeparam>
+            <param name="myParams">Drawing parameters</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SetColorDrawForSelection(System.Int32)">
             <summary>
@@ -24363,13 +24497,6 @@
             <summary>
             Draws the labels.
             </summary>
-        </member>
-        <member name="M:devDept.Eyeshot.Viewport.ClippedByPlane(devDept.Geometry.Point3D)">
-            <summary>
-            Tells if a point is clipped by the clipping planes.
-            </summary>
-            <param name="pt">The point</param>
-            <returns>True if the point is in the positive part of a clipping plane.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.DrawText(System.Int32,System.Int32,System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.ContentAlignment)">
             <summary>
@@ -27072,12 +27199,12 @@
         </member>
         <member name="F:devDept.Eyeshot.silhoDataType.LineStrip">
             <summary>
-            A set of continuous vertices.
+            A set of continuous vertices
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.silhoDataType.LineList">
             <summary>
-            A set of lines vertices.
+            A set of lines vertices
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.SilhoWireData">
@@ -27088,7 +27215,7 @@
         </member>
         <member name="F:devDept.Eyeshot.SilhoWireData.DataMode">
             <summary>
-            The increment to apply to the vertices to get the next line. (1 for continui
+            Gets or sets the type of data.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.SilhoWireData.startPointVertices">
@@ -27720,6 +27847,20 @@
             Gets or sets the label anchor point.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Labels.Label.IsClipped(devDept.Eyeshot.ClippingPlane[])">
+            <summary>
+            Tells if a label is clipped by the clipping planes.
+            </summary>
+            <param name="planes">The clipping planes</param>
+            <returns>True if the label anchor point is clipped by any one of the clipping planes</returns>
+            <remarks>Override this to avoid that a label is clipped by the clipping planes</remarks>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.ClippingPlane1"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.ClippingPlane2"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.ClippingPlane3"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.ClippingPlane4"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.ClippingPlane5"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.ClippingPlane6"/>
+        </member>
         <member name="P:devDept.Eyeshot.Labels.Label.Visible">
             <summary>
             If <b>false</b> the label is not drawn.
@@ -28249,6 +28390,11 @@
             </summary>
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="T:devDept.Eyeshot.DrawShadowParams">
+            <summary>
+            Class with data for the shadow map creation.
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.Mouse3D.ButtonEventHandler">
             <summary>
@@ -30168,6 +30314,14 @@
             Gets the legend values.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.Legend.GetStringValue(System.Int32)">
+            <summary>
+            Gets the string corresponding to the n-th value.
+            </summary>
+            <param name="n">The value index</param>
+            <returns>The string of the n-th value.</returns>
+            <remarks>Override this method to return a custom string.</remarks>
+        </member>
         <member name="M:devDept.Eyeshot.Legend.SetRange(System.Double,System.Double)">
             <summary>
             Sets the range of legend values.
@@ -30254,6 +30408,29 @@
             <param name="colorTable">Color table</param>
             <param name="lighting">When false, the UI element is drawn with a flat color.</param>
         </member>
+        <member name="M:devDept.Eyeshot.Legend.#ctor(System.Double,System.Double,System.String,System.String,System.Drawing.Point,System.Drawing.Size,System.Boolean,System.Boolean,System.Boolean,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Font,System.Drawing.Font,System.Collections.ObjectModel.ObservableCollection{System.Windows.Media.Brush},System.Boolean,System.Boolean)">
+            <summary>
+            Deprecated constructor.
+            </summary>
+            <param name="min">Minimum value</param>
+            <param name="max">Maximum value</param>
+            <param name="title">Title</param>
+            <param name="subtitle">Subtitle</param>
+            <param name="position">Top left corner position</param>
+            <param name="itemSize">Size of each color rectangle</param>
+            <param name="slave">If true, the legend minimum and maximum values are set automatically (FEM only)</param>
+            <param name="visible">Visibility status</param>
+            <param name="alignRight">If true, values are aligned right</param>
+            <param name="formatString">Value's numeric format</param>
+            <param name="textBackgroundColor">Text background color</param>
+            <param name="titleColor">Title text color</param>
+            <param name="textColor">Value text color</param>
+            <param name="titleFont">Title font</param>
+            <param name="textFont">Value font</param>
+            <param name="colorTable">Color table</param>
+            <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+            <param name="alignVerticalMiddle">If true, values are vertically aligned to the middle of the colored rectangles</param>
+        </member>
         <member name="M:devDept.Eyeshot.Legend.#ctor(System.Double,System.Double,System.String,System.String,System.Drawing.Point,System.Drawing.Size,System.Boolean,System.Boolean,System.Boolean,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Collections.ObjectModel.ObservableCollection{System.Windows.Media.Brush},System.Boolean)">
             <summary>
             Standard constructor.
@@ -30273,6 +30450,27 @@
             <param name="textColor">Value text color</param>        
             <param name="colorTable">Color table</param>
             <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Legend.#ctor(System.Double,System.Double,System.String,System.String,System.Drawing.Point,System.Drawing.Size,System.Boolean,System.Boolean,System.Boolean,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Collections.ObjectModel.ObservableCollection{System.Windows.Media.Brush},System.Boolean,System.Boolean)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="min">Minimum value</param>
+            <param name="max">Maximum value</param>
+            <param name="title">Title</param>
+            <param name="subtitle">Subtitle</param>
+            <param name="position">Top left corner position</param>
+            <param name="itemSize">Size of each color rectangle</param>
+            <param name="slave">If true, the legend minimum and maximum values are set automatically (FEM only)</param>
+            <param name="visible">Visibility status</param>
+            <param name="alignRight">If true, values are aligned right</param>
+            <param name="formatString">Value's numeric format</param>
+            <param name="textBackgroundColor">Text background color</param>
+            <param name="titleColor">Title text color</param>
+            <param name="textColor">Value text color</param>        
+            <param name="colorTable">Color table</param>
+            <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+            <param name="alignVerticalMiddle">If true, values are vertically aligned to the middle of the colored rectangles</param>
         </member>
         <member name="P:devDept.Eyeshot.Legend.Min">
             <summary>
@@ -30317,6 +30515,11 @@
         </member>
         <member name="P:devDept.Eyeshot.Legend.AlignValuesRight">
             <summary>If true, values are aligned right.</summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Legend.AlignValuesVerticalMiddle">
+            <summary>
+            If true, the values are vertically aligned to the middle of the colored rectangles.
+            </summary>
         </member>
         <member name="P:devDept.Eyeshot.Legend.TextBackgroundColor">
             <summary>Text background color (supports semi-transparent colors).</summary>
@@ -30422,6 +30625,13 @@
         <member name="T:devDept.Eyeshot.Nurbs.SurfaceEx">
             <exclude/>
             <excludetoc/>
+        </member>
+        <member name="M:devDept.Eyeshot.Nurbs.BoundingCone.ComputeCone(devDept.Geometry.BoundingSphere)">
+            <summary>
+            Computes the cone associated to the specified bounding sphere.
+            </summary>
+            <param name="bs">The bounding sphere</param>
+            <returns>The resulting bounding code, null if the half angle goes beyond 45 degrees (where cone axis direction is unreliable).</returns>
         </member>
         <member name="M:devDept.Eyeshot.Nurbs.BoundingCone.LiesCompletelyWithin(devDept.Eyeshot.Nurbs.BoundingCone)">
             <summary>
@@ -32528,11 +32738,12 @@
             Contains a collection of utility methods and constants for internal use.
             </summary>
         </member>
-        <member name="M:devDept.Geometry.UtilityEx.SmartAdd(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
+        <member name="M:devDept.Geometry.UtilityEx.SmartAdd(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
             <summary>
             Returns a CompositeCurve if the number of curves is bigger than one.
             </summary>
             <param name="curveList">The list of curves</param>
+            <param name="sortAndOrient">When true, the curves are properly sorted and oriented.</param>
             <returns>The curve itself or a CompositeCurve if the curve number is bigger than one.</returns>
         </member>
         <member name="M:devDept.Geometry.UtilityEx.IsOrientedClockwise(devDept.Geometry.Plane,devDept.Eyeshot.Entities.ICurve)">
@@ -32683,6 +32894,14 @@
             <param name="needReverse">True if the closest curve needs reversal</param>
             <returns>The index of the position of the closest curve in the curve list.</returns>
         </member>
+        <member name="M:devDept.Geometry.UtilityEx.DrawArrowOnView(devDept.Eyeshot.DrawDirectionParams,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+            <summary>
+            Draw an arrow parallel to the view, oriented along the <paramref name="direction"/> direction.
+            </summary>
+            <param name="data">The data</param>
+            <param name="direction">The arrow direction</param>
+            <param name="point">The world point where to draw the arrow</param>
+        </member>
         <member name="M:devDept.Geometry.UtilityEx.GetOuterIndex(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
             <summary>
             Returns the outer contour index.
@@ -32808,6 +33027,13 @@
             </summary>
             <param name="itfCurve">The curve to be checked</param>
             <returns>True if the curve is a <see cref="T:devDept.Eyeshot.Entities.Line"/> or a Nurbs curve with two control points and degree one</returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.RotateAwayFromSeam(devDept.Eyeshot.Entities.RevolvedSurface@,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
+            <summary>
+            Attempts to rotate the surface three times to avoid contour segments close to the seam curve.
+            </summary>
+            <param name="rs">The revolved surface</param>
+            <param name="trimLoops">The trim loops</param>
         </member>
         <member name="M:devDept.Geometry.UtilityEx.GetPointsToModelUnitsFactor(System.Drawing.GraphicsUnit,devDept.Geometry.linearUnitsType)">
             <summary>
@@ -33278,13 +33504,6 @@
         </member>
         <member name="M:devDept.Geometry.PlanarSurf.GetLengthAlongVector(devDept.Geometry.Plane,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Geometry.Interval@)">
             <param name="trimLoops">A list of loops as composite curves or unrolled individual segments</param>
-        </member>
-        <member name="M:devDept.Geometry.PlanarSurf.RotateAwayFromSeam(devDept.Eyeshot.Entities.RevolvedSurface@,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
-            <summary>
-            Attempts to rotate the surface three times to avoid contour segments close to the seam curve.
-            </summary>
-            <param name="rs">The revolved surface</param>
-            <param name="trimLoops">The trim loops</param>
         </member>
         <member name="T:devDept.Geometry.RevolvedSurf">
             <summary>

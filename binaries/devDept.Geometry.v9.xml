@@ -1000,13 +1000,12 @@
             <param name="vertices">The planar closed polygon vertices</param>
             <returns>True if the polygon is convex, false otherwise.</returns>
         </member>
-        <member name="M:devDept.Geometry.Utility.IsPolygonSelfIntersecting``1(System.Collections.Generic.IList{``0},System.Double)">
+        <member name="M:devDept.Geometry.Utility.IsPolygonSelfIntersecting``1(System.Collections.Generic.IList{``0})">
             <summary>
             Checks if the polygon is self-intersecting.
             </summary>
             <typeparam name="T">The point type</typeparam>
             <param name="vertices">The list of vertices</param>
-            <param name="domainSize">The domain size</param>
             <returns>True if the polygon is self intersecting, false otherwise</returns>
         </member>
         <member name="M:devDept.Geometry.Utility.IsPolygonDegenerated``1(System.Collections.Generic.IList{``0})">
