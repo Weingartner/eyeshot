@@ -4,6 +4,14 @@
         <name>devDept.Eyeshot.Control.Wpf.v9</name>
     </assembly>
     <members>
+        <member name="M:devDept.Eyeshot.Resemble.GetData(System.Drawing.Bitmap)">
+            <summary>
+            Gets RGBA data from Bitmap.
+            Start point is Top-Left, direction Right-Down (The same used in https://github.com/Huddle/Resemble.js)
+            </summary>
+            <param name="bmp"></param>
+            <returns></returns>
+        </member>
         <member name="T:devDept.Eyeshot.Converters.BoundingBoxConverter">
             <exclude/>
             <excludetoc/>
@@ -1008,6 +1016,11 @@
             <param name="k">The parent curve degree</param>
             <param name="splitPt">Index of the mid value</param>
             <param name="midVal">The domain range mid value</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.KnotVectorExtender.Split(System.Double[],System.Double,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            For internal use only.
+            </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.KnotVectorExtender.BasisFuns(System.Double[],System.Int32,System.Double,System.Int32)">
             <summary>
@@ -2204,6 +2217,11 @@
             Gets point cloud nature.
             </summary>
         </member>
+        <member name="F:devDept.Eyeshot.Entities.FastPointCloud.drawSelectedData">
+            <summary>
+            The entity graphics data for selection.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.Entities.FastPointCloud.PointArray">
             <summary>
             Gets or sets point array.
@@ -2289,6 +2307,20 @@
             Fits a plane to the point cloud vertices.
             </summary>
             <returns>The plane.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.FastPointCloud.DrawWithoutVBO(devDept.Graphics.RenderContextBase,System.Object)">
+            <summary>
+            Draws the FastPointCloud without using the vertex buffer objects when they are not supported.
+            </summary>
+            <param name="context">The rendering context</param>
+            <param name="myParams">The parameters</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.FastPointCloud.DrawSelected(devDept.Graphics.RenderContextBase,System.Object)">
+            <summary>
+            Draws the fast point cloud selected.
+            </summary>
+            <param name="context">The render context</param>
+            <param name="myParams">The parameters</param>
         </member>
         <member name="T:devDept.Eyeshot.Entities.AngularDim">
             <summary>
@@ -3085,7 +3117,7 @@
             </summary>
             <returns>True, if the two curves can be considered similar.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Surface.DropLoopsAndCheckDirection(System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},devDept.Eyeshot.Entities.Surface.RepSurf,System.Boolean,System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Double,System.Int32@)">
+        <member name="M:devDept.Eyeshot.Entities.Surface.DropLoopsAndCheckDirection(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Eyeshot.Entities.Surface.RepSurf,System.Boolean,System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double,System.Int32@)">
             <summary>
             Drop loops and in the case it finds an inverted contour returns the needFlip flag as true.
             </summary>
@@ -3154,18 +3186,20 @@
             Checks if the parametric point projection is on the right or top edge of the domain and adjust it as bottom or left
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Surface.IsOnSeamU(devDept.Eyeshot.Entities.ICurve)">
+        <member name="M:devDept.Eyeshot.Entities.Surface.IsOnSeamU(devDept.Eyeshot.Entities.ICurve,System.Double)">
             <summary>
             Checks if a curve is on the seam of a surface.
             </summary>
             <param name="curve">The curve</param>
+            <param name="tol">Maximum distance from seam curve</param>
             <returns>True if the curve lies on the seam, false otherwise.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Surface.IsOnSeamV(devDept.Eyeshot.Entities.ICurve)">
+        <member name="M:devDept.Eyeshot.Entities.Surface.IsOnSeamV(devDept.Eyeshot.Entities.ICurve,System.Double)">
             <summary>
             Checks if a curve is on the seam of a surface.
             </summary>
             <param name="curve">The curve</param>
+            <param name="tol">Maximum distance from seam curve</param>
             <returns>True if the curve lies on the seam, false otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.LocalApproximation(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Arc},devDept.Eyeshot.Entities.Surface.filletType,System.Boolean,System.Double)">
@@ -4680,6 +4714,11 @@
             <param name="sl">The lower surface</param>
             <param name="su">The upper surface</param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.Shrink">
+            <summary>
+            Shrinks the underlying untrimmed surface in order to make it as small as possible.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.Untrim">
             <summary>
             Clears all trimming loops.
@@ -5073,6 +5112,11 @@
         <member name="P:devDept.Eyeshot.Entities.RevolvedSurface.SeamPlane">
             <summary>
             Gets the seam plane.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.RevolvedSurface.Plane">
+            <summary>
+            Gets the base plane.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">
@@ -7632,7 +7676,7 @@
             </summary>
             <param name="plane">The splitting plane</param>
             <param name="splits">Array of new Meshes created by splitting</param>
-            <returns>Return true in case of succeded</returns>
+            <returns>Return true in case of success</returns>
             <seealso cref="M:devDept.Eyeshot.Entities.Mesh.SplitDisjoint"/>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.SplitBy(devDept.Geometry.Plane,System.Boolean,devDept.Eyeshot.Entities.Mesh[]@)">
@@ -7642,7 +7686,7 @@
             <param name="plane">The splitting plane</param>
             <param name="splitDisjoint">When true, disjoint objects are separated into individual meshes</param>
             <param name="splits">Array of new Meshes created by splitting</param>
-            <returns>Return true in case of succeded</returns>
+            <returns>Return true in case of success</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Mesh.SubdivideBy(devDept.Geometry.Plane)">
             <summary>
@@ -10143,6 +10187,21 @@
             </summary>
             <param name="data"></param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.GetXElement(System.Boolean)">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.GetXAttributes(System.Boolean)">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.AddVerticesToXElement(System.Xml.Linq.XElement)">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.DrawOnScreenWireframe(devDept.Eyeshot.DrawOnScreenWireframeParams)">
             <summary>
             Draws extra things on screen, like the vertex Numbers (if <see cref="P:devDept.Eyeshot.Viewport.ShowVertexIndices"/> is true) in wireframe display mode.
@@ -10337,6 +10396,12 @@
             <summary>
             Draws entity's vertices.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.DrawSelectedVertices(devDept.Eyeshot.DrawParams)">
+            <summary>
+            Draws the entity selected vertices.
+            </summary>
+            <remarks>For <see cref="T:devDept.Eyeshot.Entities.Solid3D"/> only</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.DrawHiddenLines(devDept.Eyeshot.DrawParams)">
             <summary>
@@ -10747,22 +10812,10 @@
             <returns>The mesh object.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
-            <summary>
-            Sweeps this curve along the provided trajectory.
-            </summary>
-            <param name="rail">Sweep trajectory</param>
-            <param name="tol">Surface trim tolerance</param>
-            <param name="methodType">Sweep method</param>
             <param name="meshNature">Nature of the resulting mesh entity</param>
             <returns>The list of resulting surfaces.</returns>  
         </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh``1(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
-            <summary>
-            Sweeps this curve along the provided trajectory.
-            </summary>
-            <param name="rail">Sweep trajectory</param>
-            <param name="tol">Surface trim tolerance</param>
-            <param name="methodType">Sweep method</param>
             <param name="meshNature">Nature of the resulting mesh entity</param>
             <returns>The list of resulting surfaces.</returns>  
         </member>
@@ -10771,6 +10824,11 @@
             Gets the Nurbs form of this curve.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.ICurve.EdgeIndex">
+            <summary>
+            Gets the associated <see cref="T:devDept.Eyeshot.Entities.Solid3D"/> edge index.
+            </summary>
         </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.ExtrudeAsSurface(devDept.Eyeshot.Entities.Line)">
             <summary>
@@ -10900,14 +10958,14 @@
             </summary>
             <param name="rail">The rail curve</param>
             <param name="tol">Surface trim tolerance</param>
-            <param name="methodType">The sweep method</param>
+            <param name="methodType">The sweep method, affects only <see cref="T:devDept.Eyeshot.Entities.Curve"/> rail segments.</param>
             <returns>The array of resulting surfaces.</returns>  
         </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsSolid3D(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Eyeshot.Entities.sweepMethodType)">
             <summary>Creates a Solid3D sweeping the contour on the rail.</summary>
             <param name="rail">Sweep rail</param>
             <param name="tol">The tolerance</param>
-            <param name="methodType">method of rotation of outer entity along the rail</param>
+            <param name="methodType">The sweep method, affects only <see cref="T:devDept.Eyeshot.Entities.Curve"/> rail segments.</param>
             <returns>The resulting Solid3D if the operation succeeded, null/Nothing otherwise.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.ICurve.WriteXml(System.Xml.XmlTextWriter)">
@@ -16064,7 +16122,7 @@
         </member>
         <member name="T:devDept.Eyeshot.Translators.WriteIGES">
             <summary>
-            Helper class to export current model in IGES file format.
+            Helper class to export geometry in IGES file format.
             </summary> 
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(devDept.Eyeshot.ViewportLayout,System.String,devDept.Geometry.linearUnitsType,System.Boolean)">
@@ -16212,7 +16270,7 @@
         </member>
         <member name="T:devDept.Eyeshot.Translators.WriteSTEP">
             <summary>
-            Helper class to export current model in STEP file format.
+            Helper class to export geometry in STEP file format.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(devDept.Eyeshot.ViewportLayout,System.String,devDept.Geometry.linearUnitsType,System.Boolean)">
@@ -16469,7 +16527,7 @@
         </member>
         <member name="T:devDept.Eyeshot.Translators.WriteOBJ">
             <summary>
-            Helper class to export current model in OBJ file format.
+            Helper class to export geometry in OBJ file format.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.Boolean)">
@@ -16566,7 +16624,7 @@
         </member>
         <member name="T:devDept.Eyeshot.Translators.WriteSTL">
             <summary>
-            Helper class to export current model in STL file format. It supports both binary and ascii file formats.
+            Helper class to export geometry in STL file format. It supports both binary and ascii file formats.
             </summary> 
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.Boolean,System.Boolean)">
@@ -16699,6 +16757,13 @@
             <param name="stream">The file stream</param>
             <param name="units">The model units</param>
             <remarks>The closing of the stream is delegated to you.</remarks>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.WriteXML">
+            <summary>
+            Helper class to export geometry in XML file format.
+            </summary>
+            <remarks>There is no correspondence between Eyeshot types and XML node names, different Eyeshot types can generate the same node name. Annotations and line types are not supported by design. 
+            </remarks>
         </member>
         <member name="T:devDept.Eyeshot.Triangulation.BallPivoting">
             <summary>
@@ -19112,6 +19177,7 @@
             <summary>
             Updates the Viewports dimensions and locations depending on the <see cref="P:devDept.Eyeshot.ViewportLayout.LayoutMode"/> property.
             </summary>
+            <remarks>If overridden, in WPF must call <see cref="M:devDept.Eyeshot.ViewportLayout.ApplyOpacityMask"/></remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.CreateShadowMap(System.Int32,System.Int32,System.Boolean,devDept.Eyeshot.DrawShadowParams)">
             <summary>
@@ -19257,6 +19323,7 @@
             <summary>
             The Timer used for animation.
             </summary>
+            <remarks>Don't use the Windows.Forms.Timer because if the UI is busy it doesn't fire.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.IsHardwareAccelerated">
             <summary>Returns true if OpenGL hardware acceleration is currently in use.</summary>
@@ -19512,6 +19579,12 @@
             <param name="hdwAcceleration"></param>
             <param name="drawSceneFuncDelegate"></param>
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.ApplyOpacityMask">
+            <summary>
+            Computes the opacity mask that makes the viewports opaque and leaves a transparent space between them.
+            </summary>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateViewportsSizeAndLocation"/>
+        </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.ViewportsGap">
             <summary>
             Gets or sets the gap between viewports.
@@ -19709,6 +19782,59 @@
             <summary>
             When true the frame buffer objects are used. Affects the quality of Realistic shadows. For debugging purpose only.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.CreateReferenceImage(devDept.Eyeshot.viewType)">
+            <summary>
+            Create a bitmap for the image comparison.
+            </summary>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/></param>
+            <returns>The bitmap for the image comparison.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap@,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double)">
+            <summary>
+            Executes a 3D scene visual testing.
+            </summary>
+            <param name="expectedImage">The reference bitmap</param>
+            <param name="actualImage">The current bitmap as output</param>
+            <param name="diffImage">The generated image with the differences</param>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/></param>
+            <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
+            <returns>The mismatch percentage</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double)">
+            <summary>
+            Executes a 3D scene visual testing.
+            </summary>
+            <param name="expectedImage">The reference bitmap</param>
+            <param name="actualImage">The current bitmap as input</param>
+            <param name="diffImage">The generated image with the differences</param>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/></param>
+            <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
+            <returns>The mismatch percentage</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap@,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double,System.Drawing.Color)">
+            <summary>
+            Executes a 3D scene visual testing.
+            </summary>
+            <param name="expectedImage">The reference bitmap</param>
+            <param name="actualImage">The current bitmap as output</param>
+            <param name="diffImage">The generated image with the differences</param>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/>.</param>
+            <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
+            <param name="errorPixelColor">The color used to show the differences</param>
+            <returns>The mismatch percentage</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double,System.Drawing.Color)">
+            <summary>
+            Executes a 3D scene visual testing.
+            </summary>
+            <param name="expectedImage">The reference bitmap</param>
+            <param name="actualImage">The current bitmap as input</param>
+            <param name="diffImage">The generated image with the differences</param>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/>.</param>
+            <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
+            <param name="errorPixelColor">The color used to show the differences</param>
+            <returns>The mismatch percentage</returns>
         </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.components">
             <summary> 
@@ -20333,6 +20459,7 @@
             <remarks>This distance is use to compute the plane used by the planar reflections and the planar shadows</remarks>
             <seealso cref="P:devDept.Eyeshot.DisplayModeSettingsRendered.PlanarReflections"/>
             <seealso cref="P:devDept.Eyeshot.DisplayModeSettingsShaded.ShadowMode"/>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetPlanarReflectionsPlane"/>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.PlanarShadowOpacity">
             <summary>
@@ -20512,6 +20639,7 @@
             If true, entities with a size on screen less than SmallSize are not drawn.
             </summary>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.SmallSize">SmallSize Property</seealso>
+            <remarks>Only top-level entities are considered, so the BlockReferences in the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> are either fully drawn or fully skipped</remarks>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.MinimumFramerate">
             <summary>
@@ -20654,11 +20782,12 @@
             Draws the Background of the ViewportLayout control.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.GetReflectionPlane">
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetPlanarReflectionsPlane">
             <summary>
              Gets the plane used to draw the planar reflections.
             </summary>
-            <returns></returns>
+            <returns>The plane</returns>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.GroundPlaneDistance"/>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency">
             <summary>
@@ -20686,7 +20815,7 @@
             Draw all entities (opaque and transparent)
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.DrawVertices(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.selectionStatusType)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.DrawVertices(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,devDept.Eyeshot.selectionStatusType)">
             <summary>
             Draws the vertices of the entities.
             </summary>
@@ -21020,7 +21149,7 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)">
             <summary>
-            Sorts the entities so that the transparent ones are ordered from the farthest to the nearest to the camera.
+            Sorts the transparent entities from the farthest to the nearest to the camera for better rendering.
             </summary>
             <param name="viewport">The viewport</param>
             <returns>The sorted list of entities.</returns>
@@ -21037,7 +21166,7 @@
                 }
             }
             </code>
-            	<code lang="CS" title="[Ordered Transparency]">
+            	<code lang="VB" title="[Ordered Transparency]">
             Public Class MyViewportLayout
             Inherits ViewportLayout
                 Protected Overrides Sub DrawViewport(myParams As DrawSceneParams)
@@ -21551,6 +21680,13 @@
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StopAnimation">StopAnimation Method</seealso>
             <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method (devDept.Eyeshot.Standard.Entity)</seealso>
         </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.IsAnimationRunning">
+            <summary>
+            Tells if the animation is currently running.
+            </summary>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.StartAnimation"/>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.StopAnimation"/>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.StartAnimation(System.Int32)">
             <summary>
             	<para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
@@ -21568,7 +21704,7 @@
             </summary>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StopAnimation">StopAnimation Method</seealso>
             <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method (devDept.Eyeshot.Standard.Entity)</seealso>
-            <param name="interval">Timer interval. See <see cref="T:System.Windows.Forms.Timer"/> object.</param>
+            <param name="interval">Timer interval. See <see cref="T:System.Threading.Timer"/> object.</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.StartAnimation(System.Int32,System.Int32)">
             <summary>
@@ -21587,7 +21723,7 @@
             </summary>
             <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method (devDept.Eyeshot.Standard.Entity)</seealso>
             <param name="stopAfter">The animation will stop after this number of frames</param>
-            <param name="interval">Timer interval, see <see cref="T:System.Windows.Forms.Timer"/> object.</param>
+            <param name="interval">Timer interval, see <see cref="T:System.Threading.Timer"/> object.</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.StopAnimation">
             <summary>Stops the animation timer. Call base class method when overriding.</summary>
@@ -21608,7 +21744,7 @@
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StartAnimation(System.Int32)">StartAnimation Method</seealso>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StopAnimation">StopAnimation Method</seealso>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.OnAnimationTimerTick(System.Object,System.EventArgs)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.OnAnimationTimerTick(System.Object)">
             <summary>Occurs every timer tick. Call base class method when overriding.</summary>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.PageSetup(System.Boolean)">
@@ -22651,6 +22787,7 @@
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs">
             <summary>Provides data for the <see cref="E:devDept.Eyeshot.ViewportLayout.SelectionChanged"/> event.</summary>
+            <seealso cref="T:devDept.Eyeshot.ViewportLayout.SelectedItem"/>
             <seealso cref="T:devDept.Eyeshot.ViewportLayout.SelectedSubItems"/>
             <seealso cref="T:devDept.Eyeshot.ViewportLayout.SelectedShells"/>
             <seealso cref="T:devDept.Eyeshot.ViewportLayout.SelectedShellSubItems"/>
@@ -22681,6 +22818,7 @@
             <summary>
             Class that holds the informations of the selected item.
             </summary>
+            <seealso cref="E:devDept.Eyeshot.ViewportLayout.SelectionChanged"/>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.SelectedItem.EntityIndex">
             <summary>
@@ -24485,6 +24623,61 @@
             <returns>The viewport size to use in the <see cref="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size)"/> to print the scene so that the world units in the model correspond to world units on paper.</returns>
             <remarks>Applies to <see cref="F:devDept.Graphics.projectionType.Orthographic"/> camera ProjectionMode only.</remarks>
         </member>
+        <member name="M:devDept.Eyeshot.Viewport.CreateReferenceImage(devDept.Eyeshot.viewType)">
+            <summary>
+            Create a bitmap for the image comparison.
+            </summary>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/></param>
+            <returns>The bitmap for the image comparison (resolution 1024x768)</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap@,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,devDept.Eyeshot.displayType,System.Double)">
+            <summary>
+            Executes a 3D scene visual testing.
+            </summary>
+            <param name="expectedImage">The reference bitmap</param>
+            <param name="actualImage">The current bitmap as output</param>
+            <param name="diffImage">The generated image with the differences</param>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/></param>
+            <param name="displayType">The <see cref="T:devDept.Eyeshot.displayType"/></param>
+            <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>        
+            <returns>The mismatch percentage</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,devDept.Eyeshot.displayType,System.Double)">
+            <summary>
+            Executes a 3D scene visual testing.
+            </summary>
+            <param name="expectedImage">The reference bitmap</param>
+            <param name="actualImage">The current bitmap as input</param>
+            <param name="diffImage">The generated image with the differences</param>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/></param>
+            <param name="displayType">The <see cref="T:devDept.Eyeshot.displayType"/></param>
+            <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>        
+            <returns>The mismatch percentage</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap@,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double,System.Drawing.Color)">
+            <summary>
+            Executes a 3D scene visual testing.
+            </summary>
+            <param name="expectedImage">The reference bitmap</param>
+            <param name="actualImage">The current bitmap as output</param>
+            <param name="diffImage">The generated image with the differences</param>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/></param>
+            <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
+            <param name="errorPixelColor">The color used to show the differences</param>
+            <returns>The mismatch percentage</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double,System.Drawing.Color)">
+            <summary>
+            Executes a 3D scene visual testing.
+            </summary>
+            <param name="expectedImage">The reference bitmap</param>
+            <param name="actualImage">The current bitmap as input</param>
+            <param name="diffImage">The generated image with the differences</param>
+            <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType"/></param>
+            <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
+            <param name="errorPixelColor">The color used to show the differences</param>
+            <returns>The mismatch percentage</returns>       
+        </member>
         <member name="P:devDept.Eyeshot.Viewport.SortLabels">
             <summary>
             Sorts the Labels using the depth from the viewer.
@@ -26189,6 +26382,10 @@
             <param name="silhouetteThickness">Thickness used to draw the silhouettes</param>
             <param name="silhouettesDrawingMode">Silhouettes drawing mode</param>
         </member>
+        <member name="P:devDept.Eyeshot.DisplayModeSettingsFlat.ColorMethod">
+            <summary>Gets or sets the color used for the polygonal entities.</summary>
+            <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.EdgeColorMethod"/>
+        </member>
         <member name="T:devDept.Eyeshot.DisplayModeSettingsShaded">
             <summary>Display Mode settings for Shaded mode.</summary>
         </member>
@@ -26516,6 +26713,19 @@
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.hiddenLinesColorMethodType.EntityMaterial">
+            <summary>
+            The color is defined by the entity material
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.flatColorMethodType">
+            <summary>Hidden Lines color type.</summary>
+        </member>
+        <member name="F:devDept.Eyeshot.flatColorMethodType.EntityColor">
+            <summary>
+            The color is defined by the entity color
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.flatColorMethodType.EntityMaterial">
             <summary>
             The color is defined by the entity material
             </summary>
@@ -29292,6 +29502,13 @@
             </summary>
             <param name="basePoint">Base point</param>
         </member>
+        <member name="M:devDept.Eyeshot.Block.#ctor(devDept.Eyeshot.Block)">
+            <summary>
+            Copy constructor.
+            </summary>
+            <param name="another">The other block</param>
+            <remarks>The entities are cloned.</remarks>
+        </member>
         <member name="M:devDept.Eyeshot.Block.#ctor(devDept.Geometry.Point3D,devDept.Geometry.linearUnitsType)">
             <summary>
             Base point and units constructor.
@@ -29344,6 +29561,17 @@
             </summary>
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Block.GetXElement(System.String,System.Text.StringBuilder)">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Block.Clone">
+            <summary>
+            Creates a deep copy of the Block (cloning all its entities).
+            </summary>
+            <returns>The new Block object.</returns>
         </member>
         <member name="T:devDept.Eyeshot.EyeshotDisposableDictionary`1">
             <summary>
@@ -29568,6 +29796,27 @@
             <seealso cref="P:devDept.Eyeshot.Camera.ZoomFactor">ZoomFactor Property</seealso>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.AdjustNearAndFarPlanes">AdjustNearAndFarPlanes Method (devDept.Eyeshot.Viewport)</seealso>
         </member>
+        <member name="M:devDept.Eyeshot.Camera.GetFocalLengthFromFieldOfView(System.Double)">
+            <summary>
+            Gets the focal length from a vertical field of view.
+            </summary>
+            <param name="fovInDegrees">The vertical field of view</param>
+            <returns>The corresponding focal length, relative to the <see cref="P:devDept.Eyeshot.Camera.Frame"/> size.</returns>
+            <seealso cref="P:devDept.Eyeshot.Camera.Frame"/>
+            <seealso cref="P:devDept.Eyeshot.Camera.FocalLength"/>
+            <seealso cref="P:devDept.Eyeshot.Camera.AngleOfView"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Camera.GetFocalLengthFromFieldOfView(System.Double,devDept.Geometry.Size2D)">
+            <summary>
+            Gets the focal length from the vertical field of view and the camera film frame.
+            </summary>
+            <param name="fovInDegrees">The vertical field of view</param>
+            <param name="frame">THe size of the camera film frame</param>
+            <returns>The corresponding focal length, relative to the <paramref name="frame"/> size.</returns>
+            <seealso cref="P:devDept.Eyeshot.Camera.Frame"/>
+            <seealso cref="P:devDept.Eyeshot.Camera.FocalLength"/>
+            <seealso cref="P:devDept.Eyeshot.Camera.AngleOfView"/>
+        </member>
         <member name="P:devDept.Eyeshot.Camera.FocalLength">
             <summary>
             Gets or sets the camera focal length. Applies only to Perspective projection mode.
@@ -29666,6 +29915,13 @@
             When drawing the depth for Direct3D with Antialiasing, must not use the 
             different ProjectionMatrix to avoid issues with the internal selection (when pressing the CTRL button)
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Camera.GetOffsetForSelection">
+            <summary>
+            Gets the offset applied to the camera planes for the drawing of the selected entities.
+            </summary>
+            <returns>The offset value</returns>
+            <remarks>A positive value moves the selected entities closer to the viewer, a negative value moves them farther from the viewer.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Camera.LimitNearFor3DAnaglyph(System.Double)">
             <summary>
@@ -30145,6 +30401,11 @@
             </summary>
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Layer.GetXElement">
+            <summary>
+            For internal use only.
+            </summary>
         </member>
         <member name="T:devDept.Eyeshot.LayerList">
             <summary>
@@ -32780,6 +33041,42 @@
             </summary>
             <remarks>For internal use only.</remarks>
         </member>
+        <member name="M:devDept.Geometry.UtilityEx.ScaleForDPI(System.Drawing.Size)">
+            <summary>
+            Scales the size by the DPI scaling factor.
+            </summary>
+            <param name="size">The size</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.ScaleForDPI(System.Drawing.Point)">
+            <summary>
+            Scales the point by the DPI scaling factor.
+            </summary>
+            <param name="point">The point</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.ScaleForDPI(System.Int32)">
+            <summary>
+            Scales the value by the DPI scaling factor.
+            </summary>
+            <param name="value">The value to scale</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.ScaleForDPI(System.Single)">
+            <summary>
+            Scales the value by the DPI scaling factor.
+            </summary>
+            <param name="value">The value to scale</param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.ScaleForDPI(System.Drawing.Font,System.Boolean)">
+            <summary>
+            Scales the font by the DPI scaling factor.
+            </summary>
+            <param name="font">The font</param>
+            <param name="disposeFont">If true, the incoming font is disposed</param>
+            <returns></returns>
+        </member>
         <member name="M:devDept.Geometry.UtilityEx.GetFont(System.Windows.Media.FontFamily,System.Windows.FontStyle,System.Windows.FontWeight,System.Double)">
             <summary>
             Gets a <see cref="T:System.Drawing.Font"/> starting from the commons WPF font values.
@@ -33020,6 +33317,13 @@
             <param name="points">The 2D point list</param>
             <param name="sorted">When true, the resulting array of points is sorted.</param>
             <returns>The resulting array of 2D points.</returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.IsCurved(devDept.Eyeshot.Entities.Surface)">
+            <summary>
+            Checks if the surface has degree in U or V bigger than one.
+            </summary>
+            <param name="ns">The surface to be checked</param>
+            <returns>True if the surface is curved, false otherwise.</returns>
         </member>
         <member name="M:devDept.Geometry.UtilityEx.IsLine(devDept.Eyeshot.Entities.ICurve)">
             <summary>
@@ -33405,6 +33709,11 @@
             </summary>
             <param name="transform">The transformation</param>
         </member>
+        <member name="M:devDept.Geometry.AnalyticSurf.GetXElement">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
         <member name="T:devDept.Geometry.TabulatedSurf">
             <summary>
             Analytic tabulated surface definition.
@@ -33468,11 +33777,6 @@
             <param name="vKnotVector">Knot vector in the V parametric direction</param>
             <param name="ctrlPoints">Surface control points</param>
         </member>
-        <member name="P:devDept.Geometry.NurbsSurf.DomainV">
-            <summary>
-            Gets surface domain in V parametric direction.
-            </summary>
-        </member>
         <member name="T:devDept.Geometry.PlanarSurf">
             <summary>
             Analytic planar surface definition.
@@ -33502,8 +33806,11 @@
             <param name="angDomain">The resulting angular domain. When interval length is zero, it was not possible to compute the interval.</param>
             <returns>True when the resulting linear domain is bigger than zero.</returns>
         </member>
-        <member name="M:devDept.Geometry.PlanarSurf.GetLengthAlongVector(devDept.Geometry.Plane,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Geometry.Interval@)">
+        <member name="M:devDept.Geometry.PlanarSurf.GetLengthAlongVector(devDept.Geometry.Plane,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Geometry.Interval@,System.Boolean@)">
+            <param name="pln">Analytical surface plane</param>
             <param name="trimLoops">A list of loops as composite curves or unrolled individual segments</param>
+            <param name="linDomain">The linear domain along the plane Z axis</param>
+            <param name="overlapping">true when one contour has two segments overlapping on seam (only lines are supported so far)</param>
         </member>
         <member name="T:devDept.Geometry.RevolvedSurf">
             <summary>
@@ -33654,8 +33961,10 @@
         <member name="F:devDept.Geometry.InitialPoint.quality">
             <summary>
             Initial point quality:
-             -1 no tangent available
-              0 fine
+              0 good
+             -1 no tangent available, top of the dome
+             -2 cone tip
+             -3 loop detection
             </summary>
         </member>
         <member name="P:devDept.Geometry.InitialPoint.CurveTangent">

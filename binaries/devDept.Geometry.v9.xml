@@ -1056,6 +1056,13 @@
         <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Utility.Compare(System.Double,System.Double)" -->
         <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Utility.Compare(System.Double,System.Double,System.Double)" -->
         <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Utility.CompareWithoutTolerance(System.Double,System.Double)" -->
+        <member name="M:devDept.Geometry.Utility.WriteFloatNumber(System.Double)">
+            <summary>
+            Writes float numbers with general format and a trailing point.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:devDept.Geometry.Utility.RadToDeg(System.Double)">
             <summary>
             Converts radians to degrees.
@@ -1283,7 +1290,7 @@
             <summary>
             Gets a list of edges without duplicates from a mesh of triangles.
             </summary>
-            <param name="polygons">Polygon list definition, each row can have indipendently 3 or 4 indices.</param>
+            <param name="polygons">Polygon list definition, each row can have independently 3 or 4 indices.</param>
             <param name="numVerts">Number of vertices in the mesh</param>
             <param name="edgesPerVertex">The edges per each vertex</param>
             <returns>The number of edges.</returns>
@@ -1716,7 +1723,7 @@
             Converts the string representation of a number to its double-precision equivalent in a culture invariant way.
             </summary>
             <param name="value">The string to read</param>
-            <param name="result">The converted value, if the method succeded, 0 otherwise</param>
+            <param name="result">The converted value, if the method succeeded, 0 otherwise</param>
             <returns>True if the conversion succeeded, false otherwise.</returns>
         </member>
         <member name="M:devDept.Geometry.Utility.GetRandomColor(System.Random)">
