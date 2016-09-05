@@ -1869,6 +1869,13 @@
             </summary>
             <returns>The resulting regions</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Region.SmartTrim``1(``0,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.List{devDept.Eyeshot.Entities.Region})">
+            <summary>
+            Cuts a region by a list of curves.
+            </summary>
+            <returns>True if successful.</returns>
+            <remarks>Does not manage closed curves</remarks>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Region.Extend(System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve})">
             <summary>
             Extends the trim open contour to facilitate PolyBooleans
@@ -2078,6 +2085,13 @@
             <param name="width">Rectangle's width</param>
             <param name="height">Rectangle's height</param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.RectangularRegion.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for deserializing objects.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.CircularRegion">
             <summary>
             Circular region definition.
@@ -2145,6 +2159,13 @@
             <param name="center">3D center point</param>
             <param name="radius">Radius</param>        
         </member>
+        <member name="M:devDept.Eyeshot.Entities.CircularRegion.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for deserializing objects.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.EllipticalRegion">
             <summary>
             Elliptical region definition.
@@ -2172,11 +2193,18 @@
             <param name="rx">Radius X</param>
             <param name="ry">Radius Y</param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.EllipticalRegion.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for deserializing objects.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
         <member name="T:devDept.Eyeshot.Entities.PolygonalRegion">
             <summary>
             Polygonal region definition.
             </summary>
-            <remarks>It works only on the XY plane. For other planes please use <see cref="T:devDept.Eyeshot.Entities.Region"/>.</remarks>
+            <remarks>It works only on the XY plane. For other planes please use <see cref="T:devDept.Eyeshot.Entities.Region"/>.</remarks>    
         </member>
         <member name="M:devDept.Eyeshot.Entities.PolygonalRegion.#ctor">
             <summary>
@@ -2201,6 +2229,13 @@
             </summary>
             <param name="sketchPlane">The sketch plane</param>
             <param name="points">A list of 2D points laying on the plane</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.PolygonalRegion.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for deserializing objects.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
         </member>
         <member name="T:devDept.Eyeshot.Entities.FastPointCloud">
             <summary>
@@ -13311,6 +13346,11 @@
             Gets or sets the text style name.
             </summary>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.TextStyles"/>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.Text.myWidthFactor">
+            <summary>
+            The real width factor used internally (inherited from the TextStyle if the <see cref="P:devDept.Eyeshot.Entities.Text.WidthFactor"/> is -1).
+            </summary>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Text.Backward">
             <summary>
@@ -26088,13 +26128,13 @@
             <summary>
             Standard constructor.
             </summary>
-            <param name="panSpeed">Pan spee</param>
+            <param name="panSpeed">Pan speed</param>
             <param name="zoomSpeed">Zoom speed</param>
             <param name="rotateSpeed">Rotation speed</param>
         </member>
         <member name="M:devDept.Eyeshot.Mouse3DSettings.#ctor(System.Double,System.Double,System.Double,System.Boolean)">
             <summary>
-            Standard cosntructor.
+            Standard constructor.
             </summary>
             <param name="panSpeed">Pan speed</param>
             <param name="zoomSpeed">Zoom speed</param>
@@ -26132,11 +26172,38 @@
             </summary>
             <param name="enableMultiTouchMovements">If true, the movements are enabled</param>
         </member>
+        <member name="M:devDept.Eyeshot.MultiTouchSettings.#ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="enableMultiTouchMovements">If true, the movements are enabled</param>
+            <param name="zoom">Enables or disables the zoom with two fingers</param>
+            <param name="pan">Enables or disables the pan with two fingers</param>
+            <param name="rotate">Enables or disables the rotation with two fingers</param>
+        </member>
         <member name="P:devDept.Eyeshot.MultiTouchSettings.Enabled">
             <summary>
             Gets or sets a value indicating whether the movements are enabled.
             </summary>
             <remarks>It must be set before the control handle is created (in the Form or Window constructor).</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.MultiTouchSettings.Rotate">
+            <summary>
+            Enables or disables the rotation with two fingers.
+            </summary>
+            <remarks>If <see cref="P:devDept.Eyeshot.MovementSettingsBase.Enabled"/> is false, the 2 fingers rotation is also disabled.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.MultiTouchSettings.Zoom">
+            <summary>
+            Enables or disables the zoom with two fingers.
+            </summary>
+            <remarks>If <see cref="!:RotateSettings.Enabled"/> is false, the 2 fingers zoom is also disabled.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.MultiTouchSettings.Pan">
+            <summary>
+            Enables or disables the pan with two fingers.
+            </summary>
+            <remarks>If <see cref="!:ZoomSettings.Enabled"/> is false, the 2 fingers pan is also disabled.</remarks>/// 
         </member>
         <member name="T:devDept.Eyeshot.NavigationSettings">
             <summary>
@@ -33035,12 +33102,6 @@
             <returns>The string between the start and the end.</returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.ReplaceString(System.String,System.String,System.String,System.StringComparison)" -->
-        <member name="M:devDept.Geometry.UtilityEx.GetScalingLevel">
-            <summary>
-            Gets the custom scaling level.
-            </summary>
-            <remarks>For internal use only.</remarks>
-        </member>
         <member name="M:devDept.Geometry.UtilityEx.ScaleForDPI(System.Drawing.Size)">
             <summary>
             Scales the size by the DPI scaling factor.
@@ -33629,15 +33690,6 @@
             Perturbs the vertex to avoid having vertices exactly on other edges/vertices.
             </summary>
         </member>
-        <member name="M:devDept.Geometry.PolyBooleans.Union(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Geometry.Plane,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean@)">
-            <summary>
-            Connects the contours using the given intersecting curves.
-            </summary>
-            <param name="contours">The contours to process</param>
-            <param name="plane">The contours plane</param>
-            <param name="curves">The curves intersecting the contours</param>
-            <returns></returns>
-        </member>
         <member name="M:devDept.Geometry.PolyBooleans.ExtendIntersectionCurves(System.Collections.Generic.IList{devDept.Geometry.PolyBooleans.PolygonOnGrid},System.Collections.Generic.IList{devDept.Geometry.PolyBooleans.PolygonOnGrid},devDept.Eyeshot.HiddenLinesView.IntegerGrid,System.Double)">
             <summary>
             Checks for exact intersection and extends to avoid losing the intersection between the segments on the grid
@@ -33646,6 +33698,21 @@
             <param name="intersectionCurvesOnGrid"></param>
             <param name="grid"></param>
             <param name="problemSize"></param>
+        </member>
+        <member name="F:devDept.Geometry.PolyBooleans.trimResult.notNeeded">
+            <summary>
+            Used by region booleans.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PolyBooleans.trimResult.outerModified">
+            <summary>
+            Used by SmatTrim, the outer profile was modified.
+            </summary>
+        </member>
+        <member name="F:devDept.Geometry.PolyBooleans.trimResult.outerNotModified">
+            <summary>
+            Used by SmartTrim, the outer profile was not modified.
+            </summary>
         </member>
         <member name="T:devDept.Geometry.AnalyticSurf">
             <summary>

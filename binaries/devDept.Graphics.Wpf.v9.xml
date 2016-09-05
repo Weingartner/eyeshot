@@ -2260,6 +2260,8 @@
             </summary>
             <param name="point">The point to convert</param>
             <returns>The <see cref="T:System.Drawing.Point"/> object.</returns>
+            <remarks>The returned point is adjusted for DPI scaling.</remarks>
+            <seealso cref="M:devDept.Geometry.Utility.GetScalingLevel"/>
         </member>
         <member name="M:devDept.Graphics.RenderContextUtility.ConvertPoint(System.Drawing.Point)">
             <summary>

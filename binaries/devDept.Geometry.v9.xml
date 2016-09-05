@@ -1733,6 +1733,12 @@
             <param name="rand">A <see cref="T:System.Random"/> class instance,</param>
             <returns>The random color.</returns>
         </member>
+        <member name="M:devDept.Geometry.Utility.GetScalingLevel">
+            <summary>
+            Gets the custom scaling level.
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
         <member name="T:devDept.Geometry.IndexLineComparer">
             <summary>
             Compares two <see cref="T:devDept.Geometry.IndexLine"/> objects. 
