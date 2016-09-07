@@ -20402,6 +20402,11 @@
             Gets or sets the vertex indices visualization flag in the active viewport (meaningful only if <see cref="P:devDept.Eyeshot.Viewport.ShowVertices"/> is also true).
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.VertexSize">
+            <summary>
+            Gets or sets the vertex visualization size in the active viewport (meaningful only if <see cref="P:devDept.Eyeshot.Viewport.ShowVertices"/> is true).
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.BoundingBox">
             <summary>
             Bounding box settings.
@@ -24144,6 +24149,11 @@
         <member name="P:devDept.Eyeshot.Viewport.ShowVertexIndices">
             <summary>
             If true, the model vertices are displayed.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Viewport.VertexSize">
+            <summary>        
+            Gets or sets the vertex visualization size (meaningful only if <see cref="P:devDept.Eyeshot.Viewport.ShowVertices"/> is true).
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.Viewport.AutoHideLabels">
