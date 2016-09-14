@@ -248,9 +248,14 @@
             Gets or sets the Viewport.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.DrawParams.parents">
+            <summary>
+            The parent entities stack.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.DrawParams.parent">
             <summary>
-            The parent entity. If not null, the entity being drawn is inside a BlockReference.
+            The parent Entity.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.DrawParams.#ctor(devDept.Eyeshot.ViewportLayout,System.Single,System.Single[],System.Single,System.Int32,devDept.Geometry.Transformation,devDept.Eyeshot.FontDataDictionary,devDept.Eyeshot.TextStyleDictionary)">
@@ -20795,9 +20800,14 @@
             </summary>
             <remarks>They can be sorted with the <see cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)"/></remarks>
         </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.DrawSceneParams.Parent">
+        <member name="P:devDept.Eyeshot.ViewportLayout.DrawSceneParams.MainScene">
             <summary>
-            Gets or sets the parent entity.
+            Gets or sets a value telling if it's drawing the main scene.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.ViewportLayout.DrawSceneParams.Parents">
+            <summary>
+            Gets or sets the stack of parent entities.
             </summary>
             <remarks>Used to draw just the entities of a Current BlockReference</remarks>
         </member>
@@ -20839,6 +20849,8 @@
             When true, the Accurate Transparency mode is activated. Accurate Transparency provides slower but more accurate semi-transparent object drawing
             with support for non-concave objects and for objects intersection.
             </summary>
+            <remarks>For better rendering of transparent entities with <see cref="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency"/> turned off, override the <see cref="M:devDept.Eyeshot.ViewportLayout.DrawViewport(devDept.Eyeshot.ViewportLayout.DrawSceneParams)"/> and call the <see cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)"/></remarks>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)"/>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.DrawEntities(devDept.Eyeshot.ViewportLayout.DrawSceneParams,System.Boolean,System.Boolean)">
             <summary>
@@ -20907,7 +20919,7 @@
             <typeparam name="T">The entity type</typeparam>
             <seealso cref="M:devDept.Eyeshot.Entities.Entity.DrawForSelection(devDept.Eyeshot.DrawParams)"/>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Collections.Generic.IList{`0},devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Graphics.ShaderParameters,devDept.Geometry.Transformation,System.Int32,System.Boolean,devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Collections.Generic.IList{`0},System.Boolean,devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Graphics.ShaderParameters,devDept.Geometry.Transformation,System.Int32,System.Boolean,devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate,System.Boolean,System.Boolean)">
             <summary>
             Constructor.
             </summary>
@@ -32502,6 +32514,12 @@
             </summary>
             <seealso cref="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference)"/>
         </member>
+        <member name="P:devDept.Eyeshot.EntityList.CurrentBlockReferences">
+            <summary>
+            Gets the stack of current BlockReferences.
+            </summary>
+            <seealso cref="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference)"/>
+        </member>
         <member name="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference)">
             <summary>
             Sets a BlockReference as current.
@@ -32993,7 +33011,7 @@
         </member>
         <member name="P:devDept.Eyeshot.AttributeReference.Invisible">
             <summary>
-            Autodesk attribute mode. The attribute text is invisible. Note that the ATTDISP system variable can override this setting. 
+            Autodesk attribute mode. The attribute text is invisible. Note that the <see cref="!:ViewportLayout.AttributeReferenceVisibilityMode"/> system variable can override this setting. 
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.AttributeReference.Constant">
