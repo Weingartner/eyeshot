@@ -535,6 +535,27 @@
             <param name="textureUnit">The texture unit</param>
             <returns>True if successful</returns>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.SetAlphaTexture(devDept.Graphics.TextureBase)">
+            <summary>
+            Sets the texture on a specific texture unit.
+            </summary>
+            <param name="texture">The texture</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.ResolveShadowShader(devDept.Graphics.shaderType)">
+            <summary>
+            Gets the shader with the Shadow support.
+            </summary>
+            <param name="shaderType">The source shader type</param>
+            <returns>The corresponding shader type with shadow support.</returns>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.RevolveAlphaMapShader(devDept.Graphics.shaderType)">
+            <summary>
+            Gets the shader with the AlphaMap support.
+            </summary>
+            <param name="shaderType">The source shader type</param>
+            <returns>The corresponding shader type with alpha map support.</returns>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.SetLinesShader(System.Boolean,devDept.Graphics.shaderType,devDept.Graphics.ShaderParameters)">
             <summary>
             Sets the shader for the lines with or without thick lines capabilities, adjusting also the PolygonOffset.
@@ -1870,6 +1891,11 @@
             Base utility class to load textures. 
             </summary>
         </member>
+        <member name="F:devDept.Graphics.TextureBase.AlphaTextureUnit">
+            <summary>
+            TextureUnit for alpha maps.
+            </summary>
+        </member>
         <member name="F:devDept.Graphics.TextureBase.needsDispose">
             <summary>
             Tells if the bitmap must be disposed when disposing the texture (because was created internally).
@@ -2668,14 +2694,29 @@
             Draws without lighting using the full color of a 2D texture
             </summary>
         </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DNoLightsWithAlphaMap">
+            <summary>
+            Draws without lighting using the full color of a 2D texture modulated by an alpha map
+            </summary>
+        </member>
         <member name="F:devDept.Graphics.shaderType.Texture2DNoLightsModulate">
             <summary>
             Draws without lighting with the full color of a 2D texture, modulated by the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/>
             </summary>
         </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DNoLightsModulateWithAlphaMap">
+            <summary>
+            Draws without lighting with the full color of a 2D texture, modulated by the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/> and an Alpha map
+            </summary>
+        </member>
         <member name="F:devDept.Graphics.shaderType.Texture2DNoLightsDecal">
             <summary>
             Draws without lighting with a 2D texture in decal mode using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/> for the transparent areas of the texture
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DNoLightsDecalWithAlphaMap">
+            <summary>
+            Draws without lighting with a 2D texture and an alpha map in decal mode using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor"/> for the transparent areas of the texture
             </summary>
         </member>
         <member name="F:devDept.Graphics.shaderType.Texture1DNoLights">
@@ -2753,14 +2794,29 @@
             Draws with Phong lighting, environment mapping and 2D texture using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
             </summary>
         </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentTexture2DWithAlphaMap">
+            <summary>
+            Draws with Phong lighting, environment mapping and 2D texture with alpha map using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
         <member name="F:devDept.Graphics.shaderType.Texture2D">
             <summary>
             Draws with Phong lighting and 2D Texture using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
             </summary>
         </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DWithAlphaMap">
+            <summary>
+            Draws with Phong lighting and 2D Texture with Alpha map using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
         <member name="F:devDept.Graphics.shaderType.Texture2DDecal">
             <summary>
             Draws with Phong lighting and 2D texture in Decal mode using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/> for the transparent areas of the texture
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DDecalWithAlphaMap">
+            <summary>
+            Draws with Phong lighting and 2D texture in Decal mode with Alpha map using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/> for the transparent areas of the texture
             </summary>
         </member>
         <member name="F:devDept.Graphics.shaderType.MultiColor">
@@ -2803,9 +2859,19 @@
             Draws with Phong lighting, environment mapping, 2D texture and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
             </summary>
         </member>
+        <member name="F:devDept.Graphics.shaderType.EnvironmentTexture2DShadowWithAlphaMap">
+            <summary>
+            Draws with Phong lighting, environment mapping, 2D texture with Alpha map and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
         <member name="F:devDept.Graphics.shaderType.Texture2DShadow">
             <summary>
             Draws with Phong lighting, 2D texture and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.shaderType.Texture2DShadowWithAlphaMap">
+            <summary>
+            Draws with Phong lighting, 2D texture with alpha map and shadow mapping using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial"/>
             </summary>
         </member>
         <member name="F:devDept.Graphics.shaderType.MultiColorShadow">
@@ -3802,8 +3868,22 @@
             Gets the color used for wire entities.
             </summary>
         </member>
+        <member name="P:devDept.Graphics.Material.texture">
+            <summary>
+            Gets the internal texture.
+            </summary>
+        </member>
+        <member name="P:devDept.Graphics.Material.alphaMap">
+            <summary>
+            Gets the internal alphaMap texture.
+            </summary>
+        </member>
         <member name="P:devDept.Graphics.Material.TextureImage">
             <summary>Gets or sets the material texture image.</summary>
+            <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)"/> to make it effective.</remarks>
+        </member>
+        <member name="P:devDept.Graphics.Material.AlphaMap">
+            <summary>Gets or sets the material alpha image.</summary>
             <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)"/> to make it effective.</remarks>
         </member>
         <member name="P:devDept.Graphics.Material.EnvironmentMappingImage">
@@ -3925,6 +4005,11 @@
         <member name="T:devDept.Graphics.ShaderParameters">
             <summary>
             Base class for shader parameters.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.ShaderParameters.AlphaMap">
+            <summary>
+            If true, the texture alpha is modulated by another texture defining the alpha map.
             </summary>
         </member>
         <member name="M:devDept.Graphics.ShaderParameters.PrepareForWireframe">

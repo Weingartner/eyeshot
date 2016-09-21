@@ -10207,6 +10207,32 @@
             </summary>
             <returns>True if the entity is selected</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.FindClosestTriangle(devDept.Geometry.Transformation,devDept.Geometry.Segment3D,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Int32,System.Int32,System.Int32,System.Collections.Generic.SortedList{System.Double,devDept.Eyeshot.Entities.HitTriangle})">
+            <summary>
+            Finds the triangles intersecting the <paramref name="seg"/> segment and puts them in the <paramref name="triList"/>.
+            </summary>
+            <param name="transf">The transformation to apply to the vertices</param>
+            <param name="seg">The segment to intersect</param>
+            <param name="vertices">The vertices collection</param>
+            <param name="triangles">The triangles collection</param>
+            <param name="faceIndex">The face index (<see cref="T:devDept.Eyeshot.Entities.Solid3D"/> only)</param>
+            <param name="paramFaceIndex">The parametric surface index (<see cref="T:devDept.Eyeshot.Entities.Solid3D"/> only)</param>
+            <param name="shellIndex">The shell index (<see cref="T:devDept.Eyeshot.Entities.Solid3D"/> only)</param>
+            <param name="triList">The list of intersecting triangles, sorted by the distance of the intersection point from the first point of <paramref name="seg"/></param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.FindClosestTriangle(devDept.Geometry.Transformation,devDept.Geometry.Segment3D,System.Single[],System.Int32[],System.Int32,System.Int32,System.Int32,System.Collections.Generic.SortedList{System.Double,devDept.Eyeshot.Entities.HitTriangle})">
+            <summary>
+            Finds the closest triangle using float arrays for <paramref name="vertices"/> and int arrays for <paramref name="triangles"/>.
+            </summary>
+            <param name="transf">The transformation to apply to the vertices</param>
+            <param name="seg">The segment to intersect</param>
+            <param name="vertices">The vertices collection</param>
+            <param name="triangles">The triangles collection</param>
+            <param name="faceIndex">The face index (<see cref="T:devDept.Eyeshot.Entities.Solid3D"/> only)</param>
+            <param name="paramFaceIndex">The parametric surface index (<see cref="T:devDept.Eyeshot.Entities.Solid3D"/> only)</param>
+            <param name="shellIndex">The shell index (<see cref="T:devDept.Eyeshot.Entities.Solid3D"/> only)</param>
+            <param name="triList">The list of intersecting triangles, sorted by the distance of the intersection point from the first point of <paramref name="seg"/></param>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.PropagateAttributes(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity,System.Boolean)">
             <summary>
             Propagates the attributes to the entity passed as paramter.
@@ -14366,12 +14392,11 @@
             <param name="mousePos">Mouse cursor position (zero on top)</param>
             <returns>True if the point is over the ViewCube</returns>
         </member>
-        <member name="M:devDept.Eyeshot.ViewCubeIcon.GetView(System.Int32)">
+        <member name="M:devDept.Eyeshot.ViewCubeIcon.GetViewFromPickedEntity">
             <summary>
-            Get the view orientation corresponding to the given part of the viewcube.
+            Gets the view orientation corresponding to the selected part of the viewcube.
             </summary>
-            <param name="entId">The id of the viewcube part</param>
-            <returns></returns>
+            <returns>The corresponding view orientation.</returns>
         </member>
         <member name="F:devDept.Eyeshot.ViewCubeIcon.prevPoint">
             <summary>
@@ -20746,6 +20771,11 @@
             </summary>
             <seealso cref="!:NormalLength"/>
         </member>
+        <member name="F:devDept.Eyeshot.ViewportLayout.fps">
+            <summary>
+            Framerate per second counter.
+            </summary>
+        </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.FramesPerSecond">
             <summary>
             Gets current frames per second rate.
@@ -21171,8 +21201,10 @@
             <summary>
             Sets the material properties.
             </summary>
+            <param name="context"></param>
             <param name="material"></param>
             <param name="selected"></param>
+            <param name="data"></param>
             <returns>True if the material has a texture.</returns>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SetLineWeight(devDept.Eyeshot.Entities.Entity,System.Single)">
@@ -22394,6 +22426,7 @@
             </summary>
             <param name="mousePointList">2D mouse point list (zero on top)</param>
             <returns>The associated 3D world point list.</returns>
+            <remarks>Positions that don't have geometry underneath will return null.</remarks>
             <remarks>The depth is read from the depth buffer, so its precision affects accuracy.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ScreenToWorld(System.Drawing.Point)">
@@ -22401,7 +22434,7 @@
             Maps screen coordinates to world coordinates. 
             </summary>
             <param name="mousePos">Mouse cursor position (zero on top)</param>
-            <returns>The associated 3D world point.</returns>
+            <returns>The associated 3D world point if there is geometry in the point position, null otherwise.</returns>
             <remarks>The depth is read from the depth buffer, so its precision affects accuracy.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.WorldToScreen(devDept.Geometry.Point3D)">
@@ -24546,6 +24579,7 @@
             </summary>
             <param name="mousePointList">2D mouse point list (zero on top)</param>
             <returns>The associated 3D world point list.</returns>
+            <remarks>Positions that don't have geometry underneath will return null.</remarks>
             <remarks>The depth is read from the depth buffer, so its precision affects accuracy.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.ScreenToWorld(System.Drawing.Point)">
@@ -24553,7 +24587,7 @@
             Maps screen coordinates to world coordinates. 
             </summary>
             <param name="mousePos">Mouse cursor position (zero on top)</param>
-            <returns>The associated 3D world point.</returns>
+            <returns>The associated 3D world point if there is geometry in the point position, null otherwise.</returns>
             <remarks>The depth is read from the depth buffer, so its precision affects accuracy.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.WorldToScreen(devDept.Geometry.Point3D)">
@@ -30054,7 +30088,7 @@
             </summary>
             <param name="nearDistance">The near plane distance</param>
             <param name="farDistance">The far plane distance</param>
-            <param name="cameraEyePos">The camera 3D position (for anaglyphic 3D)</param>
+            <param name="cameraEyePos">The camera 3D position (for anaglyph 3D)</param>
             <returns>The computed projection matrix.</returns>
         </member>
         <member name="M:devDept.Eyeshot.Camera.SetupModelView(System.Boolean,System.Boolean,devDept.Eyeshot.ViewportLayout.CameraEyePosType)">
@@ -31289,6 +31323,11 @@
             Gets or sets the mesh entities used to draw the CoordinateSystemIcon.
             </summary>
             <remarks>To be correctly visualized the entities must have a maximum size of 7.5 units.</remarks>
+        </member>
+        <member name="F:devDept.Eyeshot.UserInterfaceSymbolBase.PickedEntity">
+            <summary>
+            The index of the picked part.
+            </summary>
         </member>
         <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.OnMouseDown(System.Windows.Forms.MouseEventArgs,devDept.Eyeshot.Viewport)">
             <summary>
