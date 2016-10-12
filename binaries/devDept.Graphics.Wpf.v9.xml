@@ -549,7 +549,7 @@
             <param name="shaderType">The source shader type</param>
             <returns>The corresponding shader type with shadow support.</returns>
         </member>
-        <member name="M:devDept.Graphics.RenderContextBase.RevolveAlphaMapShader(devDept.Graphics.shaderType)">
+        <member name="M:devDept.Graphics.RenderContextBase.ResolveAlphaMapShader(devDept.Graphics.shaderType)">
             <summary>
             Gets the shader with the AlphaMap support.
             </summary>
@@ -3882,7 +3882,7 @@
             <summary>Gets or sets the material texture image.</summary>
             <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)"/> to make it effective.</remarks>
         </member>
-        <member name="P:devDept.Graphics.Material.AlphaMap">
+        <member name="P:devDept.Graphics.Material.AlphaMapImage">
             <summary>Gets or sets the material alpha image.</summary>
             <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)"/> to make it effective.</remarks>
         </member>

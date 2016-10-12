@@ -2539,6 +2539,11 @@
             </summary>
             <returns>The new solid object.</returns>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.Solid3D.Parallel">
+            <summary>
+            When true, regeneration is executed in parallel.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.ResetSelectionMode">
             <summary>
             Resets the <see cref="P:devDept.Eyeshot.Entities.Solid3D.SelectionMode"/> to <see cref="F:devDept.Eyeshot.selectionFilterType.Entity"/> if there are no other selected inner elements.
@@ -9739,7 +9744,7 @@
             Gets or sets the entity visibility status.
             </summary>
             <seealso cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox"/>
-            <remarks>When the visibility of an entity changes, it's importnat to call <seealso cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox"/> to properly update the visualization.</remarks>
+            <remarks>When the visibility of an entity changes, it's important to call <see cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox"/> to properly update the visualization.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.Entities.Entity.EntityData">
             <summary>
@@ -14436,6 +14441,15 @@
             </summary>
             <remarks>Adding an handler to this event disables the automatic set of the view. The view must be set by the handler.</remarks>
         </member>
+        <member name="M:devDept.Eyeshot.ViewCubeIcon.SetView(devDept.Eyeshot.Viewport,devDept.Eyeshot.viewType)">
+            <summary>
+            Sets the viewport orientation.
+            </summary>
+            <param name="viewport">The viewport</param>
+            <param name="viewOrientation">The view orientation</param>
+            <remarks>This method is called after clicking on the ViewCubeIcon, only if the <see cref="E:devDept.Eyeshot.ViewCubeIcon.Click"/> event was not subscribed.</remarks>
+            <seealso cref="M:devDept.Eyeshot.Viewport.SetView(devDept.Eyeshot.viewType)"/>
+        </member>
         <member name="P:devDept.Eyeshot.ViewCubeIcon.Position">
             <summary>
             The position on sceeen.
@@ -18319,7 +18333,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Multitouch.Handler.#ctor(devDept.Eyeshot.Multitouch.IHwndWrapper)">
             <summary>
-            We create the hanlder using a factory method.
+            We create the handler using a factory method.
             </summary>
             <param name="hWndWrapper">The control or Window that registered for touch/gesture events</param>
         </member>
@@ -18996,7 +19010,7 @@
             <remarks>
             One Windows message can result a group of events
             </remarks>
-            <returns>An enumerator of thr resuting events</returns>
+            <returns>An enumerator of the resulting events</returns>
             <param name="hWnd">the WndProc hWnd</param>
             <param name="msg">the WndProc msg</param>
             <param name="wParam">the WndProc wParam</param>
@@ -19628,6 +19642,12 @@
             Occurs when an error happens during the drawing.
             </summary>
             <remarks>When an error occurs during the drawing, to make the control usable again it's necessary to call the <see cref="M:devDept.Eyeshot.ViewportLayout.Clear"/></remarks>
+        </member>
+        <member name="F:devDept.Eyeshot.ViewportLayout.InvalidateTimer">
+            <summary>
+            To avoid losing Invalidates() when an OnPaint arrives during the Regen,
+            we use the timer to re-send it after some amount of time
+            </summary>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.UpdateDesignModeScene">
             <summary>
@@ -21221,7 +21241,7 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.DrawOverlay(devDept.Eyeshot.ViewportLayout.DrawSceneParams)">
             <summary>
-            Draws ovelaying UI elements.
+            Draws overlaying UI elements.
             </summary>
             <param name="data">The draw data</param>
         </member>
@@ -22109,6 +22129,16 @@
             <param name="distance">The new cameradistance</param>
             <param name="zoomFactor">The new camera zoomFactor</param>
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.SetView(devDept.Geometry.Quaternion,devDept.Geometry.Point3D,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Sets the specified view in the active viewport.
+            </summary>
+            <param name="rotation">The new camera rotation</param>
+            <param name="target">The new cameratarget</param>
+            <param name="distance">The new cameradistance</param>
+            <param name="zoomFactor">The new camera zoomFactor</param>
+            <param name="animate">If true performs an animation when changing the view</param>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SaveView">
             <summary>
             Saves the current view on the <see cref="P:devDept.Eyeshot.Viewport.SavedViews"/> stack.
@@ -22142,6 +22172,9 @@
             <summary>
             Gets or sets the duration in milliseconds of the camera animations.
             </summary>
+            <seealso cref="M:devDept.Eyeshot.Viewport.SetView(devDept.Eyeshot.viewType,System.Boolean,System.Boolean,System.Int32,System.Boolean,System.Int32)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.StopCameraAnimation"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.IsCameraAnimating"/>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ProcessSelectionByPolygon(System.Collections.Generic.List{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
@@ -24284,6 +24317,8 @@
             <param name="animate">If true performs an animation when changing the view</param>                
             <param name="selectedOnly">If <paramref name="fit"/> is true, fits only the selected entities</param>
             <param name="duration">Animation duration (use 0 to use the <see cref="P:devDept.Eyeshot.ViewportLayout.AnimateCameraDuration"/></param>
+            <seealso cref="M:devDept.Eyeshot.Viewport.IsCameraAnimating"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.StopCameraAnimation"/>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Quaternion,System.Boolean,System.Boolean,System.Int32,System.Boolean,System.Int32)">
             <summary>
@@ -24295,6 +24330,25 @@
             <param name="animate">If true performs an animation when changing the view</param>                
             <param name="selectedOnly">If <paramref name="fit"/> is true, fits only the selected entities</param>
             <param name="duration">Animation duration (use 0 to use the <see cref="P:devDept.Eyeshot.ViewportLayout.AnimateCameraDuration"/></param>
+            <seealso cref="M:devDept.Eyeshot.Viewport.IsCameraAnimating"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.StopCameraAnimation"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.StopCameraAnimation">
+            <summary>
+            Stops the camera animation.
+            </summary>
+            <seealso cref="M:devDept.Eyeshot.Viewport.SetView(devDept.Eyeshot.viewType)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.IsCameraAnimating"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.StopCameraAnimation"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.IsCameraAnimating">
+            <summary>
+            Tells if the Camera is performing an animation.
+            </summary>
+            <returns>True if the camera is performing an animation</returns>
+            <seealso cref="M:devDept.Eyeshot.Viewport.SetView(devDept.Eyeshot.viewType)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.IsCameraAnimating"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.StopCameraAnimation"/>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.SetViewInternal(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.viewType,System.Boolean,System.Boolean,System.Int32,System.Boolean,System.Int32,System.Boolean)">
             <summary>
@@ -24317,13 +24371,24 @@
             <param name="distance">The new cameradistance</param>
             <param name="zoomFactor">The new camera zoomFactor</param>
         </member>
+        <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Quaternion,devDept.Geometry.Point3D,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Sets the specified view by doing an animation.
+            </summary>
+            <param name="rotation">The new camera rotation</param>
+            <param name="target">The new cameratarget</param>
+            <param name="distance">The new cameradistance</param>
+            <param name="zoomFactor">The new camera zoomFactor</param>
+            <param name="animate">If true performs an animation when changing the view</param>    
+        </member>
         <member name="M:devDept.Eyeshot.Viewport.GetCameraRotation(devDept.Eyeshot.viewType,devDept.Geometry.Quaternion)">
             <summary>
-            Gets the <see cref="P:devDept.Eyeshot.Camera.Rotation"/> <see cref="T:devDept.Geometry.Quaternion"/> that describes the orientation of the given view.
+            Gets the <see cref="T:devDept.Geometry.Quaternion"/> that describes the orientation of the given view.
             </summary>
             <param name="view">The view to set</param>
             <param name="initialRotation">An extra rotation to apply to the final rotation</param>
-            <returns>The <see cref="P:devDept.Eyeshot.Camera.Rotation"/> <see cref="T:devDept.Geometry.Quaternion"/>.</returns>
+            <returns>The <see cref="T:devDept.Geometry.Quaternion"/>.</returns>
+            <seealso cref="P:devDept.Eyeshot.Camera.Rotation"/>
         </member>
         <member name="M:devDept.Eyeshot.Viewport.AdjustUprightOrientation(devDept.Geometry.Quaternion@)">
             <summary>
@@ -32089,10 +32154,11 @@
         </member>
         <member name="P:devDept.Eyeshot.ObjectManipulator.Transformation">
             <summary>
-            Gets or sets the transformation.
+            Gets or sets the transformation applied to the entities being edited.
             </summary>
             <remarks>To correctly update the drawing of the selected entities preview it's necessary to set a new Transformation object and not change the inner values of the Transformation.Matrix.</remarks>
             <seealso cref="P:devDept.Eyeshot.ObjectManipulator.InitialTransformation"/>
+            <seealso cref="P:devDept.Eyeshot.ObjectManipulator.FullTransformation"/>
         </member>
         <member name="P:devDept.Eyeshot.ObjectManipulator.InitialTransformation">
             <summary>
@@ -32105,6 +32171,8 @@
             <summary>
             Gets the final transformation given by the <see cref="P:devDept.Eyeshot.ObjectManipulator.InitialTransformation"/> and the incremental <seealso cref="P:devDept.Eyeshot.ObjectManipulator.Transformation"/> applied by the object manipulator.
             </summary>
+            <seealso cref="P:devDept.Eyeshot.ObjectManipulator.InitialTransformation"/>
+            <seealso cref="P:devDept.Eyeshot.ObjectManipulator.Transformation"/>
         </member>
         <member name="P:devDept.Eyeshot.ObjectManipulator.Active">
             <summary>
@@ -32254,7 +32322,7 @@
             </summary>
             <seealso cref="P:devDept.Eyeshot.Entities.Entity.RegenMode"/>
         </member>
-        <member name="F:devDept.Eyeshot.EntityList._regenInProgress">
+        <member name="F:devDept.Eyeshot.EntityList.RegenInProgress">
             <summary>
             Allows Entity.Regen() to use Parallel.For() internally 
             Without this check, some WM_PAINT events are raised
@@ -33249,6 +33317,15 @@
             <param name="modelViewProj">The modelview projection matrix</param>
             <param name="viewFrame">The viewport bounds</param>
             <returns>True if the vertex is inside the polygon.</returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.RotationMinimizingFrames(devDept.Geometry.Plane,devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[])">
+            <summary>
+            Computes a set of planes along the curve that are perpendicular to the curve and are oriented in a way that avoids abrupt changes in the directions of the X and Y axes.
+            </summary>
+            <param name="prevFrame">The plane at the beginning of the curve. It can be null</param>
+            <param name="x">The array of points along the curve where the planes will be computed</param>
+            <param name="t">The array of tangents at each point</param>
+            <returns>The array of planes.</returns>
         </member>
         <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
             <summary>
