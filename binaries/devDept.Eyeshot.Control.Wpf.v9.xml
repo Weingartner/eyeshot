@@ -2544,6 +2544,12 @@
             When true, regeneration is executed in parallel.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.Entities.Solid3D.RecycleParametric">
+            <summary>
+            When true, allows <see cref="F:devDept.Eyeshot.Entities.Solid3D.Face.Parametric"/> to be recycled during regen. This gives you the 
+            ability to store Solid3D object in binary format and load them back on screen very quickly.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.ResetSelectionMode">
             <summary>
             Resets the <see cref="P:devDept.Eyeshot.Entities.Solid3D.SelectionMode"/> to <see cref="F:devDept.Eyeshot.selectionFilterType.Entity"/> if there are no other selected inner elements.
@@ -3146,7 +3152,7 @@
             <param name="contours">A list of 3D contours</param>
             <returns>One or more trimmed surfaces.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Surface.FixToroidalTwoCirclesWithSeamInBetween(devDept.Eyeshot.Entities.Surface,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Double,devDept.Eyeshot.Entities.Surface[]@,devDept.Geometry.PolyRegion2D[]@)">
+        <member name="M:devDept.Eyeshot.Entities.Surface.FixToroidalTwoCirclesWithSeamInBetween(devDept.Eyeshot.Entities.Surface,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve},System.Double,devDept.Eyeshot.Entities.Surface[]@)">
             <summary>
             In the case of torus trimmed by two circles with the seam in between always returns two surfaces.
             </summary>
@@ -3167,6 +3173,12 @@
             Drop loops and in the case it finds an inverted contour returns the needFlip flag as true.
             </summary>
             <returns>True if direction is fine or drop failed, false otherwise.</returns>
+        </member>
+        <member name="T:devDept.Eyeshot.Entities.Surface.PolygonPoint">
+            <summary>
+            <see cref="P:devDept.Eyeshot.Entities.Surface.PolyRegion"/> polygon point definition.
+            </summary>
+            <seealso cref="P:devDept.Eyeshot.Entities.Solid3D.RecycleParametric"/>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.FillGaps(devDept.Eyeshot.Entities.Surface.RepSurf,System.Collections.Generic.List{System.Collections.Generic.List{devDept.Eyeshot.Entities.ICurve}}@,System.Double,System.Collections.Generic.List{devDept.Eyeshot.Entities.Surface.PointEx},System.Collections.Generic.List{devDept.Eyeshot.Entities.Surface.PointEx},System.Boolean,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32@)">
             <summary>
@@ -3561,6 +3573,12 @@
             <param name="dirFlag">If true subdivides in U, else in V</param>
             <param name="kid0">Lower surface</param>
             <param name="kid1">Upper surface</param>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.Surface.PolyRegion">
+            <summary>
+            Gets or sets surface tessellation polygonal region.
+            </summary>
+            <seealso cref="P:devDept.Eyeshot.Entities.Solid3D.RecycleParametric"/>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.RemoveInvalidTriangles">
             <summary>
@@ -12387,11 +12405,9 @@
             Trim curve definition (2D parametric).
             </summary>
         </member>
-        <member name="F:devDept.Eyeshot.Entities.TrimCurve.curveIndex">
+        <member name="F:devDept.Eyeshot.Entities.TrimCurve.Index">
             <summary>
-            These variables are used only to sort out how to project 3D edge curves on surfaces. In
-            particular when curved are splitted on seam and need to be reconnected in 2D parametric 
-            space.
+            Curve index.
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.Entities.TrimCurve.Edge">
@@ -32742,6 +32758,7 @@
         </member>
         <member name="P:devDept.Eyeshot.Grid.AutoSize">
             <summary>If true, the grid is resized automatically every time the model's bounding box changes.</summary>
+            <seealso cref="M:devDept.Eyeshot.Grid.ComputeAutomaticSize(devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)"/>
         </member>
         <member name="P:devDept.Eyeshot.Grid.Visible">
             <summary>Grid visibility status.</summary>
@@ -32914,6 +32931,16 @@
             <param name="other">The other grid</param>
         </member>
         <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Grid.Draw(devDept.Eyeshot.Viewport,System.Int32,devDept.Eyeshot.Grid.partToDrawType)" -->
+        <member name="M:devDept.Eyeshot.Grid.ComputeAutomaticSize(devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
+            <summary>
+            Computes the automatic grid size.
+            </summary>
+            <param name="boxMin">The minimum point of the scene</param>
+            <param name="boxMax">The maximum point of the scene</param>
+            <param name="extensionFactor">The grid extension factor</param>
+            <remarks>Override this method to provide a different scene box or extension.</remarks>
+            <seealso cref="P:devDept.Eyeshot.Grid.AutoSize"/>
+        </member>
         <member name="T:devDept.Eyeshot.Grid.partToDrawType">
             <summary>
             Defines the part of the grid to draw.
