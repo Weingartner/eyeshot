@@ -33244,6 +33244,13 @@
             <param name="curve">The curve to analyze</param>
             <returns>True if the polygon orientation is clockwise.</returns>
         </member>
+        <member name="M:devDept.Geometry.UtilityEx.FixTrimmingPolygonWithSmallOverlappingSegments(devDept.Geometry.Point2D[]@)">
+            <summary>
+            Fixes polygons that have segments overlapping with the following segment (by checking if a segment has a T intersection with the one after the following).
+            </summary>
+            <param name="vertices">The list of vertices</param>
+            <returns>True if the polygon has been changed, false otherwise</returns>
+        </member>
         <member name="M:devDept.Geometry.UtilityEx.GetCpuCount(System.Int32,System.Int32[]@,System.Int32[]@)">
             <summary>
             Gets the number of logical processors.
@@ -33870,6 +33877,24 @@
             <param name="grid"></param>
             <param name="problemSize"></param>
         </member>
+        <member name="M:devDept.Geometry.PolyBooleans.ComputeExtendedIntersectionPointOnGrid(devDept.Geometry.PolyBooleans.PolygonOnGrid,devDept.Eyeshot.HiddenLinesView.IntegerGrid,devDept.Eyeshot.Entities.ICurve,System.Collections.Generic.LinkedListNode{devDept.Geometry.PolyBooleans.VertexNodeOnGrid},System.Collections.Generic.LinkedListNode{devDept.Geometry.PolyBooleans.VertexNodeOnGrid},devDept.Geometry.PolyBooleans.PolygonOnGrid,System.Double,System.Boolean,System.Boolean,devDept.Geometry.PolyBooleans.VertexNodeOnGrid@)">
+            <summary>
+            Extends the intersection curve if its intersection point is exactly on the polygonCurve, because the lines on the Grid may not  
+            intersect due to the discretization.
+            We also have to extend if the intersection curve intersects very close to the endPoint if the lines on the grid do not
+            intersect.
+            </summary>
+            <param name="poly"></param>
+            <param name="grid"></param>
+            <param name="curve"></param>
+            <param name="intersectionCurveNodeA"></param>
+            <param name="intersectionCurveNodeB"></param>
+            <param name="intersectionCurvePoly"></param>
+            <param name="problemSize"></param>
+            <param name="outer"></param>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
         <member name="F:devDept.Geometry.PolyBooleans.trimResult.notNeeded">
             <summary>
             Used by region booleans.
@@ -34265,6 +34290,39 @@
         <member name="M:StepTranslator.Trimmed_Curve.ExtractEntityData">
             <summary>
             Solves the step record and extracts the actual edge data. 
+            </summary>
+        </member>
+        <member name="T:StepTranslator.Curve_Bounded_Surface">
+            <summary>
+            This class represents face topology from STEP specifications.
+            
+            </summary>
+        </member>
+        <member name="M:StepTranslator.Curve_Bounded_Surface.ExtractEntityData">
+            <summary>
+            Solves the step record and extracts the actual line data. 
+            </summary>
+        </member>
+        <member name="T:StepTranslator.Outer_Boundary_Curve">
+            <summary>
+            This class represents face topology from STEP specifications.
+            
+            </summary>
+        </member>
+        <member name="M:StepTranslator.Outer_Boundary_Curve.ExtractEntityData">
+            <summary>
+            Solves the step record and extracts the actual line data. 
+            </summary>
+        </member>
+        <member name="T:StepTranslator.geometricallyBoundedSurfaceShapeRep">
+            <summary>
+            This class represents face topology from STEP specifications.
+            
+            </summary>
+        </member>
+        <member name="M:StepTranslator.geometricallyBoundedSurfaceShapeRep.ExtractEntityData">
+            <summary>
+            Solves the step record and extracts the actual line data. 
             </summary>
         </member>
         <member name="T:StepTranslator.StepAdvancedBrepShapeRep">

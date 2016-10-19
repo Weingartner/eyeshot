@@ -3648,7 +3648,7 @@
             <param name="s1">First line</param>
             <param name="s2">Second line</param>
             <param name="i0">Intersection point (when it exists)</param>
-            <returns>True if the intersection exists, false otherwise (parallel or disjoint).</returns>
+            <returns>True if the intersection exists, false otherwise (parallel disjoint or disjoint).</returns>
             <remarks>Here we return true even when the intersection is on the boundary of one of the two segments.</remarks>
         </member>
         <member name="M:devDept.Geometry.Segment2D.ToString">
