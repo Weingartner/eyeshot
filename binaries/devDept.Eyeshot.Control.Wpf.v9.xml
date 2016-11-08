@@ -327,6 +327,11 @@
             Tells if the planar reflections are being drawn.
             </summary>
         </member>
+        <member name="P:devDept.Eyeshot.DrawParams.Isocurves">
+            <summary>
+            Gets or sets the visualization of the internal wireframe.
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.colorType">
             <summary>
             The type of color that needs to be set.
@@ -3837,6 +3842,7 @@
             </summary>
             <param name="ps">The resulting planar surface (when possible)</param>
             <returns>True if the operation succeeds, false otherwise. If the surface is already a <see cref="T:devDept.Eyeshot.Entities.PlanarSurface"/>, it returns false.</returns>
+            <remarks>It does not work for for planar cones with revolution angle equal to 2PI.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.TryGetRevolved(devDept.Eyeshot.Entities.Surface@)">
             <summary>
@@ -9841,6 +9847,16 @@
             Tells if the entity is inside the frustum planes.
             </summary>
             <param name="frustum">The planes of the frustum</param>
+            <param name="quick">If true a quick check is done, else a more accurate one is performed</param>
+            <returns>True if the entity is inside the frustum</returns>
+            <remarks>The frustum planes can be obtained with <see cref="M:devDept.Eyeshot.Viewport.GetCameraFrustum"/></remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Transformation,System.Boolean)">
+            <summary>
+            Tells if the entity is inside the frustum planes.
+            </summary>
+            <param name="frustum">The planes of the frustum</param>
+            <param name="transform">The transformation to apply to the object</param>
             <param name="quick">If true a quick check is done, else a more accurate one is performed</param>
             <returns>True if the entity is inside the frustum</returns>
             <remarks>The frustum planes can be obtained with <see cref="M:devDept.Eyeshot.Viewport.GetCameraFrustum"/></remarks>
@@ -20223,12 +20239,31 @@
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.ZoomCamera(System.Int32,System.Boolean)">
+            <summary>
+            Zooms the view of the specified amount.
+            </summary>        
+            <param name="dy">Zoom amount</param>
+            <param name="animate">If true performs an animation when changing the view</param>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ZoomCamera(System.Drawing.Point,System.Int32)">
             <summary>
             Zooms the view of the specified amount.
             </summary>
             <param name="mousePos">The screen point to keep fixed</param>
             <param name="dy">The zoom amount</param>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.ZoomCamera(System.Drawing.Point,System.Int32,System.Boolean)">
+            <summary>
+            Zooms the view of the specified amount.
+            </summary>
+            <param name="mousePos">The screen point to keep fixed</param>
+            <param name="dy">The zoom amount</param>
+            <param name="animate">If true performs an animation when changing the view</param>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
         </member>
@@ -20241,12 +20276,32 @@
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.ZoomCamera(System.Int32,System.Double,System.Boolean)">
+            <summary>
+            Zooms the view of the specified amount.
+            </summary>
+            <param name="dy">Zoom amount</param>
+            <param name="zoomSpeed">Zoom speed</param>
+            <param name="animate">If true performs an animation when changing the view</param>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.PanCamera(System.Drawing.Point,System.Drawing.Point)">
             <summary>
             Pans the view from one screen point to the other.
             </summary>
             <param name="from">StartPoint point</param>
             <param name="to">End point</param>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.ZoomCamera(System.Int32)"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.AnimateCamera"/>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.PanCamera(System.Drawing.Point,System.Drawing.Point,System.Boolean)">
+            <summary>
+            Pans the view from one screen point to the other.
+            </summary>
+            <param name="from">StartPoint point</param>
+            <param name="to">End point</param>
+            <param name="animate">If true performs an animation when changing the view</param>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.ZoomCamera(System.Int32)"/>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.AnimateCamera"/>
         </member>
@@ -20677,7 +20732,7 @@
             <summary>
             Gets or sets the display settings for Rendered mode, shared by all viewports.
             </summary>
-            <remarks>Call <see cref="!:ViewportLayout.CompileUserInterfaceElemen"/></remarks>
+            <remarks>Call <see cref="M:devDept.Eyeshot.ViewportLayout.CompileUserInterfaceElements"/></remarks>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.OrientationMode">
             <summary>
@@ -20898,6 +20953,11 @@
             </summary>
             <remarks>Can be used to skip the drawing of some entities in the planar reflections.</remarks>
         </member>
+        <member name="F:devDept.Eyeshot.ViewportLayout.DrawSceneParams.Bpp">
+            <summary>
+            Bytes per pixel. Used by the <see cref="!:viewportLayout.RenderToBitmap"/>
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.DrawBackground">
             <summary>
             Draws the Background of the ViewportLayout control.
@@ -20985,7 +21045,7 @@
             <typeparam name="T">The entity type</typeparam>
             <seealso cref="M:devDept.Eyeshot.Entities.Entity.DrawForSelection(devDept.Eyeshot.DrawParams)"/>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Collections.Generic.IList{`0},System.Boolean,devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Graphics.ShaderParameters,devDept.Geometry.Transformation,System.Int32,System.Boolean,devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Collections.Generic.IList{`0},System.Boolean,devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Graphics.ShaderParameters,devDept.Geometry.Transformation,System.Int32,devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate,System.Boolean,System.Boolean)">
             <summary>
             Constructor.
             </summary>
@@ -20996,7 +21056,6 @@
             <param name="shaderParams"></param>
             <param name="blockRefTransform"></param>
             <param name="offset"></param>
-            <param name="isoCurves"></param>
             <param name="drawCallBack"></param>
             <param name="selectableOnly"></param>
             <param name="checkParent">If true, checks that the entities are part of the current BlockReference</param>
@@ -24920,8 +24979,13 @@
             Draw the gradient background.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.DrawBackground(System.Drawing.Size,devDept.Graphics.RenderContextBase,System.Boolean,System.Single,System.Drawing.Color)">
+        <member name="M:devDept.Eyeshot.Viewport.DrawBackground(devDept.Graphics.RenderContextBase,System.Boolean,System.Single,System.Drawing.Color,devDept.Geometry.Transformation)">
             <summary>Draws the viewport background.</summary>
+            <param name="context">The render context</param>
+            <param name="reflection">If true, it's drawing the planar reflections (where there are no shaders)</param>
+            <param name="reflectionIntensity">THe intensity of the planar reflections</param>
+            <param name="parentColor">The color of the parent</param>
+            <param name="pickMatrix">The matrix to restrict the rendering to the given rectangle (important for <see cref="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size)"/>).</param>
             <example>
             The following code fragment demonstrates how to override the DrawBackground() method to draw a custom background.
             <code title="Example" description="" lang="CS">
@@ -25144,12 +25208,31 @@
             <seealso cref="!:RotateCamera(Viewport,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
             <seealso cref="M:devDept.Eyeshot.Viewport.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
         </member>
+        <member name="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Int32,System.Boolean)">
+            <summary>
+            Zooms the view of the specified amount.
+            </summary>
+            <param name="dy">Zoom amount</param>
+            <param name="animate">If true performs an animation when changing the view</param>
+            <seealso cref="!:RotateCamera(Viewport,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
+        </member>
         <member name="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Drawing.Point,System.Int32)">
             <summary>
             Zooms the view of the specified amount.
             </summary>
             <param name="mousePos">The screen point to keep fixed</param>
             <param name="dy">The zoom amount</param>
+            <seealso cref="!:RotateCamera(Viewport,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Drawing.Point,System.Int32,System.Boolean)">
+            <summary>
+            Zooms the view of the specified amount.
+            </summary>
+            <param name="mousePos">The screen point to keep fixed</param>
+            <param name="dy">The zoom amount</param>
+            <param name="animate">If true performs an animation when changing the view</param>
             <seealso cref="!:RotateCamera(Viewport,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
             <seealso cref="M:devDept.Eyeshot.Viewport.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
         </member>
@@ -25162,7 +25245,17 @@
             <seealso cref="!:RotateCamera(Viewport,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
             <seealso cref="M:devDept.Eyeshot.Viewport.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.ZoomCameraInternal(devDept.Eyeshot.ViewportLayout,System.Int32,System.Double)">
+        <member name="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Int32,System.Double,System.Boolean)">
+            <summary>
+            Zooms the view of the specified amount.
+            </summary>
+            <param name="dy">Zoom amount</param>
+            <param name="zoomSpeed">Zoom speed</param>
+            <param name="animate">If true performs an animation when changing the view</param>
+            <seealso cref="!:RotateCamera(Viewport,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)"/>
+            <seealso cref="M:devDept.Eyeshot.Viewport.PanCamera(System.Drawing.Point,System.Drawing.Point)"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.ZoomCameraInternal(devDept.Eyeshot.ViewportLayout,System.Int32,System.Double,System.Boolean)">
             <summary>
             Zooms the view of the specified amount
             </summary>
@@ -25271,6 +25364,16 @@
             </summary>
             <param name="from">StartPoint point</param>
             <param name="to">End point</param>
+            <seealso cref="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Int32)"/>
+            <seealso cref="!:RotateCamera()"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Viewport.PanCamera(System.Drawing.Point,System.Drawing.Point,System.Boolean)">
+            <summary>
+            Pans the view from one screen point to the other.
+            </summary>
+            <param name="from">StartPoint point</param>
+            <param name="to">End point</param>
+            <param name="animate">If true performs an animation when changing the view</param>
             <seealso cref="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Int32)"/>
             <seealso cref="!:RotateCamera()"/>
         </member>
@@ -26256,6 +26359,16 @@
             <param name="notApplicableText">The text showed when the <see cref="T:devDept.Eyeshot.EntityList"/> is empty.</param>
             <param name="lighting">When false the UI element is drawn with flat color</param>
         </member>
+        <member name="M:devDept.Eyeshot.BoundingBox.Draw(devDept.Eyeshot.Viewport,devDept.Graphics.RenderContextBase,System.Single,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+            <summary>
+            Draws the scene bounding box.
+            </summary>
+            <param name="viewport">The viewport</param>
+            <param name="context">The render context</param>
+            <param name="lineSize">The line size</param>
+            <param name="min">The minimum point of the scene</param>
+            <param name="max">The maximum point of the scene</param>
+        </member>
         <member name="T:devDept.Eyeshot.Mouse3DSettings">
             <summary>
             Mouse 3D settings.
@@ -26566,7 +26679,7 @@
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.DisplayModeSettings.ShowInternalWires">
-            <summary>Gets or sets the wisualization of internal wireframe.
+            <summary>Gets or sets the visualization of internal wireframe.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.DisplayModeSettingsFlat">
@@ -28093,13 +28206,13 @@
         </member>
         <member name="M:devDept.Eyeshot.EyeshotException.#ctor(System.String,System.Exception)">
             <summary>
-            Initializes a new instance of the <see cref="T:System.Exception"/> class with a specified
-            error message and a reference to the inners exception that is the cause of this exception.
+            Initializes a new instance of the <see cref="T:devDept.Eyeshot.EyeshotException"/> class with a specified
+            error message and a reference to the inner exception that is the cause of this exception.
             </summary>
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception.
             If the innerException parameter is not a null reference, the current exception is raised
-            in a catch block that handles the inners exception.</param>
+            in a catch block that handles the inner exception.</param>
         </member>
         <member name="M:devDept.Eyeshot.EyeshotException.#ctor(System.String)">
             <summary>
@@ -28108,6 +28221,41 @@
             <param name="message">The error message that explains the reason for the exception.</param>
         </member>
         <member name="M:devDept.Eyeshot.EyeshotException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Exception"/> class.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.EyeshotMemoryLeakException">
+            <summary>
+            A memory leak exception thrown by Eyeshot.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.EyeshotMemoryLeakException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:devDept.Eyeshot.EyeshotMemoryLeakException"/> class with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/>
+            instance that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/>
+            instance that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.EyeshotMemoryLeakException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:devDept.Eyeshot.EyeshotMemoryLeakException"/> class with a specified
+            error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.
+            If the innerException parameter is not a null reference, the current exception is raised
+            in a catch block that handles the inner exception.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.EyeshotMemoryLeakException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Exception"/> class with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.EyeshotMemoryLeakException.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:System.Exception"/> class.
             </summary>

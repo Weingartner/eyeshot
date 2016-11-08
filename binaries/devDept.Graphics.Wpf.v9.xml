@@ -201,7 +201,7 @@
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.ComputePickMatrix(System.Drawing.RectangleF,System.Drawing.Size,System.Int32[])">
             <summary>
-            Computes the matrix to retrict the rendering to the given rectangle.
+            Computes the matrix to restrict the rendering to the given rectangle.
             </summary>
             <param name="rectangle">The rectangle to render</param>
             <param name="viewportSize">The size of the viewport</param>
@@ -588,6 +588,12 @@
             </summary>
             <param name="prev"></param>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.SetPolygonDrawingMode(devDept.Graphics.rasterizerPolygonDrawingType)">
+            <summary>
+            Sets the polygon drawing mode.
+            </summary>
+            <param name="polygonDrawingMode">The polygon drawing mode</param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.SetMaterialFrontDiffuse(System.Drawing.Color,System.Boolean)">
             <summary>
             Sets the front faces diffuse material color.
@@ -768,7 +774,7 @@
             Updates the current material with the default material.
             </summary>
         </member>
-        <member name="M:devDept.Graphics.RenderContextBase.DrawOnTextureOrBitmap(devDept.Graphics.TextureBase,devDept.Graphics.TextureBase,System.Drawing.Imaging.BitmapData,System.Int32,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate,System.Object,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Graphics.RenderContextBase.DrawOnTextureOrBitmap(devDept.Graphics.TextureBase,devDept.Graphics.TextureBase,System.Drawing.Imaging.BitmapData,System.Int32,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate,System.Object,System.Int32,System.Boolean)">
             <summary>
             Draws the scene on the specified texture or bitmapData. 
             </summary>
@@ -784,6 +790,7 @@
             <param name="drawSceneParams">The draw function parameters</param>
             <param name="hdwAcceleration"></param>
             <param name="transparentBackground"></param>
+            <param name="bpp">Bytes per pixel</param>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.CompileBackground(devDept.Graphics.BackgroundSettings,System.Int32)">
             <summary>
@@ -1128,6 +1135,24 @@
             <param name="axisZ">The rotation axis Z component</param>
         </member>
         <!-- Badly formed XML comment ignored for member "M:devDept.Graphics.RenderContextBase.FreeEntityGraphicsData(devDept.Graphics.EntityGraphicsData)" -->
+        <member name="M:devDept.Graphics.RenderContextBase.DrawIndeterminateAsPoints(devDept.Graphics.EntityGraphicsData)">
+            <summary>
+            Draws an <see cref="T:devDept.Graphics.EntityGraphicsData"/> as a Points list.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawIndeterminateAsLineStrip(devDept.Graphics.EntityGraphicsData)">
+            <summary>
+            Draws an <see cref="T:devDept.Graphics.EntityGraphicsData"/> as a Lines strip.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawIndeterminateAsLineList(devDept.Graphics.EntityGraphicsData)">
+            <summary>
+            Draws an <see cref="T:devDept.Graphics.EntityGraphicsData"/> as a Line list.
+            </summary>
+            <param name="data"></param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawCurrentBuffer">
             <summary>
             Ends the drawing of buffered entities, sending data to the graphics card.
