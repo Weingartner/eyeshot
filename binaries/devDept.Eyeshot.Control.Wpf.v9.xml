@@ -22149,7 +22149,7 @@
             <param name="selectedOnly">If true, fits only selected entities.</param>
             <param name="margin">Pixels margin from the border</param>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.ZoomFit(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,System.Int32,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.ZoomFit(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Fits the entire model in the viewport control's client area.
             </summary>
@@ -22157,6 +22157,7 @@
             <param name="selectedOnly">If true, fits only selected entities.</param>
             <param name="margin">Pixels margin from the border</param>
             <param name="animate">If true performs an animation when changing the view</param>        
+            <param name="forceFitOnEntities">If true, forces the fit on the entities even if there is the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents"/> set to true.</param>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.ZoomWindow(System.Drawing.Point,System.Drawing.Point)">
             <summary>
@@ -25330,10 +25331,12 @@
             </summary>
             <param name="viewportLayout"> </param>
             <param name="entList">The list of entities to be fitted</param>
+            <param name="selectedOnly">If true, fits only the selected entities</param>
             <param name="fitLabels"></param>
             <param name="perspectiveFitMode"> </param>
             <param name="recurse"> </param>
-            <param name="forceFitOnEntities"> </param>
+            <param name="forceFitOnEntities">If true, forces the fit on the entities even if there is the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents"/> set to true.
+            This is used when caling the ZoomFit explicitly with the entities as an argument.</param>
             <param name="margin"></param>
             <param name="animate"></param>
             <param name="saveView"></param>
@@ -26272,16 +26275,25 @@
             <summary>
             if true, the BoundingBox.Min and BoundingBox.Max properties override the scene extension.
             </summary>
+            <remarks>The <see cref="M:devDept.Eyeshot.Viewport.ZoomFit"/> will zoom on the box defined by the <see cref="P:devDept.Eyeshot.BoundingBox.Min"/> and <see cref="P:devDept.Eyeshot.BoundingBox.Max"/> properties.</remarks>
+            <seealso cref="P:devDept.Eyeshot.BoundingBox.Min"/>
+            <seealso cref="P:devDept.Eyeshot.BoundingBox.Max"/>
         </member>
         <member name="P:devDept.Eyeshot.BoundingBox.Min">
             <summary>
-            Defines the minimum extension of the scene (for viewport fitting and visualization puroposes).
+            Defines the minimum extension of the scene (for viewport fitting and visualization purposes).
             </summary>
+            <remarks>Valid only if <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents"/> is true.</remarks>
+            <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents"/>
+            <seealso cref="P:devDept.Eyeshot.BoundingBox.Max"/>
         </member>
         <member name="P:devDept.Eyeshot.BoundingBox.Max">
             <summary>
-            Defines the maximum extension of the scene (for viewport fitting and visualization puroposes).
+            Defines the maximum extension of the scene (for viewport fitting and visualization purposes).
             </summary>
+            <remarks>Valid only if <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents"/> is true.</remarks>
+            <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents"/>
+            <seealso cref="P:devDept.Eyeshot.BoundingBox.Min"/>
         </member>
         <member name="P:devDept.Eyeshot.BoundingBox.TextSuffix">
             <summary>
