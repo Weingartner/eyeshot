@@ -13,9 +13,13 @@ let version = GetAssemblyVersionString assemblyFile
 TeamCityHelper.SetBuildNumber version
 
 Target "CreateNuGetPackage" (fun _ ->
+    let nugetVersion =
+        System.Version version
+        |> fun v -> sprintf "%d.%d.%d" v.Major v.Minor v.Build
+
     let setParams (p: NuGetParams) =
         { p with
-            Version = version
+            Version = nugetVersion
             OutputPath = "."
             WorkingDir = "."
         }
