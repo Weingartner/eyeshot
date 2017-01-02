@@ -652,6 +652,14 @@
             <param name="vboParams">The parameters (of type <see cref="T:devDept.Graphics.VBOParams"/>)</param>
             <seealso cref="M:devDept.Graphics.RenderContextBase.CompileVBO(devDept.Graphics.EntityGraphicsData,devDept.Graphics.DrawEntityCallBack,System.Object,System.Boolean)"/>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawLine(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point2D)">
+            <summary>
+            Draws a line with textured vertices.
+            </summary>
+            <param name="p0">The start point</param>
+            <param name="p1">The end point</param>
+            <param name="texCoords">The 1D texture coordinates</param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawBufferedLine(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
             <summary>
             Draws a line using a buffered approach.
@@ -668,6 +676,13 @@
             <param name="v0">The  vertex</param>
             <remarks>In Direct3D the vertices are stored in a buffer and drawn only when it is full. In OpenGL they are drawn immediately.</remarks>
             <seealso cref="M:devDept.Graphics.RenderContextBase.EndDrawBufferedLines"/>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawLineStrip(devDept.Geometry.Point3D[],System.Single[])">
+            <summary>
+            Draws a line strip of <see cref="T:devDept.Geometry.Point3D"/> with textured vertices.
+            </summary>
+            <param name="vertices">Array of vertices to draw</param>
+            <param name="texCoords">The 1D texture coordinates of the vertices</param>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawLineStrip(System.Single[],System.Int32,System.Int32)">
             <summary>
@@ -698,6 +713,15 @@
             Draws a line strip of <see cref="T:devDept.Geometry.Point3D"/> .
             </summary>
             <param name="vertices">Array of vertices to draw</param>
+            <param name="first">The index of the first vertex to draw</param>
+            <param name="count">The number of the vertices to draw</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawLineStrip(devDept.Geometry.Point3D[],System.Single[],System.Int32,System.Int32)">
+            <summary>
+            Draws a line strip of <see cref="T:devDept.Geometry.Point3D"/> with textured vertices.
+            </summary>
+            <param name="vertices">Array of vertices to draw</param>
+            <param name="texCoords">The 1D texture coordinates of the vertices</param>
             <param name="first">The index of the first vertex to draw</param>
             <param name="count">The number of the vertices to draw</param>
         </member>
@@ -837,6 +861,13 @@
             </summary>
             <param name="points">The collection of points to draw.</param>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawPointsWithNormalsIndeterminate(System.Single[],System.Single[])">
+            <summary>
+            Draws a set of points without specifying the kind of display list.
+            </summary>
+            <param name="points">The collection of points to draw</param>
+            <param name="normals">The normals of the points</param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawPointsIndeterminate(devDept.Geometry.Point3D[])">
             <summary>
             Draws a set of points without specifying the kind of display list.
@@ -855,7 +886,7 @@
             </summary>
             <param name="points">Collection of line vertices (3 coordinates each).</param>
             <param name="first">First vertex index</param>
-            <param name="count">Number of floats</param>
+            <param name="count">Number of vertices</param>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawPoints(devDept.Geometry.Point3D[],System.Int32,System.Int32)">
             <summary>
@@ -866,6 +897,14 @@
             <param name="count">Number of vertices</param>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.DrawPointsIndeterminate(System.Single[],System.Int32,System.Int32)">
+            <summary>
+            Draws a set of points without specifying the kind of geometry.
+            </summary>
+            <param name="points">Collection of line vertices (3 coordinates each).</param>
+            <param name="first">First vertex index</param>
+            <param name="count">Number of vertices</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawPointsWithNormalsIndeterminate(System.Single[],System.Single[],System.Int32,System.Int32)">
             <summary>
             Draws a set of points without specifying the kind of geometry.
             </summary>
@@ -1353,6 +1392,22 @@
             <param name="first">The index of the first vertex to draw</param>
             <param name="count">The number of the vertices to draw</param>
         </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawLines(devDept.Geometry.Point3D[],System.Single[])">
+            <summary>
+            Draws lines with textured vertices.
+            </summary>
+            <param name="vertices">The vertices</param>
+            <param name="texCoords">The 1D texture coordinates of the vertices</param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.DrawLines(devDept.Geometry.Point3D[],System.Single[],System.Int32,System.Int32)">
+            <summary>
+            Draws lines with textured vertices.
+            </summary>
+            <param name="vertices">The vertices</param>
+            <param name="texCoords">The texture coordinates of the vertices</param>
+            <param name="first">The index of the first vertex to draw</param>
+            <param name="count">The number of the vertices to draw</param>
+        </member>
         <member name="M:devDept.Graphics.RenderContextBase.SetSceneAmbient(System.Single[])">
             <summary>
             Sets the ambient component that is always added to the scene (multiplied by the material's ambient component).
@@ -1457,6 +1512,14 @@
             Discards fragments with alpha &lt; 0.1
             </summary>
             <param name="enable"></param>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.GetPixel(System.Int32,System.Int32)">
+            <summary>
+            Gets the color of the specified pixel in this viewport
+            </summary>
+            <param name="x">The x window coordinate of the pixel to retrieve</param>
+            <param name="y">The y window coordinate of the pixel to retrieve (0 on bottom)</param>
+            <returns>The color of the pixel</returns>
         </member>
         <member name="P:devDept.Graphics.RenderContextBase.NumberOfSplits">
             <summary>
@@ -1689,6 +1752,14 @@
             </summary>
             <param name="multiSampleTexture"></param>
             <param name="singleSampleTexture"></param>
+        </member>
+        <member name="M:devDept.Graphics.D3DRenderContext.GetPixel(System.Int32,System.Int32)">
+            <summary>
+            Gets the color of the specified pixel in this viewport
+            </summary>
+            <param name="x">The x window coordinate of the pixel to retrieve</param>
+            <param name="y">The y window coordinate of the pixel to retrieve (0 on bottom)</param>
+            <returns>The color of the pixel</returns>
         </member>
         <member name="P:devDept.Graphics.D3DRenderContext.MaxVertexBufferSize">
             <summary>
@@ -3174,6 +3245,99 @@
             The depth stencil state type.
             </summary>
         </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestOff">
+            <summary>
+            Depth write mask: false, depth test: off, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestLess">
+            <summary>
+            Depth write mask: true, depth test: Less, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestEqual">
+            <summary>
+            Depth write mask: true, depth test: Equal, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestLessEqual">
+            <summary>
+            Depth write mask: true, depth test: LessEqual, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestAlways">
+            <summary>
+            Depth write mask: true, depth test: Always, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthMaskFalse_DepthTestEqual">
+            <summary>
+            Depth write mask: false, depth test: Equal, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthMaskFalse_DepthTestLessEqual">
+            <summary>
+            Depth write mask: false, depth test: LessEqual, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthMaskFalse_DepthTestLess">
+            <summary>
+            Depth write mask: false, depth test: Less, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthMaskFalse_DepthTestGreater">
+            <summary>
+            Depth write mask: false, depth test: Greater, stencil test: off
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestLess_StencilOn_Func_Always_1_1_Op_Replace_Replace_Replace">
+            <summary>
+            Depth write mask: true, depth test: Less, stencil test: on, stencil test function: Always, stencil test reference value: 1, stencil test mask: 1,
+            stencil test fail operation: Replace, stencil test operation when depth test fails: Replace, stencil test operation when stencil test and depth test pass: Replace
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestOff_StencilOn_Func_Equal_1_1_Op_Keep_Keep_Keep">
+            <summary>
+            Depth write mask: false, depth test: off, stencil test: on, stencil test function: Equal, stencil test reference value: 1, stencil test mask: 1,
+            stencil test fail operation: Keep, stencil test operation when depth test fails: Keep, stencil test operation when stencil test and depth test pass: Keep
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestEqual_StencilOn_Func_Equal_1_1_Op_Keep_Keep_Keep">
+            <summary>
+            Depth write mask: true, depth test: Equal, stencil test: on, stencil test function: Equal, stencil test reference value: 1, stencil test mask: 1,
+            stencil test fail operation: Keep, stencil test operation when depth test fails: Keep, stencil test operation when stencil test and depth test pass: Keep
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestLess_StencilOn_Func_Equal_1_1_Op_Keep_Keep_Keep">
+            <summary>
+            Depth write mask: true, depth test: Less, stencil test: on, stencil test function: Equal, stencil test reference value: 1, stencil test mask: 1,
+            stencil test fail operation: Keep, stencil test operation when depth test fails: Keep, stencil test operation when stencil test and depth test pass: Keep
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestLessEqual_StencilOn_Func_Equal_1_1_Op_Keep_Keep_Keep">
+            <summary>
+            Depth write mask: true, depth test: LessEqual, stencil test: on, stencil test function: Equal, stencil test reference value: 1, stencil test mask: 1,
+            stencil test fail operation: Keep, stencil test operation when depth test fails: Keep, stencil test operation when stencil test and depth test pass: Keep
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestOff_StencilOn_Func_Never_1_FF_Op_Invert_Keep_Keep">
+            <summary>
+            Depth write mask: false, depth test: off, stencil test: on, stencil test function: Never, stencil test reference value: 1, stencil test mask: FF,
+            stencil test fail operation: Invert, stencil test operation when depth test fails: Keep, stencil test operation when stencil test and depth test pass: Keep
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestOff_StencilOn_Func_Never_1_FF_Op_Zero_Keep_Keep">
+            <summary>
+            Depth write mask: false, depth test: off, stencil test: on, stencil test function: Never, stencil test reference value: 1, stencil test mask: FF,
+            stencil test fail operation: Zero, stencil test operation when depth test fails: Keep, stencil test operation when stencil test and depth test pass: Keep
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.depthStencilStateType.DepthTestLess_StencilOn_Func_Never_1_FF_Op_Invert_Keep_Keep">
+            <summary>
+            Depth write mask: true, depth test: Less, stencil test: on, stencil test function: Never, stencil test reference value: 1, stencil test mask: FF,
+            stencil test fail operation: Invert, stencil test operation when depth test fails: Keep, stencil test operation when stencil test and depth test pass: Keep
+            </summary>
+        </member>
         <member name="T:devDept.Graphics.lightType">
             <summary>
             Light type.
@@ -3910,6 +4074,7 @@
         <member name="P:devDept.Graphics.Material.AlphaMapImage">
             <summary>Gets or sets the material alpha image.</summary>
             <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)"/> to make it effective.</remarks>
+            <remarks>Black pixels are treated as fully transparent, white pixels are treated as fully opaque.</remarks>
         </member>
         <member name="P:devDept.Graphics.Material.EnvironmentMappingImage">
             <summary>Gets or sets the material environment mapping image.</summary>

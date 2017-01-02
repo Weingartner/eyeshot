@@ -7979,6 +7979,7 @@
             <summary>
             The list of triangles belonging to the face.
             </summary>
+            <remarks>For the <see cref="!:Solid"/> entity, they refer to the <see cref="!:Solid.MeshForFaceSelection"/> mesh.</remarks>
         </member>
         <member name="T:devDept.Eyeshot.Entities.Mesh.FaceCollection">
             <summary>
@@ -8946,6 +8947,11 @@
             <param name="flipSide">The flip side flag</param>
             <returns>True if the operation is successful, false otherwise.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Curve.GetReparametrizedCurve">
+            <summary>
+            Returns a curve equal to the original one in which the domain is [0, curve.Length()], and each internal knot represents the length of the corresponding bezier segment.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Curve.TrimBy(devDept.Geometry.Plane,System.Double,System.Boolean)">
             <summary>
             Trims the curve at the limit point projection.
@@ -9842,6 +9848,17 @@
             <param name="data">The data</param>
             <returns>True if the entity is small compared to <see cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/></returns>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.IsSmall(System.Int32)">
+            <summary>
+            Tells if the entity screen size is smaller than <see cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>.
+            </summary>
+            <param name="viewportIndex">The viewport index</param>
+            <returns>True if the screen size is smaller than <see cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>.</returns>
+            <remarks>This method is meaningful only for top level entities and if <see cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/> is true.</remarks>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.CheckSmall(System.Int32)"/>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],System.Boolean)">
             <summary>
             Tells if the entity is inside the frustum planes.
@@ -10245,6 +10262,20 @@
             Tells if the entity is inside or crossing the given planes and edges.
             </summary>
             <returns>True if the entity is selected</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.EvaluateIntersectTriangles(devDept.Eyeshot.FrustumParams)">
+            <summary>
+            Tells if must evaluate the intersection of the triangles with the frustum.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Entity.EvaluateIntersectEdges(devDept.Eyeshot.FrustumParams)">
+            <summary>
+            Tells if must evaluate the intersection of the edges with the frustum.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.FindClosestTriangle(devDept.Geometry.Transformation,devDept.Geometry.Segment3D,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Int32,System.Int32,System.Int32,System.Collections.Generic.SortedList{System.Double,devDept.Eyeshot.Entities.HitTriangle})">
             <summary>
@@ -16505,18 +16536,6 @@
             <param name="selectedOnly">When true, only selected entities are written.</param>
             <remarks>If the file already exists, it will be overwritten.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.DuplicateBlocks">
-            <summary>
-            Copies blocks and explodes scaled BlockReferences.
-            </summary>
-            <returns>A new block dictionary with only non scaled BlockReferences</returns>
-        </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.DuplicateEntities">
-            <summary>
-            Copies entities and explodes scaled BlockReferences.
-            </summary>
-            <returns>A new entity list with only non scaled BlockReferences</returns>
-        </member>
         <member name="T:devDept.Eyeshot.Translators.LayerListWithMapping">
             <summary>
             Class that keeps a list of Layers and the mapping to their original indices.
@@ -20403,12 +20422,22 @@
             </summary>
             <returns>True if the current <see cref="P:devDept.Eyeshot.ViewportLayout.ActionMode"/> is one of the ByPolygon ones.</returns>
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.CheckSmall(System.Int32)">
+            <summary>
+            Checks the size of screen on the top level entities and hides the ones smaller that <see cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>, if <see cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/> is true.
+            </summary>
+            <param name="viewportIndex">The viewportIndex</param>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.CheckSmall(System.Int32,System.Boolean)">
             <summary>
-            
+            Checks the size of screen on the top level entities and hides the ones smaller that <see cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>, if <see cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/> is true.
             </summary>
-            <param name="viewportIndex"></param>
+            <param name="viewportIndex">The viewportIndex</param>
             <param name="forceForEntityToPreserve">If true, forces the size to 1/100 of the viewport Height. Used to compute the entity to preserve before a camera movement.</param>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SaveView(devDept.Eyeshot.Camera@)">
             <summary>
@@ -20802,9 +20831,10 @@
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.HideSmall">
             <summary>
-            If true, entities with a size on screen less than SmallSize are not drawn.
+            If true, entities with a size on screen less than <see cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/> are not drawn.
             </summary>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.SmallSize">SmallSize Property</seealso>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.CheckSmall(System.Int32)"/>
             <remarks>Only top-level entities are considered, so the BlockReferences in the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> are either fully drawn or fully skipped</remarks>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.MinimumFramerate">
@@ -20827,6 +20857,7 @@
             Gets or sets the size (in pixel) of small entities.
             </summary>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.HideSmall">HideSmall Property</seealso>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.CheckSmall(System.Int32)"/>
         </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.isInFrustumMode">
             <exclude/>
@@ -30256,7 +30287,30 @@
             <param name="projectionMode">Projection mode</param>
             <param name="focalLength">Focal length</param>
             <param name="zoomFactor">Zoom factor</param>
-            <param name="analgyphic3D">If true enables the anaglyph 3D visualization</param>
+            <param name="anaglyphic3D">If true enables the anaglyph 3D visualization</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Camera.#ctor(devDept.Geometry.Point3D,System.Double,devDept.Geometry.Quaternion,devDept.Graphics.projectionType,System.Double,System.Double,System.Boolean,System.Double)">
+            <summary>Standard constructor.</summary>
+            <example>
+                The following code fragment demonstrates how to setup a perspective projection
+                camera at 100 units of distance from the origin and with a rotation of 30 degrees
+                about the X axis and 60 degrees about the Z axis. The default rotation coincide
+                with the model Right view.
+                <code lang="CS" title="[New Example]">
+            myViewport.Camera = new Camera(Point3D.Origin, 100, (new Quaternion(Vector3D.AxisZ, 60)) * (new Quaternion(Vector3D.AxisY, 30)), cameraProjectionType.Perspective, 50, 1);
+            </code>
+            	<code lang="VB" title="[New Example]">
+            MyViewport.Camera = New Camera(Point3D.Origin, 100, (New Quaternion(Vector3D.AxisZ, 60)) * (New Quaternion(Vector3D.AxisY, 30)), cameraProjectionType.Perspective, 50, 1)
+            </code>
+            </example>
+            <param name="target">Aiming point</param>
+            <param name="distance">The distance between the camera location and the aiming point</param>
+            <param name="rotation">A quaternion object representing the 3D rotation</param>
+            <param name="projectionMode">Projection mode</param>
+            <param name="focalLength">Focal length</param>
+            <param name="zoomFactor">Zoom factor</param>
+            <param name="anaglyphic3D">If true enables the anaglyph 3D visualization</param>
+            <param name="nearPlaneDistanceFactor">The near plane distance factor</param>
         </member>
         <member name="M:devDept.Eyeshot.Camera.Clone">
             <summary>
@@ -30439,6 +30493,13 @@
             <param name="minQ">Minimum offset of the lines intersections on X and Y camera axes</param>
             <param name="maxQ">Maximum offset of the lines intersections on X and Y camera axes</param>
             <remarks>Used internally for precise fit in perspective mode.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Camera.NearPlaneDistanceFactor">
+            <summary>
+            Gets or sets the factor used to compute the near plane from the far plane distance.
+            </summary>
+            <remarks>By default it is 0.001 of the far plane distance. Set it to a smaller value if it's clipping too much geometry near the viewer in big scenes. Beware that too small values affect the scene rendering precision.</remarks>
+            <remarks>Call the <see cref="M:devDept.Eyeshot.Viewport.AdjustNearAndFarPlanes"/> and <see cref="M:devDept.Eyeshot.ViewportLayout.Invalidate"/> to see the effect of the change.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Camera.ProjectToCameraPlane(devDept.Geometry.Point3D[])">
             <summary>
@@ -33848,6 +33909,21 @@
             <param name="value"></param>
             <param name="min"></param>
             <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.GetReferencedBlocksNames(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block})">
+            <summary>
+            Returns the set of block in use (referenced by a <see cref="T:devDept.Eyeshot.Entities.BlockReference"/>) names.
+            </summary>
+            <param name="entities">The entity list</param>
+            <param name="blocks">The block dictionary</param>
+            <returns>The set of block in use names.</returns>
+        </member>
+        <member name="M:devDept.Geometry.UtilityEx.IsScaled(devDept.Eyeshot.Entities.BlockReference)">
+            <summary>
+            Check if the specified <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> is scaled (uniformly or non uniformly)
+            </summary>
+            <param name="br">The block reference</param>
             <returns></returns>
         </member>
         <member name="M:devDept.Geometry.UtilityEx.GetEntitiesStats(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block},System.Int32@,System.Int32@,System.Int32@)">
