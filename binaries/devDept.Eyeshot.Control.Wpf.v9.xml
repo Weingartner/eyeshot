@@ -32937,6 +32937,14 @@
             Synchronizes <see cref="T:devDept.Eyeshot.AttributeReference"/> entities of the <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> referring to the <paramref name="blockName"/> block with the data of its <see cref="T:devDept.Eyeshot.Entities.Attribute"/> entities.
             </summary>
             <param name="blockName">The name of the block containing the Attributes to synchronize</param>
+            <seealso cref="M:devDept.Eyeshot.EntityList.SynchronizeAttributes(System.Collections.Generic.IList{devDept.Eyeshot.Entities.BlockReference})"/>
+        </member>
+        <member name="M:devDept.Eyeshot.EntityList.SynchronizeAttributes(System.Collections.Generic.IList{devDept.Eyeshot.Entities.BlockReference})">
+            <summary>
+            Synchronizes <see cref="T:devDept.Eyeshot.AttributeReference"/> entities of the given <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> entities with the data of the <see cref="T:devDept.Eyeshot.Entities.Attribute"/> entities contained in their referenced blocks.
+            </summary>
+            <param name="blockReferences">The collection of <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> entities to synchronize</param>
+            <seealso cref="M:devDept.Eyeshot.EntityList.SynchronizeAttributes(System.String)"/>
         </member>
         <member name="M:devDept.Eyeshot.EntityList.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">
             <summary>
