@@ -346,6 +346,16 @@
             Gets or sets the visualization of the internal wireframe.
             </summary>
         </member>
+        <member name="F:devDept.Eyeshot.DrawParams.LineWeightFactor">
+            <summary>
+            The scale factor applied to the line weights for the printing scale.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.DrawParams.SelectionLineWeightScaleFactor">
+            <summary>
+            The scale factor applied to the line weight of selected entities.
+            </summary>
+        </member>
         <member name="T:devDept.Eyeshot.colorType">
             <summary>
             The type of color that needs to be set.
@@ -375,6 +385,16 @@
         <member name="F:devDept.Eyeshot.RenderParams.hqrData">
             <summary>
             Gets or sets the 
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.DrawEdgesParams">
+            <summary>
+            Data for <see cref="M:devDept.Eyeshot.Entities.Entity.DrawEdges(devDept.Eyeshot.DrawParams)"/>.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.DrawEdgesParams.Thickness">
+            <summary>
+            Gets or sets the Edge thickness.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.DrawSilhouettesParams">
@@ -1936,14 +1956,6 @@
             <param name="domainSize">Usually the diagonal of the outer contour</param>
             <returns>True if the 2D point is inside the region, false otherwise.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Region.IsPointInside(devDept.Geometry.Point2D,System.Double)">
-            <summary>
-            Tests if a 2D point is inside the region.
-            </summary>
-            <param name="testPoint">The test 2D point</param>
-            <param name="domainSize">Usually the diagonal of the outer contour</param>
-            <returns>True if the 2D point is inside, false otherwise.</returns>
-        </member>
         <member name="M:devDept.Eyeshot.Entities.Region.PointInPolygon(ClipperLib.IntPoint,System.Collections.Generic.IList{ClipperLib.IntPoint})">
             <summary>
             Tests if a 2D point is inside a 2D polygon.
@@ -2757,7 +2769,7 @@
             </summary>
             <remarks>The size of the array determines how the colors are applied to the entity: 
             1 byte per vertex is applied as a modulation factor to the <see cref="T:System.Drawing.Color"/> of the entity. This requires the use of shaders so the 
-            graphics acceleration must be turned on, <see cref="!:ViewportLayout.UseShaders"/> must be true and the <see cref="P:devDept.Eyeshot.ViewportLayout.DisplayMode"/> must be <see cref="F:devDept.Eyeshot.displayType.Rendered"/>
+            graphics acceleration must be turned on, <see cref="!:ViewportLayout.UseShaders"/> must be true (Winforms Eyeshot control only) and the <see cref="P:devDept.Eyeshot.ViewportLayout.DisplayMode"/> must be <see cref="F:devDept.Eyeshot.displayType.Rendered"/>
             3 bytes per vertex are applied as RGB colors
             4 bytes per vertex are applied as RGBA colors (in order for the alpha transparency to work, the entity must also have a <see cref="T:System.Drawing.Color"/> with alpha &lt; 255</remarks>
         </member>
@@ -3105,7 +3117,7 @@
             Gets or sets inner (void) shells face array.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Solid3D.#ctor(devDept.Geometry.Point3D[],devDept.Eyeshot.Entities.Solid3D.Edge[],devDept.Eyeshot.Entities.Solid3D.Face[],devDept.Eyeshot.Entities.Solid3D.Face[][],System.Double)">
+        <member name="M:devDept.Eyeshot.Entities.Solid3D.#ctor(devDept.Geometry.Point3D[],devDept.Eyeshot.Entities.Solid3D.Edge[],devDept.Eyeshot.Entities.Solid3D.Face[],devDept.Eyeshot.Entities.Solid3D.Face[][],System.Boolean,System.Double)">
             <summary>
             Inner shells constructor.
             </summary>
@@ -3113,7 +3125,8 @@
             <param name="edges">The edge array</param>
             <param name="faces">The outer shell face array</param>
             <param name="inners">The inner shells face array</param>
-            <param name="tolerance">The regeneration tolerance</param>
+            <param name="splitEdgesOnSeams">If yes, it splits all the edges intersecting the seams of the faces</param>
+            <param name="tolerance">The rebuild tolerance</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Solid3D.#ctor(devDept.Geometry.Point3D[],devDept.Eyeshot.Entities.Solid3D.Edge[],devDept.Eyeshot.Entities.Solid3D.Face[],System.Boolean)">
             <summary>
@@ -6211,6 +6224,14 @@
             Foreach curve in contour, moves the end point of current curve onto the start point of the next one.
             </summary>
             <param name="contour">The contour</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Surface.TrimInternal(devDept.Eyeshot.Entities.Surface,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
+            <summary>
+            
+            </summary>
+            <param name="surf"></param>
+            <param name="curveList">Must be already oriented and sorted</param>
+            <returns></returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Surface.Trim(devDept.Eyeshot.Entities.Surface,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
             <summary>
@@ -18592,48 +18613,85 @@
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.Boolean)">
             <summary>
-            Standard constructor.
+            ViewportLayout and file name constructor.
             </summary>
             <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
             <param name="fileName">The file name (with *.igs extension)</param>        
             <param name="selectedOnly">If true, only selected entities are written.</param>
-            <remarks>If the file exists, it's overwritten.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>If the file already exists, it will be overwritten.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Boolean)">
             <summary>
-            Standard constructor with stream.
+            ViewportLayout and stream constructor.
             </summary>
             <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
             <param name="stream">The file stream</param>        
             <param name="selectedOnly">If true, only selected entities are written.</param>        
-            <remarks>The closing of the stream is delegated to you.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>The closing of the stream is delegated to you.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.String,System.String,System.String,System.Boolean)">
-            <summary>Author, organization and originating system constructor.</summary>
+            <summary>
+            ViewportLayout and file name constructor.
+            </summary>
             <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
             <param name="fileName">The file name (with *.igs extension)</param>        
             <param name="selectedOnly">If true, only selected entities are written.</param>
             <param name="author">Author name</param>
             <param name="organization">Organization name</param>
             <param name="originatingSystem">Originating system name</param>
-            <remarks>If the file exists, it's overwritten.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>If the file already exists, it will be overwritten.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.String,System.String,System.String,System.Boolean)">
             <summary>
-            To stream with author, organization and originating system constructor.
+            ViewportLayout and stream constructor.
             </summary>
             <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
             <param name="stream">The file stream</param>
-            <param name="units">The model units</param>
             <param name="selectedOnly">If true, only selected entities are written.</param>
             <param name="author">Author name</param>
             <param name="organization">Organization name</param>
-            <param name="originatingSystem">Originating system name</param>        
-            <remarks>The closing of the stream is delegated to you.</remarks>
+            <param name="originatingSystem">Originating system name</param>  
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>The closing of the stream is delegated to you.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.Boolean)">
             <summary>
-            Standard constructor.
+            Collections and file name constructor.
             </summary>
             <param name="entList">The entity list</param>
             <param name="layerList">The layer list</param>
@@ -18641,11 +18699,20 @@
             <param name="blockDict">The block dictionary</param>
             <param name="fileName">The file name (with the *.igs extension)</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>
-            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>If the file already exists, it will be overwritten.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.Boolean)">
             <summary>
-            Standard constructor with stream.
+            Collections and stream constructor.
             </summary>
             <param name="entList">The entity list</param>
             <param name="layerList">The layer list</param>
@@ -18653,11 +18720,20 @@
             <param name="blockDict">The block dictionary</param>
             <param name="stream">The file stream</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>        
-            <remarks>The closing of the stream is delegated to you.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>The closing of the stream is delegated to you.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
             <summary>
-            Tolerance constructor. The exported model will be regenerated with specified tolerance.
+            Collections and file name constructor.
             </summary>
             <param name="entList">The entity list</param>
             <param name="layerList">The layer list</param>
@@ -18668,11 +18744,20 @@
             <param name="organization">Organization name</param>
             <param name="originatingSystem">Originating system name</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>
-            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>If the file already exists, it will be overwritten.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteIGES.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
             <summary>
-            To stream with tolerance constructor. The exported model will be regenerated with specified tolerance.
+            Collections and stream constructor.
             </summary>
             <param name="entList">The entity list</param>
             <param name="layerList">The layer list</param>
@@ -18683,7 +18768,16 @@
             <param name="organization">Organization name</param>
             <param name="originatingSystem">Originating system name</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>        
-            <remarks>The closing of the stream is delegated to you.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>The closing of the stream is delegated to you.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="T:devDept.Eyeshot.Translators.ReadSTEP">
             <summary>
@@ -18746,7 +18840,9 @@
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.Boolean)">
-            <summary>Exports current model in STEP file format.</summary>
+            <summary>
+            ViewportLayout and file name constructor.
+            </summary>
             <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
             <param name="fileName">The file name (with *.stp extension)</param>
             <param name="selectedOnly">When true, only selected entities are exported.</param>
@@ -18756,18 +18852,44 @@
             <description>If the file already exists, it will be overwritten.</description> 
             </item> 
             <item> 
-            <description>If the <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual surfaces mode.</description> 
+            <description>If <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual entity mode.</description> 
             </item> 
             <item> 
-            <description>BlockReference scaling is not supported by STEP file format</description> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
             </item> 
             </list> 
             </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Boolean)">
-            <summary>Exports current model in STEP file format.</summary>
+            <summary>
+            ViewportLayout and stream constructor.
+            </summary>
             <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
             <param name="stream">The file stream</param>
+            <param name="selectedOnly">When true, only selected entities are exported.</param>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>The closing of the stream is delegated to you.</description> 
+            </item> 
+            <item> 
+            <description>If <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual entity mode.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            ViewportLayout and file name constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="fileName">The file name (with *.stp extension)</param>
+            <param name="author">The author name</param>
+            <param name="organization">The organization name</param>
+            <param name="originatingSystem">The originating system name</param>
             <param name="selectedOnly">When true, only selected entities are exported.</param>
             <remarks>
             <list type="bullet">
@@ -18775,37 +18897,41 @@
             <description>If the file already exists, it will be overwritten.</description> 
             </item> 
             <item> 
-            <description>If the <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual surfaces mode.</description> 
+            <description>If <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual entity mode.</description> 
             </item> 
             <item> 
-            <description>BlockReference scaling is not supported by STEP file format</description> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
             </item> 
             </list> 
             </remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.String,System.String,System.String,System.Boolean)">
-            <summary>Exports current model in STEP file format.</summary>
-            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
-            <param name="fileName">The file name (with *.stp extension)</param>
-            <param name="author">The author name</param>
-            <param name="organization">The organization name</param>
-            <param name="originatingSystem">The originating system name</param>
-            <param name="selectedOnly">When true, only selected entities are exported.</param>
-            <remarks>If the file already exists, it will be overwritten. <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> scaling and <see cref="P:devDept.Eyeshot.Block.BasePoint"/> are not supported.</remarks>
-        </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.String,System.String,System.String,System.Boolean)">
-            <summary>Exports current model in STEP file format.</summary>
+            <summary>
+            ViewportLayout and stream constructor.
+            </summary>
             <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
             <param name="stream">The file stream</param>
             <param name="author">The author name</param>
             <param name="organization">The organization name</param>
             <param name="originatingSystem">The originating system name</param>
             <param name="selectedOnly">When true, only selected entities are exported.</param>
-            <remarks>If the file already exists, it will be overwritten. <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> scaling and <see cref="P:devDept.Eyeshot.Block.BasePoint"/> are not supported.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>The closing of the stream is delegated to you.</description> 
+            </item> 
+            <item> 
+            <description>If <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual entity mode.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.Boolean)">
             <summary>
-            Standard constructor.
+            Collections and file name constructor.
             </summary>
             <param name="entList">The entity list</param>
             <param name="layerList">The layer list</param>
@@ -18813,11 +18939,23 @@
             <param name="blockDict">The block dictionary</param>
             <param name="fileName">The file name (with the *.stl extension)</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>
-            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>If the file already exists, it will be overwritten.</description> 
+            </item> 
+            <item> 
+            <description>If <paramref name="blockDict"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual entity mode.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.Boolean)">
             <summary>
-            Standard constructor.
+            Collections and stream constructor.
             </summary>
             <param name="entList">The entity list</param>
             <param name="layerList">The layer list</param>
@@ -18825,11 +18963,23 @@
             <param name="blockDict">The block dictionary</param>
             <param name="stream">The file stream</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>
-            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>The closing of the stream is delegated to you.</description> 
+            </item> 
+            <item> 
+            <description>If <paramref name="blockDict"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual entity mode.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
             <summary>
-            Tolerance constructor. The exported model will be regenerated with specified tolerance.
+            Collections and file name constructor.
             </summary>
             <param name="entList">The entity list</param>
             <param name="layerList">The layer list</param>
@@ -18840,11 +18990,23 @@
             <param name="organization">Organization name</param>
             <param name="originatingSystem">Originating system name</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>
-            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>If the file already exists, it will be overwritten.</description> 
+            </item> 
+            <item> 
+            <description>If <paramref name="blockDict"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual entity mode.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="M:devDept.Eyeshot.Translators.WriteSTEP.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,devDept.Geometry.linearUnitsType,System.String,System.String,System.String,System.Boolean)">
             <summary>
-            Tolerance constructor. The exported model will be regenerated with specified tolerance.
+            Collections and stream constructor.
             </summary>
             <param name="entList">The entity list</param>
             <param name="layerList">The layer list</param>
@@ -18855,7 +19017,19 @@
             <param name="organization">Organization name</param>
             <param name="originatingSystem">Originating system name</param>
             <param name="selectedOnly">When true, only selected entities are written.</param>
-            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks>
+            <list type="bullet">
+            <item> 
+            <description>The closing of the stream is delegated to you.</description> 
+            </item> 
+            <item> 
+            <description>If <paramref name="blockDict"/> count is bigger than zero, the STEP file is written in assembly mode. In the opposite case it is written in individual entity mode.</description> 
+            </item> 
+            <item> 
+            <description><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod"/> as <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent"/> is not supported.</description> 
+            </item> 
+            </list> 
+            </remarks>
         </member>
         <member name="T:devDept.Eyeshot.Translators.LayerListWithMapping">
             <summary>
@@ -19918,8 +20092,8 @@
             <summary>
             Gets or sets the triangulation output type.
             </summary>
-            <remarks>If true, the coincindent vertices of the generated mesh are not welded and the <see cref="!:Mesh.meshNature"/> is set to <see cref="F:devDept.Eyeshot.Entities.Mesh.natureType.Plain"/>,
-            else the vertices are welded and the <see cref="!:Mesh.meshNature"/> is set to <see cref="F:devDept.Eyeshot.Entities.Mesh.natureType.Smooth"/> 
+            <remarks>If true, the coincident vertices of the generated mesh are not welded and the <see cref="P:devDept.Eyeshot.Entities.Mesh.MeshNature"/> is set to <see cref="F:devDept.Eyeshot.Entities.Mesh.natureType.Plain"/>,
+            else the vertices are welded and the <see cref="P:devDept.Eyeshot.Entities.Mesh.MeshNature"/> is set to <see cref="F:devDept.Eyeshot.Entities.Mesh.natureType.Smooth"/> 
             The generated mesh is created with the same <see cref="P:devDept.Eyeshot.Entities.Mesh.LightWeight"/> value.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.Triangulation.MarchingCubes.#ctor(System.Int32,System.Double,System.Int32,System.Double,System.Int32,System.Double,devDept.Eyeshot.Triangulation.ScalarField3D)">
@@ -19936,7 +20110,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Triangulation.MarchingCubes.#ctor(devDept.Geometry.Point3D,System.Int32,System.Double,System.Int32,System.Double,System.Int32,System.Double,devDept.Eyeshot.Triangulation.ScalarField3D)">
             <summary>
-            Standard contructor.
+            Standard constructor.
             </summary>
             <param name="gridOrigin">Grid origin point</param>
             <param name="nCellsInX">Number of cells along the X axis</param>
@@ -19947,7 +20121,7 @@
             <param name="cellSizeZ">Cell size in Z</param>
             <param name="func">The 3D scalar field function</param>
         </member>
-        <member name="M:devDept.Eyeshot.Triangulation.MarchingCubes.Polygonise(System.Double[0:,0:],System.Double[],System.Double,System.Collections.Generic.List{devDept.Geometry.Point3D})">
+        <member name="M:devDept.Eyeshot.Triangulation.MarchingCubes.Polygonise(System.Double[0:,0:],System.Double[],System.Double,System.Collections.Generic.List{devDept.Geometry.Point3D[]})">
             <summary>
             Given a grid cell and an isolevel, calculate the triangular
             facets required to represent the isosurface through the cell.
@@ -19957,13 +20131,109 @@
             <param name="coords">The grid cell vertices coords</param>
             <param name="values">The grid cell vertices values</param>
             <param name="isoLevel">Iso level.</param>
-            <param name="triangles">A <see cref="T:devDept.Eyeshot.Entities.Triangle"/> array containing a maximum of 5 triangles.</param>
+            <param name="triangles">An array containing a maximum of 5 triangles.</param>
             <returns>0 will be returned if the grid cell is either totally above or totally below the isolevel.</returns>
         </member>
-        <member name="M:devDept.Eyeshot.Triangulation.MarchingCubes.VertexInterp(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32)">
+        <member name="M:devDept.Eyeshot.Triangulation.MarchingCubes.VertexInterp(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double[0:,0:])">
             <summary>
             Linearly interpolate the position where an isosurface cuts
             an edge between two vertices, each with their own scalar value.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Triangulation.ScalarField2D">
+            <summary>
+            The function used by the marching squares algorithm to evaluate the 2D scalar field.
+            </summary>
+            <param name="x">X coordinate value</param>
+            <param name="y">Y coordinate value</param>
+            <returns>The scalar field value.</returns>
+        </member>
+        <member name="T:devDept.Eyeshot.Triangulation.MarchingSquares">
+            <summary>
+            Utility class for creating a polygonal representation of an isocurve of a 2D scalar field.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Triangulation.MarchingSquares.ProgressBarText">
+            <summary>
+            Gets or sets the progress bar text string.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Triangulation.MarchingSquares.IsoLevel">
+            <summary>
+            Gets or sets the desired iso-level value.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Triangulation.MarchingSquares.Result">
+            <summary>
+            Gets the resulting line array.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Triangulation.MarchingSquares.#ctor(System.Int32,System.Double,System.Int32,System.Double,devDept.Eyeshot.Triangulation.ScalarField2D)">
+            <summary>
+            Centered in world origin constructor.
+            </summary>
+            <param name="nCellsInX">Number of cells along the X axis</param>
+            <param name="cellSizeX">Cell size in X</param>
+            <param name="nCellsInY">Number of cells along the Y axis</param>
+            <param name="cellSizeY">Cell size in Y</param>
+            <param name="func">The 3D scalar field function</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Triangulation.MarchingSquares.#ctor(System.Drawing.Bitmap,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Centered in world origin constructor.
+            </summary>
+            <param name="original">The bitmap image</param>
+            <param name="cellSizeInX">Cell size in X in pixels</param>
+            <param name="cellSizeInY">Cell size in Y in pixels</param>
+            <param name="makeGrayscale">When true the image is converted to grayscale.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Triangulation.MarchingSquares.#ctor(devDept.Geometry.Point2D,System.Int32,System.Double,System.Int32,System.Double,devDept.Eyeshot.Triangulation.ScalarField2D)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="gridOrigin">Grid origin point</param>
+            <param name="nCellsInX">Number of cells along the X axis</param>
+            <param name="cellSizeX">Cell size in X</param>
+            <param name="nCellsInY">Number of cells along the Y axis</param>
+            <param name="cellSizeY">Cell size in Y</param>
+            <param name="func">The 3D scalar field function</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Triangulation.MarchingSquares.Polygonise(System.Double[0:,0:],System.Double[],System.Double,System.Collections.Generic.List{devDept.Geometry.Point2D[]})">
+            <summary>
+            Given a grid cell and an isolevel, calculate the triangular
+            facets required to represent the isosurface through the cell.
+            Return the number of triangular facets, the array <paramref name="segments"/>
+            will be loaded up with at most 5 triangular facets.
+            </summary>
+            <param name="coords">The grid cell vertices coords</param>
+            <param name="values">The grid cell vertices values</param>
+            <param name="isoLevel">Iso level.</param>
+            <param name="segments">A <see cref="T:devDept.Geometry.Segment2D"/> array containing a maximum of todo: 5 triangles.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Triangulation.MarchingSquares.VertexInterp(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double[0:,0:])">
+            <summary>
+            Linearly interpolate the position where an isosurface cuts
+            an edge between two vertices, each with their own scalar value.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Triangulation.PictureData`1">
+            <summary>
+            Class that holds data for volume rendering pictures.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Triangulation.PictureData`1.Pixels">
+            <summary>
+            Gets the pixels data.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Triangulation.PictureData`1.Rows">
+            <summary>
+            Gets the number of rows.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Triangulation.PictureData`1.Columns">
+            <summary>
+            Gets the number of columns.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.Triangulation.mesherSmoothingType">
@@ -22093,7 +22363,7 @@
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.Entities"></seealso>
             <seealso cref="T:devDept.Eyeshot.Entities.BlockReference"></seealso>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.GetAllBlocks(System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.GetAllBlocks">
             <summary>
             Gets all the Blocks, including the <see cref="P:devDept.Eyeshot.ViewportLayout.ParentBlocks"/> used by the ParentBlockReferences.
             </summary>
@@ -23400,11 +23670,11 @@
             <remarks>The <see cref="P:devDept.Graphics.Material.Ambient"/>, <see cref="P:devDept.Graphics.Material.Specular"/> and <see cref="P:devDept.Graphics.Material.Shininess"/> components are taken from the <see cref="P:devDept.Eyeshot.ViewportLayout.DefaultMaterial"/>.</remarks>
             <see cref="F:devDept.Eyeshot.actionType.SelectVisibleByPickDynamic"/>
         </member>
-        <member name="P:devDept.Eyeshot.ViewportLayout.SelectionLineWeight">
+        <member name="P:devDept.Eyeshot.ViewportLayout.SelectionLineWeightScaleFactor">
             <summary>
-            Gets or sets the line weight used to draw the selected wireframe entities or <see cref="P:devDept.Eyeshot.Entities.Solid3D.Edges"/>.
+            Gets or sets the factor applied to the line weight for the selected wireframe entities or <see cref="P:devDept.Eyeshot.Entities.Solid3D.Edges"/>.
             </summary>
-            <remarks>Use 0 to keep the entity <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeight"/>, any other value to override it.</remarks>
+            <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineWeight"/>
         </member>
         <member name="F:devDept.Eyeshot.ViewportLayout.settingsWireframe">
             Display mode settings for Wireframe mode, shared by all viewports.
@@ -23766,7 +24036,7 @@
             <typeparam name="T">The entity type</typeparam>
             <seealso cref="M:devDept.Eyeshot.Entities.Entity.DrawForSelection(devDept.Eyeshot.GfxDrawForSelectionParams)"/>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Collections.Generic.IList{`0},devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Graphics.ShaderParameters,devDept.Geometry.Transformation,devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.DrawForSelectionParams`1.#ctor(devDept.Eyeshot.ViewportLayout,devDept.Eyeshot.Viewport,System.Single,System.Collections.Generic.IList{`0},devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Graphics.ShaderParameters,devDept.Geometry.Transformation,devDept.Eyeshot.ViewportLayout.DrawForSelectionEntityDelegate,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Constructor.
             </summary>
@@ -32967,7 +33237,7 @@
         </member>
         <member name="M:devDept.Eyeshot.WorkUnit.DoWork">
             <summary>
-            Executes the work synchronously. Requires license activation via <see cref="!:Unlock"/>.
+            Executes the work synchronously.
             </summary>
         </member>
         <member name="M:devDept.Eyeshot.WorkUnit.DoWork(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">

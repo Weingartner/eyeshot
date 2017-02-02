@@ -1587,6 +1587,13 @@
             </summary>
             <remarks>For internal use only.</remarks>
         </member>
+        <member name="M:devDept.Geometry.Utility.MakeGrayscale(System.Drawing.Bitmap)">
+            <summary>
+            Converts an image to grayscale.
+            </summary>
+            <param name="original">The original bitmap</param>
+            <returns>The grayscale bitmap.</returns>
+        </member>
         <member name="M:devDept.Geometry.Utility.GetSupportedLinearUnits(devDept.Geometry.linearUnitsType)">
             <summary>
             Converts <see cref="T:devDept.Geometry.linearUnitsType"/> to <seealso cref="T:devDept.Geometry.supportedLinearUnitsType"/>
@@ -2057,6 +2064,32 @@
             <param name="flags">The data to modify</param>
             <param name="flag">The flag to set/unset</param>
             <param name="set">If true, the flag is set, else it's unset</param>
+        </member>
+        <member name="M:devDept.Geometry.LockBitmap.LockBits">
+            <summary>
+            Lock bitmap data
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.LockBitmap.UnlockBits">
+            <summary>
+            Unlock bitmap data
+            </summary>
+        </member>
+        <member name="M:devDept.Geometry.LockBitmap.GetPixel(System.Int32,System.Int32)">
+            <summary>
+            Get the color of the specified pixel
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Geometry.LockBitmap.SetPixel(System.Int32,System.Int32,System.Drawing.Color)">
+            <summary>
+            Set the color of the specified pixel
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="color"></param>
         </member>
         <member name="T:devDept.Geometry.IndexLine">
             <summary>

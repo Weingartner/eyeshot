@@ -352,32 +352,6 @@
             Unknown TransferSyntax
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Dicom.Helper.LockBitmap.LockBits">
-            <summary>
-            Lock bitmap data
-            </summary>
-        </member>
-        <member name="M:devDept.Eyeshot.Dicom.Helper.LockBitmap.UnlockBits">
-            <summary>
-            Unlock bitmap data
-            </summary>
-        </member>
-        <member name="M:devDept.Eyeshot.Dicom.Helper.LockBitmap.GetPixel(System.Int32,System.Int32)">
-            <summary>
-            Get the color of the specified pixel
-            </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <returns></returns>
-        </member>
-        <member name="M:devDept.Eyeshot.Dicom.Helper.LockBitmap.SetPixel(System.Int32,System.Int32,System.Drawing.Color)">
-            <summary>
-            Set the color of the specified pixel
-            </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <param name="color"></param>
-        </member>
         <member name="T:devDept.Eyeshot.Dicom.Iod">
             <summary>
             DICOM Instance class.
@@ -534,26 +508,6 @@
             Gets or sets a flag that tells if the gauss filter must be applied to the data.
             </summary>
         </member>
-        <member name="T:devDept.Eyeshot.Dicom.VolumeRenderingBase`1.PictureData`1">
-            <summary>
-            Class that holds data for volume rendering pictures.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Dicom.VolumeRenderingBase`1.PictureData`1.Pixels">
-            <summary>
-            Gets the pixels data.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Dicom.VolumeRenderingBase`1.PictureData`1.Rows">
-            <summary>
-            Gets the number of rows.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.Dicom.VolumeRenderingBase`1.PictureData`1.Columns">
-            <summary>
-            Gets the number of columns.
-            </summary>
-        </member>
         <member name="M:devDept.Eyeshot.Dicom.VolumeRenderingBinary.GetBitmap(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             Gets a bitmap from an image file of packed binary pixels stored as short.
@@ -593,11 +547,12 @@
         </member>
         <member name="M:devDept.Eyeshot.Dicom.VolumeRendering.#ctor(System.Collections.Generic.IList{System.Drawing.Bitmap},devDept.Geometry.Point3D,System.Double)">
             <summary>
-            Constructor with a sorted collection of images.
-            </summary>
+            Constructor with a sorted collection of gray-scale bitmaps.
+            </summary>        
             <param name="images">The collection of <see cref="T:System.Drawing.Bitmap"/>.</param>
             <param name="gridOrigin">The 3D point that represents the origin of the selection grid.</param>
             <param name="cellSizeZ">The cell's size in the Z direction.</param>
+            <remarks>The <see cref="P:devDept.Eyeshot.Triangulation.MarchingCubes.IsoLevel"/> must be between 0 and 255.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.Dicom.VolumeRendering.ProgressBarTextLoadHounsfieldValues">
             <summary>

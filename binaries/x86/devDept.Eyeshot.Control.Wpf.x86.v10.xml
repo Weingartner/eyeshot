@@ -1,0 +1,1354 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>devDept.Eyeshot.Control.Wpf.x86.v10</name>
+    </assembly>
+    <members>
+        <member name="T:devDept.Eyeshot.Translators.BlockEx">
+            <summary>
+            Derived <see cref="T:devDept.Eyeshot.Block"/> class with external reference information.
+            </summary>
+            <remarks>A BlockEx object can be created with the <see cref="M:devDept.Eyeshot.Translators.ReadAutodesk.CreateXRef(System.String,devDept.Geometry.Point3D,devDept.Eyeshot.ViewportLayout,System.String,devDept.Eyeshot.Translators.WriteAutodesk.blockExportType)"/> method, in order to save the block as an external reference.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.BlockEx.XRefName">
+            <summary>
+            Gets a string indicating whether the block belongs to an xReference.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.BlockEx.#ctor">
+            <summary>
+            Empty constructor.
+            </summary>
+            <remarks>Call <see cref="M:devDept.Eyeshot.Translators.BlockEx.SetXReferenceData(devDept.Eyeshot.Translators.BlockEx)"/> to copy Xreference-related data from another <see cref="T:devDept.Eyeshot.Translators.BlockEx"/> object.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.BlockEx.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor for deserializing objects.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.BlockEx.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance with the data needed to serialize the target object.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.BlockEx.ExportMode">
+            <summary>
+            Gets the autodesk export mode.
+            </summary>
+            <remarks>This value is set by the <see cref="M:devDept.Eyeshot.Translators.ReadAutodesk.CreateXRef(System.String,devDept.Geometry.Point3D,devDept.Eyeshot.ViewportLayout,System.String,devDept.Eyeshot.Translators.WriteAutodesk.blockExportType)"/> method.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.BlockEx.XRefPath">
+            <summary>
+            Gets the path of the external reference.
+            </summary>
+            <remarks>This value is set by the <see cref="M:devDept.Eyeshot.Translators.ReadAutodesk.CreateXRef(System.String,devDept.Geometry.Point3D,devDept.Eyeshot.ViewportLayout,System.String,devDept.Eyeshot.Translators.WriteAutodesk.blockExportType)"/> method.</remarks>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.CurveEx">
+            <summary>
+            Extended Curve class that does not support LineType and LineWeight
+            </summary>
+            <seealso cref="T:devDept.Eyeshot.Entities.Curve"/>
+            <seealso cref="!:Curve.LineTypeName"/>
+            <seealso cref="!:Curve.LineWeight"/>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.LinearPathEx">
+            <summary>
+            Extended Linear path clas that does not support LineType and LineWeight and GlobalWidth
+            </summary>
+            <seealso cref="T:devDept.Eyeshot.Entities.LinearPath"/>
+            <seealso cref="P:devDept.Eyeshot.Entities.LinearPath.LineTypeName"/>
+            <seealso cref="P:devDept.Eyeshot.Entities.LinearPath.GlobalWidth"/>
+            <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineWeight"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.LinearPathEx.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+            <summary>
+            Points collection constructor.
+            </summary>
+            <param name="points"></param>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.ReadAutodesk">
+            <summary>
+            Helper class for loading DWG/DXF files. A list of supported entities follows.
+                <list type="table">
+            		<item>
+            			<term><strong>Entity Name</strong></term>
+            			<description><strong>Details</strong></description>
+            		</item>
+            		<item>
+            			<term>Point</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Line</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Arc</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Circle</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Ellipse</term>
+            			<description></description>
+            		</item> 
+                    <item>
+            			<term>AttributeDefinition</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Text</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>MText</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Polyline</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Polyline2D</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Polyline3D</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Spline</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>Face</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>PolyfaceMesh</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>PolygonMesh</term>
+            			<description>Simple, with no surface fitting or smoothing</description>
+            		</item>
+            		<item>
+            			<term>MInsertBlock</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>BlockReference</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>RotatedDimension</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>AlignedDimension</term>
+            			<description></description>
+            		</item>
+            		<item>
+            			<term>RadialDimension</term>
+            			<description></description>
+            		</item> 
+            		<item>
+            			<term>DiametricDimension</term>
+            			<description></description>
+            		</item> 
+                    <item>
+            			<term>Solid</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>Solid3D</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>LoftedSurface</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>Region</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>Mline</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>Hatch</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>SubDMesh</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>RasterImage</term>
+            			<description></description>
+            		</item>
+                    <item>
+            			<term>Body</term>
+            			<description></description>
+            		</item>       
+                    <item>
+            			<term>ExtrudedSurface</term>
+            			<description></description>
+            		</item>       
+                 </list>
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.SupportedLinearUnitsType">
+            <summary>
+            Gets the supported linear units
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.TextStyles">
+            <summary>
+            Gets the font style dictionary.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.ReadAutodesk._lineTypes">
+            <summary>
+            The line types dictionary.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.LineTypes">
+            <summary>
+            Gets the dictionary of the line types names read from the file with the corresponding line pattern.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.LayersToLoad">
+            <summary>
+            Gets or sets the list of layers to load. Only the Entities on these layers will be loaded.
+            </summary>
+            <remarks>If null, all layers are loaded.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.Simplify">
+            <summary>
+            Controls if planar generic surfaces are converted to <see cref="T:devDept.Eyeshot.Entities.PlanarSurface"/>.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.SkipLayouts">
+            <summary>
+            Gets or sets a value indicating whether the layouts inside the paper spaces are skipped by the loading.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.SkipHatches">
+            <summary>
+            Gets or sets a value indicating whether the hatches are skipped by the loading.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.SkipProxies">
+            <summary>
+            Gets or sets a value indicating whether the proxies are skipped by the loading.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.FixErrors">
+            <summary>
+            If true, checks the drawing database consistency and fixes the errors.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.Password">
+            <summary>
+            Gets or sets the AutoCAD file password, can be null/Nothing..
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.SkipExternalReferences">
+            <summary>
+            Gets or sets a value indicating whether the external references are skipped by the loading.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.Layouts">
+            <summary>
+            Gets a dictionary with the name and the entities array for each layout found in the file.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.OriginalFileVersion">
+            <summary>
+            Gets the version of the imported AutoCAD file.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.#ctor(System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            File name constructor.
+            </summary>
+            <param name="fileName">The file name.</param>
+            <param name="password">AutoCAD file password, can be null/Nothing.</param>
+            <param name="fixErrors">When true, checks the drawing database consistency and fixes errors.</param>
+            <param name="skipHatches">When true, hatches are not imported.</param>       
+            <param name="skipProxies">When true, proxies are not imported.</param> 
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.#ctor(System.IO.Stream,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Stream constructor.
+            </summary>
+            <param name="stream">The file stream</param>
+            <param name="password">AutoCAD file password, can be null/Nothing.</param>
+            <param name="fixErrors">When true, checks the drawing database consistency and fixes errors.</param>
+            <param name="skipHatches">When true, hatches are not imported.</param>
+            <param name="skipProxies">When true, proxies are not imported.</param>
+            <remarks>The closing of the stream is delegated to you.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.FailedToLoad">
+            <summary>
+            Gets the block references that failed to load.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.Min">
+            <summary>
+            Gets the Bounding Box minimum point.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.Max">
+            <summary>
+            Gets the Bounding Box maximum point.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32)">
+            <summary>
+            Adds to scene putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control used to add entities, layers and blocks.</param>
+            <param name="layerIndex">The destination layer index.</param>
+            <param name="blockName">The block name</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32,System.Drawing.Color)">
+            <summary>
+            Adds to scene putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control used to add entities, layers and blocks.</param>
+            <param name="blockName">The block name</param>
+            <param name="layerIndex">The destination layer index.</param>
+            <param name="color">The color assigned to the entities in the model</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.FillAutodeskData(devDept.Eyeshot.ViewportLayout)">
+            <summary>
+            Adds to the viewportLayout the data specific to the <seealso cref="T:devDept.Eyeshot.Translators.ReadAutodesk"/> class.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.AddToScene(devDept.Eyeshot.ViewportLayout,System.Int32)">
+            <summary>
+            Adds to the ViewportLayout the entities loaded from the Autodesk file, along with layers and blocks. Blocks and layers contained 
+            previously in the Viewport are merged.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout used to add entities, layers and blocks.</param>
+            <param name="layerIndex">The destination layer index.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.AddToScene(devDept.Eyeshot.ViewportLayout,System.Int32,System.Drawing.Color)">
+            <summary>
+            Adds to the ViewportLayout the entities loaded from the Autodesk file, along with layers and blocks. Blocks and layers contained 
+            previously in the Viewport are merged.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout used to add entities, layers and blocks.</param>
+            <param name="layerIndex">The destination layer index.</param>
+            <param name="color">The color assigned to the entities in the model.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.AddToScene(devDept.Eyeshot.ViewportLayout,System.String)">
+            <summary>
+            Adds to the ViewportLayout the entities loaded from the Autodesk file, along with layers and blocks. Blocks and layers contained 
+            previously in the Viewport are merged.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout used to add entities, layers and blocks.</param>
+            <param name="layerName">The destination layer name.</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.FillTextStyles(devDept.Eyeshot.ViewportLayout)">
+            <summary>
+            Automatically merges text styles with existing ones.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control</param>
+            <remarks>Text styles with the same name of the ones in the viewportayout will be skipped.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.FillLineTypes(devDept.Eyeshot.ViewportLayout)">
+            <summary>
+            Automatically merges line types with existing ones.
+            </summary>
+            <param name="viewportLayout">The ViewportLayout control</param>
+            <remarks>Line types with the same name of the ones in the viewportayout will be skipped.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.ReadFile(devDept.Eyeshot.Entities.Entity[]@,devDept.Geometry.linearUnitsType@,devDept.Eyeshot.Entities.BlockReference[]@,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@,System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+             Reads a DWG/DXF file. While entities are returned in the <paramref name="theEntList"/> parameter, layers,
+             blocks and line types are merged with Viewport's layers and blocks collections.
+            </summary>
+             <returns>True if the operation succeeded, false otherwise.</returns>
+            <param name="theEntList">The list of imported entities</param>
+            <param name="theDrawingUnits">The units used by the imported geometry</param>
+            <param name="theFailedToLoad">The list of BlockReference entities that could not be loaded because the block definition was empty or the XRef was missing.</param>
+            <param name="minPoint">Bounding box minPoint point</param>
+            <param name="maxPoint">Bounding box maxPoint point</param>
+            <param name="worker"></param>
+            <param name="doWorkEventArgs"></param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.ReadFile(System.IO.Stream,devDept.Eyeshot.Entities.Entity[]@,devDept.Geometry.linearUnitsType@,devDept.Eyeshot.Entities.BlockReference[]@,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@,System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+             Reads a theStream containing a DWG/DXF file. While entities are returned in the <paramref name="theEntList"/> parameter, layers,
+             blocks and line types are merged with Viewport's layers, blocks collections.
+            </summary>
+             <returns>True if the operation succeeded, false otherwise.</returns>
+            <param name="theStream">The file theStream</param>
+            <param name="theEntList">The list of imported entities</param>
+            <param name="theDrawingUnits">The units used by the imported geometry</param>
+            <param name="theFailedToLoad">The list of BlockReference entities that could not be loaded because the block definition was empty or the XRef was missing.</param>
+            <param name="minPoint">Bounding box minPoint point</param>
+            <param name="maxPoint">Bounding box maxPoint point</param>
+            <param name="worker"></param>
+            <param name="doWorkEventArgs"></param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.OnApplicationExit(System.Object,System.EventArgs)">
+            <summary>
+            Under some circumstances you can need to call this method if you get an exception after closing the application
+            </summary>
+            <param name="sender">Can be null/Nothing</param>
+            <param name="e">Can be null/Nothing</param>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.AttributeReferenceVisibilityMode">
+            <summary>
+            Gets or sets the <see cref="T:devDept.Eyeshot.AttributeReference"/> visibility mode.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.BasePoint">
+            <summary>
+            Gets the base point of the entities, read from the file.
+            </summary>
+            <remarks>This is used to set the base point of the block created by the <see cref="M:devDept.Eyeshot.Translators.ReadAutodesk.CreateXRef(System.String,devDept.Geometry.Point3D,devDept.Eyeshot.ViewportLayout,System.String,devDept.Eyeshot.Translators.WriteAutodesk.blockExportType)"/>.</remarks>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.ReadAutodesk.CameraData">
+            <summary>
+            Structure that holds the camera data read from the dwg.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.ReadAutodesk.CameraData.ACadViewportSize">
+            <summary>
+            The size of the viewport read from the DWG.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.CameraData.ApplyData(devDept.Eyeshot.Camera,System.Drawing.Size)">
+            <summary>
+            Applies the camera information read form the DWG to the camera.
+            </summary>
+            <param name="camera"></param>
+            <param name="viewportSize"></param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.SearchFolders">
+            <summary>
+            Gets the list of search folders for the missing XReferences.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.ReadAutodesk.loadedXref">
+            <summary>
+            Used to break the circular dependencies.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.ReadAutodesk.ReadEntityData">
+            <summary>
+            Data for reading Autocad entities.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.ReadEntity(Teigha.DatabaseServices.Entity,devDept.Eyeshot.Translators.ReadAutodesk.ReadEntityData)">
+            <summary>
+            Reads an Autocad entity.
+            </summary>
+            <param name="acadEnt">The Autocad entity to read</param>
+            <param name="data">The parameters</param>
+            <returns>The collection of Eyeshot entities generated from the reading of the Autocad entity.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.ReadSolidHatch(Teigha.DatabaseServices.Hatch,devDept.Eyeshot.Translators.ReadAutodesk.ReadEntityData)">
+            <summary>
+            Reads a solid hatch.
+            </summary>
+            <param name="hatch">The hatch entity</param>
+            <param name="data">The read entity data</param>
+            <returns>The Eyeshot entity.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.CreateXRef(System.String,devDept.Geometry.Point3D,devDept.Eyeshot.ViewportLayout,System.String,devDept.Eyeshot.Translators.WriteAutodesk.blockExportType)">
+            <summary>
+            Creates a block with the loaded entities, adds it to the <see cref="T:devDept.Eyeshot.ViewportLayout"/>, marks it as external reference and returns a BlockReference to that block.
+            </summary>
+            <param name="blockName">The name of the block that will contain the loaded entities</param>
+            <param name="basePoint">Base point of the created BlockReference</param>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> object to which add the blcck</param>
+            <param name="exportFileName">The filename of the external reference. If empty, uses the name of the file read from disk or the "<param name="blockName"/>.dwg" if the file was read from a stream</param>
+            <param name="exportMode">The export mode that defines whether the file of the external reference will be written to disk in case of a subsequent call to <see cref="!:WriteAutodesk(devDept.Eyeshot.ViewportLayout, System.IO.Stream,linearUnitsType, bool, bool, bool)"/>. The (<see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.blockExportType.Embedded"/> export mode is not supported).</param>
+            <returns>The blockReference referring to the created block.</returns>
+            <remarks>The block base point is taken from the <see cref="P:devDept.Eyeshot.Translators.ReadAutodesk.BasePoint"/>.</remarks>
+            <remarks>The <see cref="!:ReadFileAsynch.Entities"/>, <see cref="!:ReadFileAsynchWithBlocksAndLayers.Layers"/>, <see cref="!:ReadFileAsynchWithBlocks.Blocks"/> and <see cref="P:devDept.Eyeshot.Translators.ReadAutodesk.TextStyles"/> are added to the <see cref="T:devDept.Eyeshot.ViewportLayout"/> and then are set to null.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.ReadAutodesk.SetView(devDept.Eyeshot.Viewport)">
+            <summary>
+            Sets the view read from the file on the given viewport.
+            </summary>
+            <param name="viewport">The viewport on which to set the view</param>
+            <returns>True if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.ReadAutodesk.ExplodeDimensions">
+            <summary>
+            If true, the <see cref="T:devDept.Eyeshot.Entities.Dimension"/> and <see cref="T:devDept.Eyeshot.Entities.Leader"/> are exploded to their inner entities when loaded 
+            and put in Blocks with "Dimension_#" name.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.WriteAutodesk">
+            <summary>
+            Helper class to export geometry in DWG/DXF file format.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType">
+            <summary>
+            AutoCAD file version type.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12">
+            <summary>
+            Autocad release 12
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release13">
+            <summary>
+            Autocad Release 13
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release14">
+            <summary>
+            Autocad Release 14
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2000">
+            <summary>
+            Autocad 2000
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004">
+            <summary>
+            Autocad 2004
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2007">
+            <summary>
+            Autocad 2007
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2010">
+            <summary>
+            Autocad 2010
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2013">
+            <summary>
+            Autocad 2013
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.WriteAutodesk.blockExportType">
+            <summary>
+            Block export type.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.blockExportType.Embedded">
+            <summary>
+            Saves the block entities in the file.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.blockExportType.ExternalReference">
+            <summary>
+            Saves a link to the external file with the block entities.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.blockExportType.ExternalReferenceOverwrite">
+            <summary>
+            Writes the external file with the block entities and saves a link to it.
+            </summary>
+            <remarks>Overwrites the file if already present.</remarks>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams">
+            <summary>
+            Class with the data needed to save in Autodesk format, for internal use.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.append">
+            <summary>
+            If true, I'm appending data to an existing dwg.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.tessellationTol">
+            <summary>
+            Used for Nurbs curves and surfaces.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.LineWeightUnits">
+            <summary>
+            The units in which the line weights are expressed.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.XRefData">
+            <summary>
+            Maps the BlockNames to the Xref data
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.BlockRecord">
+            <summary>
+            Gets or sets the drawing model block.
+            </summary>
+            <remarks>Module TD_Mgd_xx should be referenced.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.Database">
+            <summary>
+            Gets or sets the drawing database.
+            </summary>
+            <remarks>Module TD_Mgd_xx should be referenced.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.layers">
+            <summary>
+            Get or sets the layers collection.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.blocks">
+            <summary>
+            Gets or sets the blocks dictionary.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.TextStyles">
+            <summary>
+            Gets or sets the textStyles dictionary.
+            </summary>
+            <remarks>Call <see cref="M:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.GetTextStyle(System.String)"/> to get the textStyle</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SaveParams.LineTypes">
+            <summary>
+            Gets or sets the lineTypes dictionary.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.EyeshotToAutodeskLineWeight(System.Single,devDept.Geometry.lineWeightUnitsType)">
+            <summary>
+            Gets the Autodesk line weight.
+            </summary>
+            <param name="lineWeight">Line weight</param>
+            <param name="lineWeightUnits">Model units</param>
+            <returns></returns>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.SupportedLinearUnitsType">
+            <summary>
+            Gets the supported linear units
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk._lineWeightUnits">
+            <summary>
+            Gets or sets the units in which are expressed the line weights.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.Purge">
+            <summary>
+            If true, purges all unused layers, line types, text styles and blocks from the saved file.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Boolean,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            To stream with <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="stream">The file stream</param>        
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            To stream with AutoCAD version constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="stream">The file stream</param>        
+            <param name="version">DWG/DXF file format version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Double,System.Boolean,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            To stream with AutoCAD version and tolerance constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="stream">The file stream</param>        
+            <param name="version">DWG/DXF file format version</param>
+            <param name="deviation">Ellipse and Spline tessellation tolerance. Affects only <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version.</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks>The closing of the stream is delegated to you.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="fileName">The file name (with *.dwg or *.dxf extension)</param>        
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            Version constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="fileName">The file name (with *.dwg or *.dxf extension)</param>        
+            <param name="version">DWG/DXF file format version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.String,System.Double,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            Version, password and tolerance constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="fileName">The file name (with *.dwg or *.dxf extension)</param>        
+            <param name="version">DWG/DXF version</param>
+            <param name="password">AutoCAD file password, null/Nothing otherwise.</param>
+            <param name="deviation">Ellipse and Spline tessellation tolerance. Affects only <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version.</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.IO.Stream,devDept.Geometry.linearUnitsType,System.Boolean,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            To stream with <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="stream">The file stream</param>
+            <param name="insUnits">The units to scale inserted content (INSUNITS)</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.IO.Stream,devDept.Geometry.linearUnitsType,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            To stream with AutoCAD version constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="stream">The file stream</param>
+            <param name="insUnits">The units to scale inserted content (INSUNITS)</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.IO.Stream,devDept.Geometry.linearUnitsType,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Double,System.Boolean,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            To stream with AutoCAD version and tolerance constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>        
+            <param name="stream">The file stream</param>
+            <param name="insUnits">The units to scale inserted content (INSUNITS)</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="deviation">Ellipse and Spline tessellation tolerance. Affects only <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version.</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks>The closing of the stream is delegated to you.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.String,devDept.Geometry.linearUnitsType,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="fileName">The file name (with *.dwg or *.dxf extension)</param>
+            <param name="insUnits">The units to scale inserted content (INSUNITS)</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.String,devDept.Geometry.linearUnitsType,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            Version constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="fileName">The file name (with *.dwg or *.dxf extension)</param>
+            <param name="insUnits">The units to scale inserted content (INSUNITS)</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.String,devDept.Geometry.linearUnitsType,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.String,System.Double,System.Boolean,System.Boolean,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+            <summary>
+            Version, password and tolerance constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>        
+            <param name="fileName">The file name (with *.dwg or *.dxf extension)</param>
+            <param name="insUnits">The units to scale inserted content (INSUNITS)</param>
+            <param name="version">DWG/DXF version</param>
+            <param name="password">AutoCAD file password, null/Nothing otherwise.</param>
+            <param name="deviation">Ellipse and Spline tessellation tolerance. Affects only <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version.</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <param name="lineWeightUnits">The line weight units</param>
+            <param name="purge">If true, purges all unused layers, line types, text styles and blocks from the saved file</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.Viewport">
+            <summary>
+            Gets or sets the viewport to save in the file.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.WriteAutodeskFile(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.Dictionary{System.Int32,System.Int32},System.Collections.Generic.Dictionary{System.Int32,System.Int32},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},devDept.Geometry.linearUnitsType,devDept.Eyeshot.attributeReferenceVisibilityType,System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+             Exports the model in DWG/DXF format.
+            </summary>
+            <param name="savedXRefPaths">The globaldictionary of the XRefs saved up to this point</param>
+            <param name="xRefName">The name of the xref that I'm saving</param>
+            <param name="myEntities"></param>
+            <param name="myLayers"></param>
+            <param name="myBlocks"></param>
+            <exception cref="T:devDept.Eyeshot.EyeshotException"></exception>       
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Acad2004"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.WriteXRefs(System.Collections.Generic.Dictionary{System.String,System.String},System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.String,System.Double,System.Collections.Generic.IList{devDept.Eyeshot.Layer},System.Collections.Generic.Dictionary{System.Int32,System.Int32},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.Boolean,System.Boolean)">
+            <summary>
+            Saves the external BlockReferences
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.WriteAutodesk.SortEntitiesForWriteAutodesk(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
+            <summary>
+            Gives the opportunity to sort entities before export.
+            </summary>
+            <param name="entitiesToSave">The collection of entities to be saved</param>
+            <returns>The sorted collection. The order is important for overlapping entities since the last entity is drawn over the previous ones.</returns>
+        </member>
+        <member name="P:devDept.Eyeshot.Translators.WriteAutodesk.AttributeReferenceVisibilityMode">
+            <summary>
+            The <see cref="T:devDept.Eyeshot.AttributeReference"/> visibility.
+            </summary>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.AttributeReferenceVisibilityMode"/>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.TeighaUtility.SetAutodeskProperties(devDept.Eyeshot.Entities.IEntity,Teigha.DatabaseServices.Entity,devDept.Eyeshot.Translators.WriteAutodesk.SaveParams)">
+            <summary>
+            Sets the general properties common to all entities to the Autodesk entity.
+            </summary>
+            <param name="acadEntity">The Autodesk entity</param>
+            <param name="saveParams">The Autodesk save parameters</param>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.TeighaUtility.GetAciIndex(System.Byte,System.Byte,System.Byte,System.Int16@)">
+            <summary>
+            Gets Autocad Color Index for a generic color;
+            </summary>
+            <param name="color"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.TeighaUtility.CleanXDataFromInvalidValues(System.Collections.Generic.List{System.Collections.Generic.KeyValuePair{System.Int16,System.Object}})">
+            <summary>
+            Cleans the XData from the Handle objects before saving (because they are no more meaningful. Ticket ref. #690.
+            </summary>
+            <param name="xdata"> the xData to clean</param>
+            <returns>the cleaned xData to save.</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.TeighaUtility.TeighaAutodeskTransformation(devDept.Eyeshot.Entities.PlanarEntity)">
+            <summary>
+            Returns the transformation to apply to Teigha entities.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.TeighaUtility.TeighaAutodeskTransformation(devDept.Geometry.Plane)">
+            <summary>
+            Returns the transformation to apply to Teigha entities.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Translators.AppendAutodesk">
+            <summary>
+            Helper class to append current model to an existing DWG/DXF.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.IO.Stream,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            To stream with <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="inputStream">The input file stream</param>
+            <param name="outputStream">The output file stream</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.IO.Stream,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            To stream with AutoCAD version constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="inputStream">The input file stream</param>
+            <param name="outputStream">The output file stream</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.IO.Stream,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Double,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            To stream with AutoCAD version and tolerance constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="inputStream">The input file stream</param>
+            <param name="outputStream">The output file stream</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="deviation">Ellipse and Spline tessellation tolerance. Affects only <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version.</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="inputFileName">The input file name (with *.dwg or *.dxf extension)</param>
+            <param name="outputFileName">The output file name (with *.dwg or *.dxf extension)</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the output file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean,System.Boolean)">
+            <summary>
+            Version constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="inputFileName">The input file name (with *.dwg or *.dxf extension)</param>
+            <param name="outputFileName">The output file name (with *.dwg or *.dxf extension)</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the output file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.String,System.Double,System.Boolean,System.Boolean)">
+            <summary>
+            Version, password and tolerance constructor.
+            </summary>
+            <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout"/> control</param>
+            <param name="inputFileName">The input file name (with *.dwg or *.dxf extension)</param>
+            <param name="outputFileName">The output file name (with *.dwg or *.dxf extension)</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="password">AutoCAD file password, null/Nothing otherwise.</param>
+            <param name="deviation">Ellipse and Spline tessellation tolerance. Affects only <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version.</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the output file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.IO.Stream,System.IO.Stream,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            To stream with <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="inputStream">The input file stream</param>
+            <param name="outputStream">The output file stream</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.IO.Stream,System.IO.Stream,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            To stream with AutoCAD version constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="inputStream">The input file stream</param>
+            <param name="outputStream">The output file stream</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.IO.Stream,System.IO.Stream,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Double,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            To stream with AutoCAD version and tolerance constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="inputStream">The input file stream</param>
+            <param name="outputStream">The output file stream</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="deviation">Ellipse and Spline tessellation tolerance. Affects only <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version.</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="asciiStream">If true, writes the stream in DXF ascii format, else in DWG binary format</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="inputFileName">The input file name (with *.dwg or *.dxf extension)</param>
+            <param name="outputFileName">The output file name (with *.dwg or *.dxf extension)</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.String,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean,System.Boolean)">
+            <summary>
+            Version constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="inputFileName">The input file name (with *.dwg or *.dxf extension)</param>
+            <param name="outputFileName">The output file name (with *.dwg or *.dxf extension)</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.AppendAutodesk.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.TextStyle},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.LinePattern},System.String,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.String,System.Double,System.Boolean,System.Boolean)">
+            <summary>
+            Version, password and tolerance constructor.
+            </summary>
+            <param name="entList">The entity list</param>
+            <param name="layerList">The layer list</param>
+            <param name="blockDict">The block dictionary</param>
+            <param name="textStyleDict">The text style dictionary</param>
+            <param name="lineTypes">The line types dictionary</param>
+            <param name="inputFileName">The input file name (with *.dwg or *.dxf extension)</param>
+            <param name="outputFileName">The output file name (with *.dwg or *.dxf extension)</param>
+            <param name="version">DWG/DXF file format version</param>
+            <param name="password">AutoCAD file password, null/Nothing otherwise.</param>
+            <param name="deviation">Ellipse and Spline tessellation tolerance. Affects only <see cref="F:devDept.Eyeshot.Translators.WriteAutodesk.versionType.Release12"/> version.</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="selectedOnly">If true, only selected entities are written.</param>
+            <remarks>If the file already exists, it will be overwritten.</remarks>
+            <remarks><see cref="T:devDept.Eyeshot.Translators.WriteAutodesk.versionType"/> less than <see cref="!:WriteAutodesk.versionType.Release18"/> support only Aci colors.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.Write.ExplodeRecursive(devDept.Eyeshot.Entities.CompositeCurve)">
+            <summary>
+            Returns the flattened list of curves, recursively exploding all inner elements.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.Write.GetXRefPath(devDept.Eyeshot.Translators.BlockEx,System.String,System.String,System.String)">
+            <summary>
+            ---------------------------------------------------------------------------------
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Translators.Write.ReplaceDictionaryNames``1(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.Dictionary{System.String,``0}@,devDept.Eyeshot.Translators.Write.UpdateEntityProperty)">
+            <summary>
+            Replaces the text style names with the ones specified by the mapping.
+            </summary>
+            <param name="namesMapping">The dictionary that maps the old text style name to the new one</param>
+            <param name="myDictionary">The text styles</param>
+        </member>
+        <member name="T:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk">
+            <summary>Class that saves a vectorial image of the current scene of the active viewport on disk in DWG/DXF format.</summary>
+            <example>
+                The following code fragment demonstrates how to save a vectorial image of the current scene of the active viewport on disk.
+                <code lang="CS" title="[New Example]">
+                       HiddenLinesViewOnFileAutodesk hdlView = new HiddenLinesViewOnFileAutodesk(new HiddenLinesViewSettings(viewport1), fileName, autocadVersionType.Release21);
+                       viewport1.StartWork(hdlView);
+                </code>
+            	<code lang="VB" title="[New Example]">
+                       Dim hdlView As New HiddenLinesViewOnFileAutodesk(new HiddenLinesViewSettings(Viewport1), FileName, autocadVersionType.Release21)
+                       Viewport1.StartWork(hdlView)
+            </code>
+            </example>
+            <seealso cref="!:ViewportLayout.WriteToFileVectorAutodesk"/>
+        </member>
+        <member name="F:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.FileName">
+            <summary>
+            The name of the file to save.
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.Scale">
+            <summary>
+            The scale of the drawing
+            </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.Version">
+            <summary>
+            The AutoCAD file version.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.Units">
+            <summary>
+            The units of the model.
+            </summary>
+            <remarks>Affects units of the exported file.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.LineWeightUnits">
+            <summary>
+            The units of the line weights.
+            </summary>
+            <remarks>Affects line weights of the exported file.</remarks>
+            <seealso cref="P:Teigha.DatabaseServices.Entity.LineWeight"/>
+        </member>
+        <member name="M:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.#ctor(devDept.Eyeshot.HiddenLinesViewSettings,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Boolean)">
+            <summary>Constructor.
+            </summary>
+            <param name="viewSettings">Hidden Lines computation settings</param>
+            <param name="filename">The name of the file to save</param>
+            <param name="version">The AutoCAD file version</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>
+        </member>
+        <member name="M:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.#ctor(devDept.Eyeshot.HiddenLinesViewSettings,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Double,System.Boolean)">
+            <summary>Constructor.
+            </summary>
+            <param name="viewSettings">Hidden Lines computation settings</param>
+            <param name="filename">The name of the file to save</param>
+            <param name="version">The AutoCAD file version</param>
+            <param name="scale">The scale of the drawing</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+            <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>
+        </member>
+        <member name="M:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.#ctor(devDept.Eyeshot.HiddenLinesViewSettings,System.String,devDept.Eyeshot.Translators.WriteAutodesk.versionType,System.Double,devDept.Geometry.linearUnitsType,devDept.Geometry.lineWeightUnitsType,System.Boolean)">
+             <summary>Constructor.
+             </summary>
+             <param name="viewSettings">Hidden Lines computation settings</param>
+             <param name="filename">The name of the file to save</param>
+             <param name="version">The AutoCAD file version</param>
+             <param name="scale">The scale of the drawing</param>
+             <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>
+             <param name="units">The model units</param>
+             <param name="lineWeightUnits">The line weight units</param>
+            <param name="aciColors">Saves the colors as Aci colors (Autocad color index) if possible</param>
+        </member>
+        <member name="M:devDept.Eyeshot.HiddenLinesViewOnFileAutodesk.AddPolyFaceMesh(Teigha.DatabaseServices.BlockTableRecord,devDept.Eyeshot.SilhoTextData,Teigha.DatabaseServices.ObjectId,Teigha.Colors.Color,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="blockRecord"></param>
+            <param name="data"></param>
+            <param name="layerId"></param>
+            <param name="startVertex">Start vertex index</param>
+            <param name="count">Number of vertices to write</param>
+        </member>
+        <member name="T:devDept.Eyeshot.IDataEx">
+            <summary>
+            Public properties and methods shared by the various classes created when reading DWGs to support the XReference.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.IDataEx.XRefName">
+            <summary>
+            Gets a string indicating whether the clas belongs to an xReference.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.IWriteDataEx">
+            <summary>
+            Public properties and methods shared by the various classes created when reading DWGs to support the XReference.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.IWriteDataEx.XRefName">
+            <summary>
+            Sets a string indicating whether the clas belongs to an xReference.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.LayerEx">
+            <summary>
+            Derived <see cref="T:devDept.Eyeshot.Layer"/> class with external reference information.
+            </summary>
+            <remarks>Created by the <see cref="!:ReadAutodesk"/> class or <see cref="!:ViewportLayoutEx.ReadAutodesk(string)"/> method.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.LayerEx.XRefName">
+            <summary>
+            Gets or sets a string indicating whether the layer belongs to an xReference.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.LayerEx.#ctor(System.String,System.Drawing.Color,System.String,System.Single,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="color"></param>
+            <param name="lineTypeName"></param>
+            <param name="lineWeight"></param>
+            <param name="visible"></param>
+            <param name="locked"></param>
+        </member>
+        <member name="T:devDept.Eyeshot.TextStyleEx">
+            <summary>
+            Derived <see cref="T:devDept.Eyeshot.TextStyle"/> class with external reference information.
+            </summary>
+            <remarks>Created by the <see cref="T:devDept.Eyeshot.Translators.ReadAutodesk"/> class.</remarks>
+        </member>
+        <member name="P:devDept.Eyeshot.TextStyleEx.XRefName">
+            <summary>
+            Gets or sets a string indicating whether the text style belongs to an xReference.
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.TextStyleEx.#ctor(System.String,System.Drawing.FontStyle,System.Double,System.String)">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="fontFamilyName">The font family name</param>
+            <param name="style">The text style</param>
+            <param name="widthFactor">The width factor</param>
+            <param name="fileName">The font file name (for shx fonts)</param>
+        </member>
+        <member name="M:devDept.Eyeshot.TextStyleEx.#ctor(devDept.Eyeshot.TextStyleEx)">
+            <summary>
+            Copy constructor.
+            </summary>
+            <param name="another"></param>
+        </member>
+        <member name="M:devDept.Eyeshot.TextStyleEx.#ctor">
+            <summary>
+            Empty constructor.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.LinePatternEx">
+            <summary>
+            Derived <see cref="T:devDept.Eyeshot.LinePattern"/> class with external reference information.
+            </summary>
+            <remarks>Created by the <see cref="T:devDept.Eyeshot.Translators.ReadAutodesk"/> class.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.LinePatternEx.#ctor(System.Single[],System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="pattern">The line pattern</param>
+            <param name="xRefName">The external reference name</param>
+        </member>
+        <member name="M:devDept.Eyeshot.LinePatternEx.#ctor(devDept.Eyeshot.LinePatternEx)">
+            <summary>
+            Copy constructor.
+            </summary>
+            <param name="another"></param>
+        </member>
+        <member name="P:devDept.Eyeshot.LinePatternEx.XRefName">
+            <summary>
+            Gets or sets a string indicating whether the line pattern belongs to an xReference.
+            </summary>
+        </member>
+        <member name="T:devDept.Eyeshot.Entities.Table">
+            <summary>
+            Table class.
+            </summary>
+            <remarks>Currently this entity in only loaded from DWG and it's not saved.</remarks>
+        </member>
+        <member name="T:devDept.Eyeshot.Entities.HatchRegion">
+            <summary>
+            Region entity definition that is written as a solid hatch to autodesk files. See <see cref="T:devDept.Eyeshot.Entities.Region"/> class for details.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.HatchRegion.HatchName">
+            <summary>
+            Gets or sets the name of hatch pattern to be used.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.HatchRegion.HatchScale">
+            <summary>
+            Gets or sets the scale of the hatch (1.0 by default).
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.Entities.HatchRegion.HatchAngle">
+            <summary>
+            Gets or sets the angle in degrees of the hatch (0.0 by default).
+            </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.HatchRegion.Clone">
+            <summary>
+            Creates a deep copy of this region.
+            </summary>
+            <returns>The new region object.</returns>
+        </member>
+        <member name="F:devDept.Eyeshot.Entities.HatchRegion._predefinedHatchNames">
+            <summary>
+            Gets the predefined hatch names. 
+            </summary>
+        </member>
+    </members>
+</doc>
