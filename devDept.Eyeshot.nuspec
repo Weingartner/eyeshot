@@ -9,6 +9,6 @@
         <description>Eyeshot Nurbs</description>
     </metadata>
     <files>
-        <file src="binaries\**" target="lib\net40" />
+        <file src="binaries\*" target="lib\net40" />
     </files>
 </package>
