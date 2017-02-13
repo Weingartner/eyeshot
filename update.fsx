@@ -9,7 +9,7 @@ open Fake
 open Fake.VersionHelper
 
 let baseDir = __SOURCE_DIRECTORY__
-let sourceDir = @"C:\Program Files\devDept Software\Eyeshot Nurbs 9.0\Bin"
+let sourceDir = @"C:\Program Files\devDept Software\Eyeshot Nurbs 10.0\Bin"
 let targetDir = baseDir @@ "binaries"
 
 module Option =

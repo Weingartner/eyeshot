@@ -708,12 +708,31 @@
             Gets or sets the blocks dictionary.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.TraversalParams.#ctor">
+            <summary>
+            Empty constructor.
+            </summary>
+        </member>
         <member name="M:devDept.Eyeshot.TraversalParams.#ctor(devDept.Geometry.Transformation,devDept.Eyeshot.ViewportLayout)">
             <summary>
             Standard constructor.
             </summary>
             <param name="transform">The initial transformation to apply to the vertices</param>
             <param name="viewportLayout">The viewportLayout</param>
+        </member>
+        <member name="M:devDept.Eyeshot.TraversalParams.#ctor(devDept.Geometry.Transformation,System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block})">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="transform">The initial transformation to apply to the vertices</param>
+            <param name="blocks">The blocks dictionary</param>
+        </member>
+        <member name="M:devDept.Eyeshot.TraversalParams.#ctor(devDept.Eyeshot.Entities.BlockReference,System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block})">
+            <summary>
+            Standard constructor.
+            </summary>
+            <param name="blockRef">The BlockReference whose transformation is applied to the vertices</param>
+            <param name="blocks">The blocks dictionary</param>
         </member>
         <member name="M:devDept.Eyeshot.TraversalParams.#ctor(devDept.Eyeshot.displayType,System.Single,devDept.Geometry.Transformation,devDept.Eyeshot.ViewportLayout)">
             <summary>
@@ -744,11 +763,6 @@
             The stack of transformations to apply to the vertices.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.TraversalParams.PushTransformation">
-            <summary>
-            Pushes the current transformation on the stack and puts a null transformation on top of it.
-            </summary>
-        </member>
         <member name="M:devDept.Eyeshot.TraversalParams.PushTransformation(devDept.Eyeshot.Entities.BlockReference)">
             <summary>
             Multiplies the transformation of the blockReference by the current transformation and pushes the resulting transformation on the stack.
@@ -760,6 +774,7 @@
             Multiplies the transformation by the current transformation and pushes the resulting transformation on the stack.
             </summary>
             <param name="transform">The transformation</param>
+            <remarks>If <param name="transform"/> is null, pushes the current transformation on the stack and puts a null transformation on top of it.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.TraversalParams.PopTransformation">
             <summary>
@@ -825,6 +840,17 @@
             <summary>
             Gets or sets the maximum number of pattern repetitions allowed between two vertices of a curve.
             </summary>
+        </member>
+        <member name="F:devDept.Eyeshot.FrustumParams.Quick">
+            <summary>
+            If true, a quick test is done, else a more accurate one is performed.
+            </summary>
+        </member>
+        <member name="P:devDept.Eyeshot.FrustumParams.Scale">
+            <summary>
+            Gets the scale to apply to the sphere radius by the <see cref="T:devDept.Geometry.Transformation"/>.
+            </summary>
+            <remarks>In case of non uniform scale, the maximum scale is used.</remarks>
         </member>
         <member name="T:devDept.Eyeshot.ScreenPolygonParams">
             <summary>
@@ -919,6 +945,18 @@
             <summary>
             Data for <see cref="!:Entity.FindClosestVertices(devDept.Eyeshot.FindClosestVerticesParams)"/>
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.WriteWebGLParams.GetMaterial">
+            <summary>
+            Gets the propagated material.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:devDept.Eyeshot.WriteWebGLParams.GetColor">
+            <summary>
+            Gets the propagated material color or entity color.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:devDept.Eyeshot.IsSmallParams">
             <summary>
@@ -1715,6 +1753,14 @@
             <summary>
             Executes some steps after drawing a dimension for Direct3D renderer.
             </summary>
+        </member>
+        <member name="M:devDept.Eyeshot.Entities.Leader.GetArrowHeadTransformation(devDept.Eyeshot.Entities.arrowheadType,System.Double)">
+            <summary>
+            Gets the transformation to apply to the arrowhead.
+            </summary>
+            <param name="arrowhead"></param>
+            <param name="myDistance"></param>
+            <returns></returns>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Leader.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
@@ -2771,7 +2817,8 @@
             1 byte per vertex is applied as a modulation factor to the <see cref="T:System.Drawing.Color"/> of the entity. This requires the use of shaders so the 
             graphics acceleration must be turned on, <see cref="!:ViewportLayout.UseShaders"/> must be true (Winforms Eyeshot control only) and the <see cref="P:devDept.Eyeshot.ViewportLayout.DisplayMode"/> must be <see cref="F:devDept.Eyeshot.displayType.Rendered"/>
             3 bytes per vertex are applied as RGB colors
-            4 bytes per vertex are applied as RGBA colors (in order for the alpha transparency to work, the entity must also have a <see cref="T:System.Drawing.Color"/> with alpha &lt; 255</remarks>
+            4 bytes per vertex are applied as RGBA colors (in order for the alpha transparency to work, the entity must also have a 
+            <see cref="T:System.Drawing.Color"/> with alpha &lt; 255 and <see cref="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency"/> must be set to false).</remarks>
         </member>
         <member name="P:devDept.Eyeshot.Entities.FastPointCloud.ZoomFitSpeed">
             <summary>
@@ -2789,7 +2836,7 @@
             Point array and point size constructor.
             </summary>
             <param name="pointArray">The point array defined as XYZ tuples</param>
-            <param name="pointSize">Point size</param>
+            <param name="pointSize">Point size (which is assigned to the <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeight"/> property)</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.FastPointCloud.#ctor(System.Single[],System.Byte[])">
             <summary>
@@ -2804,7 +2851,7 @@
             </summary>
             <param name="pointArray">The point array defined as XYZ tuples</param>
             <param name="rgbArray">The color array defined as RGB tuples, RGBA tuples or as modulation factors (see <see cref="P:devDept.Eyeshot.Entities.FastPointCloud.ColorArray"/> documentation for details)</param>
-            <param name="pointSize">Point size </param>
+            <param name="pointSize">Point size (which is assigned to the <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeight"/> property)</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.FastPointCloud.CentroidDownsampling(System.Double)">
             <summary>
@@ -5822,8 +5869,8 @@
             <param name="v">The V parametric coordinate of the projection on surface to P</param>
             <param name="coincTol">Relevant only when P lays on the surface. When the distance between P and its projection is smaller then this value, the projection is considered succesful.</param>
             <param name="allowOutside">When true, the projection is not constrained inside the surface domain</param>
-            <param name="prevU">The U parametric coordinate of a previous succesful point projection</param>
-            <param name="prevV">The V parametric coordinate of a previous succesful point projection</param>
+            <param name="prevU">The U parametric coordinate of a previous successful point projection</param>
+            <param name="prevV">The V parametric coordinate of a previous successful point projection</param>
             <param name="W">The 2D tangent vector in parametric space</param> 
             <returns>True when the projection is perpendicular to the surface, false otherwise.</returns>
         </member>
@@ -11630,26 +11677,24 @@
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.CheckSmall(System.Int32)"/>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Transformation,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams)">
             <summary>
             Tells if the entity is inside the frustum planes.
             </summary>
-            <param name="frustum">The planes of the frustum</param>
-            <param name="transform">The transformation to apply to the object</param>
-            <param name="quick">If true a quick check is done, else a more accurate one is performed</param>
+            <param name="data">The parameters data</param>
             <returns>True if the entity is inside the frustum</returns>
             <remarks>The frustum planes can be obtained with <see cref="M:devDept.Eyeshot.Viewport.GetCameraFrustum"/></remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,System.Double,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">
             <summary>
-            Tells if the sphere surrounding the entitiy is inside the frustum planes.
+            Tells if the sphere surrounding the entity is inside the frustum planes.
             </summary>
-            <param name="frustum">Frustum planes</param>
-            <param name="center">Center of the sphere</param>
-            <param name="radius">Radius of the sphere</param>
+            <param name="data">The frustum data</param>
+            <param name="center">Center of the sphere (transformed by the scene transformation)</param>
+            <param name="radius">Radius of the sphere (scaled by the maximum scale applied by the scene transformation)</param>
             <returns>True if the sphere is inside the frustum planes.</returns>
             <remarks>It's important when applying an on-the-fly transformation in the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)"/> to override this method and 
-            call the base method with the <paramref name="center"/> trasformed in the same way, in order to avoid undesired clipping.</remarks>
+            call the base method with the <paramref name="center"/> transformed in the same way, in order to avoid undesired clipping.</remarks>
             <seealso cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)"/>
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.IsCrossingScreenPolygon(devDept.Eyeshot.ScreenPolygonParams)">
@@ -12079,7 +12124,7 @@
         </member>
         <member name="M:devDept.Eyeshot.Entities.Entity.PropagateAttributes(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity,System.Boolean)">
             <summary>
-            Propagates the attributes to the entity passed as paramter.
+            Propagates the attributes to the entity passed as parameter.
             </summary>
             <param name="srcEntity">Source entity</param>
             <param name="destEntity">Destination entity</param>
@@ -14860,16 +14905,22 @@
             <param name="sz">Scale factor along Z axis</param>
             <param name="rotationAngleInRadians">Rotation angle in radians</param>
         </member>
+        <member name="M:devDept.Eyeshot.Entities.BlockReference.#ctor(System.String)">
+            <summary>
+            Block name constructor.
+            </summary>
+            <param name="blockName">The name of the <see cref="T:devDept.Eyeshot.Block"/> to be inserted</param>
+        </member>
         <member name="M:devDept.Eyeshot.Entities.BlockReference.#ctor(devDept.Geometry.Transformation,System.String)">
             <summary>
-            3D insertion point constructor.
+            Transformation constructor.
             </summary>
             <param name="t">The transformation</param>
             <param name="blockName">The name of the <see cref="T:devDept.Eyeshot.Block"/> to be inserted</param>
         </member>
         <member name="M:devDept.Eyeshot.Entities.BlockReference.#ctor(devDept.Geometry.Transformation,System.String,devDept.Geometry.linearUnitsType,System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block})">
             <summary>
-            Individual insertion point coordinates and units constructor.
+            Transformation and units constructor.
             </summary>
             <param name="t">The transformation</param>
             <param name="blockName">The name of the <see cref="T:devDept.Eyeshot.Block"/> to be inserted</param>
@@ -15057,9 +15108,9 @@
             </example>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StartAnimation(System.Int32)">StartAnimation Method (devDept.Eyeshot.Viewport)</seealso>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.StopAnimation">StopAnimation Method (devDept.Eyeshot.Viewport)</seealso>
-            <remarks>It's important when applying an on-the-fly transformation in this method to override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,System.Double,System.Boolean)"/> and call the base method with the 
+            <remarks>It's important when applying an on-the-fly transformation in this method to override the <see cref="!:Entity.IsInFrustum(PlaneEquation[], Point3D, double, bool)"/> and call the base method with the 
             "center" parameter trasformed in the same way, in order to avoid undesired clipping.</remarks>
-            <seealso cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,System.Double,System.Boolean)"/>
+            <seealso cref="!:Entity.IsInFrustum(PlaneEquation[], Point3D, double, bool)"/>
         </member>
         <member name="M:devDept.Eyeshot.Entities.BlockReference.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
@@ -16682,6 +16733,7 @@
             <remarks>When the line pattern used by entities already added to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> is changed, 
             their <see cref="P:devDept.Eyeshot.Entities.Entity.RegenMode"/> must be set to <see cref="F:devDept.Eyeshot.Entities.regenType.CompileOnly"/> and the <see cref="M:devDept.Eyeshot.EntityList.Regen"/> must be called.
             </remarks>
+            <remarks>Use an empty pattern for a continuous pattern.</remarks>
             <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineTypeName"/>
             <seealso cref="P:devDept.Eyeshot.Layer.LineTypeName"/>   
         </member>
@@ -16689,6 +16741,7 @@
             <summary>
             Gets the line type pattern.
             </summary>
+            <remarks>Use an empty pattern for a continuous pattern.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.LinePattern.Length">
             <summary>
@@ -16740,6 +16793,13 @@
             <param name="name">The type name</param>
             <param name="pattern">The line pattern values</param>
             <seealso cref="T:devDept.Eyeshot.LinePattern"/>
+        </member>
+        <member name="M:devDept.Eyeshot.LineTypeDictionary.IsReservedName(System.String)">
+            <summary>
+            Tells if the LineType name is a reserved one (ByBlock, ByLayer, Continuous).
+            </summary>
+            <param name="name">?The name to check</param>
+            <returns>True if the name is a reserved one (either ByLayer, ByBlock or Continuous).</returns>
         </member>
         <member name="M:devDept.Eyeshot.LineTypeDictionary.Add(System.String,devDept.Eyeshot.LinePattern)">
             <summary>
@@ -22423,6 +22483,7 @@
             <summary>
             Gets or sets the line types dictionary.       
             </summary>
+            <remarks>"ByBlock", "ByLayer", "Continuous" are reserved names and should not be used to avoid issues when exporting.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.ViewportLayout.TextStyles">
             <summary>
@@ -22821,6 +22882,7 @@
             <summary>
             When true the frame buffer objects are used. Affects the quality of Realistic shadows. For debugging purpose only.
             </summary>
+            <remarks>When using Direct3D renderer, disabling this will disable also the realistic shadows.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.CreateReferenceImage(devDept.Eyeshot.viewType)">
             <summary>
@@ -23364,6 +23426,18 @@
             <param name="forceForEntityToPreserve">If true, forces the size to 1/100 of the viewport Height. Used to compute the entity to preserve before a camera movement.</param>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>
+            <returns>The array of the previous values (only if forceForEntityToPreserve is true).</returns>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.CheckSmall(System.Int32,System.Boolean,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
+            <summary>
+            Checks the size on screen of the top level entities and hides the ones smaller that <see cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>, if <see cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/> is true.
+            </summary>
+            <param name="viewportIndex">The viewport index</param>
+            <param name="forceForEntityToPreserve">If true, forces the size to 1/100 of the viewport Height. Used to compute the entity to preserve before a camera movement.</param>
+            <param name="ents">The entities collection</param>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.HideSmall"/>
+            <seealso cref="P:devDept.Eyeshot.ViewportLayout.SmallSize"/>
+            <returns>The array of the previous values.</returns>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.SaveView(devDept.Eyeshot.Camera@)">
             <summary>
@@ -24115,7 +24189,7 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.PropagateAttributesWireAndProcessBlockReference``1(``0,devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.ViewportLayout.GfxAttributes,devDept.Eyeshot.ViewportLayout.drawCallback{``0})">
             <summary>
-            Propagates GfxAttribitesWire and processes blockreference.
+            Propagates GfxAttributesWire and processes blockreference.
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="Q"></typeparam>
@@ -24127,7 +24201,7 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.PropagateAttributesWireAndProcessBlockReferenceNormalize``1(``0,devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.ViewportLayout.GfxAttributesWire,devDept.Eyeshot.ViewportLayout.drawCallback{``0})">
             <summary>
-            Propagates GfxAttribitesWire and processes blockreference normalizing the normals.
+            Propagates GfxAttributesWire and processes blockreference normalizing the normals.
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="Q"></typeparam>
@@ -24642,12 +24716,12 @@
             The line type name.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.ViewportLayout.GfxAttributes.PropagateLayer0(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.LayerList)">
+        <member name="M:devDept.Eyeshot.ViewportLayout.GfxAttributes.PropagateLayer0(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Layer)">
             <summary>
             Propagates the layer color only if the layer is != "0".
             </summary>
             <param name="ent"></param>
-            <param name="layers"></param>
+            <param name="layer"></param>
         </member>
         <member name="T:devDept.Eyeshot.ViewportLayout.GfxAttributesColor">
             <summary>
@@ -25896,9 +25970,9 @@
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.GetItemUnderMouseCursor(System.Drawing.Point,System.Boolean)">
             <summary>
-            Gets the first item under the mouse cursor.
+            Gets the first item under the mouse cursor (which may include the parents stack for nested entities).
             </summary>
-            <returns></returns>
+            <returns>The item</returns>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.SelectionFilterMode"/>
             <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode"/>
         </member>
@@ -25932,6 +26006,17 @@
             <returns>The numbers of triangles found under the mouse cursor.</returns>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Geometry.Point3D@)"/>        
         </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestTriangle(devDept.Eyeshot.ViewportLayout.SelectedItem,System.Drawing.Point,devDept.Geometry.Point3D@,System.Int32@)">
+            <summary>
+            Finds the closest triangle to the viewer of the specified item (which may include the parents stack for nested entities)..
+            </summary>
+            <param name="item">The item</param>
+            <param name="mousePos">Mouse cursor position</param>
+            <param name="hitPoint">Closest triangle intersection point in the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReferences"/> coordinate system.</param>
+            <param name="hitTriangleIndex">Closest triangle index</param>
+            <returns>The numbers of triangles found under the mouse cursor.</returns>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Geometry.Point3D@)"/>        
+        </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestTriangle(devDept.Eyeshot.Entities.IFace,System.Drawing.Point)">
             <summary>
             Finds the closest triangle to the viewer of the specified entity.
@@ -25941,6 +26026,16 @@
             <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle"/> found under the mouse cursor.</returns>
             <seealso cref="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Geometry.Point3D@)"/>             
             <remarks>If the entity is inside a <see cref="T:devDept.Eyeshot.Entities.BlockReference"/>, it must be set as current.</remarks>
+            <remarks>The triangles intersection points are in the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReferences"/> coordinate system.</remarks>
+        </member>
+        <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestTriangle(devDept.Eyeshot.ViewportLayout.SelectedItem,System.Drawing.Point)">
+            <summary>
+            Finds the closest triangle to the viewer of the specified item (which may include the parents stack for nested entities).
+            </summary>
+            <param name="item">The item</param>
+            <param name="mousePos">Mouse cursor position (zero on top)</param>
+            <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle"/> found under the mouse cursor.</returns>
+            <seealso cref="M:devDept.Eyeshot.ViewportLayout.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Geometry.Point3D@)"/>             
             <remarks>The triangles intersection points are in the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReferences"/> coordinate system.</remarks>
         </member>
         <member name="M:devDept.Eyeshot.ViewportLayout.RotateCamera(System.Drawing.Point)">
@@ -29183,7 +29278,7 @@
             <param name="selectedOnly">If <paramref name="fit"/> is true, fits only the selected entities</param>
             <remarks>The direction points outside the screen, so the Camera is actually looking in the opposite direction.</remarks>
         </member>
-        <member name="M:devDept.Eyeshot.Viewport.SetViewInternal(devDept.Eyeshot.ViewportLayout,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Boolean,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:devDept.Eyeshot.Viewport.SetViewInternal(devDept.Eyeshot.ViewportLayout,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Boolean,System.Int32,System.Boolean,System.Boolean,devDept.Geometry.Transformation)">
             <summary>Sets the view direction of the camera to the specified direction.</summary>
             <param name="viewportLayout"></param>
             <param name="direction">The new camera direction</param>
@@ -30960,52 +31055,52 @@
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectByPick">
             <summary>
-            Entity selection by pick
+            Entity selection by pick. A single random item crossing the pick box.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectByBox">
             <summary>
-            Entity selection by box
+            Entity selection by box. All items crossing the selection box.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectByPolygon">
             <summary>
-            Entity selection by polygon
+            Entity selection by polygon. All items crossing the selection polygon.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectVisibleByPick">
             <summary>
-            Entity selection by pick on visible only
+            Entity selection by pick on visible only. The single item (closest to the user) crossing the pick box.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectVisibleByPickDynamic">
             <summary>
-            Entity selection by pick on visible only, performed dynamically during the mouse movement
+            Entity selection by pick on visible only. The single item (closest to the user) crossing the pick box. Performed dynamically during the mouse movement.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectVisibleByBox">
             <summary>
-            Entity selection by box on visible only
+            Entity selection by box on visible only. All items (closest to the user) crossing the selection box.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectVisibleByPolygon">
             <summary>
-            Entity selection by polygon on visible only
+            Entity selection by polygon on visible only. All items (closest to the user) crossing the selection polygon.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectByBoxEnclosed">
             <summary>
-            Entity selection by box on enclosed items only
+            Entity selection by box on enclosed items only. All items entirely enclosed in the selection box.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectByPolygonEnclosed">
             <summary>
-            Entity selection by polygon on enclosed only
+            Entity selection by polygon on enclosed only. All items entirely enclosed in the selection polygon.
             </summary>
         </member>
         <member name="F:devDept.Eyeshot.actionType.SelectVisibleByPickLabel">
             <summary>
-            Label selection by pick on visible only
+            Label selection by pick on visible only.
             </summary>
         </member>
         <member name="T:devDept.Eyeshot.selectionFilterType">
@@ -33347,7 +33442,7 @@
         <member name="M:devDept.Eyeshot.PolygonSelection.ProcessSelection(devDept.Eyeshot.ViewportLayout,System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
             <summary>
             <para>Processes the selection with a screen polygon.</para>
-            <para>This method is deprecataed. Use the overload with the <see cref="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs"/> parameter.</para>
+            <para>This method is deprecated. Use the overload with the <see cref="T:devDept.Eyeshot.ViewportLayout.SelectionChangedEventArgs"/> parameter.</para>
             </summary>
             <param name="viewportLayout"></param>
             <param name="screenPolygon"></param>
@@ -34263,7 +34358,7 @@
             <param name="cameraEyePos">The camera 3D position (for anaglyph 3D)</param>
             <returns>The computed projection matrix.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Camera.SetupModelView(System.Boolean,System.Boolean,devDept.Eyeshot.ViewportLayout.CameraEyePosType)" -->
+        <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Camera.SetupModelView(System.Boolean,System.Boolean,devDept.Eyeshot.ViewportLayout.CameraEyePosType,System.Boolean)" -->
         <member name="M:devDept.Eyeshot.Camera.IsInFrustum(devDept.Geometry.Point3D,devDept.Geometry.PlaneEquation[])">
             <summary>
             Checks whether a point is inside the given frustum planes.
@@ -34498,16 +34593,11 @@
             Accurate fit.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.Camera.ApplySceneTransformation(devDept.Geometry.Transformation)">
+        <member name="M:devDept.Eyeshot.Camera.SetSceneTransformation(devDept.Geometry.Transformation)">
             <summary>
-            Applies the scene transformation on the camera.
+            Sets the scene transformation on the camera.
             </summary>
             <param name="transf"></param>
-        </member>
-        <member name="M:devDept.Eyeshot.Camera.ModifyRotationBySceneTransformation(devDept.Geometry.Transformation)">
-            <summary>
-            Modifies the Rotation with the scene transformation.
-            </summary>
         </member>
         <member name="M:devDept.Eyeshot.Camera.AccelerateValue(System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
@@ -35199,21 +35289,13 @@
             Gets or sets the transformation applied to the object.
             </summary>
         </member>
-        <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.GetModelViewMatrix(devDept.Eyeshot.Camera,devDept.Geometry.Transformation,System.Double)">
+        <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.GetModelViewMatrix(devDept.Eyeshot.Camera,System.Double)">
             <summary>
             Gets the modelview matrix to draw the user interface symbol.
             </summary>
             <param name="camera">The camera of the viewport</param>
             <param name="dist">The desired distance of the camera from the target</param>
             <returns></returns>
-        </member>
-        <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.ApplySceneTransformation(devDept.Geometry.Transformation,devDept.Geometry.Transformation,devDept.Geometry.Transformation@)">
-            <summary>
-            Modifies the transformation by the blockReference transformation.
-            </summary>
-            <param name="transformation"></param>
-            <param name="objectTransformation"></param>
-            <param name="modelView"></param>
         </member>
         <member name="F:devDept.Eyeshot.CSIconMesh.ID">
             <summary>
@@ -35712,13 +35794,11 @@
             <param name="visible">Visibility status</param>
             <param name="lighting">When false, the UI element is drawn with a flat color.</param>
         </member>
-        <member name="M:devDept.Eyeshot.OriginSymbol.ApplySceneTransformation(devDept.Geometry.Transformation,devDept.Geometry.Transformation,devDept.Geometry.Transformation@)">
+        <member name="M:devDept.Eyeshot.OriginSymbol.GetFullTransformation">
             <summary>
-            Modifies the transformation by the blockReference transformation.
+            Gets the full transformation of the UI element.
             </summary>
-            <param name="transformation"></param>
-            <param name="objectTransformation"></param>
-            <param name="modelView"></param>
+            <returns>The transformation.</returns>
         </member>
         <member name="T:devDept.Eyeshot.ObjectManipulatorPartProperties">
             <summary>
@@ -36013,6 +36093,14 @@
             Cancels the transformation of the <see cref="T:devDept.Eyeshot.ObjectManipulator"/> and hides it.
             </summary>
         </member>
+        <member name="M:devDept.Eyeshot.ObjectManipulator.SetMatrixForPreview(devDept.Eyeshot.Viewport,System.Drawing.RectangleF,devDept.Eyeshot.ViewportLayout.CameraEyePosType)">
+            <summary>
+            Sets the matrix without the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> transformation, because that is put in the <see cref="F:devDept.Eyeshot.EntityList.BlockReferenceForObjectManipulator"/> transformation.
+            </summary>
+            <param name="viewport"></param>
+            <param name="zoomRect"></param>
+            <param name="cameraEyePos"></param>
+        </member>
         <member name="M:devDept.Eyeshot.ManipulatorVBOMesh.#ctor(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Eyeshot.CSIconMesh.partID)">
             <summary>
             Constructor.
@@ -36164,8 +36252,8 @@
             <summary>
             Regens all curved entities (<see cref="T:devDept.Eyeshot.Entities.Circle"/>, <see cref="T:devDept.Eyeshot.Entities.Arc"/>, <see cref="T:devDept.Eyeshot.Entities.Ellipse"/>, <see cref="T:devDept.Eyeshot.Entities.EllipticalArc"/>, <see cref="T:devDept.Eyeshot.Entities.Curve"/>, <see cref="T:devDept.Eyeshot.Entities.Surface"/>) to uniformize the visual refinement.
             </summary>
-            <param name="tol">The desired chordal error.</param>
-            <param name="maxAngle">The desired maximum angle between facet normals (affects only <see cref="T:devDept.Eyeshot.Entities.Surface"/> and <see cref="T:devDept.Eyeshot.Entities.Solid3D"/> objects)</param>
+            <param name="deviation">The maximum deviation</param>
+            <param name="angle">The maximum angular deflection, ignored when zero.</param>
             <remarks>Block definitions are affected by this command.</remarks>
         </member>
         <member name="P:devDept.Eyeshot.EntityList.BoxMin">
@@ -36453,21 +36541,10 @@
         </member>
         <member name="P:devDept.Eyeshot.EntityList.CurrentTransformation">
             <summary>
-            Gets the <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> transformation.
+            Gets the accumulated <see cref="P:devDept.Eyeshot.EntityList.CurrentBlockReference"/> transformation (including its parents transformations).
             </summary>
         </member>
         <member name="P:devDept.Eyeshot.EntityList.CurrentTransformationInverse">
-            <summary>
-            Gets the inverse of <see cref="P:devDept.Eyeshot.EntityList.CurrentTransformation"/>.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.EntityList.CurrentTransformationForCamera">
-            <summary>
-            The transformation for the camera is not the accumulated transformation of all the parents, but just the 
-            transformation ofthe current BlockReference.
-            </summary>
-        </member>
-        <member name="P:devDept.Eyeshot.EntityList.CurrentTransformationForCameraInverse">
             <summary>
             Gets the inverse of <see cref="P:devDept.Eyeshot.EntityList.CurrentTransformation"/>.
             </summary>
@@ -36510,20 +36587,30 @@
             <seealso cref="M:devDept.Eyeshot.EntityList.SetParentAsCurrent(System.Boolean)"/>
             <seealso cref="M:devDept.Eyeshot.EntityList.SetSelectionAsCurrent(System.Boolean)"/>
         </member>
+        <member name="M:devDept.Eyeshot.EntityList.GetStackTransformation(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
+            <summary>
+            Gets the cumulative transformation of a blockreference stack.
+            </summary>
+            <param name="parents">The stack of BlockReferences to evaluate (the one on top of the stack is the last parent of the hierarchy)</param>
+        </member>
         <member name="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">
             <summary>
             Sets a BlockReference as current.
             </summary>
             <param name="blockReference">The BlockReference to set as current (the one on top of the stack is the last parent of the hierarchy)</param>
             <param name="updateBoundingBox">If true, updates the scene bounding box. Set it to false for better performances in off-screen methods that call this to just use the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform"/></param>
-            <remarks>If it is null, the current BlockReference is unset. It must be a first-level child of the BlockReference that is currently set.
-            If no BlockReference is currently set, it must be a top-level BlockReference (i.e. it must be in the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/>)</remarks>
-            <remarks>When a BlockReference is set as current, the following changes happen:
-            - A <see cref="T:devDept.Eyeshot.Block"/> is  added to the <see cref="P:devDept.Eyeshot.ViewportLayout.ParentBlocks"/> with the entities of the current scene except the <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> that is set as current.
-            - The <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> collection contains the current <see cref="T:devDept.Eyeshot.Block"/> entities. 
-            - The current <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> is pushed on the <see cref="F:devDept.Eyeshot.EntityList.CurrentBlockReferencesData"/> stack.
-            - The <see cref="P:devDept.Eyeshot.EntityList.BoxMin"/> and <see cref="P:devDept.Eyeshot.EntityList.BoxMax"/> are updated to consider the new entities, without the <see cref="P:devDept.Eyeshot.EntityList.CurrentTransformation"/>.</remarks>
-            <remarks>Since the collection is modified, this method can't be called in a Foreach loop.</remarks>
+            <remarks>
+            <para>If it is null, the current BlockReference is unset.</para> 
+            <para>The BlockReference must be a first-level child of the one that is currently set.</para>
+            <para>If no BlockReference is currently set, it must be a top-level BlockReference (i.e. it must be in the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/>).</para>
+            <para>When a BlockReference is set as current, the following changes happen:</para>
+            <para>- A <see cref="T:devDept.Eyeshot.Block"/> is added to the <see cref="P:devDept.Eyeshot.ViewportLayout.ParentBlocks"/> with the entities of the current scene except the <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> that is set as current.</para>
+            <para>- The <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> collection contains the current <see cref="T:devDept.Eyeshot.Block"/> entities. </para>
+            <para>- The current <see cref="T:devDept.Eyeshot.Entities.BlockReference"/> is pushed on the <see cref="F:devDept.Eyeshot.EntityList.CurrentBlockReferencesData"/> stack.</para>
+            <para>- The <see cref="P:devDept.Eyeshot.EntityList.BoxMin"/> and <see cref="P:devDept.Eyeshot.EntityList.BoxMax"/> are updated to consider the new entities, without the <see cref="P:devDept.Eyeshot.EntityList.CurrentTransformation"/>.</para>
+            <para>Since the collection is modified, this method can't be called in a Foreach loop.</para>
+            <para>To add or remove entities from a BlockReference set as current, do it on the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities"/> and not on the <see cref="P:devDept.Eyeshot.Block.Entities"/>.</para>
+            </remarks>
             <seealso cref="M:devDept.Eyeshot.EntityList.SetParentAsCurrent(System.Boolean)"/>
             <seealso cref="M:devDept.Eyeshot.EntityList.SetSelectionAsCurrent(System.Boolean)"/>
         </member>
@@ -36660,6 +36747,14 @@
             <summary>
             Ensures that the IsSmall array is big enough to hold data for the specified number of viewports.
             </summary>
+            <param name="nViewports">The number of viewports</param>
+            <seealso cref="M:devDept.Eyeshot.Entities.Entity.IsSmall(devDept.Eyeshot.IsSmallParams)"/>
+        </member>
+        <member name="M:devDept.Eyeshot.EntityList.CheckIsSmallArray(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Int32)">
+            <summary>
+            Ensures that the IsSmall array is big enough to hold data for the specified number of viewports.
+            </summary>
+            <param name="entities">The entities collection</param>
             <param name="nViewports">The number of viewports</param>
             <seealso cref="M:devDept.Eyeshot.Entities.Entity.IsSmall(devDept.Eyeshot.IsSmallParams)"/>
         </member>
@@ -37905,7 +38000,7 @@
             <param name="grid"></param>
             <param name="problemSize"></param>
         </member>
-        <member name="M:devDept.Geometry.PolyBooleans.ComputeExtendedIntersectionPointOnGrid(devDept.Geometry.PolyBooleans.PolygonOnGrid,devDept.Eyeshot.HiddenLinesView.IntegerGrid,devDept.Eyeshot.Entities.ICurve,System.Collections.Generic.LinkedListNode{devDept.Geometry.PolyBooleans.VertexNodeOnGrid},System.Collections.Generic.LinkedListNode{devDept.Geometry.PolyBooleans.VertexNodeOnGrid},devDept.Geometry.PolyBooleans.PolygonOnGrid,System.Double,System.Boolean,System.Boolean,devDept.Geometry.PolyBooleans.VertexNodeOnGrid@)">
+        <member name="M:devDept.Geometry.PolyBooleans.ComputeExtendedIntersectionPointOnGrid(devDept.Geometry.PolyBooleans.PolygonOnGrid,devDept.Eyeshot.HiddenLinesView.IntegerGrid,devDept.Eyeshot.Entities.ICurve,System.Collections.Generic.LinkedListNode{devDept.Geometry.PolyBooleans.VertexNodeOnGrid},System.Collections.Generic.LinkedListNode{devDept.Geometry.PolyBooleans.VertexNodeOnGrid},devDept.Geometry.PolyBooleans.PolygonOnGrid,System.Double,System.Boolean,devDept.Geometry.PolyBooleans.VertexNodeOnGrid@)">
             <summary>
             Extends the intersection curve if its intersection point is exactly on the polygonCurve, because the lines on the Grid may not  
             intersect due to the discretization.
@@ -37919,7 +38014,7 @@
             <param name="intersectionCurveNodeB"></param>
             <param name="intersectionCurvePoly"></param>
             <param name="problemSize"></param>
-            <param name="outer"></param>
+            <param name="reverseCurve"></param>
             <param name="v"></param>
             <returns></returns>
         </member>

@@ -4744,6 +4744,12 @@
             <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance that defines the serialized data.</param>
             <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance that contains the serialized data.</param>
         </member>
+        <member name="M:devDept.Geometry.Transformation.GetTransformationForNormals">
+            <summary>
+            Gets the transformation to transform the normals (inverse transpose of the upper 3x3 matrix).
+            </summary>
+            <returns>The transformation.</returns>
+        </member>
         <member name="T:devDept.Geometry.Identity">
             <summary>
             Identity transformation.

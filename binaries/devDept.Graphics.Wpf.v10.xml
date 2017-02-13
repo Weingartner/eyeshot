@@ -9,6 +9,11 @@
             Base Class for Camera
             </summary>
         </member>
+        <member name="F:devDept.Graphics.CameraBase.modelViewMatrix">
+            <summary>
+            The modelview matrix with the current BlockReference transformation.
+            </summary>
+        </member>
         <member name="P:devDept.Graphics.CameraBase.ModelViewMatrix">
             <summary>
             Gets or sets the camera ModelView matrix.
@@ -66,6 +71,13 @@
             <param name="winy">The computed window Y coordinate</param>
             <param name="winz">The computed window Z coordinate</param>
             <returns>True if the operation succeeded, false otherwise.</returns>
+        </member>
+        <member name="M:devDept.Graphics.CameraBase.GetModelViewProjectionMatrix(System.Boolean)">
+            <summary>
+            Gets the current modelview projection matrix.
+            </summary>
+            <param name="withCurrentBlockReferenceTransformation">If true, returns the matrix multiplied by the current BlockReference accumulated transformation/</param>
+            <returns></returns>
         </member>
         <member name="M:devDept.Graphics.CameraBase.Project(devDept.Graphics.RenderContextBase,System.Int32[],System.Double,System.Double,System.Double,System.Double@,System.Double@,System.Double@)">
             <summary>
@@ -902,6 +914,11 @@
             Gets a values indicating whether the Environment is supported.
             </summary>
         </member>
+        <member name="P:devDept.Graphics.RenderContextBase.MultitexturingSupported">
+            <summary>
+            Gets a values indicating whether the multitexturing is supported.
+            </summary>
+        </member>
         <member name="P:devDept.Graphics.RenderContextBase.CurrentPointSize">
             <summary>
             Gets the current point size (in pixels).
@@ -978,6 +995,13 @@
             Sets the projection matrix.
             </summary>
             <param name="proj">The projection matrix.</param>
+            <remarks>Use "null" for Identity.</remarks>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.SetModelViewMatrix(System.Double[])">
+            <summary>
+            Sets the modelview matrix.
+            </summary>
+            <param name="matrix">The modelview matrix</param>
             <remarks>Use "null" for Identity.</remarks>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.SetMatrices(System.Double[],System.Double[])">
@@ -1336,7 +1360,17 @@
             </summary>
             <param name="transform">The transformation</param>
         </member>
-        <member name="M:devDept.Graphics.RenderContextBase.CloseTexture(System.Int32,System.Boolean)">
+        <member name="P:devDept.Graphics.RenderContextBase.IdentityMatrix">
+            <summary>
+            Gets the Identity matrix as a float array.
+            </summary>
+        </member>
+        <member name="P:devDept.Graphics.RenderContextBase.IdentityMatrixDouble">
+            <summary>
+            Gets the Identity matrix as a double array.
+            </summary>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.CloseTexture(devDept.Graphics.TextureBase.textureUnit,System.Boolean)">
             <summary>
             Disables the  texture.
             </summary>
@@ -1356,7 +1390,7 @@
             <param name="texture">The texture</param>
             <returns>True if successful</returns>
         </member>
-        <member name="M:devDept.Graphics.RenderContextBase.SetTexture(devDept.Graphics.TextureBase,System.Int32)">
+        <member name="M:devDept.Graphics.RenderContextBase.SetTexture(devDept.Graphics.TextureBase,devDept.Graphics.TextureBase.textureUnit)">
             <summary>
             Sets the texture on a specific texture unit.
             </summary>
@@ -2072,7 +2106,8 @@
             <summary>
             Sets the blockreference world transformation matrix.
             </summary>
-            <param name="matrix">The transformation matrix to set</param>
+            <param name="blockRefrenceMatrix">The transformation matrix to set</param>
+            <param name="normalMatrix">The matrix for the normals</param>
         </member>
         <member name="M:devDept.Graphics.RenderContextBase.IsCw(devDept.Graphics.rasterizerStateType)">
             <summary>
@@ -2427,6 +2462,12 @@
             <param name="x">The x window coordinate of the pixel to retrieve</param>
             <param name="y">The y window coordinate of the pixel to retrieve (0 on bottom)</param>
             <returns>The color of the pixel</returns>
+        </member>
+        <member name="M:devDept.Graphics.RenderContextBase.UpdateShaders(devDept.Graphics.ShaderParameters)">
+            <summary>
+            Updates the shaders.
+            </summary>
+            <param name="shaderParams">The parameters</param>
         </member>
         <member name="T:devDept.Graphics.LightSettings">
             <summary>
@@ -3693,9 +3734,34 @@
             Base utility class to load textures. 
             </summary>
         </member>
-        <member name="F:devDept.Graphics.TextureBase.AlphaTextureUnit">
+        <member name="T:devDept.Graphics.TextureBase.textureUnit">
             <summary>
-            TextureUnit for alpha maps.
+            Texture units definitions
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.TextureBase.textureUnit.Base">
+            <summary>
+            Texture unit for standard textures
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.TextureBase.textureUnit.Environment">
+            <summary>
+            Texture unit for environment
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.TextureBase.textureUnit.Background">
+            <summary>
+            Texture unit for background
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.TextureBase.textureUnit.ShadowMap">
+            <summary>
+            Texture unit for shadow maps.
+            </summary>
+        </member>
+        <member name="F:devDept.Graphics.TextureBase.textureUnit.AlphaTexture">
+            <summary>
+            Texture unit for alpha maps.
             </summary>
         </member>
         <member name="F:devDept.Graphics.TextureBase.needsDispose">
