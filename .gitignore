@@ -1,1 +1,4 @@
 tools/**/docs
+.fake
+*.swp
+devDept.*.nupkg
