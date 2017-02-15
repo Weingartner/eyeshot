@@ -9,7 +9,7 @@ open Fake
 open Fake.VersionHelper
 
 let baseDir = __SOURCE_DIRECTORY__
-let sourceDir = @"C:\Program Files\devDept Software\Eyeshot Nurbs 10.0\Bin"
+let sourceDir = @"C:\Program Files\devDept Software\Eyeshot Nurbs 10\Bin"
 let targetDir = baseDir @@ "binaries"
 
 module Option =
@@ -17,29 +17,16 @@ module Option =
         if Seq.contains false x then None
         else Some ()
 
-let filePattern =
-    !!"*.dll"
-    ++"*.xml"
+let filePattern = [| 
+    "devDept.Geometry.v10.dll"
+    "devDept.Graphics.Shaders.v10.dll"
+    "devDept.Graphics.Wpf.v10.dll"
+    "devDept.Eyeshot.Control.Wpf.v10.dll"
+|]
 
 let files =
     filePattern
-    |> SetBaseDir sourceDir
-    |> Seq.toList
-
-let eachFileAlreadyExists =
-    let existingFiles =
-        filePattern
-        |> SetBaseDir targetDir
-        |> Seq.map fileNameWithoutExt
-        |> Set.ofSeq
-    let newFiles =
-        files
-        |> Seq.map fileNameWithoutExt
-        |> Set.ofSeq
-        
-    newFiles = existingFiles
-
-if not eachFileAlreadyExists then failwith "File names do not match"
+    |> Seq.map ( fun file -> sourceDir @@ file )
 
 files
 |> CopyFiles targetDir
@@ -49,7 +36,7 @@ let version =
     |> GetAssemblyVersionString
 
 filePattern
-|> SetBaseDir targetDir
+|> Seq.map ( fun file -> targetDir @@ file )
 |> Seq.map (Git.Staging.StageFile baseDir)
 |> Seq.map (fun (a, b, c) -> a)
 |> Option.ofBoolList
