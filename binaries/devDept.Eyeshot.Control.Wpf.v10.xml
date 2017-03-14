@@ -1479,6 +1479,9 @@
             </summary>
       <remarks>The text rows are split so that its words stay inside the specified width.</remarks>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.MultilineText.WidthFactor">
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Entities.MultilineText.WidthFactor" /> property. Use the <see cref="P:devDept.Eyeshot.Entities.MultilineText.WidthFactors" /> instead.</exception>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.MultilineText.WidthFactors">
       <summary>
             Gets or sets the width factor for each line of text.
@@ -3469,7 +3472,7 @@
       <param name="edges">The edge array</param>
       <returns>A copy of the curve properly oriented</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.GetStartVertex(devDept.Geometry.Point3D[],devDept.Eyeshot.Entities.Solid3D.Edge[])">
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.GetStartVertex(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Solid3D.Edge})">
       <summary>
             Gets edge curve start vertex taking in account the <see cref="F:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.Sense" /> flag.
             </summary>
@@ -3477,14 +3480,14 @@
       <param name="edges">The edge array</param>
       <returns>A 3D point.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.GetStartPoint(devDept.Eyeshot.Entities.Solid3D.Edge[])">
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.GetStartPoint(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Solid3D.Edge})">
       <summary>
             Gets edge curve start point taking in account the <see cref="F:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.Sense" /> flag.
             </summary>
       <param name="edges">The edge array</param>
       <returns>A 3D point.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.GetEndVertex(devDept.Geometry.Point3D[],devDept.Eyeshot.Entities.Solid3D.Edge[])">
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.GetEndVertex(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Solid3D.Edge})">
       <summary>
             Gets edge curve end vertex taking in account the <see cref="F:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.Sense" /> flag.
             </summary>
@@ -3492,7 +3495,7 @@
       <param name="edges">The edge array</param>
       <returns>A 3D point.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.GetEndPoint(devDept.Eyeshot.Entities.Solid3D.Edge[])">
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.GetEndPoint(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Solid3D.Edge})">
       <summary>
             Gets edge curve end point taking in account the <see cref="F:devDept.Eyeshot.Entities.Solid3D.OrientedEdge.Sense" /> flag.
             </summary>
@@ -4307,8 +4310,6 @@
             Creates the 2D parametric curve corresponding to a 3D geometric curve which lies on or near a surface.
             </summary>
       <param name="curve">The curve to be dropped</param>
-      <param name="allowOutside">
-      </param>
       <param name="parametric">The resulting 2D curve</param>
       <returns>True if the function succeeded, false otherwise.</returns>
     </member>
@@ -5297,7 +5298,16 @@
             </summary>
       <param name="P">The 3D point to project</param>
       <param name="coincTol">Relevant only when P lays on the surface. When the distance between P and its projection is smaller then this value, the projection is considered succesful.</param>
-      <param name="allowOutside">When true, the projection is not constrained inside the surace domain</param>
+      <param name="allowOutside">When true, the projection is not constrained inside the surface domain</param>
+      <param name="u">The U parametric coordinate of the projection on surface to P</param>
+      <param name="v">The V parametric coordinate of the projection on surface to P</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.PointInversion(devDept.Geometry.Point3D,System.Double,System.Double@,System.Double@)">
+      <summary>
+            Projects a point on the surface. The point must already lay on the surface.
+            </summary>
+      <param name="P">The 3D point to project</param>
+      <param name="coincTol">Relevant only when P lays on the surface. When the distance between P and its projection is smaller then this value, the projection is considered succesful.</param>
       <param name="u">The U parametric coordinate of the projection on surface to P</param>
       <param name="v">The V parametric coordinate of the projection on surface to P</param>
     </member>
@@ -5308,6 +5318,33 @@
       <param name="P">The 3D point to project</param>
       <param name="coincTol">Relevant only when P lays on the surface. When the distance between P and its projection is smaller then this value, the projection is considered succesful.</param>
       <param name="allowOutside">When true, the projection is not constrained inside the surace domain</param>
+      <param name="u">The U parametric coordinate of the projection on surface to P</param>
+      <param name="v">The V parametric coordinate of the projection on surface to P</param>
+      <param name="W">The 2D tangent vector in parametric space</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.PointInversion(devDept.Geometry.Point3D,System.Double,devDept.Geometry.Point2D@,devDept.Geometry.Vector2D@)">
+      <summary>
+            Projects a point on the surface. The point must already lay on the surface.
+            </summary>
+      <param name="P">The 3D point to project</param>
+      <param name="coincTol">Relevant only when P lays on the surface. When the distance between P and its projection is smaller then this value, the projection is considered succesful.</param>
+      <param name="proj">The parametric coordinates of the projection on surface to P</param>
+      <param name="W">The 2D tangent vector in parametric space</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.PointInversion(devDept.Geometry.Point3D,System.Double,devDept.Geometry.Point2D@)">
+      <summary>
+            Projects a point on the surface. The point must already lay on the surface.
+            </summary>
+      <param name="P">The 3D point to project</param>
+      <param name="coincTol">Relevant only when P lays on the surface. When the distance between P and its projection is smaller then this value, the projection is considered succesful.</param>
+      <param name="proj">The parametric coordinates of the projection on surface to P</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.PointInversion(devDept.Geometry.Point3D,System.Double,System.Double@,System.Double@,devDept.Geometry.Vector2D@)">
+      <summary>
+            Projects a point on the surface. The point must already lay on the surface.
+            </summary>
+      <param name="P">The 3D point to project</param>
+      <param name="coincTol">Relevant only when P lays on the surface. When the distance between P and its projection is smaller then this value, the projection is considered succesful.</param>
       <param name="u">The U parametric coordinate of the projection on surface to P</param>
       <param name="v">The V parametric coordinate of the projection on surface to P</param>
       <param name="W">The 2D tangent vector in parametric space</param>
@@ -6054,7 +6091,7 @@
             </summary>
       <returns>The new revolution surface object.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.TabulatedSurface.IsOrtogonal">
+    <member name="M:devDept.Eyeshot.Entities.TabulatedSurface.IsOrthogonal">
       <summary>
             This method determines a priori if we can apply the fast point projection on this tabulated surface.
             </summary>
@@ -6670,6 +6707,13 @@
       <summary>
             Gets or sets dimension text prefix.
             </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Dimension.TextString">
+      <summary>
+            Gets the text.
+            </summary>
+      <remarks>Use the <see cref="P:devDept.Eyeshot.Entities.Dimension.TextOverride" /> to set the text.</remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Entities.Dimension.TextString" /> property. Set the <see cref="P:devDept.Eyeshot.Entities.Dimension.TextOverride" /> instead.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Dimension.TextOverride">
       <summary>
@@ -12756,6 +12800,7 @@
             Gets or sets the ellipse's domain.
             The parameter t on an ellipse is not the angle of ellipse.PointAt(t) with the X-axis, even if t is in [0, 2*PI].
             </summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Entities.Ellipse.Domain" /> property. Use EllipticalArc instead.</exception>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Ellipse.Length">
       <summary>
@@ -13211,9 +13256,9 @@
             Returns the block reference individual entity list.
             </summary>
       <param name="blocks">The <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" /> collection</param>
-      <param name="keepTessellation">When true, the tessellation of the original entity is preserved.</param>
       <returns>The list of individual entities.</returns>
-      <seealso cref="M:devDept.Eyeshot.EntityList.Explode(devDept.Eyeshot.Entities.BlockReference)" />
+      <seealso cref="!:EntityList.Explode(BlockReference)" />
+      <param name="resolveByParent">If true, the <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeightMethod" /> are resolved propagating the BlockReference properties</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">
       <summary>
@@ -19020,6 +19065,9 @@
       <summary>Entity collection. This collection contains the entities displayed in the viewport.</summary>
       <remarks>
         <b>Never</b> add a <see cref="T:devDept.Eyeshot.Block">block</see> definition to this collection. Add it to the <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks">blocks</see> collection.</remarks>
+      <remarks>When a <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> is set as current (<see cref="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />), this collection is shared with the <see cref="P:devDept.Eyeshot.Block.Entities" /> of the current <see cref="T:devDept.Eyeshot.Block" />.</remarks>
+      <seealso cref="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />
+      <seealso cref="P:devDept.Eyeshot.Block.Entities" />
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.Blocks">
       <summary>Block collection. This collection contains block definitions.</summary>
@@ -20824,7 +20872,7 @@
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.DrawViewportBackground(devDept.Eyeshot.ViewportLayout.DrawSceneParams)">
       <summary>
-            Draws the viewport background.
+            Draws the viewport background and reflections.
             </summary>
       <param name="data">The drawing parameters</param>
       <remarks>Override this to draw some custom graphics before the scene is drawn.</remarks>
@@ -21877,11 +21925,13 @@
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)">
       <summary>
-            Returns the index of the first entity under the mouse cursor.
+            Returns the index of the first top level entity under the mouse cursor.
             </summary>
       <param name="mousePos">Mouse position in screen coordinates</param>
       <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetItemUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetLabelUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.ViewportLayout.PickBoxSize" /> parameter.</remarks>
       <returns>The index of the entity, -1 otherwise.</returns>
       <example>
@@ -21937,8 +21987,11 @@
             Gets the first item under the mouse cursor (which may include the parents stack for nested entities).
             </summary>
       <returns>The item</returns>
+      <remarks>The <see cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" /> determines whether the top level entities or nested entities are returned.</remarks>
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.SelectionFilterMode" />
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetLabelUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetLabelUnderMouseCursor(System.Drawing.Point,System.Boolean)">
       <summary>
@@ -21949,6 +22002,8 @@
       <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.ViewportLayout.PickBoxSize" /> parameter.</remarks>
       <returns>The index of the label, -1 otherwise.</returns>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetItemUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestTriangle(devDept.Eyeshot.Entities.IFace,System.Drawing.Point,devDept.Geometry.Point3D@,System.Int32@)">
       <summary>
@@ -22038,7 +22093,7 @@
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetAllEntitiesUnderMouseCursor(System.Drawing.Point,System.Boolean)">
       <summary>
-            Returns all the visible (on screen) and selectable entities under the mouse cursor in the active viewport.
+            Returns all the visible (on screen) top level and selectable entities (which may include the parents stack for nested entities) under the mouse cursor in the active viewport.
             </summary>
       <param name="mousePos">Mouse position in screen coordinates</param>
       <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
@@ -22047,6 +22102,25 @@
       <remarks>Only the entities that are visible on screen and in the selectionBox are considered, the ones covered by other entities are not considered.</remarks>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllCrossingEntities(System.Drawing.Rectangle,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllItemsUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllLabelsUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayout.GetAllItemsUnderMouseCursor(System.Drawing.Point,System.Boolean)">
+      <summary>
+            Returns all the visible (on screen) and selectable entities (which may include the parents stack for nested entities) under the mouse cursor in the active viewport.
+            </summary>
+      <param name="mousePos">Mouse position in screen coordinates</param>
+      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
+      <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.ViewportLayout.PickBoxSize" /> parameter.</remarks>
+      <returns>The list of entity indices.</returns>
+      <remarks>Only the entities that are visible on screen and in the selectionBox are considered, the ones covered by other entities are not considered.</remarks>
+      <remarks>The <see cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" /> determines whether the top level entities or nested entities are returned.</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllCrossingEntities(System.Drawing.Rectangle,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllEntitiesUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllLabelsUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetAllLabelsUnderMouseCursor(System.Drawing.Point,System.Boolean)">
       <summary>
@@ -22057,6 +22131,8 @@
       <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.ViewportLayout.PickBoxSize" /> parameter.</remarks>
       <returns>The list of label indices.</returns>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllEntitiesUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllItemsUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <remarks>Only the labels that are visible on screen and in the selectionBox are considered, the ones covered by other labels are not considered.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleEntities(System.Drawing.Rectangle,System.Boolean)">
@@ -22066,6 +22142,20 @@
       <param name="selectionBox">Selection rectangle in screen coordinates</param>
       <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
       <returns>The list of entity indices.</returns>
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleItems(System.Drawing.Rectangle,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleLabels(System.Drawing.Rectangle,System.Boolean)" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleItems(System.Drawing.Rectangle,System.Boolean)">
+      <summary>
+            Returns the list of all visible entities (which may include the parents stack for nested entities) in the specified selection box in the active viewport.
+            </summary>
+      <param name="selectionBox">Selection rectangle in screen coordinates</param>
+      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
+      <returns>The list of entity indices.</returns>
+      <remarks>The <see cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" /> determines whether the top level entities or nested entities are returned.</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleEntities(System.Drawing.Rectangle,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleLabels(System.Drawing.Rectangle,System.Boolean)" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleLabels(System.Drawing.Rectangle,System.Boolean)">
       <summary>
@@ -22074,6 +22164,8 @@
       <param name="selectionBox">Selection rectangle in screen coordinates</param>
       <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
       <returns>The list of label indices in the selection box.</returns>
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleEntities(System.Drawing.Rectangle,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllVisibleItems(System.Drawing.Rectangle,System.Boolean)" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetVisibleEntitiesFromBackBuffer(devDept.Eyeshot.Viewport,System.Byte[],System.Int32,System.Int32,System.Drawing.Rectangle,System.Boolean)">
       <summary>
@@ -27092,6 +27184,24 @@
             Base class for default ToolBar buttons.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.DefaultToolBarButton.Image">
+      <summary>
+            Gets the bitmap of the button.
+            </summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.DefaultToolBarButton.Image" /> property on default buttons.</exception>
+    </member>
+    <member name="P:devDept.Eyeshot.DefaultToolBarButton.DownImage">
+      <summary>
+            Gets the Image for the down state.
+            </summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.DefaultToolBarButton.DownImage" /> property on default buttons.</exception>
+    </member>
+    <member name="P:devDept.Eyeshot.DefaultToolBarButton.HoverImage">
+      <summary>
+            Gets the Image for the mouse hover state.
+            </summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.DefaultToolBarButton.HoverImage" /> property on default buttons.</exception>
+    </member>
     <member name="T:devDept.Eyeshot.ZoomFitToolBarButton">
       <summary>
             The ZoomFitToolBarButton default class.
@@ -28719,6 +28829,10 @@
       <summary>
             Gets or sets entity collection.
             </summary>
+      <remarks>Removing elements from this list requires to call <see cref="M:devDept.Eyeshot.Entities.Entity.Dispose" /> on them to avoid memory leaks, adding elements requires a call to <see cref="M:devDept.Eyeshot.EntityList.Regen" /></remarks>
+      <remarks>When a <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> is set as current (<see cref="T:devDept.Eyeshot.Entities.BlockReference" />) this collection is shared with the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /></remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayout.Entities" />
+      <seealso cref="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />
     </member>
     <member name="P:devDept.Eyeshot.Block.BasePoint">
       <summary>
@@ -31073,7 +31187,7 @@
     </member>
     <member name="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">
       <summary>
-            Sets a BlockReference as current.
+            Sets a BlockReference as current and updates the entity list with its block entities.
             </summary>
       <param name="blockReference">The BlockReference to set as current</param>
       <param name="updateBoundingBox">If true, updates the scene bounding box. Set it to false for better performances in off-screen methods that call this to just use the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform" /></param>
@@ -31081,16 +31195,17 @@
         <para>If it is null, the current BlockReference is unset.</para>
         <para>The BlockReference must be a first-level child of the one that is currently set (i.e. it must be in the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" />).</para>
         <para>When a BlockReference is set as current, the following changes happen:</para>
-        <para>- A <see cref="T:devDept.Eyeshot.Block" /> is added to the <see cref="P:devDept.Eyeshot.ViewportLayout.ParentBlocks" /> with the entities of the current scene except the <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> that is set as current.</para>
-        <para>- Its Block is removed from <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" /> and its entities are put in the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /></para>
         <para>- The current <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> is pushed on the <see cref="F:devDept.Eyeshot.EntityList.CurrentBlockReferencesData" /> stack.</para>
+        <para>- The entities of the current scene, minus the current <see cref="T:devDept.Eyeshot.Entities.BlockReference" />, are put in a hidden Block (for internal use).</para>
+        <para>- The <see cref="P:devDept.Eyeshot.Block.Entities" /> list of the current <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> is shared with the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" />.</para>
         <para>- The <see cref="P:devDept.Eyeshot.EntityList.BoxMin" /> and <see cref="P:devDept.Eyeshot.EntityList.BoxMax" /> are updated to consider the new entities, without the <see cref="P:devDept.Eyeshot.EntityList.CurrentTransformation" />.</para>
         <para>Since the collection is modified, this method can't be called in a Foreach loop.</para>
-        <para>To add or remove entities from a BlockReference set as current, do it on the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> and not on the <see cref="P:devDept.Eyeshot.Block.Entities" />.</para>
       </remarks>
       <seealso cref="M:devDept.Eyeshot.EntityList.SetParentAsCurrent(System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.EntityList.SetSelectionAsCurrent(System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.EntityList.SetCurrentStack(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},System.Boolean)" />
+      <seealso cref="P:devDept.Eyeshot.ViewportLayout.Entities" />
+      <seealso cref="P:devDept.Eyeshot.Block.Entities" />
     </member>
     <member name="P:devDept.Eyeshot.EntityList.CurrentBlockReferences">
       <summary>
@@ -31129,11 +31244,12 @@
       <seealso cref="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.EntityList.SetParentAsCurrent(System.Boolean)" />
     </member>
-    <member name="M:devDept.Eyeshot.EntityList.Explode(devDept.Eyeshot.Entities.BlockReference)">
+    <member name="M:devDept.Eyeshot.EntityList.Explode(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">
       <summary>
             Returns the block reference individual entity list.
             </summary>
       <param name="br">The block reference</param>
+      <param name="resolveByParent">If true, the <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeightMethod" /> are resolved propagating the BlockReference properties</param>
     </member>
     <member name="M:devDept.Eyeshot.EntityList.Explode">
       <summary>
