@@ -316,6 +316,31 @@
             The selected status.
             </summary>
     </member>
+    <member name="F:devDept.Eyeshot.DrawParams.ColorMode">
+      <summary>
+            The type of Color to set.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.DrawParams.InsideColor">
+      <summary>
+            Color for not selected inner parts.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.DrawParams.InsideSelectionColor">
+      <summary>
+            Color for selected inner parts.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.DrawParams.InsideSelectionMaterial">
+      <summary>
+            Material for selected inner parts.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.DrawParams.InsideMaterial">
+      <summary>
+            Material for not selected inner parts.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.DrawParams.SelectionStatus">
       <summary>
             Gets or sets the selection status.
@@ -355,6 +380,43 @@
     <member name="T:devDept.Eyeshot.colorType">
       <summary>
             The type of color that needs to be set.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.colorType.Wireframe">
+      <summary>
+            Sets <see cref="F:devDept.Eyeshot.DrawParams.InsideColor" /> as wireframe color (no lighting) for not selected entities and <see cref="F:devDept.Eyeshot.DrawParams.InsideSelectionColor" /> for selected entities.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.colorType.Shaded">
+      <summary>
+            Sets <see cref="F:devDept.Eyeshot.DrawParams.InsideColor" /> as shaded color for not selected entities and <see cref="F:devDept.Eyeshot.DrawParams.InsideSelectionColor" /> for selected entities.        
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.colorType.Rendered">
+      <summary>
+            Sets the material using <see cref="F:devDept.Eyeshot.DrawParams.InsideMaterial" /> for not selected entities and <see cref="F:devDept.Eyeshot.DrawParams.InsideSelectionMaterial" /> for selected entities.        
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.colorType.ColorWireFrameSelected_ColorFrontMaterialAmbientDiffuse_ColorBackMaterialDiffuseNotSelected">
+      <summary>
+            Sets <see cref="F:devDept.Eyeshot.DrawParams.InsideSelectionColor" /> as wireframe color (no lighting) for selected entities.
+            Sets <see cref="F:devDept.Eyeshot.DrawParams.InsideColor" /> on the Ambient and Diffuse components of the front material and the Diffuse component of the back material for not selected entities.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.colorType.ColorFrontMaterialAmbientAndDiffuse">
+      <summary>
+            Sets the <see cref="F:devDept.Eyeshot.DrawParams.InsideColor" /> and <see cref="F:devDept.Eyeshot.DrawParams.InsideSelectionColor" /> on the Ambient and Diffuse components of the front material for both selected and not selected entities.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.colorType.ColorFrontMaterialAmbient">
+      <summary>
+            Sets the <see cref="F:devDept.Eyeshot.DrawParams.InsideColor" /> and <see cref="F:devDept.Eyeshot.DrawParams.InsideSelectionColor" /> on the Ambient component of the front material for both selected and not selected entities.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.colorType.ColorWireFrameSelected_ColorFrontMaterialAmbientNotSelected">
+      <summary>
+            Sets the wireframe color (no lighting) using <see cref="F:devDept.Eyeshot.DrawParams.InsideSelectionColor" /> for selected entities and the front material Ambient component
+            using <see cref="F:devDept.Eyeshot.DrawParams.InsideColor" /> for not selected entities.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.RenderParams">
@@ -3313,21 +3375,23 @@
             Face sense.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.Face.#ctor(devDept.Geometry.AnalyticSurf,devDept.Eyeshot.Entities.Solid3D.Loop[],System.Boolean)">
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.Face.#ctor(devDept.Geometry.AnalyticSurf,devDept.Eyeshot.Entities.Solid3D.Loop[],System.Boolean,System.Nullable{System.Drawing.Color})">
       <summary>
             Faces and loops constructor.
             </summary>
       <param name="surface">The analytic surface</param>
       <param name="loops">The trim loop array</param>
       <param name="sense">The face sense</param>
+      <param name="color">The face Color (overrides the entity color and material)</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.Face.#ctor(devDept.Geometry.AnalyticSurf,devDept.Eyeshot.Entities.Solid3D.Loop,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.Face.#ctor(devDept.Geometry.AnalyticSurf,devDept.Eyeshot.Entities.Solid3D.Loop,System.Boolean,System.Nullable{System.Drawing.Color})">
       <summary>
             Faces and loop constructor.
             </summary>
       <param name="surface">The analytic surface</param>
       <param name="loop">The trim loop</param>
       <param name="sense">The face sense</param>
+      <param name="color">The face Color (overrides the entity color and material)</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.Face.Clone">
       <summary>
@@ -3368,6 +3432,19 @@
       <summary>
             Flips the face normal.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.Face.Draw(devDept.Eyeshot.DrawParams)">
+      <summary>
+            Draws the face.
+            </summary>
+      <param name="data">
+      </param>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Solid3D.Face.Color">
+      <summary>
+            Gets or sets the Color of the face.
+            </summary>
+      <remarks>Use it to specify a different color from the Solid3D color or material.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Solid3D.Vertex">
       <summary>
@@ -10639,14 +10716,21 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.SetSelectionColorForSelection(devDept.Eyeshot.DrawParams)">
       <summary>
-            Sets the selection color depending on the color mode.
+            Sets the selection color or material depending on the color mode.
             </summary>
       <param name="data">
       </param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.SetEntityColorForSelection(devDept.Eyeshot.DrawParams)">
       <summary>
-            Sets the entity color depending on the color mode.
+            Sets the entity color or material depending on the color mode.
+            </summary>
+      <param name="data">
+      </param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Entity.SetEntityColorForFace(devDept.Eyeshot.DrawParams,System.Drawing.Color)">
+      <summary>
+            Sets the entity color or material depending on the color mode.
             </summary>
       <param name="data">
       </param>
@@ -13950,7 +14034,7 @@
       <param name="insPoint">
       </param>
       <param name="tag">The tag</param>
-      <param name="text">The text</param>
+      <param name="value">The attribute value</param>
       <param name="height">
       </param>
     </member>
@@ -13960,7 +14044,7 @@
       <param name="insPoint">
       </param>
       <param name="tag">The tag</param>
-      <param name="text">The text</param>
+      <param name="value">The attribute value</param>
       <param name="height">
       </param>
     </member>
@@ -20521,15 +20605,16 @@
       <param name="attributes">
       </param>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.SetColorShaded(devDept.Graphics.RenderContextBase,devDept.Eyeshot.Entities.entityNatureType,System.Drawing.Color,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.SetColorShaded(devDept.Graphics.RenderContextBase,devDept.Eyeshot.Entities.entityNatureType,System.Drawing.Color,System.Boolean,devDept.Graphics.BackfaceSettings)">
       <summary>
             Shaded color changer.
             </summary>
+      <param name="context">The render context</param>
       <param name="nature">The nature of the entity just to be drawn</param>
       <param name="color">The color</param>
       <param name="selected">The selection status</param>
-      <param name="shaders">
-      </param>
+      <param name="backface">The BackFace settings</param>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayout.Backface" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetEntityPattern(devDept.Eyeshot.Entities.Entity,System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.LinePattern},System.String,devDept.Eyeshot.LayerList)">
       <summary>
@@ -24981,12 +25066,6 @@
     </member>
     <member name="T:devDept.Eyeshot.MouseButton">
       <summary>MouseButton class.</summary>
-    </member>
-    <member name="M:devDept.Eyeshot.MouseButton.#ctor(System.Windows.Forms.MouseButtons,devDept.Eyeshot.modifierKeys)">
-      <summary>Constructor.
-            </summary>
-      <param name="button">The mouse button</param>
-      <param name="modifierKey">The modifier key</param>
     </member>
     <member name="M:devDept.Eyeshot.MouseButton.#ctor(devDept.Eyeshot.mouseButtonsZPR,devDept.Eyeshot.modifierKeys)">
       <summary>Constructor.
