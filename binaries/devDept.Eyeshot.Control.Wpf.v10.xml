@@ -698,7 +698,7 @@
             Deviation and angle constructor.
             </summary>
       <param name="deviation">The maximum deviation</param>
-      <param name="angle">The maximum angular deflection. Ignored when zero.</param>
+      <param name="angle">The maximum angular deflection in radians. Ignored when zero.</param>
       <param name="viewportLayout">The viewport layout control. Can be null/Nothing when annotation entities (<see cref="T:devDept.Eyeshot.Entities.Text" />, <see cref="T:devDept.Eyeshot.Entities.Dimension" />, etc.) are not involved.</param>
     </member>
     <member name="P:devDept.Eyeshot.RegenParams.Deviation">
@@ -708,7 +708,7 @@
     </member>
     <member name="P:devDept.Eyeshot.RegenParams.Angle">
       <summary>
-            Gets or sets the maximum angular deflection, ignored when zero.
+            Gets or sets the maximum angular deflection in radians, ignored when zero.
             </summary>
       <remarks>This setting dictates the minimum number of facets around a smaller circle or cylinder regardless of the <see cref="P:devDept.Eyeshot.RegenParams.Deviation" /> setting, and gives you added control over faces with very small radii. Lower values result in finer tessellations, while higher values give coarser tessellations.</remarks>
     </member>
@@ -2744,8 +2744,8 @@
             Gets or sets the color array.
             </summary>
       <remarks>The size of the array determines how the colors are applied to the entity: 
-            1 byte per vertex is applied as a modulation factor to the <see cref="T:System.Drawing.Color" /> of the entity. This requires the use of shaders so the 
-            graphics acceleration must be turned on, <see cref="!:ViewportLayout.UseShaders" /> must be true (Winforms Eyeshot control only) and the <see cref="P:devDept.Eyeshot.ViewportLayout.DisplayMode" /> must be <see cref="F:devDept.Eyeshot.displayType.Rendered" />
+            1 byte per vertex is applied as a modulation factor (0-255) to the <see cref="T:System.Drawing.Color" /> of the entity. This requires the use of shaders so the 
+            graphics acceleration must be turned on, <see cref="P:devDept.Eyeshot.ViewportLayout.UseShaders" /> must be true (Winforms Eyeshot control only) and the <see cref="P:devDept.Eyeshot.ViewportLayout.DisplayMode" /> must be <see cref="F:devDept.Eyeshot.displayType.Rendered" />
             3 bytes per vertex are applied as RGB colors
             4 bytes per vertex are applied as RGBA colors (in order for the alpha transparency to work, the entity must also have a 
             <see cref="T:System.Drawing.Color" /> with alpha &lt; 255 and <see cref="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency" /> must be set to false).</remarks>
@@ -3627,533 +3627,6 @@
       <param name="tolerance">the regeneration tolerance</param>
       <returns>The resulting Solid3D object.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemove(devDept.Eyeshot.Entities.Region,System.Double)">
-      <summary>
-            Extrudes the specified region and removes it from the Solid3D object.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="reg">The region</param>
-      <param name="amount">The extrusion amount</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemove(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval)">
-      <summary>
-            Extrudes the specified region.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="reg">The region</param>
-      <param name="amount">The extrusion amount</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemove(devDept.Eyeshot.Entities.Region,System.Double,System.Double)">
-      <summary>
-            Extrudes the specified region with a draft angle.
-            </summary>
-      <param name="reg">The region</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="angleInRadians">The draft angle in radians</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="patternPln">The plane used to create the rectangular pattern</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="patternPln">The plane used to create the rectangular pattern</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="angleInRadians">The draft angle in radians</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="angleInRadians">The draft angle in radians</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="angleInRadians">The draft angle in radians</param>
-      <param name="patternPln">The plane used to create the rectangular pattern</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="angleInRadians">The draft angle in radians</param>
-      <param name="patternPln">The plane used to create the rectangular pattern</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="patternPln">The plane used to create the rectangular pattern</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="patternPln">The plane used to create the rectangular pattern</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="patternPln">The plane used to create the rectangular pattern</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
-      <summary>
-            Creates a rectangular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="patternPln">The plane used to create the rectangular pattern</param>
-      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
-      <param name="numberX">The number of pattern instances for plane X direction</param>
-      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
-      <param name="numberY">The number of pattern instances for plane Y direction</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="center">The circular pattern center</param>
-      <param name="angleInRadians">The angle between each instance</param>
-      <param name="number">The number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="center">The circular pattern center</param>
-      <param name="angleInRadians">The angle between each instance</param>
-      <param name="number">The number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="axis">The circular pattern axis</param>
-      <param name="center">The circular pattern center</param>
-      <param name="angleInRadians">The angle between each instance</param>
-      <param name="number">The number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="axis">The circular pattern axis</param>
-      <param name="center">The circular pattern center</param>
-      <param name="angleInRadians">The angle between each instance</param>
-      <param name="number">The number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="center">The circular pattern center</param>
-      <param name="angleInRadians">The angle between each instance</param>
-      <param name="number">The number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="center">The circular pattern center</param>
-      <param name="angleInRadians">The angle between each instance</param>
-      <param name="number">The number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="axis">The circular pattern axis</param>
-      <param name="center">The circular pattern center</param>
-      <param name="angleInRadians">The angle between each instance</param>
-      <param name="number">The number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="axis">The circular pattern axis</param>
-      <param name="center">The circular pattern center</param>
-      <param name="angleInRadians">The angle between each instance</param>
-      <param name="number">The number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="center">Circular pattern center</param>
-      <param name="angleInRadians">Angle between each instance</param>
-      <param name="number">Number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="center">Circular pattern center</param>
-      <param name="angleInRadians">Angle between each instance</param>
-      <param name="number">Number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="axis">Circular pattern axis</param>
-      <param name="center">Circular pattern center</param>
-      <param name="angleInRadians">Angle between each instance</param>
-      <param name="number">Number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="axis">Circular pattern axis</param>
-      <param name="center">Circular pattern center</param>
-      <param name="angleInRadians">Angle between each instance</param>
-      <param name="number">Number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="center">Circular pattern center</param>
-      <param name="angleInRadians">Angle between each instance</param>
-      <param name="number">Number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="center">Circular pattern center</param>
-      <param name="angleInRadians">Angle between each instance</param>
-      <param name="number">Number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="axis">Circular pattern axis</param>
-      <param name="center">Circular pattern center</param>
-      <param name="angleInRadians">Angle between each instance</param>
-      <param name="number">Number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
-      <summary>
-            Creates a circular pattern by extruding the specified region multiples times.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="region">The region to extrude</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="draftAngleInRadians">The draft angle in radians</param>
-      <param name="axis">Circular pattern axis</param>
-      <param name="center">Circular pattern center</param>
-      <param name="angleInRadians">Angle between each instance</param>
-      <param name="number">Number of instances</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAdd(devDept.Eyeshot.Entities.Region,System.Double)">
-      <summary>
-            Extrudes the specified region.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="reg">The region</param>
-      <param name="amount">The extrusion amount</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAdd(devDept.Eyeshot.Entities.Region,System.Double,System.Double)">
-      <summary>
-            Extrudes the specified region with a draft angle.
-            </summary>
-      <param name="reg">The region</param>
-      <param name="amount">The extrusion amount</param>
-      <param name="angleInRadians">The draft angle in radians</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAdd(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval)">
-      <summary>
-            Extrudes the specified region.
-            </summary>
-      <param name="reg">The region</param>
-      <param name="amount">The extrusion amount interval</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.RevolveRemove(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
-      <summary>
-            Revolves the specified region and removes it from the Solid3D object.
-            </summary>
-      <param name="reg">The region</param>
-      <param name="angle">Revolution angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.RevolveRemove(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
-      <summary>
-            Revolves the specified region and removes it from the Solid3D object.
-            </summary>
-      <param name="reg">The region</param>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.RevolveAdd(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
-      <summary>
-            Revolves the specified region and adds it to the Solid3D object.
-            </summary>
-      <param name="reg">The region</param>
-      <param name="angle">Revolution angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.RevolveAdd(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
-      <summary>
-            Revolves the specified region and adds it to the Solid3D object.
-            </summary>
-      <param name="reg">The region</param>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.Loft(devDept.Eyeshot.Entities.ICurve[])">
       <summary>
             Creates a Solid3D from skinning. 
@@ -4197,34 +3670,537 @@
       <param name="rebuildTol">The regeneration tolerance</param>
       <returns>The resulting Solid3D if the operation succeeds, null/Nothing otherwise.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemove(devDept.Eyeshot.Entities.Region,System.Double)">
+      <summary>
+            Extrudes the specified region and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="reg">The region</param>
+      <param name="amount">The extrusion amount</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemove(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the specified region and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="reg">The region</param>
+      <param name="amount">The extrusion amount</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemove(devDept.Eyeshot.Entities.Region,System.Double,System.Double)">
+      <summary>
+            Extrudes the specified region with a draft angle and removes it from the original Solid3D object.
+            </summary>
+      <param name="reg">The region</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="patternPln">The plane used to create the rectangular pattern</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="patternPln">The plane used to create the rectangular pattern</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <param name="patternPln">The plane used to create the rectangular pattern</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <param name="patternPln">The plane used to create the rectangular pattern</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="patternPln">The plane used to create the rectangular pattern</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="patternPln">The plane used to create the rectangular pattern</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="patternPln">The plane used to create the rectangular pattern</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="patternPln">The plane used to create the rectangular pattern</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction</param>
+      <param name="numberX">The number of pattern instances for plane X direction</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction</param>
+      <param name="numberY">The number of pattern instances for plane Y direction</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="center">The circular pattern center</param>
+      <param name="angleInRadians">The angle between each instance</param>
+      <param name="number">The number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="center">The circular pattern center</param>
+      <param name="angleInRadians">The angle between each instance</param>
+      <param name="number">The number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="axis">The circular pattern axis</param>
+      <param name="center">The circular pattern center</param>
+      <param name="angleInRadians">The angle between each instance</param>
+      <param name="number">The number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="axis">The circular pattern axis</param>
+      <param name="center">The circular pattern center</param>
+      <param name="angleInRadians">The angle between each instance</param>
+      <param name="number">The number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="center">The circular pattern center</param>
+      <param name="angleInRadians">The angle between each instance</param>
+      <param name="number">The number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="center">The circular pattern center</param>
+      <param name="angleInRadians">The angle between each instance</param>
+      <param name="number">The number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="axis">The circular pattern axis</param>
+      <param name="center">The circular pattern center</param>
+      <param name="angleInRadians">The angle between each instance</param>
+      <param name="number">The number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and removes it from the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="axis">The circular pattern axis</param>
+      <param name="center">The circular pattern center</param>
+      <param name="angleInRadians">The angle between each instance</param>
+      <param name="number">The number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="center">Circular pattern center</param>
+      <param name="angleInRadians">Angle between each instance</param>
+      <param name="number">Number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="center">Circular pattern center</param>
+      <param name="angleInRadians">Angle between each instance</param>
+      <param name="number">Number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="axis">Circular pattern axis</param>
+      <param name="center">Circular pattern center</param>
+      <param name="angleInRadians">Angle between each instance</param>
+      <param name="number">Number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="axis">Circular pattern axis</param>
+      <param name="center">Circular pattern center</param>
+      <param name="angleInRadians">Angle between each instance</param>
+      <param name="number">Number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="center">Circular pattern center</param>
+      <param name="angleInRadians">Angle between each instance</param>
+      <param name="number">Number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="center">Circular pattern center</param>
+      <param name="angleInRadians">Angle between each instance</param>
+      <param name="number">Number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="axis">Circular pattern axis</param>
+      <param name="center">Circular pattern center</param>
+      <param name="angleInRadians">Angle between each instance</param>
+      <param name="number">Number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAddPattern(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified region multiples times and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="region">The region to extrude</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="draftAngleInRadians">The draft angle in radians</param>
+      <param name="axis">Circular pattern axis</param>
+      <param name="center">Circular pattern center</param>
+      <param name="angleInRadians">Angle between each instance</param>
+      <param name="number">Number of instances</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAdd(devDept.Eyeshot.Entities.Region,System.Double)">
+      <summary>
+            Extrudes the specified region, overriding the original Solid3D with the result of the cut and adds it to the original Solid3D object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="reg">The region</param>
+      <param name="amount">The extrusion amount</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAdd(devDept.Eyeshot.Entities.Region,System.Double,System.Double)">
+      <summary>
+            Extrudes the specified region with a draft angle and adds it to the original Solid3D object.
+            </summary>
+      <param name="reg">The region</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.ExtrudeAdd(devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the specified region and adds it to the original Solid3D object.
+            </summary>
+      <param name="reg">The region</param>
+      <param name="amount">The extrusion amount interval</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.RevolveRemove(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified region and removes it from the Solid3D object and removes it from the original Solid3D object.
+            </summary>
+      <param name="reg">The region</param>
+      <param name="angle">Revolution angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.RevolveRemove(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified region and removes it from the Solid3D object and removes it from the original Solid3D object.
+            </summary>
+      <param name="reg">The region</param>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.RevolveAdd(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified region and adds it to the Solid3D object and adds it to the original Solid3D object.
+            </summary>
+      <param name="reg">The region</param>
+      <param name="angle">Revolution angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.RevolveAdd(devDept.Eyeshot.Entities.Region,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified region and adds it to the Solid3D object and adds it to the original Solid3D object.
+            </summary>
+      <param name="reg">The region</param>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Solid3D.RebuildTolerance">
       <summary>
             Gets or sets the rebuild tolerance used by Solid3D section, cut and boolean operations.
             </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.CutBy(devDept.Geometry.Plane,System.Boolean)">
-      <summary>
-            Cut the Solid3D with the Plane.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="pln"> cutting plane</param>
-      <param name="flip">
-      </param>
-      <returns>
-      </returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.CutBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Solid3D[]@,System.Boolean)">
-      <summary>
-            Cut the Solid3D with the Plane.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
-      <param name="pln">The cutting plane</param>
-      <param name="leftOvers">
-      </param>
-      <param name="flip">
-      </param>
-      <returns>
-      </returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.SplitBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Solid3D[]@,devDept.Eyeshot.Entities.Solid3D[]@)">
       <summary>
@@ -4246,23 +4222,42 @@
       <param name="right">The resulting set of right Solid3D objects</param>
       <returns>True if the operation succeeds, false otherwise.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.CutBy(devDept.Geometry.Plane,System.Boolean)">
+      <summary>
+            Cut the Solid3D with the Plane, overriding the original Solid3D with the result of the cut.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="pln"> cutting plane</param>
+      <param name="flip">When true the cut direction is inverted</param>
+      <returns> If true the operation is successful and the original Solid3D is modified, otherwise the operation failed and the original Solid3D is unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.CutBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Solid3D[]@,System.Boolean)">
+      <summary>
+            Cut the Solid3D with the Plane, overriding the original Solid3D with the result of the cut.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
+      <param name="pln">The cutting plane</param>
+      <param name="leftOvers">The possible left over solid objects</param>
+      <param name="flip">When true the cut direction is inverted</param>
+      <returns>If true the operation is successful and the original Solid3D is modified, otherwise the operation failed and the original Solid3D is unmutated.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.CutBy(devDept.Eyeshot.Entities.Surface,System.Boolean)">
       <summary>
-            Cuts this solid with the specified plane.
+            Cuts this solid with the specified plane, overriding the original Solid3D with the result of the cut.
             </summary>
       <param name="surface">The cutting surface</param>
       <param name="flip">When true the cut direction is inverted</param>
-      <returns>True if the operation succeeds, false otherwise.</returns>
+      <returns>If true the operation succeeds and the original Solid3D is modified, otherwise the operation failed and the original Solid3D is unmutated.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.CutBy(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Solid3D[]@,System.Boolean)">
       <summary>
-            Cuts this solid with the specified plane. 
+            Cuts this solid with the specified plane, overriding the original Solid3D with the result of the cut.
             </summary>
       <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
       <param name="surface">The cutting surface</param>
-      <param name="leftOvers">The possible leftover solid objects</param>
+      <param name="leftOvers">The possible left over solid objects</param>
       <param name="flip">When true the cut direction is inverted</param>
-      <returns>True if the operation succeeds, false otherwise.</returns>
+      <returns>If true the operation succeeds and the original Solid3D is modified, otherwise the operation failed and the original Solid3D is unmutated.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.Difference(devDept.Eyeshot.Entities.Solid3D,devDept.Eyeshot.Entities.Solid3D)">
       <summary>
@@ -10166,6 +10161,7 @@
             </summary>
       <seealso cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox" />
       <remarks>When the visibility of an entity changes, it's important to call <see cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox" /> to properly update the visualization.</remarks>
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.IsVisibleAndInFrustum(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.LayerList,devDept.Eyeshot.attributeReferenceVisibilityType)">
       <summary>
@@ -10242,6 +10238,7 @@
       <summary>
             Gets or sets the value that tells if the item can be selected.
             </summary>
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.InitGraphicsData">
       <summary>
@@ -13627,8 +13624,16 @@
     <member name="F:devDept.Eyeshot.Entities.PointCloud.drawingStyleType.Lines">
       <summary>Lines only</summary>
     </member>
+    <member name="F:devDept.Eyeshot.Entities.PointCloud.drawingStyleType.LineStrip">
+      <summary>Line strip only</summary>
+    </member>
     <member name="F:devDept.Eyeshot.Entities.PointCloud.drawingStyleType.PointsAndLines">
       <summary>Both points and lines</summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.PointCloud.drawingStyleType.PointsAndLineStrip">
+      <summary>
+            Both points and line strip.
+            </summary>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Text">
       <summary>
@@ -15896,6 +15901,25 @@
       <param name="viewportLayout">The Viewport used to add entities and materials</param>
       <param name="layerName">The destination layer name</param>
     </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadOBJ.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32)">
+      <summary>
+            Adds entities and materials, read from the OBJ file, to the Viewport putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+      <param name="viewportLayout">The Viewport used to add entities and materials</param>
+      <param name="blockName">The block name</param>
+      <param name="layerIndex">The destination layer index.</param>
+      <remarks>For the <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks" /> classes the BlockReference is affected by a scale factor (from <see cref="P:devDept.Eyeshot.Block.Units" /> to <see cref="P:devDept.Eyeshot.ViewportLayout.Units" />).</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadOBJ.AddToSceneAsSingleObject(devDept.Eyeshot.ViewportLayout,System.String,System.Int32,System.Drawing.Color)">
+      <summary>
+            Adds entities and materials, read from the OBJ file, to the Viewport putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+      <param name="viewportLayout">The Viewport used to add entities and materials</param>
+      <param name="blockName">The block name</param>
+      <param name="layerIndex">The destination layer index.</param>
+      <param name="color">The color assigned to the entities in the model</param>
+      <remarks>For the <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks" /> classes the BlockReference is affected by a scale factor (from <see cref="P:devDept.Eyeshot.Block.Units" /> to <see cref="P:devDept.Eyeshot.ViewportLayout.Units" />).</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Translators.ReadOBJ.FillMaterials(devDept.Eyeshot.ViewportLayout)">
       <summary>
             Automatically merges Material definitions with existing ones.
@@ -16489,7 +16513,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.Angle">
       <summary>
-            Gets or sets the maximum angular deflection, ignored when zero.
+            Gets or sets the maximum angular deflection in radians, ignored when zero.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.Log">
@@ -19129,7 +19153,7 @@
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.IsHardwareAccelerated">
       <summary>Returns true if OpenGL hardware acceleration is currently in use.</summary>
-      <seealso cref="!:AskForHardwareAcceleration">AskForHardwareAcceleration Property</seealso>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayout.AskForHardwareAcceleration">AskForHardwareAcceleration Property</seealso>
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.ForceHardwareAcceleration">ForceHardwareAcceleration Property</seealso>
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.IsAntiAliasingAvailable">
@@ -19494,7 +19518,7 @@
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.EvaluateBoundingBox(System.Collections.Generic.ICollection{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
-            Evaluates the bounding box of a collection of entities without taking care of entity visiblity.
+            Evaluates the bounding box of a collection of entities without taking care of entity visibility.
             </summary>
       <param name="entList">The collection of entities</param>
       <param name="globalMin">Output the min corner</param>
@@ -19552,6 +19576,12 @@
             When true the frame buffer objects are used. Affects the quality of Realistic shadows. For debugging purpose only.
             </summary>
       <remarks>When using Direct3D renderer, disabling this will disable also the realistic shadows.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.ViewportLayout.UseShaders">
+      <summary>
+            If true, the <see cref="F:devDept.Eyeshot.rendererType.OpenGL" /> renderer uses Phong shading for better lighting, has the <see cref="P:devDept.Eyeshot.DisplayModeSettingsRendered.PlanarReflections" /> with a fading out effect and better performances for the <see cref="F:devDept.Graphics.shadowType.Realistic" /> shadows.
+            </summary>
+      <remarks>With the <see cref="F:devDept.Eyeshot.rendererType.Direct3D" /> renderer it doesn't have any effect.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.CreateReferenceImage(devDept.Eyeshot.viewType)">
       <summary>
@@ -19714,12 +19744,14 @@
       <summary>
             The cursor types dictionary.
             </summary>
+      <remarks>If <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, use the <see cref="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(devDept.Eyeshot.cursorType,System.IO.Stream)" /> instead (WPF Eyeshot control only)</remarks>
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.ActionMode">
       <summary>
             Gets or sets the active viewport action. 
             </summary>
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.SelectionFilterMode" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
     </member>
     <member name="T:devDept.Eyeshot.ViewportLayout.assemblySelectionType">
       <summary>
@@ -19754,11 +19786,39 @@
             </summary>
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.ActionMode" />
     </member>
+    <member name="M:devDept.Eyeshot.ViewportLayout.SetCursor(System.Windows.Input.Cursor)">
+      <summary>
+            Sets the cursor.
+            </summary>
+      <param name="cursor">The cursor</param>
+      <remarks>If <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, use <see cref="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(System.IO.Stream)" /> (WPF only)</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(System.IO.Stream)" />
+    </member>
+    <member name="T:devDept.Eyeshot.ViewportLayout.CursorContainer">
+      <summary>
+            Structure that holds the Cursor (or Cursors) used by the control.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.ViewportLayout.CursorContainer.Cursor">
+      <summary>
+            Main control Cursor.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.ViewportLayout.CursorContainer.CursorWF">
+      <summary>
+            Internal Cursor used in WPF, if <see cref="!:Renderer" /> is not <see cref="F:devDept.Eyeshot.rendererType.Native" />.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.SetDefaultCursor(System.Windows.Input.Cursor)">
       <summary>
             Sets the default cursor for the viewport control.
             </summary>
       <param name="cursor">The cursor to set as default</param>
+      <remarks>If <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, to set
+            cursors different from the ones specified in <see cref="T:devDept.Eyeshot.cursorType" /> use the <see cref="M:devDept.Eyeshot.ViewportLayoutBase.SetDefaultCursor(System.IO.Stream)" /> instead (WPF only)</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayoutBase.SetDefaultCursor(System.IO.Stream)" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetDefaultCursor">
       <summary>
@@ -20321,6 +20381,12 @@
       <summary>
             Gets or sets the frame per second rate text visibility status.
             </summary>
+      <remarks>"WF" stands for WindowsForms</remarks>
+      <remarks>"D3D" stands <see cref="F:devDept.Eyeshot.rendererType.Direct3D" /></remarks>
+      <remarks>"OGL" stands <see cref="F:devDept.Eyeshot.rendererType.OpenGL" /></remarks>
+      <remarks>"WPF Native" stands for <see cref="F:devDept.Eyeshot.rendererType.Native" /></remarks>
+      <remarks>HW stands for Hardware accelerated rendering (OpenGL only)</remarks>
+      <remarks>SW stands for Sotware rendering (OpenGL only)</remarks>
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.Units">
       <summary>
@@ -20333,6 +20399,15 @@
             Gets or sets the wait cursor mode. Controls if and when the wait cursor is displayed.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.ViewportLayout.AskForHardwareAcceleration">
+      <summary>
+            If true, OpenGL accelerated hardware modes are requested during viewport initialization.
+            </summary>
+      <remarks>Has no effect at runtime.</remarks>
+      <remarks>Applies to <see cref="F:devDept.Eyeshot.rendererType.OpenGL" /> renderer only.</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayout.IsHardwareAccelerated" />
+      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
+    </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.AskForDirect3DLevel9_3">
       <summary>
             If true, The Direct3D feature level 9_3 is requested during viewport initialization instead of the highest feature level available.
@@ -20340,7 +20415,7 @@
       <remarks>Used for compatibility problems with old cards.</remarks>
       <remarks>Has no effect at runtime.</remarks>
       <remarks>Direct3D feature level 9_3 has some limitations and does not support all the features of higher profiles</remarks>
-      <remarks>Applies only to <see cref="!:rendererType.Direct3D" /> renderer.</remarks>
+      <remarks>Applies only to <see cref="F:devDept.Eyeshot.rendererType.Direct3D" /> renderer.</remarks>
       <seealso cref="!:ViewportLayout.Renderer" />
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.AskForAntiAliasing">
@@ -20368,6 +20443,24 @@
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.IsAntiAliasingAvailable" />
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.AskForAntiAliasing" />
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.AntiAliasing" />
+    </member>
+    <member name="P:devDept.Eyeshot.ViewportLayout.RendererVendor">
+      <summary>
+            Gets the company responsible for this GL implementation. This name does not change from release to release.
+            </summary>
+      <remarks>OpenGL only.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.ViewportLayout.ShadingLanguageVersion">
+      <summary>
+            Gets OpenGL Shading Language version.
+            </summary>
+      <remarks>OpenGL only.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.ViewportLayout.OpenglExtensions">
+      <summary>
+            Gets a space-separated list of supported extensions to OpenGL.
+            </summary>
+      <remarks>OpenGL only.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.MaxTextureSize">
       <summary>
@@ -20414,6 +20507,12 @@
       <summary>
             Gets or sets the modality used by IsInFrustum() method.
             </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ViewportLayout.DefaultColor">
+      <summary>
+            Gets or sets the default color used by top level entities with <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /> color method.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.HiddenLines">
       <summary>
@@ -20468,7 +20567,7 @@
       <summary>
             Gets or sets the list of entities to draw.
             </summary>
-      <remarks>They can be sorted with the <see cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)" /></remarks>
+      <remarks>They can be sorted with the <see cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})" /></remarks>
     </member>
     <member name="P:devDept.Eyeshot.ViewportLayout.DrawSceneParams.Blocks">
       <summary>
@@ -20517,8 +20616,8 @@
             When true, the Accurate Transparency mode is activated. Accurate Transparency provides slower but more accurate semi-transparent object drawing
             with support for non-concave objects and for objects intersection.
             </summary>
-      <remarks>For better rendering of transparent entities with <see cref="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency" /> turned off, override the <see cref="M:devDept.Eyeshot.ViewportLayout.DrawViewport(devDept.Eyeshot.ViewportLayout.DrawSceneParams)" /> and call the <see cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)" /></remarks>
-      <seealso cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)" />
+      <remarks>For better rendering of transparent entities with <see cref="P:devDept.Eyeshot.ViewportLayout.AccurateTransparency" /> turned off, override the <see cref="M:devDept.Eyeshot.ViewportLayout.DrawViewport(devDept.Eyeshot.ViewportLayout.DrawSceneParams)" /> and call the <see cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})" /></remarks>
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})" />
       <remarks>It does not works with selection inside components or of the faces.</remarks>
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" />
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.SelectionFilterMode" />
@@ -20656,7 +20755,7 @@
             Draws model, shadow and bounding box.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.SortEntitiesForTransparency(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
       <summary>
             Sorts the transparent entities from the farthest to the nearest to the camera for better rendering.
             </summary>
@@ -20990,7 +21089,7 @@
             Class that propagates the color attribute.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.GfxAttributesColor.Init(devDept.Eyeshot.LayerList)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.GfxAttributesColor.Init(System.Drawing.Color,devDept.Eyeshot.LayerList)">
       <summary>
             Initializes the Layer color.
             </summary>
@@ -21024,7 +21123,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="bitmapSize">The size in which the viewport will be fitted.</param>
       <param name="drawBackground">If true, the drawing of the background is skipped</param>
@@ -21032,7 +21131,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="bitmapSize">The size in which the viewport will be fitted.</param>
       <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -21050,7 +21149,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
       <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -21066,7 +21165,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene of the active viewport. The image can be scaled even to a poster size one.</summary>
       <param name="drawScaleFactor">The bitmap scale</param>
       <param name="drawBackground">If false, the drawing of the background is skipped</param>
@@ -21074,7 +21173,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Double,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Double,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene of the active viewport. The image can be scaled even to a poster size one.</summary>
       <param name="drawScaleFactor">The bitmap scale</param>
       <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -21083,7 +21182,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene of the active viewport. The image can be scaled even to a poster size one.</summary>
       <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
       <param name="drawScaleFactor">The bitmap scale factor</param>
@@ -21092,7 +21191,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.RenderToBitmap(System.Drawing.Rectangle,System.Double,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene of the active viewport. The image can be scaled even to a poster size one.</summary>
       <param name="rectangle">The rectangle of the viewport to capture in screen coordinates (zero on top)</param>
       <param name="drawScaleFactor">The bitmap scale factor</param>
@@ -21111,7 +21210,7 @@
       <remarks>If the file exists, it's overwritten.</remarks>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.WriteToFileRaster(System.Single,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.WriteToFileRaster(System.Single,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean)">
       <summary>Saves a raster image of the current viewport scene on disk.</summary>
       <param name="drawScaleFactor">The image scale</param>
       <param name="fileName">A string that contains the name of the file to which to save the raster image</param>
@@ -21122,7 +21221,7 @@
       <remarks>If the file exists, it's overwritten.</remarks>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.WriteToFileRaster(System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.WriteToFileRaster(System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean)">
       <summary>Saves a raster image of the current viewport scene on disk.</summary>
       <param name="drawScaleFactor">The image scale</param>
       <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -21289,7 +21388,7 @@
       <remarks>The copied image will be a 24-bit bitmap.</remarks>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size)" />
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size,System.Boolean,System.Boolean)">
       <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -21297,9 +21396,9 @@
       <param name="drawBackground">If true, the drawing of the background is skipped</param>
       <param name="hdwAcceleration">If true, use the hardware acceleration (openGL only)</param>
       <remarks>The copied image will be a 24-bit bitmap.</remarks>
-      <seealso cref="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size)" />/// 
-        </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size,System.Double,System.Boolean)">
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size)" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayout.CopyToClipboardRaster(System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
       <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -22000,13 +22099,20 @@
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection">
       <summary>
-            This method needs to be called before using one of the visible selection action modes or one of the methods that get the entities (or labels) under the mouse cursor if the visibility of an entity (or label) changed and the camera was not moved.
+            This method needs to be called before using one of the visible selection action modes or one of the methods that get the entities (or labels) under the mouse cursor if 
+            the <see cref="P:devDept.Eyeshot.Entities.Entity.Visible" /> or the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> (or <see cref="P:devDept.Eyeshot.Labels.Label.Visible" /> or <see cref="P:devDept.Eyeshot.Labels.Label.Selectable" /> in case of labels selection) changed and the camera was not moved.
             </summary>
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.ActionMode" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetItemUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllEntitiesUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllItemsUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetAllLabelsUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetLabelUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="P:devDept.Eyeshot.Entities.Entity.Visible" />
+      <seealso cref="P:devDept.Eyeshot.Entities.Entity.Selectable" />
+      <seealso cref="P:devDept.Eyeshot.Labels.Label.Visible" />
+      <seealso cref="P:devDept.Eyeshot.Labels.Label.Selectable" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)">
       <summary>
@@ -22014,9 +22120,9 @@
             </summary>
       <param name="mousePos">Mouse position in screen coordinates</param>
       <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
-      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetItemUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetLabelUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
       <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.ViewportLayout.PickBoxSize" /> parameter.</remarks>
       <returns>The index of the entity, -1 otherwise.</returns>
       <example>
@@ -22077,6 +22183,7 @@
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetLabelUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.GetLabelUnderMouseCursor(System.Drawing.Point,System.Boolean)">
       <summary>
@@ -22086,9 +22193,9 @@
       <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
       <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.ViewportLayout.PickBoxSize" /> parameter.</remarks>
       <returns>The index of the label, -1 otherwise.</returns>
-      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.GetItemUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.FindClosestTriangle(devDept.Eyeshot.Entities.IFace,System.Drawing.Point,devDept.Geometry.Point3D@,System.Int32@)">
       <summary>
@@ -24371,7 +24478,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="drawScale">The bitmap scale</param>
       <param name="drawBackground">If false, the drawing of the background is skipped</param>
@@ -24379,7 +24486,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="drawScale">The bitmap scale</param>
       <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -24388,7 +24495,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
       <param name="drawScale">The bitmap scale</param>
@@ -24397,7 +24504,7 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Double,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Double,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
       <param name="drawScale">The bitmap scale</param>
@@ -24407,14 +24514,14 @@
       <returns>The 24-bit image.</returns>
       <remarks>To get a 32-bit image with transparent background set the <see cref="P:devDept.Graphics.BackgroundSettings.StyleMode" /> to <see cref="F:devDept.Graphics.backgroundStyleType.None" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="bitmapSize">The size in which the viewport will be fitted.</param>
       <param name="drawBackground">If true, the drawing of the background is skipped</param>
       <param name="hdwAcceleration">If true, use the hardware acceleration</param>
       <returns>The 24-bit image.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="bitmapSize">The size in which the viewport will be fitted.</param>
       <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -24422,8 +24529,16 @@
       <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
       <returns>The 24-bit image.</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean,System.Boolean)" -->
-    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Size,System.Double,System.Boolean,System.Boolean,System.Boolean)">
+      <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
+      <param name="bitmapSize">The size in which the viewport will be fitted.</param>
+      <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
+      <param name="drawBackground">If true, the drawing of the background is skipped</param>
+      <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
+      <param name="drawUiElements">Draws UI elements like <see cref="P:devDept.Eyeshot.Viewport.ViewCubeIcon" /> and <see cref="T:devDept.Eyeshot.ToolBar" /></param>
+      <returns>The 24-bit image.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.Rectangle,System.Drawing.Size,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
       <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -24431,9 +24546,9 @@
       <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
       <returns>The 24-bit image.</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Boolean,System.Boolean)" -->
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Drawing.Color,System.Boolean)" -->
-    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean)">
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Boolean,System.Boolean,System.Boolean)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToTexture(devDept.Graphics.TextureBase,System.Drawing.Rectangle,System.Double,System.Drawing.Color,System.Boolean,System.Boolean)" -->
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean,System.Boolean)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
       <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
       <param name="bitmapSize">The size in which the viewport will be fitted.</param>
@@ -24442,9 +24557,18 @@
       <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
       <returns>The 24-bit image.</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean,System.Boolean)" -->
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Drawing.Color,System.Boolean)" -->
-    <member name="M:devDept.Eyeshot.Viewport.WriteToFileRaster(System.Single,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Boolean,System.Boolean,System.Boolean)">
+      <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.ViewportLayout" /> scene. The image can be scaled even to a poster size one.</summary>
+      <param name="rectangle">The rectangle of the viewport to capture in screen coordinates</param>
+      <param name="bitmapSize">The size in which the viewport will be fitted.</param>
+      <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
+      <param name="drawBackground">If true, the drawing of the background is skipped</param>
+      <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
+      <param name="drawUiElements">Draws UI elements like <see cref="P:devDept.Eyeshot.Viewport.ViewCubeIcon" /> and <see cref="T:devDept.Eyeshot.ToolBar" /></param>
+      <returns>The 24-bit image.</returns>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Drawing.RectangleF,System.Drawing.Size,System.Double,System.Drawing.Color,System.Boolean,System.Boolean)" -->
+    <member name="M:devDept.Eyeshot.Viewport.WriteToFileRaster(System.Single,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean)">
       <summary>Saves a raster image of the current viewport scene on disk.</summary>
       <param name="drawScale">The image scale</param>
       <param name="fileName">A string that contains the name of the file to which to save the raster image</param>
@@ -24453,7 +24577,7 @@
       <param name="hdwAcceleration">If true, use the hardware acceleration</param>
       <remarks>The saved file will contain a 24-bit image.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.WriteToFileRaster(System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.WriteToFileRaster(System.Single,System.Double,System.String,System.Drawing.Imaging.ImageFormat,System.Boolean,System.Boolean)">
       <summary>Saves a raster image of the current viewport scene on disk.</summary>
       <param name="drawScale">The image scale</param>
       <param name="lineWeightFactor">The factor applied to the line weight of the wire entities</param>
@@ -24463,7 +24587,7 @@
       <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
       <remarks>The saved file will contain a 24-bit image.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean,System.Boolean)">
       <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -24471,9 +24595,9 @@
       <param name="drawBackground">If true, the drawing of the background is skipped</param>
       <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL only)</param>
       <remarks>The copied image will be a 24-bit bitmap.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean,System.Boolean)" />
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Double,System.Boolean,System.Boolean)">
       <summary>
             Copies a raster image of the current viewport scene on the clipboard.
             </summary>
@@ -24482,7 +24606,7 @@
       <param name="drawBackground">If true, the drawing of the background is skipped</param>
       <param name="hdwAcceleration">If true, use the hardware acceleration (OpenGL)</param>
       <remarks>The copied image will be a 24-bit bitmap.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.Viewport.CopyToClipboardRaster(System.Single,System.Boolean,System.Boolean)" />
     </member>
     <member name="M:devDept.Eyeshot.Viewport.ZoomCamera(System.Int32)">
       <summary>
@@ -25064,6 +25188,111 @@
             The wait cursor, typically an hourglass shape.
             </summary>
     </member>
+    <member name="F:devDept.Eyeshot.cursorType.PanEast">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally to the right.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.ScrollE">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally to the right.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.PanNE">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally and vertically upward and to the right.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.ScrollNE">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally and vertically upward and to the right.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.PanNorth">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling vertically in an upward direction.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.ScrollN">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling vertically in an upward direction.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.PanNW">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally and vertically upward and to the left.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.ScrollNW">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally and vertically upward and to the left.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.PanSE">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally and vertically downward and to the right.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.ScrollSE">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally and vertically downward and to the right.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.PanSouth">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling vertically in a downward direction.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.ScrollSouth">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling vertically in a downward direction.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.PanSW">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally and vertically downward and to the left.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.ScrollSW">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally and vertically downward and to the left.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.PanWest">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally to the left.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.ScrollW">
+      <summary>
+            The cursor that appears during wheel operations when the mouse is moving and the window is scrolling horizontally to the left.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.SizeAll">
+      <summary>
+            The four-headed sizing cursor, which consists of four joined arrows that point north, south, east, and west.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.SizeNESW">
+      <summary>
+            The two-headed diagonal (northeast/southwest) sizing cursor.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.SizeNS">
+      <summary>
+            The two-headed vertical (north/south) sizing cursor.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.SizeNWSE">
+      <summary>
+            The two-headed diagonal (northwest/southeast) sizing cursor.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.cursorType.SizeWE">
+      <summary>
+            The two-headed horizontal (west/east) sizing cursor.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.MouseButton">
       <summary>MouseButton class.</summary>
     </member>
@@ -25112,8 +25341,9 @@
     </member>
     <member name="P:devDept.Eyeshot.MovementSettingsBase.Enabled">
       <summary>
-            Gets or sets a value indicating whether the rotate command is enabled. Born to avoid accidental rotations in 2D views.
+            Gets or sets a value indicating whether the command is enabled.
             </summary>
+      <remarks>For rotate command it can be used to avoid accidental rotations in 2D views.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.RotateSettings">
       <summary>Rotate command settings.</summary>
@@ -25380,6 +25610,7 @@
       <summary>
             Gets or sets the zoom window box color.
             </summary>
+      <remarks>When set to <see cref="F:System.Drawing.Color.Empty" /> (default value) it is drawn with a contrast color (white or black) according to the background color.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.ZoomSettings.ZoomStyle">
       <summary>
@@ -27492,6 +27723,7 @@
       <summary>
             Gets or sets the value that tells if the item can be selected.
             </summary>
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
     </member>
     <member name="M:devDept.Eyeshot.Labels.Label.#ctor(System.Drawing.Color)">
       <summary>
@@ -27578,6 +27810,7 @@
       <summary>
             If <b>false</b> the label is not drawn.
             </summary>
+      <seealso cref="M:devDept.Eyeshot.ViewportLayout.UpdateVisibleSelection" />
     </member>
     <member name="M:devDept.Eyeshot.Labels.Label.Draw(devDept.Graphics.RenderContextBase)">
       <summary>
@@ -28140,6 +28373,28 @@
     <member name="T:devDept.Eyeshot.Mouse3D.RotationVector">
       <summary>
             Rotation Vector from device.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.rendererType">
+      <summary>
+            Type of rendering engine.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.rendererType.OpenGL">
+      <summary>
+            OpenGL Renderer.
+            </summary>
+      <remarks>In WPF, it uses a hidden WinForms control losing the advantage of WPF composition for better performances.</remarks>
+    </member>
+    <member name="F:devDept.Eyeshot.rendererType.Direct3D">
+      <summary>
+            Direct3D Renderer.
+            </summary>
+      <remarks>In WPF, it uses a hidden WinForms control losing the advantage of WPF composition for better performances.</remarks>
+    </member>
+    <member name="F:devDept.Eyeshot.rendererType.Native">
+      <summary>
+            WPF native Direct3D renderer.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.ProgressChangedEventArgs">
@@ -28823,6 +29078,26 @@
             Graphics rendering context.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.ViewportLayoutBase.Renderer">
+      <summary>
+            Gets or sets the Renderer mode.
+            </summary>
+      <remarks>Has no effect at runtime.</remarks>
+      <remarks>The <see cref="F:devDept.Eyeshot.rendererType.OpenGL" /> and <see cref="F:devDept.Eyeshot.rendererType.Direct3D" /> renderer types require to use the methods that use a stream in order to get/set the Cursor.</remarks>
+      <seealso cref="M:devDept.Eyeshot.ViewportLayoutBase.SetDefaultCursor(System.IO.Stream)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(System.IO.Stream)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(devDept.Eyeshot.cursorType,System.IO.Stream)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayoutBase.GetCursor(devDept.Eyeshot.cursorType)" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayoutBase.GetMousePosition(System.Windows.Input.MouseEventArgs)" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayoutBase.ParentBackColor">
+      <summary>
+            Gets the Background color of the parent entity.
+            </summary>
+      <returns>The background color of the parent.</returns>
+      <remarks>if <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is <see cref="F:devDept.Eyeshot.rendererType.Native" /> and the parent background color is null or is not a SolidColorBrush, it returns a transparent color.
+            If the <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is not <see cref="F:devDept.Eyeshot.rendererType.Native" />, it goes up the hierarchy until it finds a valid background color.</remarks>
+    </member>
     <member name="E:devDept.Eyeshot.ViewportLayoutBase.InitializeScene">
       <summary>
             Occurs when the control is shown for the first time.
@@ -28834,6 +29109,60 @@
             Gets a value indicating whether the control is in design mode
             (running in Blend or Visual Studio).
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayoutBase.GetMouseClicks(System.Windows.Input.MouseButtonEventArgs)">
+      <summary>
+            Gets the number of mouse clicks from the event args.
+            </summary>
+      <param name="e">The event arguments</param>
+      <returns>The number of mouse clicks</returns>
+      <remarks>When using <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, use this method to get the mouse clicks in event handlers</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayoutBase.GetMousePosition(System.Windows.Input.MouseEventArgs)">
+      <summary>
+            Gets the mouse position from the event args.
+            </summary>
+      <param name="e">The event arguments</param>
+      <returns>The mouse position</returns>
+      <remarks>When using <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, use this method to get the mouse position in event handlers</remarks>
+      <remarks>The returned point is adjusted for DPI scaling.</remarks>
+      <seealso cref="M:devDept.Geometry.Utility.GetScalingLevel" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(System.IO.Stream)">
+      <summary>
+            Sets the cursor.
+            </summary>
+      <param name="cursorStream">The cursor stream</param>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
+      <remarks>When <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, the stream must be of a monochrome cursor image (due to a WindowsForms limitation).</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetDefaultCursor(System.IO.Stream)">
+      <summary>
+            Sets the default cursor for the viewport control.
+            </summary>
+      <param name="cursorStream">The stream of the cursor to set as default</param>
+      <remarks>Use this override to set a cursor in WPF when <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" /></remarks>
+      <remarks>When <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, the stream must be of a monochrome cursor image (due to a WindowsForms limitation).</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(devDept.Eyeshot.cursorType,System.IO.Stream)">
+      <summary>
+            Sets a cursor for a specific type/action.
+            </summary>
+      <param name="cursorType">The type/action of the cursor</param>
+      <param name="cursorStream">The stream with the cursor data</param>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
+      <seealso cref="M:devDept.Eyeshot.ViewportLayoutBase.GetCursor(devDept.Eyeshot.cursorType)" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewportLayoutBase.GetCursor(devDept.Eyeshot.cursorType)">
+      <summary>
+            Gets the stream of the cursor.
+            </summary>
+      <param name="cursorType">The type of cursor</param>
+      <returns>The stream of the cursor that was previously set by the user</returns>
+      <remarks>Use this method to get the cursor streams when <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />.</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
+      <see cref="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(devDept.Eyeshot.cursorType,System.IO.Stream)" />
     </member>
     <member name="T:devDept.Eyeshot.Block">
       <summary>
@@ -30599,16 +30928,28 @@
       <summary>
             Gets or sets the color of the element.
             </summary>
+      <remarks>
+                You need to call the <see cref="M:devDept.Eyeshot.ViewportLayout.CompileUserInterfaceElements" /> to
+                see the effect of your changes at run-time.
+            </remarks>
     </member>
     <member name="P:devDept.Eyeshot.ObjectManipulatorPartProperties.Visible">
       <summary>
             Gets or sets the visibility of the part.
             </summary>
+      <remarks>
+                You need to call the <see cref="M:devDept.Eyeshot.ViewportLayout.CompileUserInterfaceElements" /> to
+                see the effect of your changes at run-time.
+            </remarks>
     </member>
     <member name="P:devDept.Eyeshot.ObjectManipulatorPartProperties.Selectable">
       <summary>
             if true, the part is selectable and is drawn with its <see cref="P:devDept.Eyeshot.ObjectManipulatorPartProperties.Color" />, else it's not selectable and drawn with grey color.
             </summary>
+      <remarks>
+                You need to call the <see cref="M:devDept.Eyeshot.ViewportLayout.CompileUserInterfaceElements" /> to
+                see the effect of your changes at run-time.
+            </remarks>
     </member>
     <member name="T:devDept.Eyeshot.ObjectManipulator">
       <summary>
@@ -30814,6 +31155,7 @@
       <summary>
             Gets or sets the transformation applied to the entities being edited.
             </summary>
+      <remarks>The final transformation applied to the object is given by the product of this transformation and the inverse of <see cref="P:devDept.Eyeshot.ObjectManipulator.InitialTransformation" /></remarks>
       <remarks>To correctly update the drawing of the selected entities preview it's necessary to set a new Transformation object and not change the inner values of the Transformation.Matrix.</remarks>
       <seealso cref="P:devDept.Eyeshot.ObjectManipulator.InitialTransformation" />
     </member>

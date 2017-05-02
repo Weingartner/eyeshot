@@ -202,9 +202,19 @@
             </summary>
       <param name="vertices">The vertices</param>
     </member>
-    <member name="F:devDept.Graphics.D3DRenderContext.wpfImageSource">
+    <member name="T:devDept.Graphics.D3DRenderContext.RenderTargetStruct">
       <summary>
-            The WPF Image Source object. For internal use only.
+            The Direct3D render target structure.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.D3DRenderContext.RenderTargetStruct.renderView">
+      <summary>
+            The RenderTargetView object.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.D3DRenderContext.RenderTargetStruct.depthStencilView">
+      <summary>
+            The DepthStencilView object.
             </summary>
     </member>
     <member name="M:devDept.Graphics.D3DRenderContext.ReadColorBuffer(devDept.Graphics.IViewport,System.Drawing.Rectangle,System.Int32@,System.Int32@)">
@@ -526,8 +536,6 @@
             </summary>
       <param name="point">The point to convert</param>
       <returns>The <see cref="T:System.Drawing.Point" /> object.</returns>
-      <remarks>The returned point is adjusted for DPI scaling.</remarks>
-      <seealso cref="M:devDept.Geometry.Utility.GetScalingLevel" />
     </member>
     <member name="M:devDept.Graphics.RenderContextUtility.ConvertPoint(System.Drawing.Point)">
       <summary>
@@ -670,6 +678,11 @@
             </summary>
       <param name="nPasses">Number of shader passes</param>
       <param name="lightsWithShadow">Indices of the lights with a shadow</param>
+    </member>
+    <member name="P:devDept.Graphics.RenderContextBase.gl">
+      <summary>
+            Gets the instance to the OpenGL class.
+            </summary>
     </member>
     <member name="P:devDept.Graphics.RenderContextBase.EnvironmentSupported">
       <summary>
@@ -1180,6 +1193,12 @@
       <param name="texture">The texture</param>
       <returns>True if successful</returns>
     </member>
+    <member name="M:devDept.Graphics.RenderContextBase.SetTextureOverExposure(System.Boolean)">
+      <summary>
+            Sets a value that controls whether the scene lighting can make the image diffuse color brighter than the image color.
+            </summary>
+      <seealso cref="P:devDept.Graphics.Material.TextureImageOverExposure" />
+    </member>
     <member name="M:devDept.Graphics.RenderContextBase.ResolveAlphaMapShader(devDept.Graphics.shaderType)">
       <summary>
             Gets the shader with the AlphaMap support.
@@ -1443,23 +1462,25 @@
       <param name="errorCode">The error code</param>
       <returns>The error string.</returns>
     </member>
-    <member name="M:devDept.Graphics.RenderContextBase.SetPointSize(System.Single,System.Boolean)">
+    <member name="M:devDept.Graphics.RenderContextBase.SetPointSize(System.Single,System.Boolean,System.Boolean)">
       <summary>
-            Sets the point size.
+            Sets the point size and enables (or disables) the thick points rendering.
             </summary>
       <param name="size">The size (thickness) of the point in pixels</param>
+      <param name="setShader">If true, calls <see cref="M:devDept.Graphics.RenderContextBase.EnableThickPoints" /> to set the correct shader</param>
       <param name="force">If true sets the size regardless of the current one, else sets it only if it's different from the current one.</param>
       <returns>The previous value.</returns>
-      <remarks>Call <see cref="M:devDept.Graphics.RenderContextBase.EnableThickPoints" /> to make it effective in Direct3D renderer.</remarks>
+      <seealso cref="M:devDept.Graphics.RenderContextBase.EnableThickPoints" />
     </member>
-    <member name="M:devDept.Graphics.RenderContextBase.SetLineSize(System.Single,System.Boolean)">
+    <member name="M:devDept.Graphics.RenderContextBase.SetLineSize(System.Single,System.Boolean,System.Boolean)">
       <summary>
-            Sets the line size.
+            Sets the line size and enables (or disables) the thick lines rendering.
             </summary>
       <param name="size">The size (thickness) of the line in pixels</param>
+      <param name="setShader">If true, calls <see cref="M:devDept.Graphics.RenderContextBase.EnableThickLines" /> to set the correct shader</param>
       <param name="force">If true sets the size regardless of the current one, else sets it only if it's different from the current one.</param>
       <returns>The previous value.</returns>
-      <remarks>Call <see cref="M:devDept.Graphics.RenderContextBase.EnableThickLines" /> to make it effective in Direct3D renderer.</remarks>
+      <seealso cref="M:devDept.Graphics.RenderContextBase.EnableThickLines" />
     </member>
     <member name="M:devDept.Graphics.RenderContextBase.SetLighting(System.Boolean)">
       <summary>
@@ -1478,7 +1499,7 @@
             Gets the current shader.
             </summary>
     </member>
-    <member name="M:devDept.Graphics.RenderContextBase.DrawOnTextureOrBitmap(devDept.Graphics.TextureBase,devDept.Graphics.TextureBase,System.Drawing.Imaging.BitmapData,System.Int32,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate,System.Object,System.Int32,System.Boolean)">
+    <member name="M:devDept.Graphics.RenderContextBase.DrawOnTextureOrBitmap(devDept.Graphics.TextureBase,devDept.Graphics.TextureBase,System.Drawing.Imaging.BitmapData,System.Int32,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,devDept.Graphics.RenderContextBase.drawSceneFuncDelegate,System.Object,System.Boolean,System.Int32,System.Boolean)">
       <summary>
             Draws the scene on the specified texture or bitmapData. 
             </summary>
@@ -2094,6 +2115,12 @@
             Tells if the scene is being drawn for depth.
             </summary>
     </member>
+    <member name="M:devDept.Graphics.RenderContextBase.EnableMultisample(System.Boolean)">
+      <summary>
+            Enables or disables the multisample (antialiasing)
+            </summary>
+      <param name="enable">The enable status</param>
+    </member>
     <member name="P:devDept.Graphics.RenderContextBase.RendererVersion">
       <summary>
             Gets the renderer version.
@@ -2206,6 +2233,7 @@
       <param name="factor">The multiplier for each bit in the line stipple pattern</param>
       <param name="pattern">Specifies a 16-bit integer whose bit pattern determines which fragments of a line will be drawn when the line is rasterized. Bit zero is used first; the default pattern is all 1's</param>
       <param name="camera">The camera of the viewport being drawn</param>
+      <remarks>Call <see cref="M:devDept.Graphics.RenderContextBase.EnableLineStipple(System.Boolean)" /> to make it effective in Direct3D renderer.</remarks>
     </member>
     <member name="F:devDept.Graphics.RenderContextBase.lineStipple">
       <summary>
@@ -2217,6 +2245,7 @@
             Enables or disables the line stipple.
             </summary>
       <param name="enable">If true enables, else disables</param>
+      <seealso cref="M:devDept.Graphics.RenderContextBase.SetLineStipple(System.Int32,System.UInt16,devDept.Graphics.CameraBase)" />
     </member>
     <member name="M:devDept.Graphics.RenderContextBase.ClearDynamicBuffers">
       <summary>
@@ -2299,6 +2328,17 @@
       <param name="x">The x window coordinate of the pixel to retrieve</param>
       <param name="y">The y window coordinate of the pixel to retrieve (0 on bottom)</param>
       <returns>The color of the pixel</returns>
+    </member>
+    <member name="M:devDept.Graphics.RenderContextBase.SetActiveTexture(devDept.Graphics.TextureBase.textureUnitType)">
+      <summary>
+            Enables the given textureUnit (OpenGL only).
+            </summary>
+      <param name="textureUnit">TextureUnit to enable</param>
+    </member>
+    <member name="P:devDept.Graphics.RenderContextBase.TextureNonPowerOfTwo">
+      <summary>
+            Tells if the render context supports non power of two textures.
+            </summary>
     </member>
     <member name="M:devDept.Graphics.RenderContextBase.UpdateShaders(devDept.Graphics.ShaderParameters)">
       <summary>
@@ -2384,7 +2424,7 @@
             </code></example>
     </member>
     <member name="P:devDept.Graphics.LightSettings.Stationary">
-      <summary>Gets or sets the light behaviour. Set false to mimic the Sun.</summary>
+      <summary>Gets or sets the light behavior. Set false to mimic the Sun.</summary>
       <remarks>If true, the Light is fixed on screen, else it is fixed with the scene.</remarks>
     </member>
     <member name="P:devDept.Graphics.LightSettings.Active">
@@ -2646,12 +2686,12 @@
             Draws without lighting modulating the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor" /> by a factor specified per each vertex 
             </summary>
     </member>
-    <member name="F:devDept.Graphics.shaderType.SingleColorModulatedByIntensityLines">
+    <member name="F:devDept.Graphics.shaderType.SingleColorModulatedByIntensityThickLines">
       <summary>
             Draws thick lines without lighting modulating the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor" /> by a factor specified per each vertex 
             </summary>
     </member>
-    <member name="F:devDept.Graphics.shaderType.SingleColorModulatedByIntensityPoints">
+    <member name="F:devDept.Graphics.shaderType.SingleColorModulatedByIntensityThickPoints">
       <summary>
             Draws thick points without lighting modulating the <see cref="P:devDept.Graphics.RenderContextBase.CurrentWireColor" /> by a factor specified per each vertex 
             </summary>
@@ -3012,6 +3052,203 @@
             The face culling mode (CullFaceBack culls the back faces, CullFaceFront culls the front faces, NoCullFace disables face culling),
             The polygon offset status, units and factor parameters (see glPolygonOffset() documentation).</remarks>
     </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonLine_CullFaceBack">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon line mode, back face culling
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonLine_CullFaceFront">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon line mode, front face culling
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonLine_NoCullFace">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon line mode, no face culling
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonLine_NoCullFace_PolygonOffset_1_1">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon line mode, no face culling, polygon offset with factor 1 and units 1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceBack_PolygonOffset_1_1">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, back face culling, polygon offset with factor 1 and units 1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceBack_NoPolygonOffset">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, back face culling, no polygon offset
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceBack_PolygonOffset_Plus2Plus2">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, back face culling, polygon offset with factor 2 and units 2
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceFront_PolygonOffset_1_1">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, front face culling, polygon offset with factor 1 and units 1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceFront_NoPolygonOffset">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, front face culling, no polygon offset
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceFront_PolygonOffset_Plus2Plus2">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, front face culling, polygon offset with factor 2 and units 2
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_NoCullFace_PolygonOffset_1_1">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor 1 and units 1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_NoCullFace_NoPolygonOffset">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, no face culling, no polygon offset
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_NoCullFace_PolygonOffset_Plus2Plus2">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor 2 and units 2
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_NoCullFace_PolygonOffset_Minus3Minus2">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor -3 and units -2
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceBack_PolygonOffset_05_05">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, back face culling, polygon offset with factor 0.5 and units 0.5
+            </summary>
+      <remarks>Used for the shadows</remarks>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceBack_PolygonOffset_Minus_05_Minus1">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, back face culling, polygon offset with factor -0.5 and units -1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceFront_PolygonOffset_05_05">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, front face culling, polygon offset with factor 0.5 and units 0.5
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_CullFaceFront_PolygonOffset_Minus_05_Minus1">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, front face culling, polygon offset with factor -0.5 and units 0.5
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_NoCullFace_PolygonOffset_05_05">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor 0.5 and units 0.5
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CCW_PolygonFill_NoCullFace_PolygonOffset_Minus_05_Minus1">
+      <summary>
+            Counter Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor -0.5 and units -1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonLine_CullFaceBack">
+      <summary>
+            Clock Wise orientation of front faces, polygon line mode, back face culling
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonLine_CullFace_Front">
+      <summary>
+            Clock Wise orientation of front faces, polygon line mode, front face culling
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonLine_NoCullFace">
+      <summary>
+            Clock Wise orientation of front faces, polygon line mode, no face culling
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceBack_PolygonOffset_1_1">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, back face culling, polygon offset with factor 1 and units 1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceBack_NoPolygonOffset">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, back face culling, no polygon offset
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceBack_PolygonOffset_Plus2Plus2">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, back face culling, polygon offset with factor 2 and units 2
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceFront_PolygonOffset_1_1">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, front face culling, polygon offset with factor 1 and units 1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceFront_NoPolygonOffset">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, front face culling, no polygon offset
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceFront_PolygonOffset_Plus2Plus2">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, front face culling, polygon offset with factor 2 and units 2
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_NoCullFace_PolygonOffset_1_1">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor 1 and units 1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_NoCullFace_NoPolygonOffset">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, no face culling, no polygon offset
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_NoCullFace_PolygonOffset_Minus3Minus2">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor -3 and units -2
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_NoCullFace_PolygonOffset_Plus2Plus2">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor 2 and units 2
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceBack_PolygonOffset_05_05">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, back face culling, polygon offset with factor 0.5 and units 0.5
+            </summary>
+      <remarks>Used for the shadows</remarks>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceBack_PolygonOffset_Minus_05_Minus1">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, back face culling, polygon offset with factor -0.5 and units -1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceFront_PolygonOffset_05_05">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, front face culling, polygon offset with factor 0.5 and units 0.5
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_CullFaceFront_PolygonOffset_Minus_05_Minus1">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, front face culling, polygon offset with factor -0.5 and units -1
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_NoCullFace_PolygonOffset_05_05">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor 0.5 and units 0.5
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.rasterizerStateType.CW_PolygonFill_NoCullFace_PolygonOffset_Minus_05_Minus1">
+      <summary>
+            Clock Wise orientation of front faces, polygon fill mode, no face culling, polygon offset with factor -0.5 and units -1
+            </summary>
+    </member>
     <member name="T:devDept.Graphics.depthFuncType">
       <summary>
             The depth test function.
@@ -3219,6 +3456,313 @@
             The color applies to the ambient component of both front and back faces.
             </summary>
     </member>
+    <member name="T:devDept.Graphics.OGLEntityBuffer">
+      <summary>
+            OpenGL VBO buffer class.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.OGLEntityBuffer.vertexBuffer">
+      <summary>
+            OpenGL VBO buffers.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.OGLEntityBuffer.colorBuffer">
+      <summary>
+            OpenGL VBO buffers.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.OGLEntityBuffer.indexBuffer">
+      <summary>
+            OpenGL VBO buffers.
+            </summary>
+    </member>
+    <member name="T:devDept.Graphics.OglRenderContext">
+      <summary>
+            OpenGL render context class.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.OglRenderContext.DrawTriangles(devDept.Geometry.Point3D[])">
+      <summary>
+            Draws triangles without normals.
+            </summary>
+      <param name="vertices">The vertices</param>
+    </member>
+    <member name="M:devDept.Graphics.OglRenderContext.OpenglSetup(devDept.Graphics.ControlData)">
+      <summary>
+            OpenGL initialization. Lighting, shading, texture names, materials, quadric, are all defined here.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.OglRenderContext.ReadBuffer(System.Int32)">
+      <summary>
+            Sets the framebuffer to read from (OpenGL only).
+            </summary>
+      <param name="buffer">
+      </param>
+    </member>
+    <member name="M:devDept.Graphics.OglRenderContext.GenListName(System.UInt32@)">
+      <summary>
+            Generates an OpenGL display list name after deleting it if necessary.
+            </summary>
+      <param name="listName">
+      </param>
+    </member>
+    <member name="M:devDept.Graphics.OglRenderContext.GenTextureName(System.UInt32@)">
+      <summary>
+            Generates a texture name after deleting it if necessary.
+            </summary>
+      <param name="texName">The texture name</param>
+    </member>
+    <member name="M:devDept.Graphics.OglRenderContext.DelTexture(System.UInt32@)">
+      <summary>
+            Deletes a texture and reset the name to zero.
+            </summary>
+      <param name="texName">The texture name</param>
+    </member>
+    <member name="P:devDept.Graphics.OglRenderContext.OpenglVendor">
+      <summary>
+            Gets the company responsible for this GL implementation. This name does not change from release to release.
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.OglRenderContext.RendererVersion">
+      <summary>
+            Gets Graphics API version.
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.OglRenderContext.ShadingLanguageVersion">
+      <summary>
+            Gets OpenGL Shading Language version.
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.OglRenderContext.OpenglExtensions">
+      <summary>
+            Gets a space-separated list of supported extensions to OpenGL.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.OglRenderContext.EnableAlphaClip(System.Boolean)">
+      <summary>
+            Discards fragments with alpha &lt; 0.1
+            </summary>
+      <param name="enable">
+      </param>
+    </member>
+    <member name="M:devDept.Graphics.OglRenderContext.GetPixel(System.Int32,System.Int32)">
+      <summary>
+            Gets the color of the specified pixel in this viewport
+            </summary>
+      <param name="x">The x window coordinate of the pixel to retrieve</param>
+      <param name="y">The y window coordinate of the pixel to retrieve (0 on bottom)</param>
+      <returns>The color of the pixel</returns>
+    </member>
+    <member name="T:devDept.Graphics.ExtensionMethodsGL">
+      <summary>
+            Extension methods class for drawing points in OpenGL.
+            </summary>
+      <remarks>For internal use only.</remarks>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawGL(devDept.Geometry.Point2D)">
+      <summary>
+            Calls glVertex2d(X, Y)
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawGL(devDept.Geometry.Point3D)">
+      <summary>
+            Calls glVertex3d(X, Y, Z).
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawGL(devDept.Geometry.PointRGB)">
+      <summary>
+            Calls gl.Color3ub(R, G, B) and glVertex3d(X, Y, Z).
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawGL(devDept.Geometry.PointWithDisplacement,System.Double)">
+      <summary>
+            Calls gl.Vertex3d(X+UX, Y+UY, Z+UZ).
+            </summary>
+      <param name="value">
+      </param>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawGL(devDept.Geometry.Vector3D)">
+      <summary>
+            Calls gl.Normal3d(X, Y, Z)
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawGL(devDept.Geometry.PointNormalUv,System.Drawing.Color[])">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawInvGL(devDept.Geometry.PointNormalUv,System.Drawing.Color[])">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawGL(devDept.Geometry.PointNormalUv)">
+      <summary>
+            Calls glNormal3d(Nx, Ny, Nz) and glVertex3d(X, Y, Z) 
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawInvGL(devDept.Geometry.PointNormalUv)">
+      <summary>
+            Calls glNormal3d(-Nx, -Ny, -Nz) and glVertex3d(X, Y, Z) 
+            </summary>
+    </member>
+    <member name="T:devDept.Graphics.GLShader">
+      <summary>
+            Base shader class.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.#ctor">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="type">The shader type</param>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.#ctor(System.String,System.String)">
+      <summary>
+            Constructor with shader source code.
+            </summary>
+      <param name="type">The shader type</param>
+      <param name="vertexCode">Vertex program source code.</param>
+      <param name="fragmentCode">Fragment program source code.</param>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.ComposeStrings(devDept.Graphics.realisticShadowQualityType,devDept.Graphics.BackgroundSettings,devDept.Graphics.LightSettings[])">
+      <summary>
+            Method used internally to compose the shader code.
+            </summary>
+      <param name="shadowQuality">The shadow quality</param>
+      <param name="background">The background</param>
+      <param name="activeLights">Active activeLights</param>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.Compile(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Compiles the shader.
+            </summary>
+      <returns>True if successful, false otherwise.</returns>
+    </member>
+    <member name="P:devDept.Graphics.GLShader.Enabled">
+      <summary>
+            Gets the shader's enabled status.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.Enable(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Enables the shader.
+            </summary>
+      <param name="renderContext">The render context</param>
+      <returns>True if the shader has been enabled, false if it was already enabled.</returns>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.Disable(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Disables the shader.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.GetAttribLocation(System.String)">
+      <summary>
+            Gets the location of an attribute shader variable.
+            </summary>
+      <param name="name">the attribute variable name</param>
+      <returns>The location of the attribute variable.</returns>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.GetAttribLocation(System.UInt32,System.String)">
+      <summary>
+            Gets the location of an attribute shader variable.
+            </summary>
+      <param name="shaderProgram">The shader program ID</param>
+      <param name="name">The  variable name</param>
+      <returns>True if successful, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.GetUniformLocation(System.String)">
+      <summary>
+            Gets the location of a uniform shader variable.
+            </summary>
+      <param name="uniformName">the uniform variable name</param>
+      <returns>The location of the uniform variable.</returns>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.GetUniformLocation(System.UInt32,System.String)">
+      <summary>
+            Gets the location of a uniform shader variable.
+            </summary>
+      <param name="shaderProgram">The shader program ID</param>
+      <param name="uniformName">The uniform variable name</param>
+      <returns>True if successful, false otherwise.</returns>
+    </member>
+    <member name="P:devDept.Graphics.GLShader.IsCompiled">
+      <summary>
+            Returns true if the shader program was successfully compiled.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.GLShader.SetParameters(System.Object)">
+      <summary>
+            Sets the shader parameters.
+            </summary>
+      <param name="shaderParams">the object containing the shader parameters</param>
+    </member>
+    <member name="T:devDept.Graphics.OGLTextureBase">
+      <summary>
+            Base utility class to load textures. 
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.OGLTextureBase.LockBitmapBits(System.Drawing.Bitmap,System.Int32@,System.Int32@)">
+      <summary>
+            Locks the bitmap into system memory.
+            </summary>
+      <param name="bmp">The bitmap</param>
+      <param name="internalFormat">The internal format</param>
+      <param name="format">The format</param>
+      <returns>The bitmap data</returns>
+    </member>
+    <member name="M:devDept.Graphics.OGLTextureBase.UpdateRegion(devDept.Graphics.RenderContextBase,System.Drawing.Bitmap,System.Int32,System.Int32)">
+      <summary>
+            Updates a region of a texture already loaded in memory.
+            </summary>
+      <param name="renderContext">The render context</param>
+      <param name="bitmap">The region of the image to update</param>
+      <param name="xOffset">The texel offset in the x direction (0,0 being the bottom-left corner)</param>
+      <param name="yOffset">The texel offset in the y direction (0,0 being the bottom-left corner)</param>
+    </member>
+    <member name="T:devDept.Graphics.OGLTexture">
+      <summary>
+            Base class to load 2D textures. 
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.OGLTexture.#ctor(devDept.Graphics.RenderContextBase,System.UInt32,System.UInt32,System.Boolean,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType)">
+      <summary>
+            Create a texture for rendering.
+            </summary>
+      <param name="context">The rendering context</param>
+      <param name="width">The texture width</param>
+      <param name="height">The texture height</param>
+      <param name="depthTexture">if true creates a depth texture</param>
+      <param name="minFilterFunc">The minification filter function</param>
+      <param name="magFilterFunc">The magnification filter function</param>
+    </member>
+    <member name="M:devDept.Graphics.OGLTexture.Load(devDept.Graphics.RenderContextBase,System.Drawing.Bitmap,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+      <summary>
+            Loads a bitmap in the graphics memory.
+            </summary>
+      <param name="renderContext">
+      </param>
+      <param name="bitmap">
+      </param>
+      <param name="minFunc">
+      </param>
+      <param name="magFunc">
+      </param>
+      <param name="anisotropicFiltering">
+      </param>
+      <param name="repeatX">
+      </param>
+      <param name="repeatY">
+      </param>
+      <param name="checkPowerOfTwo">if true, checks that the texture is power of two and resizes it if it's not. </param>
+      <param name="enlargeIfSizeNotSupported">If true, the image is put in a bigger image (with some empty border, keeping the originla size of image) 
+            when the image is not power of two and the hardware does not support it. Else it is resized to a smaller power of two size.</param>
+    </member>
+    <member name="T:devDept.Graphics.OGLTexture1D">
+      <summary>
+            Base class to load 1D textures.
+            </summary>
+    </member>
     <member name="T:devDept.Graphics.D3DWPFImageSource">
       <summary>
             Direct3D image source class.
@@ -3228,6 +3772,21 @@
     <member name="M:devDept.Graphics.D3DWPFImageSource.InvalidateD3DImage">
       <summary>
             Updates the back buffer.
+            </summary>
+    </member>
+    <member name="T:devDept.Graphics.D3DRenderContextWF">
+      <summary>
+            Render context class that uses Direct3D in a WindowsForms control.
+            </summary>
+    </member>
+    <member name="T:devDept.Graphics.D3DRenderContextWPF">
+      <summary>
+            Render context class that uses Direct3D in a WPF native control.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.D3DRenderContextWPF.wpfImageSource">
+      <summary>
+            The WPF Image Source object. For internal use only.
             </summary>
     </member>
     <member name="T:devDept.Graphics.DrawEntityCallBack">
@@ -3766,6 +4325,12 @@
       <summary>Gets or sets the material texture image.</summary>
       <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)" /> to make it effective.</remarks>
     </member>
+    <member name="P:devDept.Graphics.Material.TextureImageOverExposure">
+      <summary>
+            Gets or sets a value that controls whether the scene lighting can make the image diffuse color brighter than the image color.
+            </summary>
+      <remarks>Requires the use of shaders.</remarks>
+    </member>
     <member name="P:devDept.Graphics.Material.AlphaMapImage">
       <summary>Gets or sets the material alpha image.</summary>
       <remarks>If the material is already added to the ViewportLayout call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)" /> to make it effective.</remarks>
@@ -3971,6 +4536,14 @@
             Interface for the environment mapping reflections.
             </summary>
     </member>
+    <member name="T:devDept.Graphics.OGLEnvironment">
+      <summary>Environment mapping data class.</summary>
+    </member>
+    <member name="M:devDept.Graphics.OGLEnvironment.Disable(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Disables the Environment mapping.
+            </summary>
+    </member>
     <member name="T:devDept.Graphics.BackfaceSettings">
       <summary>
             Backface settings.
@@ -4054,6 +4627,12 @@
             If true, discards the fragment if alpha &lt; 0.1.
             </summary>
       <remarks>For <see cref="F:devDept.Graphics.shaderType.Texture2DNoLights" /> shader only.</remarks>
+    </member>
+    <member name="F:devDept.Graphics.ShaderParameters.TextureOverExposure">
+      <summary>
+            If true, the scene lighting can make the image diffuse color brighter than the image color.
+            </summary>
+      <seealso cref="P:devDept.Graphics.Material.TextureImageOverExposure" />
     </member>
     <member name="T:devDept.Graphics.ReflectionShaderParameters">
       <summary>
@@ -4185,6 +4764,11 @@
       </param>
       <remarks>For internal use only.</remarks>
       <seealso cref="P:devDept.Graphics.BackgroundSettings.IsDark" />
+    </member>
+    <member name="T:OpenGL.gl">
+      <summary>
+            Wrapper class  with all OpenGL methods and definitions.
+            </summary>
     </member>
   </members>
 </doc>
