@@ -1,3 +1,4 @@
+.\nuget.exe update -self
 $dir = "C:\test_code"
 $file = dir *.nupkg |
   Sort-Object { 
@@ -9,4 +10,4 @@ $file = dir *.nupkg |
                     })  
     } | select -last 1 -ExpandProperty Name
 
-nuget push -Verbosity detailed -source nuget.org $file
+./nuget.exe push -Verbosity detailed -source nuget.org $file
