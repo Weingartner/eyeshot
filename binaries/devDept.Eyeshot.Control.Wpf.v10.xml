@@ -1695,6 +1695,11 @@
             Gets or sets the size of the arrow head.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.Leader.ShowArrowHead">
+      <summary>
+            When true shows the arrow head.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Leader.Scale">
       <summary>
             Get or set the scale factor for the arrow head.
@@ -4678,6 +4683,15 @@
       <param name="skipEdges">If true, skips the Edges computation</param>
       <returns>The resulting Mesh object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.ConvertToSolid3D(System.Double)">
+      <summary>
+            Converts this Surface to a <see cref="T:devDept.Eyeshot.Entities.Solid3D" /> object.
+            </summary>
+      <param name="rebuildTolerance">The rebuild tolerance to set to the object. Zero for default value.</param>
+      <param name="meshNature">The desired Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
+      <param name="skipEdges">If true, skips the Edges computation</param>
+      <returns>The resulting Solid3D object.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Surface.SkinU(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32)">
       <summary>
             Creates a surface from skinning. The skinning is performed in the U direction.
@@ -6736,6 +6750,12 @@
       <remarks>Text font can be changed using the <see cref="P:devDept.Eyeshot.Entities.Text.Style" /> property and calling the ViewportLayout.Entities.Regen() method.</remarks>
       <seealso cref="P:devDept.Eyeshot.Entities.Text.Style" />
       <seealso cref="T:devDept.Eyeshot.Entities.LinearDim" />
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Dimension.DimStyle">
+      <summary>
+            Gets or sets the dimension style name.
+            </summary>
+      <seealso cref="!:ViewportLayout.DimStyles" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Dimension.TextGap">
       <summary>
@@ -9416,13 +9436,14 @@
       <param name="tol">The search tolerance</param>
       <returns>The list of 3D intersection points.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Curve.#ctor(System.Int32,System.Double[],devDept.Geometry.Point4D[])">
+    <member name="M:devDept.Eyeshot.Entities.Curve.#ctor(System.Int32,System.Double[],devDept.Geometry.Point4D[],System.Boolean)">
       <summary>
             Standard constructor.
             </summary>
       <param name="degree">The curve degree</param>
       <param name="knotVector">The knot vector</param>
       <param name="ctrlPoints">The control points list</param>
+      <param name="checkKnotsAndCtrlPts">If false, avoids all the checks (useless in GetNurbsForm() methods)</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.#ctor(System.Int32,devDept.Geometry.Point3D[])">
       <summary>
@@ -16066,7 +16087,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with *.igs extension)</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16085,7 +16106,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16104,7 +16125,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with *.igs extension)</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
@@ -16126,7 +16147,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
@@ -16151,7 +16172,7 @@
       <param name="units">The model units</param>
       <param name="blockDict">The block dictionary</param>
       <param name="fileName">The file name (with the *.igs extension)</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16173,7 +16194,7 @@
       <param name="units">The model units</param>
       <param name="blockDict">The block dictionary</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16198,7 +16219,7 @@
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16223,7 +16244,7 @@
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16378,7 +16399,7 @@
       <param name="units">The model units</param>
       <param name="blockDict">The block dictionary</param>
       <param name="fileName">The file name (with the *.stl extension)</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16403,7 +16424,7 @@
       <param name="units">The model units</param>
       <param name="blockDict">The block dictionary</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16431,7 +16452,7 @@
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16459,7 +16480,7 @@
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16625,7 +16646,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with the *.obj extension)</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Boolean)">
@@ -16634,7 +16655,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>The material file will be NOT written.</remarks>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
@@ -16645,7 +16666,7 @@
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with the *.obj extension)</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Double,System.Boolean)">
@@ -16655,7 +16676,7 @@
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>The material file will be NOT written.</remarks>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
@@ -16668,7 +16689,7 @@
       <param name="blockDict">The block dictionary</param>
       <param name="matDict">The material dictionary</param>
       <param name="fileName">The file name (with the *.obj extension)</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.IO.Stream,System.Boolean)">
@@ -16680,7 +16701,7 @@
       <param name="blockDict">The block dictionary</param>
       <param name="matDict">The material dictionary</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>The material file will be NOT written.</remarks>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
@@ -16694,7 +16715,7 @@
       <param name="matDict">The material dictionary</param>
       <param name="fileName">The file name (with the *.obj extension)</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.IO.Stream,System.Double,System.Boolean)">
@@ -16707,7 +16728,7 @@
       <param name="matDict">The material dictionary</param>
       <param name="stream">The file stream</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>The material file will be NOT written.</remarks>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
@@ -16728,7 +16749,7 @@
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with *.stl extension)</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Boolean,System.Boolean)">
@@ -16738,7 +16759,7 @@
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.Double,System.Boolean,System.Boolean)">
@@ -16747,7 +16768,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with *.stl extension)</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
       <param name="deviation">The maximum deviation</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
@@ -16758,7 +16779,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
       <param name="deviation">The maximum deviation</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
@@ -16771,7 +16792,7 @@
       <param name="layerList">The layer list</param>
       <param name="blockDict">The block dictionary</param>
       <param name="fileName">The file name (with the *.stl extension)</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,System.Boolean)">
@@ -16782,7 +16803,7 @@
       <param name="layerList">The layer list</param>
       <param name="blockDict">The block dictionary</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,System.Double,System.Boolean,System.Boolean)">
@@ -16795,7 +16816,7 @@
       <param name="fileName">The file name (with the *.stl extension)</param>
       <param name="deviation">The maximum deviation</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,System.Double,System.Boolean,System.Boolean)">
@@ -16808,7 +16829,7 @@
       <param name="stream">The file stream</param>
       <param name="deviation">The maximum deviation</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteWebGL">
@@ -16827,7 +16848,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control.</param>
       <param name="fileName">The file name (with html extension).</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -16853,7 +16874,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control.</param>
       <param name="stream">The file stream.</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -16879,7 +16900,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control.</param>
       <param name="fileName">The file name (with html extension).</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="deviation">The maximum deviation</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
@@ -16906,7 +16927,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control.</param>
       <param name="stream">The file stream.</param>
-      <param name="selectedOnly">If true, only selected entities are written.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="deviation">The maximum deviation</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
@@ -16937,7 +16958,7 @@
       <param name="matDict">The material dictionary.</param>
       <param name="defaultMaterial">The default material.</param>
       <param name="fileName">The file name (with the html extension).</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -16967,7 +16988,7 @@
       <param name="matDict">The material dictionary.</param>
       <param name="defaultMaterial">The default material.</param>
       <param name="stream">The file stream.</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -16998,7 +17019,7 @@
       <param name="defaultMaterial">The default material.</param>
       <param name="fileName">The file name (with the html extension).</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -17029,7 +17050,7 @@
       <param name="defaultMaterial">The default material.</param>
       <param name="stream">The file stream.</param>
       <param name="deviation">Tolerance used to tessellate surface entities.</param>
-      <param name="selectedOnly">When true, only selected entities are written.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -22639,11 +22660,12 @@
       <param name="inners">
       </param>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.CopyTo(devDept.Eyeshot.ViewportLayout)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.CopyTo(devDept.Eyeshot.ViewportLayout,System.Boolean)">
       <summary>
             Copies all items inside control master collections (<see cref="P:devDept.Eyeshot.ViewportLayout.Entities" />, <see cref="P:devDept.Eyeshot.ViewportLayout.Labels" />, <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" />, <see cref="P:devDept.Eyeshot.ViewportLayout.Layers" />, <see cref="P:devDept.Eyeshot.ViewportLayout.Materials" />, <see cref="P:devDept.Eyeshot.ViewportLayout.TextStyles" />, <see cref="P:devDept.Eyeshot.ViewportLayout.LineTypes" />) to the specified ViewportLayout.
             </summary>
       <param name="destination">The ViewportLayout that is the destination of the elements copied.</param>
+      <param name="skipEntities">When true the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection is not copied.</param>
       <remarks>
             If the <see cref="P:devDept.Eyeshot.ViewportLayout.Viewports" /> collection is empty then a new <see cref="T:devDept.Eyeshot.Viewport" /> is added to it.
             You need to call <see cref="M:devDept.Eyeshot.ViewportLayout.Invalidate" /> to see the effect of this command in the destination ViewportLayout.
@@ -25612,6 +25634,12 @@
             </summary>
       <remarks>When set to <see cref="F:System.Drawing.Color.Empty" /> (default value) it is drawn with a contrast color (white or black) according to the background color.</remarks>
     </member>
+    <member name="P:devDept.Eyeshot.ZoomSettings.BorderXOR">
+      <summary>
+            When true the border is drawn in XOR, otherwise it is drawn according to the <see cref="P:devDept.Eyeshot.ZoomSettings.BoxColor" />.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.ZoomSettings.BoxColor" />
+    </member>
     <member name="P:devDept.Eyeshot.ZoomSettings.ZoomStyle">
       <summary>
             Zoom mode, affects only zoom by mouse wheel.
@@ -25688,6 +25716,20 @@
       <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
       <param name="fitLabels">Zoom fit mode for labels</param>
       <param name="fitMargin">Zoom fit margin</param>
+    </member>
+    <member name="M:devDept.Eyeshot.ZoomSettings.#ctor(devDept.Eyeshot.MouseButton,System.Int32,System.Boolean,devDept.Eyeshot.zoomStyleType,System.Boolean,System.Double,System.Drawing.Color,devDept.Eyeshot.Camera.perspectiveFitType,System.Boolean,System.Int32,System.Boolean)">
+      <summary>Standard constructor.</summary>
+      <param name="mouseButton">Zoom mouse button and modifier key</param>
+      <param name="keysStep">Zoom by arrow keys step (in pixels)</param>
+      <param name="enabled">False to disable view zoom</param>
+      <param name="mode">Zoom mode</param>
+      <param name="reverse">Zoom by mouse wheel direction</param>
+      <param name="speed">Zoom speed</param>
+      <param name="boxColor">Color of the zoom window box</param>
+      <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
+      <param name="fitLabels">Zoom fit mode for labels</param>
+      <param name="fitMargin">Zoom fit margin</param>
+      <param name="borderXOR">When true the border is drawn in XOR, otherwise it is drawn according to the <see cref="P:devDept.Eyeshot.ZoomSettings.BoxColor" />.</param>
     </member>
     <member name="T:devDept.Eyeshot.PanSettings">
       <summary>Pan command settings.</summary>
@@ -26013,6 +26055,14 @@
     </member>
     <member name="M:devDept.Eyeshot.SelectionBoxColorsSettings.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color)">
       <summary>
+            Deprecated constructor. Use the overload with the borderXOR parameter.
+            </summary>
+      <param name="crossing">The color used to draw the box and polygon for crossing selection mode</param>
+      <param name="enclosed">The color used to draw the box and polygon for enclosed selection mode</param>
+      <param name="visible">The color used to draw the box and polygon for visible selection mode</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SelectionBoxColorsSettings.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Boolean)">
+      <summary>
             Standard constructor.
             </summary>
       <param name="crossing">The color used to draw the box and polygon for crossing selection mode</param>
@@ -26033,6 +26083,14 @@
       <summary>
             Gets or sets the color used to draw the box and polygon for visible selection modes (<see cref="F:devDept.Eyeshot.actionType.SelectVisibleByBox" />, <see cref="F:devDept.Eyeshot.actionType.SelectVisibleByPolygon" />).
             </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SelectionBoxColorsSettings.BorderXOR">
+      <summary>
+            When true the border is drawn in XOR, otherwise it is drawn according to the box color.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.SelectionBoxColorsSettings.Crossing" />
+      <seealso cref="P:devDept.Eyeshot.SelectionBoxColorsSettings.Enclosed" />
+      <seealso cref="P:devDept.Eyeshot.SelectionBoxColorsSettings.Visible" />
     </member>
     <member name="T:devDept.Eyeshot.MagnifyingGlassSettings">
       <summary>
@@ -29128,6 +29186,11 @@
       <remarks>The returned point is adjusted for DPI scaling.</remarks>
       <seealso cref="M:devDept.Geometry.Utility.GetScalingLevel" />
     </member>
+    <member name="M:devDept.Eyeshot.ViewportLayoutBase.LoadCursors">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(System.IO.Stream)">
       <summary>
             Sets the cursor.
@@ -29141,9 +29204,12 @@
             Sets the default cursor for the viewport control.
             </summary>
       <param name="cursorStream">The stream of the cursor to set as default</param>
-      <remarks>Use this override to set a cursor in WPF when <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" /></remarks>
+      <remarks>Use this override to set a cursor in WPF when <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />.</remarks>
+      <remarks>You can use this override only when the handle of the control is already created (for e.g. in the Windows OnContentRendered override).</remarks>
       <remarks>When <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, the stream must be of a monochrome cursor image (due to a WindowsForms limitation).</remarks>
       <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
+      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.IsHandleCreated" />
+      <seealso cref="E:devDept.Eyeshot.ViewportLayoutBase.InitializeScene" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(devDept.Eyeshot.cursorType,System.IO.Stream)">
       <summary>
@@ -31077,6 +31143,12 @@
             Gets or sets the translation step distance.
             </summary>
       <remarks>Use 0 for a continuous movement. Applies only to the three translation axes, not to the translation on view ball.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.ObjectManipulator.TranslationRange">
+      <summary>
+            Gets or sets the translation range.
+            </summary>
+      <remarks>Applies only to the three translation axes, not to the translation on view ball.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.ObjectManipulator.ObjectManipulatorEventArgs">
       <summary>

@@ -1056,7 +1056,25 @@
       <param name="center">Center of the sphere</param>
       <param name="radius">Radius of the sphere</param>
       <returns>True if the hypothetical sphere is inside the planes.</returns>
-      <remarks>Useful for bounding box testing.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.Utility.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,System.Double,System.Boolean@)">
+      <summary>
+            Tells if a hypothetical sphere with the specified center and radius is inside the given frustum planes.
+            </summary>
+      <param name="frustum">Frustum planes</param>
+      <param name="center">Center of the sphere</param>
+      <param name="radius">Radius of the sphere</param>
+      <param name="intersect">When true, frustum and sphere intersect.</param>
+      <returns>True if the hypothetical sphere is inside the planes.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Tells if a hypothetical sphere with the specified center and radius is inside the given frustum planes.
+            </summary>
+      <param name="frustum">Frustum planes</param>
+      <param name="min">Min bounding box 3D point</param>
+      <param name="max">Max bounding box 3D point</param>
+      <returns>True if the hypothetical sphere is inside the planes.</returns>
     </member>
     <member name="M:devDept.Geometry.Utility.IsPointOnSegment(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double)">
       <summary>
