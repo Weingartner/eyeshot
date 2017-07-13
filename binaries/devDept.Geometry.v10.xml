@@ -3906,6 +3906,7 @@
       <param name="i1">Endpoint of the intersect segment [i0, i1] (when it exists)</param>
       <param name="domainSize">The maximum diagonal size of the domain</param>
       <returns>The intersection type.</returns>
+      <remarks>Be aware that both segments must have Lenght &gt; 0.</remarks>
     </member>
     <member name="M:devDept.Geometry.Segment2D.IntersectionLine(devDept.Geometry.Segment2D,devDept.Geometry.Segment2D,devDept.Geometry.Point2D@)">
       <summary>
@@ -3925,6 +3926,7 @@
       <param name="i0">Intersection point (when it exists)</param>
       <returns>True if the intersection exists, false otherwise (parallel or disjoint).</returns>
       <remarks>If return value is true and i0 is null, the segments are collinear and overlapping.</remarks>
+      <remarks>Be aware that both segments must have Lenght &gt; 0.</remarks>
     </member>
     <member name="M:devDept.Geometry.Segment2D.IntersectionAndT(devDept.Geometry.Segment2D,devDept.Geometry.Segment2D,devDept.Geometry.Point2D@)">
       <summary>

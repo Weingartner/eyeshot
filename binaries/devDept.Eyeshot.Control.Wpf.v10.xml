@@ -1910,13 +1910,15 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.Region.Edges">
       <summary>
-            Gets the region edges.
+            Gets or sets the region edges.
             </summary>
+      <remarks>Region edges are generated automatically by <see cref="M:devDept.Eyeshot.Entities.Entity.Regen(System.Double)" />.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Region.Triangles">
       <summary>
-            Gets the region triangles.
+            Gets or sets the region triangles.
             </summary>
+      <remarks>Region triangles are generated automatically by <see cref="M:devDept.Eyeshot.Entities.Entity.Regen(System.Double)" />.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Region.HasHoles">
       <summary>
@@ -9288,6 +9290,14 @@
       <returns>True when the projection is perpendicular to the curve, false otherwise.</returns>
       <remarks>When false is returned, the value of u is not reliable.</remarks>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Curve.Drop(devDept.Geometry.Plane,devDept.Eyeshot.Entities.ICurve)">
+      <summary>
+            Project curve on the specified plane.
+            </summary>
+      <param name="pln">The plane</param>
+      <param name="curve">The 3D curve</param>
+      <returns>The resulting Nurbs curve.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.PointAt(System.Double)">
       <summary>
             Computes the curve point at parametric value u.
@@ -12560,6 +12570,11 @@
     <member name="P:devDept.Eyeshot.Entities.Picture.Image">
       <summary>
             Gets or sets the picture image.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Picture.AnisotropicFiltering">
+      <summary>
+            When true, enables anisotropic filtering for mipmapping.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Picture.MinifyingFunction">
@@ -19414,6 +19429,15 @@
             Resizes the Viewports.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.ViewportLayout.SetFocus">
+      <summary>
+            Sets the focus to the control.
+            </summary>
+      <remarks>When using <see cref="T:System.Windows.Media.Renderer" /> different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, use this method to set the focus to the control.</remarks>
+      <remarks>
+        <seealso cref="M:System.Windows.UIElement.Focus" />
+      </remarks>
+    </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.OnLostFocus(System.EventArgs)">
       <summary>
             Synchronize <paramref name="hasFocus" /> parameter, reset <paramref name="action" />, redraw the control.
@@ -20642,6 +20666,12 @@
       <remarks>It does not works with selection inside components or of the faces.</remarks>
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" />
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.SelectionFilterMode" />
+    </member>
+    <member name="P:devDept.Eyeshot.ViewportLayout.WriteDepthForTransparents">
+      <summary>
+            When true, adds an extra pass to write transparent entities in the Z buffer.
+            </summary>
+      <remarks>Refers to inaccurate transparency only.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.DrawVertices(devDept.Eyeshot.ViewportLayout.DrawEntitiesParams)">
       <summary>
@@ -31264,6 +31294,12 @@
             Cancels the transformation of the <see cref="T:devDept.Eyeshot.ObjectManipulator" /> and hides it.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.ObjectManipulator.UpdateBoudingBox">
+      <summary>
+            Computes the model bounding box when the ObjectManipulator is enabled.       
+            </summary>
+      <remarks>It's important to call this method when the ObjectManipulator is enabled and visibility or size of some entities changes.</remarks>
+    </member>
     <member name="T:devDept.Eyeshot.EyeshotDisposableCollection`1">
       <exclude />
       <excludetoc />
@@ -32909,6 +32945,12 @@
             This class represents a .
             </summary>
     </member>
+    <member name="P:StepTranslator.StepBlockRef.PartName">
+      <summary>
+            Part name added for client's demand
+            Version 67
+            </summary>
+    </member>
     <member name="T:StepTranslator.BoundedCurve">
       <summary>
             This class represents bounded curve from STEP specifications.
@@ -33129,6 +33171,9 @@
             This class represents 3D point which contains X Y Z coordinates of a point. 
             </summary>
     </member>
+    <!-- Badly formed XML comment ignored for member "F:StepTranslator.StepReader.m_blockRefNameDictionary" -->
+    <!-- Badly formed XML comment ignored for member "F:StepTranslator.StepReader.m_blockAndIDDictionary" -->
+    <!-- Badly formed XML comment ignored for member "M:StepTranslator.StepReader.getUniqueBlockRefName(StepTranslator.StepBlockRef@)" -->
     <member name="T:StepTranslator.StepSurface">
       <summary>
             Represents a face geometry from step data which might be of any shape.
