@@ -4297,6 +4297,30 @@
       </param>
       <returns>The resulting array of the boolean operation.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.Mirror(System.Int32,devDept.Eyeshot.Entities.Solid3D)">
+      <summary>
+            Create a mirror entity from the input Solid3D by the plane provided.
+            </summary>
+      <param name="planarFaceIndex">The face index of the Solid3D in input needed to get the mirror plane</param>
+      <param name="solid">The Solid3D entity to mirror</param>
+      <returns> The resulting Solid3D union between the original input Solid3D and the mirrored one.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.Mirror(devDept.Eyeshot.Entities.Solid3D.Face,devDept.Eyeshot.Entities.Solid3D)">
+      <summary>
+            Create a mirror entity from the input Solid3D by the plane provided.
+            </summary>
+      <param name="planarFace">The face of the Solid3D in input to use to get the mirror plane</param>
+      <param name="solid">The Solid3D entity to mirror</param>
+      <returns> The resulting Solid3D union between the original input Solid3D and the mirrored one.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.Mirror(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Solid3D)">
+      <summary>
+            Create a mirror entity from the input Solid3D by the provided plane.
+            </summary>
+      <param name="mirrorPlane">The plane to use to mirror the entity</param>
+      <param name="solid">The Solid3D entity to mirror</param>
+      <returns> The resulting Solid3D union between the original input Solid3D and the mirrored one.</returns>
+    </member>
     <member name="T:devDept.Eyeshot.Entities.Solid3D.booleanOperationType">
       <summary>
             Boolean operation type.
@@ -8423,15 +8447,26 @@
       <param name="tol">The tolerance</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation)">
-      <summary>Computes the contours resulting from the intersection of the Mesh and the given plane.
+    <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.Plane,System.Double,System.Collections.Generic.LinkedList{devDept.Geometry.SharedEdge}[])">
+      <summary>
+            Computes the contours resulting from the intersection of the face and the given plane.
+            </summary>
+      <param name="plane">The plane</param>
+      <param name="tol">The tolerance</param>
+      <param name="edgesPerVertex">Pre-computed Mesh unique edges per vertices</param>
+      <returns>An array of curves representing each section contour.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation,System.Collections.Generic.LinkedList{devDept.Geometry.SharedEdge}[])">
+      <summary>
+            Computes the contours resulting from the intersection of the Mesh and the given plane.
             </summary>
       <param name="planeEquation">The cutting plane equation</param>
+      <param name="edgesPerVertex">Pre-computed Mesh unique edges per vertices</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.Plane,System.Double,devDept.Geometry.SharedEdge[][]@)">
       <summary>
-             Computes the contours resulting from the intersection of the face and the given plane.
+            Computes the contours resulting from the intersection of the face and the given plane.
             </summary>
       <param name="plane">The plane</param>
       <param name="tol">The tolerance</param>
@@ -15702,12 +15737,17 @@
       <param name="stream">The file stream</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
-    <member name="F:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.Blocks">
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.#ctor(System.String)">
+      <summary>
+            File name constructor.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.Blocks">
       <summary>
             Gets or sets the blocks resulting from file reading.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.Units">
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.Units">
       <summary>
             Gets or sets imported geometry linear units.
             </summary>

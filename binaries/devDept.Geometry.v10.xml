@@ -3729,6 +3729,15 @@
       <param name="pitch">The pitch angle, in radians, around the x-axis.</param>
       <param name="roll">The roll angle, in radians, around the z-axis.</param>
     </member>
+    <member name="M:devDept.Geometry.Quaternion.ToEulerAngles(System.Double@,System.Double@,System.Double@)">
+      <summary>
+            Converts this quaternion to Euler angles.
+            </summary>
+      <param name="roll">Roll angle in radians</param>
+      <param name="pitch">Pitch angle in radians</param>
+      <param name="yaw">Yaw angle in radians</param>
+      <remarks>Singularities at north/south poles (gimbal lock) are not handled by this method.</remarks>
+    </member>
     <member name="M:devDept.Geometry.Quaternion.Clone">
       <summary>
             Creates a deep copy of this quaternion.
