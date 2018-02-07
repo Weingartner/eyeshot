@@ -5532,11 +5532,15 @@
       <summary>
             Gets or sets the surface knot vector in the U parametric direction.
             </summary>
+      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.KnotVectorV">
       <summary>
             Gets or sets the surface knot vector in the V parametric direction.
             </summary>
+      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.Triangles">
       <summary>
@@ -5547,16 +5551,22 @@
       <summary>
             Gets surface degree in the U direction.
             </summary>
+      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.DegreeV">
       <summary>
             Gets surface degree in the V direction.
             </summary>
+      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.ControlPoints">
       <summary>
             Gets the surface control points array.
             </summary>
+      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.IsTrimmed">
       <summary>
@@ -9471,8 +9481,10 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.Curve.Degree">
       <summary>
-            Gets the curve degree.
+            Gets or sets the curve degree.
             </summary>
+      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Curve.IsClosed">
       <summary>
@@ -9488,11 +9500,15 @@
       <summary>
             Gets or sets the curve control point array.
             </summary>
+      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Curve.KnotVector">
       <summary>
             Gets or sets the curve knot vector U.
             </summary>
+      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Curve.IsLine">
       <summary>
