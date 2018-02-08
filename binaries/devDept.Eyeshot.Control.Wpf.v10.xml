@@ -1695,11 +1695,6 @@
             Gets or sets the size of the arrow head.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Entities.Leader.ShowArrowHead">
-      <summary>
-            When true shows the arrow head.
-            </summary>
-    </member>
     <member name="P:devDept.Eyeshot.Entities.Leader.Scale">
       <summary>
             Get or set the scale factor for the arrow head.
@@ -1910,15 +1905,13 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.Region.Edges">
       <summary>
-            Gets or sets the region edges.
+            Gets the region edges.
             </summary>
-      <remarks>Region edges are generated automatically by <see cref="M:devDept.Eyeshot.Entities.Entity.Regen(System.Double)" />.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Region.Triangles">
       <summary>
-            Gets or sets the region triangles.
+            Gets the region triangles.
             </summary>
-      <remarks>Region triangles are generated automatically by <see cref="M:devDept.Eyeshot.Entities.Entity.Regen(System.Double)" />.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Region.HasHoles">
       <summary>
@@ -3617,19 +3610,6 @@
       <param name="tolerance">the regeneration tolerance</param>
       <returns>The resulting Solid3D object.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.CreateCone(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Creates an Eccentric Cone primitive.
-            </summary>
-      <param name="baseRadius">Cone's base radius</param>
-      <param name="baseInnerRadius">Cone's base internal radius. 0 if the eccentric cone hasn't an internal offset</param>
-      <param name="topRadius">Cone's top radius</param>
-      <param name="topInnerRadius">Cone's top internal radius. 0 if the eccentric cone hasn't an internal offset</param>
-      <param name="height">The cone's height</param>
-      <param name="distance">Distance between circle centers</param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <returns>The resulting Solid3D object.</returns>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.CreateSphere(System.Double,System.Double)">
       <summary>
              Creates a Sphere primitive.
@@ -3644,16 +3624,6 @@
              </summary>
       <param name="majorRadius">Torus radius</param>
       <param name="minorRadius">Torus section radius</param>
-      <param name="tolerance">the regeneration tolerance</param>
-      <returns>The resulting Solid3D object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.Ruled(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Surface,System.Double)">
-      <summary>
-            Create a Solid3D connecting linearly two surfaces.
-            </summary>
-      <remarks> The two surfaces need to have the same number of outer curves and inner curves in the same order to be sure to get a correct result.</remarks>
-      <param name="bottom">the bottom surface to connect</param>
-      <param name="top">the top surface to connect</param>
       <param name="tolerance">the regeneration tolerance</param>
       <returns>The resulting Solid3D object.</returns>
     </member>
@@ -4227,20 +4197,6 @@
       <param name="center">Axis start point</param>
       <returns>True if the operation is successful, false otherwise keeping the Solid3D object unmutated.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.Remove(devDept.Eyeshot.Entities.Solid3D[])">
-      <summary>
-            Removes a list of non-intersecting solids from the original Solid3D object.
-            </summary>
-      <param name="solids">The list of dijoint solid3Ds to remove</param>
-      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.Add(devDept.Eyeshot.Entities.Solid3D[])">
-      <summary>
-            Adds a list of non-intersecting solids to the original Solid3D object.
-            </summary>
-      <param name="solids">The list of dijoint solid3Ds to add</param>
-      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
-    </member>
     <member name="P:devDept.Eyeshot.Entities.Solid3D.RebuildTolerance">
       <summary>
             Gets or sets the rebuild tolerance used by Solid3D section, cut and boolean operations.
@@ -4333,30 +4289,6 @@
       <param name="solidB">
       </param>
       <returns>The resulting array of the boolean operation.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.Mirror(System.Int32,devDept.Eyeshot.Entities.Solid3D)">
-      <summary>
-            Create a mirror entity from the input Solid3D by the plane provided.
-            </summary>
-      <param name="planarFaceIndex">The face index of the Solid3D in input needed to get the mirror plane</param>
-      <param name="solid">The Solid3D entity to mirror</param>
-      <returns> The resulting Solid3D union between the original input Solid3D and the mirrored one.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.Mirror(devDept.Eyeshot.Entities.Solid3D.Face,devDept.Eyeshot.Entities.Solid3D)">
-      <summary>
-            Create a mirror entity from the input Solid3D by the plane provided.
-            </summary>
-      <param name="planarFace">The face of the Solid3D in input to use to get the mirror plane</param>
-      <param name="solid">The Solid3D entity to mirror</param>
-      <returns> The resulting Solid3D union between the original input Solid3D and the mirrored one.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid3D.Mirror(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Solid3D)">
-      <summary>
-            Create a mirror entity from the input Solid3D by the provided plane.
-            </summary>
-      <param name="mirrorPlane">The plane to use to mirror the entity</param>
-      <param name="solid">The Solid3D entity to mirror</param>
-      <returns> The resulting Solid3D union between the original input Solid3D and the mirrored one.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Solid3D.booleanOperationType">
       <summary>
@@ -4745,15 +4677,6 @@
       <param name="meshNature">The desired Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
       <param name="skipEdges">If true, skips the Edges computation</param>
       <returns>The resulting Mesh object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Surface.ConvertToSolid3D(System.Double)">
-      <summary>
-            Converts this Surface to a <see cref="T:devDept.Eyeshot.Entities.Solid3D" /> object.
-            </summary>
-      <param name="rebuildTolerance">The rebuild tolerance to set to the object. Zero for default value.</param>
-      <param name="meshNature">The desired Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
-      <param name="skipEdges">If true, skips the Edges computation</param>
-      <returns>The resulting Solid3D object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Surface.SkinU(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32)">
       <summary>
@@ -5532,15 +5455,11 @@
       <summary>
             Gets or sets the surface knot vector in the U parametric direction.
             </summary>
-      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.KnotVectorV">
       <summary>
             Gets or sets the surface knot vector in the V parametric direction.
             </summary>
-      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.Triangles">
       <summary>
@@ -5551,22 +5470,16 @@
       <summary>
             Gets surface degree in the U direction.
             </summary>
-      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.DegreeV">
       <summary>
             Gets surface degree in the V direction.
             </summary>
-      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.ControlPoints">
       <summary>
             Gets the surface control points array.
             </summary>
-      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Entities.Surface.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Surface.IsTrimmed">
       <summary>
@@ -6824,12 +6737,6 @@
       <seealso cref="P:devDept.Eyeshot.Entities.Text.Style" />
       <seealso cref="T:devDept.Eyeshot.Entities.LinearDim" />
     </member>
-    <member name="P:devDept.Eyeshot.Entities.Dimension.DimStyle">
-      <summary>
-            Gets or sets the dimension style name.
-            </summary>
-      <seealso cref="!:ViewportLayout.DimStyles" />
-    </member>
     <member name="P:devDept.Eyeshot.Entities.Dimension.TextGap">
       <summary>
             Gets or sets the gap (in world units) between the dimension line and the text.
@@ -6846,19 +6753,6 @@
             </summary>
       <remarks>It has no effect on <see cref="T:devDept.Eyeshot.Entities.AngularDim" /></remarks>
     </member>
-    <member name="P:devDept.Eyeshot.Entities.Dimension.ToleranceMode">
-      <summary>
-            Gets or sets the tolerance mode.
-            </summary>
-      <remarks>AutoCAD property: DIMTOL/DIMLIM</remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Dimension.UpperValue">
-      <summary>
-            Gets or sets the upper tolerance value.
-            </summary>
-      <remarks>AutoCAD property: DIMTP</remarks>
-    </member>
-    <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.Entities.Dimension.LowerValue" -->
     <member name="P:devDept.Eyeshot.Entities.Dimension.Scale">
       <summary>
             Get or set the global scale factor for the dimension.
@@ -8507,26 +8401,15 @@
       <param name="tol">The tolerance</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.Plane,System.Double,System.Collections.Generic.LinkedList{devDept.Geometry.SharedEdge}[])">
-      <summary>
-            Computes the contours resulting from the intersection of the face and the given plane.
-            </summary>
-      <param name="plane">The plane</param>
-      <param name="tol">The tolerance</param>
-      <param name="edgesPerVertex">Pre-computed Mesh unique edges per vertices</param>
-      <returns>An array of curves representing each section contour.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation,System.Collections.Generic.LinkedList{devDept.Geometry.SharedEdge}[])">
-      <summary>
-            Computes the contours resulting from the intersection of the Mesh and the given plane.
+    <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation)">
+      <summary>Computes the contours resulting from the intersection of the Mesh and the given plane.
             </summary>
       <param name="planeEquation">The cutting plane equation</param>
-      <param name="edgesPerVertex">Pre-computed Mesh unique edges per vertices</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.Plane,System.Double,devDept.Geometry.SharedEdge[][]@)">
       <summary>
-            Computes the contours resulting from the intersection of the face and the given plane.
+             Computes the contours resulting from the intersection of the face and the given plane.
             </summary>
       <param name="plane">The plane</param>
       <param name="tol">The tolerance</param>
@@ -8911,12 +8794,6 @@
       <summary>
             Removes duplicated vertices and degenerated triangles in the Mesh.
             </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Mesh.Weld(System.Double)">
-      <summary>
-            Removes duplicated vertices and degenerated triangles in the Mesh with a given tolerance.
-            </summary>
-      <param name="maxGap">The maximum distance for considering two vertices equal.</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.FindClosestTriangle(devDept.Geometry.Transformation,devDept.Geometry.Segment3D)">
       <summary>
@@ -9391,14 +9268,6 @@
       <returns>True when the projection is perpendicular to the curve, false otherwise.</returns>
       <remarks>When false is returned, the value of u is not reliable.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Curve.Drop(devDept.Geometry.Plane,devDept.Eyeshot.Entities.ICurve)">
-      <summary>
-            Project curve on the specified plane.
-            </summary>
-      <param name="pln">The plane</param>
-      <param name="curve">The 3D curve</param>
-      <returns>The resulting Nurbs curve.</returns>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.PointAt(System.Double)">
       <summary>
             Computes the curve point at parametric value u.
@@ -9481,10 +9350,8 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.Curve.Degree">
       <summary>
-            Gets or sets the curve degree.
+            Gets the curve degree.
             </summary>
-      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Curve.IsClosed">
       <summary>
@@ -9500,15 +9367,11 @@
       <summary>
             Gets or sets the curve control point array.
             </summary>
-      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Curve.KnotVector">
       <summary>
             Gets or sets the curve knot vector U.
             </summary>
-      <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.IsValid" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Curve.IsLine">
       <summary>
@@ -9536,14 +9399,6 @@
       <param name="flipSide">The flip side flag</param>
       <returns>True if the operation is successful, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Curve.GetParamsFromLength(System.Double[],System.Double[]@)">
-      <summary>
-            Given a sorted array of lengths along the curve, finds the parameter values that correspond to them.
-            </summary>
-      <param name="lengths">Sorted lengths along the curve (ascending order)</param>
-      <param name="ts">Corresponding parameter values</param>
-      <returns>True if all the operations were successful, false otherwise.</returns>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.TrimBy(devDept.Geometry.Plane,System.Double,System.Boolean)">
       <summary>
             Trims the curve at the limit point projection.
@@ -9561,14 +9416,13 @@
       <param name="tol">The search tolerance</param>
       <returns>The list of 3D intersection points.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Curve.#ctor(System.Int32,System.Double[],devDept.Geometry.Point4D[],System.Boolean)">
+    <member name="M:devDept.Eyeshot.Entities.Curve.#ctor(System.Int32,System.Double[],devDept.Geometry.Point4D[])">
       <summary>
             Standard constructor.
             </summary>
       <param name="degree">The curve degree</param>
       <param name="knotVector">The knot vector</param>
       <param name="ctrlPoints">The control points list</param>
-      <param name="checkKnotsAndCtrlPts">If false, avoids all the checks (useless in GetNurbsForm() methods)</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.#ctor(System.Int32,devDept.Geometry.Point3D[])">
       <summary>
@@ -11333,15 +11187,6 @@
       <param name="t">Parameter value</param>
       <returns>True if the operation is successful, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.ICurve.GetParamFromLength(System.Double,System.Double,System.Double@)">
-      <summary>
-             Given the length along the curve, finds the parameter value that corresponds to it.
-             </summary>
-      <param name="length">Length along the curve</param>
-      <param name="curveLength">Length of the whole curve</param>
-      <param name="t">Parameter value</param>
-      <returns>True if the operation is successful, false otherwise.</returns>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.GetLengthFromParam(System.Double,System.Double@)">
       <summary>
              Given the parameter along the curve, finds the the length of the subcurve at that parameter.
@@ -11913,7 +11758,7 @@
     </member>
     <member name="T:devDept.Eyeshot.Entities.arrowheadType">
       <summary>
-            Dimension and leader arrow head type.
+            Dimension arrow head type.
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.Entities.arrowheadType.Arrow">
@@ -11939,31 +11784,6 @@
     <member name="T:devDept.Eyeshot.Entities.elementPositionType">
       <summary>
             Dimension item position type.
-            </summary>
-    </member>
-    <member name="T:devDept.Eyeshot.Entities.toleranceType">
-      <summary>
-            Dimension tolerance type (DIMTOL).
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.toleranceType.None">
-      <summary>
-            Does not add a tolerance
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.toleranceType.Symmetrical">
-      <summary>
-            Adds a plus/minus expression of tolerance in which a single value of variation is applied to the dimension measurement
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.toleranceType.Deviation">
-      <summary>
-            Adds a plus/minus tolerance expression
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.toleranceType.Limits">
-      <summary>
-            A maximum and a minimum value are displayed, one over the other.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Joint">
@@ -12701,7 +12521,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Picture.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Drawing.Image,System.Boolean)">
       <summary>
-            Plane, dimensions and tiling constructor.
+            Plane, base point, dimensions and tiling constructor.
             </summary>
       <param name="pln">The picture plane (also determines the picture rotation)</param>
       <param name="width">The picture width</param>
@@ -12719,11 +12539,6 @@
     <member name="P:devDept.Eyeshot.Entities.Picture.Image">
       <summary>
             Gets or sets the picture image.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Picture.AnisotropicFiltering">
-      <summary>
-            When true, enables anisotropic filtering for mipmapping.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Picture.MinifyingFunction">
@@ -14062,15 +13877,6 @@
             </summary>
       <remarks>When <see cref="P:devDept.Eyeshot.Entities.Text.Simplify" /> is true.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Text.CheckRegenParams(devDept.Eyeshot.RegenParams)">
-      <summary>
-            All the Text derived classes must call this method at the beginning of the <see cref="M:devDept.Eyeshot.Entities.Text.Regen(devDept.Eyeshot.RegenParams)" /> method.
-            </summary>
-      <param name="data">The <see cref="T:devDept.Eyeshot.RegenParams" /> data.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Text.Regen(devDept.Eyeshot.RegenParams)">
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thorwn when the regen params don't contain a valid ViewportLayout.</exception>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Text.ConvertToMesh(devDept.Eyeshot.ViewportLayout)">
       <summary>
             Converts the text to a list of meshes.
@@ -14948,20 +14754,6 @@
       <param name="style">The font style</param>
       <param name="widthFactor">The width factor</param>
     </member>
-    <member name="M:devDept.Eyeshot.TextStyle.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.TextStyle.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Constructor for deserializing objects.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
     <member name="M:devDept.Eyeshot.TextStyle.#ctor(devDept.Eyeshot.TextStyle)">
       <summary>
             Copy constructor.
@@ -15175,20 +14967,6 @@
             </summary>
       <param name="pattern">The pattern.</param>
       <param name="description">The pattern description</param>
-    </member>
-    <member name="M:devDept.Eyeshot.LinePattern.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.LinePattern.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Constructor for deserializing objects.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="M:devDept.Eyeshot.LinePattern.CheckPattern(System.Single[],System.Boolean,System.Single@)">
       <summary>
@@ -15550,7 +15328,6 @@
             Clears this collection and adds a layer called "Default".
             </summary>
       <param name="defaultLayer">The default layer added after the clear</param>
-      <remarks>Clears also the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.LayerList.AddRange(System.Collections.Generic.IList{devDept.Eyeshot.Layer})">
       <summary>
@@ -15698,24 +15475,6 @@
             Intensity, each point has its own intensity.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.Classifications">
-      <summary>
-            Array of the “class” attribute for each point.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.Coordinates">
-      <summary>
-             Array with the x, y, z coordinates of the points.
-            </summary>
-      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillCoordinates" /> is true</remarks>
-      <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.FillCoordinates" />
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.FillCoordinates">
-      <summary>
-            When true the <see cref="P:devDept.Eyeshot.Translators.ReadLAS.Coordinates" /> array is filled.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.Coordinates" />
-    </member>
     <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.String,devDept.Eyeshot.Translators.ReadLAS.formatType)">
       <summary>
             File name constructor.
@@ -15797,6 +15556,11 @@
     <member name="P:devDept.Eyeshot.Translators.ReadFileAsync.LoadingText">
       <summary>
             Gets or sets the "Loading..." text string.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsync.LoadingBlocksText">
+      <summary>
+            Gets or sets the "Loading block definitions..." text string.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFileAsync.LoadingEntitiesText">
@@ -15902,22 +15666,12 @@
       <param name="stream">The file stream</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.#ctor(System.String)">
-      <summary>
-            File name constructor.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.Blocks">
+    <member name="F:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.Blocks">
       <summary>
             Gets or sets the blocks resulting from file reading.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.LoadingBlocksText">
-      <summary>
-            Gets or sets the "Loading block definitions..." text string.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.Units">
+    <member name="F:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks.Units">
       <summary>
             Gets or sets imported geometry linear units.
             </summary>
@@ -16312,7 +16066,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with *.igs extension)</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16331,7 +16085,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16350,7 +16104,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with *.igs extension)</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
@@ -16372,7 +16126,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
@@ -16397,7 +16151,7 @@
       <param name="units">The model units</param>
       <param name="blockDict">The block dictionary</param>
       <param name="fileName">The file name (with the *.igs extension)</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16419,7 +16173,7 @@
       <param name="units">The model units</param>
       <param name="blockDict">The block dictionary</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16444,7 +16198,7 @@
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16469,7 +16223,7 @@
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16624,7 +16378,7 @@
       <param name="units">The model units</param>
       <param name="blockDict">The block dictionary</param>
       <param name="fileName">The file name (with the *.stl extension)</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16649,7 +16403,7 @@
       <param name="units">The model units</param>
       <param name="blockDict">The block dictionary</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16677,7 +16431,7 @@
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16705,7 +16459,7 @@
       <param name="author">Author name</param>
       <param name="organization">Organization name</param>
       <param name="originatingSystem">Originating system name</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>
         <list type="bullet">
           <item>
@@ -16871,7 +16625,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with the *.obj extension)</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Boolean)">
@@ -16880,7 +16634,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>The material file will be NOT written.</remarks>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
@@ -16891,7 +16645,7 @@
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with the *.obj extension)</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Double,System.Boolean)">
@@ -16901,7 +16655,7 @@
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>The material file will be NOT written.</remarks>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
@@ -16914,7 +16668,7 @@
       <param name="blockDict">The block dictionary</param>
       <param name="matDict">The material dictionary</param>
       <param name="fileName">The file name (with the *.obj extension)</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.IO.Stream,System.Boolean)">
@@ -16926,7 +16680,7 @@
       <param name="blockDict">The block dictionary</param>
       <param name="matDict">The material dictionary</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>The material file will be NOT written.</remarks>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
@@ -16940,7 +16694,7 @@
       <param name="matDict">The material dictionary</param>
       <param name="fileName">The file name (with the *.obj extension)</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteOBJ.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.IDictionary{System.String,devDept.Graphics.Material},System.IO.Stream,System.Double,System.Boolean)">
@@ -16953,7 +16707,7 @@
       <param name="matDict">The material dictionary</param>
       <param name="stream">The file stream</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>The material file will be NOT written.</remarks>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
@@ -16974,7 +16728,7 @@
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with *.stl extension)</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(devDept.Eyeshot.ViewportLayout,System.IO.Stream,System.Boolean,System.Boolean)">
@@ -16984,7 +16738,7 @@
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(devDept.Eyeshot.ViewportLayout,System.String,System.Double,System.Boolean,System.Boolean)">
@@ -16993,7 +16747,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="fileName">The file name (with *.stl extension)</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
       <param name="deviation">The maximum deviation</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
@@ -17004,7 +16758,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
       <param name="deviation">The maximum deviation</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
@@ -17017,7 +16771,7 @@
       <param name="layerList">The layer list</param>
       <param name="blockDict">The block dictionary</param>
       <param name="fileName">The file name (with the *.stl extension)</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,System.Boolean)">
@@ -17028,7 +16782,7 @@
       <param name="layerList">The layer list</param>
       <param name="blockDict">The block dictionary</param>
       <param name="stream">The file stream</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.String,System.Double,System.Boolean,System.Boolean)">
@@ -17041,7 +16795,7 @@
       <param name="fileName">The file name (with the *.stl extension)</param>
       <param name="deviation">The maximum deviation</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>If the file already exists, it will be overwritten.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteSTL.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IEnumerable{devDept.Eyeshot.Layer},System.Collections.Generic.IDictionary{System.String,devDept.Eyeshot.Block},System.IO.Stream,System.Double,System.Boolean,System.Boolean)">
@@ -17054,7 +16808,7 @@
       <param name="stream">The file stream</param>
       <param name="deviation">The maximum deviation</param>
       <param name="ascii">ASCII file format. This file format supports multiple parts.</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteWebGL">
@@ -17073,7 +16827,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control.</param>
       <param name="fileName">The file name (with html extension).</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -17099,7 +16853,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control.</param>
       <param name="stream">The file stream.</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -17125,7 +16879,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control.</param>
       <param name="fileName">The file name (with html extension).</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <param name="deviation">The maximum deviation</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
@@ -17152,7 +16906,7 @@
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /> control.</param>
       <param name="stream">The file stream.</param>
-      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">If true, only selected entities are written.</param>
       <param name="deviation">The maximum deviation</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
@@ -17183,7 +16937,7 @@
       <param name="matDict">The material dictionary.</param>
       <param name="defaultMaterial">The default material.</param>
       <param name="fileName">The file name (with the html extension).</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -17213,7 +16967,7 @@
       <param name="matDict">The material dictionary.</param>
       <param name="defaultMaterial">The default material.</param>
       <param name="stream">The file stream.</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -17244,7 +16998,7 @@
       <param name="defaultMaterial">The default material.</param>
       <param name="fileName">The file name (with the html extension).</param>
       <param name="deviation">The maximum deviation</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -17275,7 +17029,7 @@
       <param name="defaultMaterial">The default material.</param>
       <param name="stream">The file stream.</param>
       <param name="deviation">Tolerance used to tessellate surface entities.</param>
-      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="selectedOnly">When true, only selected entities are written.</param>
       <param name="htmlBodyColor">The <see cref="T:System.Drawing.Color" /> for the HTML body. It can be null/Nothing.</param>
       <param name="htmlTemplate">A string representing the HTML template for the output. It must contain both EyeshotGeometry and EyeshotScripts html comment tags to work properly.</param>
       <remarks>The <see cref="!:htmlBodyColor" /> will add the bgcolor attribute but it may not work when you use a custom <see cref="!:htmlTemplate" />.</remarks>
@@ -19639,14 +19393,6 @@
             Resizes the Viewports.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.SetFocus(System.Windows.Input.KeyEventArgs)">
-      <summary>
-            Sets the focus to the control.
-            </summary>
-      <param name="keyEventArgs">Optional. The <see cref="T:System.Windows.Input.KeyEventArgs" /> to simulate the <see cref="M:devDept.Eyeshot.ViewportLayout.OnKeyDown(System.Windows.Forms.KeyEventArgs)" /> event after the control getting the focus.</param>
-      <remarks>When using <see cref="T:System.Windows.Media.Renderer" /> different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, use this method to set the focus to the control.</remarks>
-      <seealso cref="M:System.Windows.UIElement.Focus" />
-    </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.OnLostFocus(System.EventArgs)">
       <summary>
             Synchronize <paramref name="hasFocus" /> parameter, reset <paramref name="action" />, redraw the control.
@@ -19855,13 +19601,14 @@
       <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
       <returns>The mismatch percentage</returns>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Drawing.Bitmap@,System.Double)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double)">
       <summary>
             Executes a 3D scene visual testing.
             </summary>
       <param name="expectedImage">The reference bitmap</param>
-      <param name="diffImage">The generated image with the differences</param>
       <param name="actualImage">The current bitmap as input</param>
+      <param name="diffImage">The generated image with the differences</param>
+      <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType" /></param>
       <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
       <returns>The mismatch percentage</returns>
     </member>
@@ -19877,13 +19624,14 @@
       <param name="errorPixelColor">The color used to show the differences</param>
       <returns>The mismatch percentage</returns>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Drawing.Bitmap@,System.Double,System.Drawing.Color)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double,System.Drawing.Color)">
       <summary>
             Executes a 3D scene visual testing.
             </summary>
       <param name="expectedImage">The reference bitmap</param>
       <param name="actualImage">The current bitmap as input</param>
       <param name="diffImage">The generated image with the differences</param>
+      <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType" />.</param>
       <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
       <param name="errorPixelColor">The color used to show the differences</param>
       <returns>The mismatch percentage</returns>
@@ -20873,12 +20621,6 @@
       <remarks>It does not works with selection inside components or of the faces.</remarks>
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.AssemblySelectionMode" />
       <seealso cref="P:devDept.Eyeshot.ViewportLayout.SelectionFilterMode" />
-    </member>
-    <member name="P:devDept.Eyeshot.ViewportLayout.WriteDepthForTransparents">
-      <summary>
-            When true, adds an extra pass to write transparent entities in the Z buffer.
-            </summary>
-      <remarks>Refers to inaccurate transparency only.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.DrawVertices(devDept.Eyeshot.ViewportLayout.DrawEntitiesParams)">
       <summary>
@@ -22897,12 +22639,11 @@
       <param name="inners">
       </param>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.CopyTo(devDept.Eyeshot.ViewportLayout,System.Boolean)">
+    <member name="M:devDept.Eyeshot.ViewportLayout.CopyTo(devDept.Eyeshot.ViewportLayout)">
       <summary>
             Copies all items inside control master collections (<see cref="P:devDept.Eyeshot.ViewportLayout.Entities" />, <see cref="P:devDept.Eyeshot.ViewportLayout.Labels" />, <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" />, <see cref="P:devDept.Eyeshot.ViewportLayout.Layers" />, <see cref="P:devDept.Eyeshot.ViewportLayout.Materials" />, <see cref="P:devDept.Eyeshot.ViewportLayout.TextStyles" />, <see cref="P:devDept.Eyeshot.ViewportLayout.LineTypes" />) to the specified ViewportLayout.
             </summary>
       <param name="destination">The ViewportLayout that is the destination of the elements copied.</param>
-      <param name="skipEntities">When true the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection is not copied.</param>
       <remarks>
             If the <see cref="P:devDept.Eyeshot.ViewportLayout.Viewports" /> collection is empty then a new <see cref="T:devDept.Eyeshot.Viewport" /> is added to it.
             You need to call <see cref="M:devDept.Eyeshot.ViewportLayout.Invalidate" /> to see the effect of this command in the destination ViewportLayout.
@@ -25871,12 +25612,6 @@
             </summary>
       <remarks>When set to <see cref="F:System.Drawing.Color.Empty" /> (default value) it is drawn with a contrast color (white or black) according to the background color.</remarks>
     </member>
-    <member name="P:devDept.Eyeshot.ZoomSettings.BorderXOR">
-      <summary>
-            When true the border is drawn in XOR, otherwise it is drawn according to the <see cref="P:devDept.Eyeshot.ZoomSettings.BoxColor" />.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.ZoomSettings.BoxColor" />
-    </member>
     <member name="P:devDept.Eyeshot.ZoomSettings.ZoomStyle">
       <summary>
             Zoom mode, affects only zoom by mouse wheel.
@@ -25953,20 +25688,6 @@
       <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
       <param name="fitLabels">Zoom fit mode for labels</param>
       <param name="fitMargin">Zoom fit margin</param>
-    </member>
-    <member name="M:devDept.Eyeshot.ZoomSettings.#ctor(devDept.Eyeshot.MouseButton,System.Int32,System.Boolean,devDept.Eyeshot.zoomStyleType,System.Boolean,System.Double,System.Drawing.Color,devDept.Eyeshot.Camera.perspectiveFitType,System.Boolean,System.Int32,System.Boolean)">
-      <summary>Standard constructor.</summary>
-      <param name="mouseButton">Zoom mouse button and modifier key</param>
-      <param name="keysStep">Zoom by arrow keys step (in pixels)</param>
-      <param name="enabled">False to disable view zoom</param>
-      <param name="mode">Zoom mode</param>
-      <param name="reverse">Zoom by mouse wheel direction</param>
-      <param name="speed">Zoom speed</param>
-      <param name="boxColor">Color of the zoom window box</param>
-      <param name="perspectiveFitMode">Zoom fit accuracy in perspective projection mode</param>
-      <param name="fitLabels">Zoom fit mode for labels</param>
-      <param name="fitMargin">Zoom fit margin</param>
-      <param name="borderXOR">When true the border is drawn in XOR, otherwise it is drawn according to the <see cref="P:devDept.Eyeshot.ZoomSettings.BoxColor" />.</param>
     </member>
     <member name="T:devDept.Eyeshot.PanSettings">
       <summary>Pan command settings.</summary>
@@ -26215,28 +25936,19 @@
       <summary>
             Enables or disables the rotation with two fingers.
             </summary>
-      <remarks>
-            If <see cref="P:devDept.Eyeshot.MovementSettingsBase.Enabled" /> is false, the 2 fingers rotation is also disabled.
-            When the <see cref="P:devDept.Eyeshot.ViewportLayout.ActionMode" /> is set to <see cref="F:devDept.Eyeshot.actionType.Rotate" />, you can use 1 finger to rotate.
-            </remarks>
+      <remarks>If <see cref="P:devDept.Eyeshot.MovementSettingsBase.Enabled" /> is false, the 2 fingers rotation is also disabled.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.MultiTouchSettings.Zoom">
       <summary>
             Enables or disables the zoom with two fingers.
             </summary>
-      <remarks>
-            If <see cref="!:RotateSettings.Enabled" /> is false, the 2 fingers zoom is also disabled.
-            When the <see cref="P:devDept.Eyeshot.ViewportLayout.ActionMode" /> is set to <see cref="F:devDept.Eyeshot.actionType.Zoom" />, you can use 1 finger to zoom.
-            </remarks>
+      <remarks>If <see cref="!:RotateSettings.Enabled" /> is false, the 2 fingers zoom is also disabled.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.MultiTouchSettings.Pan">
       <summary>
             Enables or disables the pan with two fingers.
             </summary>
-      <remarks>
-            If <see cref="!:ZoomSettings.Enabled" /> is false, the 2 fingers pan is also disabled.
-            When the <see cref="P:devDept.Eyeshot.ViewportLayout.ActionMode" /> is set to <see cref="F:devDept.Eyeshot.actionType.Pan" />, you can use 1 finger to pan.
-            </remarks>/// 
+      <remarks>If <see cref="!:ZoomSettings.Enabled" /> is false, the 2 fingers pan is also disabled.</remarks>/// 
         </member>
     <member name="T:devDept.Eyeshot.NavigationSettings">
       <summary>
@@ -26301,14 +26013,6 @@
     </member>
     <member name="M:devDept.Eyeshot.SelectionBoxColorsSettings.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color)">
       <summary>
-            Deprecated constructor. Use the overload with the borderXOR parameter.
-            </summary>
-      <param name="crossing">The color used to draw the box and polygon for crossing selection mode</param>
-      <param name="enclosed">The color used to draw the box and polygon for enclosed selection mode</param>
-      <param name="visible">The color used to draw the box and polygon for visible selection mode</param>
-    </member>
-    <member name="M:devDept.Eyeshot.SelectionBoxColorsSettings.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Boolean)">
-      <summary>
             Standard constructor.
             </summary>
       <param name="crossing">The color used to draw the box and polygon for crossing selection mode</param>
@@ -26329,14 +26033,6 @@
       <summary>
             Gets or sets the color used to draw the box and polygon for visible selection modes (<see cref="F:devDept.Eyeshot.actionType.SelectVisibleByBox" />, <see cref="F:devDept.Eyeshot.actionType.SelectVisibleByPolygon" />).
             </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.SelectionBoxColorsSettings.BorderXOR">
-      <summary>
-            When true the border is drawn in XOR, otherwise it is drawn according to the box color.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.SelectionBoxColorsSettings.Crossing" />
-      <seealso cref="P:devDept.Eyeshot.SelectionBoxColorsSettings.Enclosed" />
-      <seealso cref="P:devDept.Eyeshot.SelectionBoxColorsSettings.Visible" />
     </member>
     <member name="T:devDept.Eyeshot.MagnifyingGlassSettings">
       <summary>
@@ -29432,11 +29128,6 @@
       <remarks>The returned point is adjusted for DPI scaling.</remarks>
       <seealso cref="M:devDept.Geometry.Utility.GetScalingLevel" />
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayoutBase.LoadCursors">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
     <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(System.IO.Stream)">
       <summary>
             Sets the cursor.
@@ -29450,12 +29141,9 @@
             Sets the default cursor for the viewport control.
             </summary>
       <param name="cursorStream">The stream of the cursor to set as default</param>
-      <remarks>Use this override to set a cursor in WPF when <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />.</remarks>
-      <remarks>You can use this override only when the handle of the control is already created (for e.g. in the Windows OnContentRendered override).</remarks>
+      <remarks>Use this override to set a cursor in WPF when <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" /></remarks>
       <remarks>When <see cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" /> is different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, the stream must be of a monochrome cursor image (due to a WindowsForms limitation).</remarks>
       <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.Renderer" />
-      <seealso cref="P:devDept.Eyeshot.ViewportLayoutBase.IsHandleCreated" />
-      <seealso cref="E:devDept.Eyeshot.ViewportLayoutBase.InitializeScene" />
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayoutBase.SetCursor(devDept.Eyeshot.cursorType,System.IO.Stream)">
       <summary>
@@ -31390,12 +31078,6 @@
             </summary>
       <remarks>Use 0 for a continuous movement. Applies only to the three translation axes, not to the translation on view ball.</remarks>
     </member>
-    <member name="P:devDept.Eyeshot.ObjectManipulator.TranslationRange">
-      <summary>
-            Gets or sets the translation range.
-            </summary>
-      <remarks>Applies only to the three translation axes, not to the translation on view ball.</remarks>
-    </member>
     <member name="T:devDept.Eyeshot.ObjectManipulator.ObjectManipulatorEventArgs">
       <summary>
             Object manipulator event arguments class.
@@ -31510,12 +31192,6 @@
             Cancels the transformation of the <see cref="T:devDept.Eyeshot.ObjectManipulator" /> and hides it.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.ObjectManipulator.UpdateBoundingBox">
-      <summary>
-            Computes the model bounding box when the ObjectManipulator is enabled.       
-            </summary>
-      <remarks>It's important to call this method when the ObjectManipulator is enabled and visibility or size of some entities changes.</remarks>
-    </member>
     <member name="T:devDept.Eyeshot.EyeshotDisposableCollection`1">
       <exclude />
       <excludetoc />
@@ -31578,9 +31254,6 @@
       <param name="blockName">The name of the block to be inserted</param>
       <param name="angleInRadians">Angle of insertion for the block</param>
       <returns>See <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> constructors for more options.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.EntityList.Clear">
-      <inheritdoc />
     </member>
     <member name="M:devDept.Eyeshot.EntityList.GetVisualRefinementTolerance">
       <summary>
@@ -33164,12 +32837,6 @@
             This class represents a .
             </summary>
     </member>
-    <member name="P:StepTranslator.StepBlockRef.PartName">
-      <summary>
-            Part name added for client's demand
-            Version 67
-            </summary>
-    </member>
     <member name="T:StepTranslator.BoundedCurve">
       <summary>
             This class represents bounded curve from STEP specifications.
@@ -33390,9 +33057,6 @@
             This class represents 3D point which contains X Y Z coordinates of a point. 
             </summary>
     </member>
-    <!-- Badly formed XML comment ignored for member "F:StepTranslator.StepReader.m_blockRefNameDictionary" -->
-    <!-- Badly formed XML comment ignored for member "F:StepTranslator.StepReader.m_blockAndIDDictionary" -->
-    <!-- Badly formed XML comment ignored for member "M:StepTranslator.StepReader.getUniqueBlockRefName(StepTranslator.StepBlockRef@)" -->
     <member name="T:StepTranslator.StepSurface">
       <summary>
             Represents a face geometry from step data which might be of any shape.

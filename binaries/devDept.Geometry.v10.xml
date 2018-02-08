@@ -4,69 +4,193 @@
     <name>devDept.Geometry.v10</name>
   </assembly>
   <members>
-    <member name="T:devDept.Geometry.Converters.IndexTriangleConverter">
-      <exclude />
-      <excludetoc />
+    <member name="T:devDept.Diagnostic.Logger">
+      <summary>
+            The Eyeshot logger.
+            </summary>
     </member>
-    <member name="M:devDept.Geometry.Converters.IndexTriangleConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
-      <exclude />
+    <!-- Badly formed XML comment ignored for member "F:devDept.Diagnostic.Logger.TraceSwitchName" -->
+    <member name="M:devDept.Diagnostic.Logger.#ctor(System.String)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="filename">If null or empty, the default name will be get.</param>
     </member>
-    <member name="T:devDept.Geometry.Converters.ushortHexTypeConverter">
-      <exclude />
-      <excludetoc />
+    <member name="M:devDept.Diagnostic.Logger.#ctor(System.Diagnostics.TextWriterTraceListener)">
+      <summary>
+            TraceListener constructor 
+            </summary>
+      <param name="traceListener">The <see cref="P:devDept.Diagnostic.Logger.TextWriterTraceListener" /> that will be used by the Logger.</param>
     </member>
-    <member name="T:devDept.Geometry.Converters.Point3DConverter">
-      <exclude />
-      <excludetoc />
+    <member name="M:devDept.Diagnostic.Logger.GetSeparator">
+      <summary>
+            Gets the separator.
+            </summary>
+      <remarks>The default value is "|"</remarks>
     </member>
-    <member name="M:devDept.Geometry.Converters.Point3DConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
-      <exclude />
+    <member name="M:devDept.Diagnostic.Logger.GetDateTimeStamp">
+      <summary>
+            Gets the datetime string.
+            </summary>
     </member>
-    <member name="M:devDept.Geometry.Converters.Point3DConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
-      <exclude />
+    <member name="M:devDept.Diagnostic.Logger.WriteHeader">
+      <summary>
+            For internal use only.
+            </summary>
     </member>
-    <member name="M:devDept.Geometry.Converters.Point3DConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
-      <exclude />
+    <member name="M:devDept.Diagnostic.Logger.GetHeader">
+      <summary>
+            Gets the log header.
+            </summary>
+      <remarks>The default header contains info about machine and display adapters.</remarks>
     </member>
-    <member name="M:devDept.Geometry.Converters.Point3DConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
-      <exclude />
+    <member name="M:devDept.Diagnostic.Logger.Trace(System.String,System.Object[])">
+      <summary>
+            Writes the diagnostic message at the Trace level (verbose).
+            </summary>
+      <param name="message">A <see langword="string" /> to be written.</param>
+      <param name="args">Arguments to format.</param>
+      <seealso cref="T:System.Diagnostics.TraceSwitch" />
+      <seealso cref="T:System.Diagnostics.TraceLevel" />
     </member>
-    <member name="T:devDept.Geometry.Converters.Point2DConverter">
-      <exclude />
-      <excludetoc />
+    <member name="M:devDept.Diagnostic.Logger.Info(System.String,System.Object[])">
+      <summary>
+            Writes the diagnostic message at the Info level.
+            </summary>
+      <param name="message">A <see langword="string" /> to be written.</param>
+      <param name="args">Arguments to format.</param>
+      <seealso cref="T:System.Diagnostics.TraceSwitch" />
+      <seealso cref="T:System.Diagnostics.TraceLevel" />
     </member>
-    <member name="T:devDept.Geometry.Converters.Point4DConverter">
-      <exclude />
-      <excludetoc />
+    <member name="M:devDept.Diagnostic.Logger.Warn(System.String,System.Exception,System.Object[])">
+      <summary>
+            Writes the diagnostic message and exception at the Warning level.
+            </summary>
+      <param name="message">A <see langword="string" /> to be written.</param>
+      <param name="exception">An exception to be logged.</param>
+      <param name="args">Arguments to format.</param>
+      <seealso cref="T:System.Diagnostics.TraceSwitch" />
+      <seealso cref="T:System.Diagnostics.TraceLevel" />
     </member>
-    <member name="M:devDept.Geometry.Converters.Point4DConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
-      <exclude />
+    <member name="M:devDept.Diagnostic.Logger.Error(System.String,System.Exception,System.Object[])">
+      <summary>
+            Writes the diagnostic message and exception at the Error level.
+            </summary>
+      <param name="message">A <see langword="string" /> to be written.</param>
+      <param name="exception">An exception to be logged.</param>
+      <param name="args">Arguments to format.</param>
+      <seealso cref="T:System.Diagnostics.TraceSwitch" />
+      <seealso cref="T:System.Diagnostics.TraceLevel" />
     </member>
-    <member name="T:devDept.Geometry.Converters.QuaternionConverter">
-      <exclude />
-      <excludetoc />
+    <member name="M:devDept.Diagnostic.Logger.Stop">
+      <summary>
+            Stops the trace listener.
+            </summary>
+      <remarks>
+            If you have added the listener to a collection, remember to remove it.
+            </remarks>
     </member>
-    <member name="T:devDept.Geometry.Converters.PlaneConverter">
-      <exclude />
-      <excludetoc />
+    <member name="P:devDept.Diagnostic.Logger.Instance">
+      <summary>
+            The logger instance (singleton).
+            </summary>
     </member>
-    <member name="T:devDept.Geometry.Converters.Vector2DConverter">
-      <exclude />
-      <excludetoc />
+    <member name="P:devDept.Diagnostic.Logger.Id">
+      <summary>
+            Gets the logger id.
+            </summary>
     </member>
-    <member name="T:devDept.Geometry.Converters.Vector3DConverter">
-      <exclude />
-      <excludetoc />
+    <member name="P:devDept.Diagnostic.Logger.Filename">
+      <summary>
+            Gets the logger filename.
+            </summary>
     </member>
-    <member name="M:devDept.Geometry.Converters.Vector3DConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
-      <exclude />
+    <member name="P:devDept.Diagnostic.Logger.TextWriterTraceListener">
+      <summary>
+             Gets the trace listener.
+             </summary>
+      <remarks>
+            If you want any listener besides the DefaultTraceListener to receive Debug, Trace and TraceSource output, you must add it to the Listeners collection.
+            https://msdn.microsoft.com/en-us/library/4y5y10s7(v=vs.110).aspx
+             </remarks>
     </member>
-    <member name="T:devDept.Geometry.Converters.PlaneEquationConverter">
-      <exclude />
-      <excludetoc />
+    <member name="P:devDept.Diagnostic.Logger.TraceLevel">
+      <summary>
+            Gets the <see cref="T:System.Diagnostics.TraceLevel" />.
+            </summary>
+      <remarks>
+            It must be set inside the Form constructor, before the InitializeComponent() call.
+            Default value is <seealso cref="F:System.Diagnostics.TraceLevel.Off" />.
+            </remarks>
     </member>
-    <member name="M:devDept.Geometry.Converters.PlaneEquationConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
-      <exclude />
+    <member name="P:devDept.Diagnostic.Logger.TraceSwitch">
+      <summary>
+            Gets the <see cref="T:System.Diagnostics.TraceSwitch" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Diagnostic.Logger.AutoFlush">
+      <summary>
+            Gets or sets a value indicating whether Flush should be called on the Listeners after every write.
+            </summary>
+      <remarks>The default value is true.</remarks>
+    </member>
+    <member name="P:devDept.Diagnostic.Logger.AddTraceLevel">
+      <summary>
+            Gets or sets a value indicating whether the trace level info should be added to the logging row.
+            </summary>
+      <remarks>The default value is true.</remarks>
+    </member>
+    <member name="P:devDept.Diagnostic.Logger.DisplayDiagnosticInfo">
+      <summary>
+            Gets or sets a value indicating whether the logger info should be displayed in the ViewportLayout.
+            </summary>
+      <remarks>The default value is true.</remarks>
+    </member>
+    <member name="M:devDept.Diagnostic.Logger.Trace(System.String,System.String,System.Object[])">
+      <summary>
+            For internal use only.
+            Writes the diagnostic message at the Trace level (verbose).
+            </summary>
+      <param name="instanceId">The ViewportLayout instance id.</param>
+      <param name="message">A <see langword="string" /> to be written.</param>
+      <param name="args">Arguments to format.</param>
+      <seealso cref="T:System.Diagnostics.TraceSwitch" />
+      <seealso cref="T:System.Diagnostics.TraceLevel" />
+    </member>
+    <member name="M:devDept.Diagnostic.Logger.Info(System.String,System.String,System.Object[])">
+      <summary>
+            For internal use only.
+            Writes the diagnostic message at the Info level.
+            </summary>
+      <param name="instanceId">The ViewportLayout instance id.</param>
+      <param name="message">A <see langword="string" /> to be written.</param>
+      <param name="args">Arguments to format.</param>
+      <seealso cref="T:System.Diagnostics.TraceSwitch" />
+      <seealso cref="T:System.Diagnostics.TraceLevel" />
+    </member>
+    <member name="M:devDept.Diagnostic.Logger.Warn(System.String,System.String,System.Exception,System.Object[])">
+      <summary>
+            For internal use only.
+            Writes the diagnostic message and exception at the Warning level.
+            </summary>
+      <param name="instanceId">The ViewportLayout instance id.</param>
+      <param name="message">A <see langword="string" /> to be written.</param>
+      <param name="exception">An exception to be logged.</param>
+      <param name="args">Arguments to format.</param>
+      <seealso cref="T:System.Diagnostics.TraceSwitch" />
+      <seealso cref="T:System.Diagnostics.TraceLevel" />
+    </member>
+    <member name="M:devDept.Diagnostic.Logger.Error(System.String,System.String,System.Exception,System.Object[])">
+      <summary>
+            For internal use only.
+            Writes the diagnostic message and exception at the Error level.
+            </summary>
+      <param name="instanceId">The ViewportLayout instance id.</param>
+      <param name="message">A <see langword="string" /> to be written.</param>
+      <param name="exception">An exception to be logged.</param>
+      <param name="args">Arguments to format.</param>
+      <seealso cref="T:System.Diagnostics.TraceSwitch" />
+      <seealso cref="T:System.Diagnostics.TraceLevel" />
     </member>
     <member name="T:devDept.Geometry.EnumExtender">
       <summary>
@@ -137,6 +261,56 @@
       <summary>
             Get surface normal.
             </summary>
+    </member>
+    <member name="T:devDept.Geometry.Converters.ushortHexTypeConverter">
+      <exclude />
+      <excludetoc />
+    </member>
+    <member name="T:devDept.Geometry.Converters.Point3DConverter">
+      <exclude />
+      <excludetoc />
+    </member>
+    <member name="M:devDept.Geometry.Converters.Point3DConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <exclude />
+    </member>
+    <member name="M:devDept.Geometry.Converters.Point3DConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <exclude />
+    </member>
+    <member name="M:devDept.Geometry.Converters.Point3DConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <exclude />
+    </member>
+    <member name="M:devDept.Geometry.Converters.Point3DConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <exclude />
+    </member>
+    <member name="T:devDept.Geometry.Converters.Point2DConverter">
+      <exclude />
+      <excludetoc />
+    </member>
+    <member name="T:devDept.Geometry.Converters.Point4DConverter">
+      <exclude />
+      <excludetoc />
+    </member>
+    <member name="M:devDept.Geometry.Converters.Point4DConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <exclude />
+    </member>
+    <member name="T:devDept.Geometry.Converters.QuaternionConverter">
+      <exclude />
+      <excludetoc />
+    </member>
+    <member name="T:devDept.Geometry.Converters.PlaneConverter">
+      <exclude />
+      <excludetoc />
+    </member>
+    <member name="T:devDept.Geometry.Converters.Vector2DConverter">
+      <exclude />
+      <excludetoc />
+    </member>
+    <member name="T:devDept.Geometry.Converters.Vector3DConverter">
+      <exclude />
+      <excludetoc />
+    </member>
+    <member name="M:devDept.Geometry.Converters.Vector3DConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <exclude />
     </member>
     <member name="T:devDept.Geometry.MomentOfInertia">
       <summary>
@@ -507,26 +681,6 @@
       <param name="intersMax">Intersection box max point</param>
       <returns>The size of the intersection box</returns>
       <see cref="!:DoOverlapOrTouch(devDept.Geometry.IntPoint,devDept.Geometry.IntPoint,devDept.Geometry.IntPoint,devDept.Geometry.IntPoint)" />
-    </member>
-    <member name="M:devDept.Geometry.Utility.GetCornersOnPlane(devDept.Geometry.Plane,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
-      <summary>
-            Computes a rect on the plane that encloses the eight projected bounding box corners.
-            </summary>
-      <param name="pln">The projection plane</param>
-      <param name="min">The bounding box min corner</param>
-      <param name="max">The bounding box max corner</param>
-      <param name="margin">The optional margin</param>
-      <returns>An array of four 3D points.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Utility.GetSizeOnPlane(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Plane,devDept.Geometry.Point2D@,devDept.Geometry.Point2D@)">
-      <summary>
-            Gets 2D corners of the rectangle enclosing the projection of the 3D bounding box corners.
-            </summary>
-      <param name="cornerMin">3D bounding box min corner</param>
-      <param name="cornerMax">3D bounding box max corner</param>
-      <param name="pln">The projection plane</param>
-      <param name="min">The resulting 2D min corner</param>
-      <param name="max">The resulting 2D max corner</param>
     </member>
     <member name="M:devDept.Geometry.Utility.PointInPolygon``1(``0,System.Collections.Generic.IList{``0})">
       <summary>
@@ -902,25 +1056,7 @@
       <param name="center">Center of the sphere</param>
       <param name="radius">Radius of the sphere</param>
       <returns>True if the hypothetical sphere is inside the planes.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Utility.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,System.Double,System.Boolean@)">
-      <summary>
-            Tells if a hypothetical sphere with the specified center and radius is inside the given frustum planes.
-            </summary>
-      <param name="frustum">Frustum planes</param>
-      <param name="center">Center of the sphere</param>
-      <param name="radius">Radius of the sphere</param>
-      <param name="intersect">When true, frustum and sphere intersect.</param>
-      <returns>True if the hypothetical sphere is inside the planes.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Utility.IsInFrustum(devDept.Geometry.PlaneEquation[],devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-      <summary>
-            Tells if a hypothetical sphere with the specified center and radius is inside the given frustum planes.
-            </summary>
-      <param name="frustum">Frustum planes</param>
-      <param name="min">Min bounding box 3D point</param>
-      <param name="max">Max bounding box 3D point</param>
-      <returns>True if the hypothetical sphere is inside the planes.</returns>
+      <remarks>Useful for bounding box testing.</remarks>
     </member>
     <member name="M:devDept.Geometry.Utility.IsPointOnSegment(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double)">
       <summary>
@@ -3575,15 +3711,6 @@
       <param name="pitch">The pitch angle, in radians, around the x-axis.</param>
       <param name="roll">The roll angle, in radians, around the z-axis.</param>
     </member>
-    <member name="M:devDept.Geometry.Quaternion.ToEulerAngles(System.Double@,System.Double@,System.Double@)">
-      <summary>
-            Converts this quaternion to Euler angles.
-            </summary>
-      <param name="roll">Roll angle in radians</param>
-      <param name="pitch">Pitch angle in radians</param>
-      <param name="yaw">Yaw angle in radians</param>
-      <remarks>Singularities at north/south poles (gimbal lock) are not handled by this method.</remarks>
-    </member>
     <member name="M:devDept.Geometry.Quaternion.Clone">
       <summary>
             Creates a deep copy of this quaternion.
@@ -3761,7 +3888,6 @@
       <param name="i1">Endpoint of the intersect segment [i0, i1] (when it exists)</param>
       <param name="domainSize">The maximum diagonal size of the domain</param>
       <returns>The intersection type.</returns>
-      <remarks>Be aware that both segments must have Lenght &gt; 0.</remarks>
     </member>
     <member name="M:devDept.Geometry.Segment2D.IntersectionLine(devDept.Geometry.Segment2D,devDept.Geometry.Segment2D,devDept.Geometry.Point2D@)">
       <summary>
@@ -3781,7 +3907,6 @@
       <param name="i0">Intersection point (when it exists)</param>
       <returns>True if the intersection exists, false otherwise (parallel or disjoint).</returns>
       <remarks>If return value is true and i0 is null, the segments are collinear and overlapping.</remarks>
-      <remarks>Be aware that both segments must have Lenght &gt; 0.</remarks>
     </member>
     <member name="M:devDept.Geometry.Segment2D.IntersectionAndT(devDept.Geometry.Segment2D,devDept.Geometry.Segment2D,devDept.Geometry.Point2D@)">
       <summary>
@@ -4555,7 +4680,7 @@
             Returns true if the scale factor of the transformation is the same in the X, Y and Z directions.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.Transformation.IsScaleFactorUniformForPlanar(devDept.Geometry.Plane,System.Double@)">
+    <member name="M:devDept.Geometry.Transformation.IsScaleFactorUniformForPlanar(devDept.Geometry.Plane)">
       <summary>
             Returns true if the scale factor of the transformation is the same in the two directions of the plane.
             </summary>
@@ -5314,204 +5439,6 @@
             Transforms the 3D vector by the specified transformation.
             </summary>
       <param name="xform">The transformation to be applied</param>
-    </member>
-    <member name="T:devDept.Diagnostic.Logger">
-      <summary>
-            The Eyeshot logger.
-            </summary>
-    </member>
-    <!-- Badly formed XML comment ignored for member "F:devDept.Diagnostic.Logger.TraceSwitchName" -->
-    <member name="M:devDept.Diagnostic.Logger.#ctor(System.String)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="filename">If null or empty, the default name will be get.</param>
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.#ctor(System.Diagnostics.TextWriterTraceListener)">
-      <summary>
-            TraceListener constructor 
-            </summary>
-      <param name="traceListener">The <see cref="P:devDept.Diagnostic.Logger.TextWriterTraceListener" /> that will be used by the Logger.</param>
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.GetSeparator">
-      <summary>
-            Gets the separator.
-            </summary>
-      <remarks>The default value is "|"</remarks>
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.GetDateTimeStamp">
-      <summary>
-            Gets the datetime string.
-            </summary>
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.WriteHeader">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.GetHeader">
-      <summary>
-            Gets the log header.
-            </summary>
-      <remarks>The default header contains info about machine and display adapters.</remarks>
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Trace(System.String,System.Object[])">
-      <summary>
-            Writes the diagnostic message at the Trace level (verbose).
-            </summary>
-      <param name="message">A <see langword="string" /> to be written.</param>
-      <param name="args">Arguments to format.</param>
-      <seealso cref="T:System.Diagnostics.TraceSwitch" />
-      <seealso cref="T:System.Diagnostics.TraceLevel" />
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Info(System.String,System.Object[])">
-      <summary>
-            Writes the diagnostic message at the Info level.
-            </summary>
-      <param name="message">A <see langword="string" /> to be written.</param>
-      <param name="args">Arguments to format.</param>
-      <seealso cref="T:System.Diagnostics.TraceSwitch" />
-      <seealso cref="T:System.Diagnostics.TraceLevel" />
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Warn(System.String,System.Exception,System.Object[])">
-      <summary>
-            Writes the diagnostic message and exception at the Warning level.
-            </summary>
-      <param name="message">A <see langword="string" /> to be written.</param>
-      <param name="exception">An exception to be logged.</param>
-      <param name="args">Arguments to format.</param>
-      <seealso cref="T:System.Diagnostics.TraceSwitch" />
-      <seealso cref="T:System.Diagnostics.TraceLevel" />
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Error(System.String,System.Exception,System.Object[])">
-      <summary>
-            Writes the diagnostic message and exception at the Error level.
-            </summary>
-      <param name="message">A <see langword="string" /> to be written.</param>
-      <param name="exception">An exception to be logged.</param>
-      <param name="args">Arguments to format.</param>
-      <seealso cref="T:System.Diagnostics.TraceSwitch" />
-      <seealso cref="T:System.Diagnostics.TraceLevel" />
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Stop">
-      <summary>
-            Stops the trace listener.
-            </summary>
-      <remarks>
-            If you have added the listener to a collection, remember to remove it.
-            </remarks>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.Instance">
-      <summary>
-            The logger instance (singleton).
-            </summary>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.Id">
-      <summary>
-            Gets the logger id.
-            </summary>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.Filename">
-      <summary>
-            Gets the logger filename.
-            </summary>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.TextWriterTraceListener">
-      <summary>
-             Gets the trace listener.
-             </summary>
-      <remarks>
-            If you want any listener besides the DefaultTraceListener to receive Debug, Trace and TraceSource output, you must add it to the Listeners collection.
-            https://msdn.microsoft.com/en-us/library/4y5y10s7(v=vs.110).aspx
-             </remarks>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.TraceLevel">
-      <summary>
-            Gets the <see cref="T:System.Diagnostics.TraceLevel" />.
-            </summary>
-      <remarks>
-            It must be set inside the Form constructor, before the InitializeComponent() call.
-            Default value is <seealso cref="F:System.Diagnostics.TraceLevel.Off" />.
-            </remarks>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.TraceSwitch">
-      <summary>
-            Gets the <see cref="T:System.Diagnostics.TraceSwitch" />.
-            </summary>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.AutoFlush">
-      <summary>
-            Gets or sets a value indicating whether Flush should be called on the Listeners after every write.
-            </summary>
-      <remarks>The default value is true.</remarks>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.AddTraceLevel">
-      <summary>
-            Gets or sets a value indicating whether the trace level info should be added to the logging row.
-            </summary>
-      <remarks>The default value is true.</remarks>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.DisplayDiagnosticInfo">
-      <summary>
-            Gets or sets a value indicating whether the logger info should be displayed in the ViewportLayout.
-            </summary>
-      <remarks>The default value is true.</remarks>
-    </member>
-    <member name="P:devDept.Diagnostic.Logger.CaptureBackbufferImages">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.GetFullPath">
-      <summary>
-            Gets the full path name.
-            </summary>
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Trace(System.String,System.String,System.Object[])">
-      <summary>
-            For internal use only.
-            Writes the diagnostic message at the Trace level (verbose).
-            </summary>
-      <param name="instanceId">The ViewportLayout instance id.</param>
-      <param name="message">A <see langword="string" /> to be written.</param>
-      <param name="args">Arguments to format.</param>
-      <seealso cref="T:System.Diagnostics.TraceSwitch" />
-      <seealso cref="T:System.Diagnostics.TraceLevel" />
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Info(System.String,System.String,System.Object[])">
-      <summary>
-            For internal use only.
-            Writes the diagnostic message at the Info level.
-            </summary>
-      <param name="instanceId">The ViewportLayout instance id.</param>
-      <param name="message">A <see langword="string" /> to be written.</param>
-      <param name="args">Arguments to format.</param>
-      <seealso cref="T:System.Diagnostics.TraceSwitch" />
-      <seealso cref="T:System.Diagnostics.TraceLevel" />
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Warn(System.String,System.String,System.Exception,System.Object[])">
-      <summary>
-            For internal use only.
-            Writes the diagnostic message and exception at the Warning level.
-            </summary>
-      <param name="instanceId">The ViewportLayout instance id.</param>
-      <param name="message">A <see langword="string" /> to be written.</param>
-      <param name="exception">An exception to be logged.</param>
-      <param name="args">Arguments to format.</param>
-      <seealso cref="T:System.Diagnostics.TraceSwitch" />
-      <seealso cref="T:System.Diagnostics.TraceLevel" />
-    </member>
-    <member name="M:devDept.Diagnostic.Logger.Error(System.String,System.String,System.Exception,System.Object[])">
-      <summary>
-            For internal use only.
-            Writes the diagnostic message and exception at the Error level.
-            </summary>
-      <param name="instanceId">The ViewportLayout instance id.</param>
-      <param name="message">A <see langword="string" /> to be written.</param>
-      <param name="exception">An exception to be logged.</param>
-      <param name="args">Arguments to format.</param>
-      <seealso cref="T:System.Diagnostics.TraceSwitch" />
-      <seealso cref="T:System.Diagnostics.TraceLevel" />
     </member>
   </members>
 </doc>

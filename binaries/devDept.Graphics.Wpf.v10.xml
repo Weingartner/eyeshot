@@ -3286,17 +3286,7 @@
     </member>
     <member name="F:devDept.Graphics.stencilOpActionType.Zero">
       <summary>
-            Sets the stencil buffer entry to zero
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.stencilOpActionType.Increment">
-      <summary>
-            Increments the current stencil buffer value. Clamps to the maximum representable unsigned value. 
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.stencilOpActionType.Decrement">
-      <summary>
-            Decrements the current stencil buffer value. Clamps to 0. 
+            Sets the stencil bufer entry to zero
             </summary>
     </member>
     <member name="T:devDept.Graphics.depthStencilStateType">
