@@ -127,10 +127,9 @@
     </member>
     <member name="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)">
       <summary>
-            Regens only entities that need it. Each entity is automatically regenerated
-            when added to the <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" /> or <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection. 
-            You need to call this function only when you change/transform an entity <b>already</b> in
-             these collections. 
+            Regens and compiles <b>only</b> entities that need it. 
+            Each entity is automatically regenerated and compiled when added to the <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" /> or <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection.
+            You need to call this function only when you change/transform an entity <b>already</b> in these collections. 
             </summary>
       <param name="ro">Asynchronous regeneration options</param>
       <seealso cref="P:devDept.Eyeshot.Entities.Entity.RegenMode" />
@@ -1256,7 +1255,9 @@
             Clears this collection.
             </summary>
       <param name="addDefaultLayer">When true the collection is initialized with the "Default" layer.</param>
-      <remarks>Clears also the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection.</remarks>
+      <remarks>        
+            When the collection is linked to a ViewportLayout, it clears also the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection and the default layer is always added.
+            </remarks>
     </member>
     <member name="M:devDept.Eyeshot.LayerKeyedCollection.Clear(devDept.Eyeshot.Layer)">
       <summary>
@@ -1616,9 +1617,16 @@
     </member>
     <member name="M:devDept.Eyeshot.TextStyleKeyedCollection.Clear">
       <summary>
-            Clears the collection.
+            Clears this collection and adds the default text style.
             </summary>
       <exception cref="T:devDept.Eyeshot.EyeshotException">If some items are still in use.</exception>
+    </member>
+    <member name="M:devDept.Eyeshot.TextStyleKeyedCollection.Clear(System.Boolean)">
+      <summary>
+            Clears this collection.
+            </summary>
+      <param name="addDefaultTextStyle">When true the collection is initialized with the default text style.</param>
+      <remarks>When the collection is linked to a ViewportLayout, the default text style is always added.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.TextStyleKeyedCollection.AreEntitiesWith(System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
       <inheritdoc />
@@ -2006,6 +2014,12 @@
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcContainer.Clone">
+      <summary>
+            Creates a deep copy of this ifc container.
+            </summary>
+      <returns>The new ifc container object.</returns>
+    </member>
     <member name="T:devDept.Eyeshot.Translators.IfcMesh">
       <summary>    
             Extended <see cref="T:devDept.Eyeshot.Entities.Mesh" /> class with Ifc elements properties.
@@ -2062,10 +2076,22 @@
     <member name="P:devDept.Eyeshot.Translators.IfcMesh.Axes">
       <inheritdoc />
     </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcMesh.ConvertToSurrogate">
+      <inheritdoc />
+    </member>
     <member name="M:devDept.Eyeshot.Translators.IfcMesh.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <inheritdoc />
     </member>
     <member name="M:devDept.Eyeshot.Translators.IfcMesh.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <inheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcMesh.Clone">
+      <summary>
+            Creates a deep copy of this ifc mesh entity.
+            </summary>
+      <returns>The new ifc mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcMesh.Dump">
       <inheritdoc />
     </member>
     <member name="T:devDept.Eyeshot.Translators.IfcBlockReference">
@@ -2125,10 +2151,22 @@
     <member name="P:devDept.Eyeshot.Translators.IfcBlockReference.Axes">
       <inheritdoc />
     </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcBlockReference.ConvertToSurrogate">
+      <inheritdoc />
+    </member>
     <member name="M:devDept.Eyeshot.Translators.IfcBlockReference.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <inheritdoc />
     </member>
     <member name="M:devDept.Eyeshot.Translators.IfcBlockReference.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <inheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcBlockReference.Clone">
+      <summary>
+            Creates a deep copy of this ifc block reference.
+            </summary>
+      <returns>The new ifc block reference object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcBlockReference.Dump">
       <inheritdoc />
     </member>
     <member name="T:devDept.Eyeshot.Translators.IfcLayer">
@@ -2152,11 +2190,20 @@
             Gets or sets the layer Identifier.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcLayer.ConvertToSurrogate">
+      <inheritdoc />
+    </member>
     <member name="M:devDept.Eyeshot.Translators.IfcLayer.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <inheritdoc />
     </member>
     <member name="M:devDept.Eyeshot.Translators.IfcLayer.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <inheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcLayer.Clone">
+      <summary>
+            Creates a deep copy of this ifc layer.
+            </summary>
+      <returns>The new ifc layer object.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Translators.ReadLAS">
       <summary>
@@ -4717,6 +4764,14 @@
             Gets or sets the collision accuracy type.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.CollisionDetection.CoincidenceAsCollision">
+      <summary>
+            When true it considers the coincidence between objects as collision.
+            It avoids them otherwise.
+            </summary>
+      <remarks>When the value is false anche the <see cref="P:devDept.Eyeshot.CollisionDetection.CheckMethod" /> is set to <see cref="F:devDept.Eyeshot.CollisionDetection.collisionCheckType.Accurate" />, it could needs to perform heavy checks to keep out the coincidence from the collision result.
+            This could affect performance.</remarks>
+    </member>
     <member name="P:devDept.Eyeshot.CollisionDetection.preCollisionText">
       <summary>
             Gets or sets the "Detects data for check collision..." text string.
@@ -4734,18 +4789,18 @@
     </member>
     <member name="M:devDept.Eyeshot.CollisionDetection.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,devDept.Eyeshot.CollisionDetection.collisionCheckType,System.Int32)">
       <summary>
-            The Collision detection utility constructor with two entity lists. 
+            The Collision detection utility constructor with two entity lists. The collision test checks collisions from the first entity list to the second one.
             </summary>
       <param name="list1">first entity group</param>
       <param name="list2">second entity group</param>
       <param name="blocksCollection">the collection of the blocks that defines/contains the entities for the BlockReferences in the entities list</param>
       <param name="firstOnly">when true,the collision detection will stop at the first couple of intersecting entities found</param>
       <param name="checkMethod">the collision accuracy type</param>
-      <param name="maxTrianglesNumForOctreeNode">the maximum number of triangles for each Octant of each entity's octree</param>
+      <param name="maxTrianglesNumForOctreeNode">the maximum number of triangles for each Octant of each entity's octree (used only with Octree check methods)</param>
     </member>
     <member name="M:devDept.Eyeshot.CollisionDetection.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,devDept.Eyeshot.CollisionDetection.collisionCheckType,System.Int32)">
       <summary>
-            The Collision detection utility constructor with a list of entity. 
+            The Collision detection utility constructor with a list of entity. The collision test checks collisions among the entities of the same list (all to all check).
             </summary>
       <param name="list">the entity group to check each other</param>
       <param name="blocksCollection">the collection of the blocks that defines/contains the entities for the BlockReferences in the entities list</param>
@@ -18495,15 +18550,15 @@
       <param name="blocks">The blocks dictionary</param>
       <returns>True if the triangle intersects or is inside the polygon</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Entity.Intersects(devDept.Eyeshot.Entities.Entity,devDept.Geometry.Transformation,devDept.Geometry.Transformation)">
+    <member name="M:devDept.Eyeshot.Entities.Entity.Intersects(devDept.Eyeshot.Entities.Entity,System.Boolean,devDept.Geometry.Transformation,devDept.Geometry.Transformation)">
       <summary>
             Checks if two entity intersect geometrically
             </summary>
       <param name="entity">the entity to check intersection with</param>
       <param name="trans1">the transformation to be applied to the current entity</param>
       <param name="trans2">the transformation to be applied to the input entity</param>
-      <returns>
-      </returns>
+      <param name="touch">When false doesn't consider the coincidences as intersections.</param>
+      <returns>True if the two entities intersect.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.Translate(System.Double,System.Double,System.Double)">
       <summary>
@@ -22179,6 +22234,7 @@
             Converts the text to a list of meshes.
             </summary>
       <param name="viewportLayout">The <see cref="T:devDept.Eyeshot.ViewportLayout" /></param>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the text to convert has an SHX font style.</exception>
       <returns>The list of meshes.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Text.ConvertToLinearPaths(System.Double,devDept.Eyeshot.ViewportLayout)">
@@ -22218,6 +22274,7 @@
             Converts the text outlines to a list of regions.
             </summary>
       <param name="viewportLayout">The viewportLayout parent control</param>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the text to convert has an SHX font style.</exception>
       <returns>The array of regions</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Text.ConvertToSurfaces(devDept.Eyeshot.ViewportLayout)">
@@ -22225,6 +22282,7 @@
             Converts the text outlines to a list of surfaces.
             </summary>
       <param name="viewportLayout">The viewportLayout parent control</param>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the text to convert has an SHX font style.</exception>
       <returns>The array of surfaces</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Text.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
@@ -30645,11 +30703,6 @@
       <param name="seg">The segment to check if intersect with the Triangles of the Octant Mesh </param>
       <param name="transf">The transformation applied to the Points of intersection</param>
       <param name="triList">Sorted list (distance related between segment's Start Point and HitPoint) of hit triangles</param>
-    </member>
-    <member name="T:devDept.Eyeshot.Octant">
-      <summary>
-            One of the eight space containing a definite number of Triangles per Mesh
-            </summary>
     </member>
     <member name="T:devDept.Eyeshot.Viewport">
       <summary>
@@ -41762,6 +41815,14 @@
     <member name="M:devDept.Geometry.UtilityEx.DoOverlapOrTouch(devDept.Eyeshot.Entities.Mesh,devDept.Eyeshot.Entities.Mesh)">
       <summary>
             Checks if two <see cref="T:devDept.Eyeshot.Entities.Mesh" /> objects intersect each other.
+            </summary>
+      <param name="first">The first mesh object</param>
+      <param name="second">The second mesh object</param>
+      <returns>True if the two mesh objects intersect.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.DoOverlap(devDept.Eyeshot.Entities.Mesh,devDept.Eyeshot.Entities.Mesh)">
+      <summary>
+            Checks if two <see cref="T:devDept.Eyeshot.Entities.Mesh" /> objects intersect each other (but don't touch).
             </summary>
       <param name="first">The first mesh object</param>
       <param name="second">The second mesh object</param>

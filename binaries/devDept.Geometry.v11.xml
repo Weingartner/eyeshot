@@ -4308,7 +4308,7 @@
             </summary>
       <param name="d">Diagonal value</param>
     </member>
-    <member name="M:devDept.Geometry.Transformation.Scale(System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Geometry.Transformation.Scaling(System.Double,System.Double,System.Double)">
       <summary>
             Creates non-uniform scale transformation with the origin as a fixed point.
             </summary>
@@ -4316,20 +4316,20 @@
       <param name="sy">Scale factor along Y</param>
       <param name="sz">Scale factor along Z</param>
     </member>
-    <member name="M:devDept.Geometry.Transformation.Scale(devDept.Geometry.Vector3D)">
+    <member name="M:devDept.Geometry.Transformation.Scaling(devDept.Geometry.Vector3D)">
       <summary>
             Creates non-uniform scale transformation with the origin as a fixed point.
             </summary>
       <param name="sv">Scale vector</param>
     </member>
-    <member name="M:devDept.Geometry.Transformation.Scale(devDept.Geometry.Point3D,System.Double)">
+    <member name="M:devDept.Geometry.Transformation.Scaling(devDept.Geometry.Point3D,System.Double)">
       <summary>
             Create uniform scale transformation with a specified fixed point.
             </summary>
       <param name="fixedPoint">Fixed point</param>
       <param name="scaleFactor">Scale factor</param>
     </member>
-    <member name="M:devDept.Geometry.Transformation.Scale(devDept.Geometry.Point3D,System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Geometry.Transformation.Scaling(devDept.Geometry.Point3D,System.Double,System.Double,System.Double)">
       <summary>
             Create a non-uniform scale transformation with a specified fixed point.
             </summary>
@@ -4340,6 +4340,7 @@
     </member>
     <member name="M:devDept.Geometry.Transformation.Translation(System.Double,System.Double,System.Double)">
       <summary>
+            Creates a new transformation of translation.
             Right column is (dx, dy, dz, 1).
             </summary>
       <param name="dx">Amount in X</param>
@@ -4348,6 +4349,7 @@
     </member>
     <member name="M:devDept.Geometry.Transformation.Translation(devDept.Geometry.Vector3D)">
       <summary>
+            Creates a new transformation of translation.
             Right column is (v.X, v.Y, v.Z, 1).
             </summary>
       <param name="v">Delta vector</param>
@@ -4427,14 +4429,14 @@
     </member>
     <member name="M:devDept.Geometry.Transformation.Rotation(System.Double,devDept.Geometry.Vector3D)">
       <summary>
-            Rotation transformation.
+            Creates a new transformation of rotation.
             </summary>
       <param name="angleInRadians">Angle in radians</param>
       <param name="axis">Rotation axis</param>
     </member>
     <member name="M:devDept.Geometry.Transformation.Rotation(System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
       <summary>
-            Rotation transformation.
+            Creates a new transformation of rotation.
             </summary>
       <param name="angleInRadians">Angle in radians</param>
       <param name="axisStart">Axis start point</param>
@@ -4442,7 +4444,7 @@
     </member>
     <member name="M:devDept.Geometry.Transformation.Rotation(System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
       <summary>
-            Rotation transformation.
+            Creates a new transformation of rotation.
             </summary>
       <param name="angleInRadians">Angle in radians</param>
       <param name="axis">Rotation axis</param>
@@ -4450,7 +4452,7 @@
     </member>
     <member name="M:devDept.Geometry.Transformation.Rotation(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
       <summary>
-            Rotation transformation.
+            Creates a new transformation of rotation.
             </summary>
       <param name="startDir">StartPoint direction</param>
       <param name="endDir">End direction</param>
@@ -4458,7 +4460,7 @@
     </member>
     <member name="M:devDept.Geometry.Transformation.Rotation(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)">
       <summary>
-        <para>Rotation transformation.</para>
+        <para> Creates a new transformation of rotation.</para>
         <para>The frames should be right hand orthonormal frames (unit vectors with Z = X X
                 Y). The resulting rotation fixes the origin (0,0,0), maps initial X to final X,
                 initial Y to final Y, and initial Z to final Z.</para>
@@ -4472,7 +4474,7 @@
     </member>
     <member name="M:devDept.Geometry.Transformation.Rotation(devDept.Geometry.Plane,devDept.Geometry.Plane)">
       <summary>
-        <para>Rotation transformation.</para>
+        <para>Creates a new transformation of rotation.</para>
         <para>The frames should be right hand orthonormal frames (unit vectors with Z = X X
                 Y). The resulting rotation fixes the origin (0,0,0), maps initial X to final X,
                 initial Y to final Y, and initial Z to final Z.</para>
@@ -4486,7 +4488,7 @@
     </member>
     <member name="M:devDept.Geometry.Transformation.Rotation(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)">
       <summary>
-        <para>Rotation transformation.</para>
+        <para>Creates a new transformation of rotation.</para>
         <para>The frames should be right hand orthonormal frames (unit vectors with Z = X X
                 Y). The resulting rotation fixes the origin (0,0,0), maps initial X to final X,
                 initial Y to final Y, and initial Z to final Z.</para>
