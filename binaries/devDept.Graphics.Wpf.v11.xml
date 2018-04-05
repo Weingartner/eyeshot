@@ -290,6 +290,70 @@
             Last chunk index.
             </summary>
     </member>
+    <member name="T:devDept.Graphics.D3DRenderContextWF">
+      <summary>
+            Render context class that uses Direct3D in a WindowsForms control.
+            </summary>
+    </member>
+    <member name="T:devDept.Graphics.D3DRenderContextWPF">
+      <summary>
+            Render context class that uses Direct3D in a WPF native control.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.D3DRenderContextWPF.wpfImageSource">
+      <summary>
+            The WPF Image Source object. For internal use only.
+            </summary>
+    </member>
+    <member name="T:devDept.Graphics.D3DTextureBase">
+      <summary>
+            Base class for Direct3D textures.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.D3DTextureBase.sampler">
+      <summary>
+            The texture sampler. It's the index to the textureSamples list of RenderContext.
+            </summary>
+    </member>
+    <member name="T:devDept.Graphics.D3DTexture">
+      <summary>
+            Base class for Direct3D textures.
+            </summary>
+      <remarks>For internal use only.</remarks>
+    </member>
+    <member name="M:devDept.Graphics.D3DTexture.UpdateRegion(devDept.Graphics.RenderContextBase,System.Drawing.Bitmap,System.Int32,System.Int32)">
+      <summary>
+            Updates a region of a texture already loaded in memory.
+            </summary>
+      <param name="renderContext">The render context</param>
+      <param name="bitmap">The region of the image to update</param>
+      <param name="xOffset">The texel offset in the x direction (0,0 being the bottom-left corner)</param>
+      <param name="yOffset">The texel offset in the y direction (0,0 being the bottom-left corner)</param>
+    </member>
+    <member name="T:devDept.Graphics.D3DTexture2D">
+      <summary>
+            2D color texture class for Direct3D.
+            </summary>
+    </member>
+    <member name="M:devDept.Graphics.D3DTexture2D.#ctor(devDept.Graphics.RenderContextBase,System.Drawing.Bitmap,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType,System.Boolean,System.Boolean,System.Boolean)">
+      <summary>
+            Creates a 2D texture.
+            </summary>
+      <param name="renderContext">The render context</param>
+      <param name="bmp">The image</param>
+      <param name="minFunc">Minification function</param>
+      <param name="magFunc">Magnification function</param>
+      <param name="anisotropicFiltering">If true, enables anisotropic filtering for mipmapping</param>
+      <param name="repeatX">If true, the texture is repeated in the X direction</param>
+      <param name="repeatY">If true, the texture is repeated in the Y direction</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:devDept.Graphics.D3DTextureDepth">
+      <summary>
+            Depth texture class for Direct3D.
+            </summary>
+    </member>
     <member name="T:devDept.Graphics.EntityGraphicsData">
       <summary>
             Class that holds the compiled graphics data.
@@ -3887,21 +3951,6 @@
             Updates the back buffer.
             </summary>
     </member>
-    <member name="T:devDept.Graphics.D3DRenderContextWF">
-      <summary>
-            Render context class that uses Direct3D in a WindowsForms control.
-            </summary>
-    </member>
-    <member name="T:devDept.Graphics.D3DRenderContextWPF">
-      <summary>
-            Render context class that uses Direct3D in a WPF native control.
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.D3DRenderContextWPF.wpfImageSource">
-      <summary>
-            The WPF Image Source object. For internal use only.
-            </summary>
-    </member>
     <member name="T:devDept.Graphics.DrawEntityCallBack">
       <summary>
             Delegate of method that draws the entity.
@@ -4143,55 +4192,6 @@
       <param name="position">The position where to start drawing</param>
       <param name="drawBuffered">If true, the images are drawn when the dynamic buffer is full, else they are drawn immediately (Direct3D only)</param>
       <remarks>The position is updated to the end of the last image drawn.</remarks>
-    </member>
-    <member name="T:devDept.Graphics.D3DTextureBase">
-      <summary>
-            Base class for Direct3D textures.
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.D3DTextureBase.sampler">
-      <summary>
-            The texture sampler. It's the index to the textureSamples list of RenderContext.
-            </summary>
-    </member>
-    <member name="T:devDept.Graphics.D3DTexture">
-      <summary>
-            Base class for Direct3D textures.
-            </summary>
-      <remarks>For internal use only.</remarks>
-    </member>
-    <member name="M:devDept.Graphics.D3DTexture.UpdateRegion(devDept.Graphics.RenderContextBase,System.Drawing.Bitmap,System.Int32,System.Int32)">
-      <summary>
-            Updates a region of a texture already loaded in memory.
-            </summary>
-      <param name="renderContext">The render context</param>
-      <param name="bitmap">The region of the image to update</param>
-      <param name="xOffset">The texel offset in the x direction (0,0 being the bottom-left corner)</param>
-      <param name="yOffset">The texel offset in the y direction (0,0 being the bottom-left corner)</param>
-    </member>
-    <member name="T:devDept.Graphics.D3DTexture2D">
-      <summary>
-            2D color texture class for Direct3D.
-            </summary>
-    </member>
-    <member name="M:devDept.Graphics.D3DTexture2D.#ctor(devDept.Graphics.RenderContextBase,System.Drawing.Bitmap,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType,System.Boolean,System.Boolean,System.Boolean)">
-      <summary>
-            Creates a 2D texture.
-            </summary>
-      <param name="renderContext">The render context</param>
-      <param name="bmp">The image</param>
-      <param name="minFunc">Minification function</param>
-      <param name="magFunc">Magnification function</param>
-      <param name="anisotropicFiltering">If true, enables anisotropic filtering for mipmapping</param>
-      <param name="repeatX">If true, the texture is repeated in the X direction</param>
-      <param name="repeatY">If true, the texture is repeated in the Y direction</param>
-      <returns>
-      </returns>
-    </member>
-    <member name="T:devDept.Graphics.D3DTextureDepth">
-      <summary>
-            Depth texture class for Direct3D.
-            </summary>
     </member>
     <member name="T:devDept.Graphics.IViewport">
       <summary>

@@ -201,7 +201,7 @@
       <summary>
             Separates objects by color and returns a single Mesh per color (with no edges).
             </summary>
-      <remarks>Experimental feature, currently works only on <see cref="T:devDept.Eyeshot.Entities.Solid3D" /> types.</remarks>
+      <remarks>Experimental feature, annotations are not supported yet.</remarks>
       <returns>An array of entities.</returns>
     </member>
     <member name="M:devDept.Eyeshot.EntityList.UpdateBoundingBox">
@@ -41601,9 +41601,9 @@
       <param name="viewFrame">The viewport bounds</param>
       <returns>True if the vertex is inside the polygon.</returns>
     </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetRevisionCloudFromICurve(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,System.Double)">
+    <member name="M:devDept.Geometry.UtilityEx.GetRevisionCloud(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,System.Double)">
       <summary>
-            Builds a revision cloud from the ICurve in input.
+            Builds a revision cloud from the specified ICurve.
             </summary>
       <param name="sourceCurve">The input curve</param>
       <param name="plane">The plane used to build the revision cloud</param>
