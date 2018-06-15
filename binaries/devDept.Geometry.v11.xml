@@ -365,6 +365,14 @@
       <param name="min">The min 2D point</param>
       <param name="max">The max 2D point</param>
     </member>
+    <member name="M:devDept.Geometry.Utility.BoundingRectOnPlane(System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Plane,devDept.Geometry.Point2D@,devDept.Geometry.Point2D@)">
+      <summary>
+            Returns the bounding rectangle of a collection of 2D points by using a fixed plane orientation.
+            </summary>
+      <param name="pointList">A collection of 2D points lies on Plane XY.</param>
+      <param name="min">The min 2D point on the input plane definition</param>
+      <param name="max">The max 2D point on the input plane definition</param>
+    </member>
     <member name="M:devDept.Geometry.Utility.BoundingBox(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
             Returns the bounding box of a collection of 3D points.
@@ -1689,6 +1697,11 @@
     <member name="F:devDept.Geometry.lineWeightUnitsType.Millimeters">
       <summary>
             Millimeters
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.lineWeightUnitsType.Default">
+      <summary>
+            Export all line weight values as default.
             </summary>
     </member>
     <member name="T:devDept.Geometry.linearUnitsType">
@@ -4211,29 +4224,23 @@
       <example>
             Usage example.
             	<code lang="CS" title="[New Example]">
-            Transformation tra = new Transformation();
-            tra.Translation(10, 0, 0);
+            Transformation t = new Translation(10, 0, 0);
+            Transformation r = new Rotation(Math.PI/6, Vector3D.AxisY); // angle in radians
              
-            Transformation rot = new Transformation();
-            rot.Rotation(Math.PI/6, Vector3D.AxisY); // angle in radians
-             
-            Transformation xform = tra * rot; // combines the two transformations (order matters)
+            Transformation c = t * r; // combines the two transformations (order matters)
              
             Point3D pt = new (10, 20, 30);
              
-            Point3D newPt = xForm * p; // transforms the point pt
+            Point3D newPt = c * p; // transforms the point pt
             </code><code lang="VB" title="[New Example]">
-            Dim tra As Transformation = New Transformation()
-            tra.Translation(10, 0, 0)
+            Dim t As Transformation = New Translation(10, 0, 0)
+            Dim r As Transformation = New Rotation(Math.PI/6, Vector3D.AxisY) ' angle in radians
              
-            Dim rot As Transformation = New Transformation()
-            rot.Rotation(Math.PI/6, Vector3D.AxisY) ' angle In radians
-             
-            Dim xform As Transformation = tra * rot ' combines the two transformations (order matters)
+            Dim c As Transformation = t * r ' combines the two transformations (order matters)
              
             Dim pt As Point3D = New (10, 20, 30)
              
-            Dim ptNew As Point3D = xForm * p ' transforms the point pt
+            Dim ptNew As Point3D = c * p ' transforms the point pt
             </code></example>
     </member>
     <member name="M:devDept.Geometry.Transformation.#ctor">

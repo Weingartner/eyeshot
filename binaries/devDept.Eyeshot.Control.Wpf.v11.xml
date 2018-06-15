@@ -197,13 +197,6 @@
             Accurate transparency. If true, skips back facing semi-tranparent triangles drawing, increasing the FPS rate. 
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.EntityList.CombineByColor">
-      <summary>
-            Separates objects by color and returns a single Mesh per color (with no edges).
-            </summary>
-      <remarks>Experimental feature, annotations are not supported yet.</remarks>
-      <returns>An array of entities.</returns>
-    </member>
     <member name="M:devDept.Eyeshot.EntityList.UpdateBoundingBox">
       <summary>
             Computes the model bounding box and updates some important variables.
@@ -518,17 +511,10 @@
     <member name="M:devDept.Eyeshot.EntityList.SetCurrentStack(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},System.Boolean)">
       <summary>
             Sets a sequence of BlockReferences as current.
-            </summary>
+            <para>When a BlockReference is set as current, the following changes happen:</para><para>- A <see cref="T:devDept.Eyeshot.Block" /> is added to the <see cref="P:devDept.Eyeshot.ViewportLayout.ParentBlocks" /> with the entities of the current scene except the <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> that is set as current.</para><para>- The <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection contains the current <see cref="T:devDept.Eyeshot.Block" /> entities. </para><para>- The current <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> is pushed on the <see cref="F:devDept.Eyeshot.EntityList.CurrentBlockReferencesData" /> stack.</para><para>- The <see cref="P:devDept.Eyeshot.EntityList.BoxMin" /> and <see cref="P:devDept.Eyeshot.EntityList.BoxMax" /> are updated to consider the new entities, without the <see cref="P:devDept.Eyeshot.EntityList.CurrentTransformation" />.</para><para>Since the collection is modified, this method can't be called in a Foreach loop.</para><para>To add or remove entities from a BlockReference set as current, do it on the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> and not on the <see cref="P:devDept.Eyeshot.Block.Entities" />.</para></summary>
       <param name="parents">The stack of BlockReferences to set as current (the bottom-most is the first parent, which must be in the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" />, 
             the top-most is the last parent of the hierarchy). If null or empty, the current BlockReference is unset.</param>
       <param name="updateBoundingBox">If true, updates the scene bounding box. Set it to false for better performances in off-screen methods that call this to just use the <see cref="P:devDept.Eyeshot.Entities.BlockReference.AccumulatedParentsTransform" /></param>
-      <para>When a BlockReference is set as current, the following changes happen:</para>
-      <para>- A <see cref="T:devDept.Eyeshot.Block" /> is added to the <see cref="P:devDept.Eyeshot.ViewportLayout.ParentBlocks" /> with the entities of the current scene except the <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> that is set as current.</para>
-      <para>- The <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection contains the current <see cref="T:devDept.Eyeshot.Block" /> entities. </para>
-      <para>- The current <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> is pushed on the <see cref="F:devDept.Eyeshot.EntityList.CurrentBlockReferencesData" /> stack.</para>
-      <para>- The <see cref="P:devDept.Eyeshot.EntityList.BoxMin" /> and <see cref="P:devDept.Eyeshot.EntityList.BoxMax" /> are updated to consider the new entities, without the <see cref="P:devDept.Eyeshot.EntityList.CurrentTransformation" />.</para>
-      <para>Since the collection is modified, this method can't be called in a Foreach loop.</para>
-      <para>To add or remove entities from a BlockReference set as current, do it on the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> and not on the <see cref="P:devDept.Eyeshot.Block.Entities" />.</para>
       <seealso cref="M:devDept.Eyeshot.EntityList.SetParentAsCurrent(System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.EntityList.SetSelectionAsCurrent(System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.EntityList.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />
@@ -2276,6 +2262,16 @@
     <member name="P:devDept.Eyeshot.Translators.ReadASC.SupportedLinearUnitsType">
       <summary>
             Gets the supported linear units
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadASC.SkipInvalidLines">
+      <summary>
+             When true invalid lines are skipped and written into the log.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadASC.PointSize">
+      <summary>
+            If not equal to zero this is used to set the point size of the FastPointCloud.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Translators.ReadASC.#ctor(System.String,System.Char[])">
@@ -4684,110 +4680,217 @@
       <param name="stream">The file stream</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
+    <member name="T:devDept.Eyeshot.CollisionDetection2D">
+      <summary>
+            Utility class for performing Collision Detection 2D on Plane XY (for ICurve and Region types only). 
+            </summary>
+      <remarks>The Regen() method needs to be called first for the interested entities (except for LinearPath).</remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.CollisionDetection2D.CollisionResultItem">
+      <summary>
+            The resulting item component of the collision.
+            If the resulting collided entity is a leaf, then the name of the first block containing that entity will be saved into ParentName field and the trasformation field will be filled.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D.CollisionResultItem.Transformation">
+      <summary>
+            The accumulated parent transformation of the collided entity.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D.CollisionResultItem.ParentName">
+      <summary>
+            The block name of the first parent that contain that entity.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D.CollisionResultItem.Parents">
+      <summary>
+            The parents stack to reach the entity.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D.CollisionResultItem.Entity">
+      <summary>
+            The entity found intersecting in the resulting tuple.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.CollisionDetection2D.collisionCheckType">
+      <summary>
+            The accuracy type used during collision detection.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D.collisionCheckType.OB">
+      <summary>
+            Oriented Bounding check type- Computes a collision detection by using OrientedBoundingRect (for CollisionDetection2D) or OrientedBoundingBox (for CollisionDetection) intersection.
+            The most approximated accuracy, the faster.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D.collisionCheckType.SubdivisionTree">
+      <summary>
+            Computes a collision detection by using intersection among QuadTree(for 2D) or Octree(for 3D) subdivision.
+            More accurate than OB Accuracy, but slower during collision computation if the entities collection are transformed BlockReferences.
+            Usefull for entities with complex but balanced tessellation.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D.collisionCheckType.OBWithSubdivisionTree">
+      <summary>
+            Computes a collision detection by using a combination of OBR/OBB and triangles/segments QuadTree/Octree subdivision intersections.
+            Same accuracy of SubdivisionTree method, but faster during collision computation for deep Block\BlockReference gerarchy (it could be slower during computation of QuadTree\Octree and OBR\OBB data).
+            Suggested for deep Block\BlockReferences hierarchy containing leaves entities with a complex/dense tessellation.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D.collisionCheckType.Accurate">
+      <summary>
+            Computes a collision detection by using Geometrical intersections.
+            The most accurate but slower approach.
+            Suggested if you need to find precise intersection for curved entities. 
+            Advised against animation and frequently translated entities.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.CollisionDetection2D.FirstOnly">
+      <summary>
+            When true the collision detection will stop at the first entities tuple found.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.CollisionDetection2D._allToAll">
+      <summary>
+            When true, it detects collition from a unique list of entities intersecting each others.
+            When false, it takes two list of separate object. Detects wich entities of the first list intersect what of the second.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.CollisionDetection2D.Result">
+      <summary>
+            The resulting tuple of entities intersecting each other.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.CollisionDetection2D.CheckMethod">
+      <summary>
+            Gets or sets the collision accuracy type.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.CollisionDetection2D.CoincidenceAsCollision">
+      <summary>
+            When true it considers the coincidence between objects as collision.
+            It avoids them otherwise.
+            </summary>
+      <remarks>When the value is false anche the <see cref="P:devDept.Eyeshot.CollisionDetection2D.CheckMethod" /> is set to <see cref="F:devDept.Eyeshot.CollisionDetection2D.collisionCheckType.Accurate" />, it could needs to perform heavy checks to keep out the coincidence from the collision result.
+            This could affect performance.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.CollisionDetection2D.preCollisionText">
+      <summary>
+            Gets or sets the "Preparing data..." text string.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.CollisionDetection2D.obbCollisionText">
+      <summary>
+            Gets or sets the "Collision detection..." text string.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.CollisionDetection2D.octreeCollisionText">
+      <summary>
+            Gets or sets the "Collision detection with QuadTree..." text string.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,devDept.Eyeshot.CollisionDetection2D.collisionCheckType,System.Int32)">
+      <summary>
+            The Collision detection utility constructor with two entity lists. The collision test checks collisions from the first entity list to the second one.
+            </summary>
+      <param name="list1">first entity group</param>
+      <param name="list2">second entity group</param>
+      <param name="blocksCollection">the collection of the blocks that defines/contains the entities for the BlockReferences in the entities list</param>
+      <param name="firstOnly">when true,the collision detection will stop at the first couple of intersecting entities found</param>
+      <param name="checkMethod">the collision accuracy type</param>
+      <param name="maxElemsNumForQuadTreeNode">the maximum number of triangles for each Octant of each entity's octree (used only with Octree check methods)</param>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,devDept.Eyeshot.CollisionDetection2D.collisionCheckType,System.Int32)">
+      <summary>
+            The Collision detection utility constructor with a list of entity. The collision test checks collisions among the entities of the same list (all to all check).
+            </summary>
+      <param name="list">the entity group to check each other</param>
+      <param name="blocksCollection">the collection of the blocks that defines/contains the entities for the BlockReferences in the entities list</param>
+      <param name="firstOnly">when true,the collision detection will stop at the first couple of intersecting entities found</param>
+      <param name="collisionCheckMethod">the collision accuracy type</param>
+      <param name="maxTrianglesNumForOctreeNode">the maximum number of triangles for each Octant of each entity's octree</param>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.PrepareToDetectCollision(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Computes the collision detection data needed during the check.
+            </summary>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.ComputeOrientedBoundings(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Computes the oriented bounding rect/box for all the entities in the groups (or update only the modified entities)
+            </summary>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.OrientedBoundingBoxCollision(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Check collision among oriented bounding boxes of the entities groups
+            </summary>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+      <returns>True if at least two OBB intersects each other, false otherwise</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.TreesCollision(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Check collision among octrees of the entities groups
+            </summary>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+      <returns>True if at least two triangles (of Intersected Octrees) intersects each other, false otherwise</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.IntersectTree(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity,System.Collections.Generic.List{System.Tuple{devDept.Eyeshot.CollisionDetection2D.CollisionResultItem,devDept.Eyeshot.CollisionDetection2D.CollisionResultItem}}@,System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Check intersection between Octrees of two root entities (the entities can be BlockReference), by using SAT algorithm.
+            </summary>
+      <param name="ent1">First entity to check</param>
+      <param name="ent2">second entity to check</param>
+      <param name="collidedTuple">The resulting tuple of the intersecting entity in that Block/BlockReference gerarchy</param>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+      <returns>True if at least two Octrees intersects each other, false otherwise</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.IntersectOB(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity,System.Collections.Generic.List{System.Tuple{devDept.Eyeshot.CollisionDetection2D.CollisionResultItem,devDept.Eyeshot.CollisionDetection2D.CollisionResultItem}}@,System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Check intersection between Oriented Bounding (Rect or Box) of two root entities (the entities can be BlockReference), by using SAT algorithm.
+            </summary>
+      <param name="ent1">First entity to check</param>
+      <param name="ent2">second entity to check</param>
+      <param name="collidedTuple">The resulting tuple of the intersecting entity in that Block/BlockReference gerarchy</param>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+      <returns>True if at least two OBB(or OBR) intersects each other, false otherwise</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.CollisionDetection2D.ClearCache">
+      <summary>
+            Removes all the objects defined for collision detection.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.CollisionDetection">
       <summary>
             Utility class for performing Collision Detection.
             </summary>
       <remarks>The Regen() method needs to be called first for the interested entities (except for Mesh, Solid, FastPointCloud, Joint, Bar and LinearPath). </remarks>
     </member>
-    <member name="T:devDept.Eyeshot.CollisionDetection.collisionCheckType">
-      <summary>
-            The accuracy type used during collision detection.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.CollisionDetection.collisionCheckType.OBB">
-      <summary>
-            Computes a collision detection by using OrientedBoundingBox intersection.
-            </summary>
-      <remarks>The most approximated accuracy, the faster.</remarks>
-    </member>
-    <member name="F:devDept.Eyeshot.CollisionDetection.collisionCheckType.Octree">
-      <summary>
-            Computes a collision detection by using intersection of Octree subdivision.
-            More accurate than obbAccuracy, but slower during collision computation if the entities collection are transformed BlockReferences.
-            </summary>
-      <remarks>Usefull for leaf level entities with complex triangulation.</remarks>
-    </member>
-    <member name="F:devDept.Eyeshot.CollisionDetection.collisionCheckType.OBBWithOctree">
-      <summary>
-            Computes a collision detection by using a combination of OBB and triangles Octree subdivision intersections.
-            Same accuracy of triangulationAccuracy, but faster during collision computation (it could be slower during computation of Octree and OBB partitioning).
-            </summary>
-      <remarks>Suggested for transformed (and animated) BlockReferences entities containing leaves entities with a complex/dense triangulation.</remarks>
-    </member>
-    <member name="F:devDept.Eyeshot.CollisionDetection.collisionCheckType.Accurate">
-      <summary>
-            Computes a collision detection by using Geometrical intersections.
-            The most accurate but slower approach.
-            </summary>
-      <remarks>Suggested if you need to find precise intersection for curved entities (like Solid3D and Surface). 
-            Advised against animation and frequently translated entities.</remarks>
-    </member>
-    <member name="T:devDept.Eyeshot.CollisionDetection.CollisionResultItem">
-      <summary>
-            The resulting item component of the collision.
-            If the resulting collided entity is a leaf, then the name of the first block containing that entity will be saved into ParentName field and the trasformation field will be filled.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.CollisionDetection.CollisionResultItem.Transformation">
-      <summary>
-            The accumulated parent transformation of the collided entity.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.CollisionDetection.CollisionResultItem.ParentName">
-      <summary>
-            The block name of the first parent that contain that entity.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.CollisionDetection.CollisionResultItem.Parents">
-      <summary>
-            The parents stack to reach the entity.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.CollisionDetection.CollisionResultItem.Entity">
-      <summary>
-            The entity found intersecting in the resulting tuple.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.CollisionDetection.FirstOnly">
-      <summary>
-            When true the collision detection will stop at the first entities tuple found.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.CollisionDetection.Result">
-      <summary>
-            The resulting tuple of entities intersecting each other.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.CollisionDetection.CheckMethod">
-      <summary>
-            Gets or sets the collision accuracy type.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.CollisionDetection.CoincidenceAsCollision">
-      <summary>
-            When true it considers the coincidence between objects as collision.
-            It avoids them otherwise.
-            </summary>
-      <remarks>When the value is false anche the <see cref="P:devDept.Eyeshot.CollisionDetection.CheckMethod" /> is set to <see cref="F:devDept.Eyeshot.CollisionDetection.collisionCheckType.Accurate" />, it could needs to perform heavy checks to keep out the coincidence from the collision result.
-            This could affect performance.</remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.CollisionDetection.preCollisionText">
-      <summary>
-            Gets or sets the "Detects data for check collision..." text string.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.CollisionDetection.obbCollisionText">
-      <summary>
-            Gets or sets the "Collision detection with .." text string.
-            </summary>
-    </member>
     <member name="P:devDept.Eyeshot.CollisionDetection.octreeCollisionText">
       <summary>
             Gets or sets the "Collision detection with Octree..." text string.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.CollisionDetection.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,devDept.Eyeshot.CollisionDetection.collisionCheckType,System.Int32)">
+    <member name="M:devDept.Eyeshot.CollisionDetection.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,devDept.Eyeshot.CollisionDetection2D.collisionCheckType,System.Int32)">
       <summary>
             The Collision detection utility constructor with two entity lists. The collision test checks collisions from the first entity list to the second one.
             </summary>
@@ -4798,7 +4901,7 @@
       <param name="checkMethod">the collision accuracy type</param>
       <param name="maxTrianglesNumForOctreeNode">the maximum number of triangles for each Octant of each entity's octree (used only with Octree check methods)</param>
     </member>
-    <member name="M:devDept.Eyeshot.CollisionDetection.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,devDept.Eyeshot.CollisionDetection.collisionCheckType,System.Int32)">
+    <member name="M:devDept.Eyeshot.CollisionDetection.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,devDept.Eyeshot.CollisionDetection2D.collisionCheckType,System.Int32)">
       <summary>
             The Collision detection utility constructor with a list of entity. The collision test checks collisions among the entities of the same list (all to all check).
             </summary>
@@ -4808,19 +4911,31 @@
       <param name="collisionCheckMethod">the collision accuracy type</param>
       <param name="maxTrianglesNumForOctreeNode">the maximum number of triangles for each Octant of each entity's octree</param>
     </member>
-    <member name="M:devDept.Eyeshot.CollisionDetection.PrepareToDetectCollision(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+    <member name="M:devDept.Eyeshot.CollisionDetection.IntersectTree(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity,System.Collections.Generic.List{System.Tuple{devDept.Eyeshot.CollisionDetection2D.CollisionResultItem,devDept.Eyeshot.CollisionDetection2D.CollisionResultItem}}@,System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
       <summary>
-            Computes the collision detection data needed during the check.
+            Check intersection between Octrees of two root entities (the entities can be BlockReference), by using SAT algorithm.
             </summary>
+      <param name="ent1">First entity to check</param>
+      <param name="ent2">second entity to check</param>
+      <param name="collidedTuple">The resulting tuple of the intersecting entity in that Block/BlockReference gerarchy</param>
       <param name="worker">
       </param>
       <param name="doWorkEventArgs">
       </param>
+      <returns>True if at least two Octrees intersects each other, false otherwise</returns>
     </member>
-    <member name="M:devDept.Eyeshot.CollisionDetection.ClearCache">
+    <member name="M:devDept.Eyeshot.CollisionDetection.IntersectOB(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity,System.Collections.Generic.List{System.Tuple{devDept.Eyeshot.CollisionDetection2D.CollisionResultItem,devDept.Eyeshot.CollisionDetection2D.CollisionResultItem}}@,System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
       <summary>
-            Removes all the objects defined for collision detection.
+            Check intersection between Oriented Bounding Box of two root entities (the entities can be BlockReference), by using SAT algorithm.
             </summary>
+      <param name="ent1">First entity to check</param>
+      <param name="ent2">second entity to check</param>
+      <param name="collidedTuple">The resulting tuple of the intersecting entity in that Block/BlockReference gerarchy</param>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+      <returns>True if at least two OBB intersects each other, false otherwise</returns>
     </member>
     <member name="T:devDept.Eyeshot.Dicom.CtSliceInfo">
       <summary>
@@ -5434,6 +5549,12 @@
             </summary>
       <remarks>You need to call the Viewport.Entities.Regen() to see the effect of this command.</remarks>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.AngularDim.UnderlyingArc">
+      <summary>
+            Gets the dimension's arc curve.
+            </summary>
+      <returns>The <see cref="T:devDept.Eyeshot.Entities.Arc" /> object.</returns>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.AngularDim.StartAngle">
       <summary>
             Gets the dimension arc start angle.
@@ -5692,14 +5813,14 @@
       <summary>
             Converts this region to a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.
             </summary>
-      <param name="tolerance">Tessellation tolerance</param>
+      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Region.ConvertToMesh``1(System.Double,devDept.Eyeshot.Entities.Mesh.natureType)">
       <summary>
             Converts this region to a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.
             </summary>
-      <param name="tolerance">Tessellation tolerance</param>
+      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Region.ConvertToSolid(System.Double)">
@@ -5774,12 +5895,11 @@
             Returns true when the number of contours is bigger than zero.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Region.Triangulate(System.Double,System.Double,System.Int32)">
+    <member name="M:devDept.Eyeshot.Entities.Region.Triangulate(System.Double,System.Int32)">
       <summary>
             Triangulates this Region.
             </summary>
       <param name="elementSize">The desired element size</param>
-      <param name="minimumAngle">The desired minimum angle (in radians)</param>
       <param name="smoothingPasses">The number of smoothing passes</param>
       <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
     </member>
@@ -8495,6 +8615,13 @@
       <summary>
             Boolean operation type.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.MergeFaces">
+      <summary>
+            Merges coplanar faces when possible.
+            </summary>
+      <remarks>Rebuild() method could be necessary before to call this.</remarks>
+      <returns>then number of the removed faces after merge. -1 if an error occured.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.Section(devDept.Geometry.Plane,System.Double)">
       <summary>
@@ -11386,7 +11513,7 @@
             </summary>
       <remarks>If null or -1, the value is inherited from the <see cref="P:devDept.Eyeshot.TextStyle.WidthFactor" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.MultilineText.ConvertToMesh(devDept.Eyeshot.ViewportLayout)">
+    <member name="M:devDept.Eyeshot.Entities.MultilineText.ConvertToMesh(devDept.Eyeshot.ViewportLayout,System.Boolean)">
       <summary>
             Converts the text to a list of meshes.
             </summary>
@@ -11401,12 +11528,7 @@
     <member name="T:devDept.Eyeshot.Entities.OrdinateDim">
       <summary>
             Ordinate dimension entity.    
-            </summary>
-      <para>The ordinate dimension consists of an X or Y value with a leader line.</para>
-      <para>It measures the perpendicular distance from an origin point (called the datum) to a defining point (such as a hole in a part).</para>
-      <para>X-datum ordinate dimensions measure the distance of the defining point from the datum along the X axis.</para>
-      <para>Y-datum ordinate dimensions measure the distance of the defining point from the datum along the Y axis.</para>
-      <para>If the dimension is vertical it measures the X value. Otherwise, it measures the Y value.</para>
+            <para>The ordinate dimension consists of an X or Y value with a leader line.</para><para>It measures the perpendicular distance from an origin point (called the datum) to a defining point (such as a hole in a part).</para><para>X-datum ordinate dimensions measure the distance of the defining point from the datum along the X axis.</para><para>Y-datum ordinate dimensions measure the distance of the defining point from the datum along the Y axis.</para><para>If the dimension is vertical it measures the X value. Otherwise, it measures the Y value.</para></summary>
       <remarks>Text font can be changed using the <see cref="P:devDept.Eyeshot.Entities.Text.StyleName" /> property and calling the ViewportLayout.Entities.Regen() method.</remarks>
       <seealso cref="P:devDept.Eyeshot.Entities.Text.StyleName" />
     </member>
@@ -17431,6 +17553,12 @@
       <param name="transform">
       </param>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid.UpdateAngles">
+      <summary>
+            Updates the variable 'Angle' of array edgeDatas after a scaling transformation. 
+            For Ticket #13399
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.FromTriangles(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
       <summary>
             Creates a solid from a list of vertices and triangles.
@@ -18560,6 +18688,16 @@
       <param name="touch">When false doesn't consider the coincidences as intersections.</param>
       <returns>True if the two entities intersect.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Entity.Intersects2D(devDept.Eyeshot.Entities.Entity,System.Boolean,devDept.Geometry.Transformation,devDept.Geometry.Transformation)">
+      <summary>
+            Checks if two 2D entity intersect geometrically on Plane XY
+            </summary>
+      <param name="entity">the entity to check intersection with</param>
+      <param name="trans1">the transformation to be applied to the current entity</param>
+      <param name="trans2">the transformation to be applied to the input entity</param>
+      <param name="touch">When false doesn't consider the coincidences as intersections.</param>
+      <returns>True if the two entities intersect.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.Translate(System.Double,System.Double,System.Double)">
       <summary>
             Translates the entity.
@@ -19663,7 +19801,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.IFace.GetPolygonMeshes">
       <summary>
-            Gets a number of meshes representing this object.
+            Gets a number of meshes representing this object (for readOnly purpose).
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.IFace.FindClosestTriangle(devDept.Geometry.Transformation,devDept.Geometry.Segment3D)">
@@ -21532,11 +21670,12 @@
       <returns>
       </returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.BlockReference.GetFullTransformation``1(devDept.Eyeshot.BlockKeyedCollection{``0})">
+    <member name="M:devDept.Eyeshot.Entities.BlockReference.GetFullTransformation``1(devDept.Eyeshot.BlockKeyedCollection{``0},devDept.Eyeshot.BlockKeyedCollection{``0})">
       <summary>
             Gets the BlockReference transformation combined with the <see cref="P:devDept.Eyeshot.Block.BasePoint" /> position.
             </summary>
       <param name="blocks">The blocks collection</param>
+      <param name="parentBlocks">The parent blocks collection</param>
       <returns>
       </returns>
     </member>
@@ -21659,20 +21798,22 @@
       <param name="blocks">The <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" /> collection</param>
       <returns>The referenced block linear units.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.BlockReference.GetEntities(devDept.Eyeshot.BlockKeyedCollection)">
+    <member name="M:devDept.Eyeshot.Entities.BlockReference.GetEntities(devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.BlockKeyedCollection)">
       <summary>
             Gets the entities of the block referred by this BlockReference.
             </summary>
       <param name="blocks">The blocks collection</param>
+      <param name="parentBlocks">The parent blocks collection</param>
       <returns>The entities of the referred block.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.BlockReference.Explode(devDept.Eyeshot.BlockKeyedCollection,System.Boolean,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Entities.BlockReference.Explode(devDept.Eyeshot.BlockKeyedCollection,System.Boolean,System.Boolean,devDept.Eyeshot.ViewportLayout)">
       <summary>
             Returns the block reference individual entity list.
             </summary>
       <param name="blocks">The <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" /> collection</param>
       <param name="resolveByParent">If true, the <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeightMethod" /> are resolved propagating the BlockReference properties</param>
       <param name="keepTessellation">When true, the tessellation of the original entity is preserved.</param>
+      <param name="viewportLayout">The current <see cref="T:devDept.Eyeshot.ViewportLayout" /> instance.</param>
       <returns>The list of individual entities.</returns>
       <seealso cref="M:devDept.Eyeshot.EntityList.Explode(devDept.Eyeshot.Entities.BlockReference,System.Boolean,System.Boolean)" />
     </member>
@@ -22229,7 +22370,7 @@
     <member name="M:devDept.Eyeshot.Entities.Text.Regen(devDept.Eyeshot.RegenParams)">
       <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the regen params don't contain a valid ViewportLayout.</exception>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Text.ConvertToMesh(devDept.Eyeshot.ViewportLayout)">
+    <member name="M:devDept.Eyeshot.Entities.Text.ConvertToMesh(devDept.Eyeshot.ViewportLayout,System.Boolean)">
       <summary>
             Converts the text to a list of meshes.
             </summary>
@@ -26937,11 +27078,6 @@
             For internal use only.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.ViewportLayout.SupportRequest(System.Object,System.EventArgs)">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
     <member name="E:devDept.Eyeshot.ViewportLayout.BoundingBoxChanged">
       <summary>
             Occurs when the scene bounding box has changed.
@@ -27445,6 +27581,8 @@
             </summary>
       <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType" /></param>
       <returns>The bitmap for the image comparison.</returns>
+      <remarks>
+        <see cref="M:devDept.Eyeshot.ViewportLayout.SetView(devDept.Eyeshot.viewType)" />, <see cref="M:devDept.Eyeshot.ViewportLayout.ZoomFit" /> and bitmap resize to 1024x768 are performed only when <paramref name="viewType" /> is not <see cref="F:devDept.Eyeshot.viewType.Other" />.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap@,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,System.Double)">
       <summary>
@@ -27690,6 +27828,11 @@
             </summary>
       <returns>True if the current <see cref="P:devDept.Eyeshot.ViewportLayout.ActionMode" /> requires dragging.</returns>
     </member>
+    <member name="P:devDept.Eyeshot.ViewportLayout.FastZPR">
+      <summary>
+            When true, enables experimental high speed ZPR.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.StartZoomPanRotate(System.Windows.Forms.MouseEventArgs,devDept.Eyeshot.Viewport)">
       <summary>
             Starts a sequence of Zoom-Pan-Rotate movements if the proper keys/mouse buttons are pressed.
@@ -27885,7 +28028,7 @@
     </member>
     <member name="M:devDept.Eyeshot.ViewportLayout.EndZoomPanRotate(devDept.Eyeshot.Viewport)">
       <summary>
-            Starts a sequence of Zoom-Pan-Rotate movements.
+            Ends a sequence of Zoom-Pan-Rotate movements.
             </summary>
       <viewport>The viewport</viewport>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.StartZoomPanRotate(System.Windows.Forms.MouseEventArgs,devDept.Eyeshot.Viewport)" />
@@ -30658,6 +30801,39 @@
       <param name="sender">The source of the event</param>
       <param name="e">The event data</param>
     </member>
+    <member name="T:devDept.Eyeshot.QuadTree">
+      <summary>
+            This class help divide the Mesh's space in 8 parts, each one with a definite number of Triangles.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.QuadTree.#ctor(devDept.Eyeshot.Entities.Entity)">
+      <summary>
+            Initializes a new instance of the <see cref="T:devDept.Eyeshot.Octree" /> class.
+            Standard Constructor that defines the maximum number of triangles per Octant as (Mesh.Triangles.Length / 100).
+            </summary>
+      <param name="mesh">The mesh.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.QuadTree.#ctor(devDept.Eyeshot.QuadTree)">
+      <summary>
+            Build Octree from other (to build OrientedOctree quickly). The resulting Octree should be Read Only.
+            (For internal use only)
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.QuadTree.#ctor(devDept.Eyeshot.Entities.Entity,System.Int32)">
+      <summary>
+            Initializes a new instance of the <see cref="T:devDept.Eyeshot.QuadTree" /> class.
+            Constructor with possibility to define an integer for maximum number of element per Quad node.
+            </summary>
+      <param name="entity">The 2D entity source to subdivide</param>
+      <param name="limit">Maximum number of element per Quad node</param>
+    </member>
+    <member name="M:devDept.Eyeshot.QuadTree.DoWork(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Does the work.
+            </summary>
+      <param name="worker">The worker.</param>
+      <param name="doWorkEventArgs">The <see cref="T:System.ComponentModel.DoWorkEventArgs" /> instance containing the event data.</param>
+    </member>
     <member name="T:devDept.Eyeshot.Octree">
       <summary>
             This class help divide the Mesh's space in 8 parts, each one with a definite number of Triangles.
@@ -30666,7 +30842,7 @@
     <member name="M:devDept.Eyeshot.Octree.#ctor(devDept.Eyeshot.Entities.Mesh)">
       <summary>
             Initializes a new instance of the <see cref="T:devDept.Eyeshot.Octree" /> class.
-            Standard Constructor that defines the maximum number of triangles per Octant as (Mesh.Triangles.Length / 50).
+            Standard Constructor that defines the maximum number of triangles per Octant as (Mesh.Triangles.Length / 100).
             </summary>
       <param name="mesh">The mesh.</param>
     </member>
@@ -31285,11 +31461,6 @@
       <param name="savedViews">The saved views manager</param>
       <param name="initialView">Initial View</param>
     </member>
-    <member name="P:devDept.Eyeshot.Viewport.Disposed">
-      <summary>
-            Gets a boolean indicating whether the viewport has been disposed.
-            </summary>
-    </member>
     <member name="T:devDept.Eyeshot.Viewport.SavedViewsManager">
       <summary>
             Class that manages the saved views stack.
@@ -31796,6 +31967,12 @@
       <returns>
       </returns>
     </member>
+    <member name="M:devDept.Eyeshot.Viewport.GetBounds">
+      <summary>
+            Gets the bounds rectangle in screen coordinates.
+            </summary>
+      <returns>The bounds rectangle in screen coordinates.</returns>
+    </member>
     <member name="P:devDept.Eyeshot.Viewport.CoordinateSystemIcon">
       <summary>
             Gets or sets the coordinate system icon settings.
@@ -31851,6 +32028,8 @@
             </summary>
       <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType" /></param>
       <returns>The bitmap for the image comparison (resolution 1024x768)</returns>
+      <remarks>
+        <see cref="M:devDept.Eyeshot.Viewport.SetView(devDept.Eyeshot.viewType)" />, <see cref="M:devDept.Eyeshot.Viewport.ZoomFit" /> and bitmap resize are performed only when <paramref name="viewType" /> is not <see cref="F:devDept.Eyeshot.viewType.Other" />.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Viewport.CompareWithReferenceImage(System.Drawing.Bitmap,System.Drawing.Bitmap@,System.Drawing.Bitmap@,devDept.Eyeshot.viewType,devDept.Eyeshot.displayType,System.Double)">
       <summary>
@@ -35456,7 +35635,7 @@
       <param name="blocks">The blocks collection</param>
       <remarks>You can use this constructor to call the <see cref="M:devDept.Eyeshot.Entities.Entity.UpdateBoundingBox(devDept.Eyeshot.TraversalParams)" /> method for a single <see cref="T:devDept.Eyeshot.Entities.BlockReference" />.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.TraversalParams.#ctor(devDept.Eyeshot.Entities.BlockReference,devDept.Eyeshot.BlockKeyedCollection)">
+    <member name="M:devDept.Eyeshot.TraversalParams.#ctor(devDept.Eyeshot.Entities.BlockReference,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.ViewportLayout)">
       <summary>
             Standard constructor.
             </summary>
@@ -36858,21 +37037,6 @@
             Gets or sets the text to show on the ToolTip.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.ToolBarButton.PropertyChangedEvent">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="E:devDept.Eyeshot.ToolBarButton.PropertyChanged">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.ToolBarButton.RaisePropertyChangedEvent(System.Object,System.Windows.DependencyProperty)">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
     <member name="T:devDept.Eyeshot.ToolBarButtonList">
       <summary>
             Class that holds and manages the list of ToolBarButtons.
@@ -38128,6 +38292,16 @@
       <param name="text">The progress bar text</param>
       <param name="worker">The background worker thread</param>
       <param name="forceUpdate">When true the event is always fired. Must be used with caution!</param>
+    </member>
+    <member name="M:devDept.Eyeshot.WorkUnit.StartContinuousAnimation(System.String,System.ComponentModel.BackgroundWorker)">
+      <summary>
+            Start the animation for the continuous progress bar.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.WorkUnit.StopContinuousAnimation(System.ComponentModel.BackgroundWorker)">
+      <summary>
+            Stop the animation for the continuous progress bar.
+            </summary>
     </member>
     <member name="M:devDept.Eyeshot.WorkUnit.UpdateProgressTo100(System.String,System.ComponentModel.BackgroundWorker)">
       <summary>
@@ -39528,6 +39702,11 @@
             Viewport progress bar.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.ProgressBar.AnimationInterval">
+      <summary>
+            Gets or set the animation interval for continuous progress bar.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.ProgressBar.Lighting">
       <summary>
             When false, the UI element is drawn with a flat color.
@@ -39735,6 +39914,26 @@
             Base class providing IDisposable interface.
             </summary>
     </member>
+    <member name="F:devDept.Eyeshot.DisposableBase.PropertyChangedEvent">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="E:devDept.Eyeshot.DisposableBase.PropertyChanged">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.DisposableBase.RaisePropertyChangedEvent(System.Object,System.Windows.DependencyProperty)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.DisposableBase.ObservableCollectionPropertyChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.UserInterfaceBase">
       <summary>
             Base class for <see cref="T:devDept.Eyeshot.Legend" /> and <see cref="T:devDept.Eyeshot.Viewport" />.
@@ -39771,26 +39970,6 @@
     <member name="P:devDept.Eyeshot.UserInterfaceBase.LocationAtOrigin">
       <summary>
             When doing a render to Bitmap of the item, must not change the viewport origin.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.UserInterfaceBase.PropertyChangedEvent">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="E:devDept.Eyeshot.UserInterfaceBase.PropertyChanged">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.UserInterfaceBase.RaisePropertyChangedEvent(System.Object,System.Windows.DependencyProperty)">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.UserInterfaceBase.ObservableCollectionPropertyChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
-      <summary>
-            For internal use only.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.UserInterfaceSymbolBase">
@@ -41037,35 +41216,132 @@
     <member name="P:devDept.Eyeshot.AttributeReference.LayerName">
             Methods inherited form IEntity
         </member>
-    <member name="T:devDept.Geometry.OrientedBoundingBox">
+    <member name="T:devDept.Geometry.OrientedBoundingRect">
       <summary>
             Oriented Bounding Box definition.
             </summary>
       <remarks>The result is not guaranteed to be the minimum Oriented Bounding Box possible.</remarks>
     </member>
-    <member name="P:devDept.Geometry.OrientedBoundingBox.Transformation">
+    <member name="P:devDept.Geometry.OrientedBoundingRect.Transformation">
       <summary>
             the Oriented Bounding Box transformation that defines its orientation from the world-axes.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.OrientedBoundingBox.AccumulatedTransformation">
+    <member name="P:devDept.Geometry.OrientedBoundingRect.AccumulatedTransformation">
       <summary>
             Gets the global transformation given by the transformation of the parents entity (if entity is a BlockReference or is into one of it).
             </summary>
     </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.GetFullTransformation">
+    <member name="M:devDept.Geometry.OrientedBoundingRect.GetFullTransformation">
       <summary>
             Gets the OrientedBoundingBox transformation combined with the global transformation.
             </summary>
       <returns>
       </returns>
     </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.AccumulateTransformation(devDept.Geometry.Transformation)">
+    <member name="M:devDept.Geometry.OrientedBoundingRect.AccumulateTransformation(devDept.Geometry.Transformation)">
       <summary>
             Adds transformation to the global transformation.
             </summary>
       <param name="newTransformation">
       </param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.GetOrigin">
+      <summary>
+            Gets the Origin position of the OrientedBoundingBox.
+            </summary>
+      <returns>A Point3D that defines the origin.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.GetAxis">
+      <summary>
+            Gets the 3-axis defining the direction of the OrientedBoundingBox
+            </summary>
+      <returns>The 3-Vector3D representing rispectively axis-X, axis-Y, axis-Z of the OrientedBoundingBox</returns>
+    </member>
+    <member name="P:devDept.Geometry.OrientedBoundingRect.Size">
+      <summary>
+            The size-box.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.GetVertices">
+      <summary>
+            Gets the 8-vertices of the OrientedBoundingBox.
+            </summary>
+      <returns>A Point3D array that defines the already-transformed vertices.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.UpdateData">
+      <summary>
+            Updates the data of the OrientedBoundingBox needed during collision/intersection check among others OrientedBoundingBoxes.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.Point2D,System.Double,System.Double)">
+      <summary>
+            Defines an OrientedBoundingBox with World-Axis-Aligned transformation.
+            </summary>
+      <param name="origin">The position of the origin of the oriented box</param>
+      <param name="width">The width of the box along axis-X</param>
+      <param name="depth">The depth of the box along axis-Y</param>
+      <param name="height">The height of the box along axis-Z</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.Point2D,devDept.Geometry.Vector2D,devDept.Geometry.Vector2D,System.Double,System.Double)">
+      <summary>
+            Defines an OrientedBoundingBox with axis-X and axis-Y orientation.
+            </summary>
+      <param name="origin">The position of the origin of the oriented box</param>
+      <param name="axisX">The direction of the axis-X of the oriented box</param>
+      <param name="axisY">The direction of the axis-Z of the oriented box</param>
+      <param name="width">The width of the box along axis-X</param>
+      <param name="depth">The depth of the box along axis-Y</param>
+      <param name="height">The height of the box along axis-Z</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Vector2D,devDept.Geometry.Vector2D)">
+      <summary>
+            Defines an OrientedBoundingRect from a list of Point2D by forcing the input axis-X and axis-Y orientation.
+            </summary>
+      <param name="pointCloud">The Point2D list</param>
+      <param name="axisX">The direction of the axis-X of the oriented box</param>
+      <param name="axisY">The direction of the axis-Z of the oriented box</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D})">
+      <summary>
+            Defines an OrientedBoundingRect from a list of Point2D.
+            </summary>
+      <param name="pointCloud">The Point2D list</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.OrientedBoundingRect)">
+      <summary>
+            Defines an OrientedBoundingBox from another one.
+            </summary>
+      <param name="another">
+      </param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.Clone">
+      <summary>
+            Creates a deep copy of this oriented bounding rect.
+            </summary>
+      <returns>The new oriented bounding rect object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.DoOverlapOrTouch(devDept.Geometry.OrientedBoundingRect,devDept.Geometry.OrientedBoundingRect)">
+      <summary>
+            Checks if two Oriented Bounding Boxes overlap or touch each other.
+            </summary>
+      <param name="first">first oriented bounding box to check</param>
+      <param name="second">second oriented bounding box to check</param>
+      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.DoOverlap(devDept.Geometry.OrientedBoundingRect,devDept.Geometry.OrientedBoundingRect)">
+      <summary>
+            Checks if two Oriented Bounding Boxes overlap each other.
+            </summary>
+      <param name="first">first oriented bounding box to check</param>
+      <param name="second">second oriented bounding box to check</param>
+      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
+    </member>
+    <member name="T:devDept.Geometry.OrientedBoundingBox">
+      <summary>
+            Oriented Bounding Box definition.
+            </summary>
+      <remarks>The result is not guaranteed to be the minimum Oriented Bounding Box possible.</remarks>
     </member>
     <member name="M:devDept.Geometry.OrientedBoundingBox.GetOrigin">
       <summary>
@@ -41090,11 +41366,6 @@
             </summary>
       <returns>A Point3D array that defines the already-transformed vertices.</returns>
     </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.UpdateData">
-      <summary>
-            Updates the data of the OrientedBoundingBox needed during collision/intersection check among others OrientedBoundingBoxes.
-            </summary>
-    </member>
     <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(devDept.Geometry.Point3D,System.Double,System.Double,System.Double)">
       <summary>
             Defines an OrientedBoundingBox with World-Axis-Aligned transformation.
@@ -41115,7 +41386,7 @@
       <param name="depth">The depth of the box along axis-Y</param>
       <param name="height">The height of the box along axis-Z</param>
     </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)">
+    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)">
       <summary>
             Defines an OrientedBoundingBox from a list of Point3D by forcing the input axis-X and axis-Y orientation.
             </summary>
@@ -41123,7 +41394,7 @@
       <param name="axisX">The direction of the axis-X of the oriented box</param>
       <param name="axisY">The direction of the axis-Z of the oriented box</param>
     </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D})">
       <summary>
             Defines an OrientedBoundingBox from a list of Point3D.
             </summary>
@@ -41555,6 +41826,19 @@
       <param name="sortAndOrient">When true, the curves are properly sorted and oriented.</param>
       <returns>The curve itself or a CompositeCurve if the curve number is bigger than one.</returns>
     </member>
+    <member name="M:devDept.Geometry.UtilityEx.CheckDataIntegrity(System.String@,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.Object,System.Collections.Generic.HashSet{System.String}}}@)">
+      <summary>
+            Checks the data integrity between the ViewportLayouts.
+            <para>It compares item-by-item all the master collections of all the ViewportLayout instances, searching for objects used in more than one ViewportLayout.</para></summary>
+      <param name="log">The log file containing details about shared items.</param>
+      <param name="sharedItems">The dictionary containing the shared items.        
+            <para>Listed below are the element types you can find in it</para><para>- Layer: items that belong to the <see cref="P:devDept.Eyeshot.ViewportLayout.Layers" /> collection.</para><para>- Block: items that belong to the <see cref="P:devDept.Eyeshot.ViewportLayout.Blocks" /> collection.</para><para>- Material: items that belong to the <see cref="P:devDept.Eyeshot.ViewportLayout.Materials" /> collection.</para><para>- TextStyle: items that belong to the <see cref="P:devDept.Eyeshot.ViewportLayout.TextStyles" /> collection.</para><para>- LinePattern: items that belong to the <see cref="P:devDept.Eyeshot.ViewportLayout.LineTypes" /> collection.</para><para>- Entity: items that belong to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collection.</para><para>- BlockEntity: items that belong to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection.</para><para>- BlockEntity+Entity: items that belong both to the <see cref="P:devDept.Eyeshot.Block.Entities" /> and to the <see cref="P:devDept.Eyeshot.ViewportLayout.Entities" /> collections.</para></param>
+      <returns>True when no instances are shared between different ViewportLayouts, otherwise false.</returns>
+      <remarks>        
+            You can't share objects (i.e. <see cref="T:devDept.Eyeshot.Entities.Entity" />, <see cref="T:devDept.Eyeshot.Block" />, <see cref="T:devDept.Graphics.Material" />, etc.) between different ViewportLayouts, but you need to clone them before adding to another ViewportLayout.    
+            If you get wrong display results or artifacts, you can use this method to check out shared elements.
+            </remarks>
+    </member>
     <member name="M:devDept.Geometry.UtilityEx.IsDefinedAtRuntime">
       <summary>
             For internal use only.
@@ -41783,13 +42067,12 @@
       <param name="triangles">The resulting triangulation triangles</param>
       <returns>True if the operation succeeds, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Geometry.UtilityEx.Triangulate(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Int32)">
+    <member name="M:devDept.Geometry.UtilityEx.Triangulate(devDept.Eyeshot.Entities.Region,System.Double,System.Int32)">
       <summary>
             Triangulates (meshes) the specified Region.
             </summary>
       <param name="region">The region to be meshed</param>
       <param name="elementSize">The desired element size</param>
-      <param name="minimumAngle">The desired minimum angle (in radians)</param>
       <param name="smoothingPasses">The number of smoothing passes</param>
       <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
     </member>
@@ -41889,7 +42172,7 @@
       <param name="includedTypes">If not null then it will consider only the entities which match these types.</param>
       <returns>The dictionary with the collection of entities for each entity's type.</returns>
     </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetReferencedBlocksNames(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block})">
+    <member name="M:devDept.Geometry.UtilityEx.GetReferencedBlocksNames(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block})">
       <summary>
             Returns the set of block in use (referenced by a <see cref="T:devDept.Eyeshot.Entities.BlockReference" />) names.
             </summary>
