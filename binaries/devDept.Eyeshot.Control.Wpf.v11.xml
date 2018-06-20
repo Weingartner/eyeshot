@@ -7724,6 +7724,14 @@
       <param name="solids">The list of disjoint solid3Ds to remove</param>
       <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid3D.Remove(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Solid3D},devDept.Eyeshot.Entities.Solid3D[]@)">
+      <summary>
+            Removes a list of non-intersecting solids from the original Solid3D object.
+            </summary>
+      <param name="solids">The list of disjoint solid3Ds to remove</param>
+      <param name="leftOvers">The resulting left overs of the operation (null if not present)</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Solid3D object unmutated.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.Add(devDept.Eyeshot.Entities.Solid3D[])">
       <summary>
             Adds a list of non-intersecting solids to the original Solid3D object.
@@ -8629,8 +8637,7 @@
             </summary>
       <seealso cref="M:devDept.Eyeshot.Entities.Solid3D.FixTopology(devDept.Eyeshot.Entities.Solid3D@)"> FixTopology method</seealso>
       <param name="pln"> the plane to intersect</param>
-      <param name="tol">
-      </param>
+      <param name="tol">the tolerance</param>
       <returns>the list of the resulting intersection curves</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid3D.Intersection(devDept.Eyeshot.Entities.Surface)">
