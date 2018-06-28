@@ -10,5 +10,7 @@
     </metadata>
     <files>
         <file src="binaries\*" target="lib\net40" />
+        <file src="binaries\x64\*" target="lib\net40" />
+        <file src="binaries\x86\*" target="lib\net40" />
     </files>
 </package>
