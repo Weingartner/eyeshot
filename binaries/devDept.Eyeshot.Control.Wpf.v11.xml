@@ -28839,6 +28839,7 @@
       <param name="textFont">The text font</param>
       <param name="textColor">The text color</param>
       <param name="textAlign">The text alignment</param>
+      <returns>The size of the text bitmap</returns>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.DrawTextOutlined(System.Int32,System.Int32,System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Single,System.Drawing.ContentAlignment)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.DrawImage(System.Int32,System.Int32,System.Drawing.Bitmap,System.Drawing.ContentAlignment,System.Boolean,System.Boolean)" />
     </member>
@@ -28853,6 +28854,7 @@
       <param name="textColor">The text color</param>
       <param name="fillColor">The background color (can be semi-transparent)</param>
       <param name="textAlign">The text alignment</param>
+      <returns>The size of the text bitmap</returns>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.DrawTextOutlined(System.Int32,System.Int32,System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Single,System.Drawing.ContentAlignment)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.DrawImage(System.Int32,System.Int32,System.Drawing.Bitmap,System.Drawing.ContentAlignment,System.Boolean,System.Boolean)" />
       <remarks>For better performances use the <see cref="M:devDept.Eyeshot.ViewportLayout.GetTextImage(System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Drawing.ContentAlignment,System.Drawing.RotateFlipType,System.Boolean)" /> to get the text image, then create a texture and draw the texture directly</remarks>
@@ -28869,6 +28871,7 @@
       <param name="fillColor">The background color (can be semi-transparent)</param>
       <param name="textAlign">The text alignment</param>
       <param name="rotateFlip">The text rotation</param>
+      <returns>The size of the text bitmap</returns>
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.DrawTextOutlined(System.Int32,System.Int32,System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Single,System.Drawing.ContentAlignment)" />
       <seealso cref="M:devDept.Eyeshot.ViewportLayout.DrawImage(System.Int32,System.Int32,System.Drawing.Bitmap,System.Drawing.ContentAlignment,System.Boolean,System.Boolean)" />
       <remarks>For better performances use <see cref="M:devDept.Eyeshot.ViewportLayout.GetTextImage(System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Drawing.ContentAlignment,System.Drawing.RotateFlipType,System.Boolean)" />, create the texture and draw it directly.</remarks>
