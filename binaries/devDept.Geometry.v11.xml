@@ -1506,6 +1506,11 @@
       <param name="units">The <see cref="T:devDept.Geometry.linearUnitsType" /></param>
       <returns>The <see cref="T:devDept.Geometry.supportedLinearUnitsType" /></returns>
     </member>
+    <member name="F:devDept.Geometry.Utility.LinearConversionFactors">
+      <summary>
+            Gets linear conversion factor between two <see cref="T:devDept.Geometry.linearUnitsType">units</see>.
+            </summary>
+    </member>
     <member name="M:devDept.Geometry.Utility.GetLinearUnitsConversionFactor(devDept.Geometry.linearUnitsType,devDept.Geometry.linearUnitsType)">
       <summary>
             Gets the scale factor to use for the conversion between <see cref="T:devDept.Geometry.linearUnitsType" />s
