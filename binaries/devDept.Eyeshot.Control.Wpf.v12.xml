@@ -64,11 +64,14 @@
             </summary>
       <remarks>When overriding a method of this class, never forget to call its base class implementation.</remarks>
     </member>
-    <member name="P:devDept.Eyeshot.EntityList.MaxComplexity">
+    <member name="P:devDept.Eyeshot.EntityList.FastZPR">
       <summary>
-            Gets or sets the number of objects beyond which fast ZPR kicks-in.
+            Returns true when the FastZPR is active. When FastZPR is active a simplified representation of the current geometry is drawn during dynamic movements (Zoom/Pan/Rotate).
             </summary>
+      <seealso cref="P:devDept.Eyeshot.EntityList.MaxComplexity" />
+      <seealso cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox" />
     </member>
+    <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.EntityList.MaxComplexity" -->
     <member name="M:devDept.Eyeshot.EntityList.#ctor">
       <summary>
             Special constructor, can be used when annotation entities (<see cref="T:devDept.Eyeshot.Entities.Text" />, <see cref="T:devDept.Eyeshot.Entities.Dimension" />, etc.) are not involved.
@@ -190,11 +193,11 @@
     </member>
     <member name="M:devDept.Eyeshot.EntityList.UpdateBoundingBox">
       <summary>
-            Computes the model bounding box and updates some important variables. If the <see cref="P:devDept.Eyeshot.Environment.BoundingBox">bounding box</see>, <see cref="!:Model.Grid">grid</see>, or <see cref="T:devDept.Eyeshot.Shadow">shadow</see> are visible, it updates them too.
+            Computes the model bounding box, rebuilds simplified representation and updates some important variables. If the <see cref="P:devDept.Eyeshot.Environment.BoundingBox">bounding box</see>, <see cref="!:Model.Grid">grid</see>, or <see cref="T:devDept.Eyeshot.Shadow">shadow</see> are visible, it updates them too.
             </summary>
       <remarks>Shadow is updated only if it is visible and if the model has the bounding box height bigger than zero.</remarks>
       <seealso cref="P:devDept.Eyeshot.Environment.BoundingBox" />
-      <seealso cref="!:Environment.Grid" />
+      <seealso cref="T:devDept.Eyeshot.Grid" />
       <seealso cref="T:devDept.Eyeshot.Shadow" />
       <seealso cref="P:devDept.Eyeshot.EntityList.BoxMin" />
       <seealso cref="P:devDept.Eyeshot.EntityList.BoxMax" />
@@ -204,6 +207,11 @@
         <para>
           <see cref="M:devDept.Eyeshot.EntityList.GetVisualRefinementDeviation">Visual refinement deviation</see> is updated as well but you need to set <see cref="P:devDept.Eyeshot.Entities.Entity.RegenMode" /> as <see cref="F:devDept.Eyeshot.Entities.regenType.RegenAndCompile" /> for all entities and call <see cref="!:Regen()" /> to see objects with new tessellation.</para>
       </remarks>
+      <seealso cref="P:devDept.Eyeshot.EntityList.FastZPR" />
+      <seealso cref="P:devDept.Eyeshot.EntityList.MaxComplexity" />
+      <seealso cref="P:devDept.Eyeshot.EntityList.BoxMin" />
+      <seealso cref="P:devDept.Eyeshot.EntityList.BoxMax" />
+      <seealso cref="P:devDept.Eyeshot.EntityList.BoxSize" />
     </member>
     <member name="M:devDept.Eyeshot.EntityList.Add(devDept.Eyeshot.Entities.Entity,System.Int32)">
       <summary>
@@ -659,6 +667,12 @@
       <param name="plane">The plane where the two curves lay</param>
       <remarks>For PROFESSIONAL edition, this method doesn't work for Ellipses, Elliptical Arcs and CompositeCurve containing Ellipses or Elliptical Arcs.</remarks>
     </member>
+    <member name="M:devDept.Eyeshot.EntityList.WriteCSharp(System.String)">
+      <summary>
+            Experimental feature to write curves in C# programming language to a text file.
+            </summary>
+      <param name="fileName">The file name</param>
+    </member>
     <member name="T:devDept.Eyeshot.EyeshotDisposableCollection`1">
       <exclude />
       <excludetoc />
@@ -706,7 +720,7 @@
             </summary>
       <remarks>Shadow is updated only if it is visible and if the model has the bounding box height bigger than zero.</remarks>
       <seealso cref="P:devDept.Eyeshot.Environment.BoundingBox" />
-      <seealso cref="!:Environment.Grid" />
+      <seealso cref="T:devDept.Eyeshot.Grid" />
       <seealso cref="T:devDept.Eyeshot.Shadow" />
       <seealso cref="!:BoxMin" />
       <seealso cref="!:BoxMax" />
@@ -938,8 +952,29 @@
     <member name="M:devDept.Eyeshot.EyeshotKeyedCollection`1.RemoveItem(System.Int32)">
       <inheritdoc />
     </member>
+    <member name="M:devDept.Eyeshot.EyeshotKeyedCollection`1.TryRemove(`0)">
+      <summary>
+            Removes the item form the collection, if present.
+            </summary>
+      <param name="item">The item.</param>
+      <returns>True if the item was found and removed, otherwise false.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.EyeshotKeyedCollection`1.TryRemove(System.String)">
+      <summary>
+            Removes the the value associated with the specified key form the collection, if present.
+            </summary>
+      <param name="item">The item.</param>
+      <returns>True if the item was found and removed, otherwise false.</returns>
+    </member>
     <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.EyeshotKeyedCollection`1.ReplaceItem(`0)" -->
     <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.EyeshotKeyedCollection`1.AddOrReplace(`0)" -->
+    <member name="M:devDept.Eyeshot.EyeshotKeyedCollection`1.TryAdd(`0)">
+      <summary>
+            Adds an element only if not already present in the collection.
+            </summary>
+      <param name="item">The element to add.</param>
+      <returns>True if the item was added, otherwise false.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.EyeshotKeyedCollection`1.ItemCanBeRemoved(`0,System.String)">
       <summary>
             Checks if a specific item is used somewhere.
@@ -1755,7 +1790,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Drawings.LineWeightFactor">
       <summary>
-            Gets or sets the scale factor used to display the entities line weight.
+            Gets or sets the scale factor used to display the <see cref="T:devDept.Eyeshot.Entities.ICurve" /> line weight.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Drawings.SilhouettesLayerName">
@@ -1835,8 +1870,12 @@
             Rebuilds sheets on this drawings.
             </summary>
       <param name="model">The model control.</param>
-      <param name="async">When true the blocks are built asynchronously and must be added at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event, otherwise it's built synchronously.</param>
-      <seealso cref="!:ViewBuilder.AddToScene(Drawings)" />
+      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />, otherwise they're built synchronously.</param>
+      <param name="dirtyOnly">When true only missing/dirty views are built.</param>
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkFailed" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkCancelled" />
     </member>
     <member name="M:devDept.Eyeshot.Drawings.#ctor">
       <summary>
@@ -1858,11 +1897,75 @@
             You need to call <see cref="!:Invalidate()" /> to see the effect of this command in the destination drawings.
             </remarks>
     </member>
+    <member name="M:devDept.Eyeshot.Drawings.SaveFile(System.String,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
+      <summary>
+            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="fileName">File name.</param>
+      <param name="model">The model control.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
+      <seealso cref="!:OpenFile(string)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.SaveFile(System.IO.Stream,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
+      <summary>
+            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="stream">The file stream.</param>
+      <param name="model">The model control.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
+      <seealso cref="!:OpenFile(Stream)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.OpenFile(System.String,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
+      <summary>
+            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="fileName">File name.</param>
+      <param name="model">The model control.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
+      <seealso cref="!:SaveFile(string)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.OpenFile(System.IO.Stream,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
+      <summary>
+            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="stream">The file stream.</param>
+      <param name="model">The model control.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
+      <seealso cref="!:SaveFile(Stream)" />
+    </member>
     <member name="M:devDept.Eyeshot.Drawings.UpdatePaper">
       <summary>
             Updates the paper drawing according to the current size.        
             </summary>
-      <remarks>Use this method to refresh the paper drawing if the <see cref="!:ActiveSheet" /> size (format) has been changed.</remarks>
+      <remarks>Use this method to refresh the paper drawing if the <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> size (format) has been changed.</remarks>
       <seealso cref="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)" />
     </member>
     <member name="P:devDept.Eyeshot.Drawings.Sheets">
@@ -1884,13 +1987,13 @@
       <param name="sheet">The Sheet to set as active.</param>
       <remarks>
         <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, the following changes happen:</para>
-        <para>- The entities of the current <see cref="!:ActiveSheet" /> are cleared.</para>
-        <para>- The entities of the <see cref="T:devDept.Eyeshot.Drawings" /> are moved to the current <see cref="!:ActiveSheet" />.</para>
-        <para>- The <see cref="T:devDept.Eyeshot.Sheet" /> is set as <see cref="!:ActiveSheet" /> and its entities are moved to the <see cref="T:devDept.Eyeshot.Drawings" />.</para>
+        <para>- The entities of the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> are cleared.</para>
+        <para>- The entities of the <see cref="T:devDept.Eyeshot.Drawings" /> are moved to the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />.</para>
+        <para>- The <see cref="T:devDept.Eyeshot.Sheet" /> is set as <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> and its entities are moved to the <see cref="T:devDept.Eyeshot.Drawings" />.</para>
         <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
       </remarks>
       <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the element does not exist in the collection.</exception>
-      <seealso cref="!:ActiveSheet" />
+      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
       <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
     </member>
     <member name="M:devDept.Eyeshot.Drawings.SetActiveSheet(System.String)">
@@ -1903,7 +2006,7 @@
         <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
       </remarks>
       <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
-      <seealso cref="!:ActiveSheet" />
+      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
       <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
     </member>
     <member name="T:devDept.Eyeshot.Sheet">
@@ -1974,6 +2077,12 @@
       <param name="borderWidth">Width of the border.</param>
       <param name="color">Border color. If null or empty, default color is black.</param>
       <param name="lineWeight">The line weight.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.GetLogo">
+      <summary>
+            Gets the logo for the title block.
+            </summary>
+      <returns>An array of entities representing the logo.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Sheet.#ctor(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String,System.Double)">
       <summary>
@@ -2080,6 +2189,15 @@
       <param name="color">Border color. If null or empty, default color is black.</param>
       <returns>The new block reference.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildALANDSCAPEANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A LANDSCAPE ANSI format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Sheet.BuildAANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
       <summary>
             Creates the block for A ANSI format and adds the related BlockReference to the Sheet Entities collection.
@@ -2134,19 +2252,18 @@
       <param name="block">The new block created.</param>
       <returns>The new block reference.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Sheet.Rebuild(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Sheet.Rebuild(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean,System.Boolean)">
       <summary>
             Rebuilds outdated views on this sheet.
             </summary>
       <param name="model">The model control.</param>
       <param name="drawings">The drawings control.</param>
-      <param name="async">When true the blocks are built asynchronously, they are built synchronously.</param>
-      <param name="async">When true the blocks are built asynchronously and must be added at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event, otherwise it's built synchronously and it returns the <see cref="T:devDept.Eyeshot.ViewBuilder" />.</param>
+      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />, otherwise they're built synchronously.</param>
+      <param name="dirtyOnly">When true only missing/dirty views are built.</param>
       <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />
       <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" />
       <see cref="E:devDept.Eyeshot.Environment.WorkFailed" />
       <see cref="E:devDept.Eyeshot.Environment.WorkCancelled" />
-      <returns>The <see cref="T:devDept.Eyeshot.ViewBuilder" />.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Sheet.IsDirty(devDept.Eyeshot.BlockKeyedCollection)">
       <summary>
@@ -2160,6 +2277,20 @@
       <summary>
             Cleans up graphics resources, like display lists, etc.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Eyeshot.Entities.RasterView">
       <summary>
@@ -2180,6 +2311,18 @@
       <summary>
             Gets or sets the <see cref="T:devDept.Eyeshot.displayType" />.
             </summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a displayType equal to <see cref="F:devDept.Eyeshot.displayType.Wireframe" /> or <see cref="F:devDept.Eyeshot.displayType.HiddenLines" />. Please use <see cref="T:devDept.Eyeshot.Entities.VectorView" /> in these cases.</exception>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.RasterView.Scale">
+      <summary>
+            Gets or sets the scale factor between the model and the drawing.
+            </summary>
+      <remarks>
+            It must be set according to the <see cref="P:devDept.Eyeshot.Model.Units" /> and the <see cref="P:devDept.Eyeshot.Sheet.Units" />.
+            You need to rebuild the view to see changes.
+            </remarks>
+      <seealso cref="P:devDept.Eyeshot.Sheet.Units" />
+      <seealso cref="M:devDept.Eyeshot.Sheet.Rebuild(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean,System.Boolean)" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.RasterView.#ctor(System.Double,System.Double,devDept.Eyeshot.viewType,System.Double,System.String,System.Double,System.Double)">
       <summary>
@@ -2233,6 +2376,20 @@
             </summary>
       <returns>The new view object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.RasterView.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.RasterView.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="T:devDept.Eyeshot.Entities.VectorView">
       <summary>
             Vector view class definition.
@@ -2243,31 +2400,14 @@
             Gets or sets the hidden segments (silhouettes, edges, wires) visibility status.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Entities.VectorView.KeepEntityColor">
-      <summary>
-            If true, keeps the entity color.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Entities.VectorView.TreatWhiteAsBlack" />
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.VectorView.KeepEntityLineWeight">
-      <summary>
-            If true, keeps the entity line weight method.
-            </summary>
-    </member>
     <member name="P:devDept.Eyeshot.Entities.VectorView.IgnoreTransparency">
       <summary>
             If true, treats the transparent entities as if they are opaque, so they will hide the geometry behind.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Entities.VectorView.TreatWhiteAsBlack">
-      <summary>
-            If true and <see cref="P:devDept.Eyeshot.Entities.VectorView.KeepEntityColor" /> is also true, treats white entities as if they were black.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Entities.VectorView.KeepEntityColor" />
-    </member>
     <member name="P:devDept.Eyeshot.Entities.VectorView.FillTexts">
       <summary>
-            When true, the texts and dimensions arrow heads are comuted as meshes.
+            When true, the texts and dimensions arrow heads are computed as meshes.
             </summary>
       <remarks>The font accuracy is determined by the <see cref="P:devDept.Eyeshot.Entities.VectorView.FontAccuracy" /></remarks>
       <seealso cref="P:devDept.Eyeshot.Entities.VectorView.FontAccuracy" />
@@ -2278,6 +2418,11 @@
             </summary>
       <remarks>If 0 and <see cref="P:devDept.Eyeshot.Entities.VectorView.FillTexts" /> is true, the triangles of the texts in the scene are used.</remarks>
       <seealso cref="P:devDept.Eyeshot.Entities.VectorView.FillTexts" />
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.VectorView.FillRegions">
+      <summary>
+            When true, the regions are computed as meshes.
+            </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.VectorView.#ctor(System.Double,System.Double,devDept.Eyeshot.viewType,System.Double,System.String,System.Double,System.Double)">
       <summary>
@@ -2331,6 +2476,25 @@
             </summary>
       <returns>The new view object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.VectorView.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.VectorView.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.View">
+      <summary>
+            View class definition.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.View.Camera">
       <summary>
             Gets the view camera.
@@ -2349,6 +2513,11 @@
       <remarks>If 0, the whole model is captured.</remarks>
     </member>
     <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.Entities.View.Window" -->
+    <member name="P:devDept.Eyeshot.Entities.View.WindowCenter">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.View.X">
       <summary>
             Gets or sets position along the X axis.
@@ -2422,6 +2591,20 @@
       <param name="async">When true the related block is built asynchronously and must be added at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event, otherwise it's built synchronously.</param>
       <returns>The rebuilt block.</returns>
       <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.View.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.View.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Eyeshot.Entities.AngularDim">
       <summary>
@@ -5080,7 +5263,7 @@
             If the geometry is not created inside Eyeshot, it could be necessary call this method to check and fix/add(if needed) missing data,
              to correctly perform operations like Section/Intersection and Booleans.
             </summary>
-      <param name="theFixedSolid">The Brep entity equivalent to the original with additional data</param>
+      <param name="theFixedSolid">The Brep entity equivalent to the original with additional data. The original one if the operation failed.</param>
       <returns> Return true if the operation is successful, false otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Smash(devDept.Eyeshot.Environment,System.Int32)">
@@ -9633,11 +9816,14 @@
             </summary>
       <remarks>AutoCAD property: DIMTDEC</remarks>
     </member>
-    <member name="P:devDept.Eyeshot.Entities.Dimension.Scale">
+    <member name="P:devDept.Eyeshot.Entities.Dimension.ScaleOverall">
       <summary>
             Gets or sets the global scale factor for the dimension.
             </summary>
-      <remarks>Call <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> after changing this value.</remarks>
+      <remarks>
+            AutoCAD property: DIMSCALE
+            Call <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> after changing this value.
+            </remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Dimension.PrepareText(System.String,devDept.Eyeshot.RegenParams,System.Double@,System.Double@,System.Double@,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -9719,6 +9905,13 @@
             Gets the scaled distance.
             </summary>
       <returns>The scaled distance</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Dimension.ConvertToMesh(devDept.Eyeshot.Environment,System.Boolean)">
+      <summary>
+            Returns an array of Mesh object representing the dimension text and arrows.
+            </summary>
+      <param name="environment">The <see cref="T:devDept.Eyeshot.Model" /> control</param>
+      <returns>An array of Mesh objects.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Dimension.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -9907,7 +10100,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.FemMesh.ClippingPlane">
       <summary>
-            Gets or sets the 3D clipping plane. Set to null/Nothing to disable it. Call <see cref="M:devDept.Eyeshot.Entities.FemMesh.ComputePlot(devDept.Eyeshot.Simulation,devDept.Eyeshot.Legend)" /> to see changes.
+            Gets or sets the 3D clipping plane. Set to null/Nothing to disable it. Call <see cref="!:ComputePlot(Simulation, Legend)" /> to see changes.
             </summary>
       <remarks>The geometry is clipped on the positive side of the plane.</remarks>
     </member>
@@ -9919,7 +10112,7 @@
       <param name="seg">The 3D segment representing the viewing direction</param>
       <returns>The sorted list of triangles intersecting the provided segment.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.FemMesh.ComputePlot(devDept.Eyeshot.Simulation,devDept.Eyeshot.Legend,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Entities.FemMesh.ComputePlot(devDept.Eyeshot.Environment,devDept.Eyeshot.Legend,System.Boolean)">
       <summary>
             Computes results according to plotMode settings.
             </summary>
@@ -9927,7 +10120,7 @@
       <param name="theLegend">The legend associated with this plot</param>
       <param name="postProcessingOnly">Use true when element stresses are filled manually.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.FemMesh.ComputePlot(devDept.Eyeshot.Simulation,devDept.Eyeshot.Legend)">
+    <member name="M:devDept.Eyeshot.Entities.FemMesh.ComputePlot(devDept.Eyeshot.Environment,devDept.Eyeshot.Legend)">
       <summary>
             Computes results according to <see cref="P:devDept.Eyeshot.Entities.FemMesh.PlotMode" /> settings.
             </summary>
@@ -11395,7 +11588,7 @@
             Converts this FEM mesh to a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.
             </summary>
       <param name="includeDisplacements">When true, the mesh will include displacements</param>
-      <returns>The resultin Mesh object.</returns>
+      <returns>The resulting Mesh object.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Entities.FemMesh.plotType">
       <summary>
@@ -15228,10 +15421,11 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.Entity.Visible">
       <summary>
-            Gets or sets the entity visibility status.
+            Gets or sets the entity visibility status for the top-level.
             </summary>
       <seealso cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox" />
       <remarks>When the visibility of an entity changes, it's important to call <see cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox" /> to properly update the visualization.</remarks>
+      <remarks>To gets or sets the visibility status of the instances inside nested BlockReferences use <see cref="M:devDept.Eyeshot.Entities.Entity.GetVisibility(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})" /> and <see cref="M:devDept.Eyeshot.Entities.Entity.SetVisibility(System.Boolean,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})" />.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Entity.entityNature">
       <summary>
@@ -18505,25 +18699,25 @@
       <summary>
             Standard constructor.
             </summary>
-      <param name="plane">Orientation plane</param>
+      <param name="tablePlane">Orientation plane</param>
       <param name="rows">Number of rows</param>
       <param name="columns">Number of columns</param>
-      <param name="rowHeight">Rows height</param>
-      <param name="columnWidth">Columns width</param>
+      <param name="rowsHeight">Rows height</param>
+      <param name="columnsWidth">Columns width</param>
       <param name="textHeight">Default text height</param>
-      <param name="flowDirection">Flow direction</param>
+      <param name="direction">Flow direction</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Table.#ctor(devDept.Geometry.Plane,System.Int32,System.Int32,System.Double[],System.Double[],System.Double,devDept.Eyeshot.Entities.Table.flowDirection)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="plane">Orientation plane</param>
+      <param name="tablePlane">Orientation plane</param>
       <param name="rows">Number of rows</param>
       <param name="columns">Number of columns</param>
-      <param name="rowHeight">Array with the heights of the rows</param>
-      <param name="columnWidth">Array with the widhts of the columns</param>
+      <param name="rowsHeights">Array with the heights of the rows</param>
+      <param name="columnsWidths">Array with the widths of the columns</param>
       <param name="textHeight">Default text height</param>
-      <param name="flowDirection">Flow direction</param>
+      <param name="direction">Flow direction</param>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Table.flowDirection">
       <summary>
@@ -20452,6 +20646,70 @@
             </summary>
       <remarks>Refers to inaccurate transparency only.</remarks>
     </member>
+    <member name="M:devDept.Eyeshot.Model.SaveFile(System.String,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
+      <summary>
+            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="fileName">File name.</param>
+      <param name="drawings">The drawings control. Can be null/Nothing.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.         
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
+      <seealso cref="!:OpenFile(string)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.SaveFile(System.IO.Stream,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
+      <summary>
+            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="stream">The file stream.</param>
+      <param name="drawings">The drawings control. Can be null/Nothing.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
+      <seealso cref="!:OpenFile(Stream)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.OpenFile(System.String,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
+      <summary>
+            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="fileName">File name.</param>
+      <param name="drawings">The drawings control. Can be null/Nothing.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
+      <seealso cref="!:SaveFile(string)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.OpenFile(System.IO.Stream,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
+      <summary>
+            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="stream">The file stream.</param>
+      <param name="drawings">The drawings control. Can be null/Nothing.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
+      <seealso cref="!:SaveFile(Stream)" />
+    </member>
     <member name="M:devDept.Eyeshot.Model.UpdateViewportsSizeAndLocation">
       <summary>
             Updates the Viewports dimensions and locations depending on the <see cref="P:devDept.Eyeshot.Model.LayoutMode" /> property.
@@ -20809,17 +21067,29 @@
       <summary>
             Class with parameter for <see cref="T:devDept.Eyeshot.Translators.WriteFile" /></summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Environment,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Model,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean)">
       <summary>
-            Constructor with the <see cref="T:devDept.Eyeshot.Environment" />.
+            Constructor with the <see cref="T:devDept.Eyeshot.Model" />.
             </summary>
-      <param name="env">The Environment.</param>
+      <param name="model">The Environment.</param>
       <param name="contentType">The content type.</param>
       <param name="serializationType">The serialization type.</param>
       <param name="selectedOnly">When true, only selected entities at root level are written.</param>
-      <param name="selectedOnly">When true, a thumbnail picture is stored.</param>
+      <param name="saveThumbnail">When true, a thumbnail picture is stored.</param>
+      <remarks>Use this constructor to save both Thumbnail and Camera for the Model control.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Serialization.contentType,devDept.Serialization.serializationType,devDept.Geometry.linearUnitsType,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean)">
+      <summary>
+            Constructor with the <see cref="T:devDept.Eyeshot.Model" /> and the <see cref="T:devDept.Eyeshot.Drawings" />.
+            </summary>
+      <param name="model">The Environment.</param>
+      <param name="contentType">The content type.</param>
+      <param name="serializationType">The serialization type.</param>
+      <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="saveThumbnail">When true, a thumbnail picture is stored.</param>
+      <remarks>Use this constructor to save both Thumbnail and Camera for the Model control.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Serialization.contentType,devDept.Serialization.serializationType,devDept.Geometry.linearUnitsType,System.Boolean,devDept.Eyeshot.Drawings)">
       <summary>
             Constructor with the collections
             </summary>
@@ -20833,6 +21103,7 @@
       <param name="serializationType">The serialization type.</param>
       <param name="units">The units.</param>
       <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <remarks>Using this constructor both Thumbnail and Camera will be not stored.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileParams.Version">
       <summary>
@@ -20852,7 +21123,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileParams.Tag">
       <summary>
-            The tag to add to the file header.
+            Gets or sets the tag to add to the file header.
             </summary>
       <seealso cref="P:devDept.Serialization.FileHeader.Tag" />.
         </member>
@@ -20863,9 +21134,9 @@
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileParams.SaveThumbnail">
       <summary>
-            When true and the Environment constructor is used, a thumbnail of 256x256 is stored in the file.
+            When true and the Model constructor is used, a thumbnail of 256x256 is stored in the file.
             </summary>
-      <seealso cref="!:WriteFileParams.WriteFileParams(Model, contentType, serializationType, bool, bool)" />
+      <seealso cref="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Model,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean)" />
       <seealso cref="P:devDept.Eyeshot.Translators.WriteFileParams.ThumbnailBackgroundColor" />.
             <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set the property equal true without using the constructor that accepts the Environment as parameter.</exception></member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileParams.ThumbnailBackgroundColor">
@@ -20941,17 +21212,17 @@
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteParamsWithMaterials.Materials">
       <summary>
-            The materials collection.
+            Gets or sets the materials collection.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteParamsWithTextStyles">
       <summary>
-            Class for <see cref="T:devDept.Eyeshot.Translators.WriteFileAsyncWithUnits" /> classes that use all the Environment master collections.
+            Class for <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithMaterials" /> classes that use all the Environment master collections.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteParamsWithTextStyles.#ctor(devDept.Eyeshot.Environment,System.Boolean)">
       <summary>
-            Constructor with the <see cref="T:devDept.Eyeshot.Environment" />.
+            Constructor with the <see cref="T:devDept.Eyeshot.Environment" /> control.
             </summary>
       <param name="env">The Environment.</param>
       <param name="selectedOnly">If true, only selected entities at root level are written.</param>
@@ -20971,12 +21242,44 @@
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteParamsWithTextStyles.LineTypes">
       <summary>
-            The line types collection.
+            Gets or sets the line types collection.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteParamsWithTextStyles.TextStyles">
       <summary>
-            The text styles collection.
+            Gets or sets the text styles collection.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.Translators.WriteParamsWithDrawings">
+      <summary>
+            Class for <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithTextStyles" /> classes that use drawings control.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithDrawings.#ctor(devDept.Eyeshot.Environment,devDept.Eyeshot.Drawings,System.Boolean)">
+      <summary>
+            Constructor with the Model.
+            </summary>
+      <param name="model">The Model control.</param>
+      <param name="drawings">The Drawings control.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithDrawings.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Geometry.linearUnitsType,System.Boolean,devDept.Eyeshot.Drawings)">
+      <summary>
+            Constructor with the collections
+            </summary>
+      <param name="entities">The entities collection.</param>
+      <param name="layers">The layers collection.</param>
+      <param name="blocks">The blocks collection.</param>
+      <param name="materials">The materials collection.</param>
+      <param name="textStyles">The text styles collection.</param>
+      <param name="lineTypes">The line types collection.</param>
+      <param name="units">The units.</param>
+      <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="drawings">The Drawings control.</param>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.WriteParamsWithDrawings.Drawings">
+      <summary>
+            Gets or sets the drawings control.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteParamsWithUnits">
@@ -21065,8 +21368,8 @@
       <summary>
             Gets or sets the deviation used to build the geometry.
             </summary>
-            If zero the deviation is computed based on the elements size.
-        </member>
+      <remarks>If zero the deviation is computed based on the elements size.</remarks>
+    </member>
     <member name="T:devDept.Eyeshot.Translators.IEyeIfcObject">
       <summary>
             IEyeIfcObject interface. Common properties of objects created when reading IFC file.
@@ -22062,6 +22365,170 @@
       <param name="layerName">The destination layer name.</param>
       <param name="color">The color assigned to the entities in the model</param>
     </member>
+    <member name="T:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings">
+      <summary>
+            Adds support for line types, text styles and drawings properties to the file loading.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.#ctor(System.IO.Stream)">
+      <summary>
+            File stream constructor.
+            </summary>
+      <param name="stream">The file stream.</param>
+      <remarks>The closing of the stream is delegated to you.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.#ctor(System.String)">
+      <summary>
+            File name constructor.
+            </summary>
+      <param name="fileName">The file name.</param>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.LineTypes">
+      <summary>
+            Gets the model collection of the line types names read from the file with the corresponding line pattern.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.TextStyles">
+      <summary>
+            Gets the model collection of text styles read from the file.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.DrawingsLayers">
+      <summary>
+            Gets the drawings layers referenced by layouts resulting from file reading.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.DrawingsBlocks">
+      <summary>
+            Gets the drawings blocks referenced by layouts resulting from file reading.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.DrawingsSheets">
+      <summary>
+            Gets the drawings sheets read from the file.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.DrawingsLineTypes">
+      <summary>
+            Gets the drawings line types referenced by layouts resulting from file reading.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.DrawingsTextStyles">
+      <summary>
+            Gets the drawings text styles referenced by layouts resulting from file reading.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.AddToScene(devDept.Eyeshot.Environment,devDept.Eyeshot.RegenOptions,System.Boolean,System.String)">
+      <summary>
+            Adds entities and materials, read from the Eyeshot file, to the Viewport.
+            </summary>
+      <param name="environment">The Viewport used to add entities and materials.</param>
+      <param name="ro">Asynchronous regeneration options</param>
+      <param name="removeJittering">When true, it put the entities read from the OBJ file into a block, add a BlockReference that refers to that block and call the <see cref="!:Environment.RemoveJittering()" /> method.</param>
+      <param name="blockName">The name of the block that will contain the selected entities. Can be null/Nothing.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.AddToScene(devDept.Eyeshot.Environment,System.Int32)">
+      <summary>
+            Adds entities and materials, read from the Eyeshot file, to the Viewport.
+            </summary>
+      <param name="environment">The Viewport used to add entities and materials</param>
+      <param name="layerIndex">The destination layer index</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.AddToScene(devDept.Eyeshot.Environment,System.Int32,System.Drawing.Color)">
+      <summary>
+            Adds entities and materials, read from the Eyeshot file, to the Viewport.
+            </summary>
+      <param name="environment">The Viewport used to add entities and materials</param>
+      <param name="layerIndex">The destination layer index</param>
+      <param name="color">The color assigned to the entities in the model</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.AddToScene(devDept.Eyeshot.Environment,System.String)">
+      <summary>
+            Adds entities and materials, read from the Eyeshot file, to the Viewport.
+            </summary>
+      <param name="environment">The Viewport used to add entities and materials</param>
+      <param name="layerName">The destination layer name</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.Int32)">
+      <summary>
+            Adds entities and materials, read from the Eyeshot file, to the Viewport putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+      <param name="environment">The Viewport used to add entities and materials</param>
+      <param name="blockName">The block name</param>
+      <param name="layerIndex">The destination layer index.</param>
+      <remarks>For the <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks" /> classes the BlockReference is affected by a scale factor (from <see cref="P:devDept.Eyeshot.Block.Units" /> to <see cref="P:devDept.Eyeshot.Environment.Units" />).</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.Int32,System.Drawing.Color)">
+      <summary>
+            Adds entities and materials, read from the Eyeshot file, to the Viewport putting the entities inside a Block and creating a BlockReference referring to it.
+            </summary>
+      <param name="environment">The Viewport used to add entities and materials</param>
+      <param name="blockName">The block name</param>
+      <param name="layerIndex">The destination layer index.</param>
+      <param name="color">The color assigned to the entities in the model</param>
+      <remarks>For the <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks" /> classes the BlockReference is affected by a scale factor (from <see cref="P:devDept.Eyeshot.Block.Units" /> to <see cref="P:devDept.Eyeshot.Environment.Units" />).</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.FillTextStyles(devDept.Eyeshot.Environment)">
+      <summary>
+            Automatically merges text styles with existing ones.
+            </summary>
+      <param name="environment">The environment control.</param>
+      <remarks>Text styles with the same name of the ones in the environment will be skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.FillLineTypes(devDept.Eyeshot.Environment)">
+      <summary>
+            Automatically merges line types with existing ones.
+            </summary>
+      <param name="environment">The Environment control.</param>
+      <remarks>Line types with the same name of the ones in the environment will be skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.AddToDrawings(devDept.Eyeshot.Drawings)">
+      <summary>
+            Adds sheets, blocks, layers, text styles, line types read from the file to the drawings control.
+            </summary>
+      <param name="drawings">The drawings control.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.FillAllDrawingsCollectionsData(devDept.Eyeshot.Drawings)">
+      <summary>
+            Automatically merges all the drawings collections with existing ones.
+            </summary>
+      <param name="drawings">The drawings control.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.FillDrawingsSheets(devDept.Eyeshot.Drawings)">
+      <summary>
+            Automatically merges sheets with existing ones.
+            </summary>
+      <param name="drawings">The drawings control.</param>
+      <remarks>Sheets with the same name of the ones in the drawings will be skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.FillDrawingsBlocks(devDept.Eyeshot.Drawings)">
+      <summary>
+            Automatically merges drawings blocks with existing ones.
+            </summary>
+      <param name="drawings">The Drawings control.</param>
+      <remarks>Blocks with the same name of the ones in the drawings will be skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.FillDrawingsLayers(devDept.Eyeshot.Drawings)">
+      <summary>
+            Automatically merges drawings layers with existing ones.
+            </summary>
+      <param name="drawings">The Drawings control.</param>
+      <remarks>Layers with the same name of the ones in the drawings will be skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.FillDrawingsTextStyles(devDept.Eyeshot.Drawings)">
+      <summary>
+            Automatically merges drawings text styles with existing ones.
+            </summary>
+      <param name="drawings">The Drawings control.</param>
+      <remarks>Text styles with the same name of the ones in the drawings will be skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawings.FillDrawingsLineTypes(devDept.Eyeshot.Drawings)">
+      <summary>
+            Automatically merges drawings line types with existing ones.
+            </summary>
+      <param name="drawings">The Drawings control.</param>
+      <remarks>Line types with the same name of the ones in the drawings will be skipped.</remarks>
+    </member>
     <member name="T:devDept.Eyeshot.Translators.ReadFileAsyncWithMaterials">
       <summary>
             Adds support for materials to the file loading.
@@ -22358,12 +22825,12 @@
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFile.FileSerializer">
       <summary>
-            The <see cref="T:devDept.Serialization.FileSerializer" /> used to read the file.
+            Gets the <see cref="T:devDept.Serialization.FileSerializer" /> used to read the file.
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.Translators.ReadFile.Materials">
       <summary>
-            The list of layers resulting from file reading.
+            Gets or sets the list of layers resulting from file reading.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFile.ParsingMaterialsText">
@@ -22371,19 +22838,9 @@
             Gets or sets the "Parsing materials..." text string.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Translators.ReadFile.LineTypes">
-      <summary>
-            The list of line types resulting from file reading.
-            </summary>
-    </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFile.ParsingLinetypesText">
       <summary>
             Gets or sets the "Parsing line types..." text string.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Translators.ReadFile.TextStyles">
-      <summary>
-            The list of text styles resulting from file reading.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFile.ParsingTextStylesText">
@@ -22404,6 +22861,41 @@
     <member name="P:devDept.Eyeshot.Translators.ReadFile.Camera">
       <summary>
             The Camera definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFile.DrawingsSilhouettesLayerName">
+      <summary>
+            Gets or sets the drawings silhouettes layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFile.DrawingsEdgesLayerName">
+      <summary>
+            Gets or sets the drawings edges layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFile.DrawingsWiresLayerName">
+      <summary>
+            Gets or sets the drawings wires layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFile.DrawingsHiddenSilhouettesLayerName">
+      <summary>
+            Gets or sets the drawings hidden silhouettes layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFile.DrawingsHiddenEdgesLayerName">
+      <summary>
+            Gets or sets the drawings hidden edges layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFile.DrawingsHiddenWiresLayerName">
+      <summary>
+            Gets or sets the drawings hidden wires layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFile.DrawingsHiddenSegmentsLineTypeName">
+      <summary>
+            Gets or sets the drawings hidden segments linetype name.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFile.FileHeaderInfo">
@@ -22480,75 +22972,11 @@
             The closing of the stream is delegated to you.
             </remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFile.AddToScene(devDept.Eyeshot.Environment,devDept.Eyeshot.RegenOptions,System.Boolean,System.String)">
-      <summary>
-            Adds entities and materials, read from the Eyeshot file, to the Viewport.
-            </summary>
-      <param name="environment">The Viewport used to add entities and materials.</param>
-      <param name="ro">Asynchronous regeneration options</param>
-      <param name="removeJittering">When true, it put the entities read from the OBJ file into a block, add a BlockReference that refers to that block and call the <see cref="!:Environment.RemoveJittering()" /> method.</param>
-      <param name="blockName">The name of the block that will contain the selected entities. Can be null/Nothing.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFile.AddToScene(devDept.Eyeshot.Environment,System.Int32)">
-      <summary>
-            Adds entities and materials, read from the Eyeshot file, to the Viewport.
-            </summary>
-      <param name="environment">The Viewport used to add entities and materials</param>
-      <param name="layerIndex">The destination layer index</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFile.AddToScene(devDept.Eyeshot.Environment,System.Int32,System.Drawing.Color)">
-      <summary>
-            Adds entities and materials, read from the Eyeshot file, to the Viewport.
-            </summary>
-      <param name="environment">The Viewport used to add entities and materials</param>
-      <param name="layerIndex">The destination layer index</param>
-      <param name="color">The color assigned to the entities in the model</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFile.AddToScene(devDept.Eyeshot.Environment,System.String)">
-      <summary>
-            Adds entities and materials, read from the Eyeshot file, to the Viewport.
-            </summary>
-      <param name="environment">The Viewport used to add entities and materials</param>
-      <param name="layerName">The destination layer name</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFile.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.Int32)">
-      <summary>
-            Adds entities and materials, read from the Eyeshot file, to the Viewport putting the entities inside a Block and creating a BlockReference referring to it.
-            </summary>
-      <param name="environment">The Viewport used to add entities and materials</param>
-      <param name="blockName">The block name</param>
-      <param name="layerIndex">The destination layer index.</param>
-      <remarks>For the <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks" /> classes the BlockReference is affected by a scale factor (from <see cref="P:devDept.Eyeshot.Block.Units" /> to <see cref="P:devDept.Eyeshot.Environment.Units" />).</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFile.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.Int32,System.Drawing.Color)">
-      <summary>
-            Adds entities and materials, read from the Eyeshot file, to the Viewport putting the entities inside a Block and creating a BlockReference referring to it.
-            </summary>
-      <param name="environment">The Viewport used to add entities and materials</param>
-      <param name="blockName">The block name</param>
-      <param name="layerIndex">The destination layer index.</param>
-      <param name="color">The color assigned to the entities in the model</param>
-      <remarks>For the <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocks" /> classes the BlockReference is affected by a scale factor (from <see cref="P:devDept.Eyeshot.Block.Units" /> to <see cref="P:devDept.Eyeshot.Environment.Units" />).</remarks>
-    </member>
     <member name="M:devDept.Eyeshot.Translators.ReadFile.FillMaterials(devDept.Eyeshot.Environment)">
       <summary>
             Automatically merges Material definitions with existing ones.
             </summary>
       <param name="environment">The <see cref="T:devDept.Eyeshot.Environment" /> object.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFile.FillLineTypes(devDept.Eyeshot.Environment)">
-      <summary>
-            Automatically merges line types with existing ones.
-            </summary>
-      <param name="environment">The Environment control.</param>
-      <remarks>Line types with the same name of the ones in the Environment control will be skipped.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFile.FillTextStyles(devDept.Eyeshot.Environment)">
-      <summary>
-            Automatically merges text styles with existing ones.
-            </summary>
-      <param name="environment">The Environment control.</param>
-      <remarks>Text styles with the same name of the ones in the Environment control will be skipped.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteFile">
       <summary>
@@ -22563,16 +22991,6 @@
     <member name="F:devDept.Eyeshot.Translators.WriteFile.materials">
       <summary>
             The materials collection.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Translators.WriteFile.textStyles">
-      <summary>
-            The text styles collection.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Translators.WriteFile.lineTypes">
-      <summary>
-            The line types collection.
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.Translators.WriteFile.content">
@@ -23259,6 +23677,19 @@
       <param name="writeParams">The <see cref="T:devDept.Eyeshot.Translators.WriteParams" /></param>
       <param name="stream">The file stream</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteFileAsync.SynchronizeAttributeReference(devDept.Eyeshot.Environment)">
+      <summary>
+            Helper method to synchronize all the attribute reference before writing the file.
+            </summary>
+      <param name="environment">The environment control.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteFileAsync.SynchronizeAttributeReference(devDept.Eyeshot.BlockKeyedCollection,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
+      <summary>
+            Helper method to synchronize all the attribute reference before writing the file.
+            </summary>
+      <param name="blocks">The blocks collection.</param>
+      <param name="entities">The entities collection.</param>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteFileAsync.InitLayers(devDept.Eyeshot.LayerKeyedCollection)">
       <summary>
@@ -24063,6 +24494,46 @@
       <param name="blockDict">The block dictionary</param>
       <param name="stream">The file stream</param>
       <param name="units">The model units</param>
+      <remarks>The closing of the stream is delegated to you.</remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.Translators.WriteFileAsyncWithTextStyles">
+      <summary>
+            Base class for file asynchronous writing supporting author, organization and originating system attributes.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteFileAsyncWithTextStyles.#ctor(devDept.Eyeshot.Translators.WriteParamsWithTextStyles,System.String)">
+      <summary>
+            Standard constructor with document, header and filename.
+            </summary>
+      <param name="writeParams">The <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithTextStyles" /></param>
+      <param name="fileName">The file name (it must include the extension)</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteFileAsyncWithTextStyles.#ctor(devDept.Eyeshot.Translators.WriteParamsWithTextStyles,System.IO.Stream)">
+      <summary>
+            Standard constructor with Document, header and filename.
+            </summary>
+      <param name="writeParams">The <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithTextStyles" /></param>
+      <param name="stream">The file stream</param>
+      <remarks>The closing of the stream is delegated to you.</remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.Translators.WriteFileAsyncWithDrawings">
+      <summary>
+            Base class for file asynchronous writing supporting author, organization and originating system attributes.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteFileAsyncWithDrawings.#ctor(devDept.Eyeshot.Translators.WriteParamsWithDrawings,System.String)">
+      <summary>
+            Standard constructor with document, header and filename.
+            </summary>
+      <param name="writeParams">The <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithDrawings" /></param>
+      <param name="fileName">The file name (it must include the extension)</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteFileAsyncWithDrawings.#ctor(devDept.Eyeshot.Translators.WriteParamsWithDrawings,System.IO.Stream)">
+      <summary>
+            Standard constructor with Document, header and filename.
+            </summary>
+      <param name="writeParams">The <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithDrawings" /></param>
+      <param name="stream">The file stream</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteXML">
@@ -28038,7 +28509,7 @@
       <param name="doWorkEventArgs">Worker thread do work event arguments</param>
       <returns>True if the triangulation is successful.</returns>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.GestureHandler">
+    <member name="T:devDept.Eyeshot.MultiTouch.GestureHandler">
       <summary>
             Handles gesture events
             </summary>
@@ -28048,28 +28519,28 @@
             the gesture event sequence.  
             </remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.GestureHandler.SetHWndTouchInfo">
+    <member name="M:devDept.Eyeshot.MultiTouch.GestureHandler.SetHWndTouchInfo">
       <summary>
             Register the form to get gesture events
             </summary>
       <returns>true if succeeded</returns>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.Begin">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.Begin">
       <summary>
             Indicate a that a gesture is beginning
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.End">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.End">
       <summary>
             Indicate an end of a gesture
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.PanBegin">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.PanBegin">
       <summary>
             Start the pannin sequence
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.Pan">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.Pan">
       <summary>
             Panning continue
             </summary>
@@ -28077,22 +28548,22 @@
             Use the PanTranslation property of the event argument to get the
             relative translation size (relative to the last pan event) 
             </remarks></member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.PanEnd">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.PanEnd">
       <summary>
             End pan event
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.PressAndTap">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.PressAndTap">
       <summary>
             RollOver gesture event, this is a single event
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.RotateBegin">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.RotateBegin">
       <summary>
             Starting rotate gesture 
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.Rotate">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.Rotate">
       <summary>
             Continue rotating
             </summary>
@@ -28101,12 +28572,12 @@
             rotation angle
             </remarks>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.RotateEnd">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.RotateEnd">
       <summary>
             Rotate end
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.TwoFingerTap">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.TwoFingerTap">
       <summary>
             Two fingers tap event.
             </summary>
@@ -28114,12 +28585,12 @@
             This is a single event
             </remarks>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.ZoomBegin">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.ZoomBegin">
       <summary>
             Start zoom gesture
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.Zoom">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.Zoom">
       <summary>
             Continue zooming
             </summary>
@@ -28127,12 +28598,12 @@
             Use the ZoomFactor to know the relative zoom factor
             </remarks>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.GestureHandler.ZoomEnd">
+    <member name="E:devDept.Eyeshot.MultiTouch.GestureHandler.ZoomEnd">
       <summary>
             Zoom End event
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.GestureHandler.WindowProc(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
+    <member name="M:devDept.Eyeshot.MultiTouch.GestureHandler.WindowProc(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
       <summary>
             The Windows message interception for gesture events handling
             </summary>
@@ -28142,7 +28613,7 @@
       <param name="lParam">WndProc lParam</param>
       <returns>WndProc return</returns>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.GestureEventArgs">
+    <member name="T:devDept.Eyeshot.MultiTouch.GestureEventArgs">
       <summary>
             Event arguments for all gesture events
             </summary>
@@ -28153,140 +28624,140 @@
             Rotation: RotateAngle
             </remarks>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.GestureId">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.GestureId">
       <summary>
             The windows gesture id
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.GestureArguments">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.GestureArguments">
       <summary>
             the raw Gesture arguments
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.Location">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.Location">
       <summary>
             The gesture location translated into client area
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.IsBegin">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.IsBegin">
       <summary>
             The first event of a gesture
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.IsEnd">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.IsEnd">
       <summary>
             The last event of a gesture
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.IsInertia">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.IsInertia">
       <summary>
             The gesture has triggered inertia
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.RotateAngle">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.RotateAngle">
       <summary>
             The relative rotation angle, used by the Rotate event
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.Center">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.Center">
       <summary>
             The calculated gesture center
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.ZoomFactor">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.ZoomFactor">
       <summary>
             The zoom factor, used by the Zoom event
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.PanTranslation">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.PanTranslation">
       <summary>
             The relative panning translation, used by the Pan event
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.PanVelocity">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.PanVelocity">
       <summary>
             The velocity vector of the pan gesture, can be used for custom inertia
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.LastBeginEvent">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.LastBeginEvent">
       <summary>
             The first gesture in this gesture event sequence
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureEventArgs.LastEvent">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureEventArgs.LastEvent">
       <summary>
             The last gesture in this gesture event sequence
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.IHwndWrapper">
+    <member name="T:devDept.Eyeshot.MultiTouch.IHwndWrapper">
       <summary>
             Wrapp HWND source such as System.Windows.Forms.Control, or System.Windows.Window
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.IHwndWrapper.Handle">
+    <member name="P:devDept.Eyeshot.MultiTouch.IHwndWrapper.Handle">
       <summary>
             The Underline Windows Handle
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.IHwndWrapper.Source">
+    <member name="P:devDept.Eyeshot.MultiTouch.IHwndWrapper.Source">
       <summary>
             The .NET object that wrap the Windows Handle (WinForm, WinForm Control, WPF Window, IntPtr of HWND)
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.IHwndWrapper.HandleCreated">
+    <member name="E:devDept.Eyeshot.MultiTouch.IHwndWrapper.HandleCreated">
       <summary>
             The Win32 Handle has been created
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.IHwndWrapper.HandleDestroyed">
+    <member name="E:devDept.Eyeshot.MultiTouch.IHwndWrapper.HandleDestroyed">
       <summary>
             /// The Win32 Handle has been destroyed
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.IHwndWrapper.IsHandleCreated">
+    <member name="P:devDept.Eyeshot.MultiTouch.IHwndWrapper.IsHandleCreated">
       <summary>
             Check if the Win32 Handle is already created
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.IHwndWrapper.PointToClient(System.Drawing.Point)">
+    <member name="M:devDept.Eyeshot.MultiTouch.IHwndWrapper.PointToClient(System.Drawing.Point)">
       <summary>
             Computes the location of the specified screen point into client coordinates
             </summary>
       <param name="point">The screen coordinate System.Drawing.Point to convert</param>
       <returns>A point that represents the converted point in client coordinates</returns>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.IGUITimer">
+    <member name="T:devDept.Eyeshot.MultiTouch.IGUITimer">
       <summary>
             A Common interface foir timer.
             The timer has to be in the UI thread context
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.IGUITimer.Enabled">
+    <member name="P:devDept.Eyeshot.MultiTouch.IGUITimer.Enabled">
       <summary>
             Gets or sets whether the timer is running.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.IGUITimer.Interval">
+    <member name="P:devDept.Eyeshot.MultiTouch.IGUITimer.Interval">
       <summary>
             Gets or sets the time, in milliseconds, before the Tick event is raised
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.IGUITimer.Tick">
+    <member name="E:devDept.Eyeshot.MultiTouch.IGUITimer.Tick">
       <summary>
               Occurs when the specified timer interval has elapsed and the timer is enabled.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.IGUITimer.Start">
+    <member name="M:devDept.Eyeshot.MultiTouch.IGUITimer.Start">
       <summary>
             Starts the timer.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.IGUITimer.Stop">
+    <member name="M:devDept.Eyeshot.MultiTouch.IGUITimer.Stop">
       <summary>
             Stops the timer.
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Handler">
+    <member name="T:devDept.Eyeshot.MultiTouch.Handler">
       <summary>
             Base class for handling Gesture and Touch event
             </summary>
@@ -28297,14 +28768,14 @@
             UI thread. There is no blocking operation in the code.
             </remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Handler.SetHWndTouchInfo">
+    <member name="M:devDept.Eyeshot.MultiTouch.Handler.SetHWndTouchInfo">
       <summary>
             Initiate touch support for the underline hWnd 
             </summary>
       <remarks>Registering the hWnd to touch support or configure the hWnd to receive gesture messages</remarks>
       <returns>true if succeeded</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Handler.WindowProc(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Handler.WindowProc(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
       <summary>
             The interceptor WndProc
             </summary>
@@ -28314,73 +28785,73 @@
       <param name="lparam">WndProc lPara</param>
       <returns>WndProc return</returns>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.ControlHandle">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.ControlHandle">
       <summary>
             The registered control's handler
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DpiX">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DpiX">
       <summary>
             The X DPI of the target window
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DpiY">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DpiY">
       <summary>
             The Y DPI of the target window
             </summary>
     </member>
-    <!-- Badly formed XML comment ignored for member "E:devDept.Eyeshot.Multitouch.Handler.GestureNotify" -->
-    <member name="T:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities">
+    <!-- Badly formed XML comment ignored for member "E:devDept.Eyeshot.MultiTouch.Handler.GestureNotify" -->
+    <member name="T:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities">
       <summary>
             Report digitizer capabilities
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.Status">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.Status">
       <summary>
             Get the current Digitizer Status
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.MaxumumTouches">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.MaxumumTouches">
       <summary>
             Get the maximum touches capability
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.IsIntegratedTouch">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.IsIntegratedTouch">
       <summary>
             Check for integrated touch support
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.IsExternalTouch">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.IsExternalTouch">
       <summary>
             Check for external touch support
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.IsIntegratedPan">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.IsIntegratedPan">
       <summary>
             Check for Pen support
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.IsExternalPan">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.IsExternalPan">
       <summary>
             Check for external Pan support
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.IsMultiInput">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.IsMultiInput">
       <summary>
             Check for multi-input
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.IsStackReady">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.IsStackReady">
       <summary>
             Check if touch device is ready
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Handler.DigitizerCapabilities.IsMultiTouchReady">
+    <member name="P:devDept.Eyeshot.MultiTouch.Handler.DigitizerCapabilities.IsMultiTouchReady">
       <summary>
             Check if Multi-touch support device is ready
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Handler.IsTouchWindows(System.IntPtr)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Handler.IsTouchWindows(System.IntPtr)">
       <summary>
             Check if the Window is registered for multitouch events
             </summary>
@@ -28389,261 +28860,261 @@
       <returns>
       </returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "T:devDept.Eyeshot.Multitouch.GestureNotifyEventArgs" -->
-    <member name="P:devDept.Eyeshot.Multitouch.GestureNotifyEventArgs.Location">
+    <!-- Badly formed XML comment ignored for member "T:devDept.Eyeshot.MultiTouch.GestureNotifyEventArgs" -->
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureNotifyEventArgs.Location">
       <summary>
             The gesture location
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.GestureNotifyEventArgs.TargetHwnd">
+    <member name="P:devDept.Eyeshot.MultiTouch.GestureNotifyEventArgs.TargetHwnd">
       <summary>
             The gesture target window
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.DigitizerStatus">
+    <member name="T:devDept.Eyeshot.MultiTouch.DigitizerStatus">
       <summary>
             All availible digitizer capabilities
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.ManipulationInertiaProcessor">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationInertiaProcessor">
       <summary>
             A manipulation processor that support Inertia processing
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationInertiaProcessor.#ctor(devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations,devDept.Eyeshot.Multitouch.IGUITimer)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationInertiaProcessor.#ctor(devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations,devDept.Eyeshot.MultiTouch.IGUITimer)">
       <summary>
             Create new manipulation processor
             </summary>
       <remarks>
-            Call the <see cref="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessDown(System.UInt32,System.Drawing.PointF)" />, <see cref="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessMove(System.UInt32,System.Drawing.PointF)" />, <see cref="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessUp(System.UInt32,System.Drawing.PointF)" /> to feed the processor.
-            Register on <see cref="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationStarted" />, <see cref="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationDelta" /> and <see cref="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationCompleted" />
+            Call the <see cref="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessDown(System.UInt32,System.Drawing.PointF)" />, <see cref="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessMove(System.UInt32,System.Drawing.PointF)" />, <see cref="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessUp(System.UInt32,System.Drawing.PointF)" /> to feed the processor.
+            Register on <see cref="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationStarted" />, <see cref="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationDelta" /> and <see cref="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationCompleted" />
             to handle manipulation events
-            Set the <see cref="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationInertiaProcessor.InertiaProcessor" /> properties to get the desired inertia behavior
-            Register to the <see cref="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationInertiaProcessor.BeforeInertia" /> event to set the inertia properties when inertia is starting/&gt;
+            Set the <see cref="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationInertiaProcessor.InertiaProcessor" /> properties to get the desired inertia behavior
+            Register to the <see cref="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationInertiaProcessor.BeforeInertia" /> event to set the inertia properties when inertia is starting/&gt;
             </remarks>
       <param name="supportedManipulations">Activate specific manipulation (scale, translate, rotate)</param>
       <param name="timer">The GUI timer that will be used for inertia events</param>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationInertiaProcessor.BeforeInertia">
+    <member name="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationInertiaProcessor.BeforeInertia">
       <summary>
             Fired just before inertia is starting
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationInertiaProcessor.Dispose(System.Boolean)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationInertiaProcessor.Dispose(System.Boolean)">
       <summary>
             Release the underline COM object
             </summary>
       <param name="dispose">
       </param>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationInertiaProcessor.InertiaProcessor">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationInertiaProcessor.InertiaProcessor">
       <summary>
             The inertia processor that is associate with the Manipulation Processor
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor">
       <summary>
             The Inertia Processor
             </summary>
       <remarks>Handles calculations regarding object motion for multitouch</remarks>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.MaxInertiaSteps">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.MaxInertiaSteps">
       <summary>
             After this amount of timer ticks, the Inertia will stop
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.InertiaTimerInterval">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.InertiaTimerInterval">
       <summary>
             The timer resolution for inertia events
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.InInertia">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.InInertia">
       <summary>
             True when the inertia processor generate inertia motion events
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.InitialVelocity">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.InitialVelocity">
       <summary>
             Specifies the initial movement of the target object
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.InitialAngularVelocity">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.InitialAngularVelocity">
       <summary>
             Specifies the rotation of the target when movement begins
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.InitialExpansionVelocity">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.InitialExpansionVelocity">
       <summary>
             Specifies the expention of the target when movement begins
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.InitialRadius">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.InitialRadius">
       <summary>
             Specifies the distance from the edge of the target to its center before the object was changed
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.Boundary">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.Boundary">
       <summary>
             Limits how far towards the edge of the screen the target object can move
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.ElasticMargin">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.ElasticMargin">
       <summary>
             Specifies the rectangle region for bouncing the target objec
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.DesiredDisplacement">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.DesiredDisplacement">
       <summary>
             Specifies the desired distance that the object will travel
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.DesiredRotation">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.DesiredRotation">
       <summary>
             Specifies the desired radians that the object will rotate
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.DesiredExpansion">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.DesiredExpansion">
       <summary>
             Specifies the desired change in the object's average radius
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.DesiredDeceleration">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.DesiredDeceleration">
       <summary>
             Specifies the desired rate at which translation operations will decelerate
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.DesiredAngularDeceleration">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.DesiredAngularDeceleration">
       <summary>
             Specifies the desired rate that the target object will stop spinning in radians per msec
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.DesiredExpansionDeceleration">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.DesiredExpansionDeceleration">
       <summary>
             Specifies the rate at which the object will stop expanding
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.InertiaProcessor.Dispose">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.InertiaProcessor.Dispose">
       <summary>
             Dispose the object and release the underline COM object
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.BeforeInertiaEventArgs">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.BeforeInertiaEventArgs">
       <summary>
             Before Inertia phase is starting
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Multitouch.Manipulation.BeforeInertiaEventArgs.CancelInertia">
+    <member name="F:devDept.Eyeshot.MultiTouch.Manipulation.BeforeInertiaEventArgs.CancelInertia">
       <summary>
             Cancel Inertia by setting this property to true
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations">
       <summary>
             Manipulation Flags.
             Enables Manipulation Support
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations.NONE">
+    <member name="F:devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations.NONE">
       <summary>
             Disable manipulation events
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations.TRANSLATE_X">
+    <member name="F:devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations.TRANSLATE_X">
       <summary>
             X axis translation events
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations.TRANSLATE_Y">
+    <member name="F:devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations.TRANSLATE_Y">
       <summary>
             Y Axis translation events
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations.SCALE">
+    <member name="F:devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations.SCALE">
       <summary>
             Scaling events
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations.ROTATE">
+    <member name="F:devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations.ROTATE">
       <summary>
             Rotation events
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations.ALL">
+    <member name="F:devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations.ALL">
       <summary>
             Fire all manipulation events
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.VectorF">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.VectorF">
       <summary>
             Utility class for vector manipulations
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.#ctor(System.Single,System.Single)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.#ctor(System.Single,System.Single)">
       <summary>
             Create new float vector
             </summary>
       <param name="x">X direction</param>
       <param name="y">Y Direction</param>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.ToString">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.ToString">
       <summary>
             (x,y)
             </summary>
       <returns>
       </returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.Equals(System.Object)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.Equals(System.Object)">
       <summary>
             Check if two vectors are equal
             </summary>
       <param name="obj">the second vector</param>
       <returns>true if they are equal</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.GetHashCode">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.GetHashCode">
       <summary>
             Return the Vector hash code
             </summary>
       <returns>Hash Code</returns>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.VectorF.X">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.X">
       <summary>
             The X direction
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.VectorF.Y">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.Y">
       <summary>
             The Y Direction
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Implicit(devDept.Eyeshot.Multitouch.Manipulation.VectorF)~System.Drawing.Size">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Implicit(devDept.Eyeshot.MultiTouch.Manipulation.VectorF)~System.Drawing.Size">
       <summary>
             Convert vector to Size
             </summary>
       <param name="vector">The Vector</param>
       <returns>The vector as Size</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Implicit(devDept.Eyeshot.Multitouch.Manipulation.VectorF)~System.Drawing.SizeF">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Implicit(devDept.Eyeshot.MultiTouch.Manipulation.VectorF)~System.Drawing.SizeF">
       <summary>
             Convert Vector to SizeF
             </summary>
       <param name="vector">The Vector</param>
       <returns>The vector as SizeF</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Implicit(System.Drawing.Size)~devDept.Eyeshot.Multitouch.Manipulation.VectorF">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Implicit(System.Drawing.Size)~devDept.Eyeshot.MultiTouch.Manipulation.VectorF">
       <summary>
             Convert Size to vector
             </summary>
       <param name="size">The size</param>
       <returns>The size as vector</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Implicit(System.Drawing.SizeF)~devDept.Eyeshot.Multitouch.Manipulation.VectorF">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Implicit(System.Drawing.SizeF)~devDept.Eyeshot.MultiTouch.Manipulation.VectorF">
       <summary>
             Convert SizeF to Vector
             </summary>
       <param name="size">The Size</param>
       <returns>The Size as Vector</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Multiply(devDept.Eyeshot.Multitouch.Manipulation.VectorF,System.Single)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Multiply(devDept.Eyeshot.MultiTouch.Manipulation.VectorF,System.Single)">
       <summary>
             Multiply the vector with scalar (float)
             </summary>
@@ -28651,7 +29122,7 @@
       <param name="value">The floating point scalar</param>
       <returns>New vector</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Division(devDept.Eyeshot.Multitouch.Manipulation.VectorF,System.Single)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Division(devDept.Eyeshot.MultiTouch.Manipulation.VectorF,System.Single)">
       <summary>
             Divide Vector with scalar (float)
             </summary>
@@ -28659,7 +29130,7 @@
       <param name="value">The scalar</param>
       <returns>New Vector</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Addition(devDept.Eyeshot.Multitouch.Manipulation.VectorF,System.Single)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Addition(devDept.Eyeshot.MultiTouch.Manipulation.VectorF,System.Single)">
       <summary>
             Add scalar to a vector
             </summary>
@@ -28667,7 +29138,7 @@
       <param name="value">The scalar</param>
       <returns>New vector</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Subtraction(devDept.Eyeshot.Multitouch.Manipulation.VectorF,System.Single)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Subtraction(devDept.Eyeshot.MultiTouch.Manipulation.VectorF,System.Single)">
       <summary>
             Substruct Scalar from vector
             </summary>
@@ -28675,7 +29146,7 @@
       <param name="value">The scalar</param>
       <returns>New vector</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Addition(devDept.Eyeshot.Multitouch.Manipulation.VectorF,devDept.Eyeshot.Multitouch.Manipulation.VectorF)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Addition(devDept.Eyeshot.MultiTouch.Manipulation.VectorF,devDept.Eyeshot.MultiTouch.Manipulation.VectorF)">
       <summary>
             Add two vectors
             </summary>
@@ -28683,7 +29154,7 @@
       <param name="v2">V2</param>
       <returns>New Vector</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.VectorF.op_Subtraction(devDept.Eyeshot.Multitouch.Manipulation.VectorF,devDept.Eyeshot.Multitouch.Manipulation.VectorF)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.op_Subtraction(devDept.Eyeshot.MultiTouch.Manipulation.VectorF,devDept.Eyeshot.MultiTouch.Manipulation.VectorF)">
       <summary>
             Substruct two vectors
             </summary>
@@ -28691,39 +29162,39 @@
       <param name="v2">V2</param>
       <returns>New Vector</returns>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.VectorF.Magnitude">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.Magnitude">
       <summary>
             Return the magnitude (normal) of a vector
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.VectorF.Direction">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.VectorF.Direction">
       <summary>
             Return the unit vector
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.ManipulationStartedEventArgs">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationStartedEventArgs">
       <summary>
             Argument for manipulatiuon start event
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationStartedEventArgs.#ctor(System.Single,System.Single)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationStartedEventArgs.#ctor(System.Single,System.Single)">
       <summary>
             Argument for touch event location
             </summary>
       <param name="x">The x Axis</param>
       <param name="y">The y Axis</param>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationStartedEventArgs.Location">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationStartedEventArgs.Location">
       <summary>
             This location is usually the center point
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.ManipulationCompletedEventArgs">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationCompletedEventArgs">
       <summary>
             The argument for manipulation complete event
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationCompletedEventArgs.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationCompletedEventArgs.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
       <summary>
             Create new ManipulationCompletedEventArgs
             </summary>
@@ -28735,32 +29206,32 @@
       <param name="cumulativeExpansion">Cumulative Expension since starting manipulation</param>
       <param name="cumulativeRotation">Cumulative rotation in radians since starting manipulation</param>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationCompletedEventArgs.CumulativeTranslation">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationCompletedEventArgs.CumulativeTranslation">
       <summary>
             Total translation
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationCompletedEventArgs.CumulativeScale">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationCompletedEventArgs.CumulativeScale">
       <summary>
             Total Scaling
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationCompletedEventArgs.CumulativeExpansion">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationCompletedEventArgs.CumulativeExpansion">
       <summary>
             Total Extension
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationCompletedEventArgs.CumulativeRotation">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationCompletedEventArgs.CumulativeRotation">
       <summary>
             Total Rotation
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.ManipulationDeltaEventArgs">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationDeltaEventArgs">
       <summary>
             The argument for manipulation delta
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationDeltaEventArgs.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationDeltaEventArgs.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
       <summary>
       </summary>
       <param name="x">x Axis</param>
@@ -28776,99 +29247,99 @@
       <param name="cumulativeExpansion">Cumulative Expension since starting manipulation</param>
       <param name="cumulativeRotation">Cumulative rotation in radians since starting manipulation</param>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationDeltaEventArgs.TranslationDelta">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationDeltaEventArgs.TranslationDelta">
       <summary>
             The amount of translation since the last event
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationDeltaEventArgs.ScaleDelta">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationDeltaEventArgs.ScaleDelta">
       <summary>
             The amount of scaling since the last event
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationDeltaEventArgs.ExpansionDelta">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationDeltaEventArgs.ExpansionDelta">
       <summary>
             The amount of expension since the last event
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationDeltaEventArgs.RotationDelta">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationDeltaEventArgs.RotationDelta">
       <summary>
             The amount of rotation since the last event
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor">
+    <member name="T:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor">
       <summary>
             A .NET wrapper for touch manipulation processing
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.#ctor(devDept.Eyeshot.Multitouch.Manipulation.ProcessorManipulations)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.#ctor(devDept.Eyeshot.MultiTouch.Manipulation.ProcessorManipulations)">
       <summary>
             Create new manipulation processor
             </summary>
       <remarks>
-            Call the <see cref="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessDown(System.UInt32,System.Drawing.PointF)" />, <see cref="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessMove(System.UInt32,System.Drawing.PointF)" />, <see cref="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessUp(System.UInt32,System.Drawing.PointF)" /> to feed the processor.
-            Register on <see cref="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationStarted" />, <see cref="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationDelta" /> and <see cref="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationCompleted" />
+            Call the <see cref="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessDown(System.UInt32,System.Drawing.PointF)" />, <see cref="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessMove(System.UInt32,System.Drawing.PointF)" />, <see cref="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessUp(System.UInt32,System.Drawing.PointF)" /> to feed the processor.
+            Register on <see cref="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationStarted" />, <see cref="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationDelta" /> and <see cref="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationCompleted" />
             to handle manipulation events
             </remarks>
       <param name="supportedManipulations">Activate specific manipulation (scale, translate, rotate)</param>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationStarted">
+    <member name="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationStarted">
       <summary>
             Fired when manipulation is started
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationDelta">
+    <member name="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationDelta">
       <summary>
             Fired each time the processor had figured a change in one or more of the required manipulations
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ManipulationCompleted">
+    <member name="E:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ManipulationCompleted">
       <summary>
             Fired on manipulation end
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.SupportedManipulations">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.SupportedManipulations">
       <summary>
             Gets or sets the required manipulation
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.PivotPoint">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.PivotPoint">
       <summary>
             The Center of the object
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.PivotRadius">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.PivotRadius">
       <summary>
             The PivotRadius property is used to determine how much rotation is used in single finger manipulation
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.CompleteManipulation">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.CompleteManipulation">
       <summary>
             This method raises the ManipulationCompleted() event in response
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessDown(System.UInt32,System.Drawing.PointF)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessDown(System.UInt32,System.Drawing.PointF)">
       <summary>
             The ProcessDown method feeds data to the manipulation processor associated with a target
             </summary>
       <param name="manipulationId">The identifier for the manipulation that you want to process</param>
       <param name="location">The coordinates associated with the target</param>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessMove(System.UInt32,System.Drawing.PointF)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessMove(System.UInt32,System.Drawing.PointF)">
       <summary>
             The ProcessMove method feeds movement data for the target object to its manipulation processor
             </summary>
       <param name="manipulationId">The identifier for the manipulation that you want to process</param>
       <param name="location">The coordinates associated with the target</param>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessUp(System.UInt32,System.Drawing.PointF)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessUp(System.UInt32,System.Drawing.PointF)">
       <summary>
             The ProcessUp method feeds data to a target's manipulation processor for touch up sequences
             </summary>
       <param name="manipulationId">The identifier for the manipulation that you want to process</param>
       <param name="location">The coordinates associated with the target</param>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessDownWithTime(System.UInt32,System.Drawing.PointF,System.Int32)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessDownWithTime(System.UInt32,System.Drawing.PointF,System.Int32)">
       <summary>
             Feds data to the manipulation processor associated with a target and a timestamp
             </summary>
@@ -28876,7 +29347,7 @@
       <param name="location">The coordinates associated with the target</param>
       <param name="timestamp">The timestamp of the event</param>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessMoveWithTime(System.UInt32,System.Drawing.PointF,System.Int32)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessMoveWithTime(System.UInt32,System.Drawing.PointF,System.Int32)">
       <summary>
             Feds data to the manipulation processor associated with a target and a timestamp
             </summary>
@@ -28884,7 +29355,7 @@
       <param name="location">The coordinates associated with the target</param>
       <param name="timestamp">The timestamp of the event</param>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ProcessUpWithTime(System.UInt32,System.Drawing.PointF,System.Int32)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ProcessUpWithTime(System.UInt32,System.Drawing.PointF,System.Int32)">
       <summary>
             Feds data to the manipulation processor associated with a target and a timestamp
             </summary>
@@ -28892,55 +29363,62 @@
       <param name="location">The coordinates associated with the target</param>
       <param name="timestamp">The timestamp of the event</param>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.Velocity">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.Velocity">
       <summary>
             Calculates and returns the velocity for the target object
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.ExpansionVelocity">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.ExpansionVelocity">
       <summary>
             Calculates the rate that the target object is expanding at
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.AngularVelocity">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.AngularVelocity">
       <summary>
             Calculates the rotational velocity that the target object is moving at
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.MinimumScaleRotateRadius">
+    <member name="P:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.MinimumScaleRotateRadius">
       <summary>
             Specifies the minimum scale and rotate radius
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.Dispose(System.Boolean)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.Dispose(System.Boolean)">
       <summary>
             Release the underlined COM Object
             </summary>
       <param name="dispose">
       </param>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Manipulation.ManipulationProcessor.Dispose">
+    <member name="M:devDept.Eyeshot.MultiTouch.Manipulation.ManipulationProcessor.Dispose">
       <summary>
             Dispose the object, free the underline COM object
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.TouchHandler">
+    <member name="T:devDept.Eyeshot.MultiTouch.MultiTouchEventHandler">
+      <summary>
+            Represents the method that will handle the multitouch events.
+            </summary>
+      <param name="sender">The source of the event</param>
+      <param name="e">The event data</param>
+    </member>
+    <member name="T:devDept.Eyeshot.MultiTouch.TouchHandler">
       <summary>
             Handles touch events for a hWnd
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchHandler.DisablePalmRejection">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchHandler.DisablePalmRejection">
       <summary>
             Enabling this flag disables palm rejection
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.TouchHandler.SetHWndTouchInfo">
+    <member name="M:devDept.Eyeshot.MultiTouch.TouchHandler.SetHWndTouchInfo">
       <summary>
             Register for touch event
             </summary>
       <returns>true if succeeded</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.TouchHandler.WindowProc(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
+    <member name="M:devDept.Eyeshot.MultiTouch.TouchHandler.WindowProc(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
       <summary>
             Intercept and fire touch events
             </summary>
@@ -28949,119 +29427,119 @@
       <param name="wparam">wParam</param>
       <param name="lparam">lParam</param>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.TouchEventArgs">
+    <member name="T:devDept.Eyeshot.MultiTouch.TouchEventArgs">
       <summary>
             EventArgs passed to Touch handlers 
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.Location">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.Location">
       <summary>
             Touch client coordinate in pixels
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.Id">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.Id">
       <summary>
             A touch point identifier that distinguishes a particular touch input
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.Flags">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.Flags">
       <summary>
             A set of bit flags that specify various aspects of touch point
             press, release, and motion. 
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.Mask">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.Mask">
       <summary>
             mask which fields in the structure are valid
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.AbsoluteTime">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.AbsoluteTime">
       <summary>
             touch event time
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.Time">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.Time">
       <summary>
             touch event time from system up
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.ContactSize">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.ContactSize">
       <summary>
             the size of the contact area in pixels
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.IsPrimaryContact">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.IsPrimaryContact">
       <summary>
             Is Primary Contact (The first touch sequence)
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.IsTouchMove">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.IsTouchMove">
       <summary>
             Specifies that movement occurred
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.IsTouchDown">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.IsTouchDown">
       <summary>
             Specifies that the corresponding touch point was established through a new contact
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.IsTouchUp">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.IsTouchUp">
       <summary>
             Specifies that a touch point was removed
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.IsTouchInRange">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.IsTouchInRange">
       <summary>
             Specifies that a touch point is in range
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.IsTouchNoCoalesce">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.IsTouchNoCoalesce">
       <summary>
             specifies that this input was not coalesced.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.IsTouchPen">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.IsTouchPen">
       <summary>
             Specifies that the touch point is associated with a pen contact
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Multitouch.TouchEventArgs.IsTouchPalm">
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchEventArgs.IsTouchPalm">
       <summary>
             The touch event came from the user's palm
             </summary>
       <remarks>Set <see cref="!:DisablePalmRejection" /> to true</remarks>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Interop.TOUCHINPUT">
+    <member name="T:devDept.Eyeshot.MultiTouch.Interop.TOUCHINPUT">
       <summary>
             Touch API defined structures [winuser.h]
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Interop.POINTS">
+    <member name="T:devDept.Eyeshot.MultiTouch.Interop.POINTS">
       <summary>
             A Simple POINTS Interop structure
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Interop.POINT">
+    <member name="T:devDept.Eyeshot.MultiTouch.Interop.POINT">
       <summary>
             A Simple POINT Interop structure
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Interop.GESTURECONFIG">
+    <member name="T:devDept.Eyeshot.MultiTouch.Interop.GESTURECONFIG">
       <summary>
             Gesture Config Interop Structure
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Interop.GESTUREINFO">
+    <member name="T:devDept.Eyeshot.MultiTouch.Interop.GESTUREINFO">
       <summary>
             Gesture Info Interop Structure
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Multitouch.Win32Helper.Factory">
+    <member name="T:devDept.Eyeshot.MultiTouch.Win32Helper.Factory">
       <summary>
             A factory that creates touch or gesture handler for a HWnd based Window
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Multitouch.Win32Helper.Factory.CreateHandler``1(System.IntPtr)">
+    <member name="M:devDept.Eyeshot.MultiTouch.Win32Helper.Factory.CreateHandler``1(System.IntPtr)">
       <summary>
              A factory that creates touch or gesture handler for a HWnd based Window
             </summary>
@@ -29105,21 +29583,21 @@
             Occurs when a multitouch surface is dragged.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Environment.OnMultiTouchMove(System.Object,devDept.Eyeshot.Multitouch.TouchEventArgs)">
+    <member name="M:devDept.Eyeshot.Environment.OnMultiTouchMove(System.Object,devDept.Eyeshot.MultiTouch.TouchEventArgs)">
       <summary>
             Occurs every <see cref="E:devDept.Eyeshot.Environment.MultiTouchMove" /> event.
             </summary>
       <param name="sender">The source of the event.</param>
       <param name="e">The event data</param>
     </member>
-    <member name="M:devDept.Eyeshot.Environment.OnMultiTouchDown(System.Object,devDept.Eyeshot.Multitouch.TouchEventArgs)">
+    <member name="M:devDept.Eyeshot.Environment.OnMultiTouchDown(System.Object,devDept.Eyeshot.MultiTouch.TouchEventArgs)">
       <summary>
             Occurs every <see cref="E:devDept.Eyeshot.Environment.MultiTouchDown" /> event.
             </summary>
       <param name="sender">The source of the event.</param>
       <param name="e">The event data</param>
     </member>
-    <member name="M:devDept.Eyeshot.Environment.OnMultiTouchUp(System.Object,devDept.Eyeshot.Multitouch.TouchEventArgs)">
+    <member name="M:devDept.Eyeshot.Environment.OnMultiTouchUp(System.Object,devDept.Eyeshot.MultiTouch.TouchEventArgs)">
       <summary>
             Occurs every <see cref="E:devDept.Eyeshot.Environment.MultiTouchUp" /> event.
             </summary>
@@ -29387,12 +29865,6 @@
             </summary>
       <param name="serialNumber">A valid serial number</param>
     </member>
-    <member name="M:devDept.Eyeshot.Environment.Dispose(System.Boolean)">
-      <summary> 
-            Clean up any resources being used.
-            </summary>
-      <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-    </member>
     <member name="M:devDept.Eyeshot.Environment.Clear">
       <summary>
             Clears all the viewport master collections: entities, tempEntities, blocks, layers, materials, text styles, line types and labels.
@@ -29495,70 +29967,6 @@
             Raises the <see cref="T:devDept.Eyeshot.Environment.ProgressChangedEventHandler">ProgressChanged</see> event.
             </summary>
       <param name="e">A <see cref="T:devDept.Eyeshot.ProgressChangedEventArgs" /> that contains the event data.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Environment.SaveFile(System.String)">
-      <summary>
-            Saves the current scene on disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <remarks>
-      </remarks>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                It skips some particular Autodesk properties like XData and your custom entities.
-                To include them, you need to use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with the FileSerializerEx 
-                or a <see cref="T:devDept.Serialization.FileSerializer" /> derived class with your custom entity definitions.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
-      <seealso cref="M:devDept.Eyeshot.Environment.OpenFile(System.String)" />
-      <param name="fileName">File name</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Environment.SaveFile(System.IO.Stream)">
-      <summary>
-            Saves the current scene on disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <remarks>
-      </remarks>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                It skips some particular Autodesk properties like XData and your custom entities.
-                To include them, you need to use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with the FileSerializerEx 
-                or a <see cref="T:devDept.Serialization.FileSerializer" /> derived class with your custom entity definitions.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
-      <seealso cref="M:devDept.Eyeshot.Environment.OpenFile(System.IO.Stream)" />
-      <param name="stream">The file stream</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Environment.OpenFile(System.String)">
-      <summary>
-            Restores the scene from disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                It skips some particular Autodesk properties like XData and your custom entities.
-                To include them, you need to use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with the FileSerializerEx 
-                or a <see cref="T:devDept.Serialization.FileSerializer" /> derived class with your custom entity definitions.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
-      <seealso cref="M:devDept.Eyeshot.Environment.SaveFile(System.String)" />
-      <param name="fileName">File name</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Environment.OpenFile(System.IO.Stream)">
-      <summary>
-            Restores the scene from disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                It skips some particular Autodesk properties like XData and your custom entities.
-                To include them, you need to use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with the FileSerializerEx 
-                or a <see cref="T:devDept.Serialization.FileSerializer" /> derived class with your custom entity definitions.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
-      <seealso cref="M:devDept.Eyeshot.Environment.SaveFile(System.IO.Stream)" />
-      <param name="stream">The file stream</param>
     </member>
     <member name="M:devDept.Eyeshot.Environment.SaveScene(System.String)">
       <summary>
@@ -29939,6 +30347,16 @@
     <member name="E:devDept.Eyeshot.Environment.CameraMoveEnd">
       <summary>
             Occurs when a Zoom/Pan/Rotate camera movement ends.
+            </summary>
+    </member>
+    <member name="E:devDept.Eyeshot.Environment.CameraChanged">
+      <summary>
+            Occurs when camera changes its position.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Environment.CameraChangedFrequency">
+      <summary>
+            The interval, in milliseconds, of CameraChanged events firing. 
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Environment.ZoomCamera(System.Int32)">
@@ -32091,10 +32509,10 @@
     </member>
     <member name="M:devDept.Eyeshot.Environment.VisibleItem.SetStatus(devDept.Eyeshot.Environment,System.Boolean)">
       <summary>
-            Selects or un-selects the item instance.
+            Set the item instance visibility status.
             </summary>
       <param name="environment">The environment.</param>
-      <param name="select">The selection status.</param>
+      <param name="select">The visibility status.</param>
     </member>
     <member name="T:devDept.Eyeshot.Environment.SelectedSubItem">
       <summary>
@@ -32323,13 +32741,6 @@
             </summary>
       <remarks>Each key press of the navigation keys starts a small animation to move the camera. Subscribe to this event do something each time the camera is moved.</remarks>
       <seealso cref="P:devDept.Eyeshot.Environment.ShortcutKeys" />
-    </member>
-    <member name="T:devDept.Eyeshot.MultiTouch.MultiTouchEventHandler">
-      <summary>
-            Represents the method that will handle the multitouch events.
-            </summary>
-      <param name="sender">The source of the event</param>
-      <param name="e">The event data</param>
     </member>
     <member name="P:devDept.Eyeshot.QuadEntityDataNode.Children">
       <summary>
@@ -34317,6 +34728,11 @@
             The pen used to draw the hidden wires.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesViewSettings.BrushTriangle">
+      <summary>
+            The brush used to draw the triangles of the Text when FillTexts is true.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.HiddenLinesViewSettings.KeepHiddenSegments">
       <summary>
             Tells if during the hidden lines computation the hidden segments must be preserved
@@ -34633,6 +35049,12 @@
       <seealso cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FontAccuracy" />
       <seealso cref="M:devDept.Eyeshot.HiddenLinesView.GetTexts" />
     </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesViewSettings.FillRegions">
+      <summary>
+            If true, the regions are excluded from the hidden lines computation and exported as filled triangles.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.HiddenLinesView.GetTexts" />
+    </member>
     <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleLinesToWorld(System.Single)">
       <summary>
             Scales the computed lines to world coordinates and applies an extra scale factor.
@@ -34647,7 +35069,7 @@
       <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenSilhouettes" />
       <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenWires" />
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleTrianglesToWorld(System.Collections.Generic.IList{devDept.Eyeshot.SilhoTextData},System.Single)">
+    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleTrianglesToWorld(System.Collections.Generic.IList{devDept.Eyeshot.SilhoWireAndTriangleData},System.Single)">
       <summary>
             Scales the computed lines to world coordinates and applies an extra scale factor.
             </summary>
@@ -38213,6 +38635,13 @@
       <returns>The collection of meshes.</returns>
       <seealso cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FillTexts" />
     </member>
+    <member name="M:devDept.Eyeshot.HiddenLinesView.GetRegions">
+      <summary>
+            Gets the meshes generated from the regions (if <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FillRegions" /> is true).
+            </summary>
+      <returns>The collection of meshes.</returns>
+      <seealso cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FillRegions" />
+    </member>
     <member name="F:devDept.Eyeshot.HiddenLinesView.HdlViewSettings">
       <summary>
             Class that holds the settings and the result of hidden lines computation
@@ -41652,7 +42081,7 @@
             The picked part.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.OnMouseDown(System.Windows.Input.MouseEventArgs,devDept.Eyeshot.Viewport)">
+    <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.OnMouseDown(System.Windows.Input.MouseButtonEventArgs,devDept.Eyeshot.Viewport)">
       <summary>
             Method called when the mouse is pressed on a UI element.
             </summary>
@@ -41661,7 +42090,7 @@
       </param>
       <returns>True when an internal entity is picked, otherwise false.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.OnMouseUp(System.Windows.Input.MouseEventArgs,devDept.Eyeshot.Viewport)">
+    <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.OnMouseUp(System.Windows.Input.MouseButtonEventArgs,devDept.Eyeshot.Viewport)">
       <summary>
             Method called when the mouse is released on a UI element.
             </summary>
@@ -43409,6 +43838,66 @@
       <summary>
             See <see cref="P:devDept.Serialization.FileBody.Camera" /></summary>
     </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsSilhouettesLayerName">
+      <summary>
+            See <see cref="!:FileBody.SilhouettesLayerName" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsEdgesLayerName">
+      <summary>
+            See <see cref="!:FileBody.EdgesLayerName" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsWiresLayerName">
+      <summary>
+            See <see cref="!:FileBody.WiresLayerName" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsHiddenSilhouettesLayerName">
+      <summary>
+            See <see cref="!:FileBody.HiddenSilhouettesLayerName" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsHiddenEdgesLayerName">
+      <summary>
+            See <see cref="!:FileBody.HiddenEdgesLayerName" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsHiddenWiresLayerName">
+      <summary>
+            See <see cref="!:FileBody.HiddenWiresLayerName" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsHiddenSegmentsLineTypeName">
+      <summary>
+            See <see cref="!:FileBody.HiddenSegmentsLineTypeName" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsSheets">
+      <summary>
+            See <see cref="!:FileBody.Sheets" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsBlocks">
+      <summary>
+            See <see cref="P:devDept.Serialization.FileBody.Blocks" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsLayers">
+      <summary>
+            See <see cref="P:devDept.Serialization.FileBody.Layers" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsLineTypes">
+      <summary>
+            See <see cref="P:devDept.Serialization.FileBody.LineTypes" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBodySurrogate.DrawingsTextStyles">
+      <summary>
+            See <see cref="P:devDept.Serialization.FileBody.TextStyles" />.
+            </summary>
+    </member>
     <member name="M:devDept.Serialization.FileBodySurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
@@ -43476,6 +43965,11 @@
             See <see cref="P:devDept.Serialization.FileHeader.Thumbnail" />.
             </summary>
     </member>
+    <member name="P:devDept.Serialization.FileHeaderSurrogate.FileName">
+      <summary>
+            See <see cref="P:devDept.Serialization.FileHeader.FileName" />.
+            </summary>
+    </member>
     <member name="M:devDept.Serialization.FileHeaderSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
@@ -43499,20 +43993,9 @@
     </member>
     <member name="M:devDept.Serialization.FileBody.#ctor(devDept.Eyeshot.Translators.WriteFileParams)">
       <summary>
-            Constructor with the <see cref="T:devDept.Eyeshot.Translators.WriteFileParams" />.
+            Standard constructor.
             </summary>
       <param name="writeParams">The params data.</param>
-    </member>
-    <member name="M:devDept.Serialization.FileBody.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Eyeshot.Camera)">
-      <summary>
-            Constructor with the collections
-            </summary>
-      <param name="entities">The entities collection.</param>
-      <param name="layers">The layers collection.</param>
-      <param name="blocks">The blocks collection.</param>
-      <param name="materials">The materials collection.</param>
-      <param name="textStyles">The text styles collection.</param>
-      <param name="lineTypes">The line types collection.</param>
     </member>
     <member name="P:devDept.Serialization.FileBody.Entities">
       <summary>
@@ -43531,17 +44014,82 @@
     </member>
     <member name="P:devDept.Serialization.FileBody.Materials">
       <summary>
-            The materials collection.
+            Gets or sets the materials collection.
             </summary>
     </member>
     <member name="P:devDept.Serialization.FileBody.LineTypes">
       <summary>
-            The line types collection.
+            Gets or sets the line types collection.
             </summary>
     </member>
     <member name="P:devDept.Serialization.FileBody.TextStyles">
       <summary>
-            The text styles collection.
+            Gets or sets the text styles collection.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.Camera">
+      <summary>
+            Gets or sets the Camera to store.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsSilhouettesLayerName">
+      <summary>
+            Gets or sets the drawings silhouettes layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsEdgesLayerName">
+      <summary>
+            Gets or sets the drawings edges layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsWiresLayerName">
+      <summary>
+            Gets or sets the drawings wires layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsHiddenSilhouettesLayerName">
+      <summary>
+            Gets or sets the drawings hidden silhouettes layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsHiddenEdgesLayerName">
+      <summary>
+            Gets or sets the drawings hidden edges layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsHiddenWiresLayerName">
+      <summary>
+            Gets or sets the drawings hidden wires layer name.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsHiddenSegmentsLineTypeName">
+      <summary>
+            Gets or sets the drawings hidden segments linetype name.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsSheets">
+      <summary>
+            Gets or sets the drawings sheet collection.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsBlocks">
+      <summary>
+            Gets or sets the drawings block collection.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsLayers">
+      <summary>
+            Gets or sets the drawings layers collection.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsLineTypes">
+      <summary>
+            Gets or sets the drawings line types collection.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileBody.DrawingsTextStyles">
+      <summary>
+            Gets or sets the drawings text styles collection.
             </summary>
     </member>
     <member name="M:devDept.Serialization.FileBody.ConvertToSurrogate">
@@ -43619,6 +44167,11 @@
     <member name="P:devDept.Serialization.FileHeader.Thumbnail">
       <summary>
             Gets the file thumbnail.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.FileHeader.FileName">
+      <summary>
+            Gets the original file name.
             </summary>
     </member>
     <member name="M:devDept.Serialization.FileHeader.ConvertToSurrogate">
@@ -43894,9 +44447,9 @@
             See <see cref="P:devDept.Eyeshot.Entities.Dimension.LinearScale" />.
             </summary>
     </member>
-    <member name="P:devDept.Serialization.DimensionSurrogate.Scale">
+    <member name="P:devDept.Serialization.DimensionSurrogate.ScaleOverall">
       <summary>
-            See <see cref="P:devDept.Eyeshot.Entities.Dimension.Scale" />.
+            See <see cref="P:devDept.Eyeshot.Entities.Dimension.ScaleOverall" />.
             </summary>
     </member>
     <member name="P:devDept.Serialization.DimensionSurrogate.LinearDimensionUnits">
@@ -43951,7 +44504,7 @@
     </member>
     <member name="P:devDept.Serialization.DimensionSurrogate.TextToleranceGap">
       <summary>
-            The Dimension text tolerance gap without the <see cref="P:devDept.Eyeshot.Entities.Dimension.Scale" /> factor.        
+            The Dimension text tolerance gap without the <see cref="!:Dimension.Scale" /> factor.        
             </summary>
     </member>
     <member name="T:devDept.Serialization.EllipseSurrogate">
@@ -47462,6 +48015,208 @@
             Converts the object to the related surrogate during the serialization process.
             </summary>
     </member>
+    <member name="T:devDept.Serialization.RasterViewSurrogate">
+      <summary>
+            Defines the <see cref="!:Eyeshot.Translators.RasterView" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.RasterViewSurrogate.#ctor(devDept.Eyeshot.Entities.RasterView)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.RasterViewSurrogate.Dpi">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.RasterView.Dpi" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.RasterViewSurrogate.DisplayMode">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.RasterView.DisplayMode" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.RasterViewSurrogate.Shadow">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.RasterView.Shadow" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.RasterViewSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="!:RasterView.RasterView(double, double, Camera, double, string)" /> constructor to create the object.               
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.SheetSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Sheet" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.SheetSurrogate.#ctor(devDept.Eyeshot.Sheet)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.SheetSurrogate.Units">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Sheet.Units" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.SheetSurrogate.Width">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Sheet.Width" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.SheetSurrogate.Height">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Sheet.Height" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.SheetSurrogate.Name">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Sheet.Name" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.SheetSurrogate.Scale">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Sheet.Scale" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.SheetSurrogate.Camera">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Sheet.Camera" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.SheetSurrogate.Entities">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Sheet.Entities" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.SheetSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="M:devDept.Eyeshot.Sheet.#ctor(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String,System.Double)" /> constructor to create the object.        
+             </remarks>
+    </member>
+    <member name="M:devDept.Serialization.SheetSurrogate.op_Implicit(devDept.Serialization.SheetSurrogate)~devDept.Eyeshot.Sheet">
+      <summary>
+            Converts the surrogate to the related object during the deserialization process.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.SheetSurrogate.op_Implicit(devDept.Eyeshot.Sheet)~devDept.Serialization.SheetSurrogate">
+      <summary>
+            Converts the object to the related surrogate during the serialization process.
+            </summary>
+    </member>
+    <member name="T:devDept.Serialization.VectorViewSurrogate">
+      <summary>
+            Defines the <see cref="!:Eyeshot.Translators.VectorView" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.VectorViewSurrogate.#ctor(devDept.Eyeshot.Entities.VectorView)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.VectorViewSurrogate.HiddenSegments">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.VectorView.HiddenSegments" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.VectorViewSurrogate.IgnoreTransparency">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.VectorView.IgnoreTransparency" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.VectorViewSurrogate.FillTexts">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.VectorView.FillTexts" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.VectorViewSurrogate.FontAccuracy">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.VectorView.FontAccuracy" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.VectorViewSurrogate.FillRegions">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.VectorView.FillRegions" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.VectorViewSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="!:VectorView.VectorView(double, double, Camera, double, string)" /> constructor to create the object.               
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.ViewSurrogate">
+      <summary>
+            Defines the <see cref="!:Eyeshot.Translators.View" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.ViewSurrogate.#ctor(devDept.Eyeshot.Entities.View)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.X">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.View.X" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.Y">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.View.Y" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.Camera">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.View.Camera" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.ViewType">
+      <summary>
+            The view type for the standard views.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.Scale">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.View.Scale" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.Width">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.View.Width" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.Height">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.View.Height" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.Window">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.View.Window" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.WindowCenter">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.View.WindowCenter" />.
+            </summary>
+    </member>
+    <member name="P:devDept.Serialization.ViewSurrogate.Dirty">
+      <summary>
+            See <see cref="F:devDept.Eyeshot.Entities.View.Dirty" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.ViewSurrogate.ConvertToObject">
+      <inheritdoc />
+    </member>
+    <member name="M:devDept.Serialization.ViewSurrogate.CopyDataToObject(devDept.Eyeshot.Entities.Entity)">
+      <inheritdoc />
+    </member>
+    <member name="M:devDept.Serialization.ViewSurrogate.CopyDataFromObject(devDept.Eyeshot.Entities.Entity)">
+      <inheritdoc />
+    </member>
     <member name="T:devDept.Geometry.OrientedBoundingRect">
       <summary>
             Oriented Bounding Box definition.
@@ -48058,6 +48813,14 @@
             Contains a collection of utility methods and constants for internal use.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetMaxGap(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
+      <summary>
+            Computes the maximum gap between curve segments.Assumes sorted and oriented segments.
+            </summary>
+      <param name="segments">The list of curve segments</param>
+      <param name="closed">When true, we need to check gap between end and start segments as well.</param>
+      <returns>The maximum gap between curve segments.</returns>
+    </member>
     <member name="M:devDept.Geometry.UtilityEx.SmartAdd(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
       <summary>
             Returns a CompositeCurve if the number of curves is bigger than one.
@@ -48464,6 +49227,27 @@
       <summary>
             The line weight is treated as pixels
             </summary>
+    </member>
+    <member name="T:devDept.Geometry.PointExtender">
+      <summary>Point3D Extender.</summary>
+    </member>
+    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Eyeshot.Entities.ICurve,System.Double)">
+      <summary>
+            Checks if the point is on the specified ICurve.
+            </summary>
+      <param name="curve">The curve to test</param>
+      <param name="maxGap">The maximum accepted distance to consider the point on the curve</param>
+      <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@,System.Double@)">
+      <summary>
+            Checks if the point is on the specified ICurve.
+            </summary>
+      <param name="curve">The curve to test</param>
+      <param name="maxGap">The maximum accepted distance to consider the point on the curve</param>
+      <param name="closestPt">Outputs the closest point on the curve</param>
+      <param name="closestParam">Outputs the parameter along the curve corresponding to the closest point</param>
+      <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
     </member>
     <member name="T:devDept.Geometry.InterPoint">
       <summary>
