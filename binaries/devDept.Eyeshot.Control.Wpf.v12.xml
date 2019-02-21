@@ -1758,12 +1758,14 @@
     <member name="M:devDept.Eyeshot.SheetKeyedCollection.#ctor(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Sheet})">
       <inheritdoc />
     </member>
-    <member name="M:devDept.Eyeshot.SheetKeyedCollection.Add(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String,System.Double)">
+    <member name="M:devDept.Eyeshot.SheetKeyedCollection.Add(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String)">
       <summary>
             Adds a new sheet definition.
             </summary>
-      <param name="name">The sheet name.</param>
-      <param name="texture">The sheet format.</param>
+      <param name="units">The measurement system type for the sheet.</param>
+      <param name="width">The sheet width.</param>
+      <param name="height">The sheet height.</param>
+      <param name="name">The name of the sheet.</param>
       <returns>The new sheet.</returns>
     </member>
     <member name="M:devDept.Eyeshot.SheetKeyedCollection.AreEntitiesWith(System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
@@ -1773,7 +1775,7 @@
       <summary>
             Drawings control definition.
             </summary>
-      <remarks>The line weight factor set to the entities or to the layers are always considered as millimetres. Use the <see cref="P:devDept.Eyeshot.Drawings.LineWeightFactor" /> to change the scale factor used to display the entities line weight.</remarks>
+      <remarks>The line weight factor set to the entities or to the layers are always considered as millimeters. Use the <see cref="P:devDept.Eyeshot.Drawings.LineWeightFactor" /> to change the scale factor used to display the entities line weight.</remarks>
       <seealso cref="P:devDept.Eyeshot.Drawings.LineWeightFactor" />
       <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineWeight" />
       <seealso cref="P:devDept.Eyeshot.Layer.LineWeight" />
@@ -2084,7 +2086,7 @@
             </summary>
       <returns>An array of entities representing the logo.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Sheet.#ctor(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String,System.Double)">
+    <member name="M:devDept.Eyeshot.Sheet.#ctor(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String)">
       <summary>
             Standard constructor.
             </summary>
@@ -2092,7 +2094,6 @@
       <param name="width">The sheet width.</param>
       <param name="height">The sheet height.</param>
       <param name="name">The name of the sheet.</param>
-      <param name="scaleFactor">The scale factor between the model and the drawing.</param>
     </member>
     <member name="P:devDept.Eyeshot.Sheet.Width">
       <summary>
@@ -2103,12 +2104,6 @@
       <summary>
             Gets or sets sheet height.
             </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Sheet.Scale">
-      <summary>
-            Gets or sets the scale factor between the model and the drawing.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Sheet.Units" />
     </member>
     <member name="P:devDept.Eyeshot.Sheet.Units">
       <summary>
@@ -48078,7 +48073,7 @@
     </member>
     <member name="P:devDept.Serialization.SheetSurrogate.Scale">
       <summary>
-            See <see cref="P:devDept.Eyeshot.Sheet.Scale" />.
+            See <see cref="!:Sheet.Scale" />.
             </summary>
     </member>
     <member name="P:devDept.Serialization.SheetSurrogate.Camera">
@@ -48094,7 +48089,7 @@
     <member name="M:devDept.Serialization.SheetSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Sheet.#ctor(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String,System.Double)" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Sheet.#ctor(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="M:devDept.Serialization.SheetSurrogate.op_Implicit(devDept.Serialization.SheetSurrogate)~devDept.Eyeshot.Sheet">
