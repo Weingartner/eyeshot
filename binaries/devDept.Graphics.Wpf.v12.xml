@@ -3997,6 +3997,11 @@
             For internal use only. Gets the instance id for the logging.
             </summary>
     </member>
+    <member name="P:devDept.Graphics.ControlData.DefaultMaterialShaded">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
     <member name="M:devDept.Graphics.ControlData.ResetDefaultMaterial">
       <summary>
             Resets the default material.
@@ -4539,6 +4544,39 @@
             </summary>
       <param name="name">The material name.</param>
       <param name="ambient">Material ambient intensity</param>
+      <param name="specular">Material specular intensity</param>
+      <param name="shininess">Material shininess factor (0-1)</param>
+      <param name="environment">Material environment intensity</param>
+      <param name="texture">Material texture image</param>
+    </member>
+    <member name="M:devDept.Graphics.Material.#ctor(System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Single)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="name">The material name.</param>
+      <param name="ambient">Material ambient intensity</param>
+      <param name="diffuse">Material diffuse intensity</param>
+      <param name="specular">Material specular intensity</param>
+      <param name="shininess">Material shininess factor (0-1)</param>
+    </member>
+    <member name="M:devDept.Graphics.Material.#ctor(System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Single,System.Single)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="name">The material name.</param>
+      <param name="ambient">Material ambient intensity</param>
+      <param name="diffuse">Material diffuse intensity</param>
+      <param name="specular">Material specular intensity</param>
+      <param name="shininess">Material shininess factor (0-1)</param>
+      <param name="environment">Material environment intensity</param>
+    </member>
+    <member name="M:devDept.Graphics.Material.#ctor(System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Single,System.Single,System.Drawing.Image)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="name">The material name.</param>
+      <param name="ambient">Material ambient intensity</param>
+      <param name="diffuse">Material diffuse intensity</param>
       <param name="specular">Material specular intensity</param>
       <param name="shininess">Material shininess factor (0-1)</param>
       <param name="environment">Material environment intensity</param>

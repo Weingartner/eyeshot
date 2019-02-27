@@ -2946,7 +2946,7 @@
             Offsets the region of the specified amount.
             </summary>
       <param name="amount">Signed offset amount</param>
-      <param name="tolerance">Tolereance</param>
+      <param name="tolerance">Tolerance</param>
       <param name="sharp">If false, offset curves are connected with an arc.</param>
       <returns>The offset curves of the region contours.</returns>
     </member>
@@ -3887,7 +3887,7 @@
     </member>
     <member name="T:devDept.Eyeshot.Entities.RoundedRectangleShapedRegion">
       <summary>
-            Utility class to build a reounded rectangle shaped region.
+            Utility class to build a rounded rectangle shaped region.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.RoundedRectangleShapedRegion.#ctor">
@@ -8342,7 +8342,12 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.ControlLength">
       <summary>
-            Gets the length of the curve's control net.
+            Gets the length of the curve's control polygon.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Curve.ControlLengthSquared">
+      <summary>
+            Gets the squared length of the curve's control polygon.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
@@ -8435,7 +8440,7 @@
     </member>
     <member name="F:devDept.Eyeshot.Entities.NurbsBase.geometricalAttributesDirty">
       <summary>
-            When true, geometrical attributes neeed to be updated.
+            When true, geometrical attributes need to be updated.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Entities.NurbsBase.ShowControl">
@@ -9161,6 +9166,13 @@
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.MoreOfTwoSegmentsIncidentOnTheSameEndpoint(System.Double)">
+      <summary>
+            Check if the curve have more of two segments incident on the same endpoint.
+            </summary>
+      <param name="equalTol">3D points comparison tolerance</param>
+      <returns>True when more of two curve segments are incident on the same endpoint, false otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.CreateRectangle(System.Double,System.Double,System.Boolean)">
       <summary>
@@ -23303,6 +23315,28 @@
           </item>
         </list>
       </remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.Translators.WriteComputingObjects">
+      <summary>
+            Utility class for writing <see cref="T:devDept.Eyeshot.Entities.FemMesh" /> objects for Computing Objects (https://www.computing-objects.com/) meshers.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.WriteComputingObjects.SupportedLinearUnitsType">
+      <summary>
+            Gets the supported linear units
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteComputingObjects.#ctor(devDept.Eyeshot.Translators.WriteParamsWithMaterials,System.String)">
+      <summary>
+            File name constructor.
+            </summary>
+      <param name="fileName">The file name</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteComputingObjects.#ctor(devDept.Eyeshot.Translators.WriteParamsWithMaterials,System.IO.Stream)">
+      <summary>
+            Stream constructor.
+            </summary>
+      <param name="stream">The file stream</param>
     </member>
     <member name="T:devDept.Eyeshot.Translators.ReadMedit">
       <summary>
@@ -40794,6 +40828,17 @@
       <remarks>if <see cref="P:devDept.Eyeshot.EnvironmentBase.Renderer" /> is <see cref="F:devDept.Eyeshot.rendererType.Native" /> and the parent background color is null or is not a SolidColorBrush, it returns a transparent color.
             If the <see cref="P:devDept.Eyeshot.EnvironmentBase.Renderer" /> is not <see cref="F:devDept.Eyeshot.rendererType.Native" />, it goes up the hierarchy until it finds a valid background color.</remarks>
     </member>
+    <member name="M:devDept.Eyeshot.EnvironmentBase.Refresh">
+      <summary>
+            Forces the control to invalidate its client area and immediately redraw itself and any child controls.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.EnvironmentBase.Invalidate">
+      <summary>
+            Invalidates the entire surface of the control and causes the control to be redrawn.
+            </summary>
+      <remarks>Beware when the <see cref="P:devDept.Eyeshot.EnvironmentBase.Renderer" /> is set to <see cref="F:devDept.Eyeshot.rendererType.NativeExperimental" /> the <see cref="M:devDept.Eyeshot.EnvironmentBase.Refresh" />() method is called internally.</remarks>
+    </member>
     <member name="E:devDept.Eyeshot.EnvironmentBase.InitializeScene">
       <summary>
             Occurs when the control is shown for the first time.
@@ -42979,7 +43024,7 @@
             Scaling on one of the three manipulator axes
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.ObjectManipulator.actionType.UnfiromScale">
+    <member name="F:devDept.Eyeshot.ObjectManipulator.actionType.UniformScale">
       <summary>
             Uniform scaling
             </summary>
@@ -48837,11 +48882,6 @@
             If you get wrong display results or artifacts, you can use this method to check out shared elements.
             </remarks>
     </member>
-    <member name="M:devDept.Geometry.UtilityEx.IsDefinedAtRuntime">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
     <member name="M:devDept.Geometry.UtilityEx.GetCpuCount(System.Int32,System.Int32[]@,System.Int32[]@)">
       <summary>
             Gets the number of logical processors.
@@ -48927,10 +48967,8 @@
       <summary>
             Chains curves using the minimum distance between individual curve ends keeping the first curve first.
             </summary>
-      <param name="curveList">
-      </param>
-      <param name="reverseVertices">
-      </param>
+      <param name="curveList">The list of curves</param>
+      <param name="reverseVertices">If vertices are present and the curve needs to be reversed the vertices array is reversed as well</param>
       <param name="assumeClosed">In case you already know that the contour is/has to be closed.</param>
       <param name="closureTol">Use zero if you know that the contour is/has to be closed</param>
     </member>
