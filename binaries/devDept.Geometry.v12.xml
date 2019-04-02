@@ -2499,13 +2499,12 @@
       <param name="matrix">The matrix</param>
       <returns>The matrix determinant.</returns>
     </member>
-    <member name="M:devDept.Geometry.Matrix.Inverse4(System.Double[0:,0:],System.Double[0:,0:]@)">
+    <member name="M:devDept.Geometry.Matrix.Inverse4(System.Double[0:,0:])">
       <summary>
             Computes the inverse of a 4x4 matrix.
             </summary>
       <param name="matrix">The matrix</param>
-      <param name="inverse">The inverse matrix</param>
-      <returns>True if the operation succeeded, false otherwise.</returns>
+      <returns>The inverse matrix.</returns>
     </member>
     <member name="T:devDept.Geometry.planeIntersectionType">
       <summary>
@@ -4449,7 +4448,6 @@
       <summary>
             Inverts the 4x4 matrix.
             </summary>
-      <returns>True if matrix is non-singular, false otherwise.</returns>
     </member>
     <member name="M:devDept.Geometry.Transformation.Rotation(System.Double,devDept.Geometry.Vector3D)">
       <summary>
@@ -4618,6 +4616,18 @@
       <param name="Y1">Final frame Y</param>
       <param name="Z1">Final frame Z</param>
       <returns>True if the operation succeeded, false otherwise.</returns>
+    </member>
+    <member name="P:devDept.Geometry.Transformation.IsTranslation">
+      <summary>
+            Checks if the transformation is translation only.
+            </summary>
+      <returns>True if the transformation is translation only, false otherwise.</returns>
+    </member>
+    <member name="P:devDept.Geometry.Transformation.IsScaled">
+      <summary>
+            Checks if the transformation contains scaling.
+            </summary>
+      <returns>True if the transformation contains scaling, false otherwise.</returns>
     </member>
     <member name="P:devDept.Geometry.Transformation.Matrix">
       <summary>
