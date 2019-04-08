@@ -317,6 +317,13 @@
             Base class for Direct3D textures.
             </summary>
     </member>
+    <member name="M:devDept.Graphics.D3DTextureBase.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="F:devDept.Graphics.D3DTextureBase.sampler">
       <summary>
             The texture sampler. It's the index to the textureSamples list of RenderContext.
@@ -327,6 +334,13 @@
             Base class for Direct3D textures.
             </summary>
       <remarks>For internal use only.</remarks>
+    </member>
+    <member name="M:devDept.Graphics.D3DTexture.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="M:devDept.Graphics.D3DTexture.UpdateRegion(devDept.Graphics.RenderContextBase,System.Drawing.Bitmap,System.Int32,System.Int32)">
       <summary>
@@ -355,6 +369,13 @@
       <param name="repeatY">If true, the texture is repeated in the Y direction</param>
       <returns>
       </returns>
+    </member>
+    <member name="M:devDept.Graphics.D3DTexture2D.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Graphics.D3DTextureDepth">
       <summary>

@@ -31558,12 +31558,26 @@
       <summary>Occurs every timer tick. Call base class method when overriding.</summary>
     </member>
     <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Environment.PageSetup(System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Drawing.Printing.PaperSize,System.Nullable{System.Boolean})" -->
+    <member name="M:devDept.Eyeshot.Environment.SetPrinterSettings(System.Drawing.Printing.PrinterSettings,System.Boolean)">
+      <summary>
+            Set the printer settings.
+            </summary>
+      <param name="printerSettings">The printer settings.</param>
+      <param name="showDialog">When true the print dialog is shown before printing, otherwise no.</param>
+      <remarks>If you also need to use the PageSetup() method, then this method should be called first.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Environment.PageSetup(System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Drawing.Printing.PaperSize,System.Nullable{System.Boolean})" />
+      <seealso cref="M:devDept.Eyeshot.Environment.Print(System.Boolean)">
+      </seealso>
+      <seealso cref="M:devDept.Eyeshot.Environment.PrintPreview(System.Drawing.Size,System.Boolean)">
+      </seealso>
+    </member>
     <member name="M:devDept.Eyeshot.Environment.PrintPreview(System.Drawing.Size,System.Boolean)">
       <param name="extents">If true fits the model on view, else captures the whole viewport</param>
       <remarks>For more options use the <see cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" /> class directly.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Environment.Print(System.Boolean)">
-      </seealso>
+      <seealso cref="M:devDept.Eyeshot.Environment.SetPrinterSettings(System.Drawing.Printing.PrinterSettings,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.Environment.PageSetup(System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Drawing.Printing.PaperSize,System.Nullable{System.Boolean})">
+      </seealso>
+      <seealso cref="M:devDept.Eyeshot.Environment.Print(System.Boolean)">
       </seealso>
       <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" />
       <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" />
@@ -31573,6 +31587,7 @@
       <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>
       <param name="extents">If true fits the model on view, else captures the whole viewport</param>
       <remarks>For more options use the <see cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" /> class directly.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Environment.SetPrinterSettings(System.Drawing.Printing.PrinterSettings,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.Environment.PageSetup(System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Drawing.Printing.PaperSize,System.Nullable{System.Boolean})">
       </seealso>
       <seealso cref="M:devDept.Eyeshot.Environment.PrintPreview(System.Drawing.Size,System.Boolean)">
