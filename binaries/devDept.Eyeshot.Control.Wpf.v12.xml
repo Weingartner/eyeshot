@@ -1004,7 +1004,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.CopyAttributesFast(devDept.Eyeshot.Entities.Entity)">
       <summary>
-            Copies the following attributes to this entity: <see cref="P:devDept.Eyeshot.Entities.Entity.Color" />, <see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="!:Entity.LayerIndex" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.MaterialName" /> attributes.
+            Copies the following attributes to this entity: <see cref="P:devDept.Eyeshot.Entities.Entity.Visible" />, <see cref="P:devDept.Eyeshot.Entities.Entity.InstanceVisibilityInfo" />, <see cref="P:devDept.Eyeshot.Entities.Entity.Color" />, <see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="!:LayerIndex" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.MaterialName" /> attributes.
             </summary>
       <param name="source">The source entity</param>
     </member>
@@ -1133,12 +1133,11 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">
       <summary>
-            Gives a chance to derived classes to change the entity position/rotation at each
-            timer tick. For maximum performances transformation of entity's visual representation
-            only is recommended (using gl.Translate() or gl.Rotate() commands).
+            Gives a chance to derived classes to change the entity position/rotation at each timer tick.
             </summary>
-      <seealso cref="!:Environment.StartAnimation(int)">StartAnimation Method (devDept.Eyeshot.Viewport)</seealso>
-      <seealso cref="!:Environment.StopAnimation">StopAnimation Method (devDept.Eyeshot.Viewport)</seealso>
+      <remarks>This method is executed in a background thread because the timer used to run animation is a <see cref="T:System.Threading.Timer">System.Threading.Timer</see></remarks>
+      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method (devDept.Eyeshot.Model)</seealso>
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method (devDept.Eyeshot.Model)</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.UpdateBoundingBox(devDept.Eyeshot.TraversalParams)">
       <summary>
@@ -2475,6 +2474,7 @@
             Converts this region to a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.
             </summary>
       <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="meshNature">The desired Mesh nature.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Region.ConvertToMesh``1(System.Double,devDept.Eyeshot.Entities.Mesh.natureType)">
@@ -2482,6 +2482,7 @@
             Converts this region to a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.
             </summary>
       <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="meshNature">The desired Mesh nature.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Region.ConvertToSolid(System.Double)">
@@ -2519,6 +2520,16 @@
       <param name="methodType">The Sweep method</param>
       <returns>The resulting Brep object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Region.SweepAsBrep(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType)">
+      <summary>
+            Creates a Brep by sweeping the region along a rail.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tol">The trim tolerance</param>
+      <param name="methodType">The Sweep method</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <returns>The resulting Brep object.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Region.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
       <summary>
             Creates a mesh by sweeping the region along a rail.
@@ -2535,6 +2546,28 @@
             </summary>
       <param name="rail">The rail curve</param>
       <param name="tol">The trim tolerance</param>
+      <param name="methodType">The Sweep method</param>
+      <param name="natureType">The desired mesh nature</param>
+      <returns>The resulting mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Region.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the region along a rail.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tol">The trim tolerance</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <param name="methodType">The Sweep method</param>
+      <param name="natureType">The desired mesh nature</param>
+      <returns>The resulting mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Region.SweepAsMesh``1(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the region along a rail.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tol">The trim tolerance</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
       <param name="methodType">The Sweep method</param>
       <param name="natureType">The desired mesh nature</param>
       <returns>The resulting mesh object.</returns>
@@ -2853,6 +2886,30 @@
             </summary>
       <param name="rail">The rail curve</param>
       <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Region.SweepAsSolid(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this region along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="merge">
+      </param>
+      <param name="sweepMethod">
+      </param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Region.SweepAsSolid``1(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this region along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="merge">
+      </param>
+      <param name="sweepMethod">
+      </param>
       <returns>The resulting Solid object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Region.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Eyeshot.Entities.Mesh.natureType)">
@@ -3848,8 +3905,34 @@
     </member>
     <member name="T:devDept.Eyeshot.Entities.Brep">
       <summary>
-            BRep solid entity definition.
-            </summary>
+        <para>BRep solid entity definition. A manifold solid B-rep is a finite, arcwise
+            connected volume bounded by one or more surfaces, each of which is a connected,
+            oriented, finite, closed 2-manifold. There is no restriction on the genus of the
+            volume, nor on the number of voids within the volume.</para>
+        <para>The Boundary Representation (B-rep) of a manifold solid utilizes a graph
+            of edges and vertices embedded in a connected, oriented, finite, closed two
+            manifold surface. The embedded graph divides the surface into arcwise connected
+            areas known as faces. The edges and vertices, therefore, form the boundaries of
+            the face and the domain of a face does not include its boundaries. The embedded
+            graph may be disconnected and may be a pseudo graph. The graph is labeled; that
+            is, each entity in the graph has a unique identity. The geometric surface
+            definition used to specify the geometry of a face shall be 2-manifold embeddable
+            in the plane within the domain of the face. In other words, it shall be
+            connected, oriented, finite, non-self-intersecting, and of surface genus
+            0.</para>
+        <para>Faces do not intersect except along their boundaries. Each edge along the
+            boundary of a face is shared by at most one other face in the assemblage. The
+            assemblage of edges in the B-rep do not intersect except at their boundaries
+            (i.e., vertices). The geometry curve definition used to specify the geometry of
+            an edge shall be arcwise connected and shall not self intersect or overlap
+            within the domain of the edge. The geometry of an edge shall be consistent with
+            the geometry of the faces of which it forms a partial bound. The geometry used
+            to define a vertex shall be consistent with the geometry of the faces and edges
+            of which it forms a partial bound.</para>
+        <para>A B-rep is represented by one or more closed shells which shall be
+            disjoint. One shell, the outer, shall completely enclose all the other shells
+            and no other shell may enclose a shell. </para>
+      </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemove(devDept.Eyeshot.Entities.Region,System.Double)">
       <summary>
@@ -4704,7 +4787,7 @@
     </member>
     <member name="F:devDept.Eyeshot.Entities.Brep.silhouettesDrawingType.SkipInwardPrimitives">
       <summary>
-            Avoid processing primitive (Planar, Cylindrical, Conical, Spherical, Toroidal) faces inward oriented (like cylindrical holes). Suitable for opaque objects.
+            Avoids processing all planar faces and primitive faces of revolution (Cylindrical, Conical, Spherical, Toroidal) with <see cref="F:devDept.Eyeshot.Entities.Brep.Face.Sense" /> set as false (like cylindrical holes). Suitable for opaque objects.
             </summary>
       <remarks>The silhouettes are drawn with the same thickness as the edges.</remarks>
     </member>
@@ -5194,10 +5277,77 @@
       <param name="rebuildTol">The regeneration tolerance</param>
       <returns>The resulting Brep if the operation succeeds, null/Nothing otherwise.</returns>
     </member>
+    <member name="T:devDept.Eyeshot.Entities.Brep.booleanOperationType">
+      <summary>
+            Boolean operation type.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Brep.RebuildTolerance">
       <summary>
             Gets or sets the rebuild tolerance used by Brep section, cut and boolean operations.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Difference(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Compute the difference of the solidA with the solidB.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method</seealso>
+      <param name="solidB">
+      </param>
+      <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Intersection(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+             Compute the Intersection of the solidA with the solidB. 
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method</seealso>
+      <param name="solidA">
+      </param>
+      <param name="solidB">
+      </param>
+      <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Union(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+             Compute the Union of the solidA with the solidB.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method</seealso>
+      <param name="solidA">
+      </param>
+      <param name="solidB">
+      </param>
+      <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Mirror(System.Int32,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Create a mirror entity from the input Brep by the plane provided.
+            </summary>
+      <param name="planarFaceIndex">The face index of the Brep in input needed to get the mirror plane</param>
+      <param name="solid">The Brep entity to mirror</param>
+      <returns> The resulting Brep union between the original input Brep and the mirrored one.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Mirror(devDept.Eyeshot.Entities.Brep.Face,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Create a mirror entity from the input Brep by the plane provided.
+            </summary>
+      <param name="planarFace">The face of the Brep in input to use to get the mirror plane</param>
+      <param name="solid">The Brep entity to mirror</param>
+      <returns> The resulting Brep union between the original input Brep and the mirrored one.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Mirror(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Create a mirror entity from the input Brep by the provided plane.
+            </summary>
+      <param name="mirrorPlane">The plane to use to mirror the entity</param>
+      <param name="solid">The Brep entity to mirror</param>
+      <returns> The resulting Brep union between the original input Brep and the mirrored one.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.MergeFaces">
+      <summary>
+            Merges coplanar faces when possible.
+            </summary>
+      <remarks>Rebuild() method could be necessary before to call this.</remarks>
+      <returns>then number of the removed faces after merge. -1 if an error occured.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.SplitBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Brep[]@,devDept.Eyeshot.Entities.Brep[]@)">
       <summary>
@@ -5282,72 +5432,12 @@
       <remarks>The resulting Brep can't be used to perform Boolean operations.</remarks>
       <remarks>The usage of SubdivideBy is suggested at the end of the model construction, for example to perform FEM analysis.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Difference(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep)">
+    <member name="M:devDept.Eyeshot.Entities.Brep.IsPointInside(devDept.Geometry.Point3D)">
       <summary>
-            Compute the difference of the solidA with the solidB.
+            Checks if the specified point is inside the Brep.
             </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method</seealso>
-      <param name="solidB">
-      </param>
-      <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Intersection(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep)">
-      <summary>
-             Compute the Intersection of the solidA with the solidB. 
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method</seealso>
-      <param name="solidA">
-      </param>
-      <param name="solidB">
-      </param>
-      <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Union(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep)">
-      <summary>
-             Compute the Union of the solidA with the solidB.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method</seealso>
-      <param name="solidA">
-      </param>
-      <param name="solidB">
-      </param>
-      <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Mirror(System.Int32,devDept.Eyeshot.Entities.Brep)">
-      <summary>
-            Create a mirror entity from the input Brep by the plane provided.
-            </summary>
-      <param name="planarFaceIndex">The face index of the Brep in input needed to get the mirror plane</param>
-      <param name="solid">The Brep entity to mirror</param>
-      <returns> The resulting Brep union between the original input Brep and the mirrored one.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Mirror(devDept.Eyeshot.Entities.Brep.Face,devDept.Eyeshot.Entities.Brep)">
-      <summary>
-            Create a mirror entity from the input Brep by the plane provided.
-            </summary>
-      <param name="planarFace">The face of the Brep in input to use to get the mirror plane</param>
-      <param name="solid">The Brep entity to mirror</param>
-      <returns> The resulting Brep union between the original input Brep and the mirrored one.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Mirror(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Brep)">
-      <summary>
-            Create a mirror entity from the input Brep by the provided plane.
-            </summary>
-      <param name="mirrorPlane">The plane to use to mirror the entity</param>
-      <param name="solid">The Brep entity to mirror</param>
-      <returns> The resulting Brep union between the original input Brep and the mirrored one.</returns>
-    </member>
-    <member name="T:devDept.Eyeshot.Entities.Brep.booleanOperationType">
-      <summary>
-            Boolean operation type.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.MergeFaces">
-      <summary>
-            Merges coplanar faces when possible.
-            </summary>
-      <remarks>Rebuild() method could be necessary before to call this.</remarks>
-      <returns>then number of the removed faces after merge. -1 if an error occured.</returns>
+      <param name="point">The 3D point</param>
+      <returns>True if the 3D point is inside the Brep, false otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Section(devDept.Geometry.Plane,System.Double)">
       <summary>
@@ -5386,13 +5476,7 @@
       <param name="intCurves">The resulting intersection curves as a list of CompositeCurve</param>
       <returns> Result of the intersection.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.IsPointInside(devDept.Geometry.Point3D)">
-      <summary>
-            Checks if the specified point is inside the Brep.
-            </summary>
-      <param name="point">The 3D point</param>
-      <returns>True if the 3D point is inside the Brep, false otherwise.</returns>
-    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Entities.Brep.PairEdges(devDept.Eyeshot.Entities.Brep.Face,devDept.Eyeshot.Entities.Brep.Face,System.Double,System.Collections.Generic.Dictionary{System.Int32,System.Int32}@,System.Boolean)" -->
     <member name="T:devDept.Eyeshot.Entities.KnotVectorExtender">
       <summary>Knot vector definition.</summary>
     </member>
@@ -11291,15 +11375,82 @@
       <param name="height">Rectangle height</param>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Mesh">
+      <summary>
+        <para>A triangle mesh is a type of polygon mesh in computer graphics. It
+            comprises a set of triangles (typically in three dimensions) that are connected
+            by their common edges or corners. </para>
+        <para>Depending on the types of vertices and triangles, it can assume different
+            configurations, see table below.</para>
+        <list type="table">
+          <item>
+            <term>Triangles type / Vertices type</term>
+            <description>
+              <see cref="T:devDept.Geometry.Point3D" />
+            </description>
+            <description>
+              <see cref="T:devDept.Geometry.PointRGB" />
+            </description>
+          </item>
+          <item>
+            <term>
+              <see cref="T:devDept.Geometry.IndexTriangle" />
+            </term>
+            <description>Plain<sup>1</sup></description>
+            <description>MulticolorPlain</description>
+          </item>
+          <item>
+            <term>
+              <see cref="T:devDept.Geometry.SmoothTriangle" />
+            </term>
+            <description>Smooth<sup>1</sup></description>
+            <description>MulticolorSmooth</description>
+          </item>
+          <item>
+            <term>
+              <see cref="T:devDept.Geometry.ColorTriangle" />
+            </term>
+            <description>ColorPlain</description>
+            <description>
+            </description>
+          </item>
+          <item>
+            <term>
+              <see cref="T:devDept.Geometry.ColorSmoothTriangle" />
+            </term>
+            <description>ColorSmooth</description>
+            <description>
+            </description>
+          </item>
+          <item>
+            <term>
+              <see cref="T:devDept.Geometry.RichTriangle" />
+            </term>
+            <description>RichPlain</description>
+            <description>
+            </description>
+          </item>
+          <item>
+            <term>
+              <see cref="T:devDept.Geometry.RichSmoothTriangle" />
+            </term>
+            <description>RichSmooth</description>
+            <description>
+            </description>
+          </item>
+        </list>
+        <para>
+          <sup>1</sup> Allows transparency to be used</para>
+      </summary>
       <example>
-             The following code samples demonstrate how to use the different mesh natures.
-             <code lang="CS">
+            The following code samples demonstrate how to use the different mesh natures. 
+            <code lang="C#"><![CDATA[
              using System;
              using System.Collections.Generic;
              using System.Drawing;
              using devDept.Eyeshot;
              using devDept.Eyeshot.Entities;
              using devDept.Geometry;
+             
              namespace MeshSamples
              {
                  internal class Mesh
@@ -11307,14 +11458,14 @@
                      private static int rows = 8;
                      private static int cols = 8;
                      private static double scale = 4;
-                     
+             
                      public static void Plain(Model model)
                      {
-                         List&lt;Point3D&gt; vertices = new List&lt;Point3D&gt;(rows * cols);
+                         List<Point3D> vertices = new List<Point3D>(rows * cols);
                          Mesh surface = new Mesh();
                          surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged;
-                         for (int j = 0; j &lt; rows; j++)
-                             for (int i = 0; i &lt; cols; i++)
+                         for (int j = 0; j < rows; j++)
+                             for (int i = 0; i < cols; i++)
                              {
                                  double x = -i / 5.0 - 2;
                                  double y = -j / 5.0 - 2;
@@ -11324,9 +11475,9 @@
                                      f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
                                  vertices.Add(new Point3D(x, y, f));
                              }
-                         List&lt;IndexTriangle&gt; triangles = new List&lt;IndexTriangle&gt;((rows - 1) * (cols - 1) * 2);
-                         for (int j = 0; j &lt; (rows - 1); j++)
-                             for (int i = 0; i &lt; (cols - 1); i++)
+                         List<IndexTriangle> triangles = new List<IndexTriangle>((rows - 1) * (cols - 1) * 2);
+                         for (int j = 0; j < (rows - 1); j++)
+                             for (int i = 0; i < (cols - 1); i++)
                              {
                                  triangles.Add(new IndexTriangle(i + j * cols,
                                                                  i + j * cols + 1,
@@ -11339,13 +11490,13 @@
                          surface.Triangles = triangles.ToArray();
                          model.Entities.Add(surface, 0, Color.Green);
                      }
-                 
+             
                      public static void ColoredPlain(Model model)
                      {
-                         List&lt;Point3D&gt; vertices = new List&lt;Point3D&gt;(rows*cols);
+                         List<Point3D> vertices = new List<Point3D>(rows*cols);
                          Mesh surface = new Mesh();
-                         for (int j = 0; j &lt; rows; j++)
-                             for (int i = 0; i &lt; cols; i++)
+                         for (int j = 0; j < rows; j++)
+                             for (int i = 0; i < cols; i++)
                              {
                                  double x = -i/5.0 - 2;
                                  double y = -j/5.0 - 2;
@@ -11355,18 +11506,18 @@
                                      f = scale*Math.Sin(Math.Sqrt(x*x + y*y))/den;
                                  vertices.Add(new Point3D(x, y, f));
                              }
-                         List&lt;ColorTriangle&gt; triangles = new List&lt;ColorTriangle&gt;((rows - 1)*(cols - 1)*2);
-                         for (int j = 0; j &lt; (rows - 1); j++)
-                             for (int i = 0; i &lt; (cols - 1); i++)
+                         List<ColorTriangle> triangles = new List<ColorTriangle>((rows - 1)*(cols - 1)*2);
+                         for (int j = 0; j < (rows - 1); j++)
+                             for (int i = 0; i < (cols - 1); i++)
                              {
                                  // generates a random color
                                  int red = (int) (255 - i*100);
                                  int green = (int) (255 - j*50);
                                  int blue = 127;
                                  // clamps color values lat 0-255
-                                 Utility.LimitRange&lt;int&gt;(0, ref red, 255);
-                                 Utility.LimitRange&lt;int&gt;(0, ref green, 255);
-                                 Utility.LimitRange&lt;int&gt;(0, ref blue, 255);
+                                 Utility.LimitRange<int>(0, ref red, 255);
+                                 Utility.LimitRange<int>(0, ref green, 255);
+                                 Utility.LimitRange<int>(0, ref blue, 255);
                                  triangles.Add(new ColorTriangle(i + j*cols,
                                                                  i + j*cols + 1,
                                                                  i + (j + 1)*cols + 1, (byte) red, (byte) green, (byte) blue));
@@ -11378,13 +11529,13 @@
                          surface.Triangles = triangles.ToArray();
                          model.Entities.Add(surface, 0);
                      }
-                 
+             
                      public static void MulticolorPlain(Model model)
                      {
-                         List&lt;PointRGB&gt; vertices = new List&lt;PointRGB&gt;(rows * cols);
+                         List<PointRGB> vertices = new List<PointRGB>(rows * cols);
                          Mesh surface = new Mesh();
-                         for (int j = 0; j &lt; rows; j++)
-                             for (int i = 0; i &lt; cols; i++)
+                         for (int j = 0; j < rows; j++)
+                             for (int i = 0; i < cols; i++)
                              {
                                  double x = -i / 5.0 - 2;
                                  double y = -j / 5.0 - 2;
@@ -11397,14 +11548,14 @@
                                  int green = (int)(x * x * 30);
                                  int blue = (int)(255 - f * f * 1000);
                                  // clamps color values lat 0-255
-                                 Utility.LimitRange&lt;int&gt;(0, ref red, 255);
-                                 Utility.LimitRange&lt;int&gt;(0, ref green, 255);
-                                 Utility.LimitRange&lt;int&gt;(0, ref blue, 255);
+                                 Utility.LimitRange<int>(0, ref red, 255);
+                                 Utility.LimitRange<int>(0, ref green, 255);
+                                 Utility.LimitRange<int>(0, ref blue, 255);
                                  vertices.Add(new PointRGB(x, y, f, (byte)red, (byte)green, (byte)blue));
                              }
-                         List&lt;IndexTriangle&gt; triangles = new List&lt;IndexTriangle&gt;((rows - 1) * (cols - 1) * 2);
-                         for (int j = 0; j &lt; (rows - 1); j++)
-                             for (int i = 0; i &lt; (cols - 1); i++)
+                         List<IndexTriangle> triangles = new List<IndexTriangle>((rows - 1) * (cols - 1) * 2);
+                         for (int j = 0; j < (rows - 1); j++)
+                             for (int i = 0; i < (cols - 1); i++)
                              {
                                  triangles.Add(new IndexTriangle(i + j * cols,
                                                                  i + j * cols + 1,
@@ -11417,14 +11568,14 @@
                          surface.Triangles = triangles.ToArray();
                          model.Entities.Add(surface);
                      }
-                 
+             
                      public static void TexturedPlain(Model model)
                      {
-                         List&lt;Point3D&gt; vertices = new List&lt;Point3D&gt;(rows * cols);
-                         List&lt;Point2D&gt; texCoords = new List&lt;Point2D&gt;(rows * cols);
+                         List<Point3D> vertices = new List<Point3D>(rows * cols);
+                         List<Point2D> texCoords = new List<Point2D>(rows * cols);
                          Mesh surface = new Mesh();
-                         for (int j = 0; j &lt; rows; j++)
-                             for (int i = 0; i &lt; cols; i++)
+                         for (int j = 0; j < rows; j++)
+                             for (int i = 0; i < cols; i++)
                              {
                                  double x = -i / 5.0 - 2;
                                  double y = -j / 5.0 - 2;
@@ -11438,9 +11589,9 @@
                          Bitmap bmp = new Bitmap(Properties.Resources.Smiley);
                          Material mat = new Material(bmp);
                          model.Materials.Add("test", mat);
-                         List&lt;RichTriangle&gt; triangles = new List&lt;RichTriangle&gt;((rows - 1) * (cols - 1) * 2);
-                         for (int j = 0; j &lt; (rows - 1); j++)
-                             for (int i = 0; i &lt; (cols - 1); i++)
+                         List<RichTriangle> triangles = new List<RichTriangle>((rows - 1) * (cols - 1) * 2);
+                         for (int j = 0; j < (rows - 1); j++)
+                             for (int i = 0; i < (cols - 1); i++)
                              {
                                  RichTriangle tri = new RichTriangle(i + j * cols,
                                                                      i + j * cols + 1,
@@ -11460,20 +11611,20 @@
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
                          surface.TextureCoords = texCoords.ToArray();
-                 
+             
                          surface.ColorMethod = colorMethodType.byEntity;
                          surface.MaterialName = "test";
-                 
+             
                          model.Entities.Add(surface);
                      }
-                 
+             
                      public static void Smooth(Model model)
                      {
-                         List&lt;Point3D&gt; vertices = new List&lt;Point3D&gt;(rows * cols);
+                         List<Point3D> vertices = new List<Point3D>(rows * cols);
                          Mesh surface = new Mesh();
                          surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged;
-                         for (int j = 0; j &lt; rows; j++)
-                             for (int i = 0; i &lt; cols; i++)
+                         for (int j = 0; j < rows; j++)
+                             for (int i = 0; i < cols; i++)
                              {
                                  double x = -i / 5.0 - 2;
                                  double y = -j / 5.0 - 2;
@@ -11483,9 +11634,9 @@
                                      f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
                                  vertices.Add(new Point3D(x, y, f));
                              }
-                         List&lt;SmoothTriangle&gt; triangles = new List&lt;SmoothTriangle&gt;((rows - 1) * (cols - 1) * 2);
-                         for (int j = 0; j &lt; (rows - 1); j++)
-                             for (int i = 0; i &lt; (cols - 1); i++)
+                         List<SmoothTriangle> triangles = new List<SmoothTriangle>((rows - 1) * (cols - 1) * 2);
+                         for (int j = 0; j < (rows - 1); j++)
+                             for (int i = 0; i < (cols - 1); i++)
                              {
                                  triangles.Add(new SmoothTriangle(i + j * cols,
                                                                   i + j * cols + 1,
@@ -11498,13 +11649,13 @@
                          surface.Triangles = triangles.ToArray();
                          model.Entities.Add(surface, 0, Color.Green);
                      }
-                 
+             
                      public static void ColoredSmooth(Model model)
                      {
-                         List&lt;Point3D&gt; vertices = new List&lt;Point3D&gt;(rows * cols);
+                         List<Point3D> vertices = new List<Point3D>(rows * cols);
                          Mesh surface = new Mesh();
-                         for (int j = 0; j &lt; rows; j++)
-                             for (int i = 0; i &lt; cols; i++)
+                         for (int j = 0; j < rows; j++)
+                             for (int i = 0; i < cols; i++)
                              {
                                  double x = -i / 5.0 - 2;
                                  double y = -j / 5.0 - 2;
@@ -11514,18 +11665,18 @@
                                      f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
                                  vertices.Add(new Point3D(x, y, f));
                              }
-                         List&lt;ColorSmoothTriangle&gt; triangles = new List&lt;ColorSmoothTriangle&gt;((rows - 1) * (cols - 1) * 2);
-                         for (int j = 0; j &lt; (rows - 1); j++)
-                             for (int i = 0; i &lt; (cols - 1); i++)
+                         List<ColorSmoothTriangle> triangles = new List<ColorSmoothTriangle>((rows - 1) * (cols - 1) * 2);
+                         for (int j = 0; j < (rows - 1); j++)
+                             for (int i = 0; i < (cols - 1); i++)
                              {
                                  // generates a random color
                                  int red = (255 - i * 100);
                                  int green = (255 - j * 50);
                                  int blue = 127;
                                  // clamps color values lat 0-255
-                                 Utility.LimitRange&lt;int&gt;(0, ref red, 255);
-                                 Utility.LimitRange&lt;int&gt;(0, ref green, 255);
-                                 Utility.LimitRange&lt;int&gt;(0, ref blue, 255);
+                                 Utility.LimitRange<int>(0, ref red, 255);
+                                 Utility.LimitRange<int>(0, ref green, 255);
+                                 Utility.LimitRange<int>(0, ref blue, 255);
                                  triangles.Add(new ColorSmoothTriangle(i + j * cols,
                                                                        i + j * cols + 1,
                                                                        i + (j + 1) * cols + 1, (byte)red, (byte)green, (byte)blue));
@@ -11537,14 +11688,14 @@
                          surface.Triangles = triangles.ToArray();
                          model.Entities.Add(surface, 0);
                      }
-                 
+             
                      public static void MulticolorSmooth(Model model)
                      {
-                         List&lt;PointRGB&gt; vertices = new List&lt;PointRGB&gt;(rows * cols);
+                         List<PointRGB> vertices = new List<PointRGB>(rows * cols);
                          Mesh surface = new Mesh();
                          surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged;
-                         for (int j = 0; j &lt; rows; j++)
-                             for (int i = 0; i &lt; cols; i++)
+                         for (int j = 0; j < rows; j++)
+                             for (int i = 0; i < cols; i++)
                              {
                                  double x = -i / 5.0 - 2;
                                  double y = -j / 5.0 - 2;
@@ -11557,14 +11708,14 @@
                                  int green = (int)(x * x * 30);
                                  int blue = (int)(255 - f * f * 1000);
                                  // clamps color values lat 0-255
-                                 Utility.LimitRange&lt;int&gt;(0, ref red, 255);
-                                 Utility.LimitRange&lt;int&gt;(0, ref green, 255);
-                                 Utility.LimitRange&lt;int&gt;(0, ref blue, 255);
+                                 Utility.LimitRange<int>(0, ref red, 255);
+                                 Utility.LimitRange<int>(0, ref green, 255);
+                                 Utility.LimitRange<int>(0, ref blue, 255);
                                  vertices.Add(new PointRGB(x, y, f, (byte)red, (byte)green, (byte)blue));
                              }
-                         List&lt;SmoothTriangle&gt; triangles = new List&lt;SmoothTriangle&gt;((rows - 1) * (cols - 1) * 2);
-                         for (int j = 0; j &lt; (rows - 1); j++)
-                             for (int i = 0; i &lt; (cols - 1); i++)
+                         List<SmoothTriangle> triangles = new List<SmoothTriangle>((rows - 1) * (cols - 1) * 2);
+                         for (int j = 0; j < (rows - 1); j++)
+                             for (int i = 0; i < (cols - 1); i++)
                              {
                                  triangles.Add(new SmoothTriangle(i + j * cols,
                                                                   i + j * cols + 1,
@@ -11577,14 +11728,14 @@
                          surface.Triangles = triangles.ToArray();
                          model.Entities.Add(surface, 0);
                      }
-                 
+             
                      public static void TexturedSmooth(Model model)
                      {
-                         List&lt;Point3D&gt; vertices = new List&lt;Point3D&gt;(rows * cols);
-                         List&lt;Point2D&gt; texCoords = new List&lt;Point2D&gt;(rows * cols);
+                         List<Point3D> vertices = new List<Point3D>(rows * cols);
+                         List<Point2D> texCoords = new List<Point2D>(rows * cols);
                          Mesh surface = new Mesh();
-                         for (int j = 0; j &lt; rows; j++)
-                             for (int i = 0; i &lt; cols; i++)
+                         for (int j = 0; j < rows; j++)
+                             for (int i = 0; i < cols; i++)
                              {
                                  double x = -i / 5.0 - 2;
                                  double y = -j / 5.0 - 2;
@@ -11598,9 +11749,9 @@
                          Bitmap bmp = new Bitmap(Properties.Resources.Smiley);
                          Material mat = new Material(bmp);
                          model.Materials.Add("test", mat);
-                         List&lt;RichSmoothTriangle&gt; triangles = new List&lt;RichSmoothTriangle&gt;((rows - 1) * (cols - 1) * 2);
-                         for (int j = 0; j &lt; (rows - 1); j++)
-                             for (int i = 0; i &lt; (cols - 1); i++)
+                         List<RichSmoothTriangle> triangles = new List<RichSmoothTriangle>((rows - 1) * (cols - 1) * 2);
+                         for (int j = 0; j < (rows - 1); j++)
+                             for (int i = 0; i < (cols - 1); i++)
                              {
                                  RichSmoothTriangle tri = new RichSmoothTriangle(i + j * cols,
                                                                                  i + j * cols + 1,
@@ -11620,15 +11771,15 @@
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
                          surface.TextureCoords = texCoords.ToArray();
-                 
+             
                          surface.MaterialName = "test";
                          surface.ColorMethod = colorMethodType.byEntity;
-                 
+             
                          model.Entities.Add(surface, 0);
                      }
-                 
+             
                  }
-            </code><code lang="VB">
+            ]]></code><code lang="VB"><![CDATA[
              Imports System
              Imports System.Collections.Generic
              Imports System.Drawing
@@ -11640,7 +11791,7 @@
                  	Private Shared rows As Integer = 8
                  	Private Shared cols As Integer = 8
                  	Private Shared scale As Double = 4
-                 
+             
                  	Public Shared Sub Plain(model As Model)
                  		Dim vertices As New List(Of Point3D)(rows * cols)
                  		Dim surface As New Mesh()
@@ -11651,7 +11802,7 @@
                  				Dim y As Double = -j / 5.0 - 2
                  				Dim f As Double = 0
                  				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den &lt;&gt; 0 Then
+                 				If den <> 0 Then
                  					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
                  				End If
                  				vertices.Add(New Point3D(x, y, f))
@@ -11668,7 +11819,7 @@
                  		surface.Triangles = triangles.ToArray()
                  		model.Entities.Add(surface, 0, Color.Green)
                  	End Sub
-                 
+             
                  	Public Shared Sub ColoredPlain(model As Model)
                  		Dim vertices As New List(Of Point3D)(rows * cols)
                  		Dim surface As New Mesh()
@@ -11678,7 +11829,7 @@
                  				Dim y As Double = -j / 5.0 - 2
                  				Dim f As Double = 0
                  				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den &lt;&gt; 0 Then
+                 				If den <> 0 Then
                  					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
                  				End If
                  				vertices.Add(New Point3D(x, y, f))
@@ -11703,7 +11854,7 @@
                  		surface.Triangles = triangles.ToArray()
                  		model.Entities.Add(surface, 0)
                  	End Sub
-                 
+             
                  	Public Shared Sub MulticolorPlain(model As Model)
                  		Dim vertices As New List(Of PointRGB)(rows * cols)
                  		Dim surface As New Mesh()
@@ -11713,7 +11864,7 @@
                  				Dim y As Double = -j / 5.0 - 2
                  				Dim f As Double = 0
                  				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den &lt;&gt; 0 Then
+                 				If den <> 0 Then
                  					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
                  				End If
                  				' generates a random color
@@ -11738,7 +11889,7 @@
                  		surface.Triangles = triangles.ToArray()
                  		model.Entities.Add(surface)
                  	End Sub
-                 
+             
                  	Public Shared Sub TexturedPlain(model As Model)
                  		Dim vertices As New List(Of Point3D)(rows * cols)
                  		Dim texCoords As New List(Of Point2D)(rows * cols)
@@ -11749,7 +11900,7 @@
                  				Dim y As Double = -j / 5.0 - 2
                  				Dim f As Double = 0
                  				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den &lt;&gt; 0 Then
+                 				If den <> 0 Then
                  					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
                  				End If
                  				vertices.Add(New Point3D(x, y, f))
@@ -11777,13 +11928,13 @@
                  		surface.Vertices = vertices.ToArray()
                  		surface.Triangles = triangles.ToArray()
                  		surface.TextureCoords = texCoords.ToArray()
-                 
+             
                  		surface.ColorMethod = colorMethodType.byEntity
                  		surface.MaterialName = "test"
-                 
+             
                  		model.Entities.Add(surface)
                  	End Sub
-                 
+             
                  	Public Shared Sub Smooth(model As Model)
                  		Dim vertices As New List(Of Point3D)(rows * cols)
                  		Dim surface As New Mesh()
@@ -11794,7 +11945,7 @@
                  				Dim y As Double = -j / 5.0 - 2
                  				Dim f As Double = 0
                  				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den &lt;&gt; 0 Then
+                 				If den <> 0 Then
                  					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
                  				End If
                  				vertices.Add(New Point3D(x, y, f))
@@ -11811,7 +11962,7 @@
                  		surface.Triangles = triangles.ToArray()
                  		model.Entities.Add(surface, 0, Color.Green)
                  	End Sub
-                 
+             
                  	Public Shared Sub ColoredSmooth(model As Model)
                  		Dim vertices As New List(Of Point3D)(rows * cols)
                  		Dim surface As New Mesh()
@@ -11821,7 +11972,7 @@
                  				Dim y As Double = -j / 5.0 - 2
                  				Dim f As Double = 0
                  				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den &lt;&gt; 0 Then
+                 				If den <> 0 Then
                  					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
                  				End If
                  				vertices.Add(New Point3D(x, y, f))
@@ -11846,7 +11997,7 @@
                  		surface.Triangles = triangles.ToArray()
                  		model.Entities.Add(surface, 0)
                  	End Sub
-                 
+             
                  	Public Shared Sub MulticolorSmooth(model As Model)
                  		Dim vertices As New List(Of PointRGB)(rows * cols)
                  		Dim surface As New Mesh()
@@ -11857,7 +12008,7 @@
                  				Dim y As Double = -j / 5.0 - 2
                  				Dim f As Double = 0
                  				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den &lt;&gt; 0 Then
+                 				If den <> 0 Then
                  					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
                  				End If
                  				' generates a random color
@@ -11882,7 +12033,7 @@
                  		surface.Triangles = triangles.ToArray()
                  		model.Entities.Add(surface, 0)
                  	End Sub
-                 
+             
                  	Public Shared Sub TexturedSmooth(model As Model)
                  		Dim vertices As New List(Of Point3D)(rows * cols)
                  		Dim texCoords As New List(Of Point2D)(rows * cols)
@@ -11893,7 +12044,7 @@
                  				Dim y As Double = -j / 5.0 - 2
                  				Dim f As Double = 0
                  				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den &lt;&gt; 0 Then
+                 				If den <> 0 Then
                  					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
                  				End If
                  				vertices.Add(New Point3D(x, y, f))
@@ -11921,80 +12072,15 @@
                  		surface.Vertices = vertices.ToArray()
                  		surface.Triangles = triangles.ToArray()
                  		surface.TextureCoords = texCoords.ToArray()
-                 
+             
                  		surface.MaterialName = "test"
                  		surface.ColorMethod = colorMethodType.byEntity
-                 
+             
                  		model.Entities.Add(surface, 0)
                  	End Sub
-                 
+             
                  End Class
-             End Namespace</code></example>
-      <summary>
-        <para>Mesh entity. Depending on the types of vertices and triangles can assume
-                 different configurations, see table below:</para>
-        <para>
-          <table style="BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px" cellspacing="0" cellpadding="0" cols="3">
-            <tbody>
-              <tr>
-                <td>Triangles type / Vertices type</td>
-                <td>
-                  <see cref="T:devDept.Geometry.Point3D" />
-                </td>
-                <td>
-                  <see cref="T:devDept.Geometry.PointRGB" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <see cref="T:devDept.Geometry.IndexTriangle" />
-                </td>
-                <td>Plain<sup>1</sup></td>
-                <td>MulticolorPlain</td>
-              </tr>
-              <tr>
-                <td>
-                  <see cref="T:devDept.Geometry.SmoothTriangle" />
-                </td>
-                <td>Smooth<sup>1</sup></td>
-                <td>MulticolorSmooth</td>
-              </tr>
-              <tr>
-                <td>
-                  <see cref="T:devDept.Geometry.ColorTriangle" />
-                </td>
-                <td>ColorPlain</td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <see cref="T:devDept.Geometry.ColorSmoothTriangle" />
-                </td>
-                <td>ColorSmooth</td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <see cref="T:devDept.Geometry.RichTriangle" />
-                </td>
-                <td>RichPlain</td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <see cref="T:devDept.Geometry.RichSmoothTriangle" />
-                </td>
-                <td>RichSmooth</td>
-                <td>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </para>
-        <sup>1</sup> Allows transparency to be used</summary>
+             End Namespace]]></code></example>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.CreateBox(System.Double,System.Double,System.Double)">
       <summary>Creates a Box primitive.</summary>
@@ -13867,7 +13953,7 @@
       <param name="stacks">Number of parallel subdivisions</param>
       <returns>The created solid.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid.Sweep(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.Region,System.Double,devDept.Eyeshot.Entities.sweepMethodType)">
+    <member name="M:devDept.Eyeshot.Entities.Solid.Sweep(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.Region,System.Double,devDept.Eyeshot.Entities.sweepMethodType,System.Boolean)">
       <summary>Sweeps the Region along the provided trajectory.</summary>
       <param name="rail">The rail curve</param>
       <param name="region">The cross section</param>
@@ -13875,7 +13961,7 @@
       <param name="tol">The regeneration tolerance</param>
       <returns>The resulting Solid if the operation succeeded, null/Nothing otherwise.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid.Sweep``1(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.Region,System.Double,devDept.Eyeshot.Entities.sweepMethodType)">
+    <member name="M:devDept.Eyeshot.Entities.Solid.Sweep``1(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.Region,System.Double,devDept.Eyeshot.Entities.sweepMethodType,System.Boolean)">
       <summary>Sweeps the Region along the provided trajectory.</summary>
       <param name="rail">The rail curve</param>
       <param name="region">The cross section</param>
@@ -15357,9 +15443,17 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
       <param name="meshNature">Nature of the resulting mesh entity</param>
-      <returns>The list of resulting surfaces.</returns>
+      <returns>The resulting merged surface.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh``1(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
+      <param name="meshNature">Nature of the resulting mesh entity</param>
+      <returns>The resulting merged surface.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
+      <param name="meshNature">Nature of the resulting mesh entity</param>
+      <returns>The list of resulting surfaces.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh``1(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType,devDept.Eyeshot.Entities.Mesh.natureType)">
       <param name="meshNature">Nature of the resulting mesh entity</param>
       <returns>The list of resulting surfaces.</returns>
     </member>
@@ -15511,10 +15605,18 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsBrep(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Eyeshot.Entities.sweepMethodType)">
       <summary>Creates a Brep sweeping the contour on the rail.</summary>
-      <param name="rail">Sweep rail</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="rail">Sweep trajectory</param>
+      <param name="tolerance">The trim tolerance</param>
       <param name="methodType">The sweep method, affects only <see cref="T:devDept.Eyeshot.Entities.Curve" /> rail segments.</param>
-      <returns>The resulting Brep if the operation succeeded, null/Nothing otherwise.</returns>
+      <returns>The resulting merged Brep if the operation succeeded, null/Nothing otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsBrep(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType)">
+      <summary>Creates a Brep sweeping the contour on the rail.</summary>
+      <param name="rail">Sweep trajectory</param>
+      <param name="tolerance">The trim tolerance</param>
+      <param name="merge">When true, it merges al the trimmed pieces when possible. It Keeps them as separated objects otherwise.</param>
+      <param name="methodType">The sweep method, affects only <see cref="T:devDept.Eyeshot.Entities.Curve" /> rail segments.</param>
+      <returns>The resulting Brep array if the operation succeeded, null/Nothing otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.ExtrudeAsSolid(devDept.Geometry.Vector3D,System.Double)">
       <summary>
@@ -15559,7 +15661,10 @@
       <returns>The resulting solid object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsSolid(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Eyeshot.Entities.sweepMethodType)">
-      <returns>The resulting Solid object.</returns>
+      <returns>The resulting merged Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsSolid(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Eyeshot.Entities.sweepMethodType)">
+      <returns>The resulting Solid array objects.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.WriteXml(System.Xml.XmlTextWriter)">
       <summary>
@@ -17434,6 +17539,23 @@
       <param name="col">Column index</param>
       <param name="value">Line space distance</param>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Table.GetWrap(System.Int32,System.Int32)">
+      <summary>
+            Gets the wrap state of the specified cell. When true, the line of text is split (if it contain spaces) into more lines so that their lengths are less than cell width/&gt;. When false, the line is truncated if it goes beyond the cell width"/&gt;.
+            </summary>
+      <param name="row">Row index</param>
+      <param name="col">Column index</param>
+      <remarks>If the value is true and there are no spaces before the cell width of the text, the split is done at the first available space.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Table.SetWrap(System.Int32,System.Int32,System.Boolean)">
+      <summary>
+            Sets the wrap state of the specified cell. When true, the line of text is split (if it contain spaces) into more lines so that their lengths are less than cell width/&gt;. When false, the line is truncated if it goes beyond the cell width"/&gt;.
+            </summary>
+      <param name="row">Row index</param>
+      <param name="col">Column index</param>
+      <param name="value">Wrap status</param>
+      <remarks>If the value is true and there are no spaces before the cell width of the text, the split is done at the first available space.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Table.GetBottomLeftCorner(System.Int32,System.Int32)">
       <summary>
             Gets the bottom-left corner point of the specified cell.
@@ -17860,12 +17982,10 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">
       <summary>
-            Allow the entity to be moved/rotated on the GPU using OpenGL calls during
+            Allow the entity to be moved/rotated on the GPU using RenderContext calls during
             animation.
             </summary>
       <remarks>
-        <para>There is no need to encapsulate the transformations into the gl.PushMatrix()
-                / gl.PopMatrix() calls</para>
         <para>It is always recommended to call base class implementation from
                 overriders.</para>
       </remarks>
@@ -17959,9 +18079,9 @@
             End Sub
              
             End Class]]></code></example>
-      <seealso cref="!:Environment.StartAnimation(int)">StartAnimation Method (devDept.Eyeshot.Viewport)</seealso>
-      <seealso cref="!:Environment.StopAnimation">StopAnimation Method (devDept.Eyeshot.Viewport)</seealso>
-      <remarks>It's important when applying an on-the-fly transformation in this method to override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see>and call the base method with the 
+      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method (devDept.Eyeshot.Model)</seealso>
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method (devDept.Eyeshot.Model)</seealso>
+      <remarks>It's important when applying an on-the-fly transformation in this method to override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> and call the base method with the 
             "center" parameter transformed in the same way, in order to avoid undesired clipping.</remarks>
       <seealso cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)" />
     </member>
@@ -19857,6 +19977,13 @@
             Gets or sets the scale factor used to display the <see cref="T:devDept.Eyeshot.Entities.ICurve" /> line weight.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Drawings.PaperColor">
+      <summary>
+            Gets or sets paper color.
+            </summary>
+      <remarks>Use the <see cref="M:devDept.Eyeshot.Drawings.UpdatePaper" /> method to refresh the paper color.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
+    </member>
     <member name="P:devDept.Eyeshot.Drawings.SilhouettesLayerName">
       <summary>
             Gets or sets the layer name for silhouettes.
@@ -20029,8 +20156,9 @@
       <summary>
             Updates the paper drawing according to the current size.        
             </summary>
-      <remarks>Use this method to refresh the paper drawing if the <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> size (format) has been changed.</remarks>
+      <remarks>Use this method to refresh the paper drawing if the <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> size (format) has been changed or the <see cref="P:devDept.Eyeshot.Drawings.PaperColor" /> is updated.</remarks>
       <seealso cref="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.PaperColor" />
     </member>
     <member name="P:devDept.Eyeshot.Drawings.Sheets">
       <summary>
@@ -21045,20 +21173,22 @@
       <summary>
         <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
             computation of the new entity position.</para>
-        <para>To animate group of entities the recommended approach is the following:</para>
+        <para>To animate group of entities the approach is the following:</para>
         <list type="number">
           <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
           <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
           <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects at that specific time frame</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 4) to avoid undesired clipping</item>
-          <item>Add the block references created at point 4) to the <see cref="!:Model.Entities" /> collection</item>
+          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
+          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
           <item>Call StartAnimation() providing the time interval between each frame</item>
           <item>Call StopAnimation() to stop the animation</item>
         </list>
       </summary>
       <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method (devDept.Eyeshot.Standard.Entity)</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
       <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
       <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
       <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
@@ -21069,21 +21199,23 @@
       <summary>
         <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
             computation of the new entity position.</para>
-        <para>To animate group of entities the recommended approach is the following:</para>
+        <para>To animate group of entities the approach is the following:</para>
         <list type="number">
           <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
           <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
           <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects at that specific time frame</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 4) to avoid undesired clipping</item>
-          <item>Add the block references created at point 4) to the <see cref="!:Model.Entities" /> collection</item>
+          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
+          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
           <item>Call StartAnimation() providing the time interval between each frame</item>
           <item>Call StopAnimation() to stop the animation</item>
         </list>
       </summary>
       <param name="interval">Timer interval. See <see cref="T:System.Threading.Timer" /> object.</param>
       <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method (devDept.Eyeshot.Standard.Entity)</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
       <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
       <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
       <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
@@ -21094,14 +21226,16 @@
       <summary>
         <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
             computation of the new entity position.</para>
-        <para>To animate group of entities the recommended approach is the following:</para>
+        <para>To animate group of entities the approach is the following:</para>
         <list type="number">
           <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
           <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
           <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects at that specific time frame</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 4) to avoid undesired clipping</item>
-          <item>Add the block references created at point 4) to the <see cref="!:Model.Entities" /> collection</item>
+          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
+          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
           <item>Call StartAnimation() providing the time interval between each frame</item>
           <item>Call StopAnimation() to stop the animation</item>
         </list>
@@ -21109,7 +21243,7 @@
       <param name="stopAfter">The animation will stop after this number of frames</param>
       <param name="interval">Timer interval, see <see cref="T:System.Threading.Timer" /> object.</param>
       <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method (devDept.Eyeshot.Standard.Entity)</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
       <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
       <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
       <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
@@ -23713,11 +23847,6 @@
     <member name="T:devDept.Eyeshot.Translators.WriteFileAsync">
       <summary>
             Base class for asynchronous file writing.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.SupportedLinearUnitsType">
-      <summary>
-            Gets the supported linear units
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.FileName">
@@ -29805,7 +29934,7 @@
             </summary>
       <returns>A boolean indicating whether the trial period has expired.</returns>
     </member>
-    <member name="P:devDept.Eyeshot.Environment.IsUnlockedAtDesignTime">
+    <member name="F:devDept.Eyeshot.Environment.IsUnlockedAtDesignTime">
       <summary>
             For internal use only.
             </summary>
@@ -34131,11 +34260,17 @@
       <returns>The viewport size to use in the <see cref="!:Model.RenderToBitmap(System.Drawing.Size)" /> to print the scene so that the world units in the model correspond to world units on paper.</returns>
       <remarks>Applies to <see cref="F:devDept.Graphics.projectionType.Orthographic" /> camera ProjectionMode only.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.CreateReferenceImage(devDept.Eyeshot.viewType)">
+    <member name="M:devDept.Eyeshot.Viewport.CreateReferenceImage(devDept.Eyeshot.displayType,devDept.Eyeshot.viewType,devDept.Graphics.backgroundStyleType,System.String,System.Boolean,devDept.Graphics.backfaceColorMethodType,devDept.Graphics.projectionType)">
       <summary>
             Create a bitmap for the image comparison.
             </summary>
+      <param name="displayMode">The <see cref="T:devDept.Eyeshot.displayType" /></param>
       <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType" /></param>
+      <param name="backgroundMode">The <see cref="T:devDept.Graphics.backgroundStyleType" /></param>
+      <param name="backgroundColor">The background color as string</param>
+      <param name="drawEdges">When true, edges are drawn.</param>
+      <param name="backfaceMode">The <see cref="T:devDept.Graphics.backfaceColorMethodType" /></param>
+      <param name="projectionMode">The camera <see cref="T:devDept.Graphics.projectionType" /></param>
       <returns>The bitmap for the image comparison (resolution 1024x768)</returns>
       <remarks>
         <see cref="M:devDept.Eyeshot.Viewport.SetView(devDept.Eyeshot.viewType)" />, <see cref="M:devDept.Eyeshot.Viewport.ZoomFit" /> and bitmap resize are performed only when <paramref name="viewType" /> is not <see cref="F:devDept.Eyeshot.viewType.Other" />.</remarks>
@@ -34148,7 +34283,7 @@
       <param name="actualImage">The current bitmap as output</param>
       <param name="diffImage">The generated image with the differences</param>
       <param name="viewType">The <see cref="T:devDept.Eyeshot.viewType" /></param>
-      <param name="displayType">The <see cref="T:devDept.Eyeshot.displayType" /></param>
+      <param name="displayMode">The <see cref="T:devDept.Eyeshot.displayType" /></param>
       <param name="pixelTransparency">Transparency factor [between 0.0 and 1.0] for the generated image.</param>
       <returns>The mismatch percentage</returns>
     </member>
@@ -34273,13 +34408,11 @@
             End Class
             </code></example>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.DrawOverlay(System.Single,System.Drawing.RectangleF,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.DrawOverlay(devDept.Eyeshot.Environment.DrawSceneParams)">
       <summary>
-            Draws ovelaying UI elements.
+            Draws overlaying UI elements.
             </summary>
-      <param name="drawScale">The drawing scale</param>
-      <param name="zoomRect">The zoom rectange</param>
-      <param name="activeViewport">Tells if the viewport is the active one</param>
+      <param name="data">The draw data</param>
     </member>
     <member name="M:devDept.Eyeshot.Viewport.RenderToBitmap(System.Double)">
       <summary>Returns an image of the current <see cref="T:devDept.Eyeshot.Model" /> viewport scene. The image can be scaled even to a poster size one.</summary>
@@ -40214,16 +40347,22 @@
     <member name="T:devDept.Eyeshot.WorkFailedEventArgs">
       <summary>Provides data for the <see cref="E:devDept.Eyeshot.Environment.WorkFailed" /> event.</summary>
     </member>
-    <member name="M:devDept.Eyeshot.WorkFailedEventArgs.#ctor(System.String)">
+    <member name="M:devDept.Eyeshot.WorkFailedEventArgs.#ctor(System.Exception)">
       <summary>
             Standard constructor.
             </summary>
       <param name="error">The error string</param>
     </member>
+    <member name="P:devDept.Eyeshot.WorkFailedEventArgs.Exception">
+      <summary>
+            Gets the exception.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.WorkFailedEventArgs.Error">
       <summary>
             Gets the error string.
             </summary>
+      <remarks>Includes also inner exceptions messages.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.WorkCompletedEventArgs">
       <summary>Provides data for the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event.</summary>
@@ -41168,7 +41307,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Block.RegenAllCurved(devDept.Eyeshot.RegenParams)">
       <summary>
-            Regens all curved entities (<see cref="T:devDept.Eyeshot.Entities.Circle" />, <see cref="T:devDept.Eyeshot.Entities.Arc" />, <see cref="T:devDept.Eyeshot.Entities.Ellipse" />, <see cref="T:devDept.Eyeshot.Entities.EllipticalArc" />, <see cref="T:devDept.Eyeshot.Entities.Curve" />, <see cref="T:devDept.Eyeshot.Entities.Surface" />) to uniformize the visual refinement.
+            Regens all curved entities (<see cref="T:devDept.Eyeshot.Entities.Circle" />, <see cref="T:devDept.Eyeshot.Entities.Arc" />, <see cref="T:devDept.Eyeshot.Entities.Ellipse" />, <see cref="T:devDept.Eyeshot.Entities.EllipticalArc" />, <see cref="T:devDept.Eyeshot.Entities.Curve" />, <see cref="T:devDept.Eyeshot.Entities.Surface" />) to make uniform the visual refinement.
             </summary>
       <param name="data">The regeneration parameters</param>
     </member>
@@ -48863,7 +49002,7 @@
             Proprietary file format constructor.
             </summary>
       <param name="plane">The plane stored in the file.</param>
-      <param name="radius">The cylider radius</param>
+      <param name="radius">The cone radius</param>
       <param name="halfAngle">The cone half angle</param>
       <param name="index">The surface index, when available from import of standard CAD file formats.</param>
     </member>
@@ -49003,6 +49142,9 @@
       <summary>
             Contains a collection of utility methods and constants for internal use.
             </summary>
+      <summary>
+            Contains a collection of utility methods and constants for internal use.
+            </summary>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.GetMaxGap(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
       <summary>
@@ -49073,35 +49215,6 @@
       <param name="modelViewProj">The modelview projection matrix</param>
       <param name="viewFrame">The viewport bounds</param>
       <returns>True if the vertex is inside the polygon.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)">
-      <summary>
-            Computes the segments tangent to two given circles or arcs.
-            </summary>
-      <param name="c1">The first circle.</param>
-      <param name="c2">The first circle.</param>
-      <returns>The array of lines tangent to both circles. For arcs, it returns only the lines that touch them.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Line[]@)">
-      <summary>
-            Computes the segments tangent to two given circles.
-            </summary>
-      <param name="c1">The first circle.</param>
-      <param name="c2">The second circle.</param>
-      <param name="tangentArray">Array of length 4 containing the tangent lines.</param>
-      <returns>The number of not null lines in <paramref name="tangentArray" />.</returns>
-      <remarks>For arcs, it returns the same result as for circles, for a different result use <see cref="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)" />.
-            All the lines start from c1 and end on c2, except for the tangent lines that are perpendicular to the line
-            connecting the two centers, we will refer to these tangents as vertical or VERT:
-            their length is equal to the diameter of the bigger circle and they touch the circles at the midPoint.
-            The position of the lines in the array is fixed and dependent from the number of solutions:
-            <list type="bullet"><item><description>[0] upper external (or outer),</description></item><item><description>[1] lower external (or outer),</description></item><item><description>[2] upper internal (or inner),</description></item><item><description>[3] lower internal (or inner).</description></item></list>
-            To define upper we use the positive direction of the Y axis of the plane with axis Z equal to c1.Plane,
-            and axis X given by the direction c1.Center-c2.Center.
-            Based on the number of solutions, the possibilities are:
-            <list type="bullet"><item><description>0 =&gt; [null, null, null, null]: one circle is completely inside the other and they don't intersect,</description></item><item><description>1 =&gt; [null, null, null, VERT]: one circle is completely inside the other and they are tangent</description></item><item><description>2 =&gt; [LINE, LINE, null, null]: the circles intersect in two different points, there are only the external tangents,</description></item><item><description>3 =&gt; [LINE, LINE, VERT, null]: the circles intersect in one point, but they aren't one inside the other,
-            there are the external tangents and a vertical tangent,</description></item><item><description>4 =&gt; [LINE, LINE, LINE, LINE]: the circles don't intersect and they aren't one inside the other,
-            there are the external tangents and the internal tangents.</description></item></list></remarks>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.GetRevisionCloud(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,System.Double)">
       <summary>
@@ -49427,6 +49540,48 @@
       <param name="entList">The entity list</param>
       <param name="blocks">The block collection</param>
       <returns>The number of items in the scene.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)">
+      <summary>
+            Computes the segments tangent to two given circles or arcs.
+            </summary>
+      <param name="c1">The first circle.</param>
+      <param name="c2">The first circle.</param>
+      <returns>The array of lines tangent to both circles. For arcs, it returns only the lines that touch them.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Line[]@)">
+      <summary>
+            Computes the segments tangent to two given circles.
+            </summary>
+      <param name="c1">The first circle.</param>
+      <param name="c2">The second circle.</param>
+      <param name="tangentArray">Array of length 4 containing the tangent lines.</param>
+      <returns>The number of not null lines in <paramref name="tangentArray" />.</returns>
+      <remarks>For arcs, it returns the same result as for circles, for a different result use <see cref="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)" />.
+            All the lines start from c1 and end on c2, except for the tangent lines that are perpendicular to the line
+            connecting the two centers, we will refer to these tangents as vertical or VERT:
+            their length is equal to the diameter of the bigger circle and they touch the circles at the midPoint.
+            The position of the lines in the array is fixed and dependent from the number of solutions:
+            <list type="bullet"><item><description>[0] upper external (or outer),</description></item><item><description>[1] lower external (or outer),</description></item><item><description>[2] upper internal (or inner),</description></item><item><description>[3] lower internal (or inner).</description></item></list>
+            To define upper we use the positive direction of the Y axis of the plane with axis Z equal to c1.Plane,
+            and axis X given by the direction c1.Center-c2.Center.
+            Based on the number of solutions, the possibilities are:
+            <list type="bullet"><item><description>0 =&gt; [null, null, null, null]: one circle is completely inside the other and they don't intersect,</description></item><item><description>1 =&gt; [null, null, null, VERT]: one circle is completely inside the other and they are tangent</description></item><item><description>2 =&gt; [LINE, LINE, null, null]: the circles intersect in two different points, there are only the external tangents,</description></item><item><description>3 =&gt; [LINE, LINE, VERT, null]: the circles intersect in one point, but they aren't one inside the other,
+            there are the external tangents and a vertical tangent,</description></item><item><description>4 =&gt; [LINE, LINE, LINE, LINE]: the circles don't intersect and they aren't one inside the other,
+            there are the external tangents and the internal tangents.</description></item></list></remarks>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetCirclesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,System.Double,System.Boolean,System.Boolean)">
+      <summary>
+             Computes the circles tangent to two given circles or arcs.
+             </summary>
+      <param name="c1">The first circle.</param>
+      <param name="c2">The second circle.</param>
+      <param name="radius">The radius of the tangent circles</param>
+      <param name="trim">If true, it trims the tangent circle at the tangent points.</param>
+      <param name="flip"> It is significant only when trim is true. If false (default) it returns the shortest part of the tangent circle, if true it returns the longest part.</param>
+      <returns>The list of circles tangent to both circles. For arcs, it returns only the circles that touch them.
+            The StartPoint of the output circles lie always on c1. If trim is true, the trimmed arc goes from c1 to c2. 
+             </returns>
     </member>
     <member name="T:devDept.Geometry.lineWeightPrintingUnitsType">
       <summary>

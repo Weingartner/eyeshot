@@ -1194,6 +1194,15 @@
       <param name="indices">The indices in the <see cref="!:pointList" /> list of the returned points</param>
       <returns>The cleaned array of points.</returns>
     </member>
+    <member name="M:devDept.Geometry.Utility.RemoveDuplicates``1(System.Collections.Generic.IList{``0},System.Double)">
+      <summary>
+            Removes contiguous duplicated points from the list.
+            </summary>
+      <typeparam name="T">A point type</typeparam>
+      <param name="pointList">The list of points to be analyzed</param>
+      <param name="tol">The tolerance that, multiplied for the curve length, determines the distance between two points to be considered NOT duplicated.</param>
+      <returns>The cleaned array of points.</returns>
+    </member>
     <member name="M:devDept.Geometry.Utility.GetOrientationTransformation(devDept.Geometry.Point3D,devDept.Geometry.Vector3D)">
       <summary>
             Gets the transformation to orient an entity built on the X-Axis on the given direction.
@@ -1375,6 +1384,13 @@
     <member name="M:devDept.Geometry.Utility.RotateLeft``1(``0[])">
       <summary>
             Rotates the array left.
+            </summary>
+      <typeparam name="T">The array items type</typeparam>
+      <param name="array">The array</param>
+    </member>
+    <member name="M:devDept.Geometry.Utility.RotateRight``1(``0[])">
+      <summary>
+            Rotates the array right.
             </summary>
       <typeparam name="T">The array items type</typeparam>
       <param name="array">The array</param>
@@ -2501,10 +2517,10 @@
     </member>
     <member name="M:devDept.Geometry.Matrix.Inverse4(System.Double[0:,0:])">
       <summary>
-            Computes the inverse of a 4x4 matrix.
+            Computes the inverse of a 4x4 matrix without checking if the determinant is zero.
             </summary>
-      <param name="matrix">The matrix</param>
-      <returns>The inverse matrix.</returns>
+      <param name="a">The matrix</param>
+      <returns>The inverted matrix.</returns>
     </member>
     <member name="T:devDept.Geometry.planeIntersectionType">
       <summary>
@@ -3902,6 +3918,16 @@
       <param name="s1">The first segment</param>
       <param name="s2">The second segment</param>
     </member>
+    <member name="M:devDept.Geometry.Segment2D.AreOverlapping(devDept.Geometry.Segment2D,devDept.Geometry.Segment2D)">
+      <summary>
+            Returns true if the two segments are overlapping.
+             </summary>
+      <param name="seg1">The first segment</param>
+      <param name="seg2">The second segment</param>
+      <remarks>
+             If the part of segment where s1 and s2 overlap is very small and it is close to one of the endpoints, it may returns false.
+            </remarks>
+    </member>
     <member name="T:devDept.Geometry.segmentIntersectionType">
       <summary>
             2D segment intersection type.
@@ -4174,6 +4200,14 @@
             </summary>
       <param name="s1">The first segment</param>
       <param name="s2">The second segment</param>
+    </member>
+    <member name="M:devDept.Geometry.Segment3D.AreOverlapping(devDept.Geometry.Segment3D,devDept.Geometry.Segment3D)">
+      <summary>
+            Returns true if the two segments are overlapping.
+             </summary>
+      <param name="seg1">The first segment</param>
+      <param name="seg2">The second segment</param>
+      <remarks>If the part of segment where s1 and s2 overlap is very small and it is close to one of the endpoints, it may returns false.</remarks>
     </member>
     <member name="T:devDept.Geometry.Size2D">
       <summary>
