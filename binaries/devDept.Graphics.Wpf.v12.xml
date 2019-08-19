@@ -5201,6 +5201,12 @@
             For deserialization purpose.
             </summary>
     </member>
+    <member name="M:devDept.Serialization.GraphicsSerializer.FillModel">
+      <inheritdoc />
+    </member>
+    <member name="M:devDept.Serialization.GraphicsSerializer.GetTypeForObject(System.String)">
+      <inheritdoc />
+    </member>
     <member name="T:OpenGL.gl">
       <summary>
             Wrapper class  with all OpenGL methods and definitions.

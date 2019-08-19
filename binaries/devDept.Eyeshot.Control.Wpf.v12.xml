@@ -1800,6 +1800,232 @@
             Tells if the entity is being compiled.
             </summary>
     </member>
+    <member name="T:devDept.Eyeshot.Entities.motionType">
+      <summary>
+            Motion type definition.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.Undefined">
+      <summary>
+            Undefined
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.G00">
+      <summary>
+            Rapid positioning
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.G01">
+      <summary>
+            Linear interpolation
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.G02">
+      <summary>
+            Circular interpolation, clockwise.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.G03">
+      <summary>
+            Circular interpolation, counterclockwise.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.G81">
+      <summary>
+            Simple drilling cycle
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.G82">
+      <summary>
+            Drilling cycle with dwell
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.G83">
+      <summary>
+            Peck drilling cycle (full retraction from pecks)
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.motionType.G84">
+      <summary>
+            Tapping cycle, right hand thread, M03 spindle direction.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Toolpath">
+      <summary>
+            Toolpath entity definition.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Toolpath.Motion">
+      <summary>
+            Base class for all GCode motions.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.Motion.#ctor(devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="code">GCode</param>
+      <param name="speed">Spindle speed</param>
+      <param name="feed">Feed rate</param>
+      <param name="codeLine">Full code line</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.Motion.Clone">
+      <summary>
+            Creates a deep copy of this motion.
+            </summary>
+      <returns>The new motion object.</returns>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.Motion.Speed">
+      <summary>
+            Gets or sets spindle speed.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.Motion.Feed">
+      <summary>
+            Get or sets feed rate.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.Motion.Code">
+      <summary>
+            Gets or sets G code.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.Motion.CodeLine">
+      <summary>
+            Gets or sets code line.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.Tool">
+      <summary>
+            Gets or sets tool number.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Toolpath.LinearMotion">
+      <summary>
+            Linear motion definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.LinearMotion.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="from">Current position</param>
+      <param name="to">Next position</param>
+      <param name="code">GCode</param>
+      <param name="tool">Tool number</param>
+      <param name="speed">Spindle speed</param>
+      <param name="feed">Feed rate</param>
+      <param name="codeLine">Full code line</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.LinearMotion.Clone">
+      <summary>
+            Creates a deep copy of this linear motion.
+            </summary>
+      <returns>The new linear motion object.</returns>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.LinearMotion.From">
+      <summary>
+            Gets or sets current 3D point.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.LinearMotion.To">
+      <summary>
+            Gets or sets next 3D point.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Toolpath.CircularMotion">
+      <summary>
+            Circular motion definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.CircularMotion.#ctor(devDept.Geometry.Plane,System.Double,devDept.Geometry.Interval,devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="plane">Arc plane</param>
+      <param name="radius">Arc radius</param>
+      <param name="angle">Arc angle</param>
+      <param name="code">GCode</param>
+      <param name="tool">Tool number</param>
+      <param name="speed">Spindle speed</param>
+      <param name="feed">Feed rate</param>
+      <param name="codeLine">Full code line</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.CircularMotion.#ctor(devDept.Geometry.Plane,System.Double,devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)">
+      <summary>
+            Full circle constructor.
+            </summary>
+      <param name="plane">Arc plane</param>
+      <param name="radius">Arc radius</param>
+      <param name="code">GCode</param>
+      <param name="tool">Tool number</param>
+      <param name="speed">Spindle speed</param>
+      <param name="feed">Feed rate</param>
+      <param name="codeLine">Full code line</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.CircularMotion.Clone">
+      <summary>
+            Creates a deep copy of this linear motion.
+            </summary>
+      <returns>The new linear motion object.</returns>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.CircularMotion.Plane">
+      <summary>
+            Gets or sets arc plane.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.CircularMotion.Radius">
+      <summary>
+            Gets or sets arc radius.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.CircularMotion.Angle">
+      <summary>
+            Gets or sets arc angle.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.MotionList">
+      <summary>
+            The list of tool path motions.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.#ctor(System.Collections.Generic.ICollection{devDept.Eyeshot.Entities.Toolpath.Motion},System.Int32)">
+      <summary>
+            Standard constructor
+            </summary>
+      <param name="motions">A collection of <see cref="T:devDept.Eyeshot.Entities.Toolpath.Motion" /> items</param>
+      <param name="tool">The tool number</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.Clone">
+      <summary>
+            Creates a deep copy of this tool path.
+            </summary>
+      <returns>The new tool path object.</returns>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.RapidColor">
+      <summary>
+            Gets or sets the color used to draw the rapid movements.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.RapidPattern">
+      <summary>
+            Gets or sets the pattern used to draw the rapid movements. 0xFFFF for solid, 0x0F0F for dashed.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="T:devDept.Eyeshot.Entities.RasterView">
       <summary>
             Raster view class definition.
@@ -9717,6 +9943,12 @@
             </summary>
       <remarks>The geometry is clipped on the positive side of the plane.</remarks>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.FemMesh.ClippingMethod">
+      <summary>
+            Gets or sets thw clipping method.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Entities.FemMesh.ClippingPlane" />
+    </member>
     <member name="M:devDept.Eyeshot.Entities.FemMesh.FindClosestTriangle(devDept.Geometry.Transformation,devDept.Geometry.Segment3D)">
       <summary>
             Returns a list of triangles hit by the provided segment.
@@ -11062,12 +11294,6 @@
       <summary>
             Gets the estimated amplification factor
             </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.FemMesh.ClippingMethod">
-      <summary>
-            Gets or sets thw clipping plane method.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Entities.FemMesh.ClippingPlane" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.FemMesh.#ctor(System.Int32,System.Int32)">
       <summary>
@@ -12767,7 +12993,7 @@
             </summary>
       <param name="plane">The plane</param>
       <param name="tol">The tolerance</param>
-      <param name="edgesPerVertex">Pre-computed Mesh unique edges per vertices</param>
+      <param name="edgesPerVertex">Pre-computed Mesh unique edges per vertices, not used if the mesh has octree's data</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation,System.Collections.Generic.LinkedList{devDept.Geometry.SharedEdge}[])">
@@ -12775,7 +13001,7 @@
             Computes the contours resulting from the intersection of the Mesh and the given plane.
             </summary>
       <param name="planeEquation">The cutting plane equation</param>
-      <param name="edgesPerVertex">Pre-computed Mesh unique edges per vertices</param>
+      <param name="edgesPerVertex">Pre-computed Mesh unique edges per vertices, not used if the mesh has octree's data</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.Plane,System.Double,devDept.Geometry.SharedEdge[][]@)">
@@ -12784,14 +13010,14 @@
             </summary>
       <param name="plane">The plane</param>
       <param name="tol">The tolerance</param>
-      <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Eyeshot.Entities.ICurve" /> (that are all <see cref="T:devDept.Eyeshot.Entities.LinearPath" />) belong to.</param>
+      <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Eyeshot.Entities.ICurve" /> (that are all <see cref="T:devDept.Eyeshot.Entities.LinearPath" />) belong to. Null if the mesh has octree's data.</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.Section(devDept.Geometry.PlaneEquation,devDept.Geometry.SharedEdge[][]@)">
       <summary>Computes the contours resulting from the intersection of the Mesh and the given plane.
             </summary>
       <param name="planeEquation">The cutting plane equation</param>
-      <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Eyeshot.Entities.ICurve" /> (that are all <see cref="T:devDept.Eyeshot.Entities.LinearPath" />) belong to.</param>
+      <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Eyeshot.Entities.ICurve" /> (that are all <see cref="T:devDept.Eyeshot.Entities.LinearPath" />) belong to. Null if the mesh has octree's data.</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.SplitDisjoint">
@@ -18509,7 +18735,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.Text.Simplify">
       <summary>
-            Gets or sets a value indicating whether the text must be simplified when it becomes small on screen.
+            Gets or sets a value indicating whether the text must be simplified when it becomes small on screen. Ignored when <see cref="P:devDept.Eyeshot.Environment.Turbo" /> is enabled.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Text.Billboard">
@@ -19953,1368 +20179,25 @@
     <member name="M:devDept.Eyeshot.SheetKeyedCollection.AreEntitiesWith(System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
       <inheritdoc />
     </member>
-    <member name="T:devDept.Eyeshot.Drawings">
+    <member name="T:devDept.Eyeshot.Translators.ReadGCode">
       <summary>
-            Drawings control definition.
+            Utility class for loading CNC files asynchronously.
             </summary>
-      <remarks>The line weight factor set to the entities or to the layers are always considered as millimeters. Use the <see cref="P:devDept.Eyeshot.Drawings.LineWeightFactor" /> to change the scale factor used to display the entities line weight.</remarks>
-      <seealso cref="P:devDept.Eyeshot.Drawings.LineWeightFactor" />
-      <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineWeight" />
-      <seealso cref="P:devDept.Eyeshot.Layer.LineWeight" />
     </member>
-    <member name="P:devDept.Eyeshot.Drawings.Zoom">
+    <member name="M:devDept.Eyeshot.Translators.ReadGCode.#ctor(System.String,System.Boolean)">
       <summary>
-            Gets or sets the Zoom settings.
+            Constructor with file name.
             </summary>
+      <param name="dogLeg">When true, rapid movements are drawn with dog leg style.</param>
+      <param name="fileName">The file name</param>
     </member>
-    <member name="P:devDept.Eyeshot.Drawings.Pan">
+    <member name="M:devDept.Eyeshot.Translators.ReadGCode.#ctor(System.IO.Stream,System.Boolean)">
       <summary>
-            Gets or sets the Pan settings.
+            Constructor with stream.
             </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.LineWeightFactor">
-      <summary>
-            Gets or sets the scale factor used to display the <see cref="T:devDept.Eyeshot.Entities.ICurve" /> line weight.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.PaperColor">
-      <summary>
-            Gets or sets paper color.
-            </summary>
-      <remarks>Use the <see cref="M:devDept.Eyeshot.Drawings.UpdatePaper" /> method to refresh the paper color.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.SilhouettesLayerName">
-      <summary>
-            Gets or sets the layer name for silhouettes.
-            </summary>
-      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for silhouettes are assigned to the layer with this name.</remarks>
-      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.EdgesLayerName">
-      <summary>
-            Gets or sets the layer name for edges.
-            </summary>
-      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for edges are assigned to the layer with this name.</remarks>
-      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.WiresLayerName">
-      <summary>
-            Gets or sets the layer name for wires.
-            </summary>
-      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for wires are assigned to the layer with this name.</remarks>
-      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.HiddenSilhouettesLayerName">
-      <summary>
-            Gets or sets the layer name for hidden silhouettes.
-            </summary>
-      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for hidden silhouettes are assigned to the layer with this name.</remarks>
-      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.HiddenEdgesLayerName">
-      <summary>
-            Gets or sets the layer name for hidden edges.
-            </summary>
-      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for hidden edges are assigned to the layer with this name.</remarks>
-      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.HiddenWiresLayerName">
-      <summary>
-            Gets or sets the layer name for hidden wires.
-            </summary>
-      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for hidden wires are assigned to the layer with this name.</remarks>
-      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName">
-      <summary>
-            Gets or sets the line type name for hidden lines layers.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSilhouettesLayerName" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenEdgesLayerName" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenWiresLayerName" />
-      <seealso cref="P:devDept.Eyeshot.Environment.Layers" />
-      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.ViewBuilderText">
-      <summary>
-            Gets or sets the progress bar text displayed while bulding the view when executed asynchronously.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.ViewBuilderSuffix">
-      <summary>
-            Gets or sets the progress bar suffix text displayed while bulding the view when executed asynchronously. If null it shows the view name.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)">
-      <summary>
-            Rebuilds sheets on this drawings.
-            </summary>
-      <param name="model">The model control.</param>
-      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />, otherwise they're built synchronously.</param>
-      <param name="dirtyOnly">When true only missing/dirty views are built.</param>
-      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />
-      <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" />
-      <see cref="E:devDept.Eyeshot.Environment.WorkFailed" />
-      <see cref="E:devDept.Eyeshot.Environment.WorkCancelled" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.#ctor">
-      <summary>
-            Standard constructor.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.Clear">
-      <summary>
-            Clears all the master collections: entities, blocks, layers, materials, text styles, line types, sheets and labels.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.CopyTo(devDept.Eyeshot.Environment,System.Boolean)">
-      <summary>
-            Copies all items inside control master collections (<see cref="N:devDept.Eyeshot.Entities" />, <see cref="P:devDept.Eyeshot.Drawings.Sheets" />, <see cref="N:devDept.Eyeshot.Labels" />, <see cref="!:Blocks" />, <see cref="!:Layers" />, <see cref="!:Materials" />, <see cref="!:TextStyles" />, <see cref="!:LineTypes" />) to the specified drawings.
-            </summary>
-      <param name="destination">The Drawings that is the destination of the elements copied.</param>
-      <param name="skipEntities">When true the <see cref="N:devDept.Eyeshot.Entities" /> and <see cref="P:devDept.Eyeshot.Drawings.Sheets" /> collections is not copied.</param>
-      <remarks>
-            You need to call <see cref="!:Invalidate()" /> to see the effect of this command in the destination drawings.
-            </remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.SaveFile(System.String,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
-      <summary>
-            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <param name="fileName">File name.</param>
-      <param name="model">The model control.</param>
-      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
-                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
-      <seealso cref="!:OpenFile(string)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.SaveFile(System.IO.Stream,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
-      <summary>
-            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <param name="stream">The file stream.</param>
-      <param name="model">The model control.</param>
-      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
-                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
-      <seealso cref="!:OpenFile(Stream)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.OpenFile(System.String,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
-      <summary>
-            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <param name="fileName">File name.</param>
-      <param name="model">The model control.</param>
-      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
-                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
-      <seealso cref="!:SaveFile(string)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.OpenFile(System.IO.Stream,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
-      <summary>
-            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <param name="stream">The file stream.</param>
-      <param name="model">The model control.</param>
-      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
-                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
-      <seealso cref="!:SaveFile(Stream)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.UpdatePaper">
-      <summary>
-            Updates the paper drawing according to the current size.        
-            </summary>
-      <remarks>Use this method to refresh the paper drawing if the <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> size (format) has been changed or the <see cref="P:devDept.Eyeshot.Drawings.PaperColor" /> is updated.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.PaperColor" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.Sheets">
-      <summary>
-            Gets or sets the sheets collection.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.GetActiveSheet">
-      <summary>
-            Gets the active sheet.
-            </summary>
-      <remarks>Returns null if the <see cref="P:devDept.Eyeshot.Drawings.Sheets" /> collection is empty.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)">
-      <summary>
-            Sets a sheet as the active one.
-            </summary>
-      <param name="sheet">The Sheet to set as active.</param>
-      <remarks>
-        <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, the following changes happen:</para>
-        <para>- The entities of the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> are cleared.</para>
-        <para>- The entities of the <see cref="T:devDept.Eyeshot.Drawings" /> are moved to the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />.</para>
-        <para>- The <see cref="T:devDept.Eyeshot.Sheet" /> is set as <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> and its entities are moved to the <see cref="T:devDept.Eyeshot.Drawings" />.</para>
-        <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
-      </remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the element does not exist in the collection.</exception>
-      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.SetActiveSheet(System.String)">
-      <summary>
-            Sets a sheet as the active one.
-            </summary>
-      <param name="name">The Sheet name to set as active.</param>
-      <remarks>
-        <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, its entities are shared with the Drawings one.</para>
-        <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
-      </remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
-      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
-    </member>
-    <member name="T:devDept.Eyeshot.Sheet">
-      <summary>
-            Draws the drawing frame.
-            </summary>
-      <summary>
-            Drawing sheet class definition.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.CreateBorder(System.Double,System.Double,System.Int32,System.Int32,System.Nullable{System.Drawing.Color},System.Single,System.Double,System.Double,System.Boolean,System.Single)">
-      <summary>
-            Creates the drawing border.
-            </summary>
-      <param name="width">Width of the drawing border.</param>
-      <param name="height">Height of the drawing border.</param>
-      <param name="rows">Rows number of the drawing border (vertical subdivision).</param>
-      <param name="columns">Colums number of the drawing border (horizontal subdivision).</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <param name="lineWeight">The line weight.</param>
-      <param name="textHeight">Height for numbers and letters.</param>
-      <param name="externalBorderGap">Gap between the border lines. It's also used to compute numbers and letters center point.</param>
-      <param name="createExternalBorder">When true the lines for external border are created.</param>
-      <param name="externalBorderLineWeight">The line weight for external border.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.CreateBorderSeparators(System.Double,System.Double,System.Int32,System.Int32,System.Nullable{System.Drawing.Color},System.Single,System.Double)">
-      <summary>
-            Creates the separator lines inside the drawing borders.
-            </summary>
-      <param name="width">Width of the drawing border.</param>
-      <param name="height">Height of the drawing border.</param>
-      <param name="rows">Rows number of the drawing border (vertical subdivision).</param>
-      <param name="columns">Colums number of the drawing border (horizontal subdivision).</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <param name="lineWeight">The line weight.</param>
-      <param name="externalBorderGap">Gap between the border lines. It's also used to compute numbers and letters center point.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.CreateBorderHorizontalTexts(System.Double,System.Double,System.Int32,System.Int32,System.Nullable{System.Drawing.Color},System.Single,System.Double,System.Double,System.Boolean,System.Boolean)">
-      <summary>
-            Creates horizontal texts for the drawing border.
-            </summary>
-      <param name="width">Width of the drawing border.</param>
-      <param name="height">Height of the drawing border.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <param name="lineWeight">The line weight.</param>
-      <param name="textHeight">Height for numbers and letters.</param>
-      <param name="externalBorderGap">Gap between the border lines to compute numbers and letters center point.</param>
-      <param name="useNumbers">When true numbers are generated, otherwise letters.</param>
-      <param name="reverseOrder">When true texts are generated from left to right, otherwise they are generated from right to left (default behavior)</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.CreateBorderVerticalTexts(System.Double,System.Double,System.Int32,System.Int32,System.Nullable{System.Drawing.Color},System.Single,System.Double,System.Double,System.Boolean,System.Boolean)">
-      <summary>
-            Creates vertical texts for the drawing border.
-            </summary>
-      <param name="width">Width of the drawing border.</param>
-      <param name="height">Height of the drawing border.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <param name="lineWeight">The line weight.</param>
-      <param name="textHeight">Height for numbers and letters.</param>
-      <param name="externalBorderGap">Gap between the border lines to compute numbers and letters center point.</param>
-      <param name="useNumbers">When true numbers are generated, otherwise letters.</param>
-      <param name="reverseOrder">When true texts are generated from top to bottom, otherwise they are generated from bottom to top (default behavior)</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.CreateTitleBlock(System.Double,System.Drawing.Color,System.Single)">
-      <summary>
-            Creates the title block of the drawing border starting from the bottom-right corner.
-            </summary>
-      <param name="borderWidth">Width of the border.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <param name="lineWeight">The line weight.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.GetLogo">
-      <summary>
-            Gets the logo for the title block.
-            </summary>
-      <returns>An array of entities representing the logo.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.#ctor(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="units">The measurement system type for the sheet.</param>
-      <param name="width">The sheet width.</param>
-      <param name="height">The sheet height.</param>
-      <param name="name">The name of the sheet.</param>
-    </member>
-    <member name="P:devDept.Eyeshot.Sheet.Width">
-      <summary>
-            Gets or sets sheet width.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Sheet.Height">
-      <summary>
-            Gets or sets sheet height.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Sheet.Units">
-      <summary>
-            Gets the measurement system type for the sheet.
-            </summary>
-      <seealso cref="!:ScaleFactor" />
-    </member>
-    <member name="P:devDept.Eyeshot.Sheet.Name">
-      <summary>
-            Gets or sets sheet name.
-            </summary>
-    </member>
-    <!-- Badly formed XML comment ignored for member "E:devDept.Eyeshot.Sheet.KeyChanged" -->
-    <member name="M:devDept.Eyeshot.Sheet.OnKeyChanged(System.String,System.String)">
-      <summary>
-            When the <see cref="P:devDept.Eyeshot.Sheet.Name" /> changes I need to notify it to the related keyed collections before changing it.
-            </summary>
-      <param name="newKey">The new <see cref="P:devDept.Eyeshot.Sheet.Name" /></param>
-      <param name="propertyName">The property name that represent the key for the related keyed collections.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.GetKey">
-      <inheritdoc />
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.SetKey(System.String)">
-      <inheritdoc />
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildA0ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for A0 ISO format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildA1ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for A1 ISO format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildA2ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for A2 ISO format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildA3ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for A3 ISO format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildA4ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for A4 ISO format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildA4LANDSCAPEISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for A4 LANDSCAPE ISO format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildALANDSCAPEANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for A LANDSCAPE ANSI format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildAANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for A ANSI format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildBANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for B ANSI format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildCANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for C ANSI format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildDANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for D ANSI format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildEANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Creates the block for E ANSI format and adds the related BlockReference to the Sheet Entities collection.
-            </summary>
-      <param name="block">The new block created.</param>
-      <param name="blockName">The block name.</param>
-      <param name="color">Border color. If null or empty, default color is black.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.BuildFormatBlock(System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.Block@)">
-      <summary>
-            Creates the format block.
-            </summary>
-      <param name="blockName">The block name.</param>
-      <param name="ents">The collection of entities.</param>
-      <param name="block">The new block created.</param>
-      <returns>The new block reference.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.Rebuild(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean,System.Boolean)">
-      <summary>
-            Rebuilds outdated views on this sheet.
-            </summary>
-      <param name="model">The model control.</param>
-      <param name="drawings">The drawings control.</param>
-      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />, otherwise they're built synchronously.</param>
-      <param name="dirtyOnly">When true only missing/dirty views are built.</param>
-      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />
-      <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" />
-      <see cref="E:devDept.Eyeshot.Environment.WorkFailed" />
-      <see cref="E:devDept.Eyeshot.Environment.WorkCancelled" />
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.IsDirty(devDept.Eyeshot.BlockKeyedCollection)">
-      <summary>
-            Checks if some views must be updated.
-            (Optional) Checks also if exists the related block for each blockreference.
-            </summary>
-      <param name="blocks">(Optional) The blocks collection to check if exists the related block for each blockreference.</param>
-      <returns>True if at least one view is not updated or if a blockreference has not the related block in the collection.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.Dispose">
-      <summary>
-            Cleans up graphics resources, like display lists, etc.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Constructor for deserializing objects.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Sheet.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
-    <member name="T:devDept.Eyeshot.ViewBuilder">
-      <summary>
-            Class that computes geometry for view entity.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.ViewBuilder.#ctor(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="model">The model for building the views.</param>
-      <param name="drawings">The drawings control containing sheets with views to rebuild.</param>
-      <param name="dirtyOnly">When true only missing/dirty views are built.</param>
-      <seealso cref="P:devDept.Eyeshot.Drawings.SilhouettesLayerName" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.EdgesLayerName" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.WiresLayerName" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSilhouettesLayerName" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenEdgesLayerName" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenWiresLayerName" />
-    </member>
-    <member name="P:devDept.Eyeshot.ViewBuilder.SheetsViews">
-      <summary>
-            Gets the dictionary containing the list of views for each sheet.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ViewBuilder.ViewsBlocks">
-      <summary>
-            Gets the dictionary containing the block for each view.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ViewBuilder.BuildingViewText">
-      <summary>
-            Gets or sets the progress bar text displayed while building the view when executed asynchronously.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ViewBuilder.BuildingViewSuffix">
-      <summary>
-            Gets or sets the progress bar suffix text displayed while building the view when executed asynchronously. If null it shows the view name.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)">
-      <summary>
-            Adds views and blocks to the drawings control.
-            </summary>
-      <param name="drawings">The drawings control.</param>
-      <remarks>If a block already exists its entities are replaced with the new one.</remarks>
-    </member>
-    <member name="T:devDept.Eyeshot.Simulation">
-      <summary>
-            Simulation control definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Simulation.ForceSymbolColor">
-      <summary>
-            Gets or sets FEM force symbol color.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Simulation.PressureSymbolColor">
-      <summary>
-            Gets or sets FEM pressure symbol color.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Simulation.PunctualForceSymbolColor">
-      <summary>
-            Gets or sets FEM pressure symbol color.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Simulation.RestraintSymbolColor">
-      <summary>
-            Gets or sets FEM restraint symbol color.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Simulation.ShowRestraint">
-      <summary>
-            Restraint symbols visibility status.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Simulation.ShowLoad">
-      <summary>
-            Load symbols visibility status.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Simulation.ShowJoint">
-      <summary>
-            Joint symbols visibility status.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Simulation.MakeLoopByLength(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32,System.Double)">
-      <summary>
-            Returns a closed loop of points at the specified distance.
-            </summary>
-      <param name="entityList">A list of entities</param>
-      <param name="startIndex">The entity to start with</param>
-      <param name="length">The desired distance between points</param>
-    </member>
-    <member name="T:devDept.Eyeshot.Model">
-      <summary>
-            Model control definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Viewports">
-      <summary>
-            Gets or sets the list of viewports.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ActiveViewport">
-      <summary>
-            The active viewport index.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Units">
-      <summary>
-            The active units of measurement.
-            </summary>
-      <remarks>Affects the unit system of exported models.</remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ViewportsGap">
-      <summary>
-            Gets or sets the gap between viewports.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Materials">
-      <summary>Material collection. This collection contains material definitions.</summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Camera">
-      <summary>
-            Gets or sets the camera settings in the active viewport.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Rotate">
-      <summary>
-            Gets or sets the Rotate settings in the active viewport.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Zoom">
-      <summary>
-            Gets or sets the Zoom settings in the active viewport.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Pan">
-      <summary>
-            Gets or sets the Pan settings of the active viewport.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.AutoHideLabels">
-      <summary>
-            Gets or sets the auto hide labels flag in the active viewport. If true labels are hidden automatically when behind the model.
-            </summary>
-      <remarks>With Direct3D renderer, if Antialiasing is enabled, during the movement of the camera the labels may not be correctly hidden.</remarks>
-      <seealso cref="!:AskForAntiAliasing" />
-      <seealso cref="!:AntiAliasingSamples" />
-      <seealso cref="!:AntiAliasing" />
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Labels">
-      <summary>Gets or sets the master label collection in the active viewport.</summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ShowLabels">
-      <summary>
-            Gets or sets the labels visibility status in the active viewport.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.DisplayMode">
-      <summary>
-            Gets or sets the active display mode in the active viewport.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Wireframe">
-      <summary>
-            Gets or sets the display settings for Wireframe mode, shared by all viewports.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Shaded">
-      <summary>
-            Gets or sets the display settings for Shaded mode, shared by all viewports.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Flat">
-      <summary>
-            Gets or sets the display settings for Flat mode, shared by all viewports.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Rendered">
-      <summary>
-            Gets or sets the display settings for Rendered mode, shared by all viewports.
-            </summary>
-      <remarks>Call <see cref="!:Model.CompileUserInterfaceElements()" /></remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.HiddenLines">
-      <summary>
-            Sets the Hidden Lines options.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.GetGrid">
-      <summary>
-            Gets active viewport grid object
-            </summary>
-      <returns>The grid object of the active viewport</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.GetGrids">
-      <summary>
-            Gets active viewport grids collection
-            </summary>
-      <returns>The grids collection of the active viewport</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.GetOriginSymbol">
-      <summary>
-            Gets the origin symbol settings in the active viewport.
-            </summary>
-      <returns>The OriginSymbol object of the active viewport</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.GetCoordinateSystemIcon">
-      <summary>
-            Gets the coordinate system icon settings in the active viewport.
-            </summary>
-      <returns>The coordinate system icon settings of the active viewport</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.GetViewCubeIcon">
-      <summary>
-            Gets the view cube icon settings in the active viewport.
-            </summary>
-      <returns>The view cube icon settings of the active viewport</returns>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.BoundingBox">
-      <summary>
-            Bounding box settings.
-            </summary>
-      <remarks>You need to call the Viewport.CompileUserInterfaceElements() after assigning a new BoundingBox.</remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.LayoutMode">
-      <summary>
-            Gets or sets the viewports configuration.
-            </summary>
-      <remarks>
-        <see cref="P:devDept.Eyeshot.Model.Viewports" /> collection needs to be initialized with the correct number of Viewport items before changing this property.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.GetDefaultLayoutMode">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Light1">
-      <summary>
-            Light 1 attribute.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Light2">
-      <summary>
-            Light 2 attribute.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Light3">
-      <summary>
-            Light 3 attribute.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Light4">
-      <summary>
-            Light 4 attribute.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Light5">
-      <summary>
-            Light 5 attribute.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Light6">
-      <summary>
-            Light 6 attribute.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Light7">
-      <summary>
-            Light 7 attribute.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Light8">
-      <summary>
-            Light 8 attribute.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.AmbientLight">
-      <summary>
-            Gets or sets the ambient light that is always added to the scene (multiplied by the material's ambient component).
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Model.DefaultMaterial" />
-      <seealso cref="P:devDept.Eyeshot.Model.Materials" />
-    </member>
-    <member name="P:devDept.Eyeshot.Model.DefaultMaterial">
-      <summary>
-            Gets or sets the default material attributes used by the entities without their own material.
-            </summary>
-      <remarks>Only <see cref="P:devDept.Graphics.Material.Ambient" />, <see cref="P:devDept.Graphics.Material.Specular" /> and <see cref="P:devDept.Graphics.Material.Shininess" /> are used.</remarks>
-      <seealso cref="!:SelectionColor" />
-    </member>
-    <member name="P:devDept.Eyeshot.Model.GroundPlaneDistance">
-      <summary>
-            Gets or sets the distance between the ground plane and the model's bounding box expressed as a fraction of the model height. 
-            </summary>
-      <remarks>This distance is use to compute the plane used by the planar reflections and the planar shadows</remarks>
-      <seealso cref="P:devDept.Eyeshot.DisplayModeSettingsRendered.PlanarReflections" />
-      <seealso cref="P:devDept.Eyeshot.DisplayModeSettingsShaded.ShadowMode" />
-      <seealso cref="M:devDept.Eyeshot.Model.GetPlanarReflectionsPlane" />
-    </member>
-    <member name="P:devDept.Eyeshot.Model.PlanarShadowOpacity">
-      <summary>
-            Gets or sets the planar shadow's opacity. 
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ClippingPlane1">
-      <summary>
-            Clipping plane 1 attributes.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ClippingPlane2">
-      <summary>
-            Clipping plane 2 attributes.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ClippingPlane3">
-      <summary>
-            Clipping plane 3 attributes.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ClippingPlane4">
-      <summary>
-            Clipping plane 4 attributes.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ClippingPlane5">
-      <summary>
-            Clipping plane 5 attributes.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ClippingPlane6">
-      <summary>
-            Clipping plane 6 attributes.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ObjectManipulator">
-      <summary>
-            The manipulator used to graphically position the selected entities.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.ViewportBorder">
-      <summary>
-            Gets or sets the border settings.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.DefaultColor">
-      <summary>
-            Gets or sets the default color used by top level entities with <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /> color method.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />
-    </member>
-    <member name="P:devDept.Eyeshot.Model.Backface">
-      <summary>
-            Gets or sets the backface settings, shared by all viewports. This settings don't apply to multicolor entities like <see cref="!:devDept.Eyeshot.Entities.RichMesh" /> for example.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.KeepSceneUpright">
-      <summary>
-            Gets or sets a flag that keeps the scene upright when doing SetView operations or clicking on the <see cref="T:devDept.Eyeshot.ViewCubeIcon" /> faces.
-            </summary>
-      <remarks>If false, the SetView operations and the mouse clicks on the ViewCubeIcon set the orientation with the up-vector closest to the current one.</remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.OrientationMode">
-      <summary>
-            Gets or sets the coordinate system orientation mode.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.AssemblySelectionMode">
-      <summary>
-            Gets or sets a boolean that determines whether the selection goes inside the <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> tree.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.SelectionFilterMode">
-      <summary>
-            Gets or sets the pick filter used by the pick action modes.
-            </summary>
-      <seealso cref="!:ActionMode" />
-    </member>
-    <member name="P:devDept.Eyeshot.Model.SplitterMoving">
-      <summary>
-            When the viewport control is hosted inside a Grid control with GridSplitter an annoying repaint issue is present during GridSplitter moving.
-            Setting properly this flag this can be avoided.</summary>
-      <example>
-            The following code fragment demonstrates the usage of the SplitterMoving flag to avoid the SplitControl repaint issue during GridSplitter moving.
-            <code lang="CS">        
-            private void GridSplitter1_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-            {        
-            		MainViewport.SplitterMoving = true;                
-            }
-            private void GridSplitter1_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-            {        
-            	MainViewport.SplitterMoving = false;
-            }</code><code lang="VB.NET">                
-            Private Sub GridSplitter1_PreviewMouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles GridSplitter1.PreviewMouseDown        
-                MainViewport.SplitterMoving = True        
-            End Sub
-            Private Sub GridSplitter1__PreviewMouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles GridSplitter1.PreviewMouseUp                
-                MainViewport.SplitterMoving = False
-            End Sub</code></example>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.FaceSelectionAngle">
-      <summary>
-            Gets or sets the angle (in radians) used to discriminate adjacent triangles in the selection of the faces of Mesh and Solids.
-            </summary>
-      <remarks>The default is 0.5 rad.</remarks>
-      <seealso cref="P:devDept.Eyeshot.Entities.Mesh.Faces" />
-      <seealso cref="P:devDept.Eyeshot.Entities.Solid.Faces" />
-    </member>
-    <member name="P:devDept.Eyeshot.Model.WriteDepthForTransparents">
-      <summary>
-            When true, adds an extra pass to write transparent entities in the Z buffer.
-            </summary>
-      <remarks>Refers to inaccurate transparency only.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.SaveFile(System.String,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
-      <summary>
-            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <param name="fileName">File name.</param>
-      <param name="drawings">The drawings control. Can be null/Nothing.</param>
-      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
-                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.         
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
-      <seealso cref="!:OpenFile(string)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.SaveFile(System.IO.Stream,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
-      <summary>
-            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <param name="stream">The file stream.</param>
-      <param name="drawings">The drawings control. Can be null/Nothing.</param>
-      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
-                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
-      <seealso cref="!:OpenFile(Stream)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.OpenFile(System.String,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
-      <summary>
-            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <param name="fileName">File name.</param>
-      <param name="drawings">The drawings control. Can be null/Nothing.</param>
-      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
-                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
-      <seealso cref="!:SaveFile(string)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.OpenFile(System.IO.Stream,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
-      <summary>
-            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
-            </summary>
-      <param name="stream">The file stream.</param>
-      <param name="drawings">The drawings control. Can be null/Nothing.</param>
-      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
-      <remarks>
-        <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
-                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
-                </para>
-      </remarks>
-      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
-      <seealso cref="!:SaveFile(Stream)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.UpdateViewportsSizeAndLocation">
-      <summary>
-            Updates the Viewports dimensions and locations depending on the <see cref="P:devDept.Eyeshot.Model.LayoutMode" /> property.
-            </summary>
-      <remarks>If overridden, in WPF must call <see cref="!:ApplyOpacityMask" /></remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.ExtrudeText(devDept.Eyeshot.Entities.Text,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Extrudes a text creating an array of new solids.
-            </summary>
-      <param name="text">Entity text</param>
-      <param name="tolerance">Entity text needs to be converted to Solid type, this is the conversion tolerance (chordal error).</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="endCaps">Closing Caps on both ends</param>
-      <returns>The created array of solids.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.ExtrudeText(devDept.Eyeshot.Entities.Text,System.Double,devDept.Geometry.Vector3D,System.Boolean)">
-      <summary>
-            Extrudes a text creating an array of new solids.
-            </summary>
-      <param name="text">Entity text</param>
-      <param name="tolerance">Entity text needs to be converted to Solid type, this is the conversion tolerance (chordal error).</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="endCaps">Closing Caps on both ends</param>
-      <returns>The created array of solids.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.ExtrudeText(devDept.Eyeshot.Entities.Text,System.Double,System.Double,System.Boolean,devDept.Eyeshot.Entities.Mesh.natureType)">
-      <summary>
-            Extrudes a text creating an array of new meshes.
-            </summary>
-      <param name="text">Entity text</param>
-      <param name="tolerance">Entity text needs to be converted to Mesh type, this is the conversion tolerance (chordal error).</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="endCaps">Closing Caps on both ends</param>
-      <param name="meshNature">Nature of the resulting mesh entity</param>
-      <returns>The created array of meshes.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.ExtrudeText(devDept.Eyeshot.Entities.Text,System.Double,devDept.Geometry.Vector3D,System.Boolean,devDept.Eyeshot.Entities.Mesh.natureType)">
-      <summary>
-            Extrudes a text creating an array of new meshes.
-            </summary>
-      <param name="text">Entity text</param>
-      <param name="tolerance">Entity text needs to be converted to Mesh type, this is the conversion tolerance (chordal error).</param>
-      <param name="amount">Extrusion amount</param>
-      <param name="endCaps">Closing Caps on both ends</param>
-      <param name="meshNature">Nature of the resulting mesh entity</param>
-      <returns>The created array of meshes.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateCamera(System.Int32,System.Int32)">
-      <summary>
-            Rotates the view of the specified amount.
-            </summary>
-      <param name="dx">Horizontal rotation amount</param>
-      <param name="dy">Vertical rotation amount</param>
-      <seealso cref="!:ZoomCamera(int)" />
-      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateCamera(System.Int32,System.Int32,System.Boolean)">
-      <summary>
-            Rotates the view of the specified amount.
-            </summary>
-      <param name="dx">Horizontal rotation amount</param>
-      <param name="dy">Vertical rotation amount</param>
-      <param name="animate">If true performs an animation when changing the view</param>
-      <seealso cref="!:ZoomCamera(int)" />
-      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateCamera(System.Drawing.Point,System.Drawing.Point)">
-      <summary>
-            Rotates the view simulating the movement between two mouse position.
-            </summary>
-      <param name="mousePos1">The initial mouse position</param>
-      <param name="mousePos2">The final mouse position</param>
-      <seealso cref="!:ZoomCamera(int)" />
-      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)">
-      <summary>
-            Rotates the view of the specified amount.
-            </summary>
-      <param name="last">Previous axis</param>
-      <param name="current">Current axis</param>
-      <seealso cref="!:ZoomCamera(int)" />
-      <seealso cref="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)" />
-      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Boolean)">
-      <summary>
-            Rotates the view of the specified amount.
-            </summary>
-      <param name="last">Previous axis</param>
-      <param name="current">Current axis</param>
-      <param name="animate">If true performs an animation when changing the view</param>
-      <seealso cref="!:ZoomCamera(int)" />
-      <seealso cref="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)" />
-      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,System.Double,System.Boolean)">
-      <summary>
-            Rotates the view of the specified amount.
-            </summary>
-      <param name="axis">Rotation axis</param>
-      <param name="rotAngleInDegrees">Rotation amount</param>
-      <param name="trackBall">if true, the rotation is applied after the current rotation, else it's applied before</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,System.Double,System.Boolean,System.Boolean)">
-      <summary>
-            Rotates the view of the specified amount.
-            </summary>
-      <param name="axis">Rotation axis</param>
-      <param name="rotAngleInDegrees">Rotation amount</param>
-      <param name="trackBall">if true, the rotation is applied after the current rotation, else it's applied before</param>
-      <param name="animate">If true performs an animation when changing the view</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.OrientCamera(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-      <summary>
-            Orients the Camera between the two specified points.
-            </summary>
-      <param name="location">The camera location</param>
-      <param name="target">The new camera target</param>
-      <remarks>The <param nameref="location" /> parameter is used just ot determine the direction. The final <see cref="P:devDept.Eyeshot.Camera.Location" /> depends on the <paramref name="target" /> and the <see cref="P:devDept.Eyeshot.Camera.Distance" /></remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateLeft(System.Double)">
-      <summary>
-            Rotates the view to the left.
-            </summary>
-      <param name="degrees">Degrees of rotation</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateRight(System.Double)">
-      <summary>
-            Rotates the view to the right.
-            </summary>
-      <param name="degrees">Degrees of rotation</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateUp(System.Double)">
-      <summary>
-            Rotates the view upwards.
-            </summary>
-      <param name="degrees">Degrees of rotation</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.RotateDown(System.Double)">
-      <summary>
-            Rotates the view downwards.
-            </summary>
-      <param name="degrees">Degrees of rotation</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.MoveToPlane(System.Collections.Generic.ICollection{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-      <summary>
-            Moves a list of entities from plane XY to the specified plane.
-            </summary>
-      <param name="entList">The entity list</param>
-      <param name="origin">The destination plane origin</param>
-      <param name="xAxis">The destination plane X axis</param>
-      <param name="yAxis">The destination plane Y axis</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.MoveToPlane(System.Collections.Generic.ICollection{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Plane)">
-      <summary>
-            Moves a list of entities from plane XY to the specified plane.
-            </summary>
-      <param name="entList">The entity list</param>
-      <param name="plane">Destination plane</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.MoveToPlane(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.Plane)">
-      <summary>
-            Moves a list of points from plane XY to the specified plane.
-            </summary>
-      <param name="points">The points list</param>
-      <param name="plane">Destination plane</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Entities.IFace,System.Drawing.Point,devDept.Geometry.Point3D@,System.Int32@)">
-      <summary>
-            Finds the closest triangle to the viewer of the specified entity.
-            </summary>
-      <param name="entity">The entity</param>
-      <param name="mousePos">Mouse cursor position</param>
-      <param name="hitPoint">Closest triangle intersection point in the <see cref="P:devDept.Eyeshot.EntityList.Parents" /> coordinate system.</param>
-      <param name="hitTriangleIndex">Closest triangle index</param>
-      <returns>The numbers of triangles found under the mouse cursor.</returns>
-      <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Environment.SelectedItem,System.Drawing.Point,devDept.Geometry.Point3D@,System.Int32@)">
-      <summary>
-            Finds the closest triangle to the viewer of the specified item (which may include the parents stack for nested entities)..
-            </summary>
-      <param name="item">The item</param>
-      <param name="mousePos">Mouse cursor position</param>
-      <param name="hitPoint">Closest triangle intersection point in the <see cref="P:devDept.Eyeshot.EntityList.Parents" /> coordinate system.</param>
-      <param name="hitTriangleIndex">Closest triangle index</param>
-      <returns>The numbers of triangles found under the mouse cursor.</returns>
-      <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Entities.IFace,System.Drawing.Point)">
-      <summary>
-            Finds the closest triangle to the viewer of the specified entity.
-            </summary>
-      <param name="entity">The entity</param>
-      <param name="mousePos">Mouse cursor position (zero on top)</param>
-      <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle" /> found under the mouse cursor.</returns>
-      <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
-      <remarks>If the entity is inside a <see cref="T:devDept.Eyeshot.Entities.BlockReference" />, it must be set as current.</remarks>
-      <remarks>The triangles intersection points are in the <see cref="P:devDept.Eyeshot.EntityList.Parents" /> coordinate system.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Environment.SelectedItem,System.Drawing.Point)">
-      <summary>
-            Finds the closest triangle to the viewer of the specified item (which may include the parents stack for nested entities).
-            </summary>
-      <param name="item">The item</param>
-      <param name="mousePos">Mouse cursor position (zero on top)</param>
-      <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle" /> found under the mouse cursor.</returns>
-      <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
-      <remarks>The triangles intersection points are in the <see cref="P:devDept.Eyeshot.EntityList.Parents" /> coordinate system.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.StartAnimation">
-      <summary>
-        <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
-            computation of the new entity position.</para>
-        <para>To animate group of entities the approach is the following:</para>
-        <list type="number">
-          <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
-          <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
-          <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
-          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
-            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
-          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
-          <item>Call StartAnimation() providing the time interval between each frame</item>
-          <item>Call StopAnimation() to stop the animation</item>
-        </list>
-      </summary>
-      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
-      <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
-      <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
-      <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
-      <seealso cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)" />
-      <remarks>During animation the silhouettes, if enabled, are skipped.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">
-      <summary>
-        <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
-            computation of the new entity position.</para>
-        <para>To animate group of entities the approach is the following:</para>
-        <list type="number">
-          <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
-          <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
-          <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
-          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
-            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
-          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
-          <item>Call StartAnimation() providing the time interval between each frame</item>
-          <item>Call StopAnimation() to stop the animation</item>
-        </list>
-      </summary>
-      <param name="interval">Timer interval. See <see cref="T:System.Threading.Timer" /> object.</param>
-      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
-      <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
-      <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
-      <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
-      <seealso cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)" />
-      <remarks>During animation the silhouettes, if enabled, are skipped.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.StartAnimation(System.Int32,System.Int32)">
-      <summary>
-        <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
-            computation of the new entity position.</para>
-        <para>To animate group of entities the approach is the following:</para>
-        <list type="number">
-          <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
-          <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
-          <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
-          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
-          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
-            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
-          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
-          <item>Call StartAnimation() providing the time interval between each frame</item>
-          <item>Call StopAnimation() to stop the animation</item>
-        </list>
-      </summary>
-      <param name="stopAfter">The animation will stop after this number of frames</param>
-      <param name="interval">Timer interval, see <see cref="T:System.Threading.Timer" /> object.</param>
-      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
-      <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
-      <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
-      <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
-      <seealso cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)" />
-      <remarks>During animation the silhouettes, if enabled, are skipped.</remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.IsAnimationRunning">
-      <summary>
-            Tells if the animation is currently running.
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation" />
-      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation" />
-      <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
-      <remarks>During animation the silhouettes, if enabled, are skipped.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.StopAnimation">
-      <summary>Stops the animation timer. Call base class method when overriding.</summary>
-      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method</seealso>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.AnimationStep">
-      <summary>Gets or sets the animation step that increments the <see cref="P:devDept.Eyeshot.Model.AnimationFrameNumber" /> at each tick of the animation timer. Can be a negative number.</summary>
-      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.AnimationInterval">
-      <summary>Gets or sets the animation interval.</summary>
-      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-    </member>
-    <member name="P:devDept.Eyeshot.Model.AnimationFrameNumber">
-      <summary>Gets or sets the animation frame number.</summary>
-      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.SetSelectionScope(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
-      <summary>
-            Sets the parents stack that represents the starting point for the selection.
-            </summary>
-      <remarks>The top most element of the stack is the inner most BlockReference (the last parent of the hierarchy).</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Model.GetPlanarReflectionsPlane">
-      <summary>
-             Gets the plane used to draw the planar reflections.
-            </summary>
-      <returns>The plane</returns>
-      <seealso cref="P:devDept.Eyeshot.Model.GroundPlaneDistance" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.SetColorShaded(devDept.Graphics.RenderContextBase,devDept.Eyeshot.Entities.entityNatureType,System.Drawing.Color,System.Boolean,devDept.Graphics.BackfaceSettings)">
-      <summary>
-            Shaded color changer.
-            </summary>
-      <param name="context">The render context</param>
-      <param name="nature">The nature of the entity just to be drawn</param>
-      <param name="color">The color</param>
-      <param name="selected">The selection status</param>
-      <param name="backface">The BackFace settings</param>
-      <seealso cref="P:devDept.Eyeshot.Model.Backface" />
-    </member>
-    <member name="M:devDept.Eyeshot.Model.SetColorRendered(devDept.Graphics.RenderContextBase,devDept.Eyeshot.Entities.entityNatureType,devDept.Graphics.Material,System.Boolean,devDept.Eyeshot.RenderParams)">
-      <summary>
-            Rendered mat changer.
-            </summary>
-      <param name="nature">The nature of the entity just to be drawn</param>
-      <param name="material">The entity material</param>
-      <param name="selected">The selection status</param>
-      <param name="data">Data for high quality rendering</param>
-    </member>
-    <member name="T:devDept.Eyeshot.ViewportLayout">
-      <summary>
-            Deprecated class.
-            </summary>
+      <param name="stream">The file stream</param>
+      <param name="dogLeg">When true, rapid movements are drawn with dog leg style.</param>
+      <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteFileParams">
       <summary>
@@ -24850,6 +23733,1369 @@
       <param name="writeParams">The <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithUnits" /></param>
       <param name="stream">The file stream</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.Drawings">
+      <summary>
+            Drawings control definition.
+            </summary>
+      <remarks>The line weight factor set to the entities or to the layers are always considered as millimeters. Use the <see cref="P:devDept.Eyeshot.Drawings.LineWeightFactor" /> to change the scale factor used to display the entities line weight.</remarks>
+      <seealso cref="P:devDept.Eyeshot.Drawings.LineWeightFactor" />
+      <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineWeight" />
+      <seealso cref="P:devDept.Eyeshot.Layer.LineWeight" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.Zoom">
+      <summary>
+            Gets or sets the Zoom settings.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.Pan">
+      <summary>
+            Gets or sets the Pan settings.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.LineWeightFactor">
+      <summary>
+            Gets or sets the scale factor used to display the <see cref="T:devDept.Eyeshot.Entities.ICurve" /> line weight.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.PaperColor">
+      <summary>
+            Gets or sets paper color.
+            </summary>
+      <remarks>Use the <see cref="M:devDept.Eyeshot.Drawings.UpdatePaper" /> method to refresh the paper color.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.SilhouettesLayerName">
+      <summary>
+            Gets or sets the layer name for silhouettes.
+            </summary>
+      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for silhouettes are assigned to the layer with this name.</remarks>
+      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.EdgesLayerName">
+      <summary>
+            Gets or sets the layer name for edges.
+            </summary>
+      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for edges are assigned to the layer with this name.</remarks>
+      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.WiresLayerName">
+      <summary>
+            Gets or sets the layer name for wires.
+            </summary>
+      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for wires are assigned to the layer with this name.</remarks>
+      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.HiddenSilhouettesLayerName">
+      <summary>
+            Gets or sets the layer name for hidden silhouettes.
+            </summary>
+      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for hidden silhouettes are assigned to the layer with this name.</remarks>
+      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.HiddenEdgesLayerName">
+      <summary>
+            Gets or sets the layer name for hidden edges.
+            </summary>
+      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for hidden edges are assigned to the layer with this name.</remarks>
+      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.HiddenWiresLayerName">
+      <summary>
+            Gets or sets the layer name for hidden wires.
+            </summary>
+      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for hidden wires are assigned to the layer with this name.</remarks>
+      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName">
+      <summary>
+            Gets or sets the line type name for hidden lines layers.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSilhouettesLayerName" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenEdgesLayerName" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenWiresLayerName" />
+      <seealso cref="P:devDept.Eyeshot.Environment.Layers" />
+      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.ViewBuilderText">
+      <summary>
+            Gets or sets the progress bar text displayed while bulding the view when executed asynchronously.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.ViewBuilderSuffix">
+      <summary>
+            Gets or sets the progress bar suffix text displayed while bulding the view when executed asynchronously. If null it shows the view name.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)">
+      <summary>
+            Rebuilds sheets on this drawings.
+            </summary>
+      <param name="model">The model control.</param>
+      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />, otherwise they're built synchronously.</param>
+      <param name="dirtyOnly">When true only missing/dirty views are built.</param>
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkFailed" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkCancelled" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.#ctor">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.Clear">
+      <summary>
+            Clears all the master collections: entities, blocks, layers, materials, text styles, line types, sheets and labels.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.CopyTo(devDept.Eyeshot.Environment,System.Boolean)">
+      <summary>
+            Copies all items inside control master collections (<see cref="N:devDept.Eyeshot.Entities" />, <see cref="P:devDept.Eyeshot.Drawings.Sheets" />, <see cref="N:devDept.Eyeshot.Labels" />, <see cref="!:Blocks" />, <see cref="!:Layers" />, <see cref="!:Materials" />, <see cref="!:TextStyles" />, <see cref="!:LineTypes" />) to the specified drawings.
+            </summary>
+      <param name="destination">The Drawings that is the destination of the elements copied.</param>
+      <param name="skipEntities">When true the <see cref="N:devDept.Eyeshot.Entities" /> and <see cref="P:devDept.Eyeshot.Drawings.Sheets" /> collections is not copied.</param>
+      <remarks>
+            You need to call <see cref="!:Invalidate()" /> to see the effect of this command in the destination drawings.
+            </remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.SaveFile(System.String,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
+      <summary>
+            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="fileName">File name.</param>
+      <param name="model">The model control.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
+      <seealso cref="!:OpenFile(string)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.SaveFile(System.IO.Stream,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
+      <summary>
+            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="stream">The file stream.</param>
+      <param name="model">The model control.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
+      <seealso cref="!:OpenFile(Stream)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.OpenFile(System.String,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
+      <summary>
+            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="fileName">File name.</param>
+      <param name="model">The model control.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
+      <seealso cref="!:SaveFile(string)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.OpenFile(System.IO.Stream,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
+      <summary>
+            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="stream">The file stream.</param>
+      <param name="model">The model control.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
+      <seealso cref="!:SaveFile(Stream)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.UpdatePaper">
+      <summary>
+            Updates the paper drawing according to the current size.        
+            </summary>
+      <remarks>Use this method to refresh the paper drawing if the <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> size (format) has been changed or the <see cref="P:devDept.Eyeshot.Drawings.PaperColor" /> is updated.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.PaperColor" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.Sheets">
+      <summary>
+            Gets or sets the sheets collection.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.GetActiveSheet">
+      <summary>
+            Gets the active sheet.
+            </summary>
+      <remarks>Returns null if the <see cref="P:devDept.Eyeshot.Drawings.Sheets" /> collection is empty.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)">
+      <summary>
+            Sets a sheet as the active one.
+            </summary>
+      <param name="sheet">The Sheet to set as active.</param>
+      <remarks>
+        <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, the following changes happen:</para>
+        <para>- The entities of the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> are cleared.</para>
+        <para>- The entities of the <see cref="T:devDept.Eyeshot.Drawings" /> are moved to the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />.</para>
+        <para>- The <see cref="T:devDept.Eyeshot.Sheet" /> is set as <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> and its entities are moved to the <see cref="T:devDept.Eyeshot.Drawings" />.</para>
+        <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
+      </remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the element does not exist in the collection.</exception>
+      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.SetActiveSheet(System.String)">
+      <summary>
+            Sets a sheet as the active one.
+            </summary>
+      <param name="name">The Sheet name to set as active.</param>
+      <remarks>
+        <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, its entities are shared with the Drawings one.</para>
+        <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
+      </remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
+      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
+      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
+    </member>
+    <member name="T:devDept.Eyeshot.Sheet">
+      <summary>
+            Draws the drawing frame.
+            </summary>
+      <summary>
+            Drawing sheet class definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.CreateBorder(System.Double,System.Double,System.Int32,System.Int32,System.Nullable{System.Drawing.Color},System.Single,System.Double,System.Double,System.Boolean,System.Single)">
+      <summary>
+            Creates the drawing border.
+            </summary>
+      <param name="width">Width of the drawing border.</param>
+      <param name="height">Height of the drawing border.</param>
+      <param name="rows">Rows number of the drawing border (vertical subdivision).</param>
+      <param name="columns">Colums number of the drawing border (horizontal subdivision).</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <param name="lineWeight">The line weight.</param>
+      <param name="textHeight">Height for numbers and letters.</param>
+      <param name="externalBorderGap">Gap between the border lines. It's also used to compute numbers and letters center point.</param>
+      <param name="createExternalBorder">When true the lines for external border are created.</param>
+      <param name="externalBorderLineWeight">The line weight for external border.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.CreateBorderSeparators(System.Double,System.Double,System.Int32,System.Int32,System.Nullable{System.Drawing.Color},System.Single,System.Double)">
+      <summary>
+            Creates the separator lines inside the drawing borders.
+            </summary>
+      <param name="width">Width of the drawing border.</param>
+      <param name="height">Height of the drawing border.</param>
+      <param name="rows">Rows number of the drawing border (vertical subdivision).</param>
+      <param name="columns">Colums number of the drawing border (horizontal subdivision).</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <param name="lineWeight">The line weight.</param>
+      <param name="externalBorderGap">Gap between the border lines. It's also used to compute numbers and letters center point.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.CreateBorderHorizontalTexts(System.Double,System.Double,System.Int32,System.Int32,System.Nullable{System.Drawing.Color},System.Single,System.Double,System.Double,System.Boolean,System.Boolean)">
+      <summary>
+            Creates horizontal texts for the drawing border.
+            </summary>
+      <param name="width">Width of the drawing border.</param>
+      <param name="height">Height of the drawing border.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <param name="lineWeight">The line weight.</param>
+      <param name="textHeight">Height for numbers and letters.</param>
+      <param name="externalBorderGap">Gap between the border lines to compute numbers and letters center point.</param>
+      <param name="useNumbers">When true numbers are generated, otherwise letters.</param>
+      <param name="reverseOrder">When true texts are generated from left to right, otherwise they are generated from right to left (default behavior)</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.CreateBorderVerticalTexts(System.Double,System.Double,System.Int32,System.Int32,System.Nullable{System.Drawing.Color},System.Single,System.Double,System.Double,System.Boolean,System.Boolean)">
+      <summary>
+            Creates vertical texts for the drawing border.
+            </summary>
+      <param name="width">Width of the drawing border.</param>
+      <param name="height">Height of the drawing border.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <param name="lineWeight">The line weight.</param>
+      <param name="textHeight">Height for numbers and letters.</param>
+      <param name="externalBorderGap">Gap between the border lines to compute numbers and letters center point.</param>
+      <param name="useNumbers">When true numbers are generated, otherwise letters.</param>
+      <param name="reverseOrder">When true texts are generated from top to bottom, otherwise they are generated from bottom to top (default behavior)</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.CreateTitleBlock(System.Double,System.Drawing.Color,System.Single)">
+      <summary>
+            Creates the title block of the drawing border starting from the bottom-right corner.
+            </summary>
+      <param name="borderWidth">Width of the border.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <param name="lineWeight">The line weight.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.GetLogo">
+      <summary>
+            Gets the logo for the title block.
+            </summary>
+      <returns>An array of entities representing the logo.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.#ctor(devDept.Geometry.linearUnitsType,System.Double,System.Double,System.String)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="units">The measurement system type for the sheet.</param>
+      <param name="width">The sheet width.</param>
+      <param name="height">The sheet height.</param>
+      <param name="name">The name of the sheet.</param>
+    </member>
+    <member name="P:devDept.Eyeshot.Sheet.Width">
+      <summary>
+            Gets or sets sheet width.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Sheet.Height">
+      <summary>
+            Gets or sets sheet height.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Sheet.Units">
+      <summary>
+            Gets the measurement system type for the sheet.
+            </summary>
+      <seealso cref="!:ScaleFactor" />
+    </member>
+    <member name="P:devDept.Eyeshot.Sheet.Name">
+      <summary>
+            Gets or sets sheet name.
+            </summary>
+    </member>
+    <!-- Badly formed XML comment ignored for member "E:devDept.Eyeshot.Sheet.KeyChanged" -->
+    <member name="M:devDept.Eyeshot.Sheet.OnKeyChanged(System.String,System.String)">
+      <summary>
+            When the <see cref="P:devDept.Eyeshot.Sheet.Name" /> changes I need to notify it to the related keyed collections before changing it.
+            </summary>
+      <param name="newKey">The new <see cref="P:devDept.Eyeshot.Sheet.Name" /></param>
+      <param name="propertyName">The property name that represent the key for the related keyed collections.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.GetKey">
+      <inheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.SetKey(System.String)">
+      <inheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildA0ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A0 ISO format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildA1ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A1 ISO format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildA2ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A2 ISO format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildA3ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A3 ISO format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildA4ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A4 ISO format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildA4LANDSCAPEISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A4 LANDSCAPE ISO format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildALANDSCAPEANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A LANDSCAPE ANSI format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildAANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for A ANSI format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildBANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for B ANSI format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildCANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for C ANSI format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildDANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for D ANSI format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildEANSI(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Creates the block for E ANSI format and adds the related BlockReference to the Sheet Entities collection.
+            </summary>
+      <param name="block">The new block created.</param>
+      <param name="blockName">The block name.</param>
+      <param name="color">Border color. If null or empty, default color is black.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.BuildFormatBlock(System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.Block@)">
+      <summary>
+            Creates the format block.
+            </summary>
+      <param name="blockName">The block name.</param>
+      <param name="ents">The collection of entities.</param>
+      <param name="block">The new block created.</param>
+      <returns>The new block reference.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.Rebuild(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean,System.Boolean)">
+      <summary>
+            Rebuilds outdated views on this sheet.
+            </summary>
+      <param name="model">The model control.</param>
+      <param name="drawings">The drawings control.</param>
+      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />, otherwise they're built synchronously.</param>
+      <param name="dirtyOnly">When true only missing/dirty views are built.</param>
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkFailed" />
+      <see cref="E:devDept.Eyeshot.Environment.WorkCancelled" />
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.IsDirty(devDept.Eyeshot.BlockKeyedCollection)">
+      <summary>
+            Checks if some views must be updated.
+            (Optional) Checks also if exists the related block for each blockreference.
+            </summary>
+      <param name="blocks">(Optional) The blocks collection to check if exists the related block for each blockreference.</param>
+      <returns>True if at least one view is not updated or if a blockreference has not the related block in the collection.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.Dispose">
+      <summary>
+            Cleans up graphics resources, like display lists, etc.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Eyeshot.ViewBuilder">
+      <summary>
+            Class that computes geometry for view entity.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.ViewBuilder.#ctor(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="model">The model for building the views.</param>
+      <param name="drawings">The drawings control containing sheets with views to rebuild.</param>
+      <param name="dirtyOnly">When true only missing/dirty views are built.</param>
+      <seealso cref="P:devDept.Eyeshot.Drawings.SilhouettesLayerName" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.EdgesLayerName" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.WiresLayerName" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSilhouettesLayerName" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenEdgesLayerName" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.HiddenWiresLayerName" />
+    </member>
+    <member name="P:devDept.Eyeshot.ViewBuilder.SheetsViews">
+      <summary>
+            Gets the dictionary containing the list of views for each sheet.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ViewBuilder.ViewsBlocks">
+      <summary>
+            Gets the dictionary containing the block for each view.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ViewBuilder.BuildingViewText">
+      <summary>
+            Gets or sets the progress bar text displayed while building the view when executed asynchronously.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ViewBuilder.BuildingViewSuffix">
+      <summary>
+            Gets or sets the progress bar suffix text displayed while building the view when executed asynchronously. If null it shows the view name.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)">
+      <summary>
+            Adds views and blocks to the drawings control.
+            </summary>
+      <param name="drawings">The drawings control.</param>
+      <remarks>If a block already exists its entities are replaced with the new one.</remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.Simulation">
+      <summary>
+            Simulation control definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Simulation.ForceSymbolColor">
+      <summary>
+            Gets or sets FEM force symbol color.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Simulation.PressureSymbolColor">
+      <summary>
+            Gets or sets FEM pressure symbol color.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Simulation.PunctualForceSymbolColor">
+      <summary>
+            Gets or sets FEM pressure symbol color.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Simulation.RestraintSymbolColor">
+      <summary>
+            Gets or sets FEM restraint symbol color.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Simulation.ShowRestraint">
+      <summary>
+            Restraint symbols visibility status.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Simulation.ShowLoad">
+      <summary>
+            Load symbols visibility status.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Simulation.ShowJoint">
+      <summary>
+            Joint symbols visibility status.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Simulation.MakeLoopByLength(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32,System.Double)">
+      <summary>
+            Returns a closed loop of points at the specified distance.
+            </summary>
+      <param name="entityList">A list of entities</param>
+      <param name="startIndex">The entity to start with</param>
+      <param name="length">The desired distance between points</param>
+    </member>
+    <member name="T:devDept.Eyeshot.Model">
+      <summary>
+            Model control definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Viewports">
+      <summary>
+            Gets or sets the list of viewports.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ActiveViewport">
+      <summary>
+            The active viewport index.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Units">
+      <summary>
+            The active units of measurement.
+            </summary>
+      <remarks>Affects the unit system of exported models.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ViewportsGap">
+      <summary>
+            Gets or sets the gap between viewports.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Materials">
+      <summary>Material collection. This collection contains material definitions.</summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Camera">
+      <summary>
+            Gets or sets the camera settings in the active viewport.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Rotate">
+      <summary>
+            Gets or sets the Rotate settings in the active viewport.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Zoom">
+      <summary>
+            Gets or sets the Zoom settings in the active viewport.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Pan">
+      <summary>
+            Gets or sets the Pan settings of the active viewport.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.AutoHideLabels">
+      <summary>
+            Gets or sets the auto hide labels flag in the active viewport. If true labels are hidden automatically when behind the model.
+            </summary>
+      <remarks>With Direct3D renderer, if Antialiasing is enabled, during the movement of the camera the labels may not be correctly hidden.</remarks>
+      <seealso cref="!:AskForAntiAliasing" />
+      <seealso cref="!:AntiAliasingSamples" />
+      <seealso cref="!:AntiAliasing" />
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Labels">
+      <summary>Gets or sets the master label collection in the active viewport.</summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ShowLabels">
+      <summary>
+            Gets or sets the labels visibility status in the active viewport.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.DisplayMode">
+      <summary>
+            Gets or sets the active display mode in the active viewport.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Wireframe">
+      <summary>
+            Gets or sets the display settings for Wireframe mode, shared by all viewports.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Shaded">
+      <summary>
+            Gets or sets the display settings for Shaded mode, shared by all viewports.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Flat">
+      <summary>
+            Gets or sets the display settings for Flat mode, shared by all viewports.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Rendered">
+      <summary>
+            Gets or sets the display settings for Rendered mode, shared by all viewports.
+            </summary>
+      <remarks>Call <see cref="!:Model.CompileUserInterfaceElements()" /></remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.HiddenLines">
+      <summary>
+            Sets the Hidden Lines options.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.GetGrid">
+      <summary>
+            Gets active viewport grid object
+            </summary>
+      <returns>The grid object of the active viewport</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.GetGrids">
+      <summary>
+            Gets active viewport grids collection
+            </summary>
+      <returns>The grids collection of the active viewport</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.GetOriginSymbol">
+      <summary>
+            Gets the origin symbol settings in the active viewport.
+            </summary>
+      <returns>The OriginSymbol object of the active viewport</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.GetCoordinateSystemIcon">
+      <summary>
+            Gets the coordinate system icon settings in the active viewport.
+            </summary>
+      <returns>The coordinate system icon settings of the active viewport</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.GetViewCubeIcon">
+      <summary>
+            Gets the view cube icon settings in the active viewport.
+            </summary>
+      <returns>The view cube icon settings of the active viewport</returns>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.BoundingBox">
+      <summary>
+            Bounding box settings.
+            </summary>
+      <remarks>You need to call the Viewport.CompileUserInterfaceElements() after assigning a new BoundingBox.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.LayoutMode">
+      <summary>
+            Gets or sets the viewports configuration.
+            </summary>
+      <remarks>
+        <see cref="P:devDept.Eyeshot.Model.Viewports" /> collection needs to be initialized with the correct number of Viewport items before changing this property.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.GetDefaultLayoutMode">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Light1">
+      <summary>
+            Light 1 attribute.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Light2">
+      <summary>
+            Light 2 attribute.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Light3">
+      <summary>
+            Light 3 attribute.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Light4">
+      <summary>
+            Light 4 attribute.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Light5">
+      <summary>
+            Light 5 attribute.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Light6">
+      <summary>
+            Light 6 attribute.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Light7">
+      <summary>
+            Light 7 attribute.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Light8">
+      <summary>
+            Light 8 attribute.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.AmbientLight">
+      <summary>
+            Gets or sets the ambient light that is always added to the scene (multiplied by the material's ambient component).
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Model.DefaultMaterial" />
+      <seealso cref="P:devDept.Eyeshot.Model.Materials" />
+    </member>
+    <member name="P:devDept.Eyeshot.Model.DefaultMaterial">
+      <summary>
+            Gets or sets the default material attributes used by the entities without their own material.
+            </summary>
+      <remarks>Only <see cref="P:devDept.Graphics.Material.Ambient" />, <see cref="P:devDept.Graphics.Material.Specular" /> and <see cref="P:devDept.Graphics.Material.Shininess" /> are used.</remarks>
+      <seealso cref="!:SelectionColor" />
+    </member>
+    <member name="P:devDept.Eyeshot.Model.GroundPlaneDistance">
+      <summary>
+            Gets or sets the distance between the ground plane and the model's bounding box expressed as a fraction of the model height. 
+            </summary>
+      <remarks>This distance is use to compute the plane used by the planar reflections and the planar shadows</remarks>
+      <seealso cref="P:devDept.Eyeshot.DisplayModeSettingsRendered.PlanarReflections" />
+      <seealso cref="P:devDept.Eyeshot.DisplayModeSettingsShaded.ShadowMode" />
+      <seealso cref="M:devDept.Eyeshot.Model.GetPlanarReflectionsPlane" />
+    </member>
+    <member name="P:devDept.Eyeshot.Model.PlanarShadowOpacity">
+      <summary>
+            Gets or sets the planar shadow's opacity. 
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ClippingPlane1">
+      <summary>
+            Clipping plane 1 attributes.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ClippingPlane2">
+      <summary>
+            Clipping plane 2 attributes.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ClippingPlane3">
+      <summary>
+            Clipping plane 3 attributes.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ClippingPlane4">
+      <summary>
+            Clipping plane 4 attributes.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ClippingPlane5">
+      <summary>
+            Clipping plane 5 attributes.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ClippingPlane6">
+      <summary>
+            Clipping plane 6 attributes.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ObjectManipulator">
+      <summary>
+            The manipulator used to graphically position the selected entities.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.ViewportBorder">
+      <summary>
+            Gets or sets the border settings.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.DefaultColor">
+      <summary>
+            Gets or sets the default color used by top level entities with <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /> color method.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />
+    </member>
+    <member name="P:devDept.Eyeshot.Model.Backface">
+      <summary>
+            Gets or sets the backface settings, shared by all viewports. This settings don't apply to multicolor entities like <see cref="!:devDept.Eyeshot.Entities.RichMesh" /> for example.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.KeepSceneUpright">
+      <summary>
+            Gets or sets a flag that keeps the scene upright when doing SetView operations or clicking on the <see cref="T:devDept.Eyeshot.ViewCubeIcon" /> faces.
+            </summary>
+      <remarks>If false, the SetView operations and the mouse clicks on the ViewCubeIcon set the orientation with the up-vector closest to the current one.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.OrientationMode">
+      <summary>
+            Gets or sets the coordinate system orientation mode.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.AssemblySelectionMode">
+      <summary>
+            Gets or sets a boolean that determines whether the selection goes inside the <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> tree.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.SelectionFilterMode">
+      <summary>
+            Gets or sets the pick filter used by the pick action modes.
+            </summary>
+      <seealso cref="!:ActionMode" />
+    </member>
+    <member name="P:devDept.Eyeshot.Model.SplitterMoving">
+      <summary>
+            When the viewport control is hosted inside a Grid control with GridSplitter an annoying repaint issue is present during GridSplitter moving.
+            Setting properly this flag this can be avoided.</summary>
+      <example>
+            The following code fragment demonstrates the usage of the SplitterMoving flag to avoid the SplitControl repaint issue during GridSplitter moving.
+            <code lang="CS">        
+            private void GridSplitter1_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+            {        
+            		MainViewport.SplitterMoving = true;                
+            }
+            private void GridSplitter1_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+            {        
+            	MainViewport.SplitterMoving = false;
+            }</code><code lang="VB.NET">                
+            Private Sub GridSplitter1_PreviewMouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles GridSplitter1.PreviewMouseDown        
+                MainViewport.SplitterMoving = True        
+            End Sub
+            Private Sub GridSplitter1__PreviewMouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles GridSplitter1.PreviewMouseUp                
+                MainViewport.SplitterMoving = False
+            End Sub</code></example>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.FaceSelectionAngle">
+      <summary>
+            Gets or sets the angle (in radians) used to discriminate adjacent triangles in the selection of the faces of Mesh and Solids.
+            </summary>
+      <remarks>The default is 0.5 rad.</remarks>
+      <seealso cref="P:devDept.Eyeshot.Entities.Mesh.Faces" />
+      <seealso cref="P:devDept.Eyeshot.Entities.Solid.Faces" />
+    </member>
+    <member name="P:devDept.Eyeshot.Model.WriteDepthForTransparents">
+      <summary>
+            When true, adds an extra pass to write transparent entities in the Z buffer.
+            </summary>
+      <remarks>Refers to inaccurate transparency only.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.SaveFile(System.String,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
+      <summary>
+            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="fileName">File name.</param>
+      <param name="drawings">The drawings control. Can be null/Nothing.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.         
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
+      <seealso cref="!:OpenFile(string)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.SaveFile(System.IO.Stream,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
+      <summary>
+            Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="stream">The file stream.</param>
+      <param name="drawings">The drawings control. Can be null/Nothing.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />
+      <seealso cref="!:OpenFile(Stream)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.OpenFile(System.String,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
+      <summary>
+            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="fileName">File name.</param>
+      <param name="drawings">The drawings control. Can be null/Nothing.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
+      <seealso cref="!:SaveFile(string)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.OpenFile(System.IO.Stream,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
+      <summary>
+            Restores the scene synchronously from disk, including entities and all the master collections (layers, blocks, etc.)
+            </summary>
+      <param name="stream">The file stream.</param>
+      <param name="drawings">The drawings control. Can be null/Nothing.</param>
+      <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
+      <remarks>
+        <para>This command is based on Eyeshot proprietary file format.
+                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Environment.StartWork(devDept.Eyeshot.WorkUnit)" /> method.
+                </para>
+      </remarks>
+      <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
+      <seealso cref="!:SaveFile(Stream)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.UpdateViewportsSizeAndLocation">
+      <summary>
+            Updates the Viewports dimensions and locations depending on the <see cref="P:devDept.Eyeshot.Model.LayoutMode" /> property.
+            </summary>
+      <remarks>If overridden, in WPF must call <see cref="!:ApplyOpacityMask" /></remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.ExtrudeText(devDept.Eyeshot.Entities.Text,System.Double,System.Double,System.Boolean)">
+      <summary>
+            Extrudes a text creating an array of new solids.
+            </summary>
+      <param name="text">Entity text</param>
+      <param name="tolerance">Entity text needs to be converted to Solid type, this is the conversion tolerance (chordal error).</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="endCaps">Closing Caps on both ends</param>
+      <returns>The created array of solids.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.ExtrudeText(devDept.Eyeshot.Entities.Text,System.Double,devDept.Geometry.Vector3D,System.Boolean)">
+      <summary>
+            Extrudes a text creating an array of new solids.
+            </summary>
+      <param name="text">Entity text</param>
+      <param name="tolerance">Entity text needs to be converted to Solid type, this is the conversion tolerance (chordal error).</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="endCaps">Closing Caps on both ends</param>
+      <returns>The created array of solids.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.ExtrudeText(devDept.Eyeshot.Entities.Text,System.Double,System.Double,System.Boolean,devDept.Eyeshot.Entities.Mesh.natureType)">
+      <summary>
+            Extrudes a text creating an array of new meshes.
+            </summary>
+      <param name="text">Entity text</param>
+      <param name="tolerance">Entity text needs to be converted to Mesh type, this is the conversion tolerance (chordal error).</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="endCaps">Closing Caps on both ends</param>
+      <param name="meshNature">Nature of the resulting mesh entity</param>
+      <returns>The created array of meshes.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.ExtrudeText(devDept.Eyeshot.Entities.Text,System.Double,devDept.Geometry.Vector3D,System.Boolean,devDept.Eyeshot.Entities.Mesh.natureType)">
+      <summary>
+            Extrudes a text creating an array of new meshes.
+            </summary>
+      <param name="text">Entity text</param>
+      <param name="tolerance">Entity text needs to be converted to Mesh type, this is the conversion tolerance (chordal error).</param>
+      <param name="amount">Extrusion amount</param>
+      <param name="endCaps">Closing Caps on both ends</param>
+      <param name="meshNature">Nature of the resulting mesh entity</param>
+      <returns>The created array of meshes.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateCamera(System.Int32,System.Int32)">
+      <summary>
+            Rotates the view of the specified amount.
+            </summary>
+      <param name="dx">Horizontal rotation amount</param>
+      <param name="dy">Vertical rotation amount</param>
+      <seealso cref="!:ZoomCamera(int)" />
+      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateCamera(System.Int32,System.Int32,System.Boolean)">
+      <summary>
+            Rotates the view of the specified amount.
+            </summary>
+      <param name="dx">Horizontal rotation amount</param>
+      <param name="dy">Vertical rotation amount</param>
+      <param name="animate">If true performs an animation when changing the view</param>
+      <seealso cref="!:ZoomCamera(int)" />
+      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateCamera(System.Drawing.Point,System.Drawing.Point)">
+      <summary>
+            Rotates the view simulating the movement between two mouse position.
+            </summary>
+      <param name="mousePos1">The initial mouse position</param>
+      <param name="mousePos2">The final mouse position</param>
+      <seealso cref="!:ZoomCamera(int)" />
+      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)">
+      <summary>
+            Rotates the view of the specified amount.
+            </summary>
+      <param name="last">Previous axis</param>
+      <param name="current">Current axis</param>
+      <seealso cref="!:ZoomCamera(int)" />
+      <seealso cref="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)" />
+      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Boolean)">
+      <summary>
+            Rotates the view of the specified amount.
+            </summary>
+      <param name="last">Previous axis</param>
+      <param name="current">Current axis</param>
+      <param name="animate">If true performs an animation when changing the view</param>
+      <seealso cref="!:ZoomCamera(int)" />
+      <seealso cref="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)" />
+      <seealso cref="!:PanCamera(System.Drawing.Point, System.Drawing.Point)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,System.Double,System.Boolean)">
+      <summary>
+            Rotates the view of the specified amount.
+            </summary>
+      <param name="axis">Rotation axis</param>
+      <param name="rotAngleInDegrees">Rotation amount</param>
+      <param name="trackBall">if true, the rotation is applied after the current rotation, else it's applied before</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateCamera(devDept.Geometry.Vector3D,System.Double,System.Boolean,System.Boolean)">
+      <summary>
+            Rotates the view of the specified amount.
+            </summary>
+      <param name="axis">Rotation axis</param>
+      <param name="rotAngleInDegrees">Rotation amount</param>
+      <param name="trackBall">if true, the rotation is applied after the current rotation, else it's applied before</param>
+      <param name="animate">If true performs an animation when changing the view</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.OrientCamera(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Orients the Camera between the two specified points.
+            </summary>
+      <param name="location">The camera location</param>
+      <param name="target">The new camera target</param>
+      <remarks>The <param nameref="location" /> parameter is used just ot determine the direction. The final <see cref="P:devDept.Eyeshot.Camera.Location" /> depends on the <paramref name="target" /> and the <see cref="P:devDept.Eyeshot.Camera.Distance" /></remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateLeft(System.Double)">
+      <summary>
+            Rotates the view to the left.
+            </summary>
+      <param name="degrees">Degrees of rotation</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateRight(System.Double)">
+      <summary>
+            Rotates the view to the right.
+            </summary>
+      <param name="degrees">Degrees of rotation</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateUp(System.Double)">
+      <summary>
+            Rotates the view upwards.
+            </summary>
+      <param name="degrees">Degrees of rotation</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.RotateDown(System.Double)">
+      <summary>
+            Rotates the view downwards.
+            </summary>
+      <param name="degrees">Degrees of rotation</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.MoveToPlane(System.Collections.Generic.ICollection{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Moves a list of entities from plane XY to the specified plane.
+            </summary>
+      <param name="entList">The entity list</param>
+      <param name="origin">The destination plane origin</param>
+      <param name="xAxis">The destination plane X axis</param>
+      <param name="yAxis">The destination plane Y axis</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.MoveToPlane(System.Collections.Generic.ICollection{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Plane)">
+      <summary>
+            Moves a list of entities from plane XY to the specified plane.
+            </summary>
+      <param name="entList">The entity list</param>
+      <param name="plane">Destination plane</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.MoveToPlane(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.Plane)">
+      <summary>
+            Moves a list of points from plane XY to the specified plane.
+            </summary>
+      <param name="points">The points list</param>
+      <param name="plane">Destination plane</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Entities.IFace,System.Drawing.Point,devDept.Geometry.Point3D@,System.Int32@)">
+      <summary>
+            Finds the closest triangle to the viewer of the specified entity.
+            </summary>
+      <param name="entity">The entity</param>
+      <param name="mousePos">Mouse cursor position</param>
+      <param name="hitPoint">Closest triangle intersection point in the <see cref="P:devDept.Eyeshot.EntityList.Parents" /> coordinate system.</param>
+      <param name="hitTriangleIndex">Closest triangle index</param>
+      <returns>The numbers of triangles found under the mouse cursor.</returns>
+      <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Environment.SelectedItem,System.Drawing.Point,devDept.Geometry.Point3D@,System.Int32@)">
+      <summary>
+            Finds the closest triangle to the viewer of the specified item (which may include the parents stack for nested entities)..
+            </summary>
+      <param name="item">The item</param>
+      <param name="mousePos">Mouse cursor position</param>
+      <param name="hitPoint">Closest triangle intersection point in the <see cref="P:devDept.Eyeshot.EntityList.Parents" /> coordinate system.</param>
+      <param name="hitTriangleIndex">Closest triangle index</param>
+      <returns>The numbers of triangles found under the mouse cursor.</returns>
+      <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Entities.IFace,System.Drawing.Point)">
+      <summary>
+            Finds the closest triangle to the viewer of the specified entity.
+            </summary>
+      <param name="entity">The entity</param>
+      <param name="mousePos">Mouse cursor position (zero on top)</param>
+      <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle" /> found under the mouse cursor.</returns>
+      <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
+      <remarks>If the entity is inside a <see cref="T:devDept.Eyeshot.Entities.BlockReference" />, it must be set as current.</remarks>
+      <remarks>The triangles intersection points are in the <see cref="P:devDept.Eyeshot.EntityList.Parents" /> coordinate system.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Environment.SelectedItem,System.Drawing.Point)">
+      <summary>
+            Finds the closest triangle to the viewer of the specified item (which may include the parents stack for nested entities).
+            </summary>
+      <param name="item">The item</param>
+      <param name="mousePos">Mouse cursor position (zero on top)</param>
+      <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle" /> found under the mouse cursor.</returns>
+      <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
+      <remarks>The triangles intersection points are in the <see cref="P:devDept.Eyeshot.EntityList.Parents" /> coordinate system.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.StartAnimation">
+      <summary>
+        <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
+            computation of the new entity position.</para>
+        <para>To animate group of entities the approach is the following:</para>
+        <list type="number">
+          <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
+          <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
+          <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
+          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
+          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
+          <item>Call StartAnimation() providing the time interval between each frame</item>
+          <item>Call StopAnimation() to stop the animation</item>
+        </list>
+      </summary>
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
+      <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
+      <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
+      <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
+      <seealso cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)" />
+      <remarks>During animation the silhouettes, if enabled, are skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">
+      <summary>
+        <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
+            computation of the new entity position.</para>
+        <para>To animate group of entities the approach is the following:</para>
+        <list type="number">
+          <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
+          <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
+          <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
+          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
+          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
+          <item>Call StartAnimation() providing the time interval between each frame</item>
+          <item>Call StopAnimation() to stop the animation</item>
+        </list>
+      </summary>
+      <param name="interval">Timer interval. See <see cref="T:System.Threading.Timer" /> object.</param>
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
+      <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
+      <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
+      <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
+      <seealso cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)" />
+      <remarks>During animation the silhouettes, if enabled, are skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.StartAnimation(System.Int32,System.Int32)">
+      <summary>
+        <para>Starts the animation timer. After calling this method the <see cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate</see> method of all the entities is called periodically to allow the 
+            computation of the new entity position.</para>
+        <para>To animate group of entities the approach is the following:</para>
+        <list type="number">
+          <item>Create groups of moving objects (using <see cref="T:devDept.Eyeshot.Block" /> class and adding entities to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection)</item>
+          <item>Add blocks created at point 1) to the <see cref="!:Model.Blocks" /> collection</item>
+          <item>Subclass the <see cref="T:devDept.Eyeshot.Entities.BlockReference">BlockReference</see> class for each moving group of objects</item>
+          <item>Override the <see cref="!:BlockReference.Animate">BlockReference.Animate()</see> method of the class at point 3) and add the code to compute the data for entities transformation at that specific time frame</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</item>
+          <item>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and call the base with the "center" transformed as the objects in point 5) to avoid undesired clipping. 
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents">bounding box scene extents</see></item>
+          <item>Add the block references created at point 3) to the <see cref="!:Model.Entities" /> collection</item>
+          <item>Call StartAnimation() providing the time interval between each frame</item>
+          <item>Call StopAnimation() to stop the animation</item>
+        </list>
+      </summary>
+      <param name="stopAfter">The animation will stop after this number of frames</param>
+      <param name="interval">Timer interval, see <see cref="T:System.Threading.Timer" /> object.</param>
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Entity.Animate(System.Int32)">Animate Method</seealso>
+      <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
+      <seealso cref="P:devDept.Eyeshot.Model.IsAnimationRunning" />
+      <seealso cref="P:devDept.Eyeshot.BoundingBox.OverrideSceneExtents" />
+      <seealso cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)" />
+      <remarks>During animation the silhouettes, if enabled, are skipped.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.IsAnimationRunning">
+      <summary>
+            Tells if the animation is currently running.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation" />
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation" />
+      <seealso cref="P:devDept.Eyeshot.DisplayModeSettings.SilhouettesDrawingMode" />
+      <remarks>During animation the silhouettes, if enabled, are skipped.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.StopAnimation">
+      <summary>Stops the animation timer. Call base class method when overriding.</summary>
+      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method</seealso>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.AnimationStep">
+      <summary>Gets or sets the animation step that increments the <see cref="P:devDept.Eyeshot.Model.AnimationFrameNumber" /> at each tick of the animation timer. Can be a negative number.</summary>
+      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.AnimationInterval">
+      <summary>Gets or sets the animation interval.</summary>
+      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
+    </member>
+    <member name="P:devDept.Eyeshot.Model.AnimationFrameNumber">
+      <summary>Gets or sets the animation frame number.</summary>
+      <seealso cref="M:devDept.Eyeshot.Model.StartAnimation(System.Int32)">StartAnimation Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Model.StopAnimation">StopAnimation Method</seealso>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.SetSelectionScope(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
+      <summary>
+            Sets the parents stack that represents the starting point for the selection.
+            </summary>
+      <remarks>The top most element of the stack is the inner most BlockReference (the last parent of the hierarchy).</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.GetPlanarReflectionsPlane">
+      <summary>
+             Gets the plane used to draw the planar reflections.
+            </summary>
+      <returns>The plane</returns>
+      <seealso cref="P:devDept.Eyeshot.Model.GroundPlaneDistance" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.SetColorShaded(devDept.Graphics.RenderContextBase,devDept.Eyeshot.Entities.entityNatureType,System.Drawing.Color,System.Boolean,devDept.Graphics.BackfaceSettings)">
+      <summary>
+            Shaded color changer.
+            </summary>
+      <param name="context">The render context</param>
+      <param name="nature">The nature of the entity just to be drawn</param>
+      <param name="color">The color</param>
+      <param name="selected">The selection status</param>
+      <param name="backface">The BackFace settings</param>
+      <seealso cref="P:devDept.Eyeshot.Model.Backface" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.SetColorRendered(devDept.Graphics.RenderContextBase,devDept.Eyeshot.Entities.entityNatureType,devDept.Graphics.Material,System.Boolean,devDept.Eyeshot.RenderParams)">
+      <summary>
+            Rendered mat changer.
+            </summary>
+      <param name="nature">The nature of the entity just to be drawn</param>
+      <param name="material">The entity material</param>
+      <param name="selected">The selection status</param>
+      <param name="data">Data for high quality rendering</param>
+    </member>
+    <member name="T:devDept.Eyeshot.ViewportLayout">
+      <summary>
+            Deprecated class.
+            </summary>
     </member>
     <member name="T:devDept.Eyeshot.CollisionDetection2D">
       <summary>
@@ -30946,7 +31192,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Environment.HideSmall">
       <summary>
-            If true, entities with a size on screen less than <see cref="P:devDept.Eyeshot.Environment.SmallSize" /> are not drawn.
+            If true, entities with a size on screen less than <see cref="P:devDept.Eyeshot.Environment.SmallSize" /> are not drawn. Ignored when <see cref="P:devDept.Eyeshot.Environment.Turbo" /> is enabled.
             </summary>
       <seealso cref="P:devDept.Eyeshot.Environment.SmallSize">SmallSize Property</seealso>
       <seealso cref="M:devDept.Eyeshot.Environment.CheckSmall(System.Int32)" />
@@ -31262,6 +31508,11 @@
     <member name="F:devDept.Eyeshot.Environment.DrawSceneParams.startZoomPt">
       <summary>
             Starting point for DrawOnTextureOrBitmap commands
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Environment.DrawSceneParams.Simplify">
+      <summary>
+            True during dynamic movements (Zoom/Pan/Rotate/Mouse Wheel) or when viewport is touched (multi-touch).
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Environment.DrawSceneParams.PlanarReflections">
@@ -32154,8 +32405,22 @@
       <param name="selectionBox">Selection Rectangle box in screen coordinates</param>
       <param name="firstOnly">When true, returns immediately after selecting the first entity</param>
       <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
-      <returns>
-      </returns>
+      <returns>An array of indices representing the selected entity position.</returns>
+      <remarks>
+        <para>All entities in the selectionBox are considered, even the ones covered by others.</para>
+        <para>Affected by selection scope (<see cref="!:SetSelectionScope()" />).</para>
+      </remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Environment.GetCrossingEntities(System.Drawing.Rectangle,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Boolean,System.Boolean,devDept.Geometry.Transformation)">
+      <summary>
+            Returns the list of all the visible and selectable entities crossing the specified selection box.
+            </summary>
+      <param name="selectionBox">Selection Rectangle box in screen coordinates</param>
+      <param name="entList">A custom list of entities</param>
+      <param name="firstOnly">When true, returns immediately after selecting the first entity</param>
+      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
+      <param name="accParentTransform">Accumulated parent transformation or null/Nothing</param>
+      <returns>An array of indices representing the selected entity position.</returns>
       <remarks>All entities in the selectionBox are considered, even the ones covered by others.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Environment.ProcessSelectionEnclosed(System.Drawing.Rectangle,System.Boolean,System.Boolean,System.Int32[]@,System.Collections.Generic.List{System.Int32})">
@@ -35248,7 +35513,7 @@
             Gets the viewport bounds.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.GetComputedLines(System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@)">
+    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.GetComputedLines(System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenPicture}@)">
       <summary>
             Gets the computed lines for export.
             </summary>
@@ -37517,6 +37782,11 @@
       <summary>
             The scale factor applied to the line weight of selected entities.
             </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.DrawParams.Simplify">
+      <summary>
+        <see cref="F:devDept.Eyeshot.Environment.DrawSceneParams.Simplify" />
+      </summary>
     </member>
     <member name="T:devDept.Eyeshot.colorType">
       <summary>
@@ -41103,6 +41373,16 @@
       <remarks>The returned point is adjusted for DPI scaling.</remarks>
       <seealso cref="M:devDept.Geometry.Utility.GetScalingLevel" />
     </member>
+    <member name="M:devDept.Eyeshot.EnvironmentBase.GetMousePosition(System.Windows.DragEventArgs)">
+      <summary>
+            Gets the mouse position from the drag event args.
+            </summary>
+      <param name="d">The event arguments</param>
+      <returns>The mouse position</returns>
+      <remarks>When using <see cref="P:devDept.Eyeshot.EnvironmentBase.Renderer" /> different from <see cref="F:devDept.Eyeshot.rendererType.Native" />, use this method to get the mouse position in event handlers</remarks>
+      <remarks>The returned point is adjusted for DPI scaling.</remarks>
+      <seealso cref="M:devDept.Geometry.Utility.GetScalingLevel" />
+    </member>
     <member name="M:devDept.Eyeshot.EnvironmentBase.LoadCursors">
       <summary>
             For internal use only.
@@ -42344,6 +42624,12 @@
     <member name="P:devDept.Eyeshot.UserInterfaceSymbolBase.Visible">
       <summary>Visibility status.</summary>
     </member>
+    <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.CheckAndFixDefaultLayerName(devDept.Eyeshot.Environment)">
+      <summary>
+            Use this method to check and fix the layer name for internal Meshes when the ui element is assigned to the Viewport.
+            </summary>
+      <returns>The name of the default layer. It is got from the Environment Layers collection.</returns>
+    </member>
     <member name="P:devDept.Eyeshot.UserInterfaceSymbolBase.Entities">
       <summary>
             Gets or sets the mesh entities used to draw the CoordinateSystemIcon.
@@ -43313,6 +43599,16 @@
     <member name="T:devDept.Eyeshot.Grid">
       <summary>Planar grid definition.</summary>
     </member>
+    <member name="P:devDept.Eyeshot.Grid.ActualMin">
+      <summary>
+            Gets the actual grid minimum 2D point relative to the grid plane.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Grid.ActualMax">
+      <summary>
+            Gets the actual grid maximum 2D point relative to the grid plane.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Grid.Lighting">
       <summary>When false, the UI element is drawn with a flat color.</summary>
     </member>
@@ -43970,6 +44266,9 @@
       <seealso cref="M:devDept.Serialization.Serializer.ModelIsCompiled" />
       <seealso cref="M:devDept.Serialization.Serializer.ResetModel" />
     </member>
+    <member name="M:devDept.Serialization.FileSerializer.GetTypeForObject(System.String)">
+      <inheritdoc />
+    </member>
     <member name="M:devDept.Serialization.FileSerializer.Serialize(System.IO.Stream)">
       <summary>
             Serializes the file to the stream.
@@ -44040,6 +44339,7 @@
       <param name="obj">The object to be serialized.</param>
       <remarks>
             You can use this method to write an object as protocol-buffer representation.
+            You had to store the FileHeader somewhere to guarantee the backward compatibility when reading.
             The opening and the closing of the stream is delegated to you.
             </remarks>
       <seealso cref="M:devDept.Serialization.FileSerializer.SetFileHeader(devDept.Serialization.FileHeader)" />
@@ -44058,10 +44358,12 @@
             original instance.</returns>
       <remarks>
             You can use this method to read an object from a protocol-buffer stream representation.
+            You had to set the FileHeader before using this method to guarantee the backward compatibility when reading.
             The opening and the closing of the stream is delegated to you.
             </remarks>
+      <seealso cref="M:devDept.Serialization.FileSerializer.SetFileHeader(devDept.Serialization.FileHeader)" />
+      <seealso cref="M:devDept.Serialization.FileSerializer.DeserializeHeader(System.IO.Stream)" />
       <seealso cref="M:devDept.Serialization.FileSerializer.SerializeWithLengthPrefix``1(System.IO.Stream,``0)" />
-      <seealso cref="M:devDept.Serialization.FileSerializer.DeserializeHeaderInternal(System.IO.Stream)" />
     </member>
     <member name="T:devDept.Serialization.BlockSurrogate">
       <summary>
@@ -49583,6 +49885,20 @@
             The StartPoint of the output circles lie always on c1. If trim is true, the trimmed arc goes from c1 to c2. 
              </returns>
     </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToCircleFromPoint(devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D,devDept.Eyeshot.Entities.Line[]@)">
+      <summary>
+            Computes the tangent lines from a point to a circle. 
+            </summary>
+      <param name="c">The circle.</param>
+      <param name="pt">The point on the circle's plane and outside it.</param>
+      <param name="tangentSegments"> Array containing the not-null tangent lines. </param>
+      <returns> The number of (not-null) lines in <paramref name="tangentSegments" /></returns>
+      <remarks>
+            For arcs, it returns only the lines that touch them.
+            The tangent lines are directed from the point toward the circle. 
+            </remarks>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.GetLinesTangentToCircleFromPoint(devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D)" -->
     <member name="T:devDept.Geometry.lineWeightPrintingUnitsType">
       <summary>
             Line weight unit system type used for printing.

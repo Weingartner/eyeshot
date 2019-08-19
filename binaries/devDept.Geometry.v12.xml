@@ -68,6 +68,31 @@
     <member name="M:devDept.Geometry.Converters.PlaneEquationConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
       <exclude />
     </member>
+    <member name="T:devDept.Geometry.UtilityMacros">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.UtilityMacros.CROSS(System.Double[]@,System.Double[],System.Double[])">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.UtilityMacros.DOT(System.Double[],System.Double[])">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.UtilityMacros.SUB(System.Double[]@,System.Double[],System.Double[])">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.UtilityMacros.TRANSFORM(System.Double[]@,devDept.Geometry.Transformation)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
     <member name="T:devDept.Geometry.EnumExtender">
       <summary>
             Utility class to display localized text for enums.
@@ -1120,6 +1145,56 @@
             indices are the face vertex indices, third and fourth are the parent objects indices. Fourth 
             index can be -1 for faces with only one parent object.</returns>
     </member>
+    <member name="M:devDept.Geometry.Utility.TriangleTriangleIntersection(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Boolean@)">
+      <summary>
+            Fast Triangle-Triangle intersection between ccw T1[p1,q1,r1] and ccw T2[p2,q1,r2] (From the Devillers and Guigue algorithm).
+            </summary>
+      <param name="p1">First point3D of triangle 1</param>
+      <param name="q1">Second point3D of triangle 1</param>
+      <param name="r1">Third point3D of triangle 1</param>
+      <param name="p2">First point3D of triangle 2</param>
+      <param name="q2">Second point3D of triangle 2</param>
+      <param name="r2">Third point3D of triangle 2</param>
+      <param name="touch">True when a vertex or edge of one triangle lies on the plane of other</param>
+      <returns>True if the Triangles intersects each other, false otherwise</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.TriangleTriangleIntersection(System.Double[],System.Double[],System.Double[],System.Double[],System.Double[],System.Double[],System.Boolean@)">
+      <summary>
+            Fast Triangle-Triangle intersection between ccw T1[p1,q1,r1] and ccw T2[p2,q1,r2] (From the Devillers and Guigue algorithm).
+            </summary>
+      <param name="p1">coordinates of the first point3D of triangle 1</param>
+      <param name="q1">coordinates of the second point3D of triangle 1</param>
+      <param name="r1">coordinates of the third point3D of triangle 1</param>
+      <param name="p2">coordinates of the first point3D of triangle 2</param>
+      <param name="q2">coordinates of the second point3D of triangle 2</param>
+      <param name="r2">coordinates of the third point3D of triangle 2</param>
+      <param name="touch">True when a vertex or edge of one triangle lies on the plane of other</param>
+      <returns>True if the Triangles intersects each other, false otherwise</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.TriangleTriangleIntersection2D(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            Fast Triangle-Triangle 2D intersection between ccw T1[p1,q1,r1] and ccw T2[p2,q1,r2] (From the Devillers and Guigue algorithm).
+            </summary>
+      <param name="p1">First point2D of triangle 1</param>
+      <param name="q1">Second point2D of triangle 1</param>
+      <param name="r1">Third point2D of triangle 1</param>
+      <param name="p2">First point2D of triangle 2</param>
+      <param name="q2">Second point2D of triangle 2</param>
+      <param name="r2">Third point2D of triangle 2</param>
+      <returns>True if the Triangles intersects each other, false otherwise</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.TriangleTriangleIntersection2D(System.Double[],System.Double[],System.Double[],System.Double[],System.Double[],System.Double[])">
+      <summary>
+            Fast Triangle-Triangle 2D intersection between ccw T1[p1,q1,r1] and ccw T2[p2,q1,r2] (From the Devillers and Guigue algorithm).
+            </summary>
+      <param name="p1">coordinates of the first point2D of triangle 1</param>
+      <param name="q1">coordinates of the second point2D of triangle 1</param>
+      <param name="r1">coordinates of the third point2D of triangle 1</param>
+      <param name="p2">coordinates of the first point2D of triangle 2</param>
+      <param name="q2">coordinates of the second point2D of triangle 2</param>
+      <param name="r2">coordinates of the third point2D of triangle 2</param>
+      <returns>True if the Triangles intersects each other, false otherwise</returns>
+    </member>
     <member name="M:devDept.Geometry.Utility.LinePlaneIntersection(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.PlaneEquation,devDept.Geometry.Point3D@)">
       <summary>
             Intersects the infinite line with a plane.
@@ -1520,6 +1595,12 @@
             Gets the custom scaling level.
             </summary>
       <remarks>For internal use only.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.Utility.LoadBitmapWithoutLockingFile(System.String)">
+      <summary>
+            Creates an image without locking the input file.
+            </summary>
+      <param name="fileName">The file name.</param>
     </member>
     <member name="M:devDept.Geometry.Utility.MakeGrayscale(System.Drawing.Bitmap)">
       <summary>
@@ -2514,6 +2595,14 @@
             </summary>
       <param name="matrix">The matrix</param>
       <returns>The matrix determinant.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Matrix.Inverse4(System.Double[0:,0:],System.Double[0:,0:]@)">
+      <summary>
+            Computes the inverse of a 4x4 matrix.
+            </summary>
+      <param name="matrix">The matrix</param>
+      <param name="inverse">The inverse matrix</param>
+      <returns>True if the operation succeeded, false otherwise.</returns>
     </member>
     <member name="M:devDept.Geometry.Matrix.Inverse4(System.Double[0:,0:])">
       <summary>
@@ -5678,6 +5767,7 @@
       <summary>
             Class for object handling
             </summary>
+      <remarks>Helper class to store generic object not natively supported from protobuf-net.</remarks>
     </member>
     <member name="M:devDept.Serialization.ProtoObject.#ctor(System.Object)">
       <summary>
@@ -6619,6 +6709,19 @@
       <summary>
             Gets the <see cref="T:System.Type" /> from an assembly qualified name.
             </summary>
+      <remarks>
+            This method is used to read properties of type object.
+            For Serializer derived class, you need to make the override of the <see cref="M:devDept.Serialization.Serializer.GetTypeForObject(System.String)" /> method.
+            </remarks>
+      <seealso cref="M:devDept.Serialization.Serializer.GetTypeForObject(System.String)" />
+      <seealso cref="T:devDept.Serialization.ProtoObject" />
+    </member>
+    <member name="M:devDept.Serialization.Serializer.GetTypeForObject(System.String)">
+      <summary>
+            Gets the type of an object starting from the assembly name.
+            </summary>
+      <remarks>Derived classes must first call <see cref="M:System.Type.GetType" /> method. If null, then they can call base method.</remarks>
+      <seealso cref="M:devDept.Serialization.Serializer.GetType(System.String)" />
     </member>
   </members>
 </doc>
