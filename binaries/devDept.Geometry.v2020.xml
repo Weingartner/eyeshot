@@ -433,6 +433,14 @@
       <param name="boxMin">The minimum point of the bounding box</param>
       <param name="boxMax">The maximum point of the bounding box</param>
     </member>
+    <member name="M:devDept.Geometry.Utility.ComputeBoundingRect(System.Double[0:,0:],devDept.Geometry.Point2D@,devDept.Geometry.Point2D@)">
+      <summary>
+            Computes the bounding box of the given array of points.
+            </summary>
+      <param name="points">The set of 2D points coordinates</param>
+      <param name="boxMin">The minimum point of the bounding box</param>
+      <param name="boxMax">The maximum point of the bounding box</param>
+    </member>
     <member name="M:devDept.Geometry.Utility.IsPointInsideOrOntoBBox2D(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
       <summary>
             Check if the Point3D is inside or onto the BoundingBox 2D made by boxMin and boxMax
@@ -993,6 +1001,13 @@
       <param name="polygon">The list of 2D points</param>
       <returns>Depending on the polygon direction will return a positive or negative area.</returns>
     </member>
+    <member name="M:devDept.Geometry.Utility.PolygonArea(System.Double[0:,0:])">
+      <summary>
+            Computes the signed area of a polygon (the points are always projected on XY plane).
+            </summary>
+      <param name="polygon">The list of 2D points coordinates</param>
+      <returns>Depending on the polygon direction will return a positive or negative area.</returns>
+    </member>
     <member name="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)">
       <summary>
             Computes the number of arc subdivisions according to specified chordal error and maximum angle between tangents.
@@ -1130,40 +1145,7 @@
             indices are the edge vertex indices, third and fourth are the parent triangle indices. Fourth 
             index can be -1 for edges with only one parent triangle.</returns>
     </member>
-    <member name="M:devDept.Geometry.Utility.GetEdgesWithoutDuplicates(devDept.Geometry.SilhoTriangle[],System.Int32)">
-      <summary>
-            Gets a list of edges without duplicates from a mesh of triangles or quads.
-            </summary>
-      <param name="polygons">Polygon list definition, dimensions can be [n,3] or [n,4].</param>
-      <param name="numVerts">Number of vertices in the mesh</param>
-      <returns>The rectangular array of the resulting - unique - edges. First and second 
-            indices are the edge vertex indices, third and fourth are the parent triangle indices. Fourth 
-            index can be -1 for edges with only one parent triangle.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Utility.GetEdgesWithoutDuplicates(devDept.Geometry.SilhoTriangle[],System.Int32,System.Boolean)">
-      <summary>
-            Gets a list of edges without duplicates from a mesh of triangles or quads.
-            </summary>
-      <param name="polygons">Polygon list definition, dimensions can be [n,3] or [n,4].</param>
-      <param name="numVerts">Number of vertices in the mesh</param>
-      <param name="skipBorderEdges">If true, the edges with just one adjacent triangle are skipped</param>
-      <returns>The rectangular array of the resulting - unique - edges. First and second 
-            indices are the edge vertex indices, third and fourth are the parent triangle indices. Fourth 
-            index can be -1 for edges with only one parent triangle.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Utility.GetEdgesWithoutDuplicates(devDept.Geometry.SilhoTriangle[],System.Int32,System.Collections.Generic.LinkedList{devDept.Geometry.SharedEdge}[]@)">
-      <summary>
-            Gets a list of edges without duplicates from a mesh of triangles or quads.
-            </summary>
-      <param name="polygons">Polygon list definition, dimensions can be [n,3] or [n,4].</param>
-      <param name="numVerts">Number of vertices in the mesh</param>
-      <param name="edgesPerVertex">An array of linked list of - unique - edges propagating from the same vertex.
-            This is an intermediate result.</param>
-      <returns>The rectangular array of the resulting - unique - edges. First and second 
-            indices are the edge vertex indices, third and fourth are the parent triangle indices. Fourth 
-            index can be -1 for edges with only one parent triangle.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Utility.GetEdgesWithoutDuplicates(devDept.Geometry.SilhoTriangle[],System.Int32,System.Boolean,System.Collections.Generic.LinkedList{devDept.Geometry.SharedEdge}[]@)">
+    <member name="M:devDept.Geometry.Utility.GetEdgesWithoutDuplicates(devDept.Geometry.SilhoPolyRegion[],System.Int32,System.Collections.Generic.LinkedList{devDept.Geometry.SharedEdge}[]@,System.Boolean)">
       <summary>
             Gets a list of edges without duplicates from a mesh of triangles or quads.
             </summary>
@@ -2554,23 +2536,23 @@
             Third vertex texture index.
             </summary>
     </member>
-    <member name="T:devDept.Geometry.SilhoTriangle">
+    <member name="T:devDept.Geometry.SilhoPolyRegion">
       <summary>
-            Triangle structure for hidden lines computation.
+            2D polygonal region structure for hidden lines computation.
             </summary>
       <remarks>For internal use only.</remarks>
     </member>
-    <member name="F:devDept.Geometry.SilhoTriangle.V1">
+    <member name="F:devDept.Geometry.SilhoPolyRegion.V1">
       <summary>
             First vertex.
             </summary>
     </member>
-    <member name="F:devDept.Geometry.SilhoTriangle.V2">
+    <member name="F:devDept.Geometry.SilhoPolyRegion.V2">
       <summary>
             Second vertex.
             </summary>
     </member>
-    <member name="F:devDept.Geometry.SilhoTriangle.V3">
+    <member name="F:devDept.Geometry.SilhoPolyRegion.V3">
       <summary>
             Third vertex.
             </summary>

@@ -712,21 +712,23 @@
       <summary>
             Sets the entity visibility status.
             </summary>
+      <remarks>
+        <para>To change the status of a single instance use a full stack of parents starting from the root level.
+            To change the status of all specified instances of the entity inside a given block use a partial stack of parents starting from the block level.</para>
+        <para>The parents stack is not cloned, it's stored in the entity and used to check the visibility.</para>
+      </remarks>
       <param name="status">The visibility status</param>
       <param name="parents">The parents stack, stored in the entity, that define a nested instance</param>
       <seealso cref="P:devDept.Eyeshot.Entities.Entity.Visible" />
-      <remarks>To change the status of a single instance use a full stack of parents starting from the root level.</remarks>
-      <remarks>To change the status of all specified instances of the entity inside a given block use a partial stack of parents starting from the block level.</remarks>
-      <remarks>The parents stack is not cloned, it's stored in the entity and used to check the visibility.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.GetVisibility(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
       <summary>
             Gets the entity visibility status.
             </summary>
+      <remarks>If the visibility for the given parents stack has not been set, returns the <see cref="P:devDept.Eyeshot.Entities.Entity.Visible" /> value.</remarks>
       <param name="parents">The parents stack that define a nested instance</param>
       <returns>True if the entity is visible</returns>
       <seealso cref="P:devDept.Eyeshot.Entities.Entity.Visible" />
-      <remarks>If the visibility for the given parents stack has not been set, returns the <see cref="P:devDept.Eyeshot.Entities.Entity.Visible" /> value.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.IsVisibleAndInFrustum(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.attributeReferenceVisibilityType)">
       <summary>
@@ -4664,6 +4666,36 @@
       <param name="amount">The extrusion amount interval</param>
       <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
     </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Entities.Brep.ExtrudeFace(System.Int32,System.Double)" -->
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeFace(System.Int32,devDept.Geometry.Vector3D,System.Double)">
+      <summary>
+             Extrudes the specified Face, overriding the original Brep.
+             </summary>
+      <param name="faceIndex">the face index</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <remarks>For this operation in particular, the specified face index will be kept along all the ExtrudeFace()(/RevolveFace() subsequent operations to make easier sheet metal part modeling.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.RevolveFace(System.Int32,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+             Revolves the specified Face, overriding the original Brep.
+             </summary>
+      <param name="faceIndex">the face index</param>
+      <param name="deltaAngle">Revolution angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <remarks>For this operation in particular, the specified face index will be kept along all the ExtrudeFace()(/RevolveFace() subsequent operations to make easier sheet metal part modeling.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.AddFlange(System.Int32,System.Double,System.Double,System.Double)">
+      <summary>
+            Adds a sheet metal flange to the specified edge.
+            </summary>
+      <param name="edgeIndex">The edge index</param>
+      <param name="radius">The bend radius</param>
+      <param name="amount">The bend length</param>
+      <param name="angle">The bend angle</param>
+      <returns>True if the operation succeeded. False otherwise.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.RevolveRemove(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
       <summary>
             Revolves the specified region and removes it from the Brep object and removes it from the original Brep object.
@@ -4901,6 +4933,22 @@
             </summary>
       <param name="tol">Rebuild tolerance, zero for default.</param>
       <param name="soft">When true, only faces without parametric surfaces are rebuilt.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.GetStraightEdgeIndex(devDept.Geometry.Point3D,devDept.Geometry.Vector3D)">
+      <summary>
+            Gets the edge index containing the 3D input point.
+            </summary>
+      <param name="pointOnEdge">A point lying on the desired edge Can be null/Nothing.</param>
+      <param name="direction">The edge direction helping to find the desired edge if the pointOnEdge lies on a Brep vertex. It can be null/Nothing.</param>
+      <returns>An integer representing the index of the first edge that satisfies the requirements. -1 if the operation failed.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.GetPlanarFaceIndex(devDept.Geometry.Plane,devDept.Geometry.Point3D)">
+      <summary>
+            Gets the index of the planar face coincident with the specified plane.
+            </summary>
+      <param name="plane">A plane coincident with the face's one</param>
+      <param name="pointOnFace">A point inside the face contour to help identify coplanar faces. Can be null/Nothing.</param>
+      <returns>An integer representing the index of the first face that satisfies the requirements.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.ResetSelectionMode">
       <summary>
@@ -7799,6 +7847,14 @@
       <returns>The list of intersection points.</returns>
       <param name="C1">The first curve</param>
       <param name="C2">The second curve</param>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">
       <summary>
@@ -7808,6 +7864,14 @@
       <param name="C1">The first curve</param>
       <param name="C2">The second curve</param>
       <param name="maxGap">Maximum distance between curves</param>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">
       <summary>
@@ -7817,6 +7881,14 @@
       <param name="C1">The first curve</param>
       <param name="C2">The second curve</param>
       <param name="plane">The plane where the two curves lay</param>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.ControlBoundingBox(System.Double,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -8933,6 +9005,14 @@
       <param name="i0">The first intersection point (when it exists)</param>
       <param name="i1">The second intersection point (when it exists)</param>
       <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -8943,6 +9023,14 @@
       <param name="i0">The first intersection point (when it exists)</param>
       <param name="i1">The second intersection point (when it exists)</param>
       <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -8954,6 +9042,14 @@
       <param name="i0">The first intersection point (when it exists)</param>
       <param name="i1">The second intersection point (when it exists)</param>
       <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -8964,6 +9060,14 @@
       <param name="i0">The first intersection point (when it exists)</param>
       <param name="i1">The second intersection point (when it exists)</param>
       <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.SortAndOrient">
       <summary>
@@ -15430,7 +15534,7 @@
     </member>
     <member name="F:devDept.Eyeshot.Entities.HitVertex.Parents">
       <summary>
-            The Blockreference parents list starting from the <see cref="!:EntityList.CurrentBlockReference" />, to which the entity with the closest vertex belongs to.
+            The Blockreference parents list starting from the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" />, to which the entity with the closest vertex belongs to.
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.Entities.HitVertex.EntityIndex">
@@ -15438,7 +15542,7 @@
             The index of the entity the vertex belongs to.
             </summary>
       <remarks>The index refers to the <see cref="P:devDept.Eyeshot.Block.Entities" /> list of the inner-most parent of the <see cref="F:devDept.Eyeshot.Entities.HitVertex.Parents" /> list in case it is not empty, 
-            else to the <see cref="!:EntityList.CurrentBlockReference" /> Entities list or, if there is no current BlockReference, to the <see cref="P:devDept.Eyeshot.Environment.Entities" /> list.</remarks>
+            else to the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> Entities list or, if there is no current BlockReference, to the <see cref="P:devDept.Eyeshot.Environment.Entities" /> list.</remarks>
     </member>
     <member name="F:devDept.Eyeshot.Entities.HitVertex.FaceIndex">
       <summary>
@@ -15588,6 +15692,15 @@
             Finds all 3D points where the curve intersects another given curve.
             </summary>
       <param name="C2">The other curve</param>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection2D(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.ClosestPointTo(devDept.Geometry.Point3D,System.Double@)">
       <summary>
@@ -18234,7 +18347,7 @@
       <summary>
             Gets the global transformation given by the current BlockReference's transformation and its parents' ones.
             </summary>
-      <remarks>The BlockReference must have been set as current with <see cref="!:EntityList.SetCurrent" />.</remarks>
+      <remarks>The BlockReference must have been set as current with <see cref="M:devDept.Eyeshot.Environment.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.BlockReference.GetFullTransformation(devDept.Eyeshot.BlockKeyedCollection)">
       <summary>
@@ -19072,10 +19185,10 @@
             Gets or sets a value that determines if the <see cref="T:devDept.Eyeshot.AttributeReference" /> is visible or not.
             </summary>
       <remarks>It does not affect the visibility of the <see cref="T:devDept.Eyeshot.Entities.Attribute" /> but only of the <see cref="T:devDept.Eyeshot.AttributeReference" />. 
-            This allows to keep the Attribute visible when editing a <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> (with <see cref="!:EntityList.SetCurrent" />), so it can be selected and
+            This allows to keep the Attribute visible when editing a <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> (with <see cref="M:devDept.Eyeshot.Environment.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />), so it can be selected and
             the <see cref="P:devDept.Eyeshot.Entities.Attribute.Invisible" /> property can be set to true or false without affecting its visibility on screen that would prevent to select it again. 
             Then the <see cref="M:devDept.Eyeshot.EntityList.SynchronizeAttributes(System.String)" /> will propagate the Invisible property to the AttributeReferences and make them invisible
-            (after the current BlockReference is reset with <see cref="!:EntityList.ResetCurrentBlockReference" />).
+            (after the current BlockReference is reset with <see cref="M:devDept.Eyeshot.Environment.ResetCurrentBlockReference(System.Boolean)" />).
             </remarks>
     </member>
     <member name="T:devDept.Eyeshot.Entities.AttributeBase">
@@ -20715,6 +20828,22 @@
             Occurs when a Mouse3D movement operation is performed.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Environment.SetParentHandle(System.IntPtr)">
+      <summary>
+            Sets the handle of the parent control.
+            </summary>
+      <param name="hwnd">The handle of the parent to set.</param>
+      <seealso cref="M:devDept.Eyeshot.Environment.GetParentHandle" />
+    </member>
+    <member name="M:devDept.Eyeshot.Environment.GetParentHandle">
+      <summary>
+            Gets the handle of the parent control.
+            </summary>
+      <returns>
+            The handle of the parent.
+            </returns>
+      <seealso cref="M:devDept.Eyeshot.Environment.SetParentHandle(System.IntPtr)" />
+    </member>
     <member name="P:devDept.Eyeshot.Environment.HasLicense">
       <summary>
             Tells if the product has a license.
@@ -22088,9 +22217,9 @@
             When true, the Accurate Transparency mode is activated. Accurate Transparency provides slower but more accurate semi-transparent object drawing
             with support for non-concave objects and for objects intersection.
             </summary>
-      <remarks>For better rendering of transparent entities with <see cref="P:devDept.Eyeshot.Environment.AccurateTransparency" /> turned off, override the <see cref="M:devDept.Eyeshot.Environment.DrawViewport(devDept.Eyeshot.Environment.DrawSceneParams)" /> and call the <see cref="M:devDept.Eyeshot.Environment.SortEntitiesForTransparency(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})" /></remarks>
+      <remarks>For better rendering of transparent entities with <see cref="P:devDept.Eyeshot.Environment.AccurateTransparency" /> turned off, override the <see cref="M:devDept.Eyeshot.Environment.DrawViewport(devDept.Eyeshot.Environment.DrawSceneParams)" /> and call the <see cref="M:devDept.Eyeshot.Environment.SortEntitiesForTransparency(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})" />.
+            It does not works with selection inside components or of the faces.</remarks>
       <seealso cref="M:devDept.Eyeshot.Environment.SortEntitiesForTransparency(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})" />
-      <remarks>It does not works with selection inside components or of the faces.</remarks>
       <seealso cref="P:devDept.Eyeshot.Environment.AssemblySelectionMode" />
       <seealso cref="P:devDept.Eyeshot.Environment.SelectionFilterMode" />
     </member>
@@ -22114,7 +22243,7 @@
       <param name="entity">The entity being processed</param>
       <param name="color">The color of the entity</param>
       <returns>The color used to draw the entity not belonging to the current BlockReference.</returns>
-      <remarks>See <see cref="!:EntityList.SetCurrent" /></remarks>
+      <remarks>See <see cref="M:devDept.Eyeshot.Environment.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" /></remarks>
     </member>
     <member name="T:devDept.Eyeshot.Environment.DrawTransparentEntityRenderedDelegate">
       <summary>
@@ -23052,8 +23181,8 @@
       <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
       <param name="closest">The closest vertex as a 3D point</param>
       <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance" />, -1 otherwise.</returns>
-      <remarks>The <paramref name="closest" /> point is in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closest" /> point you need to transform it by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+      <remarks>The <paramref name="closest" /> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closest" /> point you need to transform it by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
       <seealso cref="M:devDept.Eyeshot.Environment.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)" />
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,devDept.Geometry.Point3D@)">
@@ -23066,9 +23195,9 @@
       <param name="closest">The closest vertex as a 3D point</param>
       <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance" /> and the entity type is <paramref name="entType" />, -1 otherwise.</returns>
       <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.Environment.Entities" /> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities" />
-            of the Block referred by the <see cref="!:EntityList.CurrentBlockReference" />.
-            Also, the <paramref name="closest" /> point is in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closest" /> point you need to transform it by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+            of the Block referred by the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" />.
+            Also, the <paramref name="closest" /> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closest" /> point you need to transform it by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
       <seealso cref="M:devDept.Eyeshot.Environment.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)" />
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertex(System.Drawing.Point,System.Double,System.Int32@)">
@@ -23080,9 +23209,9 @@
       <param name="closestIndex">The closest vertex index</param>
       <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance" />, -1 otherwise.</returns>
       <remarks>The returned entity index refers to the <see cref="P:devDept.Eyeshot.Environment.Entities" /> if there is no current BlockReference, else it refers to the <see cref="P:devDept.Eyeshot.Block.Entities" />
-            of the Block referred by the <see cref="!:EntityList.CurrentBlockReference" />.
-            Also, the <paramref name="closestIndex" /> point is in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closestIndex" /> point you need to transform it by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+            of the Block referred by the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" />.
+            Also, the <paramref name="closestIndex" /> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closestIndex" /> point you need to transform it by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
       <seealso cref="M:devDept.Eyeshot.Environment.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)" />
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertex(devDept.Eyeshot.Entities.Entity,System.Drawing.Point,System.Double)">
@@ -23093,8 +23222,8 @@
       <param name="mousePos">Mouse position (zero on top)</param>
       <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
       <returns>The closest vertex, if any is found.</returns>
-      <remarks>The returned point is in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the point you need to transform it by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+      <remarks>The returned point is in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the point you need to transform it by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
       <seealso cref="M:devDept.Eyeshot.Environment.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)" />
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Eyeshot.Entities.HitVertex@)">
@@ -23105,8 +23234,8 @@
       <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
       <param name="closestVertex">The closest vertex</param>
       <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance" />, -1 otherwise.</returns>
-      <remarks>The <paramref name="closestVertex" /> point is in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closestVertex" /> point you need to transform it by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+      <remarks>The <paramref name="closestVertex" /> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closestVertex" /> point you need to transform it by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
       <seealso cref="M:devDept.Eyeshot.Environment.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)" />
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,devDept.Eyeshot.Entities.HitVertex@)">
@@ -23118,8 +23247,8 @@
       <param name="entType">The type of entities to process</param>
       <param name="closestVertex">The closest vertex, with the full information to retrieve the vertex from a <see cref="T:devDept.Eyeshot.Entities.Brep" /> or <see cref="T:devDept.Eyeshot.Entities.Solid" /></param>
       <returns>The entity index if the closest vertex is nearer than <paramref name="maxDistance" /> and the entity type is <paramref name="entType" />, -1 otherwise.</returns>
-      <remarks>The <paramref name="closestVertex" /> point is in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the <paramref name="closestVertex" /> point you need to transform it by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+      <remarks>The <paramref name="closestVertex" /> point is in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the <paramref name="closestVertex" /> point you need to transform it by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
       <seealso cref="M:devDept.Eyeshot.Environment.IsCloserVertex(devDept.Geometry.Point3D,System.Double,System.Double)" />
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertices(System.Drawing.Point,System.Double)">
@@ -23129,8 +23258,8 @@
       <param name="mousePos">Mouse position (zero on top)</param>
       <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
       <returns>The list of vertices nearer than <paramref name="maxDistance" />.</returns>
-      <remarks>The returned points are in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the points you need to transform them by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+      <remarks>The returned points are in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the points you need to transform them by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertices(System.Drawing.Point,System.Double,System.Type)">
       <summary>
@@ -23140,8 +23269,8 @@
       <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
       <param name="entType">The type of entities to process</param>
       <returns>The list of vertices nearer than <paramref name="maxDistance" /> and belonging to entities of type <paramref name="entType" />.</returns>
-      <remarks>The returned points are in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the points you need to transform them by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+      <remarks>The returned points are in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the points you need to transform them by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertices(devDept.Eyeshot.Entities.Entity,System.Drawing.Point,System.Double)">
       <summary>
@@ -23151,8 +23280,8 @@
       <param name="mousePos">Mouse position (zero on top)</param>
       <param name="maxDistance">Limit the search to points at this distance in pixels from mouse cursor position</param>
       <returns>The list of vertices of the specified <paramref name="entity" /> nearer than <paramref name="maxDistance" />.</returns>
-      <remarks>The returned points are in the coordinate space of the <see cref="!:EntityList.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
-            of the points you need to transform them by the <see cref="!:EntityList.CurrentTransformation" />.</remarks>
+      <remarks>The returned points are in the coordinate space of the <see cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" /> so, if there is a current BlockReference, to get the 3D world coordinates
+            of the points you need to transform them by the <see cref="P:devDept.Eyeshot.Environment.CurrentTransformation" />.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Environment.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,System.Int32@)">
       <summary>
@@ -23670,8 +23799,8 @@
             Removes unused items from the Environment master collections (Layers, Blocks, Materials, etc.).
             </summary>
       <remarks> The original order of the items is kept inside each collection and the removed items are disposed. Any BlockReference set as current will be unset.</remarks>
-      <seealso cref="!:EntityList.CurrentBlockReference" />
-      <seealso cref="!:EntityList.SetCurrent(BlockReference, bool)" />
+      <seealso cref="P:devDept.Eyeshot.Environment.CurrentBlockReference" />
+      <seealso cref="M:devDept.Eyeshot.Environment.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />
     </member>
     <member name="P:devDept.Eyeshot.Environment.ShortcutKeys">
       <summary>
@@ -28569,7 +28698,7 @@
             </summary>
       <param name="entity">The entity</param>
       <param name="mousePos">Mouse cursor position</param>
-      <param name="hitPoint">Closest triangle intersection point in the <see cref="!:EntityList.Parents" /> coordinate system.</param>
+      <param name="hitPoint">Closest triangle intersection point in the <see cref="P:devDept.Eyeshot.Environment.Parents" /> coordinate system.</param>
       <param name="hitTriangleIndex">Closest triangle index</param>
       <returns>The numbers of triangles found under the mouse cursor.</returns>
       <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
@@ -28580,7 +28709,7 @@
             </summary>
       <param name="item">The item</param>
       <param name="mousePos">Mouse cursor position</param>
-      <param name="hitPoint">Closest triangle intersection point in the <see cref="!:EntityList.Parents" /> coordinate system.</param>
+      <param name="hitPoint">Closest triangle intersection point in the <see cref="P:devDept.Eyeshot.Environment.Parents" /> coordinate system.</param>
       <param name="hitTriangleIndex">Closest triangle index</param>
       <returns>The numbers of triangles found under the mouse cursor.</returns>
       <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
@@ -28594,7 +28723,7 @@
       <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle" /> found under the mouse cursor.</returns>
       <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
       <remarks>If the entity is inside a <see cref="T:devDept.Eyeshot.Entities.BlockReference" />, it must be set as current.</remarks>
-      <remarks>The triangles intersection points are in the <see cref="!:EntityList.Parents" /> coordinate system.</remarks>
+      <remarks>The triangles intersection points are in the <see cref="P:devDept.Eyeshot.Environment.Parents" /> coordinate system.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Model.FindClosestTriangle(devDept.Eyeshot.Environment.SelectedItem,System.Drawing.Point)">
       <summary>
@@ -28604,7 +28733,7 @@
       <param name="mousePos">Mouse cursor position (zero on top)</param>
       <returns>A sorted (by distance from the viewer) list of <see cref="T:devDept.Eyeshot.Entities.HitTriangle" /> found under the mouse cursor.</returns>
       <seealso cref="!:Model.FindClosestVertex(System.Drawing.Point, double, out Point3D)" />
-      <remarks>The triangles intersection points are in the <see cref="!:EntityList.Parents" /> coordinate system.</remarks>
+      <remarks>The triangles intersection points are in the <see cref="P:devDept.Eyeshot.Environment.Parents" /> coordinate system.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Model.StartAnimation">
       <summary>
@@ -40010,10 +40139,6 @@
             Gets or sets the progress bar text displayed while computing silhouettes when executed asynchronously.
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.SilhoTriangleData">
-      <exclude />
-      <excludetoc />
-    </member>
     <member name="T:devDept.Eyeshot.silhoDataType">
       <summary>
             The type of data of the <see cref="T:devDept.Eyeshot.SilhoWireData" /> element.
@@ -40067,17 +40192,6 @@
       <param name="viewFrame">
       </param>
     </member>
-    <member name="M:devDept.Eyeshot.SilhoWireData.ComputeScreenVerticesDouble(devDept.Graphics.RenderContextBase,System.Double[],System.Int32[])">
-      <summary>
-            Computes the vertices in screen coordinates with double precision.
-            </summary>
-      <param name="renderContext">
-      </param>
-      <param name="modelViewProj">
-      </param>
-      <param name="viewFrame">
-      </param>
-    </member>
     <member name="M:devDept.Eyeshot.SilhoTextData.ComputeRectangleScreenVertices(devDept.Graphics.RenderContextBase,System.Double[],System.Int32[])">
       <summary>
             Computes the vertices of text rectangle in screen coordinates.
@@ -40090,8 +40204,10 @@
       </param>
     </member>
     <member name="T:devDept.Eyeshot.SilhoPolygonData">
-      <exclude />
-      <excludetoc />
+      <summary>
+            Class with 3D polygon data to compute silhouettes.
+            </summary>
+      <remarks>For internal use only.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.ScreenPicture">
       <summary>
@@ -44809,6 +44925,1174 @@
     <member name="P:devDept.Eyeshot.AttributeReference.LayerName">
             Methods inherited form IEntity
         </member>
+    <member name="T:devDept.Geometry.OrientedBoundingRect">
+      <summary>
+            Oriented Bounding Box definition.
+            </summary>
+      <remarks>The result is not guaranteed to be the minimum Oriented Bounding Box possible.</remarks>
+    </member>
+    <member name="P:devDept.Geometry.OrientedBoundingRect.Transformation">
+      <summary>
+            the Oriented Bounding Box transformation that defines its orientation from the world-axes.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.OrientedBoundingRect.AccumulatedTransformation">
+      <summary>
+            Gets the global transformation given by the transformation of the parents entity (if entity is a BlockReference or is into one of it).
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.GetFullTransformation">
+      <summary>
+            Gets the OrientedBoundingBox transformation combined with the global transformation.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.AccumulateTransformation(devDept.Geometry.Transformation)">
+      <summary>
+            Adds transformation to the global transformation.
+            </summary>
+      <param name="newTransformation">
+      </param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.GetOrigin">
+      <summary>
+            Gets the Origin position of the OrientedBoundingBox.
+            </summary>
+      <returns>A Point3D that defines the origin.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.GetAxis">
+      <summary>
+            Gets the 3-axis defining the direction of the OrientedBoundingBox
+            </summary>
+      <returns>The 3-Vector3D representing rispectively axis-X, axis-Y, axis-Z of the OrientedBoundingBox</returns>
+    </member>
+    <member name="P:devDept.Geometry.OrientedBoundingRect.Size">
+      <summary>
+            The size-box.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.GetVertices">
+      <summary>
+            Gets the 8-vertices of the OrientedBoundingBox.
+            </summary>
+      <returns>A Point3D array that defines the already-transformed vertices.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.UpdateData">
+      <summary>
+            Updates the data of the OrientedBoundingBox needed during collision/intersection check among others OrientedBoundingBoxes.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.Point2D,System.Double,System.Double)">
+      <summary>
+            Defines an OrientedBoundingBox with World-Axis-Aligned transformation.
+            </summary>
+      <param name="origin">The position of the origin of the oriented box</param>
+      <param name="width">The width of the box along axis-X</param>
+      <param name="height">The height of the box along axis-Y</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.Point2D,devDept.Geometry.Vector2D,devDept.Geometry.Vector2D,System.Double,System.Double)">
+      <summary>
+            Defines an OrientedBoundingBox with axis-X and axis-Y orientation.
+            </summary>
+      <param name="origin">The position of the origin of the oriented box</param>
+      <param name="axisX">The direction of the axis-X of the oriented box</param>
+      <param name="axisY">The direction of the axis-Y of the oriented box</param>
+      <param name="width">The width of the box along axis-X</param>
+      <param name="height">The height of the box along axis-Y</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Vector2D,devDept.Geometry.Vector2D)">
+      <summary>
+            Defines an OrientedBoundingRect from a list of Point2D by forcing the input axis-X and axis-Y orientation.
+            </summary>
+      <param name="pointCloud">The Point2D list</param>
+      <param name="axisX">The direction of the axis-X of the oriented box</param>
+      <param name="axisY">The direction of the axis-Y of the oriented box</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D})">
+      <summary>
+            Defines an OrientedBoundingRect from a list of Point2D.
+            </summary>
+      <param name="pointCloud">The Point2D list</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.OrientedBoundingRect)">
+      <summary>
+            Defines an OrientedBoundingBox from another one.
+            </summary>
+      <param name="another">
+      </param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.Clone">
+      <summary>
+            Creates a deep copy of this oriented bounding rect.
+            </summary>
+      <returns>The new oriented bounding rect object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.DoOverlapOrTouch(devDept.Geometry.OrientedBoundingRect,devDept.Geometry.OrientedBoundingRect)">
+      <summary>
+            Checks if two Oriented Bounding Boxes overlap or touch each other.
+            </summary>
+      <param name="first">first oriented bounding box to check</param>
+      <param name="second">second oriented bounding box to check</param>
+      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingRect.DoOverlap(devDept.Geometry.OrientedBoundingRect,devDept.Geometry.OrientedBoundingRect)">
+      <summary>
+            Checks if two Oriented Bounding Boxes overlap each other.
+            </summary>
+      <param name="first">first oriented bounding box to check</param>
+      <param name="second">second oriented bounding box to check</param>
+      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
+    </member>
+    <member name="T:devDept.Geometry.OrientedBoundingBox">
+      <summary>
+            Oriented Bounding Box definition.
+            </summary>
+      <remarks>The result is not guaranteed to be the minimum Oriented Bounding Box possible.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.GetOrigin">
+      <summary>
+            Gets the Origin position of the OrientedBoundingBox.
+            </summary>
+      <returns>A Point3D that defines the origin.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.GetAxis">
+      <summary>
+            Gets the 3-axis defining the direction of the OrientedBoundingBox
+            </summary>
+      <returns>The 3-Vector3D representing rispectively axis-X, axis-Y, axis-Z of the OrientedBoundingBox</returns>
+    </member>
+    <member name="P:devDept.Geometry.OrientedBoundingBox.Size">
+      <summary>
+            The size-box.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.GetVertices">
+      <summary>
+            Gets the 8-vertices of the OrientedBoundingBox.
+            </summary>
+      <returns>A Point3D array that defines the already-transformed vertices.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(devDept.Geometry.Point3D,System.Double,System.Double,System.Double)">
+      <summary>
+            Defines an OrientedBoundingBox with World-Axis-Aligned transformation.
+            </summary>
+      <param name="origin">The position of the origin of the oriented box</param>
+      <param name="width">The width of the box along axis-X</param>
+      <param name="depth">The depth of the box along axis-Y</param>
+      <param name="height">The height of the box along axis-Z</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Double,System.Double)">
+      <summary>
+            Defines an OrientedBoundingBox with axis-X and axis-Y orientation.
+            </summary>
+      <param name="origin">The position of the origin of the oriented box</param>
+      <param name="axisX">The direction of the axis-X of the oriented box</param>
+      <param name="axisY">The direction of the axis-Z of the oriented box</param>
+      <param name="width">The width of the box along axis-X</param>
+      <param name="depth">The depth of the box along axis-Y</param>
+      <param name="height">The height of the box along axis-Z</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)">
+      <summary>
+            Defines an OrientedBoundingBox from a list of Point3D by forcing the input axis-X and axis-Y orientation.
+            </summary>
+      <param name="pointCloud">The Point3D list</param>
+      <param name="axisX">The direction of the axis-X of the oriented box</param>
+      <param name="axisY">The direction of the axis-Y of the oriented box</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D})">
+      <summary>
+            Defines an OrientedBoundingBox from a list of Point3D.
+            </summary>
+      <param name="pointCloud">The Point3D list</param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(devDept.Geometry.OrientedBoundingBox)">
+      <summary>
+            Defines an OrientedBoundingBox from another one.
+            </summary>
+      <param name="another">
+      </param>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.Clone">
+      <summary>
+            Creates a deep copy of this oriented bounding box.
+            </summary>
+      <returns>The new oriented bounding box object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.DoOverlapOrTouch(devDept.Geometry.OrientedBoundingBox,devDept.Geometry.OrientedBoundingBox)">
+      <summary>
+            Checks if two Oriented Bounding Boxes overlap or touch each other.
+            </summary>
+      <param name="first">first oriented bounding box to check</param>
+      <param name="second">second oriented bounding box to check</param>
+      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
+    </member>
+    <member name="M:devDept.Geometry.OrientedBoundingBox.DoOverlap(devDept.Geometry.OrientedBoundingBox,devDept.Geometry.OrientedBoundingBox)">
+      <summary>
+            Checks if two Oriented Bounding Boxes overlap each other.
+            </summary>
+      <param name="first">first oriented bounding box to check</param>
+      <param name="second">second oriented bounding box to check</param>
+      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
+    </member>
+    <member name="T:devDept.Geometry.AnalyticSurf">
+      <summary>
+            Base class for analytic surfaces.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.AnalyticSurf.Index">
+      <summary>
+            Gets surface index, when available from import of standard CAD file formats.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.AnalyticSurf.#ctor(System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="M:devDept.Geometry.AnalyticSurf.#ctor(devDept.Geometry.AnalyticSurf)">
+      <summary>
+            Copy constructor.
+            </summary>
+      <param name="another">The other analytic surface object</param>
+    </member>
+    <member name="M:devDept.Geometry.AnalyticSurf.Clone">
+      <summary>
+            Creates a deep copy of this analytic surface.
+            </summary>
+      <returns>The new analytic surface object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.AnalyticSurf.ConvertToSurrogate">
+      <summary>
+            Converts the analitc surface to its surrogate, for serialization purpose.
+            </summary>
+      <returns>The surrogate.</returns>
+    </member>
+    <member name="P:devDept.Geometry.AnalyticSurf.HasSeam">
+      <summary>
+            Returns true when the surface has one or two seams.
+            </summary>
+      <value>True in case of closed surfaces.</value>
+    </member>
+    <member name="M:devDept.Geometry.AnalyticSurf.GetSurface(devDept.Eyeshot.Entities.ICurve[],System.Boolean)">
+      <summary>
+            Returns the trimmed surface(s).
+            </summary>
+      <returns>The resulting trimmed surface(s).</returns>
+    </member>
+    <member name="M:devDept.Geometry.AnalyticSurf.GetUntrimmed(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,System.Boolean)">
+      <summary>
+            Gets the untrimmed parametric surface.
+            </summary>
+      <param name="edgeCurves">A collection of individual edge curves not organized into composite curves</param>
+      <param name="sense">The surface sense, true for same sense.</param>
+      <param name="safePeriodical">When true, the periodical surface is rotated to avoid trim curves near the seam.</param>
+      <returns>The resulting untrimmed surface.</returns>
+    </member>
+    <member name="M:devDept.Geometry.AnalyticSurf.TransformBy(devDept.Geometry.Transformation)">
+      <summary>
+            Transforms this analytic surface by the provided transformation.
+            </summary>
+      <param name="transform">The transformation</param>
+    </member>
+    <member name="M:devDept.Geometry.AnalyticSurf.GetXElement">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="T:devDept.Geometry.TabulatedSurf">
+      <summary>
+            Analytic tabulated surface definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.TabulatedSurf.Generatrix">
+      <summary>
+            Gets tabulated surface generatrix 3D vector.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.TabulatedSurf.Directrix">
+      <summary>
+            Gets tabulated surface curve.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.TabulatedSurf.#ctor(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Vector3D,System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="directrix">The extrusion amount</param>
+      <param name="generatrix">The base curve</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="T:devDept.Geometry.NurbsSurf">
+      <summary>
+            Analytic nurbs surface definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.NurbsSurf.DegreeU">
+      <summary>
+            Gets the surface degree in U direction.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.NurbsSurf.DegreeV">
+      <summary>
+            Gets the surface degree in V direction.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.NurbsSurf.KnotVectorU">
+      <summary>
+            Gets the surface knot vector in U direction.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.NurbsSurf.KnotVectorV">
+      <summary>
+            Gets the surface knot vector in V direction.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.NurbsSurf.ControlPoints">
+      <summary>
+            Gets the surface control point net.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.NurbsSurf.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="uDegree">Surface degree in the U parametric direction</param>
+      <param name="uKnotVector">Knot vector in the U parametric direction</param>
+      <param name="vDegree">Surface degree in the V parametric direction</param>
+      <param name="vKnotVector">Knot vector in the V parametric direction</param>
+      <param name="ctrlPoints">Surface control points</param>
+    </member>
+    <member name="T:devDept.Geometry.PlanarSurf">
+      <summary>
+            Analytic planar surface definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.PlanarSurf.ExtensionAmount">
+      <summary>
+            Gets the extension amount for untrimmed surfaces.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.PlanarSurf.Plane">
+      <summary>
+            Gets the planar surface plane.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.PlanarSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="location">A 3D point representing the plane origin</param>
+      <param name="normal">A 3D vector representing the plane normal</param>
+      <param name="refDir">A 3D vector representing the plane X axis</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="M:devDept.Geometry.PlanarSurf.#ctor(devDept.Geometry.Plane,System.Int32)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="plane">The plane stored in the file.</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="T:devDept.Geometry.RevolvedSurf">
+      <summary>
+            Analytic revolved surface definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.RevolvedSurf.Generatrix">
+      <summary>
+            Gets revolved surface curve.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.RevolvedSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Eyeshot.Entities.ICurve,System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="location">A 3D point representing the plane origin</param>
+      <param name="normal">A 3D vector representing the plane normal</param>
+      <param name="refDir">A 3D vector representing the plane X axis</param>
+      <param name="generatrix">The curve to be revolved</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="M:devDept.Geometry.RevolvedSurf.#ctor(devDept.Geometry.Plane,devDept.Eyeshot.Entities.ICurve,System.Int32)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="plane">The plane stored in the file.</param>
+      <param name="generatrix">The curve to be revolved</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="T:devDept.Geometry.CylindricalSurf">
+      <summary>
+            Analytic cylindrical surface definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.CylindricalSurf.Radius">
+      <summary>
+            Gets cylinder radius.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.CylindricalSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="location">A 3D point representing the plane origin</param>
+      <param name="axis">A 3D vector representing the plane normal</param>
+      <param name="refDir">A 3D vector representing the plane X axis</param>
+      <param name="radius">The cylider radius</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="M:devDept.Geometry.CylindricalSurf.#ctor(devDept.Geometry.Plane,System.Double,System.Int32)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="plane">The plane stored in the file.</param>
+      <param name="radius">The cylider radius</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConicalSurf">
+      <summary>
+            Analytic conical surface definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConicalSurf.HalfAngle">
+      <summary>
+            The cone half angle in radians.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConicalSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Double,System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="location">A 3D point representing the plane origin</param>
+      <param name="axis">A 3D vector representing the plane normal</param>
+      <param name="refDir">A 3D vector representing the plane X axis</param>
+      <param name="radius">The cone radius</param>
+      <param name="halfAngle">The cone half angle</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConicalSurf.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Int32)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="plane">The plane stored in the file.</param>
+      <param name="radius">The cone radius</param>
+      <param name="halfAngle">The cone half angle</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="T:devDept.Geometry.ToroidalSurf">
+      <summary>
+            Analytic toroidal surface definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ToroidalSurf.MajorRadius">
+      <summary>
+            Gets toroidal surface major radius.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ToroidalSurf.MinorRadius">
+      <summary>
+            Gets toroidal surface minor radius.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ToroidalSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Double,System.Int32)">
+      <summary>
+            Internal constructor.
+            </summary>
+      <param name="location">A 3D point representing the plane origin</param>
+      <param name="axis">A 3D vector representing the plane normal</param>
+      <param name="refDir">A 3D vector representing the plane X axis</param>
+      <param name="majorRadius">The torus major radius</param>
+      <param name="minorRadius">The torus minor radius</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="M:devDept.Geometry.ToroidalSurf.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Int32)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="plane">The plane stored in the file.</param>
+      <param name="majorRadius">The torus major radius</param>
+      <param name="minorRadius">The torus minor radius</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="T:devDept.Geometry.SphericalSurf">
+      <summary>
+            Analytic spherical surface definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.SphericalSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="location">A 3D point representing the plane origin</param>
+      <param name="axis">A 3D vector representing the plane normal</param>
+      <param name="refDir">A 3D vector representing the plane X axis</param>
+      <param name="radius">The sphere radius</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="M:devDept.Geometry.SphericalSurf.#ctor(devDept.Geometry.Plane,System.Double,System.Int32)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="plane">The plane stored in the file.</param>
+      <param name="radius">The cylider radius</param>
+      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
+    </member>
+    <member name="T:devDept.Geometry.PolyRegion2D">
+      <summary>
+            Class that performs boolean operations on contours of 2D polygonal region.
+            </summary>
+      <remarks>The algorithm is more robust than the one used by the Region, but it changes the coordinates a little bit.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.#ctor(devDept.Geometry.Plane,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}})">
+      <summary>
+            Constructor for 3D profiles.
+            </summary>
+      <param name="plane">The profile plane</param>
+      <param name="contourList">The list of contours points</param>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.#ctor(devDept.Geometry.Plane,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Boolean)">
+      <summary>
+            Construtor for 3D profiles.
+            </summary>
+      <param name="plane">The profile plane</param>
+      <param name="contourList">The list of contours points</param>
+      <param name="sortAndOrient">When true, the profiles are properly sorted and oriented.</param>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.#ctor(System.Collections.Generic.IList{devDept.Geometry.Polygon2D})">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="contourList">The list of contours points</param>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.#ctor(System.Collections.Generic.IList{devDept.Geometry.Polygon2D},System.Boolean)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="contourList">The list of contours points</param>
+      <param name="sortAndOrient">When true, the profiles are properly sorted and oriented.</param>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.FromRegion(devDept.Eyeshot.Entities.Region,devDept.Geometry.Plane,System.Double)">
+      <summary>
+            Creates a PolyRegion2D object from a Region.
+            </summary>
+      <param name="region">The region</param>
+      <param name="plane">The plane on which the region profiles will be projected</param>
+      <param name="deviation">The maximum deviation</param>
+      <returns>The PolyRegion2D object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.ToRegion(devDept.Geometry.Plane)">
+      <summary>
+            Creates a Region object from the current PolyRegion2D object.
+            </summary>
+      <param name="plane">The plane of the Region</param>
+      <returns>The Region object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.Union(devDept.Geometry.PolyRegion2D,devDept.Geometry.PolyRegion2D)">
+      <summary>
+            Boolean union between two PolyRegion2D.
+            </summary>
+      <param name="a">First operand</param>
+      <param name="b">Second operand</param>
+      <returns>An array of PolyRegion2D objects.</returns>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.Intersection(devDept.Geometry.PolyRegion2D,devDept.Geometry.PolyRegion2D)">
+      <summary>
+            Boolean intersection between two PolyRegion2D.
+            </summary>
+      <param name="a">First operand</param>
+      <param name="b">Second operand</param>
+      <returns>An array of PolyRegion2D objects.</returns>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.Difference(devDept.Geometry.PolyRegion2D,devDept.Geometry.PolyRegion2D)">
+      <summary>
+            Boolean difference between two PolyRegion2D.
+            </summary>
+      <param name="a">First operand</param>
+      <param name="b">Second operand</param>
+      <returns>An array of PolyRegion2D objects.</returns>
+    </member>
+    <member name="T:devDept.Geometry.UtilityEx">
+      <summary>
+            Contains a collection of utility methods and constants for internal use.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetMaxGap(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
+      <summary>
+            Computes the maximum gap between curve segments.Assumes sorted and oriented segments.
+            </summary>
+      <param name="segments">The list of curve segments</param>
+      <param name="closed">When true, we need to check gap between end and start segments as well.</param>
+      <returns>The maximum gap between curve segments.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.SmartAdd(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
+      <summary>
+            Returns a CompositeCurve if the number of curves is bigger than one.
+            </summary>
+      <param name="curveList">The list of curves</param>
+      <param name="sortAndOrient">When true, the curves are properly sorted and oriented.</param>
+      <returns>The curve itself or a CompositeCurve if the curve number is bigger than one.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.CheckDataIntegrity(System.String@,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.Object,System.Collections.Generic.HashSet{System.String}}}@)">
+      <summary>
+            Checks the data integrity between the Environment controls.
+            <para>It compares item-by-item all the master collections of all the Environment instances, searching for objects used in more than one Environment.</para></summary>
+      <param name="log">The log file containing details about shared items.</param>
+      <param name="sharedItems">The dictionary containing the shared items.        
+            <para>Listed below are the element types you can find in it</para><para>- Layer: items that belong to the <see cref="!:Model.Layers" /> collection.</para><para>- Block: items that belong to the <see cref="!:Model.Blocks" /> collection.</para><para>- Material: items that belong to the <see cref="P:devDept.Eyeshot.Model.Materials" /> collection.</para><para>- TextStyle: items that belong to the <see cref="!:Model.TextStyles" /> collection.</para><para>- LinePattern: items that belong to the <see cref="!:Model.LineTypes" /> collection.</para><para>- Entity: items that belong to the <see cref="!:Model.Entities" /> collection.</para><para>- BlockEntity: items that belong to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection.</para><para>- BlockEntity+Entity: items that belong both to the <see cref="P:devDept.Eyeshot.Block.Entities" /> and to the <see cref="!:Model.Entities" /> collections.</para></param>
+      <returns>True when no instances are shared between different Environment controls, otherwise false.</returns>
+      <remarks>        
+            You can't share objects (i.e. <see cref="T:devDept.Eyeshot.Entities.Entity" />, <see cref="T:devDept.Eyeshot.Block" />, <see cref="T:devDept.Graphics.Material" />, etc.) between different Environment controls, but you need to clone them before adding to another Environment control.    
+            If you get wrong display results or artifacts, you can use this method to check out shared elements.
+            </remarks>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetCpuCount(System.Int32,System.Int32[]@,System.Int32[]@)">
+      <summary>
+            Gets the number of logical processors.
+            </summary>
+      <param name="len">Total number of the items to process</param>
+      <param name="startIndex">Array of start indices</param>
+      <param name="endIndex">Array of end indices</param>
+      <returns>The number of logical processors</returns>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.ReplaceString(System.String,System.String,System.String,System.StringComparison)" -->
+    <member name="M:devDept.Geometry.UtilityEx.GetFont(System.Windows.Media.FontFamily,System.Windows.FontStyle,System.Windows.FontWeight,System.Double)">
+      <summary>
+            Gets a <see cref="T:System.Drawing.Font" /> starting from the commons WPF font values.
+            </summary>
+      <param name="fontFamily">The <see cref="T:System.Windows.Media.FontFamily" />.</param>
+      <param name="fontStyle">The <see cref="T:System.Windows.FontStyle" />.</param>
+      <param name="fontWeight">The <see cref="T:System.Windows.FontWeight" />.</param>
+      <param name="fontSize">The font size.</param>
+      <returns>The new <see cref="T:System.Drawing.Font" />.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.AllVerticesInScreenPolygon(devDept.Eyeshot.ScreenPolygonParams,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Int32)">
+      <summary>
+            Tells if a collection of vertices is fully contained inside a polygon defined in screen coordinates. 
+            </summary>
+      <param name="data">The screen polygon params</param>
+      <param name="vertices">The collection of vertices</param>
+      <param name="count">The number of vertices to consider</param>
+      <returns>True if all the vertices are contained in the screen polygon.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.VertexInScreenPolygon(devDept.Geometry.Point3D,System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double[],System.Int32[])">
+      <summary>
+            Checks whether a 3D vertex is inside the given screen polygon.
+            </summary>
+      <param name="pt">The 3D vertex</param>
+      <param name="screenPolygon">The 2D screen polygon</param>
+      <param name="min">The minimum value of the 2D polygon</param>
+      <param name="max">The maximum value of the 2D polygon</param>
+      <param name="modelViewProj">The modelview projection matrix</param>
+      <param name="viewFrame">The viewport bounds</param>
+      <returns>True if the vertex is inside the polygon.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetRevisionCloud(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,System.Double)">
+      <summary>
+            Builds a revision cloud from the specified ICurve.
+            </summary>
+      <param name="sourceCurve">The input curve</param>
+      <param name="plane">The plane used to build the revision cloud</param>
+      <param name="averageRadius">The radius that each arc of revision cloud should have</param>
+      <returns>The resulting revision cloud as a CompositeCurve of arcs.</returns>
+      <remarks>The input curve should lie on the input Plane.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.RotationMinimizingFrames(devDept.Geometry.Plane,devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[])">
+      <summary>
+            Computes a set of planes along the curve that are perpendicular to the curve and are oriented in a way that avoids abrupt changes in the directions of the X and Y axes.
+            </summary>
+      <param name="prevFrame">The plane at the beginning of the curve. It can be null</param>
+      <param name="x">The array of points along the curve where the planes will be computed</param>
+      <param name="t">The array of tangents at each point</param>
+      <returns>The array of planes.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.ComputeMinMax(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+      <summary>
+            Computes bounding box min/max 3D points of a list of entities.
+            </summary>
+      <param name="entList">The list of entities</param>
+      <param name="boxMin">The resulting min point</param>
+      <param name="boxMax">The resulting max point</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
+      <summary>
+            Chains curves using the minimum distance between individual curve ends.
+            </summary>
+      <param name="curveList">The list of curves</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
+      <summary>
+            Chains curves using the minimum distance between individual curve ends keeping the first curve first.
+            </summary>
+      <param name="curveList">The list of curves</param>
+      <param name="closureTol">The max distance between the contour start and end points to assume the curve as closed.</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,System.Boolean,System.Double)">
+      <summary>
+            Chains curves using the minimum distance between individual curve ends keeping the first curve first.
+            </summary>
+      <param name="curveList">The list of curves</param>
+      <param name="reverseVertices">If vertices are present and the curve needs to be reversed the vertices array is reversed as well</param>
+      <param name="assumeClosed">In case you already know that the contour is/has to be closed.</param>
+      <param name="closureTol">Use zero if you know that the contour is/has to be closed</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.SplitEdgeOnSurfaceSeams(devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetConnectedCurves(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
+      <summary>
+            Groups the curves that are connected into CompositeCurves. 
+            </summary>
+      <param name="unsorted">The list of curves</param>
+      <param name="gap">The distance necessary to consider two curves disconnected</param>
+      <remarks>Two curves are considered connected if the distance between their endpoints is smaller than gap.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.DetectRegionsFromContours(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double,devDept.Geometry.Plane,System.Boolean)">
+      <summary>
+            Creates an array of Regions from the curves list, automatically detecting inner and outer contours.
+            </summary>
+      <param name="contours"> The list of curves</param>
+      <param name="deviation">The regeneration tolerance</param>
+      <param name="plane">The plane used to create the regions</param>
+      <param name="keepVertices">When true, the original curves tessellation is preserved.</param>
+      <returns>The resulting Region array.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.DrawArrowOnView(devDept.Eyeshot.DrawDirectionParams,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Draw an arrow parallel to the view, oriented along the <paramref name="curveDirection" /> direction.
+            </summary>
+      <param name="data">The data</param>
+      <param name="curveDirection">The arrow direction</param>
+      <param name="point">The world point where to draw the arrow</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetOuterIndex(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
+      <summary>
+            Returns the outer contour index.
+            </summary>
+      <param name="loops">The list of 2D contours</param>
+      <param name="tolerance">The tolerance used to tessellate contours</param>
+      <returns>The outer loop index</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingFrustumQuad(devDept.Eyeshot.FrustumParams,System.Collections.Generic.IList{devDept.Geometry.Point3D})">
+      <summary>
+            Checks whether the quad are inside or crossing the frustum defined by the given planes.
+            </summary>
+      <param name="myParams">The frustum parameters</param>
+      <param name="vertices">Vertices list</param>
+      <returns>True if the quad is inside or crossing the frustum.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingFrustum(devDept.Eyeshot.FrustumParams,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
+      <summary>
+            Checks whether the triangles are inside or crossing the frustum defined by the given planes.
+            </summary>
+      <param name="myParams">The frustum parameters</param>
+      <param name="vertices">Vertices list</param>
+      <param name="triangles">Triangles list</param>
+      <returns>True if the triangles are inside or crossing the frustum.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingScreenPolygonQuad(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.ScreenPolygonParams)">
+      <summary>
+            Checks whether the quad is inside or crossing the given screen polygon.
+            </summary>
+      <param name="pt1">The first vertex</param>
+      <param name="pt2">The second vertex</param>
+      <param name="pt3">The third vertex </param>
+      <param name="pt4">The fourth vertex </param>
+      <param name="myParams">The screen polygon parameters</param>
+      <returns>True if the quad is inside or is crossing the screen polygon.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingScreenPolygon(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.ScreenPolygonParams)">
+      <summary>
+            Checks whether the triangle is inside or crossing the given screen polygon.
+            </summary>
+      <param name="pt1">The first  triangle vertex</param>
+      <param name="pt2">The second triangle vertex</param>
+      <param name="pt3">The third triangle vertex </param>
+      <param name="myParams">Screen polygon parameters</param>
+      <returns>True if the triangle is inside or is crossing the screen polygon.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetUnusedBlockName``1(System.String,devDept.Eyeshot.BlockKeyedCollection{``0},System.Boolean)">
+      <summary>
+            Gets a new name for block creation adding a number as suffix to the original name to avoid duplicates block names.
+            </summary>
+      <typeparam name="T">The <see cref="T:devDept.Eyeshot.Block" /> item belong to the collection.</typeparam>
+      <param name="name">The original name to start from.</param>
+      <param name="blocks">The blocks collection.</param>
+      <param name="addCounterOnlyIfNeeded">When true, the original name is preserved if not used yet, otherwise, the new name counter starts from 1 searching for a non duplicated name.</param>
+      <returns>The name that can be used to create a new block not already contained in the blocks collection.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetUnusedLayerName(System.String,devDept.Eyeshot.LayerKeyedCollection,System.Boolean)">
+      <summary>
+            Gets a new name for layer adding a number as suffix to the original name to avoid duplicates layer names.
+            </summary>
+      <param name="name">The original name to start from.</param>
+      <param name="blocks">The layers collection.</param>
+      <param name="addCounterOnlyIfNeeded">When true, the original name is preserved if not used yet, otherwise, the new name counter starts from 1 searching for a non duplicated name.</param>
+      <returns>The name that can be used to create a new layer not already contained in the layers collection.</returns>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.NeedToFlipTrianglesForExtrusion(System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.Vector3D)" -->
+    <member name="M:devDept.Geometry.UtilityEx.ConvexHull(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double,System.Boolean,System.Boolean)">
+      <summary>
+            Computes the Convex Hull of a set of 3D points.
+            </summary>
+      <param name="points">The 3D point array</param>
+      <param name="domainSize">The maximum distance between two points in the input set, zero for automatic estimation.</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.ConvexHull(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double,devDept.Geometry.Point3D[]@,devDept.Geometry.IndexTriangle[]@,System.Boolean,System.Boolean)">
+      <summary>
+             Computes the Convex Hull of a set of 3D points.
+            </summary>
+      <param name="points">The 3D point list</param>
+      <param name="domainSize">The longest line connecting two points in the input set</param>
+      <param name="iVertices">The resulting 3D point vertices array.</param>
+      <param name="iTriangles">The resulting IndexTriangle array.</param>
+      <param name="getFaces">
+      </param>
+      <param name="fixNormals">
+      </param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.ConvexHull2D(System.Collections.Generic.IList{devDept.Geometry.Point2D})">
+      <summary>
+            Computes the Convex Hull of a set of 2D points.
+            </summary>
+      <param name="points">The 2D point list</param>
+      <returns>The resulting LinearPath object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.ConvexHull2D(System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Boolean)">
+      <summary>
+            Computes the Convex Hull of a set of 2D points.
+            </summary>
+      <param name="points">The 2D point list</param>
+      <param name="sorted">When true, the resulting array of points is sorted.</param>
+      <returns>The resulting array of 2D points.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.IsLine(devDept.Eyeshot.Entities.ICurve)">
+      <summary>
+            Checks if the curve is a line or a linear nurbs segment (Nurbs and Ultimate editions only).
+            </summary>
+      <param name="itfCurve">The curve to be checked</param>
+      <returns>True if the curve is a <see cref="T:devDept.Eyeshot.Entities.Line" /> or a Nurbs curve with two control points and degree one</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetUnitsToMmFactor(devDept.Geometry.linearUnitsType)">
+      <summary>
+            Gets the factor to convert from units to mm.
+            </summary>
+      <param name="units">The model units</param>
+      <returns>The conversion factor.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.Segment3D})">
+      <summary>
+            Triangulates a set of contours/points.
+            </summary>
+      <param name="outerLoop">Outer contour</param>
+      <param name="innerLoops">A list of inner contours (holes), can be null/Nothing.</param>
+      <param name="points">The list of Steiner points, can be null/Nothing.</param>
+      <param name="segments">The internal constraint segments, can be null/Nothing.</param>
+      <returns>The resulting Mesh, null/Nothing in case of failure.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point2D}},System.Boolean,devDept.Geometry.Point2D[]@,devDept.Geometry.IndexTriangle[]@)">
+      <summary>
+            Triangulates a set of contours.
+            </summary>
+      <param name="outerLoop">Outer contour</param>
+      <param name="innerLoops">A list of inner contours, can be null/Nothing.</param>
+      <param name="checkDir">When true, the contour orientation is fixed automatically.</param>
+      <param name="vertices">The resulting triangulation 2D vertices</param>
+      <param name="triangles">The resulting triangulation triangles</param>
+      <returns>True if the operation succeeds, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.Triangulate(devDept.Eyeshot.Entities.Region,System.Double,System.Int32)">
+      <summary>
+            Triangulates (meshes) the specified Region.
+            </summary>
+      <param name="region">The region to be meshed</param>
+      <param name="elementSize">The desired element size</param>
+      <param name="smoothingPasses">The number of smoothing passes</param>
+      <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.Triangulate(TriangleNet.Geometry.Polygon,TriangleNet.Meshing.ConstraintOptions,TriangleNet.Meshing.QualityOptions,TriangleNet.Smoothing.ISmoother,System.Int32)">
+      <summary>
+            Triangulates the specified geometry.
+            </summary>
+      <param name="inputGeometry">The contours, point and segments to be triangulated.</param>
+      <param name="co">The desired constraints</param>
+      <param name="qo">The desired quality</param>
+      <param name="smoother">The smoother type</param>
+      <param name="smoothingPasses">The number of smoothing passes</param>
+      <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Eyeshot.Entities.Mesh.natureType)">
+      <summary>
+            Triangulate a collection of 2.5D points (terrain like).
+            </summary>
+      <param name="points">The 3D point collection</param>
+      <param name="nature">The desired Mesh nature. Affects only mesh smoothing.</param>
+      <returns>The resulting Mesh, null/nothing in case of failure.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.DoOverlapOrTouch(devDept.Eyeshot.Entities.Mesh,devDept.Eyeshot.Entities.Mesh)">
+      <summary>
+            Checks if two <see cref="T:devDept.Eyeshot.Entities.Mesh" /> objects intersect each other.
+            </summary>
+      <param name="first">The first mesh object</param>
+      <param name="second">The second mesh object</param>
+      <returns>True if the two mesh objects intersect.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.DoOverlap(devDept.Eyeshot.Entities.Mesh,devDept.Eyeshot.Entities.Mesh)">
+      <summary>
+            Checks if two <see cref="T:devDept.Eyeshot.Entities.Mesh" /> objects intersect each other (but don't touch).
+            </summary>
+      <param name="first">The first mesh object</param>
+      <param name="second">The second mesh object</param>
+      <returns>True if the two mesh objects intersect.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.CleanDuplicates(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
+      <summary>
+            Cleans duplicated curves from a contour.
+            </summary>
+      <param name="contour">The contour to be checked</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetSignificantPointsOnICurve(devDept.Eyeshot.Entities.ICurve)">
+      <summary>
+            Selects the first and start point of an ICurve, the vertices of a LinearPath, and the startPoints of the segments of a CompositeCurve
+            </summary>
+      <param name="contour">The contour</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetEntitiesStats(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Int32@,System.Int32@,System.Int32@,System.Collections.Generic.Dictionary{devDept.Eyeshot.Block,System.Collections.Generic.Dictionary{System.Type,System.Int32}})">
+      <summary>
+            Get the statistics for a collection of entities.
+            </summary>
+      <param name="entityList">The collection of entities</param>
+      <param name="blocks">The blocks to process.</param>
+      <param name="entitiesCount">The count of all the entities.</param>
+      <param name="verticesCount">The count of all the vertices.</param>
+      <param name="trianglesCount">The count of all the triangles.</param>
+      <param name="blocksDetails">The dictionary with the entities details about blocks. Optional, can be null/Nothing.</param>
+      <returns>The dictionary with the count of each entity's type.</returns>
+      <remarks>The entities inside the blocks are processed only for the counting of vertices and triangles.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetEntitiesStats(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,System.Boolean)">
+      <summary>
+            Get the statistics for a collection of entities.
+            </summary>
+      <param name="entityList">The collection of entities</param>
+      <param name="blocks">The blocks to process. It can be null if showTotals is false.&gt;</param>
+      <param name="showTotals">When true it shows also the total's count, otherwise no.</param>
+      <param name="showBlocksDetails">When true it shows also the detail of the entities contained into each block.</param>
+      <returns>The string with the count of each entity's type.</returns>
+      <remarks>The entities inside the blocks are processed only for the counting of vertices and triangles.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetEntitiesStats(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,System.Boolean,System.Boolean,System.Boolean)">
+      <summary>
+            Get the statistics for a collection of entities.
+            </summary>
+      <param name="entityList">The collection of entities</param>
+      <param name="layers">The layers to process. It can be null if showCollectionsItems is false.&gt;</param>
+      <param name="blocks">The blocks to process. It can be null if showTotals is false.&gt;</param>
+      <param name="materials">The materials to process. It can be null if showCollectionsItems is false.&gt;</param>
+      <param name="textStyles">The textStyles to process. It can be null if showCollectionsItems is false.&gt;</param>
+      <param name="lineTypes">The lineTypes to process. It can be null if showCollectionsItems is false.&gt;</param>
+      <param name="showTotals">When true it shows also the total's count, otherwise no.</param>
+      <param name="showBlocksDetails">When true it shows also the detail of the entities contained into each block.</param>
+      <param name="showCollectionsItems">When true it shows also the list of the master collections items.</param>
+      <returns>The string with the count of each entity's type.</returns>
+      <remarks>The entities inside the blocks are processed only for the counting of vertices and triangles.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetEntitiesByType(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.List{System.Type})">
+      <summary>
+            Get a list of entities by type.
+            </summary>
+      <param name="entityList">The collection of entities.</param>
+      <param name="blocks">The blocks to process.</param>
+      <param name="includedTypes">If not null then it will consider only the entities which match these types.</param>
+      <returns>The dictionary with the collection of entities for each entity's type.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetReferencedBlocksNames(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block})">
+      <summary>
+            Returns the set of block in use (referenced by a <see cref="T:devDept.Eyeshot.Entities.BlockReference" />) names.
+            </summary>
+      <param name="entities">The entity list</param>
+      <param name="blocks">The block collection</param>
+      <returns>The set of block in use names.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.ComputeItemsCount(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection)">
+      <summary>
+            Computes the actual number of items in both plain or structured scene modes.
+            </summary>
+      <param name="entList">The entity list</param>
+      <param name="blocks">The block collection</param>
+      <returns>The number of items in the scene.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.CountNodes(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Int32@,System.Int32@,System.Int32@)">
+      <summary>
+            Computes the scene graph inventory.
+            </summary>
+      <param name="entList">The entity collection</param>
+      <param name="blocks">The block collection</param>
+      <param name="fullNodeCount">Total number of tree nodes that contain -at least- one object (leaf)</param>
+      <param name="emptyNodeCount">Total number of tree nodes that don't contains any object</param>
+      <param name="totalObjectCount">Total number of objects in the scene, if leaf nodes always contain only one object, it is equal to <paramref name="fullNodeCount" />.</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)">
+      <summary>
+            Computes the segments tangent to two given circles or arcs.
+            </summary>
+      <param name="c1">The first circle.</param>
+      <param name="c2">The first circle.</param>
+      <returns>The array of lines tangent to both circles. For arcs, it returns only the lines that touch them.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Line[]@)">
+      <summary>
+            Computes the segments tangent to two given circles.
+            </summary>
+      <param name="c1">The first circle.</param>
+      <param name="c2">The second circle.</param>
+      <param name="tangentArray">Array of length 4 containing the tangent lines.</param>
+      <returns>The number of not null lines in <paramref name="tangentArray" />.</returns>
+      <remarks>For arcs, it returns the same result as for circles, for a different result use <see cref="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)" />.
+            All the lines start from c1 and end on c2, except for the tangent lines that are perpendicular to the line
+            connecting the two centers, we will refer to these tangents as vertical or VERT:
+            their length is equal to the diameter of the bigger circle and they touch the circles at the midPoint.
+            The position of the lines in the array is fixed and dependent from the number of solutions:
+            <list type="bullet"><item><description>[0] upper external (or outer),</description></item><item><description>[1] lower external (or outer),</description></item><item><description>[2] upper internal (or inner),</description></item><item><description>[3] lower internal (or inner).</description></item></list>
+            To define upper we use the positive direction of the Y axis of the plane with axis Z equal to c1.Plane,
+            and axis X given by the direction c1.Center-c2.Center.
+            Based on the number of solutions, the possibilities are:
+            <list type="bullet"><item><description>0 =&gt; [null, null, null, null]: one circle is completely inside the other and they don't intersect,</description></item><item><description>1 =&gt; [null, null, null, VERT]: one circle is completely inside the other and they are tangent</description></item><item><description>2 =&gt; [LINE, LINE, null, null]: the circles intersect in two different points, there are only the external tangents,</description></item><item><description>3 =&gt; [LINE, LINE, VERT, null]: the circles intersect in one point, but they aren't one inside the other,
+            there are the external tangents and a vertical tangent,</description></item><item><description>4 =&gt; [LINE, LINE, LINE, LINE]: the circles don't intersect and they aren't one inside the other,
+            there are the external tangents and the internal tangents.</description></item></list></remarks>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetCirclesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,System.Double,System.Boolean,System.Boolean)">
+      <summary>
+             Computes the circles tangent to two given circles or arcs.
+             </summary>
+      <param name="c1">The first circle.</param>
+      <param name="c2">The second circle.</param>
+      <param name="radius">The radius of the tangent circles</param>
+      <param name="trim">If true, it trims the tangent circle at the tangent points.</param>
+      <param name="flip"> It is significant only when trim is true. If false (default) it returns the shortest part of the tangent circle, if true it returns the longest part.</param>
+      <returns>The array of circles tangent to both circles. For arcs, it returns only the circles that touch them.
+            The StartPoint of the output circles lie always on c1. If trim is true, the trimmed arc goes from c1 to c2. 
+             </returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToCircleFromPoint(devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D,devDept.Eyeshot.Entities.Line[]@)">
+      <summary>
+            Computes the tangent lines from a point to a circle. 
+            </summary>
+      <param name="c">The circle.</param>
+      <param name="pt">The point on the circle's plane and outside it.</param>
+      <param name="tangentSegments"> Array containing the not-null tangent lines. </param>
+      <returns> The number of (not-null) lines in <paramref name="tangentSegments" /></returns>
+      <remarks>
+            For arcs, it returns only the lines that touch them.
+            The tangent lines are directed from the point toward the circle. 
+            </remarks>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.GetLinesTangentToCircleFromPoint(devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D)" -->
+    <member name="T:devDept.Geometry.lineWeightPrintingUnitsType">
+      <summary>
+            Line weight unit system type used for printing.
+            </summary>
+      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" />
+      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" />
+      <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeight" />
+    </member>
+    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Inches">
+      <summary>
+            The line weight is treated as inches
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Millimeters">
+      <summary>
+            The line weight is treated as millimeters
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Pixels">
+      <summary>
+            The line weight is treated as pixels
+            </summary>
+    </member>
+    <member name="T:devDept.Geometry.PointExtender">
+      <summary>Point3D Extender.</summary>
+    </member>
+    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Eyeshot.Entities.ICurve,System.Double)">
+      <summary>
+            Checks if the point is on the specified ICurve.
+            </summary>
+      <param name="curve">The curve to test</param>
+      <param name="maxGap">The maximum accepted distance to consider the point on the curve</param>
+      <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@,System.Double@)">
+      <summary>
+            Checks if the point is on the specified ICurve.
+            </summary>
+      <param name="curve">The curve to test</param>
+      <param name="maxGap">The maximum accepted distance to consider the point on the curve</param>
+      <param name="closestPt">Outputs the closest point on the curve</param>
+      <param name="closestParam">Outputs the parameter along the curve corresponding to the closest point</param>
+      <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
+    </member>
+    <member name="T:devDept.Geometry.InterPoint">
+      <summary>
+            Intersection point definition.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.InterPoint.IsTangent">
+      <summary>
+            When true, the intersection is a tangent one.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.InterPoint.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Standard constructor
+            </summary>
+      <param name="x">X coordinate value</param>
+      <param name="y">Y coordinate value</param>
+      <param name="z">Z coordinate value</param>
+      <param name="u">First surface parametric U coordinate value</param>
+      <param name="v">First surface parametric V coordinate value</param>
+      <param name="s">Second surface parametric U coordinate value</param>
+      <param name="t">Second surface parametric V coordinate value</param>
+    </member>
+    <member name="M:devDept.Geometry.InterPoint.Clone">
+      <summary>
+            Creates a deep copy of this intersection point.
+            </summary>
+      <returns>The new intersection point object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.InterPoint.ToString">
+      <summary>
+            Converts this 3D point to a human readable string.
+            </summary>
+      <returns>A string that represents this 3d point.</returns>
+    </member>
+    <member name="T:devDept.Geometry.InitialPoint">
+      <summary>
+            Intersection initial point definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.InitialPoint.CurveTangent">
+      <summary>
+            Gets or set the tangent of the curve in Curve - Surface intersection.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.InitialPoint.Clone">
+      <summary>
+            Creates a deep copy of this initial point.
+            </summary>
+      <returns>The new initial point object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.InitialPoint.ToString">
+      <summary>
+            Converts this 3D point to a human readable string.
+            </summary>
+      <returns>A string that represents this 3d point.</returns>
+    </member>
     <member name="T:devDept.Serialization.AutodeskMiscPropertiesSurrogate">
       <summary>
             Defines the <see cref="!:Eyeshot.AutodeskMiscProperties" /> surrogate.
@@ -49953,1174 +51237,6 @@
       <remarks>
              This method uses the <see cref="!:Toolpath.Toolpath(List&lt;Motion&gt;, int)" /> constructor to create the object.        
              </remarks>
-    </member>
-    <member name="T:devDept.Geometry.OrientedBoundingRect">
-      <summary>
-            Oriented Bounding Box definition.
-            </summary>
-      <remarks>The result is not guaranteed to be the minimum Oriented Bounding Box possible.</remarks>
-    </member>
-    <member name="P:devDept.Geometry.OrientedBoundingRect.Transformation">
-      <summary>
-            the Oriented Bounding Box transformation that defines its orientation from the world-axes.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.OrientedBoundingRect.AccumulatedTransformation">
-      <summary>
-            Gets the global transformation given by the transformation of the parents entity (if entity is a BlockReference or is into one of it).
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.GetFullTransformation">
-      <summary>
-            Gets the OrientedBoundingBox transformation combined with the global transformation.
-            </summary>
-      <returns>
-      </returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.AccumulateTransformation(devDept.Geometry.Transformation)">
-      <summary>
-            Adds transformation to the global transformation.
-            </summary>
-      <param name="newTransformation">
-      </param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.GetOrigin">
-      <summary>
-            Gets the Origin position of the OrientedBoundingBox.
-            </summary>
-      <returns>A Point3D that defines the origin.</returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.GetAxis">
-      <summary>
-            Gets the 3-axis defining the direction of the OrientedBoundingBox
-            </summary>
-      <returns>The 3-Vector3D representing rispectively axis-X, axis-Y, axis-Z of the OrientedBoundingBox</returns>
-    </member>
-    <member name="P:devDept.Geometry.OrientedBoundingRect.Size">
-      <summary>
-            The size-box.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.GetVertices">
-      <summary>
-            Gets the 8-vertices of the OrientedBoundingBox.
-            </summary>
-      <returns>A Point3D array that defines the already-transformed vertices.</returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.UpdateData">
-      <summary>
-            Updates the data of the OrientedBoundingBox needed during collision/intersection check among others OrientedBoundingBoxes.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.Point2D,System.Double,System.Double)">
-      <summary>
-            Defines an OrientedBoundingBox with World-Axis-Aligned transformation.
-            </summary>
-      <param name="origin">The position of the origin of the oriented box</param>
-      <param name="width">The width of the box along axis-X</param>
-      <param name="height">The height of the box along axis-Y</param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.Point2D,devDept.Geometry.Vector2D,devDept.Geometry.Vector2D,System.Double,System.Double)">
-      <summary>
-            Defines an OrientedBoundingBox with axis-X and axis-Y orientation.
-            </summary>
-      <param name="origin">The position of the origin of the oriented box</param>
-      <param name="axisX">The direction of the axis-X of the oriented box</param>
-      <param name="axisY">The direction of the axis-Y of the oriented box</param>
-      <param name="width">The width of the box along axis-X</param>
-      <param name="height">The height of the box along axis-Y</param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Vector2D,devDept.Geometry.Vector2D)">
-      <summary>
-            Defines an OrientedBoundingRect from a list of Point2D by forcing the input axis-X and axis-Y orientation.
-            </summary>
-      <param name="pointCloud">The Point2D list</param>
-      <param name="axisX">The direction of the axis-X of the oriented box</param>
-      <param name="axisY">The direction of the axis-Y of the oriented box</param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D})">
-      <summary>
-            Defines an OrientedBoundingRect from a list of Point2D.
-            </summary>
-      <param name="pointCloud">The Point2D list</param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.#ctor(devDept.Geometry.OrientedBoundingRect)">
-      <summary>
-            Defines an OrientedBoundingBox from another one.
-            </summary>
-      <param name="another">
-      </param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.Clone">
-      <summary>
-            Creates a deep copy of this oriented bounding rect.
-            </summary>
-      <returns>The new oriented bounding rect object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.DoOverlapOrTouch(devDept.Geometry.OrientedBoundingRect,devDept.Geometry.OrientedBoundingRect)">
-      <summary>
-            Checks if two Oriented Bounding Boxes overlap or touch each other.
-            </summary>
-      <param name="first">first oriented bounding box to check</param>
-      <param name="second">second oriented bounding box to check</param>
-      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingRect.DoOverlap(devDept.Geometry.OrientedBoundingRect,devDept.Geometry.OrientedBoundingRect)">
-      <summary>
-            Checks if two Oriented Bounding Boxes overlap each other.
-            </summary>
-      <param name="first">first oriented bounding box to check</param>
-      <param name="second">second oriented bounding box to check</param>
-      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
-    </member>
-    <member name="T:devDept.Geometry.OrientedBoundingBox">
-      <summary>
-            Oriented Bounding Box definition.
-            </summary>
-      <remarks>The result is not guaranteed to be the minimum Oriented Bounding Box possible.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.GetOrigin">
-      <summary>
-            Gets the Origin position of the OrientedBoundingBox.
-            </summary>
-      <returns>A Point3D that defines the origin.</returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.GetAxis">
-      <summary>
-            Gets the 3-axis defining the direction of the OrientedBoundingBox
-            </summary>
-      <returns>The 3-Vector3D representing rispectively axis-X, axis-Y, axis-Z of the OrientedBoundingBox</returns>
-    </member>
-    <member name="P:devDept.Geometry.OrientedBoundingBox.Size">
-      <summary>
-            The size-box.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.GetVertices">
-      <summary>
-            Gets the 8-vertices of the OrientedBoundingBox.
-            </summary>
-      <returns>A Point3D array that defines the already-transformed vertices.</returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(devDept.Geometry.Point3D,System.Double,System.Double,System.Double)">
-      <summary>
-            Defines an OrientedBoundingBox with World-Axis-Aligned transformation.
-            </summary>
-      <param name="origin">The position of the origin of the oriented box</param>
-      <param name="width">The width of the box along axis-X</param>
-      <param name="depth">The depth of the box along axis-Y</param>
-      <param name="height">The height of the box along axis-Z</param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Double,System.Double)">
-      <summary>
-            Defines an OrientedBoundingBox with axis-X and axis-Y orientation.
-            </summary>
-      <param name="origin">The position of the origin of the oriented box</param>
-      <param name="axisX">The direction of the axis-X of the oriented box</param>
-      <param name="axisY">The direction of the axis-Z of the oriented box</param>
-      <param name="width">The width of the box along axis-X</param>
-      <param name="depth">The depth of the box along axis-Y</param>
-      <param name="height">The height of the box along axis-Z</param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Vector3D,devDept.Geometry.Vector3D)">
-      <summary>
-            Defines an OrientedBoundingBox from a list of Point3D by forcing the input axis-X and axis-Y orientation.
-            </summary>
-      <param name="pointCloud">The Point3D list</param>
-      <param name="axisX">The direction of the axis-X of the oriented box</param>
-      <param name="axisY">The direction of the axis-Y of the oriented box</param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point2D})">
-      <summary>
-            Defines an OrientedBoundingBox from a list of Point3D.
-            </summary>
-      <param name="pointCloud">The Point3D list</param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.#ctor(devDept.Geometry.OrientedBoundingBox)">
-      <summary>
-            Defines an OrientedBoundingBox from another one.
-            </summary>
-      <param name="another">
-      </param>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.Clone">
-      <summary>
-            Creates a deep copy of this oriented bounding box.
-            </summary>
-      <returns>The new oriented bounding box object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.DoOverlapOrTouch(devDept.Geometry.OrientedBoundingBox,devDept.Geometry.OrientedBoundingBox)">
-      <summary>
-            Checks if two Oriented Bounding Boxes overlap or touch each other.
-            </summary>
-      <param name="first">first oriented bounding box to check</param>
-      <param name="second">second oriented bounding box to check</param>
-      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
-    </member>
-    <member name="M:devDept.Geometry.OrientedBoundingBox.DoOverlap(devDept.Geometry.OrientedBoundingBox,devDept.Geometry.OrientedBoundingBox)">
-      <summary>
-            Checks if two Oriented Bounding Boxes overlap each other.
-            </summary>
-      <param name="first">first oriented bounding box to check</param>
-      <param name="second">second oriented bounding box to check</param>
-      <returns>False if a separation axis between the two boxes was found, true otherwise.</returns>
-    </member>
-    <member name="T:devDept.Geometry.AnalyticSurf">
-      <summary>
-            Base class for analytic surfaces.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.AnalyticSurf.Index">
-      <summary>
-            Gets surface index, when available from import of standard CAD file formats.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.#ctor(System.Int32)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.#ctor(devDept.Geometry.AnalyticSurf)">
-      <summary>
-            Copy constructor.
-            </summary>
-      <param name="another">The other analytic surface object</param>
-    </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.Clone">
-      <summary>
-            Creates a deep copy of this analytic surface.
-            </summary>
-      <returns>The new analytic surface object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.ConvertToSurrogate">
-      <summary>
-            Converts the analitc surface to its surrogate, for serialization purpose.
-            </summary>
-      <returns>The surrogate.</returns>
-    </member>
-    <member name="P:devDept.Geometry.AnalyticSurf.HasSeam">
-      <summary>
-            Returns true when the surface has one or two seams.
-            </summary>
-      <value>True in case of closed surfaces.</value>
-    </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.GetSurface(devDept.Eyeshot.Entities.ICurve[],System.Boolean)">
-      <summary>
-            Returns the trimmed surface(s).
-            </summary>
-      <returns>The resulting trimmed surface(s).</returns>
-    </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.GetUntrimmed(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,System.Boolean)">
-      <summary>
-            Gets the untrimmed parametric surface.
-            </summary>
-      <param name="edgeCurves">A collection of individual edge curves not organized into composite curves</param>
-      <param name="sense">The surface sense, true for same sense.</param>
-      <param name="safePeriodical">When true, the periodical surface is rotated to avoid trim curves near the seam.</param>
-      <returns>The resulting untrimmed surface.</returns>
-    </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.TransformBy(devDept.Geometry.Transformation)">
-      <summary>
-            Transforms this analytic surface by the provided transformation.
-            </summary>
-      <param name="transform">The transformation</param>
-    </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.GetXElement">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="T:devDept.Geometry.TabulatedSurf">
-      <summary>
-            Analytic tabulated surface definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.TabulatedSurf.Generatrix">
-      <summary>
-            Gets tabulated surface generatrix 3D vector.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.TabulatedSurf.Directrix">
-      <summary>
-            Gets tabulated surface curve.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.TabulatedSurf.#ctor(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Vector3D,System.Int32)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="directrix">The extrusion amount</param>
-      <param name="generatrix">The base curve</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="T:devDept.Geometry.NurbsSurf">
-      <summary>
-            Analytic nurbs surface definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.NurbsSurf.DegreeU">
-      <summary>
-            Gets the surface degree in U direction.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.NurbsSurf.DegreeV">
-      <summary>
-            Gets the surface degree in V direction.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.NurbsSurf.KnotVectorU">
-      <summary>
-            Gets the surface knot vector in U direction.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.NurbsSurf.KnotVectorV">
-      <summary>
-            Gets the surface knot vector in V direction.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.NurbsSurf.ControlPoints">
-      <summary>
-            Gets the surface control point net.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.NurbsSurf.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],System.Int32)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="uDegree">Surface degree in the U parametric direction</param>
-      <param name="uKnotVector">Knot vector in the U parametric direction</param>
-      <param name="vDegree">Surface degree in the V parametric direction</param>
-      <param name="vKnotVector">Knot vector in the V parametric direction</param>
-      <param name="ctrlPoints">Surface control points</param>
-    </member>
-    <member name="T:devDept.Geometry.PlanarSurf">
-      <summary>
-            Analytic planar surface definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.PlanarSurf.ExtensionAmount">
-      <summary>
-            Gets the extension amount for untrimmed surfaces.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.PlanarSurf.Plane">
-      <summary>
-            Gets the planar surface plane.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.PlanarSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Int32)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="location">A 3D point representing the plane origin</param>
-      <param name="normal">A 3D vector representing the plane normal</param>
-      <param name="refDir">A 3D vector representing the plane X axis</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="M:devDept.Geometry.PlanarSurf.#ctor(devDept.Geometry.Plane,System.Int32)">
-      <summary>
-            Proprietary file format constructor.
-            </summary>
-      <param name="plane">The plane stored in the file.</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="T:devDept.Geometry.RevolvedSurf">
-      <summary>
-            Analytic revolved surface definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.RevolvedSurf.Generatrix">
-      <summary>
-            Gets revolved surface curve.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.RevolvedSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,devDept.Eyeshot.Entities.ICurve,System.Int32)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="location">A 3D point representing the plane origin</param>
-      <param name="normal">A 3D vector representing the plane normal</param>
-      <param name="refDir">A 3D vector representing the plane X axis</param>
-      <param name="generatrix">The curve to be revolved</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="M:devDept.Geometry.RevolvedSurf.#ctor(devDept.Geometry.Plane,devDept.Eyeshot.Entities.ICurve,System.Int32)">
-      <summary>
-            Proprietary file format constructor.
-            </summary>
-      <param name="plane">The plane stored in the file.</param>
-      <param name="generatrix">The curve to be revolved</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="T:devDept.Geometry.CylindricalSurf">
-      <summary>
-            Analytic cylindrical surface definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.CylindricalSurf.Radius">
-      <summary>
-            Gets cylinder radius.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.CylindricalSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Int32)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="location">A 3D point representing the plane origin</param>
-      <param name="axis">A 3D vector representing the plane normal</param>
-      <param name="refDir">A 3D vector representing the plane X axis</param>
-      <param name="radius">The cylider radius</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="M:devDept.Geometry.CylindricalSurf.#ctor(devDept.Geometry.Plane,System.Double,System.Int32)">
-      <summary>
-            Proprietary file format constructor.
-            </summary>
-      <param name="plane">The plane stored in the file.</param>
-      <param name="radius">The cylider radius</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="T:devDept.Geometry.ConicalSurf">
-      <summary>
-            Analytic conical surface definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.ConicalSurf.HalfAngle">
-      <summary>
-            The cone half angle in radians.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.ConicalSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Double,System.Int32)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="location">A 3D point representing the plane origin</param>
-      <param name="axis">A 3D vector representing the plane normal</param>
-      <param name="refDir">A 3D vector representing the plane X axis</param>
-      <param name="radius">The cone radius</param>
-      <param name="halfAngle">The cone half angle</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="M:devDept.Geometry.ConicalSurf.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Int32)">
-      <summary>
-            Proprietary file format constructor.
-            </summary>
-      <param name="plane">The plane stored in the file.</param>
-      <param name="radius">The cone radius</param>
-      <param name="halfAngle">The cone half angle</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="T:devDept.Geometry.ToroidalSurf">
-      <summary>
-            Analytic toroidal surface definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.ToroidalSurf.MajorRadius">
-      <summary>
-            Gets toroidal surface major radius.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.ToroidalSurf.MinorRadius">
-      <summary>
-            Gets toroidal surface minor radius.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.ToroidalSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Double,System.Int32)">
-      <summary>
-            Internal constructor.
-            </summary>
-      <param name="location">A 3D point representing the plane origin</param>
-      <param name="axis">A 3D vector representing the plane normal</param>
-      <param name="refDir">A 3D vector representing the plane X axis</param>
-      <param name="majorRadius">The torus major radius</param>
-      <param name="minorRadius">The torus minor radius</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="M:devDept.Geometry.ToroidalSurf.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Int32)">
-      <summary>
-            Proprietary file format constructor.
-            </summary>
-      <param name="plane">The plane stored in the file.</param>
-      <param name="majorRadius">The torus major radius</param>
-      <param name="minorRadius">The torus minor radius</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="T:devDept.Geometry.SphericalSurf">
-      <summary>
-            Analytic spherical surface definition.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.SphericalSurf.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Double,System.Int32)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="location">A 3D point representing the plane origin</param>
-      <param name="axis">A 3D vector representing the plane normal</param>
-      <param name="refDir">A 3D vector representing the plane X axis</param>
-      <param name="radius">The sphere radius</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="M:devDept.Geometry.SphericalSurf.#ctor(devDept.Geometry.Plane,System.Double,System.Int32)">
-      <summary>
-            Proprietary file format constructor.
-            </summary>
-      <param name="plane">The plane stored in the file.</param>
-      <param name="radius">The cylider radius</param>
-      <param name="index">The surface index, when available from import of standard CAD file formats.</param>
-    </member>
-    <member name="T:devDept.Geometry.PolyRegion2D">
-      <summary>
-            Class that performs boolean operations on contours of 2D polygonal region.
-            </summary>
-      <remarks>The algorithm is more robust than the one used by the Region, but it changes the coordinates a little bit.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.#ctor(devDept.Geometry.Plane,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}})">
-      <summary>
-            Constructor for 3D profiles.
-            </summary>
-      <param name="plane">The profile plane</param>
-      <param name="contourList">The list of contours points</param>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.#ctor(devDept.Geometry.Plane,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Boolean)">
-      <summary>
-            Construtor for 3D profiles.
-            </summary>
-      <param name="plane">The profile plane</param>
-      <param name="contourList">The list of contours points</param>
-      <param name="sortAndOrient">When true, the profiles are properly sorted and oriented.</param>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.#ctor(System.Collections.Generic.IList{devDept.Geometry.Polygon2D})">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="contourList">The list of contours points</param>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.#ctor(System.Collections.Generic.IList{devDept.Geometry.Polygon2D},System.Boolean)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="contourList">The list of contours points</param>
-      <param name="sortAndOrient">When true, the profiles are properly sorted and oriented.</param>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.FromRegion(devDept.Eyeshot.Entities.Region,devDept.Geometry.Plane,System.Double)">
-      <summary>
-            Creates a PolyRegion2D object from a Region.
-            </summary>
-      <param name="region">The region</param>
-      <param name="plane">The plane on which the region profiles will be projected</param>
-      <param name="deviation">The maximum deviation</param>
-      <returns>The PolyRegion2D object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.ToRegion(devDept.Geometry.Plane)">
-      <summary>
-            Creates a Region object from the current PolyRegion2D object.
-            </summary>
-      <param name="plane">The plane of the Region</param>
-      <returns>The Region object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.Union(devDept.Geometry.PolyRegion2D,devDept.Geometry.PolyRegion2D)">
-      <summary>
-            Boolean union between two PolyRegion2D.
-            </summary>
-      <param name="a">First operand</param>
-      <param name="b">Second operand</param>
-      <returns>An array of PolyRegion2D objects.</returns>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.Intersection(devDept.Geometry.PolyRegion2D,devDept.Geometry.PolyRegion2D)">
-      <summary>
-            Boolean intersection between two PolyRegion2D.
-            </summary>
-      <param name="a">First operand</param>
-      <param name="b">Second operand</param>
-      <returns>An array of PolyRegion2D objects.</returns>
-    </member>
-    <member name="M:devDept.Geometry.PolyRegion2D.Difference(devDept.Geometry.PolyRegion2D,devDept.Geometry.PolyRegion2D)">
-      <summary>
-            Boolean difference between two PolyRegion2D.
-            </summary>
-      <param name="a">First operand</param>
-      <param name="b">Second operand</param>
-      <returns>An array of PolyRegion2D objects.</returns>
-    </member>
-    <member name="T:devDept.Geometry.UtilityEx">
-      <summary>
-            Contains a collection of utility methods and constants for internal use.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetMaxGap(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
-      <summary>
-            Computes the maximum gap between curve segments.Assumes sorted and oriented segments.
-            </summary>
-      <param name="segments">The list of curve segments</param>
-      <param name="closed">When true, we need to check gap between end and start segments as well.</param>
-      <returns>The maximum gap between curve segments.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.SmartAdd(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean)">
-      <summary>
-            Returns a CompositeCurve if the number of curves is bigger than one.
-            </summary>
-      <param name="curveList">The list of curves</param>
-      <param name="sortAndOrient">When true, the curves are properly sorted and oriented.</param>
-      <returns>The curve itself or a CompositeCurve if the curve number is bigger than one.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.CheckDataIntegrity(System.String@,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.Object,System.Collections.Generic.HashSet{System.String}}}@)">
-      <summary>
-            Checks the data integrity between the Environment controls.
-            <para>It compares item-by-item all the master collections of all the Environment instances, searching for objects used in more than one Environment.</para></summary>
-      <param name="log">The log file containing details about shared items.</param>
-      <param name="sharedItems">The dictionary containing the shared items.        
-            <para>Listed below are the element types you can find in it</para><para>- Layer: items that belong to the <see cref="!:Model.Layers" /> collection.</para><para>- Block: items that belong to the <see cref="!:Model.Blocks" /> collection.</para><para>- Material: items that belong to the <see cref="P:devDept.Eyeshot.Model.Materials" /> collection.</para><para>- TextStyle: items that belong to the <see cref="!:Model.TextStyles" /> collection.</para><para>- LinePattern: items that belong to the <see cref="!:Model.LineTypes" /> collection.</para><para>- Entity: items that belong to the <see cref="!:Model.Entities" /> collection.</para><para>- BlockEntity: items that belong to the <see cref="P:devDept.Eyeshot.Block.Entities" /> collection.</para><para>- BlockEntity+Entity: items that belong both to the <see cref="P:devDept.Eyeshot.Block.Entities" /> and to the <see cref="!:Model.Entities" /> collections.</para></param>
-      <returns>True when no instances are shared between different Environment controls, otherwise false.</returns>
-      <remarks>        
-            You can't share objects (i.e. <see cref="T:devDept.Eyeshot.Entities.Entity" />, <see cref="T:devDept.Eyeshot.Block" />, <see cref="T:devDept.Graphics.Material" />, etc.) between different Environment controls, but you need to clone them before adding to another Environment control.    
-            If you get wrong display results or artifacts, you can use this method to check out shared elements.
-            </remarks>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetCpuCount(System.Int32,System.Int32[]@,System.Int32[]@)">
-      <summary>
-            Gets the number of logical processors.
-            </summary>
-      <param name="len">Total number of the items to process</param>
-      <param name="startIndex">Array of start indices</param>
-      <param name="endIndex">Array of end indices</param>
-      <returns>The number of logical processors</returns>
-    </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.ReplaceString(System.String,System.String,System.String,System.StringComparison)" -->
-    <member name="M:devDept.Geometry.UtilityEx.GetFont(System.Windows.Media.FontFamily,System.Windows.FontStyle,System.Windows.FontWeight,System.Double)">
-      <summary>
-            Gets a <see cref="T:System.Drawing.Font" /> starting from the commons WPF font values.
-            </summary>
-      <param name="fontFamily">The <see cref="T:System.Windows.Media.FontFamily" />.</param>
-      <param name="fontStyle">The <see cref="T:System.Windows.FontStyle" />.</param>
-      <param name="fontWeight">The <see cref="T:System.Windows.FontWeight" />.</param>
-      <param name="fontSize">The font size.</param>
-      <returns>The new <see cref="T:System.Drawing.Font" />.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.AllVerticesInScreenPolygon(devDept.Eyeshot.ScreenPolygonParams,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Int32)">
-      <summary>
-            Tells if a collection of vertices is fully contained inside a polygon defined in screen coordinates. 
-            </summary>
-      <param name="data">The screen polygon params</param>
-      <param name="vertices">The collection of vertices</param>
-      <param name="count">The number of vertices to consider</param>
-      <returns>True if all the vertices are contained in the screen polygon.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.VertexInScreenPolygon(devDept.Geometry.Point3D,System.Collections.Generic.IList{devDept.Geometry.Point2D},devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double[],System.Int32[])">
-      <summary>
-            Checks whether a 3D vertex is inside the given screen polygon.
-            </summary>
-      <param name="pt">The 3D vertex</param>
-      <param name="screenPolygon">The 2D screen polygon</param>
-      <param name="min">The minimum value of the 2D polygon</param>
-      <param name="max">The maximum value of the 2D polygon</param>
-      <param name="modelViewProj">The modelview projection matrix</param>
-      <param name="viewFrame">The viewport bounds</param>
-      <returns>True if the vertex is inside the polygon.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetRevisionCloud(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,System.Double)">
-      <summary>
-            Builds a revision cloud from the specified ICurve.
-            </summary>
-      <param name="sourceCurve">The input curve</param>
-      <param name="plane">The plane used to build the revision cloud</param>
-      <param name="averageRadius">The radius that each arc of revision cloud should have</param>
-      <returns>The resulting revision cloud as a CompositeCurve of arcs.</returns>
-      <remarks>The input curve should lie on the input Plane.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.RotationMinimizingFrames(devDept.Geometry.Plane,devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[])">
-      <summary>
-            Computes a set of planes along the curve that are perpendicular to the curve and are oriented in a way that avoids abrupt changes in the directions of the X and Y axes.
-            </summary>
-      <param name="prevFrame">The plane at the beginning of the curve. It can be null</param>
-      <param name="x">The array of points along the curve where the planes will be computed</param>
-      <param name="t">The array of tangents at each point</param>
-      <returns>The array of planes.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.ComputeMinMax(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
-      <summary>
-            Computes bounding box min/max 3D points of a list of entities.
-            </summary>
-      <param name="entList">The list of entities</param>
-      <param name="boxMin">The resulting min point</param>
-      <param name="boxMax">The resulting max point</param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
-      <summary>
-            Chains curves using the minimum distance between individual curve ends.
-            </summary>
-      <param name="curveList">The list of curves</param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
-      <summary>
-            Chains curves using the minimum distance between individual curve ends keeping the first curve first.
-            </summary>
-      <param name="curveList">The list of curves</param>
-      <param name="closureTol">The max distance between the contour start and end points to assume the curve as closed.</param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,System.Boolean,System.Double)">
-      <summary>
-            Chains curves using the minimum distance between individual curve ends keeping the first curve first.
-            </summary>
-      <param name="curveList">The list of curves</param>
-      <param name="reverseVertices">If vertices are present and the curve needs to be reversed the vertices array is reversed as well</param>
-      <param name="assumeClosed">In case you already know that the contour is/has to be closed.</param>
-      <param name="closureTol">Use zero if you know that the contour is/has to be closed</param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.SplitEdgeOnSurfaceSeams(devDept.Eyeshot.Entities.Brep)">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetConnectedCurves(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
-      <summary>
-            Groups the curves that are connected into CompositeCurves. 
-            </summary>
-      <param name="unsorted">The list of curves</param>
-      <param name="gap">The distance necessary to consider two curves disconnected</param>
-      <remarks>Two curves are considered connected if the distance between their endpoints is smaller than gap.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.DetectRegionsFromContours(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double,devDept.Geometry.Plane,System.Boolean)">
-      <summary>
-            Creates an array of Regions from the curves list, automatically detecting inner and outer contours.
-            </summary>
-      <param name="contours"> The list of curves</param>
-      <param name="deviation">The regeneration tolerance</param>
-      <param name="plane">The plane used to create the regions</param>
-      <param name="keepVertices">When true, the original curves tessellation is preserved.</param>
-      <returns>The resulting Region array.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.DrawArrowOnView(devDept.Eyeshot.DrawDirectionParams,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
-      <summary>
-            Draw an arrow parallel to the view, oriented along the <paramref name="curveDirection" /> direction.
-            </summary>
-      <param name="data">The data</param>
-      <param name="curveDirection">The arrow direction</param>
-      <param name="point">The world point where to draw the arrow</param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetOuterIndex(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
-      <summary>
-            Returns the outer contour index.
-            </summary>
-      <param name="loops">The list of 2D contours</param>
-      <param name="tolerance">The tolerance used to tessellate contours</param>
-      <returns>The outer loop index</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingFrustumQuad(devDept.Eyeshot.FrustumParams,System.Collections.Generic.IList{devDept.Geometry.Point3D})">
-      <summary>
-            Checks whether the quad are inside or crossing the frustum defined by the given planes.
-            </summary>
-      <param name="myParams">The frustum parameters</param>
-      <param name="vertices">Vertices list</param>
-      <returns>True if the quad is inside or crossing the frustum.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingFrustum(devDept.Eyeshot.FrustumParams,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
-      <summary>
-            Checks whether the triangles are inside or crossing the frustum defined by the given planes.
-            </summary>
-      <param name="myParams">The frustum parameters</param>
-      <param name="vertices">Vertices list</param>
-      <param name="triangles">Triangles list</param>
-      <returns>True if the triangles are inside or crossing the frustum.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingScreenPolygonQuad(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.ScreenPolygonParams)">
-      <summary>
-            Checks whether the quad is inside or crossing the given screen polygon.
-            </summary>
-      <param name="pt1">The first vertex</param>
-      <param name="pt2">The second vertex</param>
-      <param name="pt3">The third vertex </param>
-      <param name="pt4">The fourth vertex </param>
-      <param name="myParams">The screen polygon parameters</param>
-      <returns>True if the quad is inside or is crossing the screen polygon.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.InsideOrCrossingScreenPolygon(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.ScreenPolygonParams)">
-      <summary>
-            Checks whether the triangle is inside or crossing the given screen polygon.
-            </summary>
-      <param name="pt1">The first  triangle vertex</param>
-      <param name="pt2">The second triangle vertex</param>
-      <param name="pt3">The third triangle vertex </param>
-      <param name="myParams">Screen polygon parameters</param>
-      <returns>True if the triangle is inside or is crossing the screen polygon.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetUnusedBlockName``1(System.String,devDept.Eyeshot.BlockKeyedCollection{``0},System.Boolean)">
-      <summary>
-            Gets a new name for block creation adding a number as suffix to the original name to avoid duplicates block names.
-            </summary>
-      <typeparam name="T">The <see cref="T:devDept.Eyeshot.Block" /> item belong to the collection.</typeparam>
-      <param name="name">The original name to start from.</param>
-      <param name="blocks">The blocks collection.</param>
-      <param name="addCounterOnlyIfNeeded">When true, the original name is preserved if not used yet, otherwise, the new name counter starts from 1 searching for a non duplicated name.</param>
-      <returns>The name that can be used to create a new block not already contained in the blocks collection.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetUnusedLayerName(System.String,devDept.Eyeshot.LayerKeyedCollection,System.Boolean)">
-      <summary>
-            Gets a new name for layer adding a number as suffix to the original name to avoid duplicates layer names.
-            </summary>
-      <param name="name">The original name to start from.</param>
-      <param name="blocks">The layers collection.</param>
-      <param name="addCounterOnlyIfNeeded">When true, the original name is preserved if not used yet, otherwise, the new name counter starts from 1 searching for a non duplicated name.</param>
-      <returns>The name that can be used to create a new layer not already contained in the layers collection.</returns>
-    </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.NeedToFlipTrianglesForExtrusion(System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.Vector3D)" -->
-    <member name="M:devDept.Geometry.UtilityEx.ConvexHull(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double,System.Boolean,System.Boolean)">
-      <summary>
-            Computes the Convex Hull of a set of 3D points.
-            </summary>
-      <param name="points">The 3D point array</param>
-      <param name="domainSize">The maximum distance between two points in the input set, zero for automatic estimation.</param>
-      <returns>The resulting Mesh object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.ConvexHull(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double,devDept.Geometry.Point3D[]@,devDept.Geometry.IndexTriangle[]@,System.Boolean,System.Boolean)">
-      <summary>
-             Computes the Convex Hull of a set of 3D points.
-            </summary>
-      <param name="points">The 3D point list</param>
-      <param name="domainSize">The longest line connecting two points in the input set</param>
-      <param name="iVertices">The resulting 3D point vertices array.</param>
-      <param name="iTriangles">The resulting IndexTriangle array.</param>
-      <param name="getFaces">
-      </param>
-      <param name="fixNormals">
-      </param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.ConvexHull2D(System.Collections.Generic.IList{devDept.Geometry.Point2D})">
-      <summary>
-            Computes the Convex Hull of a set of 2D points.
-            </summary>
-      <param name="points">The 2D point list</param>
-      <returns>The resulting LinearPath object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.ConvexHull2D(System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Boolean)">
-      <summary>
-            Computes the Convex Hull of a set of 2D points.
-            </summary>
-      <param name="points">The 2D point list</param>
-      <param name="sorted">When true, the resulting array of points is sorted.</param>
-      <returns>The resulting array of 2D points.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.IsLine(devDept.Eyeshot.Entities.ICurve)">
-      <summary>
-            Checks if the curve is a line or a linear nurbs segment (Nurbs and Ultimate editions only).
-            </summary>
-      <param name="itfCurve">The curve to be checked</param>
-      <returns>True if the curve is a <see cref="T:devDept.Eyeshot.Entities.Line" /> or a Nurbs curve with two control points and degree one</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetUnitsToMmFactor(devDept.Geometry.linearUnitsType)">
-      <summary>
-            Gets the factor to convert from units to mm.
-            </summary>
-      <param name="units">The model units</param>
-      <returns>The conversion factor.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.Segment3D})">
-      <summary>
-            Triangulates a set of contours/points.
-            </summary>
-      <param name="outerLoop">Outer contour</param>
-      <param name="innerLoops">A list of inner contours (holes), can be null/Nothing.</param>
-      <param name="points">The list of Steiner points, can be null/Nothing.</param>
-      <param name="segments">The internal constraint segments, can be null/Nothing.</param>
-      <returns>The resulting Mesh, null/Nothing in case of failure.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point2D}},System.Boolean,devDept.Geometry.Point2D[]@,devDept.Geometry.IndexTriangle[]@)">
-      <summary>
-            Triangulates a set of contours.
-            </summary>
-      <param name="outerLoop">Outer contour</param>
-      <param name="innerLoops">A list of inner contours, can be null/Nothing.</param>
-      <param name="checkDir">When true, the contour orientation is fixed automatically.</param>
-      <param name="vertices">The resulting triangulation 2D vertices</param>
-      <param name="triangles">The resulting triangulation triangles</param>
-      <returns>True if the operation succeeds, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.Triangulate(devDept.Eyeshot.Entities.Region,System.Double,System.Int32)">
-      <summary>
-            Triangulates (meshes) the specified Region.
-            </summary>
-      <param name="region">The region to be meshed</param>
-      <param name="elementSize">The desired element size</param>
-      <param name="smoothingPasses">The number of smoothing passes</param>
-      <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.Triangulate(TriangleNet.Geometry.Polygon,TriangleNet.Meshing.ConstraintOptions,TriangleNet.Meshing.QualityOptions,TriangleNet.Smoothing.ISmoother,System.Int32)">
-      <summary>
-            Triangulates the specified geometry.
-            </summary>
-      <param name="inputGeometry">The contours, point and segments to be triangulated.</param>
-      <param name="co">The desired constraints</param>
-      <param name="qo">The desired quality</param>
-      <param name="smoother">The smoother type</param>
-      <param name="smoothingPasses">The number of smoothing passes</param>
-      <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Eyeshot.Entities.Mesh.natureType)">
-      <summary>
-            Triangulate a collection of 2.5D points (terrain like).
-            </summary>
-      <param name="points">The 3D point collection</param>
-      <param name="nature">The desired Mesh nature. Affects only mesh smoothing.</param>
-      <returns>The resulting Mesh, null/nothing in case of failure.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.DoOverlapOrTouch(devDept.Eyeshot.Entities.Mesh,devDept.Eyeshot.Entities.Mesh)">
-      <summary>
-            Checks if two <see cref="T:devDept.Eyeshot.Entities.Mesh" /> objects intersect each other.
-            </summary>
-      <param name="first">The first mesh object</param>
-      <param name="second">The second mesh object</param>
-      <returns>True if the two mesh objects intersect.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.DoOverlap(devDept.Eyeshot.Entities.Mesh,devDept.Eyeshot.Entities.Mesh)">
-      <summary>
-            Checks if two <see cref="T:devDept.Eyeshot.Entities.Mesh" /> objects intersect each other (but don't touch).
-            </summary>
-      <param name="first">The first mesh object</param>
-      <param name="second">The second mesh object</param>
-      <returns>True if the two mesh objects intersect.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.CleanDuplicates(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})">
-      <summary>
-            Cleans duplicated curves from a contour.
-            </summary>
-      <param name="contour">The contour to be checked</param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetSignificantPointsOnICurve(devDept.Eyeshot.Entities.ICurve)">
-      <summary>
-            Selects the first and start point of an ICurve, the vertices of a LinearPath, and the startPoints of the segments of a CompositeCurve
-            </summary>
-      <param name="contour">The contour</param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetEntitiesStats(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Int32@,System.Int32@,System.Int32@,System.Collections.Generic.Dictionary{devDept.Eyeshot.Block,System.Collections.Generic.Dictionary{System.Type,System.Int32}})">
-      <summary>
-            Get the statistics for a collection of entities.
-            </summary>
-      <param name="entityList">The collection of entities</param>
-      <param name="blocks">The blocks to process.</param>
-      <param name="entitiesCount">The count of all the entities.</param>
-      <param name="verticesCount">The count of all the vertices.</param>
-      <param name="trianglesCount">The count of all the triangles.</param>
-      <param name="blocksDetails">The dictionary with the entities details about blocks. Optional, can be null/Nothing.</param>
-      <returns>The dictionary with the count of each entity's type.</returns>
-      <remarks>The entities inside the blocks are processed only for the counting of vertices and triangles.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetEntitiesStats(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Boolean,System.Boolean)">
-      <summary>
-            Get the statistics for a collection of entities.
-            </summary>
-      <param name="entityList">The collection of entities</param>
-      <param name="blocks">The blocks to process. It can be null if showTotals is false.&gt;</param>
-      <param name="showTotals">When true it shows also the total's count, otherwise no.</param>
-      <param name="showBlocksDetails">When true it shows also the detail of the entities contained into each block.</param>
-      <returns>The string with the count of each entity's type.</returns>
-      <remarks>The entities inside the blocks are processed only for the counting of vertices and triangles.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetEntitiesStats(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,System.Boolean,System.Boolean,System.Boolean)">
-      <summary>
-            Get the statistics for a collection of entities.
-            </summary>
-      <param name="entityList">The collection of entities</param>
-      <param name="layers">The layers to process. It can be null if showCollectionsItems is false.&gt;</param>
-      <param name="blocks">The blocks to process. It can be null if showTotals is false.&gt;</param>
-      <param name="materials">The materials to process. It can be null if showCollectionsItems is false.&gt;</param>
-      <param name="textStyles">The textStyles to process. It can be null if showCollectionsItems is false.&gt;</param>
-      <param name="lineTypes">The lineTypes to process. It can be null if showCollectionsItems is false.&gt;</param>
-      <param name="showTotals">When true it shows also the total's count, otherwise no.</param>
-      <param name="showBlocksDetails">When true it shows also the detail of the entities contained into each block.</param>
-      <param name="showCollectionsItems">When true it shows also the list of the master collections items.</param>
-      <returns>The string with the count of each entity's type.</returns>
-      <remarks>The entities inside the blocks are processed only for the counting of vertices and triangles.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetEntitiesByType(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.List{System.Type})">
-      <summary>
-            Get a list of entities by type.
-            </summary>
-      <param name="entityList">The collection of entities.</param>
-      <param name="blocks">The blocks to process.</param>
-      <param name="includedTypes">If not null then it will consider only the entities which match these types.</param>
-      <returns>The dictionary with the collection of entities for each entity's type.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetReferencedBlocksNames(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block},System.Collections.Generic.Dictionary{System.String,devDept.Eyeshot.Block})">
-      <summary>
-            Returns the set of block in use (referenced by a <see cref="T:devDept.Eyeshot.Entities.BlockReference" />) names.
-            </summary>
-      <param name="entities">The entity list</param>
-      <param name="blocks">The block collection</param>
-      <returns>The set of block in use names.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.ComputeItemsCount(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection)">
-      <summary>
-            Computes the actual number of items in both plain or structured scene modes.
-            </summary>
-      <param name="entList">The entity list</param>
-      <param name="blocks">The block collection</param>
-      <returns>The number of items in the scene.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.CountNodes(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.BlockKeyedCollection,System.Int32@,System.Int32@,System.Int32@)">
-      <summary>
-            Computes the scene graph inventory.
-            </summary>
-      <param name="entList">The entity collection</param>
-      <param name="blocks">The block collection</param>
-      <param name="fullNodeCount">Total number of tree nodes that contain -at least- one object (leaf)</param>
-      <param name="emptyNodeCount">Total number of tree nodes that don't contains any object</param>
-      <param name="totalObjectCount">Total number of objects in the scene, if leaf nodes always contain only one object, it is equal to <paramref name="fullNodeCount" />.</param>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)">
-      <summary>
-            Computes the segments tangent to two given circles or arcs.
-            </summary>
-      <param name="c1">The first circle.</param>
-      <param name="c2">The first circle.</param>
-      <returns>The array of lines tangent to both circles. For arcs, it returns only the lines that touch them.</returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Line[]@)">
-      <summary>
-            Computes the segments tangent to two given circles.
-            </summary>
-      <param name="c1">The first circle.</param>
-      <param name="c2">The second circle.</param>
-      <param name="tangentArray">Array of length 4 containing the tangent lines.</param>
-      <returns>The number of not null lines in <paramref name="tangentArray" />.</returns>
-      <remarks>For arcs, it returns the same result as for circles, for a different result use <see cref="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)" />.
-            All the lines start from c1 and end on c2, except for the tangent lines that are perpendicular to the line
-            connecting the two centers, we will refer to these tangents as vertical or VERT:
-            their length is equal to the diameter of the bigger circle and they touch the circles at the midPoint.
-            The position of the lines in the array is fixed and dependent from the number of solutions:
-            <list type="bullet"><item><description>[0] upper external (or outer),</description></item><item><description>[1] lower external (or outer),</description></item><item><description>[2] upper internal (or inner),</description></item><item><description>[3] lower internal (or inner).</description></item></list>
-            To define upper we use the positive direction of the Y axis of the plane with axis Z equal to c1.Plane,
-            and axis X given by the direction c1.Center-c2.Center.
-            Based on the number of solutions, the possibilities are:
-            <list type="bullet"><item><description>0 =&gt; [null, null, null, null]: one circle is completely inside the other and they don't intersect,</description></item><item><description>1 =&gt; [null, null, null, VERT]: one circle is completely inside the other and they are tangent</description></item><item><description>2 =&gt; [LINE, LINE, null, null]: the circles intersect in two different points, there are only the external tangents,</description></item><item><description>3 =&gt; [LINE, LINE, VERT, null]: the circles intersect in one point, but they aren't one inside the other,
-            there are the external tangents and a vertical tangent,</description></item><item><description>4 =&gt; [LINE, LINE, LINE, LINE]: the circles don't intersect and they aren't one inside the other,
-            there are the external tangents and the internal tangents.</description></item></list></remarks>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetCirclesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,System.Double,System.Boolean,System.Boolean)">
-      <summary>
-             Computes the circles tangent to two given circles or arcs.
-             </summary>
-      <param name="c1">The first circle.</param>
-      <param name="c2">The second circle.</param>
-      <param name="radius">The radius of the tangent circles</param>
-      <param name="trim">If true, it trims the tangent circle at the tangent points.</param>
-      <param name="flip"> It is significant only when trim is true. If false (default) it returns the shortest part of the tangent circle, if true it returns the longest part.</param>
-      <returns>The list of circles tangent to both circles. For arcs, it returns only the circles that touch them.
-            The StartPoint of the output circles lie always on c1. If trim is true, the trimmed arc goes from c1 to c2. 
-             </returns>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToCircleFromPoint(devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D,devDept.Eyeshot.Entities.Line[]@)">
-      <summary>
-            Computes the tangent lines from a point to a circle. 
-            </summary>
-      <param name="c">The circle.</param>
-      <param name="pt">The point on the circle's plane and outside it.</param>
-      <param name="tangentSegments"> Array containing the not-null tangent lines. </param>
-      <returns> The number of (not-null) lines in <paramref name="tangentSegments" /></returns>
-      <remarks>
-            For arcs, it returns only the lines that touch them.
-            The tangent lines are directed from the point toward the circle. 
-            </remarks>
-    </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.GetLinesTangentToCircleFromPoint(devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D)" -->
-    <member name="T:devDept.Geometry.lineWeightPrintingUnitsType">
-      <summary>
-            Line weight unit system type used for printing.
-            </summary>
-      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" />
-      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" />
-      <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeight" />
-    </member>
-    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Inches">
-      <summary>
-            The line weight is treated as inches
-            </summary>
-    </member>
-    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Millimeters">
-      <summary>
-            The line weight is treated as millimeters
-            </summary>
-    </member>
-    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Pixels">
-      <summary>
-            The line weight is treated as pixels
-            </summary>
-    </member>
-    <member name="T:devDept.Geometry.PointExtender">
-      <summary>Point3D Extender.</summary>
-    </member>
-    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Eyeshot.Entities.ICurve,System.Double)">
-      <summary>
-            Checks if the point is on the specified ICurve.
-            </summary>
-      <param name="curve">The curve to test</param>
-      <param name="maxGap">The maximum accepted distance to consider the point on the curve</param>
-      <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@,System.Double@)">
-      <summary>
-            Checks if the point is on the specified ICurve.
-            </summary>
-      <param name="curve">The curve to test</param>
-      <param name="maxGap">The maximum accepted distance to consider the point on the curve</param>
-      <param name="closestPt">Outputs the closest point on the curve</param>
-      <param name="closestParam">Outputs the parameter along the curve corresponding to the closest point</param>
-      <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
-    </member>
-    <member name="T:devDept.Geometry.InterPoint">
-      <summary>
-            Intersection point definition.
-            </summary>
-    </member>
-    <member name="F:devDept.Geometry.InterPoint.IsTangent">
-      <summary>
-            When true, the intersection is a tangent one.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.InterPoint.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Standard constructor
-            </summary>
-      <param name="x">X coordinate value</param>
-      <param name="y">Y coordinate value</param>
-      <param name="z">Z coordinate value</param>
-      <param name="u">First surface parametric U coordinate value</param>
-      <param name="v">First surface parametric V coordinate value</param>
-      <param name="s">Second surface parametric U coordinate value</param>
-      <param name="t">Second surface parametric V coordinate value</param>
-    </member>
-    <member name="M:devDept.Geometry.InterPoint.Clone">
-      <summary>
-            Creates a deep copy of this intersection point.
-            </summary>
-      <returns>The new intersection point object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.InterPoint.ToString">
-      <summary>
-            Converts this 3D point to a human readable string.
-            </summary>
-      <returns>A string that represents this 3d point.</returns>
-    </member>
-    <member name="T:devDept.Geometry.InitialPoint">
-      <summary>
-            Intersection initial point definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.InitialPoint.CurveTangent">
-      <summary>
-            Gets or set the tangent of the curve in Curve - Surface intersection.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.InitialPoint.Clone">
-      <summary>
-            Creates a deep copy of this initial point.
-            </summary>
-      <returns>The new initial point object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.InitialPoint.ToString">
-      <summary>
-            Converts this 3D point to a human readable string.
-            </summary>
-      <returns>A string that represents this 3d point.</returns>
     </member>
   </members>
 </doc>
