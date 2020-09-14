@@ -907,11 +907,6 @@
             Default graphics data.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Entities.Entity.drawPattern">
-      <summary>
-            Graphics data for line pattern.
-            </summary>
-    </member>
     <member name="P:devDept.Eyeshot.Entities.Entity.RegenMode">
       <summary>
             Gets or sets the entity regeneration mode.
@@ -1558,13 +1553,6 @@
       </param>
       <seealso cref="M:devDept.Eyeshot.Entities.Entity.DrawWireEntity(devDept.Graphics.RenderContextBase,System.Object)" />
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Entity.CompilePattern(devDept.Eyeshot.CompileParams)">
-      <summary>
-            Compiles the graphics representation of the pattern of wireframe entities.
-            </summary>
-      <param name="data">The parameters</param>
-      <seealso cref="P:devDept.Eyeshot.Environment.LineTypes" />
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.DrawEntity(devDept.Graphics.RenderContextBase,System.Object)">
       <summary>
             Internal method that draws the entity.
@@ -1816,7 +1804,7 @@
             Base class for all GCode motions.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Toolpath.Motion.#ctor(devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)">
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.Motion.#ctor(devDept.Eyeshot.Entities.motionType,System.Double,System.Double,System.String)">
       <summary>
             Standard constructor.
             </summary>
@@ -1851,6 +1839,16 @@
             Gets or sets code line.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.Motion.StartPoint">
+      <summary>
+            Gets the motion start point.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.Motion.EndPoint">
+      <summary>
+            Gets the motion end point.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Toolpath.Tool">
       <summary>
             Gets or sets tool number.
@@ -1861,14 +1859,13 @@
             Linear motion definition.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Toolpath.LinearMotion.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)">
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.LinearMotion.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.Entities.motionType,System.Double,System.Double,System.String)">
       <summary>
             Standard constructor.
             </summary>
       <param name="from">Current position</param>
       <param name="to">Next position</param>
       <param name="code">GCode</param>
-      <param name="tool">Tool number</param>
       <param name="speed">Spindle speed</param>
       <param name="feed">Feed rate</param>
       <param name="codeLine">Full code line</param>
@@ -1894,7 +1891,7 @@
             Circular motion definition.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Toolpath.CircularMotion.#ctor(devDept.Geometry.Plane,System.Double,devDept.Geometry.Interval,devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)">
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.CircularMotion.#ctor(devDept.Geometry.Plane,System.Double,devDept.Geometry.Interval,devDept.Eyeshot.Entities.motionType,System.Double,System.Double,System.String)">
       <summary>
             Standard constructor.
             </summary>
@@ -1907,7 +1904,7 @@
       <param name="feed">Feed rate</param>
       <param name="codeLine">Full code line</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Toolpath.CircularMotion.#ctor(devDept.Geometry.Plane,System.Double,devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)">
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.CircularMotion.#ctor(devDept.Geometry.Plane,System.Double,devDept.Eyeshot.Entities.motionType,System.Double,System.Double,System.String)">
       <summary>
             Full circle constructor.
             </summary>
@@ -1945,6 +1942,11 @@
             The list of tool path motions.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.ShowPoints">
+      <summary>
+            Gets or sets the points visibility status.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Toolpath.#ctor(System.Collections.Generic.ICollection{devDept.Eyeshot.Entities.Toolpath.Motion},System.Int32)">
       <summary>
             Standard constructor
@@ -1977,10 +1979,26 @@
             Gets or sets the color used to draw the rapid movements.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.StartPoint">
+      <summary>
+            Gets the start point.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Toolpath.EndPoint">
+      <summary>
+            Gets the end point.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Toolpath.RapidPattern">
       <summary>
             Gets or sets the pattern used to draw the rapid movements. 0xFFFF for solid, 0x0F0F for dashed.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.Length">
+      <summary>
+            Gets the the toolpath length.
+            </summary>
+      <returns>A value representing the toolpath length.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Entities.RasterView">
       <summary>
@@ -2089,18 +2107,19 @@
       <summary>
             Gets or sets the center lines extension amount.
             </summary>
-      <seealso cref="P:devDept.Eyeshot.Entities.VectorView.ComputeGhostCircles" />
     </member>
-    <member name="P:devDept.Eyeshot.Entities.VectorView.ComputeGhostCircles">
+    <member name="P:devDept.Eyeshot.Entities.VectorView.Scale">
       <summary>
-            When true, ghost circles (to enable radial and diametric dimensioning) are computed.
+            Gets or sets the scale factor between the model and the drawing.
             </summary>
-      <remarks>This flag affects also the creation of centerlines.</remarks>
+      <remarks>It must be set according to the <see cref="P:devDept.Eyeshot.Model.Units" /> and the <see cref="P:devDept.Eyeshot.Sheet.Units" />.</remarks>
+      <seealso cref="P:devDept.Eyeshot.Sheet.Units" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.VectorView.HiddenSegments">
       <summary>
             Gets or sets the hidden segments (silhouettes, edges, wires) visibility status.
             </summary>
+      <remarks> The view needs to be rebuilt at least one time in order to hide/show the hidden segments. </remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.VectorView.IgnoreTransparency">
       <summary>
@@ -2201,6 +2220,14 @@
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.VectorView.UpdateViewBlock(System.Boolean,devDept.Eyeshot.Model,devDept.Eyeshot.Drawings)">
+      <summary>
+            Adds or removes the hidden segments from the block of the view. 
+            </summary>
+      <param name="add">If true, add the segments; otherwise it removes them.</param>
+      <param name="model">The Model environment</param>
+      <param name="drawings">the Drawings environment</param>
     </member>
     <member name="T:devDept.Eyeshot.Entities.View">
       <summary>
@@ -2313,6 +2340,12 @@
       <param name="async">When true the related block is built asynchronously and must be added at the <see cref="E:devDept.Eyeshot.Environment.WorkCompleted" /> event, otherwise it's built synchronously.</param>
       <returns>The rebuilt block.</returns>
       <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.View.DrawMarkerForDirty(devDept.Eyeshot.DrawParams)">
+      <summary>
+            Gives a chance to the derived classes to have a custom mark when the view is dirty.
+            </summary>
+      <param name="drawParams">The draw params</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.View.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -2691,7 +2724,7 @@
             Offsets the region of the specified amount.
             </summary>
       <param name="amount">Signed offset amount</param>
-      <param name="tolerance">Tolereance</param>
+      <param name="tolerance">Tolerance</param>
       <returns>The offset curves of the region contours.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Region.Offset(System.Double,System.Double,System.Boolean)">
@@ -4760,6 +4793,11 @@
       <param name="solids">The list of disjoint breps to add</param>
       <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.Brep.FacesSelectionInfo">
+      <summary>
+            List of selected faces per each component instance.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.GetSelectedEdges(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
       <summary>
             Gets the selected edges.
@@ -4887,6 +4925,13 @@
       <param name="faceIndex">The face index</param>
       <param name="selectionState">The selection state</param>
       <param name="parents">The parents stack</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.GetPlanarFaceRegion(System.Int32)">
+      <summary>
+            Gets the planar face region.
+            </summary>
+      <param name="index">The face index</param>
+      <returns>A <see cref="T:devDept.Eyeshot.Entities.Region" />, null/nothing otherwise.</returns>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Brep.Faces">
       <summary>
@@ -5127,316 +5172,6 @@
       <param name="env">The <see cref="T:devDept.Eyeshot.Environment" /> control.</param>
       <param name="layerName">The layer name</param>
     </member>
-    <member name="T:devDept.Eyeshot.Entities.Brep.Loop">
-      <summary>
-            Brep face loop definition.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Loop.Sense">
-      <summary>
-            The loop orientation. True means same sense.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Loop.Segments">
-      <summary>
-            The array of oriented edges that compose the loop.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Loop.#ctor(devDept.Eyeshot.Entities.Brep.OrientedEdge[])">
-      <summary>
-            Segments only constructor.
-            </summary>
-      <param name="segments">The array of oriented edges that compose the loop</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Loop.#ctor(devDept.Eyeshot.Entities.Brep.OrientedEdge[],System.Boolean)">
-      <summary>
-            Segments and sense constructor.
-            </summary>
-      <param name="segments">The array of oriented edges that compose the loop.</param>
-      <param name="sense">The loop sense</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Loop.Clone">
-      <summary>
-            Creates a deep copy of this Loop.
-            </summary>
-      <returns>The new loop object.</returns>
-    </member>
-    <member name="T:devDept.Eyeshot.Entities.Brep.Face">
-      <summary>
-            Brep face definition.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Loops">
-      <summary>
-            Trim loop array.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Surface">
-      <summary>
-            Analytic representation of this face.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Parametric">
-      <summary>
-            Parametric representation of this face.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Tessellation">
-      <summary>
-            Tessellated representation of this face.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Sense">
-      <summary>
-            Face sense.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Brep.Face.Color">
-      <summary>
-            Gets or sets the Color of the face.
-            </summary>
-      <remarks>Use it to specify a different color from the Brep color or material.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.#ctor(devDept.Geometry.AnalyticSurf,devDept.Eyeshot.Entities.Brep.Loop[],System.Boolean,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Faces and loops constructor.
-            </summary>
-      <param name="surface">The analytic surface</param>
-      <param name="loops">The trim loop array</param>
-      <param name="sense">The face sense</param>
-      <param name="color">The face Color (overrides the entity color and material)</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.#ctor(devDept.Geometry.AnalyticSurf,devDept.Eyeshot.Entities.Brep.Loop,System.Boolean,System.Nullable{System.Drawing.Color})">
-      <summary>
-            Faces and loop constructor.
-            </summary>
-      <param name="surface">The analytic surface</param>
-      <param name="loop">The trim loop</param>
-      <param name="sense">The face sense</param>
-      <param name="color">The face Color (overrides the entity color and material)</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.Clone">
-      <summary>
-            Creates a deep copy of this Face.
-            </summary>
-      <returns>The new face object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.Dispose">
-      <summary>
-            Disposes face <see cref="F:devDept.Eyeshot.Entities.Brep.Face.Tessellation" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.GetError(devDept.Geometry.Point3D[],devDept.Eyeshot.Entities.Brep.Edge[])">
-      <summary>
-            Gets the maximum gap between face loops' edges.
-            </summary>
-      <param name="vertices">The object vertices</param>
-      <param name="edges">The object edges</param>
-      <returns>The maximum gap value.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.ConvertToMesh(devDept.Eyeshot.Entities.Mesh.natureType,devDept.Eyeshot.Entities.Entity,System.Boolean,System.Single)">
-      <summary>
-            Converts current face tessellation to <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
-            </summary>
-      <param name="parent">Parent entity</param>
-      <param name="meshNature">The desired Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
-      <param name="skipEdges">When true, skips the edges computation.</param>
-      <param name="texLength">The material texture length</param>
-      <returns>The resulting Mesh object.</returns>
-      <seealso cref="P:devDept.Graphics.Material.TextureLength" />
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Brep.Face.TextureScaleU">
-      <summary>
-            Gets or sets the texture scale U.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Brep.Face.TextureScaleV">
-      <summary>
-            Gets or sets the texture scale V.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Brep.Face.TextureOffsetU">
-      <summary>
-            Gets or sets the texture offset U.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Brep.Face.TextureOffsetV">
-      <summary>
-            Gets or sets the texture offset V.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.ConvertToSurface(devDept.Eyeshot.Entities.Entity)">
-      <summary>
-            Convert this face in one or more parametric surfaces.
-            </summary>
-      <param name="parent">The Brep object (when available) to copy attributes like color, layer, etc.</param>
-      <returns>The resulting array of surface objects.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.Flip">
-      <summary>
-            Flips the face normal.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.Draw(devDept.Eyeshot.DrawParams)">
-      <summary>
-            Draws the face.
-            </summary>
-      <param name="data">
-      </param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.SubdivideBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Brep)">
-      <summary>
-            Subdivide the face in two or more distinct faces by the plane provided.
-            </summary>
-      <param name="plane">The plane reference to subdivide the face</param>
-      <param name="parent">The Brep that contains the current face</param>
-      <returns>The result of the operation of type <see cref="T:devDept.Eyeshot.booleanFailureType" />.</returns>
-      <remarks>The usage of SubdivideBy is suggested at the end of the model construction, for example to perform FEM analysis.</remarks>
-      <remarks>The resulting Brep can't be used to perform Boolean operations anymore.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Face.SubdivideBy(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Eyeshot.Entities.Brep)">
-      <summary>
-            Subdivide the face in two or more distinct faces by the curve list provided.
-            </summary>
-      <param name="contours">The list of disjoint contours (lying on the selected face) to subdivide the face</param>
-      <param name="parent">The Brep that contains the current face</param>
-      <returns>The result of the operation of type <see cref="T:devDept.Eyeshot.booleanFailureType" />.</returns>
-      <remarks>The usage of SubdivideBy is suggested at the end of the model construction, for example to perform FEM analysis.</remarks>
-      <remarks>The resulting Brep can't be used to perform Boolean operations anymore.</remarks>
-    </member>
-    <member name="T:devDept.Eyeshot.Entities.Brep.Vertex">
-      <summary>
-            Brep edge definition
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Vertex.Parents">
-      <summary>
-            Parents edges.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Vertex.#ctor(System.Double,System.Double,System.Double)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="x">X coordinate value</param>
-      <param name="y">Y coordinate value</param>
-      <param name="z">Z coordinate value</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Vertex.#ctor(System.Double[])">
-      <summary>
-            Double array constructor.
-            </summary>
-      <param name="coords">The XYZ coordinates as a double array</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Vertex.Clone">
-      <summary>
-            Creates a deep copy of this Edge.
-            </summary>
-      <returns>The new edge object.</returns>
-    </member>
-    <member name="T:devDept.Eyeshot.Entities.Brep.Edge">
-      <summary>
-            Brep edge definition
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.StartPointIndex">
-      <summary>
-            Edge start point index.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.EndPointIndex">
-      <summary>
-            Edge end point index.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.Curve">
-      <summary>
-            Edge curve.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.ShellIndex">
-      <summary>
-            Index of the owner shell (available only after entity regeneration). Zero represents outer shell.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.Parents">
-      <summary>
-            Parent faces (available only after entity regeneration). Can be an array of one or two items. To be used in conjunction with <see cref="F:devDept.Eyeshot.Entities.Brep.Edge.ShellIndex" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Edge.#ctor(devDept.Eyeshot.Entities.ICurve,System.Int32,System.Int32)">
-      <summary>
-            Curve and end point indices constructor.
-            </summary>
-      <param name="curve">The actual curve</param>
-      <param name="startPointIndex">The start point index</param>
-      <param name="endPointIndex">The end point index</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.Edge.Clone">
-      <summary>
-            Creates a deep copy of this Edge.
-            </summary>
-      <returns>The new edge object.</returns>
-    </member>
-    <member name="T:devDept.Eyeshot.Entities.Brep.OrientedEdge">
-      <summary>
-            Brep oriented edge definition.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense">
-      <summary>
-            Orientation flag.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.CurveIndex">
-      <summary>
-            Edge curve index in array <see cref="P:devDept.Eyeshot.Entities.Brep.Edges" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.#ctor(System.Int32,System.Boolean)">
-      <summary>
-            Edge curve index and orientation flag constructor.
-            </summary>
-      <param name="curveIndex">The edge curve index</param>
-      <param name="sense">The edge curve orientation</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetOrientedCurve(devDept.Eyeshot.Entities.Brep.Edge[])">
-      <summary>
-            Gets a copy of the edge curve properly oriented.
-            </summary>
-      <param name="edges">The edge array</param>
-      <returns>A copy of the curve properly oriented</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetStartVertex(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
-      <summary>
-            Gets edge curve start vertex taking in account the <see cref="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense" /> flag.
-            </summary>
-      <param name="vertices">The vertex array</param>
-      <param name="edges">The edge array</param>
-      <returns>A 3D point.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetStartPoint(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
-      <summary>
-            Gets edge curve start point taking in account the <see cref="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense" /> flag.
-            </summary>
-      <param name="edges">The edge array</param>
-      <returns>A 3D point.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetEndVertex(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
-      <summary>
-            Gets edge curve end vertex taking in account the <see cref="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense" /> flag.
-            </summary>
-      <param name="vertices">The vertex array</param>
-      <param name="edges">The edge array</param>
-      <returns>A 3D point.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetEndPoint(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
-      <summary>
-            Gets edge curve end point taking in account the <see cref="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense" /> flag.
-            </summary>
-      <param name="edges">The edge array</param>
-      <returns>A 3D point.</returns>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CreateBox(System.Double,System.Double,System.Double,System.Double)">
       <summary>Creates a box primitive.</summary>
       <param name="width">Box's width</param>
@@ -5625,6 +5360,324 @@
             </summary>
       <remarks>Rebuild() method could be necessary before to call this.</remarks>
       <returns>then number of the removed faces after merge. -1 if an error occured.</returns>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Brep.Vertex">
+      <summary>
+            Brep edge definition
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Vertex.Parents">
+      <summary>
+            Parents edges.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Vertex.#ctor(System.Double,System.Double,System.Double)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="x">X coordinate value</param>
+      <param name="y">Y coordinate value</param>
+      <param name="z">Z coordinate value</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Vertex.#ctor(System.Double[])">
+      <summary>
+            Double array constructor.
+            </summary>
+      <param name="coords">The XYZ coordinates as a double array</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Vertex.Clone">
+      <summary>
+            Creates a deep copy of this Edge.
+            </summary>
+      <returns>The new edge object.</returns>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Brep.Edge">
+      <summary>
+            Brep edge definition
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.StartPointIndex">
+      <summary>
+            Edge start point index.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.EndPointIndex">
+      <summary>
+            Edge end point index.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.Curve">
+      <summary>
+            Edge curve.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.ShellIndex">
+      <summary>
+            Index of the owner shell (available only after entity regeneration). Zero represents outer shell.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Edge.Parents">
+      <summary>
+            Parent faces (available only after entity regeneration). Can be an array of one or two items. To be used in conjunction with <see cref="F:devDept.Eyeshot.Entities.Brep.Edge.ShellIndex" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Edge.#ctor(devDept.Eyeshot.Entities.ICurve,System.Int32,System.Int32)">
+      <summary>
+            Curve and end point indices constructor.
+            </summary>
+      <param name="curve">The actual curve</param>
+      <param name="startPointIndex">The start point index</param>
+      <param name="endPointIndex">The end point index</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Edge.Clone">
+      <summary>
+            Creates a deep copy of this Edge.
+            </summary>
+      <returns>The new edge object.</returns>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Brep.Face">
+      <summary>
+            Brep face definition.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Loops">
+      <summary>
+            Trim loop array.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Surface">
+      <summary>
+            Analytic representation of this face.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Parametric">
+      <summary>
+            Parametric representation of this face.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Tessellation">
+      <summary>
+            Tessellated representation of this face.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Face.Sense">
+      <summary>
+            Face sense.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Brep.Face.Color">
+      <summary>
+            Gets or sets the Color of the face.
+            </summary>
+      <remarks>Use it to specify a different color from the Brep color or material.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.#ctor(devDept.Geometry.AnalyticSurf,devDept.Eyeshot.Entities.Brep.Loop[],System.Boolean,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Faces and loops constructor.
+            </summary>
+      <param name="surface">The analytic surface</param>
+      <param name="loops">The trim loop array</param>
+      <param name="sense">The face sense</param>
+      <param name="color">The face Color (overrides the entity color and material)</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.#ctor(devDept.Geometry.AnalyticSurf,devDept.Eyeshot.Entities.Brep.Loop,System.Boolean,System.Nullable{System.Drawing.Color})">
+      <summary>
+            Faces and loop constructor.
+            </summary>
+      <param name="surface">The analytic surface</param>
+      <param name="loop">The trim loop</param>
+      <param name="sense">The face sense</param>
+      <param name="color">The face Color (overrides the entity color and material)</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.Clone">
+      <summary>
+            Creates a deep copy of this Face.
+            </summary>
+      <returns>The new face object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.Dispose">
+      <summary>
+            Disposes face <see cref="F:devDept.Eyeshot.Entities.Brep.Face.Tessellation" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.GetError(devDept.Geometry.Point3D[],devDept.Eyeshot.Entities.Brep.Edge[])">
+      <summary>
+            Gets the maximum gap between face loops' edges.
+            </summary>
+      <param name="vertices">The object vertices</param>
+      <param name="edges">The object edges</param>
+      <returns>The maximum gap value.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.ConvertToMesh(devDept.Eyeshot.Entities.Mesh.natureType,devDept.Eyeshot.Entities.Entity,System.Boolean,System.Single)">
+      <summary>
+            Converts current face tessellation to <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
+            </summary>
+      <param name="parent">Parent entity</param>
+      <param name="meshNature">The desired Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
+      <param name="skipEdges">When true, skips the edges computation.</param>
+      <param name="texLength">The material texture length</param>
+      <returns>The resulting Mesh object.</returns>
+      <seealso cref="P:devDept.Graphics.Material.TextureLength" />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.GetOrientedTrimLoops(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
+      <summary>
+            Gets the list of geometric (3D) trim loops of this face.
+            </summary>
+      <param name="edges">The <see cref="P:devDept.Eyeshot.Entities.Brep.Edges" /> array.</param>
+      <returns>An array of <see cref="T:devDept.Eyeshot.Entities.ICurve" /> representing the geometric trim loops.</returns>
+      <remarks>If curve tessellation is present, it's preserved.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Brep.Face.TextureScaleU">
+      <summary>
+            Gets or sets the texture scale U.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Brep.Face.TextureScaleV">
+      <summary>
+            Gets or sets the texture scale V.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Brep.Face.TextureOffsetU">
+      <summary>
+            Gets or sets the texture offset U.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Brep.Face.TextureOffsetV">
+      <summary>
+            Gets or sets the texture offset V.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.ConvertToSurface(devDept.Eyeshot.Entities.Entity)">
+      <summary>
+            Convert this face in one or more parametric surfaces.
+            </summary>
+      <param name="parent">The Brep object (when available) to copy attributes like color, layer, etc.</param>
+      <returns>The resulting array of surface objects.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.Flip">
+      <summary>
+            Flips the face normal.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.Draw(devDept.Eyeshot.DrawParams)">
+      <summary>
+            Draws the face.
+            </summary>
+      <param name="data">
+      </param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.SubdivideBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Subdivide the face in two or more distinct faces by the plane provided.
+            </summary>
+      <param name="plane">The plane reference to subdivide the face</param>
+      <param name="parent">The Brep that contains the current face</param>
+      <returns>The result of the operation of type <see cref="T:devDept.Eyeshot.booleanFailureType" />.</returns>
+      <remarks>The usage of SubdivideBy is suggested at the end of the model construction, for example to perform FEM analysis.</remarks>
+      <remarks>The resulting Brep can't be used to perform Boolean operations anymore.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Face.SubdivideBy(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Subdivide the face in two or more distinct faces by the curve list provided.
+            </summary>
+      <param name="contours">The list of disjoint contours (lying on the selected face) to subdivide the face</param>
+      <param name="parent">The Brep that contains the current face</param>
+      <returns>The result of the operation of type <see cref="T:devDept.Eyeshot.booleanFailureType" />.</returns>
+      <remarks>The usage of SubdivideBy is suggested at the end of the model construction, for example to perform FEM analysis.</remarks>
+      <remarks>The resulting Brep can't be used to perform Boolean operations anymore.</remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Brep.Loop">
+      <summary>
+            Brep face loop definition.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Loop.Sense">
+      <summary>
+            The loop orientation. True means same sense.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.Loop.Segments">
+      <summary>
+            The array of oriented edges that compose the loop.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Loop.#ctor(devDept.Eyeshot.Entities.Brep.OrientedEdge[])">
+      <summary>
+            Segments only constructor.
+            </summary>
+      <param name="segments">The array of oriented edges that compose the loop</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Loop.#ctor(devDept.Eyeshot.Entities.Brep.OrientedEdge[],System.Boolean)">
+      <summary>
+            Segments and sense constructor.
+            </summary>
+      <param name="segments">The array of oriented edges that compose the loop.</param>
+      <param name="sense">The loop sense</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.Loop.Clone">
+      <summary>
+            Creates a deep copy of this Loop.
+            </summary>
+      <returns>The new loop object.</returns>
+    </member>
+    <member name="T:devDept.Eyeshot.Entities.Brep.OrientedEdge">
+      <summary>
+            Brep oriented edge definition.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense">
+      <summary>
+            Orientation flag.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.CurveIndex">
+      <summary>
+            Edge curve index in array <see cref="P:devDept.Eyeshot.Entities.Brep.Edges" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.#ctor(System.Int32,System.Boolean)">
+      <summary>
+            Edge curve index and orientation flag constructor.
+            </summary>
+      <param name="curveIndex">The edge curve index</param>
+      <param name="sense">The edge curve orientation</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetOrientedCurve(devDept.Eyeshot.Entities.Brep.Edge[])">
+      <summary>
+            Gets a copy of the edge curve properly oriented.
+            </summary>
+      <param name="edges">The edge array</param>
+      <returns>A copy of the curve properly oriented</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetStartVertex(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
+      <summary>
+            Gets edge curve start vertex taking in account the <see cref="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense" /> flag.
+            </summary>
+      <param name="vertices">The vertex array</param>
+      <param name="edges">The edge array</param>
+      <returns>A 3D point.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetStartPoint(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
+      <summary>
+            Gets edge curve start point taking in account the <see cref="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense" /> flag.
+            </summary>
+      <param name="edges">The edge array</param>
+      <returns>A 3D point.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetEndVertex(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
+      <summary>
+            Gets edge curve end vertex taking in account the <see cref="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense" /> flag.
+            </summary>
+      <param name="vertices">The vertex array</param>
+      <param name="edges">The edge array</param>
+      <returns>A 3D point.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.OrientedEdge.GetEndPoint(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep.Edge})">
+      <summary>
+            Gets edge curve end point taking in account the <see cref="F:devDept.Eyeshot.Entities.Brep.OrientedEdge.Sense" /> flag.
+            </summary>
+      <param name="edges">The edge array</param>
+      <returns>A 3D point.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.SplitBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Brep[]@,devDept.Eyeshot.Entities.Brep[]@)">
       <summary>
@@ -6502,7 +6555,7 @@
       <returns>True if the operation succeeds, false otherwise. If the surface is already a <see cref="T:devDept.Eyeshot.Entities.PlanarSurface" />, it returns false.</returns>
       <remarks>It does not work for for planar cones with revolution angle equal to 2PI.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Surface.TryGetRevolved(devDept.Eyeshot.Entities.Surface@)">
+    <member name="M:devDept.Eyeshot.Entities.Surface.TryGetRevolved(devDept.Eyeshot.Entities.RevolvedSurface@)">
       <summary>
             Converts this generic surface to <see cref="T:devDept.Eyeshot.Entities.RevolvedSurface" /> (when possible).
             </summary>
@@ -7664,6 +7717,25 @@
       <param name="fillet">The resulting fillet arc</param>
       <returns>True if the operation is successful, false if the curves don't lie on the same plane or don't touch.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Curve.Fillet(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Vector3D,System.Double,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Entities.Arc@)">
+      <summary>
+            Fillets two coplanar curves with an arc of given radius.
+            </summary>
+      <param name="C1">First curve</param>
+      <param name="C2">Second curve</param>
+      <param name="planeNormal">Unit vector, normal to the plane on which both curves lie.</param>
+      <param name="radius">Radius of the fillet arc</param>
+      <param name="flip1">Flips first curve direction</param>
+      <param name="flip2">Flips second curve direction</param>
+      <param name="trim1">When true the first curve is trimmed</param>
+      <param name="trim2">When true the second curve is trimmed</param>
+      <param name="fillet">The resulting fillet arc</param>
+      <returns>True if the operation is successful, false if the curves don't lie on the same plane or don't touch.</returns>
+      <remarks> Looking at the curves from the top of planeNormal placed at the intersection, the fillet will be
+            on the left side of a curve if its flip parameter is false, and on the right side if its flip is true.
+            Use planeNormal only if you know exactly how the curves are oriented and where you want the fillet to be placed.
+            Otherwise, set it to null or call the Fillet() method without planeNormal and we will compute it internally.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.Chamfer(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Entities.Line@)">
       <summary>
             Chamfers two curves.
@@ -7677,6 +7749,25 @@
       <param name="trim2">When true the second curve is trimmed</param>
       <param name="chamfer">The chamfer line</param>
       <returns>True if the operation is successful, false if the curves don't lie on the same plane or don't touch.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Curve.Chamfer(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Vector3D,System.Double,System.Boolean,System.Boolean,System.Boolean,System.Boolean,devDept.Eyeshot.Entities.Line@)">
+      <summary>
+            Chamfers two curves.
+            </summary>
+      <param name="C1">First curve</param>
+      <param name="C2">Second curve</param>
+      <param name="planeNormal">Unit vector, normal to the plane on which both curves lie.</param>
+      <param name="distance">The chamfer distance</param>
+      <param name="flip1">Flips first curve direction</param>
+      <param name="flip2">Flips second curve direction</param>
+      <param name="trim1">When true the first curve is trimmed</param>
+      <param name="trim2">When true the second curve is trimmed</param>
+      <param name="chamfer">The chamfer line</param>
+      <returns>True if the operation is successful, false if the curves don't lie on the same plane or don't touch.</returns>
+      <remarks> Looking at the curves from the top of planeNormal placed at the intersection, the chamfer will be
+            on the left side of a curve if its flip parameter is false, and on the right side if its flip is true.
+            Use planeNormal only if you know exactly how the curves are oriented and where you want the chamfer to be placed.
+            Otherwise, set it to null or call the Chamfer() method without planeNormal and we will compute it internally.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.LocalApproximation(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double,devDept.Geometry.Vector3D[]@,System.Boolean)">
       <summary>
@@ -9087,6 +9178,7 @@
       <param name="plane">The curve plane, can be obtained using the <see cref="M:devDept.Eyeshot.Entities.CompositeCurve.IsPlanar(System.Double,devDept.Geometry.Plane@)" /> method.</param>
       <returns>True if the composite curve is oriented clockwise, false otherwise.</returns>
       <remarks>If the curve is not planar, the points are projected on the plane.</remarks>
+      <remarks>The curve must not have null Vertices.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IsOrientedClockwise(devDept.Geometry.Transformation)">
       <summary>
@@ -9094,6 +9186,7 @@
             </summary>
       <param name="t">The transformation needed to project all points on the curve plane.</param>
       <returns>True if the composite curve is oriented clockwise, false otherwise.</returns>
+      <remarks>The curve must not have null Vertices.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -13621,7 +13714,7 @@
       <returns>True if the mesh is closed.</returns>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Mesh.LightWeight">
-      <remarks> If true, no geometry is generated by the hidden lines computation (see <see cref="M:devDept.Eyeshot.Environment.Print(System.Boolean)" /> and all the classes derived from <see cref="T:devDept.Eyeshot.HiddenLinesView" />).</remarks>
+      <remarks> If true, no geometry is generated by the hidden lines computation (see <see cref="!:Environment.Print" /> and all the classes derived from <see cref="T:devDept.Eyeshot.HiddenLinesView" />).</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Mesh.natureType">
       <summary>Mesh nature type.</summary>
@@ -15270,7 +15363,7 @@
       <summary>
             Creates a deep copy of this circle.
             </summary>
-      <returns>The new circle obejct.</returns>
+      <returns>The new circle object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Circle.IsInPlane(devDept.Geometry.Plane,System.Double)">
       <summary>
@@ -15746,6 +15839,7 @@
       <param name="line">The line where the curve lays</param>
       <param name="tol">The tolerance</param>
       <returns>True if the curve lays on this plane, false otherwise.</returns>
+      <remarks> For LinearPath and CompositeCurve entities type this method gives as output the longest Segment3D contained inside the curve.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.PointAt(System.Double)">
       <summary>
@@ -16806,10 +16900,35 @@
       <param name="width">Rectangle's width</param>
       <param name="height">Rectangle's height</param>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.LinearPath.#ctor(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            2D rectangle min/max constructor.
+            </summary>
+      <param name="width">Rectangle's 2D min corner</param>
+      <param name="height">Rectangle's 2D max corner</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.LinearPath.#ctor(devDept.Geometry.Plane,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            2D rectangle on the origin constructor.
+            </summary>
+      <param name="plane">Sketch plane</param>
+      <param name="width">Rectangle's width</param>
+      <param name="height">Rectangle's height</param>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.LinearPath.#ctor(System.Double,System.Double,System.Double,System.Double)">
       <summary>
             2D rectangle constructor.
             </summary>
+      <param name="x">Lower-left corner position along X-axis</param>
+      <param name="y">Lower-left corner position along y-axis</param>
+      <param name="width">Rectangle's width</param>
+      <param name="height">Rectangle's height</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.LinearPath.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Sketch plane rectangle constructor.
+            </summary>
+      <param name="plane">Sketch plane</param>
       <param name="x">Lower-left corner position along X-axis</param>
       <param name="y">Lower-left corner position along y-axis</param>
       <param name="width">Rectangle's width</param>
@@ -16962,6 +17081,18 @@
       <exception cref="T:System.Exception">
       </exception>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.LinearPath.ExtrudeAsBrep(devDept.Geometry.Interval,System.Double,System.Double,System.Boolean,System.Double)">
+      <summary>
+            Create a base flange by offsetting and Extruding the curve after fillet the corners.
+            </summary>
+      <param name="amount">The extrusion amount</param>
+      <param name="bendRadius">The bend radius replacing the corners</param>
+      <param name="thickness">The sheet metal thickness</param>
+      <param name="reverse">When true, it thickens the linear path in the opposite direction</param>
+      <param name="tolerance">The tolerance</param>
+      <returns>A Brep object representing the resulting sheet metal. Null/Nothing if an error occured.</returns>
+      <remarks>The linear path must be planar.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.LinearPath.IsOrientedClockwise(devDept.Geometry.Plane)">
       <summary>
             Checks if the closed curve orientation is clockwise.
@@ -17024,6 +17155,25 @@
             Sketch plane constructor.
             </summary>
       <param name="plane">Sketch plane</param>
+      <param name="v1">First 2D point</param>
+      <param name="v2">Second 2D point</param>
+      <param name="v3">Third 2D point</param>
+      <param name="v4">Fourth 2D point</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Quad.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Sketch plane rectangle constructor.
+            </summary>
+      <param name="plane">Sketch plane</param>
+      <param name="v1">First 2D point</param>
+      <param name="v2">Second 2D point</param>
+      <param name="v3">Third 2D point</param>
+      <param name="v4">Fourth 2D point</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Quad.#ctor(System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Rectangle constructor.
+            </summary>
       <param name="v1">First 2D point</param>
       <param name="v2">Second 2D point</param>
       <param name="v3">Third 2D point</param>
@@ -19716,7 +19866,7 @@
     </member>
     <member name="M:devDept.Eyeshot.EyeshotKeyedCollection`1.TryRemove(System.String)">
       <summary>
-            Removes the the value associated with the specified key form the collection, if present.
+            Removes the value associated with the specified key form the collection, if present.
             </summary>
       <param name="item">The item.</param>
       <returns>True if the item was found and removed, otherwise false.</returns>
@@ -21479,6 +21629,16 @@
       <param name="mousePos">The mouse position</param>
       <returns>The viewport under the mouse.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Environment.GetTemporarySelectionFaceData(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.Entities.Entity,System.Collections.Generic.List{devDept.Eyeshot.Environment.SelectionInfoSubItems},devDept.Eyeshot.selectionStatusType)">
+      <summary>
+            Gives the chance to overriders to get temporary face selection data and optionally to skip temporary face selection drawing.
+            </summary>
+      <param name="parents">The stack of parents</param>
+      <param name="ent">The entity</param>
+      <param name="faceSelInfo">The list of <see cref="T:devDept.Eyeshot.Environment.SelectionInfoSubItems" /></param>
+      <param name="selStatus">The selection status</param>
+      <returns>True to skip standard drawing, false otherwise.</returns>
+    </member>
     <member name="P:devDept.Eyeshot.Environment.Moving">
       <summary>
             Tells if the viewport is performing a zoom-pan-rotate operation.
@@ -22545,34 +22705,10 @@
       <param name="showDialog">When true the print dialog is shown before printing, otherwise no.</param>
       <remarks>If you also need to use the PageSetup() method, then this method should be called first.</remarks>
       <seealso cref="M:devDept.Eyeshot.Environment.PageSetup(System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Drawing.Printing.PaperSize,System.Nullable{System.Boolean})" />
-      <seealso cref="M:devDept.Eyeshot.Environment.Print(System.Boolean)">
+      <seealso cref="!:Print(bool)">
       </seealso>
-      <seealso cref="M:devDept.Eyeshot.Environment.PrintPreview(System.Drawing.Size,System.Boolean)">
+      <seealso cref="!:PrintPreview(Size, bool)">
       </seealso>
-    </member>
-    <member name="M:devDept.Eyeshot.Environment.PrintPreview(System.Drawing.Size,System.Boolean)">
-      <param name="extents">If true fits the model on view, else captures the whole viewport</param>
-      <remarks>For more options use the <see cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" /> class directly.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Environment.SetPrinterSettings(System.Drawing.Printing.PrinterSettings,System.Boolean)" />
-      <seealso cref="M:devDept.Eyeshot.Environment.PageSetup(System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Drawing.Printing.PaperSize,System.Nullable{System.Boolean})">
-      </seealso>
-      <seealso cref="M:devDept.Eyeshot.Environment.Print(System.Boolean)">
-      </seealso>
-      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" />
-      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" />
-    </member>
-    <member name="M:devDept.Eyeshot.Environment.Print(System.Boolean)">
-      <summary>Computes the hidden lines and opens the Print dialog.</summary>
-      <param name="parallel">Enables or disables the usage of the Parallel Extension for .NET</param>
-      <param name="extents">If true fits the model on view, else captures the whole viewport</param>
-      <remarks>For more options use the <see cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" /> class directly.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Environment.SetPrinterSettings(System.Drawing.Printing.PrinterSettings,System.Boolean)" />
-      <seealso cref="M:devDept.Eyeshot.Environment.PageSetup(System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Drawing.Printing.PaperSize,System.Nullable{System.Boolean})">
-      </seealso>
-      <seealso cref="M:devDept.Eyeshot.Environment.PrintPreview(System.Drawing.Size,System.Boolean)">
-      </seealso>
-      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" />
-      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" />
     </member>
     <member name="M:devDept.Eyeshot.Environment.CopyToClipboardRaster(System.Drawing.Size)">
       <summary>
@@ -23389,9 +23525,9 @@
             Gets the first item under the mouse cursor (which may include the parents stack for nested entities).
             </summary>
       <returns>The item</returns>
-      <remarks>The <see cref="P:devDept.Eyeshot.Environment.AssemblySelectionMode" /> determines whether the top level entities or nested entities are returned.</remarks>
-      <seealso cref="P:devDept.Eyeshot.Environment.SelectionFilterMode" />
-      <seealso cref="P:devDept.Eyeshot.Environment.AssemblySelectionMode" />
+      <remarks>The <see cref="P:devDept.Eyeshot.Model.AssemblySelectionMode" /> determines whether the top level entities or nested entities are returned.</remarks>
+      <seealso cref="P:devDept.Eyeshot.Model.SelectionFilterMode" />
+      <seealso cref="P:devDept.Eyeshot.Model.AssemblySelectionMode" />
       <seealso cref="M:devDept.Eyeshot.Environment.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.Environment.GetLabelUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.Environment.UpdateVisibleSelection" />
@@ -23498,11 +23634,11 @@
       <remarks>
         <list type="bullet">
           <item>
-            <description>The <see cref="P:devDept.Eyeshot.Environment.SelectionFilterMode" /> determines the type of the
+            <description>The <see cref="P:devDept.Eyeshot.Model.SelectionFilterMode" /> determines the type of the
             item selected.</description>
           </item>
           <item>
-            <description>The <see cref="P:devDept.Eyeshot.Environment.AssemblySelectionMode" /> determines whether the
+            <description>The <see cref="P:devDept.Eyeshot.Model.AssemblySelectionMode" /> determines whether the
             top level entities or nested entities are returned.</description>
           </item>
         </list>
@@ -23512,8 +23648,8 @@
       <returns>
             The selected items array.
             </returns>
-      <seealso cref="P:devDept.Eyeshot.Environment.SelectionFilterMode" />
-      <seealso cref="P:devDept.Eyeshot.Environment.AssemblySelectionMode" />
+      <seealso cref="P:devDept.Eyeshot.Model.SelectionFilterMode" />
+      <seealso cref="P:devDept.Eyeshot.Model.AssemblySelectionMode" />
       <seealso cref="M:devDept.Eyeshot.Environment.GetAllVisibleEntities(System.Drawing.Rectangle,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.Environment.GetAllVisibleLabels(System.Drawing.Rectangle,System.Boolean)" />
     </member>
@@ -23723,6 +23859,15 @@
             Base class for selection info items.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Environment.SelectionInfoItemBase.FindInstance``1(System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.ISelectableItem,``0,System.Collections.Generic.List{``0})">
+      <summary>
+            Gets the instance of <see cref="T:devDept.Eyeshot.Environment.SelectedItem" /> with the given parents.
+            </summary>
+      <param name="parents">The parents</param>
+      <param name="selectionItem">The item at top level</param>
+      <param name="selectionItemsInstances">The instances items to search</param>
+      <returns>The instance if found, null elsewise.</returns>
+    </member>
     <member name="T:devDept.Eyeshot.Environment.SelectionInfoItem">
       <summary>
             Class that holds the information of the selected item.
@@ -23765,6 +23910,12 @@
       <param name="item">
       </param>
     </member>
+    <member name="F:devDept.Eyeshot.Environment.SelectionInfoSubItems.SubItems">
+      <summary>
+            Gets or sets the selection data for the subitems of the item (faces, vertices, edges).
+            </summary>
+      <remarks>The type of subitem depends on the value of <see cref="P:devDept.Eyeshot.Model.SelectionFilterMode" /></remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Environment.SelectionInfoSubItems.InitSubItems(System.Int32)">
       <summary>
             Initializes the <see cref="F:devDept.Eyeshot.Environment.SelectionInfoSubItems.SubItems" /> array with the given size.
@@ -23782,6 +23933,47 @@
             Initializes the <see cref="P:devDept.Eyeshot.Environment.SelectionInfoSubItemsArray.SubItems" /> with the same size of the given <param name="inners"></param></summary>
       <param name="inners">
       </param>
+    </member>
+    <member name="T:devDept.Eyeshot.Environment.SelectionInfo">
+      <summary>
+            Element selection information class definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Environment.SelectionInfo.SetFlag(devDept.Eyeshot.selectionStatusType)">
+      <summary>
+            Sets the flag.
+            </summary>
+      <param name="flag">The flag</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Environment.SelectionInfo.InvertFlag(devDept.Eyeshot.selectionStatusType)">
+      <summary>
+            Inverts the flag.
+            </summary>
+      <param name="flag">The flag</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Environment.SelectionInfo.IsFlagSet(devDept.Eyeshot.selectionStatusType)">
+      <summary>
+            Checks the the flag status.
+            </summary>
+      <param name="flag">The flag</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Environment.SelectionInfo.UnsetFlag(devDept.Eyeshot.selectionStatusType)">
+      <summary>
+            Unsets the flag.
+            </summary>
+      <param name="flag">The flag</param>
+    </member>
+    <member name="P:devDept.Eyeshot.Environment.SelectionInfo.Selected">
+      <summary>
+            Gets or sets the selection status.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Environment.SelectionInfo.IsSelected">
+      <summary>
+            Tells if the selection status is different from None.
+            </summary>
+      <returns>
+      </returns>
     </member>
     <member name="M:devDept.Eyeshot.Environment.CopyTo(devDept.Eyeshot.Environment,System.Boolean)">
       <summary>
@@ -24570,81 +24762,12 @@
             Utility class for loading LAS files asynchronously.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.SupportedLinearUnitsType">
-      <summary>
-            Gets the supported linear units
-            </summary>
-    </member>
-    <member name="T:devDept.Eyeshot.Translators.ReadLAS.formatType">
-      <summary>
-            LAS format type.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Plain">
-      <summary>
-            All the points have the same color.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Colors">
-      <summary>
-            Each point has its own color.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Intensity">
-      <summary>
-            Each point has its own intensity.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Classification">
-      <summary>
-            Each point has its own color related to its own classification.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.Coordinates">
-      <summary>
-             Array with the x, y, z coordinates of the points.
-            </summary>
-      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillCoordinates" /> is true</remarks>
-      <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.FillCoordinates" />
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.Colors">
-      <summary>
-            RGB color array (3 bytes for each point)
-            </summary>
-      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillColors" /> is true or the class is initialized with the <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType" /> equals to <see cref="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Colors" />.</remarks>
-      <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.FillColors" />
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.Intensities">
-      <summary>
-            Array of the “intensity” attribute for each point.
-            </summary>
-      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillIntensities" /> is true or the class is initialized with the <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType" /> equals to <see cref="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Intensity" />.</remarks>
-      <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.FillIntensities" />
-    </member>
     <member name="P:devDept.Eyeshot.Translators.ReadLAS.Classifications">
       <summary>
             Array of the “class” attribute for each point.
             </summary>
-      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillClassifications" /> is true or the class is initialized with the <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType" /> equals to <see cref="F:devDept.Eyeshot.Translators.ReadLAS.formatType.Classification" />.</remarks>
+      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillClassifications" /> is true or the class is initialized with the <see cref="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType" /> equals to <see cref="F:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType.Classification" />.</remarks>
       <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.FillClassifications" />
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.FillCoordinates">
-      <summary>
-            When true the <see cref="P:devDept.Eyeshot.Translators.ReadLAS.Coordinates" /> array is filled.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.Coordinates" />
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.FillColors">
-      <summary>
-            When true the <see cref="P:devDept.Eyeshot.Translators.ReadLAS.Colors" /> array is filled.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.Colors" />
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadLAS.FillIntensities">
-      <summary>
-            When true the <see cref="P:devDept.Eyeshot.Translators.ReadLAS.Intensities" /> array is filled.
-            </summary>
-      <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.Intensities" />
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadLAS.FillClassifications">
       <summary>
@@ -24652,19 +24775,19 @@
             </summary>
       <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.Classifications" />
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.String,devDept.Eyeshot.Translators.ReadLAS.formatType)">
+    <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.String,devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType)">
       <summary>
             File name constructor.
             </summary>
       <param name="fileName">The file name</param>
-      <param name="formatType">The format type. See <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType" /> enum.</param>
+      <param name="formatType">The format type. See <see cref="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType" /> enum.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.IO.Stream,devDept.Eyeshot.Translators.ReadLAS.formatType)">
+    <member name="M:devDept.Eyeshot.Translators.ReadLAS.#ctor(System.IO.Stream,devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType)">
       <summary>
             Stream constructor.
             </summary>
       <param name="stream">The file stream</param>
-      <param name="formatType">The format type. See <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType" /> enum.</param>
+      <param name="formatType">The format type. See <see cref="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType" /> enum.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.ReadLAS.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.String)">
@@ -24674,7 +24797,7 @@
       <param name="environment">The Environment control used to add entities, layers and blocks.</param>
       <param name="blockName">The block name</param>
       <param name="layerName">The destination layer name.</param>
-      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadLAS.formatType,devDept.Geometry.Point3D@,System.String)" />.
+      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType,devDept.Geometry.Point3D@,System.String)" />.
         </member>
     <member name="M:devDept.Eyeshot.Translators.ReadLAS.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.String,System.Drawing.Color)">
       <summary>
@@ -24684,7 +24807,7 @@
       <param name="blockName">The block name</param>
       <param name="layerName">The destination layer name.</param>
       <param name="color">The color assigned to the entities in the model.</param>
-      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadLAS.formatType,devDept.Geometry.Point3D@,System.String)" />.
+      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType,devDept.Geometry.Point3D@,System.String)" />.
         </member>
     <member name="M:devDept.Eyeshot.Translators.ReadLAS.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.Drawing.Color)">
       <summary>
@@ -24693,7 +24816,7 @@
       <param name="environment">The Environment control used to add entities, layers and blocks.</param>
       <param name="blockName">The block name</param>
       <param name="color">The color assigned to the entities in the model.</param>
-      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadLAS.formatType,devDept.Geometry.Point3D@,System.String)" />.
+      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType,devDept.Geometry.Point3D@,System.String)" />.
         </member>
     <member name="M:devDept.Eyeshot.Translators.ReadLAS.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.Int32)">
       <summary>
@@ -24702,7 +24825,7 @@
       <param name="environment">The Environment control used to add entities, layers and blocks.</param>
       <param name="blockName">The block name</param>
       <param name="layerIndex">The destination layer index.</param>
-      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadLAS.formatType,devDept.Geometry.Point3D@,System.String)" />.
+      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType,devDept.Geometry.Point3D@,System.String)" />.
         </member>
     <member name="M:devDept.Eyeshot.Translators.ReadLAS.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.Int32,System.Drawing.Color)">
       <summary>
@@ -24712,32 +24835,32 @@
       <param name="blockName">The block name</param>
       <param name="layerIndex">The destination layer index.</param>
       <param name="color">The color assigned to the entities in the model.</param>
-      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadLAS.formatType,devDept.Geometry.Point3D@,System.String)" />.
+      <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType,devDept.Geometry.Point3D@,System.String)" />.
         </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloud(devDept.Eyeshot.Translators.ReadLAS.formatType)">
+    <member name="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloud(devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType)">
       <summary>
             Gets the FastPointCloud read from the file.
             </summary>
-      <param name="formatType">The <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType" /> that must be used to create the resulting FastPointCloud.</param>
-      <returns>The FastPointCloud read from the file according to the <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType" />.</returns>
-      <remarks>If you need to get the FastPointCloud in a different format type than the one used in the constructor, please ensure to have set <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillColors" />, <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillIntensities" /> and <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillClassifications" /> to true before reading the file.</remarks>
+      <param name="formatType">The <see cref="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType" /> that must be used to create the resulting FastPointCloud.</param>
+      <returns>The FastPointCloud read from the file according to the <see cref="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType" />.</returns>
+      <remarks>If you need to get the FastPointCloud in a different format type than the one used in the constructor, please ensure to have set <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillColors" />, <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillIntensities" /> and <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillClassifications" /> to true before reading the file.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadLAS.formatType,devDept.Geometry.Point3D@,System.String)">
+    <member name="M:devDept.Eyeshot.Translators.ReadLAS.GetFastPointCloudAsBlock(devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType,devDept.Geometry.Point3D@,System.String)">
       <summary>
             Gets the FastPointCloud read from the file as Block.
             </summary>
-      <param name="formatType">The <see cref="T:devDept.Eyeshot.Translators.ReadLAS.formatType" /> that must be used to create the resulting FastPointCloud.</param>
+      <param name="formatType">The <see cref="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType" /> that must be used to create the resulting FastPointCloud.</param>
       <param name="insertionPoint">The <see cref="T:devDept.Geometry.Point3D" /> to use as insertion point for the creation of the related <see cref="T:devDept.Eyeshot.Entities.BlockReference" />.</param>
       <param name="blockName">The name of the block. If null/Nothing the name is assigned internally.</param>
       <returns>The block containing the FastPointCloud read from the file.</returns>
       <remarks>
             Uses a block reference to avoid floating point precision problems.
             i.e. When files use the UTM 32 North projection with northing values &gt; 5,000,000 and easting values &gt; 435,000, the northing values are larger than the easting values and the limited precision of the floats leads to the points arranged in the lines.
-            To get more accurated result, you can use double precision coordinates by setting <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillCoordinates" /> to true before starting the reading process.
-            If you need to get the FastPointCloud in a different format type than the one used in the constructor, please ensure to have set <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillColors" />, <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillIntensities" /> and <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillClassifications" /> to true before reading the file.
+            To get more accurated result, you can use double precision coordinates by setting <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillCoordinates" /> to true before starting the reading process.
+            If you need to get the FastPointCloud in a different format type than the one used in the constructor, please ensure to have set <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillColors" />, <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillIntensities" /> and <see cref="P:devDept.Eyeshot.Translators.ReadLAS.FillClassifications" /> to true before reading the file.
             </remarks>
       <seealso cref="M:devDept.Eyeshot.Translators.ReadLAS.AddToSceneAsSingleObject(devDept.Eyeshot.Environment,System.String,System.String)" />.
-            <seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.FillCoordinates" /><seealso cref="P:devDept.Eyeshot.Translators.ReadLAS.Coordinates" /></member>
+            <seealso cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillCoordinates" /><seealso cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Coordinates" /></member>
     <member name="T:devDept.Eyeshot.Translators.ReadASC">
       <summary>
             Utility class for loading ASC files asynchronously.
@@ -25409,6 +25532,80 @@
       <param name="environment">The Environment control used to add entities, layers, blocks and materials.</param>
       <param name="blockName">The block name</param>
       <param name="color">The color assigned to the entities in the model</param>
+    </member>
+    <member name="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase">
+      <summary>
+            Adds FastPointCloud properties.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.SupportedLinearUnitsType">
+      <summary>
+            Gets the supported linear units
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Coordinates">
+      <summary>
+             Array with the x, y, z coordinates of the points.
+            </summary>
+      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillCoordinates" /> is true</remarks>
+      <seealso cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillCoordinates" />
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Colors">
+      <summary>
+            RGB color array (3 bytes for each point)
+            </summary>
+      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillColors" /> is true or the class is initialized with the <see cref="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType" /> equals to <see cref="F:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType.Colors" />.</remarks>
+      <seealso cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillColors" />
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Intensities">
+      <summary>
+            Array of the “intensity” attribute for each point.
+            </summary>
+      <remarks>It's filled only when <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillIntensities" /> is true or the class is initialized with the <see cref="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType" /> equals to <see cref="F:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType.Intensity" />.</remarks>
+      <seealso cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillIntensities" />
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillCoordinates">
+      <summary>
+            When true the <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Coordinates" /> array is filled.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Coordinates" />
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillColors">
+      <summary>
+            When true the <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Colors" /> array is filled.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Colors" />
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.FillIntensities">
+      <summary>
+            When true the <see cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Intensities" /> array is filled.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Translators.ReadFastPointCloudBase.Intensities" />
+    </member>
+    <member name="T:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType">
+      <summary>
+            FastPointCloud format type.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType.Plain">
+      <summary>
+            All the points have the same color.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType.Colors">
+      <summary>
+            Each point has its own color.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType.Intensity">
+      <summary>
+            Each point has its own intensity.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Translators.ReadFastPointCloudBase.formatType.Classification">
+      <summary>
+            Each point has its own color related to its own classification.
+            </summary>
     </member>
     <member name="T:devDept.Eyeshot.Translators.ReadOBJ">
       <summary>
@@ -27484,8 +27681,6 @@
       <summary>
             Gets or sets paper color.
             </summary>
-      <remarks>Use the <see cref="M:devDept.Eyeshot.Drawings.UpdatePaper" /> method to refresh the paper color.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
     </member>
     <member name="P:devDept.Eyeshot.Drawings.SilhouettesLayerName">
       <summary>
@@ -27537,15 +27732,6 @@
       <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
       <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
       <seealso cref="P:devDept.Eyeshot.Drawings.HiddenSegmentsLineTypeName" />
-    </member>
-    <member name="P:devDept.Eyeshot.Drawings.GhostCirclesLayerName">
-      <summary>
-            Gets or sets the layer name for ghost circles.
-            </summary>
-      <remarks>When a block related to a <see cref="T:devDept.Eyeshot.Entities.VectorView" /> is built, the entities created for ghost circles are assigned to the layer with this name.</remarks>
-      <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.Rebuild(devDept.Eyeshot.Model,System.Boolean,System.Boolean)" />
-      <seealso cref="P:devDept.Eyeshot.Entities.VectorView.ComputeGhostCircles" />
     </member>
     <member name="P:devDept.Eyeshot.Drawings.CenterlinesLayerName">
       <summary>
@@ -27620,6 +27806,21 @@
             You need to call <see cref="!:Invalidate()" /> to see the effect of this command in the destination drawings.
             </remarks>
     </member>
+    <member name="M:devDept.Eyeshot.Drawings.PrintPreview(System.Drawing.Size)">
+      <seealso cref="!:SetPrinterSettings(PrinterSettings, bool)" />
+      <seealso cref="!:PageSetup(bool, bool, int?, PaperSize, bool?)">
+      </seealso>
+      <seealso cref="M:devDept.Eyeshot.Drawings.Print">
+      </seealso>
+    </member>
+    <member name="M:devDept.Eyeshot.Drawings.Print">
+      <remarks>For more options use the <see cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" /> class directly.</remarks>
+      <seealso cref="!:SetPrinterSettings(PrinterSettings, bool)" />
+      <seealso cref="!:PageSetup(bool, bool, int?, PaperSize, bool?)">
+      </seealso>
+      <seealso cref="!:PrintPreview(Size)">
+      </seealso>
+    </member>
     <member name="M:devDept.Eyeshot.Drawings.SaveFile(System.String,devDept.Eyeshot.Model,devDept.Serialization.FileSerializer)">
       <summary>
             Saves the current scene synchronously on disk, including entities and all the master collections (layers, blocks, etc.)
@@ -27684,70 +27885,32 @@
       <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />
       <seealso cref="!:SaveFile(Stream)" />
     </member>
-    <member name="M:devDept.Eyeshot.Drawings.UpdatePaper">
-      <summary>
-            Updates the paper drawing according to the current size.        
-            </summary>
-      <remarks>Use this method to refresh the paper drawing if the <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> size (format) has been changed or the <see cref="P:devDept.Eyeshot.Drawings.PaperColor" /> is updated.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)" />
-      <seealso cref="P:devDept.Eyeshot.Drawings.PaperColor" />
-    </member>
     <member name="P:devDept.Eyeshot.Drawings.Sheets">
       <summary>
             Gets or sets the sheets collection.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Drawings.GetActiveSheet">
+    <member name="P:devDept.Eyeshot.Drawings.ActiveSheet">
       <summary>
-            Gets the active sheet.
+            Gets or sets the active sheet.
             </summary>
-      <remarks>Returns null if the <see cref="P:devDept.Eyeshot.Drawings.Sheets" /> collection is empty.</remarks>
-      <seealso cref="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.SetActiveSheet(devDept.Eyeshot.Sheet)">
-      <summary>
-            Sets a sheet as the active one.
-            </summary>
-      <param name="sheet">The Sheet to set as active.</param>
-      <remarks>
-        <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, the following changes happen:</para>
-        <para>- The entities of the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> are cleared.</para>
-        <para>- The entities of the <see cref="T:devDept.Eyeshot.Drawings" /> are moved to the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />.</para>
-        <para>- The <see cref="T:devDept.Eyeshot.Sheet" /> is set as <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> and its entities are moved to the <see cref="T:devDept.Eyeshot.Drawings" />.</para>
-        <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
-      </remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the element does not exist in the collection.</exception>
-      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.SetActiveSheet(System.Int32)">
-      <summary>
-            Sets a sheet as the active one.
-            </summary>
-      <param name="index">The Sheet's index to set as active.</param>
-      <remarks>
-        <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, the following changes happen:</para>
-        <para>- The entities of the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> are cleared.</para>
-        <para>- The entities of the <see cref="T:devDept.Eyeshot.Drawings" /> are moved to the current <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />.</para>
-        <para>- The <see cref="T:devDept.Eyeshot.Sheet" /> is set as <see cref="F:devDept.Eyeshot.Drawings.ActiveSheet" /> and its entities are moved to the <see cref="T:devDept.Eyeshot.Drawings" />.</para>
-        <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
-      </remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the element does not exist in the collection.</exception>
-      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
-    </member>
-    <member name="M:devDept.Eyeshot.Drawings.SetActiveSheet(System.String)">
-      <summary>
-            Sets a sheet as the active one.
-            </summary>
-      <param name="name">The Sheet name to set as active.</param>
       <remarks>
         <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, its entities are shared with the Drawings one.</para>
-        <para>Since the drawings collection is modified, this method can't be called in a Foreach loop.</para>
+        <para>Since the drawings collection is modified, this method can't be called inside a loop.</para>
       </remarks>
       <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
-      <seealso cref="F:devDept.Eyeshot.Drawings.ActiveSheet" />
-      <seealso cref="M:devDept.Eyeshot.Drawings.UpdatePaper" />
+      <seealso cref="P:devDept.Eyeshot.Drawings.ActiveSheetIndex" />
+    </member>
+    <member name="P:devDept.Eyeshot.Drawings.ActiveSheetIndex">
+      <summary>
+            Gets or sets the active sheet index.
+            </summary>
+      <remarks>
+        <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, its entities are shared with the Drawings one.</para>
+        <para>Since the drawings collection is modified, this method can't be called inside a loop.</para>
+      </remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
+      <seealso cref="P:devDept.Eyeshot.Drawings.ActiveSheet" />
     </member>
     <member name="T:devDept.Eyeshot.Sheet">
       <summary>
@@ -27834,11 +27997,13 @@
       <summary>
             Gets or sets sheet width.
             </summary>
+      <remarks>Call <see cref="M:devDept.Eyeshot.Environment.UpdateBoundingBox" /> after changing this value on the <see cref="P:devDept.Eyeshot.Drawings.ActiveSheet" />.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Sheet.Height">
       <summary>
             Gets or sets sheet height.
             </summary>
+      <remarks>Call <see cref="M:devDept.Eyeshot.Environment.UpdateBoundingBox" /> after changing this value on the <see cref="P:devDept.Eyeshot.Drawings.ActiveSheet" />.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Sheet.Units">
       <summary>
@@ -27869,6 +28034,19 @@
     </member>
     <member name="M:devDept.Eyeshot.Sheet.SetKey(System.String)">
       <inheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.Sheet.AddViewPlaceHolder(devDept.Eyeshot.Entities.View,devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.String)">
+      <summary>
+            Creates a block with the placeholder entities, adds it to the <see cref="T:devDept.Eyeshot.Drawings" /> and add the View to the <see cref="P:devDept.Eyeshot.Sheet.Entities" />.
+            </summary>
+      <remarks>
+        <para>The block is added only if it doesn't already exist.</para>
+        <para>The view is not rebuilt.</para>
+      </remarks>
+      <param name="view">The view.</param>
+      <param name="model">The model control.</param>
+      <param name="drawings">The drawings control containing the sheet.</param>
+      <param name="placeHolderText">The placeholder text. If null the view name is used.</param>
     </member>
     <member name="M:devDept.Eyeshot.Sheet.BuildA0ISO(devDept.Eyeshot.Block@,System.String,System.Nullable{System.Drawing.Color})">
       <summary>
@@ -28013,6 +28191,12 @@
             Cleans up graphics resources, like display lists, etc.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Sheet.Clone">
+      <summary>
+            Creates a deep copy of this entity.
+            </summary>
+      <returns>The new sheet object.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Sheet.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -28032,13 +28216,32 @@
             Class that computes geometry for view entity.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.ViewBuilder.#ctor(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean)">
+    <member name="T:devDept.Eyeshot.ViewBuilder.operatingType">
+      <summary>
+            ViewBuilder operating type.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.ViewBuilder.operatingType.Standard">
+      <summary>
+            Work is completed when all the sheets and related views are rebuilt.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue">
+      <summary>
+            Work is completed each time the rebuild of a single view is ended.
+            </summary>
+      <remarks>When the ViewBuilder is run synchronously, it runs like <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Standard" />.</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.QueueCompleted" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToQueue(devDept.Eyeshot.Entities.View,devDept.Eyeshot.Sheet)" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewBuilder.#ctor(devDept.Eyeshot.Model,devDept.Eyeshot.Drawings,System.Boolean,devDept.Eyeshot.ViewBuilder.operatingType)">
       <summary>
             Standard constructor.
             </summary>
       <param name="model">The model for building the views.</param>
       <param name="drawings">The drawings control containing sheets with views to rebuild.</param>
       <param name="dirtyOnly">When true only missing/dirty views are built.</param>
+      <param name="operatingType">The <see cref="T:devDept.Eyeshot.ViewBuilder.operatingType" /> used for rebuilding the views.</param>
       <seealso cref="P:devDept.Eyeshot.Drawings.SilhouettesLayerName" />
       <seealso cref="P:devDept.Eyeshot.Drawings.EdgesLayerName" />
       <seealso cref="P:devDept.Eyeshot.Drawings.WiresLayerName" />
@@ -28046,16 +28249,6 @@
       <seealso cref="P:devDept.Eyeshot.Drawings.HiddenEdgesLayerName" />
       <seealso cref="P:devDept.Eyeshot.Drawings.HiddenWiresLayerName" />
       <seealso cref="P:devDept.Eyeshot.Drawings.CenterlinesLayerName" />
-    </member>
-    <member name="P:devDept.Eyeshot.ViewBuilder.SheetsViews">
-      <summary>
-            Gets the dictionary containing the list of views for each sheet.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ViewBuilder.ViewsBlocks">
-      <summary>
-            Gets the dictionary containing the block for each view.
-            </summary>
     </member>
     <member name="P:devDept.Eyeshot.ViewBuilder.BuildingViewText">
       <summary>
@@ -28066,6 +28259,74 @@
       <summary>
             Gets or sets the progress bar suffix text displayed while building the view when executed asynchronously. If null it shows the view name.
             </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ViewBuilder.QueueCompleted">
+      <summary>
+            Indicates whether the working queue is completed or not.
+            </summary>
+      <remarks>Only takes effect when <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" /> and the ViewBuilder is running asynchronously.</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToQueue(devDept.Eyeshot.Entities.View,devDept.Eyeshot.Sheet)" />
+      <seealso cref="!:AddToQueue(devDept.Eyeshot.Drawings drawings, bool, devDept.Eyeshot.Sheet)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.RemoveFromQueue(devDept.Eyeshot.Entities.View)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.ClearQueue" />
+      <seealso cref="E:devDept.Eyeshot.Environment.WorkCompleted" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewBuilder.AddToQueue(devDept.Eyeshot.Entities.View,devDept.Eyeshot.Sheet)">
+      <summary>
+            Adds a single view to the working queue.
+            </summary>
+      <param name="view">The view that must be added to the working queue.</param>
+      <param name="sheet">The sheet to which the view belong to.</param>
+      <remarks>This method only takes effect when <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" /> and the ViewBuilder is running asynchronously.</remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when a <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is not set to <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="sheet" /> or <paramref name="view" /> are null.</exception>
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" />
+      <seealso cref="!:AddToQueue(devDept.Eyeshot.Drawings drawings, bool, devDept.Eyeshot.Sheet)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.RemoveFromQueue(devDept.Eyeshot.Entities.View)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.ClearQueue" />
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.QueueCompleted" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewBuilder.AddToQueue(devDept.Eyeshot.Drawings,System.Boolean,devDept.Eyeshot.Sheet)">
+      <summary>
+            Adds the Drawings' views to the working queue.
+            </summary>
+      <param name="drawings">The drawings control containing sheets with views to add to the queue.</param>
+      <param name="dirtyOnly">When true only dirty views are added to the queue.</param>
+      <param name="sheet">The sheet used to filter the views to add. (Can be null/Nothing).</param>
+      <remarks>This method only takes effect when <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" /> and the ViewBuilder is running asynchronously.</remarks>
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToQueue(devDept.Eyeshot.Entities.View,devDept.Eyeshot.Sheet)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.RemoveFromQueue(devDept.Eyeshot.Entities.View)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.ClearQueue" />
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.QueueCompleted" />
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when a <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is not set to <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" />.</exception>
+    </member>
+    <member name="M:devDept.Eyeshot.ViewBuilder.RemoveFromQueue(devDept.Eyeshot.Entities.View)">
+      <summary>
+            Removes a single view from the working queue.
+            </summary>
+      <param name="view">The view that must be removed to the working queue.</param>
+      <remarks>This method only takes effect when <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" /> and the ViewBuilder is running asynchronously.</remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when a <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is not set to <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" />.</exception>
+      <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="view" /> is null.</exception>
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToQueue(devDept.Eyeshot.Entities.View,devDept.Eyeshot.Sheet)" />
+      <seealso cref="!:AddToQueue(devDept.Eyeshot.Drawings drawings, bool, devDept.Eyeshot.Sheet)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.ClearQueue" />
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.QueueCompleted" />
+    </member>
+    <member name="M:devDept.Eyeshot.ViewBuilder.ClearQueue">
+      <summary>
+            Clears the working queue.
+            </summary>
+      <remarks>This method only takes effect when <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" /> and the ViewBuilder is running asynchronously.</remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when a <see cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" /> is not set to <see cref="F:devDept.Eyeshot.ViewBuilder.operatingType.Queue" />.</exception>
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.OperatingMode" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToQueue(devDept.Eyeshot.Entities.View,devDept.Eyeshot.Sheet)" />
+      <seealso cref="!:AddToQueue(devDept.Eyeshot.Drawings drawings, bool, devDept.Eyeshot.Sheet)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.RemoveFromQueue(devDept.Eyeshot.Entities.View)" />
+      <seealso cref="P:devDept.Eyeshot.ViewBuilder.QueueCompleted" />
     </member>
     <member name="M:devDept.Eyeshot.ViewBuilder.AddToDrawings(devDept.Eyeshot.Drawings)">
       <summary>
@@ -28458,6 +28719,28 @@
             When true, adds an extra pass to write transparent entities in the Z buffer.
             </summary>
       <remarks>Refers to inaccurate transparency only.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Model.PrintPreview(System.Drawing.Size,System.Boolean)">
+      <param name="extents">If true fits the model on view, else captures the whole viewport</param>
+      <remarks>For more options use the <see cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" /> class directly.</remarks>
+      <seealso cref="!:SetPrinterSettings(PrinterSettings, bool)" />
+      <seealso cref="!:PageSetup(bool, bool, int?, PaperSize, bool?)">
+      </seealso>
+      <seealso cref="M:devDept.Eyeshot.Model.Print(System.Boolean)">
+      </seealso>
+      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" />
+      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" />
+    </member>
+    <member name="M:devDept.Eyeshot.Model.Print(System.Boolean)">
+      <param name="extents">If true fits the model on view, else captures the whole viewport</param>
+      <remarks>For more options use the <see cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" /> class directly.</remarks>
+      <seealso cref="!:SetPrinterSettings(PrinterSettings, bool)" />
+      <seealso cref="!:PageSetup(bool, bool, int?, PaperSize, bool?)">
+      </seealso>
+      <seealso cref="!:PrintPreview(Size, bool)">
+      </seealso>
+      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaper" />
+      <seealso cref="T:devDept.Eyeshot.HiddenLinesViewOnPaperPreview" />
     </member>
     <member name="M:devDept.Eyeshot.Model.SaveFile(System.String,devDept.Eyeshot.Drawings,devDept.Serialization.FileSerializer)">
       <summary>
@@ -35888,112 +36171,70 @@
             Class that holds and manages the list of Viewports.
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.ScreenLine">
+    <member name="T:devDept.Eyeshot.Arc2D">
+      <summary>
+            Defines a 2D arc.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Arc2D.Center">
+      <summary>
+            The arc Center.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Arc2D.Radius">
+      <summary>
+            The arc Radius.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Arc2D.Angle">
+      <summary>
+            The arc Angle.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Arc2D.#ctor(devDept.Geometry.Point2D,System.Double,System.Double)">
+      <summary>
+            Arc2D constructor.
+            </summary>
+      <param name="center">The center.</param>
+      <param name="radius">The radius. </param>
+      <param name="angleInRadians">The angle. </param>
+    </member>
+    <member name="M:devDept.Eyeshot.Arc2D.#ctor(devDept.Geometry.Point2D,System.Double,devDept.Geometry.Interval)">
+      <summary>
+            Arc2D constructor.
+            </summary>
+      <param name="center">The center.</param>
+      <param name="radius">The radius. </param>
+      <param name="angle">The angle. </param>
+    </member>
+    <member name="M:devDept.Eyeshot.Arc2D.#ctor(devDept.Geometry.Point2D,System.Double,System.Double,System.Double)">
+      <summary>
+            Arc2D constructor.
+            </summary>
+      <param name="center">The center.</param>
+      <param name="radius">The radius. </param>
+      <param name="angle">The angle. </param>
+    </member>
+    <member name="M:devDept.Eyeshot.Arc2D.Clone">
+      <summary>
+            Creates a deep copy of this 2D arc.
+            </summary>
+      <returns>The new 2D arc.</returns>
+    </member>
+    <member name="P:devDept.Eyeshot.Arc2D.Length">
+      <summary>
+            Gets the 2D arc length.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.PointOnCircle">
       <summary>
             For internal use only.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.IsPoint">
-      <summary>
-            Tells if the line is actually a Point.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.ScreenLine.vertices">
-      <summary>
-            The line vertices.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.LineId">
-      <summary>
-            Gets a unique line id.
-            </summary>
-      <remarks>Used to recompose the split lines.</remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.ParentEntity">
-      <summary>
-            Gets the parent entity of the line.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.Parents">
-      <summary>
-            Gets the list of parent BlockReferences of the parent entity of the line.
-            </summary>
-      <remarks>Used to recompose the split lines.</remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.Attributes">
-      <summary>
-            Gets the attributes inherited from the parent entity of the line.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.X1">
-      <summary>
-            Gets the x component of the first vertex.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.Y1">
-      <summary>
-            Gets the y component of the first vertex.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.Z1">
-      <summary>
-            Gets the z component of the first vertex.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.X2">
-      <summary>
-            Gets the x component of the second vertex.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.Y2">
-      <summary>
-            Gets the y component of the second vertex.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenLine.Z2">
-      <summary>
-            Gets the z component of the second vertex.
-            </summary>
-    </member>
-    <member name="T:devDept.Eyeshot.ScreenText">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenText.Vertices">
-      <summary>
-            The text rectangle vertices.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenText.ParentEntity">
-      <summary>
-            Gets the parent entity of the text.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenText.IsTextFlipped">
-      <summary>
-            Indicates whether the dimension's text is flipped or not according to the
-            quadrant on the two-dimensional Cartesian system.
-            </summary>
-      <remarks>
-            This is relevant for radial, diametrical and angular dimensions.
-            </remarks>
-    </member>
-    <member name="P:devDept.Eyeshot.ScreenText.Attributes">
-      <summary>
-            Gets the attributes inherited from the parent entity of the line.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.HiddenLinesViewSettings">
       <summary>
              Class that holds the settings and the result of hidden lines computation.
             </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.HiddenLinesViewSettings.ComputeGhostCircles">
-      <summary>
-            When true, ghost circles (to enable radial and diametric dimensioning) are computed.
-            </summary>
-      <remarks>This flag affects also the creation of centerlines.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.HiddenLinesViewSettings.EntitiesToHide">
       <summary>
@@ -36302,26 +36543,6 @@
             Gets the viewport bounds.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.GetComputedLines(System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenLine}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenPicture}@,System.Collections.Generic.List{devDept.Eyeshot.ScreenText}@)">
-      <summary>
-            Gets the computed lines for export.
-            </summary>
-      <param name="silho">The silhouettes</param>
-      <param name="edges">The edges</param>
-      <param name="wires">The wires</param>
-      <param name="hiddenSilho">The hidden silhouettes</param>
-      <param name="hiddenEdges">The hidden edges</param>
-      <param name="hiddenWires">The hidden wires</param>
-      <remarks>For internal use.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.FilterLinesToExport(System.Collections.Generic.List{devDept.Eyeshot.ScreenLine})">
-      <summary>
-            Filters the lines to export.
-            </summary>
-      <param name="lines">The lines to filter/</param>
-      <returns>The filtered lines.</returns>
-      <remarks>Override this method to apply custom logic on the lines to be exported (for instance, export only the lines belonging to entities on a given layer).</remarks>
-    </member>
     <member name="P:devDept.Eyeshot.HiddenLinesViewSettings.FontAccuracy">
       <summary>
             Gets or sets the font accuracy tolerance.
@@ -36335,14 +36556,7 @@
             </summary>
       <returns>The conversion factor</returns>
       <remarks>This value is meaningful only for <see cref="F:devDept.Graphics.projectionType.Orthographic" /><see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.Camera" /> ProjectionMode.</remarks>
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleLinesToWorld(System.Single)" />
-    </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ConvertToSegment2D(System.Collections.Generic.IList{devDept.Eyeshot.ScreenLine})">
-      <summary>
-            Converts a <see cref="T:devDept.Eyeshot.ScreenLine" /> collection to a <see cref="T:devDept.Geometry.Segment2D" /> collection.
-            </summary>
-      <param name="lines">The lines to convert</param>
-      <returns>The <see cref="T:devDept.Geometry.Segment2D" /> collection.</returns>
+      <seealso cref="!:ScaleLinesToWorld" />
     </member>
     <member name="P:devDept.Eyeshot.HiddenLinesViewSettings.FillTexts">
       <summary>
@@ -36350,7 +36564,7 @@
             </summary>
       <remarks>The font accuracy is determined by the <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FontAccuracy" /></remarks>
       <seealso cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FontAccuracy" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesView.GetTexts" />
+      <seealso cref="!:HiddenLinesView.GetTexts" />
     </member>
     <member name="F:devDept.Eyeshot.HiddenLinesViewSettings.ForceTextsAsTriangles">
       <summary>
@@ -36362,21 +36576,7 @@
       <summary>
             If true, the regions are excluded from the hidden lines computation and exported as filled triangles.
             </summary>
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesView.GetTexts" />
-    </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleLinesToWorld(System.Single)">
-      <summary>
-            Scales the computed lines to world coordinates and applies an extra scale factor.
-            </summary>
-      <param name="scale">The extra scale factor applied to the lines once they are converted to world coordinates.</param>
-      <remarks>The <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.Camera" /> ProjectionMode must be <see cref="F:devDept.Graphics.projectionType.Orthographic" /> to convert the lines to world.</remarks>
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.ViewToWorldConversion" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetEdges" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetSilhouettes" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetWires" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenEdges" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenSilhouettes" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenWires" />
+      <seealso cref="!:HiddenLinesView.GetTexts" />
     </member>
     <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleTrianglesToWorld(System.Collections.Generic.IList{devDept.Eyeshot.SilhoWireAndTriangleData},System.Single)">
       <summary>
@@ -36384,12 +36584,6 @@
             </summary>
       <param name="scale">The extra scale factor applied to the lines once they are converted to world coordinates.</param>
       <remarks>The <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.Camera" /> ProjectionMode must be <see cref="F:devDept.Graphics.projectionType.Orthographic" /> to convert the lines to world.</remarks>
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetEdges" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetSilhouettes" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetWires" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenEdges" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenSilhouettes" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.GetHiddenWires" />
     </member>
     <member name="T:devDept.Eyeshot.ViewCubeIcon">
       <summary>View Cube icon settings. This user interface element will never be added to images and printouts.</summary>
@@ -36867,7 +37061,7 @@
             Tells if a point in screen coordinates is over the ViewCube.
             </summary>
       <param name="mousePos">Mouse cursor position (zero on top)</param>
-      <returns>True if the point is over the ViewCube</returns>
+      <returns>True if the point is over the ViewCube rectangle, false otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.ViewCubeIcon.OnMouseMove(System.Windows.Input.MouseEventArgs,devDept.Eyeshot.Viewport,System.Boolean)">
       <summary>
@@ -39384,6 +39578,7 @@
             Clears the selection info for all instances.
             </summary>
     </member>
+    <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.Properties.Resource.ThreeJsTemplate" -->
     <member name="T:devDept.Eyeshot.edgeColorMethodType">
       <summary>Edge color type.</summary>
     </member>
@@ -39830,8 +40025,8 @@
                        Viewport1.StartWork(hdlView)
             </code></example>
       <seealso cref="!:Model.WriteToFileVector" />
-      <seealso cref="!:Model.Print" />
-      <seealso cref="!:Model.PrintPreview" />
+      <seealso cref="M:devDept.Eyeshot.Model.Print(System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.Model.PrintPreview(System.Drawing.Size,System.Boolean)" />
     </member>
     <member name="F:devDept.Eyeshot.HiddenLinesViewOnPaper.PrintRect">
       <summary>
@@ -39896,8 +40091,8 @@
                        Viewport1.StartWork(hdlView)
             </code></example>
       <seealso cref="!:Model.WriteToFileVector" />
-      <seealso cref="!:Model.Print" />
-      <seealso cref="!:Model.PrintPreview" />
+      <seealso cref="M:devDept.Eyeshot.Model.Print(System.Boolean)" />
+      <seealso cref="M:devDept.Eyeshot.Model.PrintPreview(System.Drawing.Size,System.Boolean)" />
     </member>
     <member name="F:devDept.Eyeshot.HiddenLinesViewOnPaperPreview.PrintPreviewDlgClientSize">
       <summary>
@@ -39959,32 +40154,115 @@
              Dim hiddenWires As IList(Of Segment2D) = hdl.GetHiddenWires()
              </code></example>
     </member>
-    <member name="T:devDept.Eyeshot.HiddenLinesView.Segment">
+    <member name="T:devDept.Eyeshot.HiddenLinesView.HdlResult">
       <summary>
-            Class that stores a Segment2D along with the entity it belongs to.
+            Base class for data resulting from HiddenLinesView computation.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.Segment.#ctor(System.Double,System.Double,System.Double,System.Double,devDept.Eyeshot.Entities.Entity,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlResult.Entity">
       <summary>
-            Individual coordinates constructor.
-            </summary>
-      <param name="x0">The X value of start point</param>
-      <param name="y0">The Y value of start point</param>
-      <param name="x1">The X value of end point</param>
-      <param name="y1">The Y value of end point</param>
-      <param name="entity">The entity the segment belongs to</param>
-      <param name="parents">The nested <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> parents chain</param>
-    </member>
-    <member name="P:devDept.Eyeshot.HiddenLinesView.Segment.Entity">
-      <summary>
-            The entity the segment belongs to.
+            Gets the entity the result belongs to.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.HiddenLinesView.Segment.Parents">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlResult.Attributes">
       <summary>
-            The nested <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> parents chain.
+            Gets the attributes inherited from the parent entity.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlResult.Parents">
+      <summary>
+            Gets the nested <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> parents chain.
             </summary>
       <remarks>On top of the stack is the root of the hierarchy.</remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.HiddenLinesView.HdlCurve">
+      <summary>
+            Base class for curves resulting from HiddenLinesView computation.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlCurve.EdgeIndex">
+      <summary>
+            Gets the associated <see cref="T:devDept.Eyeshot.Entities.Brep" /> edge index.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.HiddenLinesView.HdlLinearPath">
+      <summary>
+            Defines a 2D piecewise linear curve along with information about the entity it belongs to.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlLinearPath.Vertices">
+      <summary>
+            Gets the LinearPath vertices.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.HiddenLinesView.HdlArc">
+      <summary>
+            Defines an 2D Arc along with information about the entity it belongs to.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlArc.Center">
+      <summary>
+            Gets the arc's center.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlArc.Radius">
+      <summary>
+            Gets the arc's radius.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlArc.Angle">
+      <summary>
+            Gets the arc's angle.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.HiddenLinesView.HdlMesh">
+      <summary>
+            Defines a mesh along with information about the entity it belongs to.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlMesh.Mesh">
+      <summary>
+            Gets the mesh object.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.HiddenLinesView.HdlText">
+      <summary>
+            Defines a class representing text data along with information about the entity it belongs to.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlText.Text">
+      <summary>
+            Gets the text string.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlText.FontFamilyName">
+      <summary>
+            Gets the font family name.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlText.FontStyle">
+      <summary>
+            Gets the font style.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlText.RectangleText">
+      <summary>
+            Gets the rectangle surrounding the text.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HdlText.IsFlipped">
+      <summary>
+            Indicates whether the dimension's text is flipped or not according to the
+            quadrant on the two-dimensional Cartesian system.
+            </summary>
+      <remarks>
+            This is relevant for radial, diametrical and angular dimensions.
+            </remarks>
+    </member>
+    <member name="T:devDept.Eyeshot.HiddenLinesView.HdlPicture">
+      <summary>
+            Defines a class representing picture with information about the entity it belongs to.
+            </summary>
     </member>
     <member name="M:devDept.Eyeshot.HiddenLinesView.#ctor(devDept.Eyeshot.Environment)">
       <summary>Constructor.</summary>
@@ -40025,104 +40303,102 @@
     <member name="M:devDept.Eyeshot.HiddenLinesView.DoWork">
       <summary>Executes the work synchronously.</summary>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetSilhouettes">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.Silhouettes">
       <summary>
-            The list of 2D segments representing the view's silhouettes.
+            Gets the 2D curves representing the view's silhouettes.
             </summary>
-      <returns>A list of 2D segments</returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlCurve" /></returns>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetEdges">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.Edges">
       <summary>
-            The list of 2D segments representing the view's edges.
+            Gets the 2D curves representing the view's edges.
             </summary>
-      <returns>A list of 2D segments</returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlCurve" /></returns>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetWires">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.Wires">
       <summary>
-            The list of 2D segments representing the view's wires.
+            Gets the 2D curves representing the view's wires.
             </summary>
-      <returns>A list of 2D segments</returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlCurve" /></returns>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetHiddenSilhouettes">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HiddenSilhouettes">
       <summary>
-            The list of 2D segments representing the view's hidden silhouettes.
+            Gets the 2D curves representing the view's hidden silhouettes.
             </summary>
-      <returns>A list of 2D segments</returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlCurve" /></returns>
       <remarks>They are available only if the <see cref="!:KeepHiddenSegments" /> property is true</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetHiddenEdges">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HiddenEdges">
       <summary>
-            The list of 2D segments representing the view's hidden edges.
+            Gets the 2D curves representing the view's hidden edges.
             </summary>
-      <returns>A list of 2D segments</returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlCurve" /></returns>
       <remarks>They are available only if the <see cref="!:KeepHiddenSegments" /> property is true</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetHiddenWires">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.HiddenWires">
       <summary>
-            The list of 2D segments representing the view's hidden wires.
+            Gets the 2D curves representing the view's hidden wires.
             </summary>
-      <returns>A list of 2D segments</returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlCurve" /></returns>
       <remarks>They are available only if the <see cref="!:KeepHiddenSegments" /> property is true</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetGhostCircles">
-      <summary>
-            The list of ghost circles.
-            </summary>
-      <returns>A list of 2D point/double/Interval/bool tuples (center, radius, angle, edge arc/reference circle).</returns>
-      <remarks>Available when the <see cref="!:ComputeGhostCircles" /> property is true.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetCenterlines">
-      <summary>
-            The list of centerlines.
-            </summary>
-      <returns>A list of 2D segments.</returns>
-      <remarks>Available when the <see cref="!:ComputeGhostCircles" /> property is true.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetTexts">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.Texts">
       <summary>
             Gets the meshes generated from dimensions arrows and texts (if <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FillTexts" /> is true, excluded readible text that are parallel to the screen).
             </summary>
-      <returns>The collection of meshes.</returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlMesh" /></returns>
       <seealso cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FillTexts" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesView.GetTextStrings" />
+      <seealso cref="P:devDept.Eyeshot.HiddenLinesView.TextStrings" />
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetTextStrings">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.TextStrings">
       <summary>
             Gets the text's strings generated from the texts when <see cref="!:FillTexts" /> is true and the text is readable and parallel to the screen.
             </summary>
-      <remarks>
-        <para>Each item contains the below info:</para>
-        <list type="number">
-          <item>
-            <description>Text string</description>
-          </item>
-          <item>
-            <description>Font family name</description>
-          </item>
-          <item>
-            <description>font style</description>
-          </item>
-          <item>
-            <description>Rectangle containing the text</description>
-          </item>
-          <item>
-            <description>A flag that indicates whether the text is flipped or not
-            (relevant for radial, diametrical and angular dimensions only).</description>
-          </item>
-        </list>
-      </remarks>
-      <returns>
-            The list of texts printed as text.
-            </returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlText" /></returns>
       <seealso cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FillTexts" />
-      <seealso cref="M:devDept.Eyeshot.HiddenLinesView.GetTexts" />
+      <seealso cref="P:devDept.Eyeshot.HiddenLinesView.Texts" />
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesView.GetRegions">
+    <member name="P:devDept.Eyeshot.HiddenLinesView.Pictures">
+      <summary>
+            Gets the pictures generated.
+            </summary>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlPicture" /></returns>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.Regions">
       <summary>
             Gets the meshes generated from the regions (if <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FillRegions" /> is true).
             </summary>
-      <returns>The collection of meshes.</returns>
+      <returns>An array of <see cref="T:devDept.Eyeshot.HiddenLinesView.HdlMesh" /></returns>
       <seealso cref="P:devDept.Eyeshot.HiddenLinesViewSettings.FillRegions" />
+    </member>
+    <member name="M:devDept.Eyeshot.HiddenLinesView.GetComputedLines(devDept.Eyeshot.HiddenLinesView.HdlCurve[]@,devDept.Eyeshot.HiddenLinesView.HdlCurve[]@,devDept.Eyeshot.HiddenLinesView.HdlCurve[]@,devDept.Eyeshot.HiddenLinesView.HdlCurve[]@,devDept.Eyeshot.HiddenLinesView.HdlCurve[]@,devDept.Eyeshot.HiddenLinesView.HdlCurve[]@,devDept.Eyeshot.HiddenLinesView.HdlPicture[]@,devDept.Eyeshot.HiddenLinesView.HdlText[]@)">
+      <summary>
+            Gets the computed curves for export.
+            </summary>
+      <param name="silho">The silhouettes</param>
+      <param name="edges">The edges</param>
+      <param name="wires">The wires</param>
+      <param name="hiddenSilho">The hidden silhouettes</param>
+      <param name="hiddenEdges">The hidden edges</param>
+      <param name="hiddenWires">The hidden wires</param>
+      <param name="pictures">The pictures</param>
+      <param name="texts">The text printed as string</param>
+    </member>
+    <member name="M:devDept.Eyeshot.HiddenLinesView.FilterLinesToExport(devDept.Eyeshot.HiddenLinesView.HdlCurve[])">
+      <summary>
+            Filters the curves to export.
+            </summary>
+      <param name="lines">The lines to filter/</param>
+      <returns>The filtered lines.</returns>
+      <remarks>Override this method to apply custom logic on the lines to be exported (for instance, export only the lines belonging to entities on a given layer).</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.HiddenLinesView.ScaleLinesToWorld(System.Single)">
+      <summary>
+            Scales the computed lines to world coordinates and applies an extra scale factor.
+            </summary>
+      <param name="scale">The extra scale factor applied to the lines once they are converted to world coordinates.</param>
+      <remarks>The <see cref="T:devDept.Eyeshot.Camera" /> ProjectionMode must be <see cref="F:devDept.Graphics.projectionType.Orthographic" /> to convert the lines to world.</remarks>
+      <seealso cref="!:ViewToWorldConversion" />
     </member>
     <member name="F:devDept.Eyeshot.HiddenLinesView.HdlViewSettings">
       <summary>
@@ -40137,6 +40413,16 @@
     <member name="P:devDept.Eyeshot.HiddenLinesView.ComputingSilhouettesText">
       <summary>
             Gets or sets the progress bar text displayed while computing silhouettes when executed asynchronously.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.RemovingOverlappingLinesText">
+      <summary>
+            Gets or sets the progress bar text displayed while removing overlapped lines when executed asynchronously.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.HiddenLinesView.ComputingCirclesText">
+      <summary>
+            Gets or sets the progress bar text displayed while computing circles when executed asynchronously.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.silhoDataType">
@@ -40208,11 +40494,6 @@
             Class with 3D polygon data to compute silhouettes.
             </summary>
       <remarks>For internal use only.</remarks>
-    </member>
-    <member name="T:devDept.Eyeshot.ScreenPicture">
-      <summary>
-            For internal use only.
-            </summary>
     </member>
     <member name="T:devDept.Eyeshot.BarBase">
       <exclude />
@@ -40350,7 +40631,7 @@
       <summary>
             Copy constructor.
             </summary>
-      <param name="another">The othe ToolBar object</param>
+      <param name="another">The other ToolBar object</param>
     </member>
     <member name="T:devDept.Eyeshot.ButtonSettings">
       <summary>
@@ -40700,6 +40981,66 @@
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.CancelToolBarButton.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.BeginningToolBarButton">
+      <summary>
+            The BeginningToolBarButton default class.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.BeginningToolBarButton.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.PreviousToolBarButton">
+      <summary>
+            The PreviousToolBarButton default class.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.PreviousToolBarButton.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.StartToolBarButton">
+      <summary>
+            The StartToolBarButton default class.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.StartToolBarButton.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.PauseToolBarButton">
+      <summary>
+            The PauseToolBarButton default class.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.PauseToolBarButton.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.NextToolBarButton">
+      <summary>
+            The NextToolBarButton default class.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.NextToolBarButton.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.EndToolBarButton">
+      <summary>
+            The EndToolBarButton default class.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.EndToolBarButton.#ctor">
       <summary>
             Empty constructor.
             </summary>
@@ -41888,7 +42229,7 @@
       <param name="total">The total number of steps</param>
       <param name="text">The progress bar text</param>
       <param name="worker">The background worker thread</param>
-      <remarks>Call <see cref="M:devDept.Eyeshot.WorkUnit.ResetProgressParallel" /> before starting the parallel loop.</remarks>
+      <remarks>Call <see cref="M:devDept.Eyeshot.WorkUnit.ResetProgressParallel(System.Int32)" /> before starting the parallel loop.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.WorkUnit.UpdateProgressAndCheckCancelledParallel(System.Int32,System.String,System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
       <summary>
@@ -41899,9 +42240,9 @@
       <param name="worker">The background worker thread</param>
       <param name="doWorkEventArgs">DoWork event arguments</param>
       <returns>False if the worker thread was canceled, true otherwise.</returns>
-      <remarks>Call <see cref="M:devDept.Eyeshot.WorkUnit.ResetProgressParallel" /> before starting the parallel loop.</remarks>
+      <remarks>Call <see cref="M:devDept.Eyeshot.WorkUnit.ResetProgressParallel(System.Int32)" /> before starting the parallel loop.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.WorkUnit.ResetProgressParallel">
+    <member name="M:devDept.Eyeshot.WorkUnit.ResetProgressParallel(System.Int32)">
       <summary>
             Resets the progress bar for a parallel loop.
             </summary>
@@ -44064,7 +44405,7 @@
     </member>
     <member name="M:devDept.Eyeshot.OriginSymbol.#ctor(System.Int32,System.String,devDept.Geometry.Transformation,System.Boolean)">
       <summary>Standard constructor for OriginSumbols with <see cref="P:devDept.Eyeshot.OriginSymbol.StyleMode" /> == <see cref="F:devDept.Eyeshot.originSymbolStyleType.CoordinateSystem" />.</summary>
-      <param name="size">Size of the symbols in pixels</param>
+      <param name="ballSize">Size of the sphere in pixels</param>
       <param name="name">Origin label string</param>
       <param name="transformation">The transformation applied to the new OriginSymbol</param>
       <param name="lighting">When false, the UI element is drawn with a flat color.</param>
@@ -45446,6 +45787,11 @@
             </summary>
       <remarks>The algorithm is more robust than the one used by the Region, but it changes the coordinates a little bit.</remarks>
     </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
     <member name="M:devDept.Geometry.PolyRegion2D.#ctor(devDept.Geometry.Plane,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}})">
       <summary>
             Constructor for 3D profiles.
@@ -45483,6 +45829,11 @@
       <param name="deviation">The maximum deviation</param>
       <returns>The PolyRegion2D object.</returns>
     </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.UpdateBoundingRect">
+      <summary>
+            Update/initialize the min and max 2D points for each contour polygon.
+            </summary>
+    </member>
     <member name="M:devDept.Geometry.PolyRegion2D.ToRegion(devDept.Geometry.Plane)">
       <summary>
             Creates a Region object from the current PolyRegion2D object.
@@ -45513,6 +45864,15 @@
       <param name="a">First operand</param>
       <param name="b">Second operand</param>
       <returns>An array of PolyRegion2D objects.</returns>
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.IsPointInside(devDept.Geometry.Point2D)">
+      <summary>
+            Check if the specified point is inside the PolyRegion2D.
+            </summary>
+      <param name="point">The point</param>
+      <returns>True if the given point is inside the PolyRegion2D, false otherwise.</returns>
+      <remarks>Takes for granted that the first (index = 0) polygon is the outer one.</remarks>
+      <seealso cref="!:SortAndOrient()" />
     </member>
     <member name="T:devDept.Geometry.UtilityEx">
       <summary>
@@ -51027,9 +51387,10 @@
       <summary>
             See <seealso cref="P:devDept.Eyeshot.Entities.VectorView.CenterlinesExtensionAmount" /></summary>
     </member>
-    <member name="F:devDept.Serialization.VectorViewSurrogate.ComputeGhostCircles">
+    <member name="F:devDept.Serialization.VectorViewSurrogate.Simplify">
       <summary>
-            See <seealso cref="P:devDept.Eyeshot.Entities.VectorView.ComputeGhostCircles" /></summary>
+            Obsolete.
+            </summary>
     </member>
     <member name="M:devDept.Serialization.VectorViewSurrogate.ConvertToObject">
       <inheritdoc />
@@ -51154,7 +51515,7 @@
     <member name="M:devDept.Serialization.LinearMotionSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Toolpath.LinearMotion.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.Entities.motionType,System.Single,System.Single,System.String)" /> constructor to create the object.        
+             This method uses the <see cref="!:LinearMotion.LinearMotion(Point3D, Point3D, motionType,float,float,string)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="M:devDept.Serialization.MotionSurrogate.#ctor(devDept.Eyeshot.Entities.Toolpath.Motion)">

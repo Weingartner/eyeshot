@@ -492,6 +492,14 @@
       <param name="secondMax">Second rectangle max 2D point</param>
       <returns>True if the two rectangles overlap, false otherwise.</returns>
     </member>
+    <member name="M:devDept.Geometry.Utility.TriangleRectangleOverlap(devDept.Geometry.Point2D[],devDept.Geometry.Point2D[])">
+      <summary>
+            2D triangle rectangle overlap test.
+            </summary>
+      <param name="tri">The triangle perimeter as a list of 4 vertices</param>
+      <param name="rect">The rectangle perimeter as a list of 5 vertices</param>
+      <returns>True if the two polygons overlap, false otherwise.</returns>
+    </member>
     <member name="M:devDept.Geometry.Utility.DoOverlap(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
       <summary>
             Check if two bounding boxes overlap.
@@ -613,6 +621,25 @@
       <param name="upperRight">Rectangle upper right corner</param>
       <returns>The point status.</returns>
     </member>
+    <member name="M:devDept.Geometry.Utility.PointInRect(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            2D point in rectangle test.
+            </summary>
+      <param name="testPoint">The test 2D point</param>
+      <param name="lowerLeft">Rectangle lower left corner</param>
+      <param name="upperRight">Rectangle upper right corner</param>
+      <returns>The point status.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.PointInTriangle(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            2D point in triangle test.
+            </summary>
+      <param name="test">The test 2D point</param>
+      <param name="a">The first triangle vertex</param>
+      <param name="b">The second triangle vertex</param>
+      <param name="c">The third triangle vertex</param>
+      <returns>Returns true if the point is inside the triangle, false otherwise.</returns>
+    </member>
     <member name="M:devDept.Geometry.Utility.PointInTriangle(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
       <summary>
             Point in triangle test.
@@ -625,7 +652,7 @@
       <param name="y2">The second triangle vertex's y-coordinate</param>
       <param name="x3">The third triangle vertex's X-coordinate</param>
       <param name="y3">The third triangle vertex's y-coordinate</param>
-      <returns>Returns true if the point is inside the triangle.</returns>
+      <returns>Returns true if the point is inside the triangle, false otherwise.</returns>
     </member>
     <member name="M:devDept.Geometry.Utility.IsPolygonConvex``1(System.Collections.Generic.IList{``0})">
       <summary>
@@ -767,6 +794,11 @@
     <member name="F:devDept.Geometry.Utility.SQRT3_OVER_2">
       <summary>
             Constant, square root of 3 divided by 2, truncated at 30 digits.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.Utility.SQRT2_OVER_2">
+      <summary>
+            Constant, square root of 2 divided by 2, truncated at 30 digits.
             </summary>
     </member>
     <member name="F:devDept.Geometry.Utility.TWO_PI">
@@ -1656,6 +1688,14 @@
       <param name="original">The original bitmap</param>
       <returns>The grayscale bitmap.</returns>
     </member>
+    <member name="M:devDept.Geometry.Utility.SetImageOpacity(System.Drawing.Image,System.Single)">
+      <summary>  
+            Changes the opacity of an image.
+            </summary>
+      <param name="image">The original image</param>
+      <param name="opacity">The opacity (range 0-1)</param>
+      <returns>The new bitmap</returns>
+    </member>
     <member name="M:devDept.Geometry.Utility.GetSupportedLinearUnits(devDept.Geometry.linearUnitsType)">
       <summary>
             Converts <see cref="T:devDept.Geometry.linearUnitsType" /> to <seealso cref="T:devDept.Geometry.supportedLinearUnitsType" /></summary>
@@ -1693,6 +1733,14 @@
       <param name="fromUnits">Initial unit.</param>
       <param name="toUnits">Target unit.</param>
       <returns>The conversion factor.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.Simplify``1(System.Collections.Generic.IList{``0},System.Double)">
+      <summary>
+            Uses the Douglas Peucker algorithm to reduce the number of points.
+            </summary>
+      <param name="points">The list of 2D or 3D points</param>
+      <param name="deviation">The maximum acceptable deviation value</param>
+      <returns>The resulting array of 3D points</returns>
     </member>
     <member name="T:devDept.Geometry.IndexLineComparer">
       <summary>
@@ -2572,6 +2620,11 @@
             Second vertex.
             </summary>
     </member>
+    <member name="F:devDept.Geometry.SilhoEdge.EdgeIndex">
+      <summary>
+            The associated <see cref="!:Brep" /> edge index.
+            </summary>
+    </member>
     <member name="T:devDept.Geometry.Interval">
       <summary>Interval definition.</summary>
     </member>
@@ -2650,7 +2703,7 @@
             Tests a value t to see if it is inside the interval.
             </summary>
       <param name="t">Value to test</param>
-      <param name="bTestOpenInterval">If false, t is tested to see if it satisfies min &lt;= t &lt;= max. If true, t is tested to see if it satisfies min &lt; t &lt; max.</param>
+      <param name="testOpenInterval">If false, t is tested to see if it satisfies min &lt;= t &lt;= max. If true, t is tested to see if it satisfies min &lt; t &lt; max.</param>
       <returns>True if t is in the interval and false if t is not in the interval.</returns>
     </member>
     <member name="M:devDept.Geometry.Interval.Includes(System.Double,System.Double)">
@@ -3987,6 +4040,13 @@
       <summary>
             Gets Points.Count
             </summary>
+    </member>
+    <member name="M:devDept.Geometry.Polygon2D.IntersectWith(devDept.Geometry.Segment2D)">
+      <summary>
+            Computes the intersection (both cross and touch intersections) between this 2D polygon and the specified 2D segment.
+            </summary>
+      <param name="segment">The segment</param>
+      <returns>A list of 2D intersection points.</returns>
     </member>
     <member name="T:devDept.Geometry.Quaternion">
       <summary>

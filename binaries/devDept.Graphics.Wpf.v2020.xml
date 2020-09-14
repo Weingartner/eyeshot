@@ -2373,13 +2373,18 @@
             Tells if the planar reflections are supported by the graphics system.
             </summary>
     </member>
-    <member name="M:devDept.Graphics.RenderContextBase.DrawLinesAndPointsOnTheFly(System.Collections.Generic.List{devDept.Geometry.Point3D},System.Collections.Generic.List{devDept.Geometry.Point3D})">
+    <member name="M:devDept.Graphics.RenderContextBase.DrawLinesAndPointsOnTheFly(devDept.Geometry.Point3D[],devDept.Geometry.Point3D[])">
       <summary>
-      </summary>
-      <param name="lines">
-      </param>
-      <param name="points">
-      </param>
+            Draws the specified lines and points on the fly.
+            </summary>
+      <param name="lines">An array of 3D points that define the lines start and end vertices</param>
+      <param name="points">An array of 3D points</param>
+    </member>
+    <member name="M:devDept.Graphics.RenderContextBase.DrawPointsOnTheFly(devDept.Geometry.Point3D[])">
+      <summary>
+            Draws the specified points on the fly.
+            </summary>
+      <param name="points">An array of 3D points</param>
     </member>
     <member name="M:devDept.Graphics.RenderContextBase.SetLineStipple(System.Int32,System.UInt16,devDept.Graphics.CameraBase)">
       <summary>
