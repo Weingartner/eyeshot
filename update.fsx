@@ -9,7 +9,7 @@ open Fake
 open Fake.VersionHelper
 
 let baseDir = __SOURCE_DIRECTORY__
-let sourceDir = @"C:\Program Files\devDept Software\Eyeshot Ultimate 12\Bin"
+let sourceDir = @"C:\Program Files\devDept Software\Eyeshot Ultimate 2021\Bin"
 let targetDir = baseDir @@ "binaries"
 
 module Option =
@@ -18,10 +18,13 @@ module Option =
         else Some ()
 
 let filePattern = [| 
-    "devDept.Geometry.v12.dll"
-    "devDept.Graphics.Shaders.v12.dll"
-    "devDept.Graphics.Wpf.v12.dll"
-    "devDept.Eyeshot.Control.Wpf.v12.dll"
+    "devDept.Geometry.v2021.dll"
+    "devDept.Graphics.Shaders.v2021.dll"
+    "devDept.Graphics.Wpf.v2021.dll"
+    "devDept.Eyeshot.Control.Wpf.v2021.dll"
+    "devDept.Geometry.v2021.xml"
+    "devDept.Graphics.Wpf.v2021.xml"
+    "devDept.Eyeshot.Control.Wpf.v2021.xml"
 |]
 
 let files =
