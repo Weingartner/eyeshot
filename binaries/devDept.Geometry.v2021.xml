@@ -7637,8 +7637,8 @@
             Sets the protobuf model.
             </summary>
       <remarks>
-        <para>After calling this method both <see cref="M:devDept.Serialization.Serializer.FillHeaderModel" /> and <see cref="M:devDept.Serialization.Serializer.FillModel" /> methods will be skipped.</para>
-        <para>You can use this method to speedup Serializer initialization, for example when reading or writing a multiple files with the same protobuf declaration.</para>
+        <para>You can use this method to speedup Serializer initialization by using a protobuf model already compiled (for example when reading or writing a multiple files with the same protobuf declaration).</para>
+        <para>After calling this method both <see cref="M:devDept.Serialization.Serializer.FillHeaderModel" /> and <see cref="M:devDept.Serialization.Serializer.FillModel" /> methods will be skipped of course.</para>
       </remarks>
       <seealso cref="M:devDept.Serialization.Serializer.FillHeaderModel" />
       <seealso cref="M:devDept.Serialization.Serializer.FillModel" />

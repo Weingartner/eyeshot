@@ -963,7 +963,7 @@
             </summary>
       <param name="data">The data</param>
       <returns>True, if the entity is small classified as small.</returns>
-      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatio" />
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioMoving" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams)">
       <summary>
@@ -1991,12 +1991,6 @@
           </item>
         </list>
       </remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.FastMesh.ConvertToMesh">
-      <summary>
-            Convert this FastMesh into a Mesh object.
-            </summary>
-      <returns>The resulting <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Hatch">
       <summary>
@@ -13939,7 +13933,7 @@
       <summary>
             Builds octree's data.
             </summary>
-      <param name="maxNumTriangles">Maximum number of triangles per octant</param>
+      <param name="maxNumTriangles">Maximum number of triangles per octant, zero for auto-estimation.</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.ClearOctree">
       <summary>
@@ -16712,6 +16706,16 @@
       <param name="tol">The tolerance</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.IFace.ConvertToMesh(System.Double,System.Double,devDept.Eyeshot.Entities.Mesh.natureType,System.Boolean)">
+      <summary>
+             Converts this object to a single mesh.
+            </summary>
+      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="angleInRadians">The maximum angular deflection, ignored when zero.</param>
+      <param name="nature">The desired Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
+      <param name="weld">If true, the resulting meshes are welded (no duplicated points).</param>
+      <returns>The resulting mesh object.</returns>
+    </member>
     <member name="T:devDept.Eyeshot.Entities.IFaceSelectable">
       <summary>
             Common properties for entities with selectable faces.
@@ -18536,12 +18540,6 @@
             </summary>
       <exception cref="T:System.NotImplementedException">Thrown if you use this method.</exception>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Table.GetLines">
-      <summary>
-            Returns the lines of the cells that make up the Table.
-            </summary>
-      <returns> The array of segment3D</returns>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Table.Clone">
       <inheritdoc />
     </member>
@@ -18550,6 +18548,12 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Table.Dispose">
       <inheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Table.Explode">
+      <summary>
+            Explodes the Table into <see cref="T:devDept.Eyeshot.Entities.Line" /> and <see cref="T:devDept.Eyeshot.Entities.MultilineText" />.
+            </summary>
+      <returns>The array of individual entities</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Table.MergeCells(System.Int32,System.Int32,System.Int32,System.Int32)">
       <summary>
@@ -19075,6 +19079,14 @@
             Gets or sets the transformation matrix for this block reference.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.BlockReference.ExplodeDeep(devDept.Eyeshot.BlockKeyedCollection,System.Boolean)">
+      <summary>
+            Explodes the block reference recursively. 
+            </summary>
+      <param name="blocks">The block collection.</param>
+      <param name="keepTessellation">When true, the tessellation of the original entity is preserved.</param>
+      <return>The flatten array of entities.</return>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.BlockReference.GetBlockUnits(devDept.Eyeshot.BlockKeyedCollection)">
       <summary>
             Gets the block definition linear units.
@@ -19095,7 +19107,7 @@
             Returns the block reference individual entity list.
             </summary>
       <param name="blocks">The <see cref="P:devDept.Eyeshot.Environment.Blocks" /> collection</param>
-      <param name="resolveByParent">If true, the <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeightMethod" /> are resolved propagating the BlockReference properties</param>
+      <param name="resolveByParent">If true, the <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeightMethod" /> are resolved propagating the BlockReference properties.</param>
       <param name="keepTessellation">When true, the tessellation of the original entity is preserved.</param>
       <param name="environment">The current <see cref="T:devDept.Eyeshot.Environment" /> instance.</param>
       <returns>The list of individual entities.</returns>
@@ -20347,7 +20359,7 @@
     </member>
     <member name="P:devDept.Eyeshot.HatchPatternLine.Angle">
       <summary>
-            The lines angle in degrees.
+            The lines angle in radians.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.HatchPatternLine.Origin">
@@ -20370,6 +20382,17 @@
             Gets the line pattern.
             </summary>
       <remarks>Use an empty pattern for a continuous line.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.HatchPatternLine.#ctor(System.Double,devDept.Geometry.Point2D,System.Double,System.Double,System.Single[])">
+      <summary>
+            Initializes a new instance of the <see cref="T:devDept.Eyeshot.HatchPatternLine" />
+            class.
+            </summary>
+      <param name="angle">The lines angle in radians.</param>
+      <param name="origin">The drawing origin of the first line of the family of hatch lines.</param>
+      <param name="deltaX">The displacement between members of the family in the direction of the line. It is used only for dashed lines.</param>
+      <param name="deltaY">The spacing between members of the family. It is measured perpendicular to the lines.</param>
+      <param name="pattern">The line pattern.</param>
     </member>
     <member name="M:devDept.Eyeshot.HatchPatternLine.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -20426,6 +20449,12 @@
     </member>
     <member name="M:devDept.Eyeshot.HatchPatternKeyedCollection.ChangeEntitiesRegenMode(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity},System.String)">
       <ineheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.HatchPatternKeyedCollection.AddDefaultPattern">
+      <summary>
+            Add the default ANSI31 pattern at the end of this collection.
+            </summary>
+      <returns>The pattern name</returns>
     </member>
     <member name="T:devDept.Eyeshot.EyeshotKeyedCollection`1">
       <inheritdoc />
@@ -21155,6 +21184,12 @@
     </member>
     <member name="M:devDept.Eyeshot.LineTypeKeyedCollection.ChangeEntitiesRegenMode(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity},System.String)">
       <ineheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.LineTypeKeyedCollection.AddDefaultLineType">
+      <summary>
+            Add a default DASHDOT line type at the end of this collection.
+            </summary>
+      <returns>The line type name</returns>
     </member>
     <member name="T:devDept.Eyeshot.MaterialKeyedCollection">
       <summary>
@@ -23136,12 +23171,13 @@
             For internal use only.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Environment.GetThumbnail(System.Int32)">
+    <member name="M:devDept.Eyeshot.Environment.GetPresetManagerThumbnail(System.Int32)">
       <summary>
             Returns a thumbnail bitmap of the whole Environment control. The maximum size is 256x256.
             </summary>
       <param name="thumbnailSize">Desired size of the biggest dimension of the Environment control.</param>
-      <returns>The bitmap of the current Environment control.</returns>
+      <returns>The bitmap of the current Environment control with viewports' borders included.</returns>
+      <remarks>For internal use only.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Environment.Turbo">
       <summary>
@@ -24711,22 +24747,27 @@
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationToolpath">
       <summary>
-            Gets or set the simulation toolpath.
+            Gets or set the simulation toolpath entity.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.CanSimulate">
+      <summary>
+            Returns true if the tool and simulation toolpath are defined, false otherwise.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationTool">
       <summary>
-            Gets the simulation tool.
+            Gets the simulation tool entity.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.Tool">
       <summary>
-            Gets or set the tool.
+            Gets or set the cutter.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationStock">
       <summary>
-            Gets or set the simulation dynamic mesh.
+            Gets or set the simulation stock entity.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Manufacture.#ctor">
@@ -24801,6 +24842,12 @@
     <member name="M:devDept.Eyeshot.Manufacture.PauseSimulation">
       <summary>
             Pauses the simulation.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Manufacture.SimulationSpeed">
+      <summary>
+            Gets or sets the simulation speed. The value is interpreted as a factor multiplying
+            the initial speed, estimated as one tenth of the end mill diameter.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.Setup">
@@ -24940,7 +24987,7 @@
     </member>
     <member name="T:devDept.Eyeshot.Milling.EndMill">
       <summary>
-            Milling cutter definition.
+            Milling cutter definition. 
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Milling.EndMill.Diameter">
@@ -24951,6 +24998,16 @@
     <member name="P:devDept.Eyeshot.Milling.EndMill.CornerRadius">
       <summary>
             Gets end mill corner radius.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.EndMill.TipAngle">
+      <summary>
+            Gets the tip angle in radians.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.EndMill.TaperAngle">
+      <summary>
+            Gets the taper angle in radians.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Milling.EndMill.ShaftLength">
@@ -25016,11 +25073,93 @@
       <param name="shaftLength">The shaft length</param>
       <param name="number">Then CNC machine tool number</param>
     </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.CreateDrill(System.Double,System.Double,System.Double,System.Double,System.Int32)">
+      <summary>
+            Creates a drill end mill.
+            </summary>
+      <param name="diameter">The cutting diameter</param>
+      <param name="tipAngle">The tip angle in radians</param>
+      <param name="fluteLength">The flute length</param>
+      <param name="shaftLength">The shaft length</param>
+      <param name="number">Then CNC machine tool number</param>
+      <returns>The newly created end mill.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.CreateChamfer(System.Double,System.Double,System.Double,System.Double,System.Int32)">
+      <summary>
+            Creates a chamfer end mill.
+            </summary>
+      <param name="diameter">The cutting diameter</param>
+      <param name="tipDiameter">The tip diameter</param>
+      <param name="fluteLength">The flute length</param>
+      <param name="shaftLength">The shaft length</param>
+      <param name="number">Then CNC machine tool number</param>
+      <returns>The newly created end mill.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.CreateTapered(System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32)">
+      <summary>
+            Creates a tapered end mill.
+            </summary>
+      <param name="diameter">The cutting diameter</param>
+      <param name="cornerRadius">The corner radius</param>
+      <param name="taperAngle">The taper angle in radians</param>
+      <param name="fluteLength">The flute length</param>
+      <param name="shaftLength">The shaft length</param>
+      <param name="number">Then CNC machine tool number</param>
+      <returns>The newly created end mill.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32)">
+      <summary>
+            Generic APT-like cutter constructor.
+            <para><img src="apt.png" /></para></summary>
+      <param name="d">The cutting diameter</param>
+      <param name="alpha">The alpha angle in radians</param>
+      <param name="r">The corner radius</param>
+      <param name="beta">The taper angle in radians</param>
+      <param name="h">The flute length</param>
+      <param name="shaftLength">The shaft length</param>
+      <param name="number">The CNC machine tool number</param>
+    </member>
     <member name="M:devDept.Eyeshot.Milling.EndMill.Clone">
       <summary>
             Creates a deep copy of this end mill.
             </summary>
       <returns>The new end mill object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.IsFlat">
+      <summary>
+            Tells if the end mill is of flat type.
+            </summary>
+      <returns>True if the end mill is flat, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.IsBall">
+      <summary>
+            Tells if the end mill is of ball type.
+            </summary>
+      <returns>True if the end mill is ball, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.IsBull">
+      <summary>
+            Tells if the end mill is of bull nose type.
+            </summary>
+      <returns>True if the end mill is bull, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.IsDrill">
+      <summary>
+            Tells if the end mill is of drill type.
+            </summary>
+      <returns>True if the end mill is drill, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.IsChamfer">
+      <summary>
+            Tells if the end mill is of chamfer type.
+            </summary>
+      <returns>True if the end mill is chamfer, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.EndMill.IsTapered">
+      <summary>
+            Tells if the end mill is of tapered type.
+            </summary>
+      <returns>True if the end mill is tapered, false otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.EndMill.AddToScene(devDept.Eyeshot.Model)">
       <summary>
@@ -25085,6 +25224,32 @@
       <param name="diameter">The end mill cutting diameter</param>
       <param name="cornerRadius">The end mill corner radius</param>
       <param name="fluteLength">The end mill flute length</param>
+      <param name="shaftLength">The end mill shaft length</param>
+      <param name="holderProfile">An array of 2D points that represent the end mill holder profile</param>
+      <param name="number">Then CNC machine tool number</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Tool.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32)">
+      <summary>
+            Generic APT-like, default holder profile (in mm) and lengths constructor.
+            <para><img src="apt.png" /></para></summary>
+      <param name="d">The cutting diameter</param>
+      <param name="alpha">The alpha angle in radians</param>
+      <param name="r">The corner radius</param>
+      <param name="beta">The taper angle in radians</param>
+      <param name="h">The flute length</param>
+      <param name="shaftLength">The end mill shaft length</param>
+      <param name="number">Then CNC machine tool number</param>
+      <param name="holderProfile">An array of 2D points that represent the end mill holder profile</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Tool.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,devDept.Geometry.Point2D[],System.Int32)">
+      <summary>
+            Generic APT-like lengths constructor.
+            <para><img src="apt.png" /></para></summary>
+      <param name="d">The cutting diameter</param>
+      <param name="alpha">The alpha angle in radians</param>
+      <param name="r">The corner radius</param>
+      <param name="beta">The taper angle in radians</param>
+      <param name="h">The flute length</param>
       <param name="shaftLength">The end mill shaft length</param>
       <param name="holderProfile">An array of 2D points that represent the end mill holder profile</param>
       <param name="number">Then CNC machine tool number</param>
@@ -25176,6 +25341,42 @@
       <param name="stepDown">The step down</param>
       <param name="stepOver">The step over</param>
     </member>
+    <member name="T:devDept.Eyeshot.Milling.Parallel2D">
+      <summary>
+            2D parallel class definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.Parallel2D.OrderByDepth">
+      <summary>
+            When true, the passes are ordered top down.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Milling.Parallel2D.angle">
+      <summary>
+            Pass angle in radians, zero means along X axis.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Parallel2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,System.Double,System.Double,devDept.Geometry.Interval,System.Double)">
+      <summary>
+            Range Z constructor.
+            </summary>
+      <param name="cutter">The end mill</param>
+      <param name="setup">The machining setup</param>
+      <param name="stepOver">The step over</param>
+      <param name="angleInRad">The passes angle in radians</param>
+      <param name="zRange">The z range interval</param>
+      <param name="stepDown">The step down</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Parallel2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,System.Double,System.Double,System.Double)">
+      <summary>
+            Height Z constructor.
+            </summary>
+      <param name="cutter">The end mill</param>
+      <param name="setup">The machining setup</param>
+      <param name="stepOver">The step over</param>
+      <param name="angleInRad">The passes angle in radians</param>
+      <param name="zHeight">The z height</param>
+    </member>
     <member name="T:devDept.Eyeshot.Milling.Stock">
       <summary>
             Machining stock class definition.
@@ -25217,6 +25418,41 @@
       <param name="pln">The plane</param>
       <param name="zAxis">The Z range</param>
     </member>
+    <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Plane,System.Double,System.Double)">
+      <summary>
+            Entity list constructor.
+            </summary>
+      <param name="entList">A list of entities implementing <see cref="T:devDept.Eyeshot.Entities.IFace" /></param>
+      <param name="pln">The plane</param>
+      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="angleInRadians">The maximum angular deflection, ignored when zero.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(devDept.Eyeshot.Environment,devDept.Geometry.Plane,System.Double,System.Double)">
+      <summary>
+            Environment constructor. A value of 0 for deviation and angleInRadians preserves the current tessellation (must be available).
+            </summary>
+      <param name="model">The environment</param>
+      <param name="pln">The plane</param>
+      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="angleInRadians">The maximum angular deflection, ignored when zero.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(devDept.Eyeshot.Entities.BlockReference,devDept.Eyeshot.BlockKeyedCollection,devDept.Geometry.Plane,System.Double,System.Double)">
+      <summary>
+            BlockReference constructor.
+            </summary>
+      <param name="deviation">The tessellation tolerance, zero for existing tessellation (may not be available).</param>
+      <param name="angleInRadians">The tessellation maximum angular deflection, ignored when zero.</param>
+      <param name="br">The block reference</param>
+      <param name="pln">The plane</param>
+      <param name="blocks">The blocks collection</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(devDept.Eyeshot.Entities.Mesh,devDept.Geometry.Plane)">
+      <summary>
+            Mesh constructor.
+            </summary>
+      <param name="mesh">The mesh.</param>
+      <param name="pln">The plane.</param>
+    </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateBox(System.Double,System.Double,System.Double)">
       <summary>
             Creates a stock with the shape of a box.
@@ -25252,7 +25488,7 @@
       <param name="pln">The sketch plane</param>
       <param name="width">The box width</param>
       <param name="depth">The box depth</param>
-      <param name="zAxis">The Z range</param>
+      <param name="zRange">The Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateBox(System.Double,System.Double,System.Double,System.Double,System.Double)">
@@ -25286,7 +25522,7 @@
       <param name="y">Position along the Y axis</param>
       <param name="width">The box width</param>
       <param name="depth">The box depth</param>
-      <param name="zAxis">The Z range</param>
+      <param name="zRange">The Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateBox(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double,devDept.Geometry.Interval)">
@@ -25298,7 +25534,7 @@
       <param name="y">Position along the Y axis</param>
       <param name="width">The box width</param>
       <param name="depth">The box depth</param>
-      <param name="zAxis">The Z range</param>
+      <param name="zRange">The Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateCylinder(System.Double,System.Double)">
@@ -25332,7 +25568,7 @@
             </summary>
       <param name="pln">The sketch plane</param>
       <param name="radius">The cylinder radius</param>
-      <param name="zAxis">The cylinder Z range</param>
+      <param name="zRange">The cylinder Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateCylinder(System.Double,System.Double,System.Double,System.Double)">
@@ -25363,7 +25599,7 @@
       <param name="x">Position along the X axis</param>
       <param name="y">Position along the Y axis</param>
       <param name="radius">The cylinder radius</param>
-      <param name="zAxis">The cylinder Z range</param>
+      <param name="zRange">The cylinder Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateCylinder(devDept.Geometry.Plane,System.Double,System.Double,System.Double,devDept.Geometry.Interval)">
@@ -25374,7 +25610,7 @@
       <param name="x">Position along the X axis</param>
       <param name="y">Position along the Y axis</param>
       <param name="radius">The cylinder radius</param>
-      <param name="zAxis">The cylinder Z range</param>
+      <param name="zRange">The cylinder Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="P:devDept.Eyeshot.Milling.Stock.RangeZ">
@@ -25405,6 +25641,11 @@
             </summary>
       <param name="gridStep">The z-map grid step</param>
       <returns>A simulation stock object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Stock.HasBoundary">
+      <summary>
+            Returns true if the stock is not a simple box. Currently supports CompositeCurve of 4 lines and rectangular LinearPath.
+            </summary>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -25471,14 +25712,8 @@
       <summary>
             Improves the visual aspect of the simulation stock after many cut operations.
             </summary>
-      <param name="cp">Compile parameters</param>
+      <param name="cp">Compile parameters. When defined, <see cref="M:devDept.Eyeshot.Entities.Entity.Compile(devDept.Eyeshot.CompileParams)">compilation</see> is performed as well.</param>
       <seealso cref="M:devDept.Eyeshot.Milling.SimulationStock.Cut(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.CompileParams)" />
-    </member>
-    <member name="M:devDept.Eyeshot.Milling.SimulationStock.ConvertToMesh">
-      <summary>
-            Converts this simulation stock to <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
-            </summary>
-      <returns>The resulting <see cref="T:devDept.Eyeshot.Entities.Mesh" /> entity.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.SimulationStock.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -25526,6 +25761,18 @@
       <param name="color">The plane color</param>
       <param name="font">The text font</param>
       <param name="alignment">The label's tab alignment</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.MachiningPlane.Clone">
+      <summary>
+            Creates a deep copy of this machining plane entity.
+            </summary>
+      <returns>The new machining plane object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.MachiningPlane.ConvertToMesh">
+      <summary>
+            Convert this machining plane into a Mesh object.
+            </summary>
+      <returns>The resulting <see cref="T:devDept.Eyeshot.Milling.MachiningPlane" /> object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.MachiningPlane.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -26695,8 +26942,15 @@
       <summary>
             Indicates whether the thumbnail must be updated for all the written files or not. Default value is false and the thumbnail is stored only for the main file according to <see cref="P:devDept.Eyeshot.Translators.WriteFileParams.SaveThumbnail" /> param.
             </summary>
-      <remarks>When true and <see cref="P:devDept.Eyeshot.Translators.WriteFileParams.SaveThumbnail" /> is true too, the thumbnail is updated for all files. This operation can increase a lot the working time for this work unit.</remarks>
+      <remarks>When true and <see cref="P:devDept.Eyeshot.Translators.WriteFileParams.SaveThumbnail" /> is true too, the thumbnail is updated for all files. This operation cannot be run in parallel and can increase a lot the working time for this work unit.</remarks>
       <seealso cref="!:SaveThumbnail" />
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.WriteMultiFileParams.Parallel">
+      <summary>
+            Indicates whether the writing of the files is performed in parallel or not (Default is True).
+            </summary>
+      <remarks>The updating of thumbnails is excluded from parallel process.</remarks>
+      <seealso cref="P:devDept.Eyeshot.Translators.WriteMultiFileParams.UpdateThumbnails" />
     </member>
     <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.Translators.WriteMultiFileParams.BlockName" -->
     <member name="T:devDept.Eyeshot.Translators.WriteParams">
@@ -26793,6 +27047,7 @@
       <param name="lineTypes">The line types collection.</param>
       <param name="units">The units.</param>
       <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="hatchPatterns">The hatch patterns collection.</param>
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteParamsWithTextStyles.LineTypes">
       <summary>
@@ -26835,6 +27090,7 @@
       <param name="units">The units.</param>
       <param name="selectedOnly">If true, only selected entities at root level are written.</param>
       <param name="drawings">The Drawings control.</param>
+      <param name="hatchPatterns">The hatch patterns collection.</param>
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteParamsWithDrawings.Drawings">
       <summary>
@@ -28029,26 +28285,6 @@
             Gets the <see cref="T:devDept.Serialization.FileSerializer" /> used to read the file.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadFile.ParsingMaterialsText">
-      <summary>
-            Gets or sets the "Parsing materials..." text string.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadFile.ParsingLinetypesText">
-      <summary>
-            Gets or sets the "Parsing line types..." text string.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadFile.ParsingTextStylesText">
-      <summary>
-            Gets or sets the "Loading text styles..." text string.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadFile.ParsingLayersText">
-      <summary>
-            Gets or sets the "Loading layers..." text string.
-            </summary>
-    </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFile.HeaderOnly">
       <summary>
             When true, only the file header is read.
@@ -28516,6 +28752,12 @@
             Gets or sets the "Updating thumbnail..." text string.
             </summary>
     </member>
+    <member name="F:devDept.Eyeshot.Translators.WriteMultiFile.parallel">
+      <summary>
+            Indicates whether the writing of the files is performed in parallel or not.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Translators.WriteMultiFileParams.Parallel" />.
+        </member>
     <member name="T:devDept.Eyeshot.Translators.ReadIGES">
       <summary>
             Utility class for loading IGES files asynchronously.
@@ -29203,16 +29445,6 @@
     <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.Angle">
       <summary>
             Gets or sets the maximum angular deflection in radians, ignored when zero.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Translators.WriteFileAsync.errorLog">
-      <summary>
-            The string builder for log.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.Log">
-      <summary>
-            Gets the list of errors and warnings generated during file export.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.WritingText">
@@ -30937,6 +31169,7 @@
       <summary>
             Gets the active viewport.
             </summary>
+      <exception cref="T:System.IndexOutOfRangeException">Throw when <see cref="P:devDept.Eyeshot.Model.Viewports" /> have not been initialized.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Model.Units">
       <summary>
@@ -32767,7 +33000,7 @@
     </member>
     <member name="F:devDept.Eyeshot.UIAutomation.Actions.SetSmallSizeRatioPerc5">
       <summary>
-            Set SmallSizeRatio value to 5% of the shortest viewport's dimension.
+            Set SmallSizeRatioMoving value to 5% of the shortest viewport's dimension.
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.UIAutomation.Actions.EnableTurbo">
@@ -37684,15 +37917,35 @@
             The size of the viewport in pixels.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.ComputeSmallSize">
+    <member name="M:devDept.Eyeshot.Viewport.ComputeSmallSizeStill">
       <summary>
-            Computes the <see cref="P:devDept.Eyeshot.Viewport.SmallSize" /> value as <see cref="P:devDept.Eyeshot.Viewport.SmallSizeRatio" /> * Min(<see cref="P:devDept.Eyeshot.Viewport.Size" />.Width, <see cref="P:devDept.Eyeshot.Viewport.Size" />.Height)
+            Computes the <see cref="P:devDept.Eyeshot.Viewport.SmallSizeStill" /> value as <see cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioStill" /> * Min(<see cref="P:devDept.Eyeshot.Viewport.Size" />.Width, <see cref="P:devDept.Eyeshot.Viewport.Size" />.Height)
             </summary>
       <returns>
             The small size value in pixels.
             </returns>
-      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSize" />
-      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatio" />
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeStill" />
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioStill" />
+    </member>
+    <member name="M:devDept.Eyeshot.Viewport.ComputeSmallSize">
+      <summary>
+             Computes the <see cref="P:devDept.Eyeshot.Viewport.SmallSizeMoving" /> value as <see cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioMoving" /> * Min(<see cref="P:devDept.Eyeshot.Viewport.Size" />.Width, <see cref="P:devDept.Eyeshot.Viewport.Size" />.Height)
+            </summary>
+      <returns>
+             The moving frames small size value in pixels.
+             </returns>
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeMoving" />
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioMoving" />
+    </member>
+    <member name="M:devDept.Eyeshot.Viewport.ComputeSmallSizeMoving">
+      <summary>
+            Computes the <see cref="P:devDept.Eyeshot.Viewport.SmallSizeMoving" /> value as <see cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioMoving" /> * Min(<see cref="P:devDept.Eyeshot.Viewport.Size" />.Width, <see cref="P:devDept.Eyeshot.Viewport.Size" />.Height)
+            </summary>
+      <returns>
+            The small size value in pixels.
+            </returns>
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeMoving" />
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioMoving" />
     </member>
     <member name="P:devDept.Eyeshot.Viewport.SmallSize">
       <summary>
@@ -37700,6 +37953,20 @@
             </summary>
       <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatio" />
       <seealso cref="M:devDept.Eyeshot.Viewport.ComputeSmallSize" />
+    </member>
+    <member name="P:devDept.Eyeshot.Viewport.SmallSizeMoving">
+      <summary>
+            Gets the estimated small size value for the moving frames in pixels.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioMoving" />
+      <seealso cref="M:devDept.Eyeshot.Viewport.ComputeSmallSize" />
+    </member>
+    <member name="P:devDept.Eyeshot.Viewport.SmallSizeStill">
+      <summary>
+            Gets the estimated small size value for the still frames in pixels.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioStill" />
+      <seealso cref="M:devDept.Eyeshot.Viewport.ComputeSmallSizeStill" />
     </member>
     <member name="P:devDept.Eyeshot.Viewport.SmallSizeRatio">
       <summary>
@@ -37714,6 +37981,34 @@
             </remarks>
       <seealso cref="P:devDept.Eyeshot.Viewport.SmallSize" />
       <seealso cref="M:devDept.Eyeshot.Viewport.ComputeSmallSize" />
+    </member>
+    <member name="P:devDept.Eyeshot.Viewport.SmallSizeRatioMoving">
+      <summary>
+        <para>Gets or sets the ratio to classify small entities. Small entities are hid
+            during dynamic movements (Zoom/Pan/Rotate). Default value is 0.01. Use zero to disable.</para>
+        <para>This ratio is used by <see cref="M:devDept.Eyeshot.Viewport.ComputeSmallSize" /> to estimate <see cref="P:devDept.Eyeshot.Viewport.SmallSizeMoving" /> value in pixels.</para>
+      </summary>
+      <remarks>
+            The on screen object size is calculated approximating the size of the
+            object's bounding box. Most of the times, there is a big difference between
+            the actual pixel footprint and the <see cref="P:devDept.Eyeshot.Viewport.SmallSizeMoving" /> value.
+            </remarks>
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeMoving" />
+      <seealso cref="M:devDept.Eyeshot.Viewport.ComputeSmallSize" />
+    </member>
+    <member name="P:devDept.Eyeshot.Viewport.SmallSizeRatioStill">
+      <summary>
+        <para>Gets or sets the ratio to classify small entities. Small entities are hid
+            on the still frames. Default value is 0. Use zero to disable.</para>
+        <para>This ratio is used by <see cref="M:devDept.Eyeshot.Viewport.ComputeSmallSizeStill" /> to estimate <see cref="P:devDept.Eyeshot.Viewport.SmallSizeStill" /> value in pixels.</para>
+      </summary>
+      <remarks>
+            The on screen object size is calculated approximating the size of the
+            object's bounding box. Most of the times, there is a big difference between
+            the actual pixel footprint and the <see cref="P:devDept.Eyeshot.Viewport.SmallSizeStill" /> value.
+            </remarks>
+      <seealso cref="P:devDept.Eyeshot.Viewport.SmallSizeStill" />
+      <seealso cref="M:devDept.Eyeshot.Viewport.ComputeSmallSizeStill" />
     </member>
     <member name="P:devDept.Eyeshot.Viewport.Camera">
       <summary>
@@ -38070,13 +38365,14 @@
     </member>
     <member name="M:devDept.Eyeshot.Viewport.GetThumbnail(devDept.Eyeshot.Viewport,System.Drawing.Size,System.Drawing.Color)">
       <summary>
-            Gets a bitmap of the user inteferace element.
+            Gets a bitmap of the user interface element for designer mode only.
             </summary>
       <param name="viewport">Unused</param>
       <param name="size">The desired bitmap size</param>
       <param name="backgroundColor">Unused</param>
       <returns>
       </returns>
+      <remarks>For internal use only.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Viewport.GetBounds">
       <summary>
@@ -38132,6 +38428,14 @@
       <param name="scale">The scale to apply to the drawing</param>
       <returns>The viewport size to use in the <see cref="!:Model.RenderToBitmap(System.Drawing.Size)" /> to print the scene so that the world units in the model correspond to world units on paper.</returns>
       <remarks>Applies to <see cref="F:devDept.Graphics.projectionType.Orthographic" /> camera ProjectionMode only.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Viewport.GetThumbnail(System.Int32,System.Drawing.Color)">
+      <summary>
+            Returns a thumbnail bitmap of the Viewport. The maximum size is 256x256.
+            </summary>
+      <param name="thumbnailSize">Desired size of the biggest dimension of the environment control.</param>
+      <param name="backgroundColor">Desired background solid color. If Empty, then it uses the current one.</param>
+      <returns>The bitmap of the current Viewport</returns>
     </member>
     <member name="P:devDept.Eyeshot.Viewport.SortLabels">
       <summary>
@@ -41792,6 +42096,11 @@
             Base class that holds the data for many Entity methods.
             </summary>
     </member>
+    <member name="F:devDept.Eyeshot.TraversalParams.SmallParams">
+      <summary>
+            Gets or sets the IsSmallParams
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.TraversalParams.Blocks">
       <summary>
             Gets or sets the blocks collection.
@@ -42054,7 +42363,7 @@
     </member>
     <member name="P:devDept.Eyeshot.IsSmallParams.SmallSize">
       <summary>
-            Gets or sets the <see cref="P:devDept.Eyeshot.Viewport.SmallSizeRatio" />.
+            Gets or sets the <see cref="P:devDept.Eyeshot.Viewport.SmallSizeRatioMoving" />.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.IsSmallParams.RenderContext">
@@ -49031,17 +49340,6 @@
       <param name="smoothingPasses">The number of smoothing passes</param>
       <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
     </member>
-    <member name="M:devDept.Geometry.UtilityEx.Triangulate(TriangleNet.Geometry.Polygon,TriangleNet.Meshing.ConstraintOptions,TriangleNet.Meshing.QualityOptions,TriangleNet.Smoothing.ISmoother,System.Int32)">
-      <summary>
-            Triangulates the specified geometry.
-            </summary>
-      <param name="inputGeometry">The contours, point and segments to be triangulated.</param>
-      <param name="co">The desired constraints</param>
-      <param name="qo">The desired quality</param>
-      <param name="smoother">The smoother type</param>
-      <param name="smoothingPasses">The number of smoothing passes</param>
-      <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
-    </member>
     <member name="M:devDept.Geometry.UtilityEx.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Eyeshot.Entities.Mesh.natureType)">
       <summary>
             Triangulate a collection of 2.5D points (terrain like).
@@ -49162,6 +49460,21 @@
       <param name="fullNodeCount">Total number of tree nodes that contain -at least- one object (leaf)</param>
       <param name="emptyNodeCount">Total number of tree nodes that don't contains any object</param>
       <param name="totalObjectCount">Total number of objects in the scene, if leaf nodes always contain only one object, it is equal to <paramref name="fullNodeCount" />.</param>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.GetLogo">
+      <summary>
+            Gets the nurbs representation of the devDept logo.
+            </summary>
+      <returns>An array of <see cref="T:devDept.Eyeshot.Entities.ICurve" />.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.BuildHatch(devDept.Eyeshot.Entities.Region,System.Double,System.Double)">
+      <summary>
+            Builds a line pattern that fills the specified region.
+            </summary>
+      <param name="reg">The region (parallel to XY plane)</param>
+      <param name="step">The step</param>
+      <param name="angle">The line angle in radians</param>
+      <returns>An array of array of lines. Each array contains all the segments of the same line.</returns>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.GetLinesTangentToTwoCircles(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle)">
       <summary>
@@ -49423,6 +49736,91 @@
       <inheritdoc />
       <remarks>
              This method uses the <see cref="M:devDept.Eyeshot.Entities.Balloon.#ctor(devDept.Geometry.Plane,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.String,System.Double)" /> constructor to create the object.        
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.StockSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Milling.Stock" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.StockSurrogate.#ctor(devDept.Eyeshot.Milling.Stock)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.StockSurrogate.RangeZ">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Milling.Stock.RangeZ" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.StockSurrogate.Normals">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Milling.Stock.Normals" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.StockSurrogate.ConvertToObject">
+      <remarks>
+             This method uses the <see cref="T:devDept.Eyeshot.Milling.Stock" /> constructor to create the object.        
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.SimulationStockSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Milling.SimulationStock" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.SimulationStockSurrogate.#ctor(devDept.Eyeshot.Milling.SimulationStock)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.SimulationStockSurrogate.PlanarFaces">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Milling.SimulationStock.PlanarFaces" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.SimulationStockSurrogate.Transformation">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Milling.SimulationStock.Transformation" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.SimulationStockSurrogate.ConvertToObject">
+      <remarks>
+             This method uses the <see cref="T:devDept.Eyeshot.Milling.SimulationStock" /> constructor to create the object.        
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.FastMeshSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Entities.FastMesh" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.FastMeshSurrogate.#ctor(devDept.Eyeshot.Entities.FastMesh)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.FastMeshSurrogate.PointArray">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.PointArray" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.FastMeshSurrogate.TriangleArray">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.TriangleArray" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.FastMeshSurrogate.NormalArray">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.PointArray" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.FastMeshSurrogate.ColorArray">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.ColorArray" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.FastMeshSurrogate.ConvertToObject">
+      <remarks>
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[])" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.HatchSurrogate">
@@ -49854,10 +50252,10 @@
     </member>
     <member name="M:devDept.Serialization.FileSerializer.#ctor(devDept.Serialization.contentType)">
       <summary>
-            Constructor used in conjunction with the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class or with the <see cref="M:devDept.Serialization.Serializer.SetProtobufModel(ProtoBuf.Meta.RuntimeTypeModel)" />() method.
+            Constructor used in conjunction with the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class.
             </summary>
       <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown if the content type is <see cref="F:devDept.Serialization.contentType.None" />.</exception>
-      <remarks>Use this constructor to define the serialization model for the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class or when you need to set a compiled protobuf model using the <see cref="M:devDept.Serialization.Serializer.SetProtobufModel(ProtoBuf.Meta.RuntimeTypeModel)" />() method.</remarks>
+      <remarks>Use this constructor to define the serialization model for the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class.</remarks>
     </member>
     <member name="P:devDept.Serialization.FileSerializer.Content">
       <summary>
@@ -51243,91 +51641,6 @@
     <member name="M:devDept.Serialization.FastPointCloudSurrogate.ConvertToObject">
       <remarks>
              This method uses the <see cref="M:devDept.Eyeshot.Entities.FastPointCloud.#ctor(System.Single[],System.Byte[])" /> constructor to create the object.        
-             </remarks>
-    </member>
-    <member name="T:devDept.Serialization.FastMeshSurrogate">
-      <summary>
-            Defines the <see cref="T:devDept.Eyeshot.Entities.FastMesh" /> surrogate.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.FastMeshSurrogate.#ctor(devDept.Eyeshot.Entities.FastMesh)">
-      <summary>
-            Standard constructor.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.FastMeshSurrogate.PointArray">
-      <summary>
-            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.PointArray" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.FastMeshSurrogate.TriangleArray">
-      <summary>
-            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.TriangleArray" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.FastMeshSurrogate.NormalArray">
-      <summary>
-            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.PointArray" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.FastMeshSurrogate.ColorArray">
-      <summary>
-            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.ColorArray" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.FastMeshSurrogate.ConvertToObject">
-      <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[])" /> constructor to create the object.        
-             </remarks>
-    </member>
-    <member name="T:devDept.Serialization.StockSurrogate">
-      <summary>
-            Defines the <see cref="T:devDept.Eyeshot.Milling.Stock" /> surrogate.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.StockSurrogate.#ctor(devDept.Eyeshot.Milling.Stock)">
-      <summary>
-            Standard constructor.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.StockSurrogate.RangeZ">
-      <summary>
-            See <see cref="P:devDept.Eyeshot.Milling.Stock.RangeZ" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.StockSurrogate.Normals">
-      <summary>
-            See <see cref="P:devDept.Eyeshot.Milling.Stock.Normals" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.StockSurrogate.ConvertToObject">
-      <remarks>
-             This method uses the <see cref="T:devDept.Eyeshot.Milling.Stock" /> constructor to create the object.        
-             </remarks>
-    </member>
-    <member name="T:devDept.Serialization.SimulationStockSurrogate">
-      <summary>
-            Defines the <see cref="T:devDept.Eyeshot.Milling.SimulationStock" /> surrogate.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.SimulationStockSurrogate.#ctor(devDept.Eyeshot.Milling.SimulationStock)">
-      <summary>
-            Standard constructor.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.SimulationStockSurrogate.PlanarFaces">
-      <summary>
-            See <see cref="P:devDept.Eyeshot.Milling.SimulationStock.PlanarFaces" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.SimulationStockSurrogate.Transformation">
-      <summary>
-            See <see cref="P:devDept.Eyeshot.Milling.SimulationStock.Transformation" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.SimulationStockSurrogate.ConvertToObject">
-      <remarks>
-             This method uses the <see cref="T:devDept.Eyeshot.Milling.SimulationStock" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.JointSurrogate">
