@@ -93,6 +93,11 @@
             For internal use only.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.UtilityMacros.NORMALIZE(System.Double[]@)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
     <member name="T:devDept.Geometry.EnumExtender">
       <summary>
             Utility class to display localized text for enums.
@@ -687,13 +692,14 @@
       <param name="vertices">The list of vertices</param>
       <returns>True if the polygon is self intersecting or has T junctions, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Geometry.Utility.IsPointInside(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
+    <member name="M:devDept.Geometry.Utility.IsPointInside(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double,System.Boolean)">
       <summary>
             Checks if the point is inside the specified bounding box.
             </summary>
       <param name="min">Minimum 3D corner</param>
       <param name="max">Maximum 3D corner</param>
       <param name="inflate">Inflate amount</param>
+      <param name="testOpenIntervals">If false, for each component, P is tested to see if it satisfies min.X &lt;= P.X &lt;= max.X. If true, P is tested to see if it satisfies min.X &lt; P.X &lt; max.X.</param>
       <returns>True if the 3D point is inside the bounding box, false otherwise.</returns>
     </member>
     <member name="M:devDept.Geometry.Utility.CleanQuads(System.Collections.Generic.IList{System.Int32[]},System.Collections.Generic.IList{devDept.Geometry.PointNormalUv},System.Collections.Generic.List{devDept.Geometry.PointNormalUv}@)">
@@ -1715,12 +1721,7 @@
       <param name="lightness">The lightness multiplication factor</param>
       <returns>The resulting color.</returns>
     </member>
-    <member name="M:devDept.Geometry.Utility.GetScalingLevel">
-      <summary>
-            Gets the custom scaling level.
-            </summary>
-      <remarks>For internal use only.</remarks>
-    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Utility.GetScalingLevel" -->
     <member name="M:devDept.Geometry.Utility.LoadBitmapWithoutLockingFile(System.String)">
       <summary>
             Creates an image without locking the input file.

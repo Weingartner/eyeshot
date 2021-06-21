@@ -202,21 +202,6 @@
             </summary>
       <param name="vertices">The vertices</param>
     </member>
-    <member name="T:devDept.Graphics.D3DRenderContext.RenderTargetStruct">
-      <summary>
-            The Direct3D render target structure.
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.D3DRenderContext.RenderTargetStruct.renderView">
-      <summary>
-            The RenderTargetView object.
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.D3DRenderContext.RenderTargetStruct.depthStencilView">
-      <summary>
-            The DepthStencilView object.
-            </summary>
-    </member>
     <member name="M:devDept.Graphics.D3DRenderContext.ReadColorBuffer(devDept.Graphics.IViewport,System.Drawing.Rectangle,System.Int32@,System.Int32@)">
       <summary>
             Reads the color buffer.
@@ -264,13 +249,6 @@
             </summary>
       <param name="array">The array of doubles</param>
       <returns>The array of doubles.</returns>
-    </member>
-    <member name="M:devDept.Graphics.DXUtils.PointerSizeToUInt64(SharpDX.PointerSize)">
-      <summary>
-            Converts a <see cref="T:SharpDX.PointerSize" /> to a 64-bit unsigned integer.
-            </summary>
-      <param name="ptr">The pointer to convert.</param>
-      <returns>An <c>unsigned long</c>.</returns>
     </member>
     <member name="T:devDept.Graphics.vertexBufferData">
       <summary>

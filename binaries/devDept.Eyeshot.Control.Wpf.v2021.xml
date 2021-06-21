@@ -1923,8 +1923,19 @@
     </member>
     <member name="T:devDept.Eyeshot.Entities.FastMesh">
       <summary>
-            FastMesh entity definition. A mesh entity based on VBO. The two arrays <see cref="P:devDept.Eyeshot.Entities.FastMesh.NormalArray" /> and <see cref="P:devDept.Eyeshot.Entities.FastMesh.ColorArray" /> refer to vertex's normal and vertex's color.
-            </summary>
+        <para>FastMesh entity definition. A mesh entity based on Vertex Buffer Object.
+            </para>
+        <para>Two modes are supported:</para>
+        <list type="bullet">
+          <item>
+            <description>vertices, triangles, normals</description>
+          </item>
+          <item>
+            <description>3 vertices, 3 normals per triangle (TrianglesArray =
+            null)</description>
+          </item>
+        </list>
+      </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor">
       <summary>
@@ -1933,13 +1944,14 @@
       <seealso cref="!:PointsArray" />
       <seealso cref="!:TrianglesArray" />
       <seealso cref="!:NormalsArray" />
+      <seealso cref="!:ColorsArray" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[])">
       <summary>
             Points, triangles and normals arrays constructor.
             </summary>
       <param name="points">The list of unrolled XYZ coordinates</param>
-      <param name="triangles">The list of unrolled triangle vertex indices</param>
+      <param name="triangles">The list of unrolled triangle vertex indices, can be null/Nothing.</param>
       <param name="normals">The list of unrolled triangles normals</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[],System.Byte[])">
@@ -1947,9 +1959,9 @@
             Points, triangles normals and colors arrays constructor.
             </summary>
       <param name="points">The list of unrolled XYZ coordinates</param>
-      <param name="triangles">The list of unrolled triangle vertex indices</param>
+      <param name="triangles">The list of unrolled triangle vertex indices, can be null/Nothing.</param>
       <param name="normals">The list of unrolled triangles normals</param>
-      <seealso cref="P:devDept.Eyeshot.Entities.FastMesh.ColorArray" />
+      <param name="colors">The list of unrolled RGB colors, can be null/Nothing.</param>
     </member>
     <member name="P:devDept.Eyeshot.Entities.FastMesh.PointArray">
       <summary>
@@ -1963,12 +1975,12 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.FastMesh.TriangleArray">
       <summary>
-            Gets or sets triangle indices array.
+            Gets or sets triangle indices array, can be null/Nothing.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Entities.FastMesh.ColorArray">
       <summary>
-            Gets or sets the color array.
+            Gets or sets the color array, can be null/Nothing.
             </summary>
       <remarks>
         <para>The size of the array determines how the colors are applied to the entity:
@@ -2055,7 +2067,12 @@
       <summary>
             Gets or sets the scale of the hatch pattern (1.0 by default).
             </summary>
-      <remarks>When the scale of an hatch already added to the <see cref="T:devDept.Eyeshot.Environment" /> is changed the <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> must be called. </remarks>
+      <remarks>
+        <para>When the scale of an hatch already added to the <see cref="T:devDept.Eyeshot.Environment" />
+            is changed the <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> must be called.</para>
+        <para>Applied only to not user-defined pattern.</para>
+      </remarks>
+      <seealso cref="P:devDept.Eyeshot.Entities.Hatch.IsUserDefinedPattern" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Hatch.PatternAngle">
       <summary>
@@ -2068,6 +2085,36 @@
             Gets or sets the origin point of the hatch pattern (0.0 by default).
             </summary>
       <remarks>When the origin of an hatch already added to the <see cref="T:devDept.Eyeshot.Environment" /> is changed the <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> must be called. </remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Hatch.PatternSpacing">
+      <summary>
+            Gets or sets the spacing between lines for user-defined pattern.
+            </summary>
+      <remarks>
+            When the spacing of an hatch already added to the <see cref="T:devDept.Eyeshot.Environment" /> is
+            changed the <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> must be called.
+            </remarks>
+      <seealso cref="P:devDept.Eyeshot.Entities.Hatch.IsUserDefinedPattern" />
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Hatch.PatternDouble">
+      <summary>
+            Gets or sets the pattern doubling for user-defined pattern. If true draws a
+            second set of lines at 90 degrees to the original lines.
+            </summary>
+      <remarks>
+            When changed on an hatch already added to the <see cref="T:devDept.Eyeshot.Environment" /> the
+            <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> must be called.
+            </remarks>
+      <seealso cref="P:devDept.Eyeshot.Entities.Hatch.IsUserDefinedPattern" />
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Hatch.IsUserDefinedPattern">
+      <summary>
+            When true the Pattern is defined by <see cref="P:devDept.Eyeshot.Entities.Hatch.PatternAngle" />, <see cref="P:devDept.Eyeshot.Entities.Hatch.PatternSpacing" /> and <see cref="P:devDept.Eyeshot.Entities.Hatch.PatternDouble" /> properties.
+            </summary>
+      <remarks>
+            When is changed on an hatch already added to the <see cref="T:devDept.Eyeshot.Environment" /> the
+            <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> must be called.
+            </remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Hatch.ExtrudeAsMesh(System.Double,System.Double,devDept.Eyeshot.Entities.Mesh.natureType)">
       <summary>
@@ -5483,9 +5530,18 @@
       <param name="deviation">The maximum deviation, zero for current tessellation.</param>
       <param name="angle">The maximum angular deflection, ignored when zero.</param>
       <param name="meshNature">The desired Mesh <see cref="T:devDept.Eyeshot.Entities.Mesh.natureType">nature</see></param>
-      <param name="weldNow">If true, the resulting meshes are welded immediately.</param>
+      <param name="weldNow">When true, the resulting meshes are welded immediately.</param>
       <param name="materials">The materials collection</param>
       <param name="blockUnits">The enclosing block's units</param>
+      <returns>The resulting <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ConvertToMesh(System.Double,System.Boolean,System.Double)">
+      <summary>
+            Converts this Brep to a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> using the specified triangle size.
+            </summary>
+      <param name="maxLength">The maximum triangle edge length</param>
+      <param name="weldNow">When true, the resulting face meshes are welded immediately.</param>
+      <param name="weldMaxGap">The welding maximum acceptable gap between vertices. Zero for auto-estimation.</param>
       <returns>The resulting <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Brep.silhouettesDrawingType">
@@ -6074,7 +6130,8 @@
       <param name="pln">The cutting plane</param>
       <param name="left">The resulting set of left Brep objects</param>
       <param name="right">The resulting set of right Brep objects</param>
-      <returns>True if the operation succeeds, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> both left and right are filled, otherwise it exits at the first failure.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.SplitBy(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Brep[]@,devDept.Eyeshot.Entities.Brep[]@)">
       <summary>
@@ -6084,7 +6141,8 @@
       <param name="G">The cutting surface</param>
       <param name="left">The resulting set of left Brep objects</param>
       <param name="right">The resulting set of right Brep objects</param>
-      <returns>True if the operation succeeds, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> both left and right are filled, otherwise it exits at the first failure.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CutBy(devDept.Geometry.Plane,System.Boolean)">
       <summary>
@@ -6093,7 +6151,8 @@
       <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method</seealso>
       <param name="pln"> cutting plane</param>
       <param name="flip">When true the cut direction is inverted</param>
-      <returns> If true the operation is successful and the original Brep is modified, otherwise the operation failed and the original Brep is unmutated.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the Brep is modified, otherwise the original Brep is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CutBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Brep[]@,System.Boolean)">
       <summary>
@@ -6103,7 +6162,8 @@
       <param name="pln">The cutting plane</param>
       <param name="leftOvers">The possible left over solid objects</param>
       <param name="flip">When true the cut direction is inverted</param>
-      <returns>If true the operation is successful and the original Solid3BrepD is modified, otherwise the operation failed and the original Brep is unmutated.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the Brep is modified, otherwise the original Brep is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CutBy(devDept.Eyeshot.Entities.Surface,System.Boolean)">
       <summary>
@@ -7300,6 +7360,48 @@
       <param name="distance">The resulting minimum distance</param>
       <returns>True if the operation was successful, false otherwise.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.MinimumDistance(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Surface,System.Double,System.Boolean,System.Double@,System.Double@,System.Double@,System.Double@,System.Double@)">
+      <summary>
+            Computes the minimum distance between two surfaces.
+            </summary>
+      <param name="F">First surface</param>
+      <param name="G">Second surface</param>
+      <param name="tol">Tolerance</param>
+      <param name="allowOutside">If true result could be outside of the curve</param>
+      <param name="u">Initial guess on F surface U parametric direction</param>
+      <param name="v">Initial guess on F surface V parametric direction</param>
+      <param name="s">Initial guess on G surface U parametric direction</param>
+      <param name="t">Initial guess on G surface V parametric direction</param>
+      <param name="distance">The resulting minimum distance</param>
+      <returns>True if the operation was successful, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.MinimumDistance(devDept.Eyeshot.Entities.Curve,devDept.Eyeshot.Entities.Surface,System.Double,System.Double@,System.Double@,System.Double@,System.Double@)">
+      <summary>
+            Computes the minimum distance between a curve and a surface
+            </summary>
+      <param name="C">The curve</param>
+      <param name="S">The surface</param>
+      <param name="tol">Tolerance</param>
+      <param name="s">Initial guess on C curve</param>
+      <param name="u">Initial guess on S surface U parametric direction</param>
+      <param name="v">Initial guess on S surface U parametric direction</param>
+      <param name="distance">The resulting minimum distance</param>
+      <returns>True if the operation was successful, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.MinimumDistance(devDept.Eyeshot.Entities.Curve,devDept.Eyeshot.Entities.Surface,System.Double,System.Boolean,System.Double@,System.Double@,System.Double@,System.Double@)">
+      <summary>
+            Computes the minimum distance between a curve and a surface
+            </summary>
+      <param name="C">The curve</param>
+      <param name="S">The surface</param>
+      <param name="tol">Tolerance</param>
+      <param name="allowOutside">If true result could be outside of the curve</param>
+      <param name="s">Initial guess on C curve</param>
+      <param name="u">Initial guess on S surface U parametric direction</param>
+      <param name="v">Initial guess on S surface U parametric direction</param>
+      <param name="distance">The resulting minimum distance</param>
+      <returns>True if the operation was successful, false otherwise.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Surface.CollinearNormal(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Surface,System.Double,System.Double@,System.Double@,System.Double@,System.Double@)">
       <summary>
             Computes the collinear normal between two surfaces.
@@ -8383,6 +8485,19 @@
       <param name="F">First curve</param>
       <param name="G">Second curve</param>
       <param name="tol">Tolerance</param>
+      <param name="u">Initial guess on F curve domain</param>
+      <param name="s">Initial guess on G curve domain</param>
+      <param name="distance">The resulting minimum distance</param>
+      <returns>True if the operation was successful, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Curve.MinimumDistance(devDept.Eyeshot.Entities.Curve,devDept.Eyeshot.Entities.Curve,System.Double,System.Boolean,System.Double@,System.Double@,System.Double@)">
+      <summary>
+            Computes the minimum distance between two curves.
+            </summary>
+      <param name="F">First curve</param>
+      <param name="G">Second curve</param>
+      <param name="tol">Tolerance</param>
+      <param name="allowOutside">If true result could be outside of the curve</param>
       <param name="u">Initial guess on F curve domain</param>
       <param name="s">Initial guess on G curve domain</param>
       <param name="distance">The resulting minimum distance</param>
@@ -10377,6 +10492,11 @@
             </summary>
       <returns>The scaled distance</returns>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.Dimension.ToleranceAlignment">
+      <summary>
+            Gets or sets if dimension tolerance must be aligned by decimal point.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Dimension.GetTextRectangleVertices">
       <summary>
             Gets the array of vertices related to dimension's texts.
@@ -11966,21 +12086,6 @@
     <member name="P:devDept.Eyeshot.Entities.FemMesh.Iterations">
       <summary>
             Gets the number of iterations needed.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.FemMesh.MinEdgeLength">
-      <summary>
-            Mesh Quality: maximum element's edge length.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.FemMesh.MaxEdgeLength">
-      <summary>
-            Mesh Quality: maximum element's edge length.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.FemMesh.MinElementQuality">
-      <summary>
-            Mesh Quality: minimum element quality.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Entities.FemMesh.PlotMode">
@@ -13707,7 +13812,8 @@
             </summary>
       <param name="plane">The splitting plane</param>
       <param name="splits">Array of new Meshes created by splitting</param>
-      <returns>Return true in case of success</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> returns an array of the split objects, otherwise it exits at the first failure.</remarks>
       <seealso cref="M:devDept.Eyeshot.Entities.Mesh.SplitDisjoint" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.SplitBy(devDept.Geometry.Plane,System.Boolean,devDept.Eyeshot.Entities.Mesh[]@)">
@@ -13717,7 +13823,8 @@
       <param name="plane">The splitting plane</param>
       <param name="splitDisjoint">When true, disjoint objects are separated into individual meshes</param>
       <param name="splits">Array of new Meshes created by splitting</param>
-      <returns>Return true in case of success</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> returns an array of the split objects, otherwise it exits at the first failure.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.SubdivideBy(devDept.Geometry.Plane)">
       <summary>
@@ -14036,12 +14143,16 @@
       <summary>Cuts the part of the mesh on the positive side of a plane.
              </summary>
       <param name="plane">The plane</param>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.CutBy(devDept.Geometry.Plane,System.Boolean)">
       <summary>Cuts the part of the mesh on the positive side of a plane.
              </summary>
       <param name="plane">The plane</param>
       <param name="close">If false, the resulting mesh will not be closed</param>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.UpdateNormals">
       <summary>
@@ -14065,12 +14176,12 @@
       <remarks>In case of Mirror transformation you may need to flip triangles and call <see cref="M:devDept.Eyeshot.Entities.Mesh.UpdateNormals" />.</remarks>
       <param name="transform">The transformation to be applied</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Mesh.ConvertToFastMesh">
+    <member name="M:devDept.Eyeshot.Entities.Mesh.ConvertToFastMesh(System.Boolean)">
       <summary>
             Converts this mesh into a <see cref="T:devDept.Eyeshot.Entities.FastMesh" /> object.
             </summary>
+      <param name="indexed">When true, one normal per vertex is used.</param>
       <returns>The resulting FastMesh object.</returns>
-      <remarks>The <see cref="T:devDept.Eyeshot.Entities.FastMesh" /> object supports only one normal per vertex, this can affect considerably the object shading.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.ConvertToSolid">
       <summary>
@@ -14332,7 +14443,8 @@
       <param name="surf">The surface</param>
       <param name="tolerance">The surface tessellation tolerance</param>
       <param name="flipSide">The flip side flag</param>
-      <returns>True if the operation was successful, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.CutBy(devDept.Eyeshot.Entities.Surface,System.Double,System.Boolean,devDept.Eyeshot.Entities.Solid[]@)">
       <summary>Cuts the part of the solid on the positive side of a surface.</summary>
@@ -14340,7 +14452,8 @@
       <param name="tolerance">The surface tessellation tolerance</param>
       <param name="flipSide">The flip side flag</param>
       <param name="leftOvers">The other solids that may result from the operation</param>
-      <returns>True if the operation was successful, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.CutBy(devDept.Eyeshot.Entities.Surface,System.Double,System.Boolean,System.Boolean)">
       <summary>Cuts the part of the solid on the positive side of a surface.</summary>
@@ -14348,7 +14461,8 @@
       <param name="tolerance">The surface tessellation tolerance</param>
       <param name="flipSide">The flip side flag</param>
       <param name="keepOriginalColors">If true, the portions of the solids resulting from the boolean operation will keep the colors and materials of the original solids</param>
-      <returns>True if the operation was successful, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.CutBy(devDept.Eyeshot.Entities.Surface,System.Double,System.Boolean,System.Boolean,devDept.Eyeshot.Entities.Solid[]@)">
       <summary>Cuts the part of the solid on the positive side of a surface.</summary>
@@ -14357,7 +14471,8 @@
       <param name="flipSide">The flip side flag</param>
       <param name="keepOriginalColors">If true, the portions of the solids resulting from the boolean operation will keep the colors and materials of the original solids</param>
       <param name="leftOvers">The other solids that may result from the operation</param>
-      <returns>True if the operation was successful, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.SplitBy(devDept.Eyeshot.Entities.Surface,System.Double,devDept.Eyeshot.Entities.Solid[]@,devDept.Eyeshot.Entities.Solid[]@)">
       <summary>Splits the solid with a surface.</summary>
@@ -14413,21 +14528,24 @@
       <summary>Cuts the part of the solid on the positive side of a plane.
             </summary>
       <param name="plane">The plane</param>
-      <returns>True if the plane intersects the solid, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.CutBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Solid[]@)">
       <summary>Cuts the part of the solid on the positive side of a plane.
             </summary>
       <param name="plane">The plane</param>
       <param name="leftOvers">The other solids that may result from the operation</param>
-      <returns>True if the plane intersects the solid, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.CutBy(devDept.Geometry.Plane,System.Boolean)">
       <summary>Cuts the part of the solid on the positive side of a plane.
             </summary>
       <param name="plane">The plane</param>
       <param name="keepOriginalColors">If true, the portions of the solids resulting from the boolean operation will keep the colors and materials of the original solids</param>
-      <returns>True if the plane intersects the solid, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks>If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.CutBy(devDept.Geometry.Plane,System.Boolean,devDept.Eyeshot.Entities.Solid[]@)">
       <summary>Cuts the part of the solid on the positive side of a plane.
@@ -14435,7 +14553,8 @@
       <param name="plane">The plane</param>
       <param name="keepOriginalColors">If true, the portions of the solids resulting from the boolean operation will keep the colors and materials of the original solids</param>
       <param name="leftOvers">The other solids that may result from the operation</param>
-      <returns>True if the plane intersects the solid, false otherwise.</returns>
+      <returns>The intersection failure type.</returns>
+      <remarks> If the operation is <see cref="F:devDept.Eyeshot.booleanFailureType.Success" /> the object is modified, otherwise the original object is unmutated.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.SplitBy(devDept.Geometry.Plane,devDept.Eyeshot.Entities.Solid[]@,devDept.Eyeshot.Entities.Solid[]@)">
       <summary>Splits the solid with a plane.
@@ -16324,6 +16443,13 @@
       <returns>An array of 3D points.</returns>
       <remarks>In LinearPaths and CompositeCurves, this method is applied to each segment.</remarks>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.ICurve.GetTightBBox(devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+      <summary>
+            Computes the curve's axis aligned bounding box.
+            </summary>
+      <param name="boxMin">Min 3D point</param>
+      <param name="boxMax">Max 3D point</param>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.ExtrudeAsMesh(devDept.Geometry.Vector3D,System.Double,devDept.Eyeshot.Entities.Mesh.natureType)">
       <summary>
             Extrudes this curve along the specified direction.
@@ -17808,6 +17934,19 @@
       <summary>
             Gets or sets the picture image.
             </summary>
+      <remarks>The setter resets the <see cref="P:devDept.Eyeshot.Entities.Picture.FullPath" /> property as well.</remarks>
+      <seealso cref="P:devDept.Eyeshot.Entities.Picture.FullPath" />
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.Picture.FullPath">
+      <summary>
+            Gets or sets the full path of the Picture's image for export purpose. Default value is null/Nothing.
+            </summary>
+      <remarks>
+            This property is used when saving a file in DWG/DXF file format for skipping the automatic creation of the image on disk.
+            By design, the Picture's image is stored in the same directory of the output file.
+            This property is reset when <see cref="P:devDept.Eyeshot.Entities.Picture.Image" /> property is set.
+            </remarks>
+      <seealso cref="P:devDept.Eyeshot.Entities.Picture.Image" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.Picture.AnisotropicFiltering">
       <summary>
@@ -20697,6 +20836,7 @@
       <summary>
             Gets or sets a value indicating whether the layer (and all the entities belonging to it) are exported by the various Write* classes.
             </summary>
+      <remarks>This property has no effect on the Eyeshot proprietary file format.</remarks>
       <seealso cref="T:devDept.Eyeshot.Translators.WriteASC" />
       <seealso cref="T:devDept.Eyeshot.Translators.WriteIGES" />
       <seealso cref="T:devDept.Eyeshot.Translators.WriteOBJ" />
@@ -22225,7 +22365,7 @@
       <summary>
             Selects the entities at the deepest level of the BlockReference hierarchy
             </summary>
-      <remarks>Not supportedt by <see cref="P:devDept.Eyeshot.Environment.AccurateTransparency" /></remarks>
+      <remarks>Not supported by <see cref="P:devDept.Eyeshot.Environment.AccurateTransparency" /> and all geometry selection types.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Environment.SetCursor(System.Windows.Input.Cursor)">
       <summary>
@@ -24745,6 +24885,11 @@
             Manufacture control definition.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Manufacture.SimulationTimeLine">
+      <summary>
+            The simulation timeline.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationToolpath">
       <summary>
             Gets or set the simulation toolpath entity.
@@ -24770,6 +24915,12 @@
             Gets or set the simulation stock entity.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Manufacture.StopOnCollision">
+      <summary>
+            When true, the simulation is paused if the tool collides with the simulation stock.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Milling.Tool.CollisionRadius" />
+    </member>
     <member name="M:devDept.Eyeshot.Manufacture.#ctor">
       <summary>
             Standard constructor.
@@ -24794,7 +24945,7 @@
     </member>
     <member name="E:devDept.Eyeshot.Manufacture.PositionChanged">
       <summary>
-            Occurs when the when the simulation tool position changes.
+            Occurs when the simulation tool position changes.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Manufacture.SimulationEndedEventHandler">
@@ -24846,9 +24997,17 @@
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationSpeed">
       <summary>
-            Gets or sets the simulation speed. The value is interpreted as a factor multiplying
-            the initial speed, estimated as one tenth of the end mill diameter.
+            Gets or sets the simulation speed, in <see cref="P:devDept.Eyeshot.Block.Units" /> per second.
             </summary>
+      <seealso cref="P:devDept.Eyeshot.Block.Units" />
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.AutoSpeed(System.Int32)">
+      <summary>
+            Automatically set the speed (the speed is computed based on
+            the current end mill diameter). To set the accurate speed of
+            the end mill, use <see cref="P:devDept.Eyeshot.Manufacture.SimulationSpeed" />.
+            </summary>
+      <param name="factor">Positive factor multiplying the initial speed.</param>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.Setup">
       <summary>
@@ -25173,10 +25332,15 @@
             </summary>
       <returns>A Mesh object.</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Milling.EndMill.IsInsideSweep(devDept.Eyeshot.Milling.SimulationStock.SweepParams@,System.Double,System.Double,System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Milling.EndMill.IsInsideSweep(devDept.Eyeshot.Milling.SimulationStock.SweepParams@,System.Double,System.Double,System.Double,System.Double@,System.Boolean@)" -->
     <member name="T:devDept.Eyeshot.Milling.Tool">
       <summary>
             Tool (end mill + holder) class definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.Tool.CollisionRadius">
+      <summary>
+            Gets or sets the radius of the collision cylinder. Zero to disable. 
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Milling.Tool.HolderProfile">
@@ -25310,6 +25474,11 @@
     <member name="P:devDept.Eyeshot.Milling.Contour2D.OrderByDepth">
       <summary>
             When true, the passes are ordered top down.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.Contour2D.EntryPoints">
+      <summary>
+            Gets or sets the array of entry points.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Contour2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double)">
@@ -26090,6 +26259,20 @@
       <param name="size">The symbol ball size in pixels</param>
       <returns>The element index in the <see cref="P:devDept.Eyeshot.Viewport.OriginSymbols" /> array.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Milling.Setup.WorldToWork(System.Double)">
+      <summary>
+            Converts a Z height from the World frame to Work one.
+            </summary>
+      <param name="zh">The input Z value</param>
+      <returns>The output Z value.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Setup.WorkToWorld(System.Double)">
+      <summary>
+            Converts a Z height from the Work frame to World one.
+            </summary>
+      <param name="zh">The input Z value</param>
+      <returns>The output Z value.</returns>
+    </member>
     <member name="T:devDept.Eyeshot.Milling.Machining">
       <summary>
             Machining class definition.
@@ -26766,6 +26949,26 @@
       <param name="verticalLeadAmount">The vertical lead distance</param>
       <param name="zLow">The bottom plane Z height</param>
     </member>
+    <member name="M:devDept.Eyeshot.Milling.Parallel3D.GetRawPasses(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs,System.Int32[]@,devDept.Eyeshot.Entities.Region[]@)">
+      <summary>
+            Gives the chance to overriders to get raw passes data.
+            </summary>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+      <param name="startIndices">
+      </param>
+      <param name="actualRegions">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.Parallel3D.ProjectingLinksText">
+      <summary>
+            Gets or sets the "Projecting links..." text string.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.Translators.ReadGCode">
       <summary>
             Utility class for loading CNC files asynchronously.
@@ -26849,7 +27052,7 @@
             Constructor with the <see cref="T:devDept.Eyeshot.Model" /> and the <see cref="T:devDept.Eyeshot.Drawings" />.
             </summary>
       <param name="model">The Model control.</param>
-      <param name="drawings">The Drawings control. (Not supported in <see cref="T:devDept.Eyeshot.Translators.WriteMultiFile" /> class).</param>
+      <param name="drawings">The Drawings control.</param>
       <param name="contentType">The content type.</param>
       <param name="serializationType">The serialization type.</param>
       <param name="selectedOnly">When true, only selected entities at root level are written.</param>
@@ -26858,7 +27061,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Serialization.contentType,devDept.Serialization.serializationType,devDept.Geometry.linearUnitsType,System.Boolean,devDept.Eyeshot.Drawings,devDept.Eyeshot.HatchPatternKeyedCollection)">
       <summary>
-            Constructor with the collections. (Not supported in <see cref="T:devDept.Eyeshot.Translators.WriteMultiFile" /> class).
+            Constructor with the collections.
             </summary>
       <param name="entities">The entities collection. If it's null or empty, the entities of the root block, if it exists, will be exported.</param>
       <param name="layers">The layers collection.</param>
@@ -26870,6 +27073,8 @@
       <param name="serializationType">The serialization type.</param>
       <param name="units">The units.</param>
       <param name="selectedOnly">When true, only selected entities at root level are written.</param>
+      <param name="drawings">The Drawings control.</param>
+      <param name="hatchPatterns">The hatch patterns collection.</param>
       <remarks>Using this constructor both Thumbnail and Camera will be not stored.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileParams.Version">
@@ -26937,6 +27142,22 @@
       <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <param name="saveThumbnail">When true, a thumbnail picture is stored.</param>
       <remarks>Model's thumbnail and camera data are store only on the main file. If you want to update thumbnail for the other files you need to set <see cref="P:devDept.Eyeshot.Translators.WriteMultiFileParams.UpdateThumbnails" /> to true.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteMultiFileParams.#ctor(devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Eyeshot.HatchPatternKeyedCollection,devDept.Serialization.contentType,devDept.Serialization.serializationType)">
+      <summary>
+            Constructor with the collections.
+            </summary>
+      <param name="blocks">The blocks collection.</param>
+      <param name="layers">The layers collection.</param>
+      <param name="materials">The materials collection.</param>
+      <param name="textStyles">The text styles collection.</param>
+      <param name="lineTypes">The line types collection.</param>
+      <param name="hatchPatterns">The hatch patterns collection.</param>
+      <param name="contentType">The content type.</param>
+      <param name="serializationType">The serialization type.</param>
+      <remarks>Using this constructor both Thumbnail and Camera will be not stored.</remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown if the blocks collection is null/Nothing or its root block is not defined.</exception>
+      <seealso cref="M:devDept.Eyeshot.BlockKeyedCollection`1.SetRootBlock(System.String)" />
     </member>
     <member name="P:devDept.Eyeshot.Translators.WriteMultiFileParams.UpdateThumbnails">
       <summary>
@@ -31149,6 +31370,130 @@
       <param name="entityList">A list of entities</param>
       <param name="startIndex">The entity to start with</param>
       <param name="length">The desired distance between points</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Simulation.DrawTranslationRestraint(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Gives the chance to overriders to customize translation restraint symbol drawing.
+            </summary>
+      <param name="context">The render context</param>
+      <example>
+        <code lang="C#"><![CDATA[protected override void DrawTranslationRestraint(RenderContextBase context)
+            {
+               // one normal per triangle mesh
+               Mesh m = Mesh.CreateBox(1, 2, 3);
+               m.UpdateNormals();
+               context.DrawPlainTriangles(m.Triangles, m.Vertices, m.Normals);
+             
+               // or smooth normals mesh
+               Mesh m = Mesh.CreateSphere(1, 16, 8);
+               m.UpdateNormals();
+               context.DrawTriangles(m.Vertices, m.Normals, m.Triangles, null); 
+            }]]></code>
+        <code lang="VB"><![CDATA[Protected Overrides Sub DrawTranslationRestraint(ByVal context As RenderContextBase)
+                ' one normal per triangle mesh   
+                Dim m As Mesh = Mesh.CreateBox(1, 2, 3);   
+                m.UpdateNormals()
+                context.DrawPlainTriangles(m.Triangles, m.Vertices, m.Normals);
+             
+                ' or smooth normals mesh    
+                Dim m As Mesh = Mesh.CreateSphere(2, 16, 8)
+                m.UpdateNormals()
+                context.DrawTriangles(m.Vertices, m.Normals, m.Triangles, Nothing)
+            End Sub]]></code>
+      </example>
+    </member>
+    <member name="M:devDept.Eyeshot.Simulation.DrawRotationRestraint(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Gives the chance to overriders to customize rotation restraint symbol drawing.
+            </summary>
+      <param name="context">The render context</param>
+      <example>
+        <code lang="C#"><![CDATA[protected override void DrawRotationRestraint(RenderContextBase context)
+            {
+               // one normal per triangle mesh
+               Mesh m = Mesh.CreateBox(1, 2, 3);
+               m.UpdateNormals();
+               context.DrawPlainTriangles(m.Triangles, m.Vertices, m.Normals);
+             
+               // or smooth normals mesh
+               Mesh m = Mesh.CreateSphere(1, 16, 8);
+               m.UpdateNormals();
+               context.DrawTriangles(m.Vertices, m.Normals, m.Triangles, null); 
+            }]]></code>
+        <code lang="VB"><![CDATA[Protected Overrides Sub DrawRotationRestraint(ByVal context As RenderContextBase)
+                ' one normal per triangle mesh   
+                Dim m As Mesh = Mesh.CreateBox(1, 2, 3);   
+                m.UpdateNormals()
+                context.DrawPlainTriangles(m.Triangles, m.Vertices, m.Normals);
+             
+                ' or smooth normals mesh    
+                Dim m As Mesh = Mesh.CreateSphere(2, 16, 8)
+                m.UpdateNormals()
+                context.DrawTriangles(m.Vertices, m.Normals, m.Triangles, Nothing)
+            End Sub]]></code>
+      </example>
+    </member>
+    <member name="M:devDept.Eyeshot.Simulation.DrawForce(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Gives the chance to overriders to customize force symbol drawing.
+            </summary>
+      <param name="context">The render context</param>
+      <example>
+        <code lang="C#"><![CDATA[protected override void DrawLoadVector(RenderContextBase context)
+            {
+               // one normal per triangle mesh
+               Mesh m = Mesh.CreateBox(1, 2, 3);
+               m.UpdateNormals();
+               context.DrawPlainTriangles(m.Triangles, m.Vertices, m.Normals);
+             
+               // or smooth normals mesh
+               Mesh m = Mesh.CreateSphere(1, 16, 8);
+               m.UpdateNormals();
+               context.DrawTriangles(m.Vertices, m.Normals, m.Triangles, null); 
+            }]]></code>
+        <code lang="VB"><![CDATA[Protected Overrides Sub DrawLoadVector(ByVal context As RenderContextBase)
+                ' one normal per triangle mesh   
+                Dim m As Mesh = Mesh.CreateBox(1, 2, 3);   
+                m.UpdateNormals()
+                context.DrawPlainTriangles(m.Triangles, m.Vertices, m.Normals);
+             
+                ' or smooth normals mesh    
+                Dim m As Mesh = Mesh.CreateSphere(2, 16, 8)
+                m.UpdateNormals()
+                context.DrawTriangles(m.Vertices, m.Normals, m.Triangles, Nothing)
+            End Sub]]></code>
+      </example>
+    </member>
+    <member name="M:devDept.Eyeshot.Simulation.DrawMoment(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Gives the chance to overriders to customize moment symbol drawing.
+            </summary>
+      <param name="context">The render context</param>
+      <example>
+        <code lang="C#"><![CDATA[protected override void DrawMomentVector(RenderContextBase context)
+            {
+               // one normal per triangle mesh
+               Mesh m = Mesh.CreateBox(1, 2, 3);
+               m.UpdateNormals();
+               context.DrawPlainTriangles(m.Triangles, m.Vertices, m.Normals);
+             
+               // or smooth normals mesh
+               Mesh m = Mesh.CreateSphere(1, 16, 8);
+               m.UpdateNormals();
+               context.DrawTriangles(m.Vertices, m.Normals, m.Triangles, null); 
+            }]]></code>
+        <code lang="VB"><![CDATA[Protected Overrides Sub DrawMomentVector(ByVal context As RenderContextBase)
+                ' one normal per triangle mesh   
+                Dim m As Mesh = Mesh.CreateBox(1, 2, 3);   
+                m.UpdateNormals()
+                context.DrawPlainTriangles(m.Triangles, m.Vertices, m.Normals);
+             
+                ' or smooth normals mesh    
+                Dim m As Mesh = Mesh.CreateSphere(2, 16, 8)
+                m.UpdateNormals()
+                context.DrawTriangles(m.Vertices, m.Normals, m.Triangles, Nothing)
+            End Sub]]></code>
+      </example>
     </member>
     <member name="T:devDept.Eyeshot.Model">
       <summary>
@@ -35903,6 +36248,10 @@
       <exclude />
       <excludetoc />
     </member>
+    <member name="T:devDept.Eyeshot.Converters.SimulationTimeLineConverter">
+      <exclude />
+      <excludetoc />
+    </member>
     <member name="T:devDept.Eyeshot.Triangulation.BallPivoting">
       <summary>
             Surface reconstruction based on the Ball-Pivoting method. Designed to work on 100k triangles at time.
@@ -36395,6 +36744,281 @@
       <param name="smoothingMode">The smoothing mode</param>
       <param name="smoothingPasses">Number of smoothing passes</param>
     </member>
+    <member name="T:devDept.Eyeshot.Triangulation.VolumeMesher">
+      <summary>
+            Unstructured tetrahedral mesher class definition. Generates tetrahedron meshes on 3D domains defined by boundary triangle meshes and possibly some embedded nodes, edges and faces.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.TargetMetric">
+      <summary>
+            Element size inside the domain. The elements size tends toward this value as
+            they get away from the hard (boundary) edges. Discarded when &lt;= zero.
+            </summary>
+      <remarks>
+            This parameter is often used to reduce the total number of elements (when
+            target metric &gt; default sizes based on boundary edge lengths) and to save FEM
+            computation time without loosing much on element shape quality. The
+            target metric may be smaller or bigger than the default sizes based on boundary
+            edge lengths.
+            </remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.MaxGradation">
+      <summary>
+            This parameter controls the gradation of the elements size from the boundary sizes to the size defined by <see cref="P:devDept.Eyeshot.Triangulation.VolumeMesher.TargetMetric" /> inside the domain. A value close to zero leads to a more progressive variation of mesh size (smoother). Discarded when <see cref="P:devDept.Eyeshot.Triangulation.VolumeMesher.TargetMetric" /> &lt;= zero.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.OptimizationLevel">
+      <summary>
+            Optimization level between 0 and 10. Controls the trade-off between speed(low values) and high element quality (high values). The higher the level, the more aggressive the algorithms.
+            </summary>
+      <remarks>
+            The algorithms involved here aim at optimizing both the shape quality of the elements and their size quality (length of elements' edges). Hence,
+            increasing the value of <see cref="P:devDept.Eyeshot.Triangulation.VolumeMesher.OptimizationLevel" /> may lead sometimes to a reduction in the shape qualities (min, average or max value) whereas the global quality
+            (which takes into account both types of quality) gets better. The <see cref="P:devDept.Eyeshot.Triangulation.VolumeMesher.ShapeQualityWeight" /> parameter controls the weight of the shape quality
+            in the global quality measure. Level zero disables any optimization.
+            </remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.ShapeQualityWeight">
+      <summary>
+        <para>Weight on shape qualities versus size qualities. Scalar between 0 and 1
+            indicating the importance of the shape qualities versus the size quality for the
+            regularization step:</para>
+        <list type="bullet">
+          <item>
+            <description>For values greater than 0.5, the shape quality is privileged.</description>
+          </item>
+          <item>
+            <description>For values lesser than 0.5, the size quality is privileged.</description>
+          </item>
+        </list>
+      </summary>
+      <remarks>
+            Default = 0.6 (slight preference for shape quality). Should not normally be changed.
+            </remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Triangulation.VolumeMesher.#ctor(devDept.Eyeshot.Entities.Mesh)">
+      <summary>
+            Boundary mesh constructor.
+            </summary>
+      <param name="boundary">The boundary triangle mesh</param>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Triangulation.VolumeMesher.#ctor(devDept.Eyeshot.Entities.Brep,System.Double,System.Boolean)" -->
+    <member name="M:devDept.Eyeshot.Triangulation.VolumeMesher.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
+      <summary>
+            Boundary vertices and triangles mesh constructor.
+            </summary>
+      <param name="vertices">The array of 3D points</param>
+      <param name="triangles">The array of triangles. Boundary and (embedded) hard faces.</param>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Stats">
+      <summary>
+            Gets computation statistics.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Result">
+      <summary>
+            Gets the resulting <see cref="T:devDept.Eyeshot.Entities.FemMesh" /> object.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.InitializingText">
+      <summary>
+            Gets or sets the "Initializing..." text string.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.BuildingText">
+      <summary>
+            Gets or sets the "Building..." text string.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.RefiningText">
+      <summary>
+            Gets or sets the "Refining..." text string.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.OptimizingText">
+      <summary>
+            Gets or sets the "Optimizing..." text string.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.ComputeEdgeQuality">
+      <summary>
+            When true, edge quality histogram (quality in term of edge length) is computed. 
+            </summary>
+      <remarks>This operation can be expensive and should be avoided for big cases.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.HardNodes">
+      <summary>
+            Gets or sets the internal (embedded) hard nodes.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.HardEdges">
+      <summary>
+            Gets or sets the internal (embedded) hard edges.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.Triangulation.VolumeMesher.Histogram">
+      <summary>
+            Histogram class definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Histogram.TotalHits">
+      <summary>
+            Gets the total number of hits.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Histogram.Larger">
+      <summary>
+            Gets the hits over the largest bin.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Histogram.Smaller">
+      <summary>
+            Gets the hits under the smallest bin.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Histogram.Bins">
+      <summary>
+            Gets the histogram bins.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Histogram.Max">
+      <summary>
+            Gets the largest value processed.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Histogram.Min">
+      <summary>
+            Gets the smaller value processed.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Histogram.Mean">
+      <summary>
+            Gets the average of all the processed values.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics">
+      <summary>
+            Statistics class definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardNodesOut">
+      <summary>
+            Gets the number of final hard nodes (lesser than or equal to <see cref="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardNodesIn" />).
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardEdgesOut">
+      <summary>
+            Gets the number of final hard edges (lesser than or equal to <see cref="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardEdgesIn" />).
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardFacesOut">
+      <summary>
+            Gets the number of final hard faces (lesser than or equal to <see cref="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardFacesIn" />).
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardNodesIn">
+      <summary>
+            Gets the number of initial hard nodes.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardEdgesIn">
+      <summary>
+            The number of initial hard edges.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.HardFacesIn">
+      <summary>
+            The number of initial hard faces.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.Nodes">
+      <summary>
+            Gets the number of nodes in the final mesh.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.Tets">
+      <summary>
+            Number of nodes in elements in the final mesh.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.MissingFaces">
+      <summary>
+            Gets the number of boundaries that could not be enforced in the solid mesh.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.Subdomains">
+      <summary>
+            Gets the number of subdomains in the domain.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.Volume">
+      <summary>
+            Gets the volume of the meshed domain.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.MinQuality">
+      <summary>
+            Gets the minimum shape quality of the elements upon exit. 
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.BestAchievableMinQuality">
+      <summary>
+            Gets the upper bound for the minimum shape quality of a tetrahedral mesh based on the current boundary triangle mesh.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.SteinerNodes">
+      <summary>
+            Gets the number of final steiner nodes. 
+            </summary>
+      <remarks>In 2D, it is possible to triangulate any domain using only the nodes of the boundary mesh and respecting all the
+            constraints. This is not true in 3D. Internal nodes, called Steiner nodes, are sometimes needed in order to produce
+            valid tetrahedrons. These Steiner nodes are inserted during the constraints enforcement phase(front mesh).</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.FrontTime">
+      <summary>
+            Gets the time spent to do the initial front mesh. 
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.RefineTime">
+      <summary>
+            Gets the time spent for refining the mesh. 
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.OptimizationTime">
+      <summary>
+            Gets the time spent for optimizing the mesh.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.TotalTime">
+      <summary>
+            Gets the total time spent for the mesh.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.Speed">
+      <summary>
+            Gets the number of elements per second. Global speed including all steps of the meshing/optimizing process.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.Warning">
+      <summary>
+            Gets the warning code and message (when present).
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.Error">
+      <summary>
+            Gets the error code and message (when present).
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.EdgeShapeQualities">
+      <summary>
+            Gets the histogram of the edges qualities (edge length).
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Triangulation.VolumeMesher.Statistics.ElementShapeQualities">
+      <summary>
+            Gets the histogram of the element shape qualities.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.Triangulation.EarClipping">
       <summary>
             2D triangulation by Ear Clipping method.
@@ -36425,14 +37049,6 @@
       <returns>The mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Triangulation.EarClipping.WriteXML(System.String,System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point2D}})">
-      <summary>
-            Write the EarClipping contours to an XML file for debugging purpose.
-            </summary>
-      <param name="fileName">The file name</param>
-      <param name="outer">The outer contour</param>
-      <param name="inners">The inner contours</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Triangulation.EarClipping.WriteXML(System.String,System.Collections.Generic.List{ClipperLib.IntPoint},System.Collections.Generic.List{System.Collections.Generic.List{ClipperLib.IntPoint}})">
       <summary>
             Write the EarClipping contours to an XML file for debugging purpose.
             </summary>
@@ -37435,6 +38051,11 @@
     <member name="T:devDept.Eyeshot.MultiTouch.TouchHandler">
       <summary>
             Handles touch events for a hWnd
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.MultiTouch.TouchHandler.ParentWF">
+      <summary>
+            WinForms parent environment. Null when the environment is Wpf Native.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.MultiTouch.TouchHandler.DisablePalmRejection">
@@ -39810,6 +40431,44 @@
       <param name="bottomImage">The bottom face image</param>
       <param name="lighting">The lighting status</param>
     </member>
+    <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.String,System.String,System.String,System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Boolean,devDept.Geometry.Quaternion)">
+      <summary>Constructor for WinForms designer.</summary>
+      <param name="position">Position</param>
+      <param name="visible">Visibility status</param>
+      <param name="highlightColor">Color of highlight</param>
+      <param name="animateCamera">If true, animates the camera when changing the orientation</param>
+      <param name="frontText">Text of the front face</param>
+      <param name="backText">Text of the back face</param>
+      <param name="leftText">Text of the left face</param>
+      <param name="rightText">Text of the right face</param>
+      <param name="topText">Text of the top face</param>
+      <param name="bottomText">Text of the bottom face</param>
+      <param name="frontColor">The color of the front face</param>
+      <param name="backColor">The color of the back face</param>
+      <param name="leftColor">The color of the left face</param>
+      <param name="rightColor">The color of the right face</param>
+      <param name="topColor">The color of the top face</param>
+      <param name="bottomColor">The color of the bottom face</param>
+      <param name="frontRingLabel">Front orientation ring label</param>
+      <param name="backRingLabel">Back orientation ring label</param>
+      <param name="leftRingLabel">Left orientation ring label</param>
+      <param name="rightRingLabel">Right orientation ring label</param>
+      <param name="showRing">If true, shows the ring under the view cube</param>
+      <param name="font">The font used to draw the texts on the cube faces and the labels on the ring</param>
+      <param name="textColor">The color used to draw the texts on the cube faces</param>
+      <param name="edgeColor">The color used to draw the cube edges</param>
+      <param name="size">The size in pixels</param>
+      <param name="fitAfterViewChange">If true, fits the view when the view orientation changes</param>
+      <param name="enabled">The enabled status</param>
+      <param name="frontImage">The front face image</param>
+      <param name="backImage">The back face image</param>
+      <param name="leftImage">The left face image</param>
+      <param name="rightImage">The right face image</param>
+      <param name="topImage">The top face image</param>
+      <param name="bottomImage">The bottom face image</param>
+      <param name="lighting">The lighting status</param>
+      <param name="initialRotation">Initial rotation of the viewcube</param>
+    </member>
     <member name="M:devDept.Eyeshot.ViewCubeIcon.#ctor(devDept.Eyeshot.coordinateSystemPositionType,System.Boolean,System.Drawing.Color,System.Boolean,System.String,System.String,System.String,System.String,System.String,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Char,System.Char,System.Char,System.Char,System.Boolean,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Boolean,System.Boolean,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Windows.Media.ImageSource,System.Boolean)">
       <summary>Standard constructor.</summary>
       <param name="position">Position</param>
@@ -40720,8 +41379,13 @@
     </member>
     <member name="P:devDept.Eyeshot.ZoomSettings.FitLabels">
       <summary>
-            Gets or sets the zoom fit mode for labels.
+            Gets or sets the zoom fit mode for labels. When true, approximates the zoom to
+            try to include the labels.
             </summary>
+      <remarks>
+            Labels are drawn in screen coordinates with a fixed size, it's not possible
+            to fit them perfectly.
+            </remarks>
     </member>
     <member name="P:devDept.Eyeshot.ZoomSettings.FitMargin">
       <summary>
@@ -45520,6 +46184,19 @@
             Graphics rendering context.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.EnvironmentBase.GetScalingLevel">
+      <summary>
+            Gets the current display's scale factor.
+            </summary>
+      <remarks>The result value is returned in a coordinate system in which 96 corresponds to 1 that means 100%.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.EnvironmentBase.GetScalingLevelRatio">
+      <summary>
+            Gets scaling level ratio among displays with different dpi scale factors.
+            </summary>
+      <remarks>Used to get the correct font size when per-monitor DPI is enabled.</remarks>
+      <seealso cref="M:devDept.Geometry.UtilityEx.GetFont(System.Windows.Media.FontFamily,System.Windows.FontStyle,System.Windows.FontWeight,System.Double,System.Single)" />
+    </member>
     <member name="P:devDept.Eyeshot.EnvironmentBase.Renderer">
       <summary>
             Gets or sets the Renderer mode.
@@ -45562,7 +46239,13 @@
       <summary>
             Occurs when the control is shown for the first time.
             </summary>
-      <remark>Subscribe to this event to inizialize the scene when the window is first displayed.</remark>
+      <remark>Subscribe to this event to initialize the scene when the control is first displayed.</remark>
+    </member>
+    <member name="M:devDept.Eyeshot.EnvironmentBase.OnRenderSizeChanged(System.Windows.SizeChangedInfo)">
+      <summary>
+            This method is invoked after layout update, and before rendering, if the element's RenderSize has changed as a result of layout update.
+            </summary>
+      <param name="sizeInfo">The packaged parameters, which includes old and new sizes, and which dimension actually changes.</param>
     </member>
     <member name="P:devDept.Eyeshot.EnvironmentBase.IsInDesignMode">
       <summary>
@@ -45839,8 +46522,9 @@
     </member>
     <member name="M:devDept.Eyeshot.Block.GetShallowCopy">
       <summary>
-            For internal use only.
+            Creates a deep copy of the Block (without cloning all its entities).
             </summary>
+      <returns>The new Block object.</returns>
     </member>
     <member name="P:devDept.Eyeshot.Block.Entities">
       <summary>
@@ -46508,6 +47192,11 @@
     <member name="P:devDept.Eyeshot.Legend.FontWeight">
       <summary>Gets or sets the text font weight.</summary>
     </member>
+    <member name="M:devDept.Eyeshot.Legend.GetScalingLevelRatio">
+      <summary>
+            Gets scaling level ratio used to get the correct font size.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Legend.FontSize">
       <summary>Gets or sets the text font size.</summary>
     </member>
@@ -46691,6 +47380,24 @@
       <param name="thicknessFactor">Progress bar thickness factor</param>
       <param name="showPercentText">Percent text visibility status (Circular progress bar only)</param>
     </member>
+    <member name="M:devDept.Eyeshot.ProgressBar.#ctor(devDept.Eyeshot.ProgressBar.styleType,System.Int32,System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Double,System.Boolean,devDept.Eyeshot.ToolBarButton,System.Boolean,System.Double,System.Double,System.Boolean)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="style">Progress bar style mode</param>
+      <param name="value">Progress bar value [0-100]</param>
+      <param name="text">Progress bar text</param>
+      <param name="textColor">Progress bar text color</param>
+      <param name="textBackgroundColor">Progress bar text background color</param>
+      <param name="color">Progress bar color</param>
+      <param name="drawScale">Drawing scale</param>
+      <param name="visible">Visibility status</param>
+      <param name="cancelButton">The cancel button</param>
+      <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+      <param name="thicknessFactor">Progress bar thickness factor</param>
+      <param name="lengthFactor">Linear progress bar length factor</param>
+      <param name="showPercentText">Percent text visibility status (Circular progress bar only)</param>
+    </member>
     <member name="M:devDept.Eyeshot.ProgressBar.#ctor(devDept.Eyeshot.ProgressBar)">
       <summary>
             Copy constructor.
@@ -46700,6 +47407,11 @@
     <member name="P:devDept.Eyeshot.ProgressBar.ThicknessFactor">
       <summary>
             Gets or sets progress bar thickness factor (range 0-1).
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ProgressBar.LengthFactor">
+      <summary> 
+            Gets or sets the linear progress bar length factor (range 0-1). 
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.ProgressBar.ShowPercentText">
@@ -46866,6 +47578,16 @@
              Base class for <see cref="T:devDept.Eyeshot.CoordinateSystemIcon" />, <see cref="T:devDept.Eyeshot.OriginSymbol" /> and <see cref="T:devDept.Eyeshot.ViewCubeIcon" />.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.GetScalingLevel">
+      <summary>
+            Gets the display's scale factor.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.UserInterfaceSymbolBase.GetScalingLevelRatio">
+      <summary>
+            Gets scaling level ratio used to get the correct font size.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.UserInterfaceSymbolBase.Size">
       <summary>
             Gets or sets the size in pixels.
@@ -46985,9 +47707,36 @@
                 see the effect of your changes at run-time.
             </remarks>
     </member>
-    <member name="P:devDept.Eyeshot.CoordinateSystemBase.LabelColor">
+    <member name="P:devDept.Eyeshot.CoordinateSystemBase.LabelColorX">
       <summary>
-            Gets or sets the label color.
+            Gets or sets the label color when Lighting is true.
+            </summary>
+      <remarks>
+                You need to call the <see cref="!:Model.CompileUserInterfaceElements()" /> to
+                see the effect of your changes at run-time.
+            </remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.CoordinateSystemBase.LabelColorY">
+      <summary>
+            Gets or sets the label color when Lighting is true.
+            </summary>
+      <remarks>
+                You need to call the <see cref="!:Model.CompileUserInterfaceElements()" /> to
+                see the effect of your changes at run-time.
+            </remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.CoordinateSystemBase.LabelColorZ">
+      <summary>
+            Gets or sets the label color when Lighting is true.
+            </summary>
+      <remarks>
+                You need to call the <see cref="!:Model.CompileUserInterfaceElements()" /> to
+                see the effect of your changes at run-time.
+            </remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.CoordinateSystemBase.LabelColorName">
+      <summary>
+            Gets or sets the label color when Lighting is true.
             </summary>
       <remarks>
                 You need to call the <see cref="!:Model.CompileUserInterfaceElements()" /> to
@@ -47087,9 +47836,47 @@
       <param name="transformation">The symbol transformation</param>
       <param name="lighting">When false, the UI element is drawn with a flat color.</param>
     </member>
+    <member name="M:devDept.Eyeshot.CoordinateSystemBase.#ctor(System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,System.Int32,devDept.Geometry.Transformation,System.Boolean)">
+      <summary>Deprecated constructor.</summary>
+      <param name="labelFont">Label font</param>
+      <param name="labelColorName">Label color for Origin</param>
+      <param name="labelColorX">Label color X axis</param>
+      <param name="labelColorY">Label color Y axis</param>
+      <param name="labelColorZ">Label color Z axis</param>
+      <param name="arrowColorX">X axis arrow color</param>
+      <param name="arrowColorY">Y axis arrow color</param>
+      <param name="arrowColorZ">Z axis arrow color</param>
+      <param name="labelOrigin">Origin label string</param>
+      <param name="labelAxisX">X axis label string</param>
+      <param name="labelAxisY">Y axis label string</param>
+      <param name="labelAxisZ">Z axis label string</param>
+      <param name="visible">Visibility status</param>
+      <param name="size">Size in pixels</param>
+      <param name="transformation">The symbol transformation</param>
+      <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+    </member>
     <member name="M:devDept.Eyeshot.CoordinateSystemBase.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,System.Int32,devDept.Geometry.Transformation,System.Boolean)">
       <summary>Standard constructor.</summary>
       <param name="labelColor">Label color</param>
+      <param name="arrowColorX">X axis arrow color</param>
+      <param name="arrowColorY">Y axis arrow color</param>
+      <param name="arrowColorZ">Z axis arrow color</param>
+      <param name="labelOrigin">Origin label string</param>
+      <param name="labelAxisX">X axis label string</param>
+      <param name="labelAxisY">Y axis label string</param>
+      <param name="labelAxisZ">Z axis label string</param>
+      <param name="visible">Visibility status</param>
+      <param name="size">Size in pixels</param>
+      <param name="transformation">The symbol transformation</param>
+      <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+      <param name="reactToFocus">If true, the UI element is hidden when the viewport is not current</param>
+    </member>
+    <member name="M:devDept.Eyeshot.CoordinateSystemBase.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,System.Int32,devDept.Geometry.Transformation,System.Boolean)">
+      <summary>Standard constructor.</summary>
+      <param name="labelColorName">Label color for Origin</param>
+      <param name="labelColorX">Label color X axis</param>
+      <param name="labelColorY">Label color Y axis</param>
+      <param name="labelColorZ">Label color Z axis</param>
       <param name="arrowColorX">X axis arrow color</param>
       <param name="arrowColorY">Y axis arrow color</param>
       <param name="arrowColorZ">Z axis arrow color</param>
@@ -47151,36 +47938,9 @@
       <param name="visible">Visibility status</param>
       <param name="position">Position </param>
     </member>
-    <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType)">
-      <summary>Standard constructor.</summary>
-      <param name="labelColor">Label color</param>
-      <param name="arrowColorX">X axis arrow color</param>
-      <param name="arrowColorY">Y axis arrow color</param>
-      <param name="arrowColorZ">Z axis arrow color</param>
-      <param name="labelOrigin">Origin label string</param>
-      <param name="labelAxisX">X axis label string</param>
-      <param name="labelAxisY">Y axis label string</param>
-      <param name="labelAxisZ">Z axis label string</param>
-      <param name="visible">Visibility status</param>
-      <param name="position">Position </param>
-    </member>
     <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32)">
       <summary>Deprecated constructor.</summary>
       <param name="labelFont">Label font</param>
-      <param name="labelColor">Label color</param>
-      <param name="arrowColorX">X axis arrow color</param>
-      <param name="arrowColorY">Y axis arrow color</param>
-      <param name="arrowColorZ">Z axis arrow color</param>
-      <param name="labelOrigin">Origin label string</param>
-      <param name="labelAxisX">X axis label string</param>
-      <param name="labelAxisY">Y axis label string</param>
-      <param name="labelAxisZ">Z axis label string</param>
-      <param name="visible">Visibility status</param>
-      <param name="position">Position</param>
-      <param name="size">Size in pixels</param>
-    </member>
-    <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32)">
-      <summary>Standard constructor.</summary>
       <param name="labelColor">Label color</param>
       <param name="arrowColorX">X axis arrow color</param>
       <param name="arrowColorY">Y axis arrow color</param>
@@ -47241,8 +48001,28 @@
       <param name="transformation">The symbol transformation</param>
       <param name="lighting">When false, the UI element is drawn with a flat color.</param>
     </member>
+    <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32,devDept.Geometry.Transformation,System.Boolean)">
+      <summary>Constructor for WinForms designer.</summary>
+      <param name="labelFont">Label font</param>
+      <param name="labelColorName">Label color for Origin</param>
+      <param name="labelColorX">Label color X axis</param>
+      <param name="labelColorY">Label color Y axis</param>
+      <param name="labelColorZ">Label color Z axis</param>
+      <param name="arrowColorX">X axis arrow color</param>
+      <param name="arrowColorY">Y axis arrow color</param>
+      <param name="arrowColorZ">Z axis arrow color</param>
+      <param name="labelOrigin">Origin label string</param>
+      <param name="labelAxisX">X axis label string</param>
+      <param name="labelAxisY">Y axis label string</param>
+      <param name="labelAxisZ">Z axis label string</param>
+      <param name="visible">Visibility status</param>
+      <param name="position">Position </param>
+      <param name="size">Size in pixels</param>
+      <param name="transformation">The symbol transformation</param>
+      <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+    </member>
     <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32,devDept.Geometry.Transformation,System.Boolean)">
-      <summary>Standard constructor.</summary>
+      <summary>Deprecated constructor.</summary>
       <param name="labelColor">Label color</param>
       <param name="arrowColorX">X axis arrow color</param>
       <param name="arrowColorY">Y axis arrow color</param>
@@ -47257,6 +48037,9 @@
       <param name="transformation">The symbol transformation</param>
       <param name="lighting">When false, the UI element is drawn with a flat color.</param>
     </member>
+    <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32,devDept.Geometry.Transformation,System.Boolean)">
+      <summary>Standard constructor.</summary>
+            /// <param name="labelColorName">Label color origin</param><param name="labelColorX">Label color X axis</param><param name="labelColorY">Label color Y axis</param><param name="labelColorZ">Label color Z axis</param><param name="arrowColorX">X axis arrow color</param><param name="arrowColorY">Y axis arrow color</param><param name="arrowColorZ">Z axis arrow color</param><param name="labelOrigin">Origin label string</param><param name="labelAxisX">X axis label string</param><param name="labelAxisY">Y axis label string</param><param name="labelAxisZ">Z axis label string</param><param name="visible">Visibility status</param><param name="position">Position </param><param name="size">Size in pixels</param><param name="transformation">The symbol transformation</param><param name="lighting">When false, the UI element is drawn with a flat color.</param></member>
     <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32,System.Boolean)">
       <summary>Deprecated constructor.</summary>
       <param name="labelFont">Label font</param>
@@ -47273,9 +48056,46 @@
       <param name="size">Size in pixels</param>
       <param name="lighting">When false, the UI element is drawn with a flat color.</param>
     </member>
+    <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32,System.Boolean)">
+      <summary>Deprecated constructor.</summary>
+      <param name="labelFont">Label font</param>
+      <param name="labelColorName">Label color name</param>
+      <param name="labelColorX">Label color X axis</param>
+      <param name="labelColorY">Label color Y axis</param>
+      <param name="labelColorZ">Label color Z axis</param>
+      <param name="arrowColorX">X axis arrow color</param>
+      <param name="arrowColorY">Y axis arrow color</param>
+      <param name="arrowColorZ">Z axis arrow color</param>
+      <param name="labelOrigin">Origin label string</param>
+      <param name="labelAxisX">X axis label string</param>
+      <param name="labelAxisY">Y axis label string</param>
+      <param name="labelAxisZ">Z axis label string</param>
+      <param name="visible">Visibility status</param>
+      <param name="position">Position </param>
+      <param name="size">Size in pixels</param>
+      <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+    </member>
     <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32,System.Boolean)">
-      <summary>Standard constructor.</summary>
+      <summary>Deprecated constructor.</summary>
       <param name="labelColor">Label color</param>
+      <param name="arrowColorX">X axis arrow color</param>
+      <param name="arrowColorY">Y axis arrow color</param>
+      <param name="arrowColorZ">Z axis arrow color</param>
+      <param name="labelOrigin">Origin label string</param>
+      <param name="labelAxisX">X axis label string</param>
+      <param name="labelAxisY">Y axis label string</param>
+      <param name="labelAxisZ">Z axis label string</param>
+      <param name="visible">Visibility status</param>
+      <param name="position">Position </param>
+      <param name="size">Size in pixels</param>
+      <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.CoordinateSystemIcon.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Eyeshot.coordinateSystemPositionType,System.Int32,System.Boolean)">
+      <summary>Standard constructor.</summary>
+      <param name="labelColorName">Label color for Origin</param>
+      <param name="labelColorX">Label color X axis</param>
+      <param name="labelColorY">Label color Y axis</param>
+      <param name="labelColorZ">Label color Z axis</param>
       <param name="arrowColorX">X axis arrow color</param>
       <param name="arrowColorY">Y axis arrow color</param>
       <param name="arrowColorZ">Z axis arrow color</param>
@@ -47341,7 +48161,7 @@
       <param name="visible">Visibility status</param>
     </member>
     <member name="M:devDept.Eyeshot.OriginSymbol.#ctor(System.Int32,devDept.Eyeshot.originSymbolStyleType,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean)">
-      <summary>Standard constructor.</summary>
+      <summary>Deprecated constructor.</summary>
       <param name="ballSize">Size of the sphere in pixels</param>
       <param name="styleMode">Style mode</param>
       <param name="labelColor">Label color</param>
@@ -47371,7 +48191,7 @@
       <param name="transformation">The transformation</param>
     </member>
     <member name="M:devDept.Eyeshot.OriginSymbol.#ctor(System.Int32,devDept.Eyeshot.originSymbolStyleType,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Geometry.Transformation)">
-      <summary>Standard constructor.</summary>
+      <summary>Deprecated constructor.</summary>
       <param name="ballSize">Size of the sphere in pixels</param>
       <param name="styleMode">Style mode</param>
       <param name="labelColor">Label color</param>
@@ -47402,11 +48222,50 @@
       <param name="transformation">The transformation</param>
       <param name="lighting">When false, the UI element is drawn with a flat color.</param>
     </member>
+    <member name="M:devDept.Eyeshot.OriginSymbol.#ctor(System.Int32,devDept.Eyeshot.originSymbolStyleType,System.Drawing.Font,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Geometry.Transformation,System.Boolean)">
+      <summary>Constructor for WinForms designer.</summary>
+      <param name="ballSize">Size of the sphere in pixels</param>
+      <param name="styleMode">Style mode</param>
+      <param name="labelFont">Label font</param>
+      <param name="labelColorName">Label color for Origin</param>
+      <param name="labelColorX">Label color X axis</param>
+      <param name="labelColorY">Label color Y axis</param>
+      <param name="labelColorZ">Label color Z axis</param>
+      <param name="arrowColorX">X axis arrow color</param>
+      <param name="arrowColorY">Y axis arrow color</param>
+      <param name="arrowColorZ">Z axis arrow color</param>
+      <param name="labelOrigin">Origin label string</param>
+      <param name="labelAxisX">X axis label string</param>
+      <param name="labelAxisY">Y axis label string</param>
+      <param name="labelAxisZ">Z axis label string</param>
+      <param name="visible">Visibility status</param>
+      <param name="transformation">The transformation</param>
+      <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+    </member>
     <member name="M:devDept.Eyeshot.OriginSymbol.#ctor(System.Int32,devDept.Eyeshot.originSymbolStyleType,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Geometry.Transformation,System.Boolean)">
-      <summary>Standard constructor.</summary>
+      <summary>Deprecated constructor.</summary>
       <param name="ballSize">Size of the sphere in pixels</param>
       <param name="styleMode">Style mode</param>
       <param name="labelColor">Label color</param>
+      <param name="arrowColorX">X axis arrow color</param>
+      <param name="arrowColorY">Y axis arrow color</param>
+      <param name="arrowColorZ">Z axis arrow color</param>
+      <param name="labelOrigin">Origin label string</param>
+      <param name="labelAxisX">X axis label string</param>
+      <param name="labelAxisY">Y axis label string</param>
+      <param name="labelAxisZ">Z axis label string</param>
+      <param name="visible">Visibility status</param>
+      <param name="transformation">The transformation</param>
+      <param name="lighting">When false, the UI element is drawn with a flat color.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.OriginSymbol.#ctor(System.Int32,devDept.Eyeshot.originSymbolStyleType,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,devDept.Geometry.Transformation,System.Boolean)">
+      <summary>Standard constructor.</summary>
+      <param name="ballSize">Size of the sphere in pixels</param>
+      <param name="styleMode">Style mode</param>
+      <param name="labelColorName">Label color name</param>
+      <param name="labelColorX">Label color X axis</param>
+      <param name="labelColorY">Label color Y axis</param>
+      <param name="labelColorZ">Label color Z axis</param>
       <param name="arrowColorX">X axis arrow color</param>
       <param name="arrowColorY">Y axis arrow color</param>
       <param name="arrowColorZ">Z axis arrow color</param>
@@ -47435,14 +48294,14 @@
       <param name="lighting">When false, the UI element is drawn with a flat color.</param>
     </member>
     <member name="M:devDept.Eyeshot.OriginSymbol.#ctor(System.Int32,System.String,devDept.Geometry.Transformation,System.Boolean)">
-      <summary>Standard constructor for OriginSumbols with <see cref="P:devDept.Eyeshot.OriginSymbol.StyleMode" /> == <see cref="F:devDept.Eyeshot.originSymbolStyleType.CoordinateSystem" />.</summary>
+      <summary>Deprecated constructor for OriginSumbols with <see cref="P:devDept.Eyeshot.OriginSymbol.StyleMode" /> == <see cref="F:devDept.Eyeshot.originSymbolStyleType.CoordinateSystem" />.</summary>
       <param name="ballSize">Size of the sphere in pixels</param>
       <param name="name">Origin label string</param>
       <param name="transformation">The transformation applied to the new OriginSymbol</param>
       <param name="lighting">When false, the UI element is drawn with a flat color.</param>
     </member>
     <member name="M:devDept.Eyeshot.OriginSymbol.#ctor(System.Int32,devDept.Eyeshot.originSymbolStyleType,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
-      <summary>Standard constructor.</summary>
+      <summary>Deprecated constructor.</summary>
       <param name="ballSize">Size of the sphere in pixels</param>
       <param name="styleMode">Style mode</param>
       <param name="labelColor">Label color</param>
@@ -48233,6 +49092,86 @@
             </summary>
       <param name="context">The render context</param>
       <param name="viewport">The viewport</param>
+    </member>
+    <member name="T:devDept.Eyeshot.SimulationTimeLine">
+      <summary>
+            Manufacture simulation timeline.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SimulationTimeLine.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SimulationTimeLine.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Double,System.Boolean,System.Double)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="backGroundColor">The SimulationTimeLine background color</param>
+      <param name="thumbColor">The timeline thumb color</param>
+      <param name="cursorLocationColor">The color used to highlight the cursor location</param>
+      <param name="safeMovementsColor">The SimulationTimeLine color of the movements with no collisions</param>
+      <param name="collisionColor">The SimulationTimeLine collision color</param>
+      <param name="rapidsColor">The SimulationTimeLine rapid movements color</param>
+      <param name="drawScale">The Drawing scale</param>
+      <param name="visible">The Visibility status</param>
+      <param name="thicknessFactor">SimulationTimeLine thickness factor</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SimulationTimeLine.#ctor(devDept.Eyeshot.SimulationTimeLine)">
+      <summary>
+            Copy constructor.
+            </summary>
+      <param name="another">The other SimulationTimeLine object</param>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.ThicknessFactor">
+      <summary>
+            Gets or sets SimulationTimeLine thickness factor (range 0-1).
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.Visible">
+      <summary>
+            Gets or sets the SimulationTimeLine visibility.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.HoveringColor">
+      <summary>
+            Gets or sets the SimulationTimeLine background color.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.BackgroundColor">
+      <summary>
+            Gets or sets the SimulationTimeLine background color.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.RapidColor">
+      <summary>
+            Gets or sets the SimulationTimeLine color for the rapid movements.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.ThumbColor">
+      <summary>
+            Gets or sets the SimulationTimeLine color of the timeline thumb.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.Color">
+      <summary>
+            Gets or sets the SimulationTimeLine color of the movements without collision.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.CollisionColor">
+      <summary>
+            Gets or sets the SimulationTimeLine collision color.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.DrawScale">
+      <summary>
+            Gets or sets the scale of the SimulationTimeLine.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SimulationTimeLine.ViewportIndex">
+      <summary>
+            Gets the index of the viewport on which the SimulationTimeLine is displayed. 
+            </summary>
     </member>
     <member name="T:devDept.Eyeshot.AttributeReference">
       <summary>
@@ -49076,7 +50015,7 @@
       <returns>The number of logical processors</returns>
     </member>
     <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.ReplaceString(System.String,System.String,System.String,System.StringComparison)" -->
-    <member name="M:devDept.Geometry.UtilityEx.GetFont(System.Windows.Media.FontFamily,System.Windows.FontStyle,System.Windows.FontWeight,System.Double)">
+    <member name="M:devDept.Geometry.UtilityEx.GetFont(System.Windows.Media.FontFamily,System.Windows.FontStyle,System.Windows.FontWeight,System.Double,System.Single)">
       <summary>
             Gets a <see cref="T:System.Drawing.Font" /> starting from the commons WPF font values.
             </summary>
@@ -49084,7 +50023,9 @@
       <param name="fontStyle">The <see cref="T:System.Windows.FontStyle" />.</param>
       <param name="fontWeight">The <see cref="T:System.Windows.FontWeight" />.</param>
       <param name="fontSize">The font size.</param>
+      <param name="scalingLevelRatio">The scaling level ratio among displays with different dpi scale factors. Used to get the correct font size when per-monitor DPI is enabled.</param>
       <returns>The new <see cref="T:System.Drawing.Font" />.</returns>
+      <seealso cref="M:devDept.Eyeshot.EnvironmentBase.GetScalingLevelRatio" />
     </member>
     <member name="M:devDept.Geometry.UtilityEx.AllVerticesInScreenPolygon(devDept.Eyeshot.ScreenPolygonParams,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Int32)">
       <summary>
@@ -49600,6 +50541,22 @@
             equal (evaluated using the equality operator '==').
             </returns>
     </member>
+    <member name="T:devDept.Geometry.QuadraticTriangle">
+      <summary>
+            Six noded triangle class definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.QuadraticTriangle.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="v1">Index of the first triangle vertex</param>
+      <param name="v2">Index of the second triangle vertex</param>
+      <param name="v3">Index of the third triangle vertex</param>
+      <param name="v4">Index of the first mid-side vertex</param>
+      <param name="v5">Index of the second mid-side vertex</param>
+      <param name="v6">Index of the third mid-side vertex</param>
+    </member>
     <member name="T:devDept.Geometry.InterPoint">
       <summary>
             Intersection point definition.
@@ -49868,6 +50825,18 @@
     <member name="F:devDept.Serialization.HatchSurrogate.PatternOrigin">
       <summary>
             See <see cref="P:devDept.Eyeshot.Entities.Hatch.PatternOrigin" /></summary>
+    </member>
+    <member name="F:devDept.Serialization.HatchSurrogate.PatternSpacing">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.Hatch.PatternSpacing" /></summary>
+    </member>
+    <member name="F:devDept.Serialization.HatchSurrogate.PatternDouble">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.Hatch.PatternDouble" /></summary>
+    </member>
+    <member name="F:devDept.Serialization.HatchSurrogate.IsUserDefinedPattern">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.Hatch.IsUserDefinedPattern" /></summary>
     </member>
     <member name="M:devDept.Serialization.HatchSurrogate.ConvertToObject">
       <inheritdoc />
@@ -51292,6 +52261,10 @@
             See <see cref="P:devDept.Eyeshot.Entities.Dimension.ToleranceMode" />.
             </summary>
     </member>
+    <member name="F:devDept.Serialization.DimensionSurrogate.ToleranceAlignment">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.Dimension.ToleranceAlignment" /></summary>
+    </member>
     <member name="F:devDept.Serialization.DimensionSurrogate.UpperValue">
       <summary>
             See <see cref="P:devDept.Eyeshot.Entities.Dimension.UpperValue" />.
@@ -51320,11 +52293,6 @@
     <member name="F:devDept.Serialization.DimensionSurrogate.TolerancePrecision">
       <summary>
             See <see cref="P:devDept.Eyeshot.Entities.Dimension.TolerancePrecision" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.DimensionSurrogate.TextToleranceGap">
-      <summary>
-            Obsolete.
             </summary>
     </member>
     <member name="F:devDept.Serialization.DimensionSurrogate.TextColorMethod">
@@ -52014,6 +52982,11 @@
             See <see cref="P:devDept.Eyeshot.Entities.Picture.ClippingBoundary" />.
             </summary>
     </member>
+    <member name="F:devDept.Serialization.PictureSurrogate.FullPath">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.Picture.FullPath" />.
+            </summary>
+    </member>
     <member name="M:devDept.Serialization.PictureSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
@@ -52156,11 +53129,6 @@
     <member name="F:devDept.Serialization.RadialDimSurrogate.CenterMarkSize">
       <summary>
             See <see cref="P:devDept.Eyeshot.Entities.RadialDim.CenterMarkSize" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.RadialDimSurrogate.ShowCenterMark">
-      <summary>
-            Obsolete starting from version 8. 
             </summary>
     </member>
     <member name="F:devDept.Serialization.RadialDimSurrogate.TrimLeader">
@@ -54942,11 +55910,6 @@
             See <see cref="P:devDept.Eyeshot.Sheet.Name" />.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SheetSurrogate.Scale">
-      <summary>
-            Obsolete starting from version 6.
-            </summary>
-    </member>
     <member name="F:devDept.Serialization.SheetSurrogate.Camera">
       <summary>
             See <see cref="P:devDept.Eyeshot.Sheet.Camera" />.
@@ -55019,11 +55982,6 @@
     <member name="F:devDept.Serialization.VectorViewSurrogate.CenterlinesExtensionAmount">
       <summary>
             See <seealso cref="P:devDept.Eyeshot.Entities.VectorView.CenterlinesExtensionAmount" /></summary>
-    </member>
-    <member name="F:devDept.Serialization.VectorViewSurrogate.Simplify">
-      <summary>
-            Obsolete starting from version 8. 
-            </summary>
     </member>
     <member name="M:devDept.Serialization.VectorViewSurrogate.ConvertToObject">
       <inheritdoc />
