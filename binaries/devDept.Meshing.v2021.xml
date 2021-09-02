@@ -1,0 +1,1272 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>devDept.Meshing.v2021</name>
+  </assembly>
+  <members>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.bonus_constraint_rate`2.#ctor(Delaunay_TH4.Delaunay_TH4{`0,`1},System.Double)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.bonus_constraint_rate`2.val(System.Double,System.Double)" -->
+    <!-- Badly formed XML comment ignored for member "F:devDept.Meshing.bonus_constraint_rate`2._bonus" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.bonus_nefs`1.#ctor(System.Double,System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.bonus_nefs`1.val(System.UInt32,System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.bonus_nefs`1.val``1(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.bonus_nefs`1.val(System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.bonus_nefs`1.val``1(devDept.Meshing.dense2D{``0})" -->
+    <!-- Badly formed XML comment ignored for member "T:devDept.Meshing.dense1D`1" -->
+    <member name="M:devDept.Meshing.dense1D`1.#ctor(devDept.Meshing.dense1D{`0})">
+                       Copy constructor (shallow copy).
+            
+                       Shallow copy = share the same data. \n
+                       Data are not copied, only the smart pointer is copied.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.#ctor(devDept.Meshing.dense1D{`0},System.UInt32,System.UInt32)">
+                       Partial copy constructor (shallow copy).
+            
+                       Shallow copy = share the same data. \n
+                       Constructs a view on a vector with a shift of the first element.
+            
+                       \pre The value \p shift + \p size must be less than the underlying vector's size.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.data">
+                    Preallocated memory constructor (shallow copy).
+                    
+                    The user remains responsible for memory management. \n
+                    The vector is not allowed to delete the pointer even in case of destruction or 
+                    reallocation (through reserve() or push_back()).
+                    
+                    \param   n        The number of elements to consider starting from \p data.
+                    \param   data     The data array as a continuous vector. \n
+                                      Must have at least \p n elements. \n
+                                      Can be unaligned on a VEC_ALIGNMENT boundary.
+            @name Iterator access members 
+            Pointer to the first element. Same as begin().
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.begin">
+            STL-compatible begin (pointer to the first element).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.cbegin">
+            STL-compatible cbegin (const pointer to the first element).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.end">
+            STL-compatible end (pointer to the past-the-end element).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.cend">
+            STL-compatible cend (pointer to the past-the-end element).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.CopyFrom(`0)">
+            @name Copy and assignment operators 
+            Scalar Assignment.  
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.CopyFrom(devDept.Meshing.dense1D{`0})">
+            Shallow copy (data are shared).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.shallow_copy(devDept.Meshing.dense1D{`0})">
+            Shallow copy (data are shared).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.copy(devDept.Meshing.dense1D{`0})">
+            Deep copy (data are copied).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.equals(devDept.Meshing.dense1D{`0},devDept.Meshing.dense1D{`0})">
+            @name Equality operators 
+                       Shallow equality.
+                       \return     True when objects are same (i.e. refer to same data).
+        </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.dense1D`1.getAt(System.UInt32)" -->
+    <member name="M:devDept.Meshing.dense1D`1.front">
+                       Returns the front element by value. 
+                       \pre Vector must not be empty.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.back">
+                       Returns the last element by value. 
+                       \pre Vector must not be empty.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.entries">
+            @name Size members 
+            The number of elements in the vector (same as size()).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.size">
+            The number of elements in the vector (same as entries()).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.empty">
+            True when the vector is empty.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.capacity">
+                       Returns the capacity of the vector (always greater than or equal to size()).
+            
+                       Automatic reallocation occurs when size() reaches capacity(). \n
+                       It is then usually increased by a factor of two. \n
+                       \warning    Just like the STL vector, this invalidates the iterators.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.push_back(`0)">
+                       Appends an element. 
+                       
+                       \return  True for success.
+                       \post    The size is increased by one.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.push_back(`0,`0)">
+                       Appends two elements. 
+                       
+                       \return  True for success.
+                       \post    The size is increased by two.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.push_back(`0,`0,`0)">
+                       Appends three elements. 
+                       
+                       \return  True for success.
+                       \post    The size is increased by three.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.push_back(`0,`0,`0,`0)">
+                       Appends four elements. 
+                       
+                       \return  True for success.
+                       \post    The size is increased by four.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.push_back_n(`0,System.UInt32)">
+                       Appends an element n times. 
+                       
+                       \return  True for success.
+                       \post    The size is increased by \p n.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.push_back(devDept.Meshing.dense1D{`0},System.Boolean)">
+                       Appends another vector (hard copy). 
+            
+                       \return     True for success.
+                       \post       The size is increased by x.size().
+                       \warning    The vectors should not overlap (checked in _DEBUG mode).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.pop_back">
+            Removes the last element, if any. 
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.pop_back(System.UInt32)">
+            Removes the last n elements, if any. 
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.reserve(System.UInt32,System.UInt32)">
+                       Manual memory reservation without size change.
+            
+                       Like the STL vector reserve() causes a reallocation manually. \n
+                       The main reason for using reserve() is efficiency. \n
+                       If you know the capacity to which your vector must eventually grow, then it is usually 
+                       more efficient to allocate that memory all at once rather than relying on the automatic 
+                       reallocation scheme. \n
+                       The other reason for using reserve() is that you can control the invalidation of iterators.
+                       reserve() has no effect for a value lesser than the current size.
+            
+                       \return  True for success.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.resize(System.UInt32)">
+                       Changes the size of the vector (uninitialized).
+            
+                       Elements under min(size(),n) are left unchanged. \n
+                       If \p n &gt; size(), new elements between size() and \p n are uninitialized. \n
+                       If \p n &gt; capacity(), a reallocation occurs and iterators are invalid. \n
+            
+                       \note    When the data are not to be kept, it is a good practice to clear the vector before any resizing.
+                       \return  True for success.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.resize(System.UInt32,`0)">
+                       Changes the size of the vector (initialized).
+            
+                       Elements under min(size(),n) are left unchanged. \n
+                       If \p n &gt; size(), new elements between size() and \p n are initialized to \p v. \n
+                       If \p n &gt; capacity(), a reallocation occurs and iterators are invalid. \n
+            
+                       \note    When the data are not to be kept, it is a good practice to clear the vector before any resizing.
+                       \return  True for success.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.clear">
+                       Clears without deallocation. 
+            
+                       The size is set to zero but capacity is left unchanged. \n
+                       No deallocation is performed.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.clear_hard">
+                       Clears with deallocation (if possible). 
+            
+                       The size and the capacity are set to zero. \n
+                       Deallocation is performed (when there is no other vector pointing to the data).
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.sub_vector(System.UInt32,System.UInt32)">
+            **@name Sub-vectors */
+            Returns a view on a portion of the vector.Data are still shared.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.reserved_overlaps(devDept.Meshing.dense1D{`0})">
+            Returns true when a vector overlaps with reserved data.
+        </member>
+    <member name="M:devDept.Meshing.dense1D`1.push_back_overlaps(devDept.Meshing.dense1D{`0})">
+            Returns true when a vector overlaps with reserved data when pushed-back.
+        </member>
+    <member name="T:devDept.Meshing.dense2D`1">
+                   Template matrix, resizable, with ref-counting.
+            
+                   Template type `T` can be a POD (`unsigned`, `double`, `char`...) or a user-defined class
+                   (with visible default constructor, copy constructor, destructor and assignment operator).
+            
+                   Just like dense1D from which it inherits many features, dense2D
+                   uses a "smart pointer" scheme to enable different matrices to share the same data and
+                   to manage proper memory deallocation. \n
+                   Copy constructors and operators do not actually copy the data but copy the _view_ to the data. \n
+                   This is called _shallow_ copy (vs _hard_ copy). \n
+                   When a dense2D is copied to another one, the copy is inexpensive and they both 
+                   share the same data. \n
+                   A change of an element in one matrix is viewed from the other one.
+            
+                   The data are stored contiguously in memory, in a column oriented way. \n
+                   However, there may be a jump between the end of a column and the beginning of the next one
+                   (the jump remains constant between each successive pair of columns). \n
+                   This is because a matrix can view only a group of rows of another matrix. \n
+                   So, the stride between columns (called the _leading_ dimension) can be greater than 
+                   the actual number of rows.
+            
+                   The data are stored contiguously in memory and are column oriented (column-major order).
+                   \verbatim
+                      [0] [3] [6] [9]
+                      [1] [4] [7] [10]
+                      [2] [5] [8] [11]
+                   \endverbatim
+            
+                   \warning    dense2D, as all variable-size containers, are not fully thread-safe 
+                               because some resources (heap memory) can be shared between several threads. \n
+                               Copies, assignments and reads are thread-safe, but not writes!
+            
+                   \note       The data are stored contiguously in memory except when the leading dimension exceeds
+                               the row dimension. In these cases, some extra elements (rows() - ld() elements) are 
+                               present between columns. \n
+                               The stride between two consecutive columns is always equal to the leading 
+                               dimension ld().
+                   \note       dense2D uses a _smart_ pointer with reference counting to manage
+                               memory deallocation.
+            
+                   \tparam     T     Any type with default constructor, copy constructor and assignment operator.
+                   \see        DoubleMat, FloatMat, IntMat, UIntMat, matrix_fixed, dense1D.
+        </member>
+    <member name="T:devDept.Meshing.dense2D`1.segment_type">
+                       A segment_type is a view to a column of a matrix. \n
+                       It is equipped with members such as begin(), end() and size() which make it a candidate
+                       for most of the STL algorithms and cm2::vecscal, cm2::vecvec functions.
+            
+                       A segment_type is also an iterator through the segments (i.e. columns) of a matrix. \n
+                       A segment_type can be incremented and decremented to view the next or the previous segment
+                       in a matrix.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.#ctor">
+                       Default constructor.
+            
+                       Dimensions are null. Matrix is empty.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.#ctor(System.UInt32,System.UInt32)">
+                       Constructor with dimensions.
+            
+                       Elements are uninitialized.
+            
+                       \param   m  The number of rows.
+                       \param   n  The number of columns.
+            
+                       \post    ld() == m, i.e. there is no jump between columns.
+                       \note    In case of allocation error, the size of the matrix is null 
+                                (rows() = 0, cols() = 0, ld() = 0).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.#ctor(System.UInt32,System.UInt32,`0)">
+                       Constructor with a common initializing value.
+            
+                       All elements are initialized to \p x.
+            
+                       \param   m  The number of rows.
+                       \param   n  The number of cols.
+                       \param   x  The initializing value.
+            
+                       \post    ld() == m, i.e. there is no jump between columns.
+                       \note    In case of allocation error, the size of the matrix is null 
+                                (rows() = 0, cols() = 0, ld() = 0).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.#ctor(devDept.Meshing.dense2D{`0})">
+                       Copy constructor (shallow copy).
+            
+                       The matrices share the same data.
+        </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.dense2D`1.#ctor(devDept.Meshing.dense2D{`0},System.UInt32,System.UInt32,System.UInt32,System.UInt32)" -->
+    <member name="M:devDept.Meshing.dense2D`1.CopyFrom(devDept.Meshing.dense2D{`0})">
+            Shallow copy (data are shared).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.shallow_copy(devDept.Meshing.dense2D{`0})">
+            Shallow copy (data are shared).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.copy(devDept.Meshing.dense2D{`0})">
+            Deep copy (data are copied).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.is_valid_col(System.UInt32)">
+            @name Equality operators 
+            @name Columns
+                       The \ref col members return column copies (shallow copies).
+            Returns true if the j-th column can be accessed.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.segments">
+            @name Segment iterators
+                       The segment_iterator and const_segment_iterator can be seen as views
+                       to the columns of the matrix. \n
+                       They are equipped with members such as begin(), end() and size() which make them candidates
+                       for most of the cm2::vecscal and cm2::vecvec template functions.
+            Nbr of segments (columns).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.seg_begin">
+            Iterator to the first segment.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.seg_end">
+            Iterator to the past-the-end segment.
+        </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.dense2D`1.seg(System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.dense2D`1.data_col(System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.dense2D`1.functorMethod(System.UInt32,System.UInt32)" -->
+    <member name="M:devDept.Meshing.dense2D`1.rows">
+            @name Size members 
+            Number of rows.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.cols">
+            Number of columns.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.ld">
+                       Returns the leading dimension.
+            
+                       Leading dimension = stride from one column to the next.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.entries">
+            Returns the number of elements in the matrix.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.empty">
+            True when the matrix is empty.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.cols_capacity">
+                       Returns the column capacity of the matrix (always greater than or equal to `cols()`).
+            
+                       This is the max number of columns, with number of rows constant, 
+                       to which the matrix can grow without performing any reallocation.
+            
+                       If the matrix is empty, this function returns the raw capacity.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.push_back(devDept.Meshing.dense2D{`0})">
+                       Appends another matrix (hard copy). 
+            
+                       \return     True for success.
+                       \post       The number of columns is increased by `A.cols()`.
+                       \pre        If none of the two matrices are empty upon entry, 
+                                   they must have the same number of rows.
+                       \warning    The matrices should not overlap (checked in _DEBUG mode).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.pop_back">
+            Removes the last column (if any).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.pop_back(System.UInt32)">
+            Removes the last columns (if any).
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.reserve(System.UInt32,System.UInt32,System.UInt32)">
+                       Manual memory reservation without dimension change.
+            
+                       The main reason for using reserve() is efficiency: 
+                       if you know the capacity to which your matrix must eventually grow, then it is  
+                       more efficient to allocate that memory all at once rather than resizing it several times. \n
+                       The other reason for using reserve() is that you can control the invalidation of iterators.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.resize(System.UInt32,System.UInt32)">
+                       Changes the dimensions of the matrix (uninitialized).
+            
+                       Elements under min(rows(),m) and min(cols(),n) are left unchanged. \n
+                       If m &gt; rows(), new rows between rows() and \p m are uninitialized. \n
+                       If n &gt; cols(), new columns between cols() and \p n are uninitialized. \n
+                       A reallocation occurs and iterators are invalided when n*ld() &gt; capacity() or m &gt; ld(), 
+            
+                       \return  True for success.
+                       \note    When it is not necessary to keep the data, it is a good practice to clear the matrix before any resizing.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.resize(System.UInt32,System.UInt32,`0)">
+                       Changes the dimensions of the matrix (initialized).
+            
+                       Elements under min(rows(),m) and min(cols(),n) are left unchanged. \n
+                       If m &gt; rows(), new rows between rows() and \p m are initialized to \p v. \n
+                       If n &gt; cols(), new columns between cols() and \p n are initialized to \p v. \n
+                       A reallocation occurs and iterators are invalided when n*ld() &gt; capacity() or m &gt; ld(), 
+            
+                       \return  True for success.
+                       \note    When it is not necessary to keep the data, it is a good practice to clear the matrix before any resizing.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.clear">
+                       Clears without deallocation. 
+            
+                       The dimensions are set to zero. \n
+                       No deallocation is performed.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.clear_hard">
+                       Clears with deallocation. 
+            
+                       The dimensions are set to zero. \n
+                       Deallocation is performed (when there is no other matrix or vector pointing to the data).
+        </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.dense2D`1.sub_matrix(System.UInt32,System.UInt32,System.UInt32,System.UInt32)" -->
+    <member name="M:devDept.Meshing.dense2D`1.as_vector">
+                       Returns the matrix as a vector. 
+                       Data are shared.
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.has_contiguous_storage">
+            @name Miscellaneous 
+            Is the data stored contiguously?
+        </member>
+    <member name="M:devDept.Meshing.dense2D`1.reserved_overlaps(devDept.Meshing.dense2D{`0})">
+            Returns true when a matrix overlaps with reserved data.
+        </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.dynamic_array`1.valid_cols" -->
+    <member name="M:devDept.Meshing.GlobalMembers.convert_TH4``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},System.UInt32,System.UInt32,System.UInt32,devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1})">
+                       Converts TETRA4 elements into higher degree elements (TETRA10 and over).
+            
+                       Nodes are locally numbered as follow:
+                       \verbatim
+                          0                 -&gt; 3                     : Initial summits
+                          4                 -&gt; 4 +   Ne - 1          : New nodes on edge 1-2, equally spaced, from N1 to N2.
+                          4 + Ne            -&gt; 4 + 2*Ne - 1          : New nodes on edge 2-0, equally spaced, from N2 to N0.
+                          4 + 2*Ne          -&gt; 4 + 3*Ne - 1          : New nodes on edge 0-1, equally spaced, from N0 to N1.
+                          4 + 3*Ne          -&gt; 4 + 4*Ne - 1          : New nodes on edge 3-0, equally spaced, from N3 to N0.
+                          4 + 4*Ne          -&gt; 4 + 5*Ne - 1          : New nodes on edge 3-1, equally spaced, from N3 to N1.
+                          4 + 5*Ne          -&gt; 4 + 6*Ne - 1          : New nodes on edge 3-2, equally spaced, from N3 to N2.
+                          4 + 6*Ne          -&gt; 4 + 6*Ne + Nft - 1    : New nodes on face 1-2-3, equally spaced, row by row, left to right.
+                          4 + 6*Ne + Nft    -&gt; 4 + 6*Ne + 2*Nft - 1  : New nodes on face 2-0-3, equally spaced, row by row, left to right.
+                          4 + 6*Ne + 2*Nft  -&gt; 4 + 6*Ne + 3*Nft - 1  : New nodes on face 1-3-0, equally spaced, row by row, left to right.
+                          4 + 6*Ne + 3*Nft  -&gt; 4 + 6*Ne + 4*Nft - 1  : New nodes on face 2-1-0, equally spaced, row by row, left to right.
+                          4 + 6*Ne          -&gt; 4 + 6*Ne + Ni         : New nodes inside, equally spaced, the node close to N0 first,
+                                                                       then the node close to N1, N2, then N3 (for the case Ni = 4).
+                       \endverbatim
+            
+                       \param[in,out] pos            The coordinates matrix. New points are appended.
+                       \param[in,out] connectM       The connectivity matrix of the mesh. \n
+                                                     Input as a 4xNE matrix, and output as a (4 + 6 * \p Ne + \p Ni) x NE matrix.
+                       \param[in]     Ne             The number of nodes to add on each edge (any value &gt;= 0).
+                       \param[in]     Nft            The number of nodes to add on each face (only values among [0, 1, 3]).
+                       \param[in]     Ni             The number of nodes to add inside (only values among [0, 1, 4]).
+                       \param[in]     connectB       Optional triangles boundary connectivity matrix. \n
+                                                     This matrix can be used when some high-degree nodes are already 
+                                                     present in matrix \p pos for some specific faces (usually boundary elements). \n
+                                                     Only high-order nodes for elements not in \p connectB are created.
+                       \param[in]     connectE       Optional edge connectivity matrix. \n
+                                                     This matrix can be used when some high-degree nodes are already 
+                                                     present in matrix \p pos for some specific edges. \n
+                                                     Only high-order nodes for edges not in \p connectE are created.
+            
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre        All the values in the connectivity matrix are smaller than \p pos.cols().
+                       \pre        Upon entry, \p connectM.rows() == 4 or \p connectM is empty.
+                       \pre        \p connectB is empty or \p connectB.rows() == 3 + 3 * \p Ne + \p Nf. 
+                       \pre        \p connectE is empty or \p connectE.rows() == 2 + \p Ne. 
+                       \pre        \p Nft = {0, 1, 3}
+                       \pre        \p Ni = {0, 1, 4}
+            
+                       \note       The new high-order nodes along the edges are always created before the nodes on
+                                   the faces (higher global node ID), themselves before the node inside the elements.
+                       \note       The new nodes are created on the straight line between the initial summits of each edge
+                                   and on the interpolated faces (triangles).
+                       \note       Curved elements are allowed in \p connectB and \p connectE.
+            
+                       \see        meshtools3d::convert_H8, meshtools3d::convert_W6, meshtools3d::convert_P5, 
+                                   meshtools2d::convert_Q4, meshtools2d::convert_T3.
+                       \see        \p fe_geo_page for the definition of the local nodes.
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.convert_TH4``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},System.UInt32,System.UInt32,System.UInt32)">
+                       Converts TETRA4 elements into higher degree elements (TETRA10 and over).
+            
+                       Same as above without the \p connectB and \p connectE parameters.
+            
+                       \param[in,out] pos            The coordinates matrix. New points are appended.
+                       \param[in,out] connectM       The connectivity matrix of the mesh. \n
+                                                     Input as a 4xNE matrix, and output as a (4 + 6 * \p Ne + \p Ni) x NE matrix.
+                       \param[in]     Ne             The number of nodes to add on each edge (any value &gt;= 0).
+                       \param[in]     Nft            The number of nodes to add on each face (only values among [0, 1, 3]).
+                       \param[in]     Ni             The number of nodes to add inside (only values among [0, 1, 4]).
+            
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre        All the values in the connectivity matrix are smaller than \p pos.cols().
+                       \pre        Upon entry, \p connectM.rows() == 4 or \p connectM is empty.
+                       \pre        \p Nft = {0, 1, 3}
+                       \pre        \p Ni = {0, 1, 4}
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.convert_mixed``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+                       Converts mixed 3-D elements into higher degree elements.
+            
+                       Same as above without the \p connectBQ, \p connectBT and \p connectE parameters.
+            
+                       \param[in,out] pos            The coordinates matrix. New points are appended.
+                       \param[in,out] connectH8      The connectivity matrix of the hex mesh. \n
+                                                     Input as a 8xNH matrix, and output as a (8 + 12 * \p Ne + 6 * \p Nfq + \p Nhi) x NH matrix.
+                       \param[in,out] connectW6      The connectivity matrix of the wedge mesh. \n
+                                                     Input as a 6xNW matrix, and output as a (6 + 9 * \p Ne + 3 * \p Nfq + 2 * \p Nft + \p Nwi) x NW matrix.
+                       \param[in,out] connectP5      The connectivity matrix of the pyramid mesh. \n
+                                                     Input as a 5xNP matrix, and output as a (5 + 8 * \p Ne + \p Nfq + 4 * \p Nft + \p Npi) x NP matrix.
+                       \param[in,out] connectTH4     The connectivity matrix of the tet mesh. \n
+                                                     Input as a 4xNT matrix, and output as a (4 + 6 * \p Ne + 4 * \p Nft + \p Nti) x NT matrix.
+                       \param[in]     Ne             The number of nodes to add on each edge (any value &gt;= 0).
+                       \param[in]     Nfq            The number of nodes to add on each quadrangle (any square value).
+                       \param[in]     Nft            The number of nodes to add on each triangle (only values among [0, 1, 3]).
+                       \param[in]     Nhi            The number of nodes to add inside the hexes (any cubic value).
+                       \param[in]     Nwi            The number of nodes to add inside the wedges (only values among [0, 1]).
+                       \param[in]     Npi            The number of nodes to add inside the pyramids (any value &gt;= 0).
+                       \param[in]     Nti            The number of nodes to add inside the tets (only values among [0, 1, 4]).
+            
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre        All the values in the connectivity matrices are smaller than \p pos.cols().
+                       \pre        \p connectH8.rows() == 8 or \p connectH8 is empty.
+                       \pre        \p connectW6.rows() == 6 or \p connectW6 is empty.
+                       \pre        \p connectP5.rows() == 5 or \p connectP5 is empty.
+                       \pre        \p connectTH4.rows() == 4 or \p connectTH4 is empty.
+                       \pre        \p Nfq = k * k, for any k &gt;= 0
+                       \pre        \p Nft = {0, 1, 3}
+                       \pre        \p Nhi = k * k * k, for any k &gt;= 0
+                       \pre        \p Nwi = {0, 1}
+                       \pre        \p Nti = {0, 1, 4}
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.extrude_translate``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.vector_fixed{``0},System.UInt32,devDept.Meshing.dense2D{``1})">
+                       Extrudes (sweeps) with translation a 2-D mesh into a structured 3-D mesh.
+            
+                       Extruding a 2-D mesh with N0 elements into 3-D mesh will produce a mesh with N0*N1 elements. 
+                       Each layer will have a side length equal to ||T|| / N1.
+            
+                       \param[in,out] pos            The coordinates matrix. New points are appended.
+                       \param[in]     connect2D      The connectivity matrix of the 2-D mesh (N0 elements). \n
+                                                     This mesh can be a all-triangle mesh (3xN0), a pure quadrangle mesh (4xN0)
+                                                     or a mixed mesh (4xN0 with some 4-th nodes equal to CM2_NONE).
+                       \param[in]     T              The total translation vector.
+                       \param[in]     N1             The number of layers.
+                       \param[in,out] connect3D      The connectivity of the output mesh (WEDGE6 and/or HEXA8). \n
+                                                     N0*N1 new columns are appended. \n
+                                                     If \p connect2D is a all-triangle mesh, \p connect3D will have
+                                                     6 rows upon exit (pure wedge mesh). \n
+                                                     If \p connect2D is a all-quad mesh or a mixed mesh, \p connect3D will have
+                                                     8 rows upon exit (pure hex or mixed wedge/hex mesh).
+            
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre           \p pos.rows() == 3 (i.e. dim = 3).
+                       \pre           \p connect2D.rows() == 3 or 4 or \p connect2D is empty.
+                       \pre           \p connect3D.rows() == 6 or 8 or \p connect3D is empty.
+            
+                       \warning       This function does not check the validity of the resulting 3-D elements.
+                       \warning       To get 3-D elements in \p connect3D oriented as expected by the CM2 FEM package, 
+                                      the angle between the normals to the \p connect2D mesh and vector \p T must be in ]-pi/2 ; +pi/2[. \n
+                                      Otherwise, the jacobians of the solid elements will be negative.
+                       \note          A null translation vector causes the elements to be degenerated (flat elements).
+            
+                       \see           extrude_rotate, extrude_translate_T3, extrude_translate_Q4.
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.extrude_translate``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.vector_fixed{``0},System.Double,System.Double,System.Boolean,devDept.Meshing.dense2D{``1})">
+                       Extrudes (sweeps) with translation a 2-D mesh into a structured 3-D mesh, with specific sizes.
+            
+                       The nodes are placed so that the edge lengths adjust as well as possible to the target size
+                       values given at the extremities (i.e. \p h0 and \p h1).
+            
+                       \param[in,out] pos            The coordinates matrix. New points are appended.
+                       \param[in]     connect2D      The connectivity matrix of the 2-D mesh (N0 elements). \n
+                                                     This mesh can be a all-triangle mesh (3xN0), a pure quadrangle mesh (4xN0)
+                                                     or a mixed mesh (4xN0 with some 4-th nodes equal to CM2_NONE).
+                       \param[in]     T              The total translation vector.
+                       \param[in]     h0             The "height" of the layer near the base 2D mesh (\p connect2D).
+                       \param[in]     h1             The "height" of the layer near the top 2D mesh (\p connect2D).
+                       \param[in]     force_even     Flag to force the number of edges along the translation vector to be even.
+                       \param[in,out] connect3D      The connectivity of the output mesh (WEDGE6 and/or HEXA8).  \n
+                                                     If \p connect2D is a all-triangle mesh, \p connect3D will have
+                                                     6 rows upon exit (pure wedge mesh). \n
+                                                     If \p connect2D is a all-quad mesh or a mixed mesh, \p connect3D will have
+                                                     8 rows upon exit (pure hex or mixed wedge/hex mesh).
+            
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre           \p pos.rows() == 3 (i.e. dim = 3).
+                       \pre           \p connect2D.rows() == 3 or 4 or \p connect2D is empty.
+                       \pre           \p connect3D.rows() == 6 or 8 or \p connect3D is empty.
+            
+                       \warning       This function does not check the validity of the resulting 3-D elements.
+                       \warning       To get 3-D elements in \p connect3D oriented as expected by the CM2 FEM package, 
+                                      the angle between the normals to the \p connect2D mesh and vector \p T must be in ]-pi/2 ; +pi/2[. \n
+                                      Otherwise, the jacobians of the solid elements will be negative.
+                       \note          A null translation vector causes the elements to be degenerated (flat elements).
+            
+                       \see           extrude_rotate, extrude_translate_T3, extrude_translate_Q4.
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.extrude_spiral``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.vector_fixed{``0},devDept.Meshing.vector_fixed{``0},devDept.Meshing.vector_fixed{``0},System.UInt32,devDept.Meshing.dense2D{``1})">
+                       Extrudes (sweeps) with rotation and translation a 2-D mesh into a structured 3-D mesh.
+            
+                       Extruding a 2-D mesh with N0 elements into 3-D mesh will produce a mesh with N0*N1 elements. 
+            
+                       \param[in,out] pos            The coordinates matrix. New points are appended.
+                       \param[in]     connect2D      The connectivity matrix of the 2-D mesh (N0 elements). \n
+                                                     This mesh can be a all-triangle mesh (3xN0), a pure quadrangle mesh (4xN0)
+                                                     or a mixed mesh (4xN0 with some 4-th nodes equal to CM2_NONE).
+                       \param[in]     C              The centre of the rotation.
+                       \param[in]     R              The total rotation vector. The norm is the angular value (radians unit).
+                       \param[in]     T              The total translation vector.
+                       \param[in]     N1             The number of layers.
+                       \param[in,out] connect3D      The connectivity of the output mesh (WEDGE6 and/or HEXA8). \n
+                                                     N0*N1 new columns are appended. \n
+                                                     If \p connect2D is a all-triangle mesh, \p connect3D will have
+                                                     6 rows upon exit (pure wedge mesh). \n
+                                                     If \p connect2D is a all-quad mesh or a mixed mesh, \p connect3D will have
+                                                     8 rows upon exit (pure hex or mixed wedge/hex mesh).
+            
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre           \p pos.rows() == 3 (i.e. dim = 3).
+                       \pre           \p connect2D.rows() == 3 or 4 or \p connect2D is empty.
+                       \pre           \p connect3D.rows() == 6 or 8 or \p connect3D is empty.
+            
+                       \warning       This function does not check the validity of the resulting 3-D elements.
+                       \see           extrude_translate, extrude_rotate, extrude_rotate_T3, extrude_rotate_Q4.
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.extrude_spiral``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.vector_fixed{``0},devDept.Meshing.vector_fixed{``0},devDept.Meshing.vector_fixed{``0},System.Double,System.Double,System.Boolean,devDept.Meshing.dense2D{``1})">
+                       Extrudes (sweeps) with rotation a 2-D mesh into a structured 3-D mesh, with specific sizes.
+            
+                       The nodes are placed so that the edge lengths adjust as well as possible to the target size
+                       values given at the extremities (i.e. \p h0 and \p h1).
+            
+                       \param[in,out] pos            The coordinates matrix. New points are appended.
+                       \param[in]     connect2D      The connectivity matrix of the 2-D mesh (N0 elements). \n
+                                                     This mesh can be a all-triangle mesh (3xN0), a pure quadrangle mesh (4xN0)
+                                                     or a mixed mesh (4xN0 with some 4-th nodes equal to CM2_NONE).
+                       \param[in]     C              The centre of the rotation.
+                       \param[in]     R              The rotation vector. The norm is the angular value (radians unit).
+                       \param[in]     T              The total translation vector.
+                       \param[in]     h0             The "height" of the layer near the base 2D mesh (along the \p T vector only).
+                       \param[in]     h1             The "height" of the layer near the top 2D mesh (along the \p T vector only).
+                       \param[in]     force_even     Flag to force the number of edges along the translation vector to be even.
+                       \param[in,out] connect3D      The connectivity of the output mesh (WEDGE6 and/or HEXA8). \n
+                                                     If \p connect2D is a all-triangle mesh, \p connect3D will have
+                                                     6 rows upon exit (pure wedge mesh). \n
+                                                     If \p connect2D is a all-quad mesh or a mixed mesh, \p connect3D will have
+                                                     8 rows upon exit (pure hex or mixed wedge/hex mesh).
+            
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre           \p pos.rows() == 3 (i.e. dim = 3).
+                       \pre           \p connect2D.rows() == 3 or 4 or \p connect2D is empty.
+                       \pre           \p connect3D.rows() == 6 or 8 or \p connect3D is empty.
+            
+                       \warning       This function does not check the validity of the resulting 3-D elements.
+                       \see           extrude_translate, extrude_rotate, extrude_rotate_T3, extrude_rotate_Q4.
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.interpolate_metrics``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense1D{``1},devDept.Meshing.dense1D{``0},System.Boolean)">
+                       Interpolates a field of isotropic metrics defined on a tetrahedral mesh.
+            
+                       \param[in]     pos            The 3-D coordinates matrix (3xNODS). 
+                       \param[in]     connectTH4     The connectivity matrix of the tetrahedral mesh (4xNEFS).
+                       \param[in]     neighbors      The neighbors matrix (4xNEFS).
+                                                     Can be computed by the meshtools::get_neighbors function.
+                       \param[in]     ancestors      The ancestors vector. For each node referenced in \p connectTH4,
+                                                     the vector gives one tetrahedron connected to it.
+                                                     For nodes not in \p connectTH4, the ancestor should be `CM2_NONE` (i.e. `unsigned(-1)`).
+                                                     Can be computed by the meshtools::get_ancestors function.
+                       \param[in,out] metrics        The isotropic metrics.
+                       \param[in]     invalid_metrics_only    Flag to recompute only the invalid metrics,
+                                                     and leave the valid ones (i.e. strictly positive) unchanged.
+            
+                       \return        Error code. Returns 0 when successful.
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre        pos.rows() == 3.
+                       \pre        connectTH4.rows() == 4 (i.e. tetrahedral mesh).
+                       \pre        metrics.size() == pos.cols().
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.interpolate_metrics``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense1D{``1},devDept.Meshing.dense1D{``0},devDept.Meshing.dense1D{``1},System.Boolean)">
+                       Interpolates a field of isotropic metrics defined on a tetrahedral mesh
+            
+                       The interpolated metrics are computed on a specific set of nodes.
+            
+                       \param[in]     pos            The 3-D coordinates matrix (3xNODS). 
+                       \param[in]     connectTH4     The connectivity matrix of the tetrahedral mesh (4xNEFS).
+                       \param[in]     neighbors      The neighbors matrix (4xNEFS).
+                                                     Can be computed by the meshtools::get_neighbors function.
+                       \param[in]     ancestors      The ancestors vector. For each node referenced in \p connectTH4,
+                                                     the vector gives one tetrahedron connected to it.
+                                                     For nodes not in \p connectTH4, the ancestor should be `CM2_NONE` (i.e. `unsigned(-1)`).
+                                                     Can be computed by the meshtools::get_ancestors function.
+                       \param[in,out] metrics        The isotropic metrics.
+                       \param[in]     nodes          The node IDs for which the metrics must be computed.
+                                                     Metrics for nodes of the mesh are not recomputed.
+                       \param[in]     invalid_metrics_only    Flag to recompute only the invalid metrics,
+                                                     and leave the valid ones (i.e. strictly positive) unchanged.
+            
+                       \return        Error code. Returns 0 when successful.
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre        pos.rows() == 3.
+                       \pre        connectTH4.rows() == 4 (i.e. tetrahedral mesh).
+                       \pre        metrics.size() == pos.cols().
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.interpolate_metrics``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense1D{``1},devDept.Meshing.dense2D{``0},System.Boolean)">
+                       Interpolates a field of 3-D anisotropic metrics defined on a tetrahedral mesh.
+            
+                       \param[in]     pos            The 3-D coordinates matrix (3xNODS). 
+                       \param[in]     connectTH4     The connectivity matrix of the tetrahedral mesh (4xNEFS).
+                       \param[in]     neighbors      The neighbors matrix (4xNEFS).
+                                                     Can be computed by the meshtools::get_neighbors function.
+                       \param[in]     ancestors      The ancestors vector. For each node referenced in \p connectTH4,
+                                                     the vector gives one tetrahedron connected to it.
+                                                     For nodes not in \p connectTH4, the ancestor should be `CM2_NONE` (i.e. `unsigned(-1)`).
+                                                     Can be computed by the meshtools::get_ancestors function.
+                       \param[in,out] metrics        The 3-D anisotropic metrics (6xNODS).
+                       \param[in]     invalid_metrics_only    Flag to recompute only the invalid metrics,
+                                                     and leave the valid ones (i.e. definite positive) unchanged.
+            
+                       \return        Error code. Returns 0 when successful.
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre        pos.rows() == 3.
+                       \pre        connectTH4.rows() == 4 (i.e. tetrahedral mesh).
+                       \pre        metrics.rows() == 6.
+                       \pre        metrics.cols() == pos.cols().
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.interpolate_metrics``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense1D{``1},devDept.Meshing.dense2D{``0},devDept.Meshing.dense1D{``1},System.Boolean)">
+                       Interpolates a field of 3-D anisotropic metrics defined on a tetrahedral mesh.
+                       The interpolated metrics are computed on a specific set of nodes.
+            
+                       \param[in]     pos            The 3-D coordinates matrix (3xNODS). 
+                       \param[in]     connectTH4     The connectivity matrix of the tetrahedral mesh (4xNEFS).
+                       \param[in]     neighbors      The neighbors matrix (4xNEFS).
+                                                     Can be computed by the meshtools::get_neighbors function.
+                       \param[in]     ancestors      The ancestors vector. For each node referenced in \p connectTH4,
+                                                     the vector gives one tetrahedron connected to it.
+                                                     For nodes not in \p connectTH4, the ancestor should be `CM2_NONE` (i.e. `unsigned(-1)`).
+                                                     Can be computed by the meshtools::get_ancestors function.
+                       \param[in,out] metrics        The 3-D anisotropic metrics (6xNODS).
+                       \param[in]     nodes          The node IDs for which the metrics must be computed.
+                                                     Metrics for nodes of the mesh are not recomputed.
+                       \param[in]     invalid_metrics_only    Flag to recompute only the invalid metrics,
+                                                     and leave the valid ones (i.e. definite positive) unchanged.
+            
+                       \return        Error code. Returns 0 when successful.
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre        pos.rows() == 3.
+                       \pre        connectTH4.rows() == 4 (i.e. tetrahedral mesh).
+                       \pre        metrics.rows() == 6.
+                       \pre        metrics.cols() == pos.cols().
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.flip_TH4``1(devDept.Meshing.dense2D{``0})">
+                       Changes the orientation of tetrahedrons (TETRA4).
+                    
+                       Swaps the local nodes #0 and #1 of each element.
+                    
+                       Applied twice does not change anything.
+                    
+                       \param[in]     connectM        The connectivity matrix.
+                    
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+                    
+                       \pre           \p connect.rows() == 4, or \p connect is empty.
+                       \see           \ref fe_geo_page for the definition of the local nodes.
+        </member>
+    <member name="M:devDept.Meshing.GlobalMembers.convert_mixed``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1},devDept.Meshing.dense2D{``1})">
+                       Converts mixed 3-D elements into higher degree elements.
+            
+                       Nodes are locally numbered as in the convert_TH4, convert_P5, convert_W6 and convert_H8 functions.
+            
+                       Using this function avoid node duplicates along the boundaries between elements
+                       (as would do two separate calls to convert_TH4, convert_P5, convert_W6 and convert_H8).
+            
+                       \param[in,out] pos            The coordinates matrix. New points are appended.
+                       \param[in,out] connectH8      The connectivity matrix of the hex mesh. \n
+                                                     Input as a 8xNH matrix, and output as a (8 + 12 * \p Ne + 6 * \p Nfq+ \p Nhi) x NH matrix.
+                       \param[in,out] connectW6      The connectivity matrix of the wedge mesh. \n
+                                                     Input as a 6xNW matrix, and output as a (6 + 9 * \p Ne + 3 * \p Nfq + 2 * \p Nft + \p Nwi) x NW matrix.
+                       \param[in,out] connectP5      The connectivity matrix of the pyramid mesh. \n
+                                                     Input as a 5xNP matrix, and output as a (5 + 8 * \p Ne + \p Nfq + 4 * \p Nft + \p Npi) x NP matrix.
+                       \param[in,out] connectTH4     The connectivity matrix of the tet mesh. \n
+                                                     Input as a 4xNT matrix, and output as a (4 + 6 * \p Ne + 4 * \p Nft + \p Nti) x NT matrix.
+                       \param[in]     Ne             The number of nodes to add on each edge (any value &gt;= 0).
+                       \param[in]     Nfq            The number of nodes to add on each quadrangle (any square value).
+                       \param[in]     Nft            The number of nodes to add on each triangle (only values among [0, 1, 3]).
+                       \param[in]     Nhi            The number of nodes to add inside the hexes (any cubic value).
+                       \param[in]     Nwi            The number of nodes to add inside the wedges (only values among [0, 1]).
+                       \param[in]     Npi            The number of nodes to add inside the pyramids (any value &gt;= 0).
+                       \param[in]     Nti            The number of nodes to add inside the tets (only values among [0, 1, 4]).
+                       \param[in]     connectBQ      Optional quadrangles boundary connectivity matrix. \n
+                                                     This matrix can be used when some high-degree nodes are already 
+                                                     present in matrix \p pos for some specific elements (usually boundary elements).
+                       \param[in]     connectBT      Optional triangles boundary connectivity matrix. \n
+                                                     This matrix can be used when some high-degree nodes are already 
+                                                     present in matrix \p pos for some specific elements (usually boundary elements). \n
+                                                     Only high-order nodes for elements not in \p connectBT nor in \p connectBQ are created.
+                       \param[in]     connectE       Optional edge connectivity matrix. \n
+                                                     This matrix can be used when some high-degree nodes are already 
+                                                     present in matrix \p pos for some specific edges. \n
+                                                     Only high-order nodes for edges not in \p connectE are created.
+            
+                       \return        Error code. Returns 0 when successful. \n
+                                      Returned value = -k =&gt; the k-th argument had an illegal value.
+            
+                       \pre        All the values in the connectivity matrices are smaller than \p pos.cols().
+                       \pre        \p connectH8.rows() == 8 or \p connectH8 is empty.
+                       \pre        \p connectW6.rows() == 6 or \p connectW6 is empty.
+                       \pre        \p connectP5.rows() == 5 or \p connectP5 is empty.
+                       \pre        \p connectTH4.rows() == 4 or \p connectTH4 is empty.
+                       \pre        \p Nfq = k * k, for any k &gt;= 0
+                       \pre        \p Nft = {0, 1, 3}
+                       \pre        \p Nhi = k * k * k, for any k &gt;= 0
+                       \pre        \p Nwi = {0, 1}
+                       \pre        \p Nti = {0, 1, 4}
+                       \pre        \p connectBQ is empty or \p connectBQ.rows() == 4 + 4 * \p Ne + \p Nfq. 
+                       \pre        \p connectBT is empty or \p connectBT.rows() == 3 + 3 * \p Ne + \p Nft. 
+                       \pre        \p connectE is empty or \p connectE.rows() == 2 + \p Ne. 
+            
+                       \note       The new high-order nodes along the edges are always created before the nodes on
+                                   the faces (higher global node ID), themselves before the node inside the elements.
+                       \note       The new nodes are created on the straight line between the initial summits of each edge
+                                   and on the interpolated faces (quadrangles).
+                       \note       Curved elements are allowed in \p connectBQ, \p connectBT and \p connectE.
+            
+                       \see        meshtools3d::convert_W6, meshtools3d::convert_P5, meshtools3d::convert_TH4, 
+                                   meshtools2d::convert_Q4, meshtools2d::convert_T3.
+                       \see        \ref fe_geo_page for the definition of the local nodes.
+        </member>
+    <member name="T:devDept.Meshing.matrix_fixed`1">
+                   Template matrix with compile-time fixed size.
+            
+                   Template type `T` can be a POD (`unsigned`, `double`, `char`...) or a user-defined class
+                   (with visible default constructor, copy constructor, destructor and assignment operator).
+            
+                   This class is simpler and more efficient than dense2D (no smart pointer overhead)
+                   but the sizes must be known at compile time and cannot be changed. \n
+                   Another big difference with dense2D concerns the copy constructors and operators. \n
+                   The copies here are _hard_ copies, not _shallow_ copies.
+            
+                   The data are stored contiguously in memory and are column oriented (column-major order).
+                   \verbatim
+                      [0] [3] [6] [9]
+                      [1] [4] [7] [10]
+                      [2] [5] [8] [11]
+                   \endverbatim
+            
+                   \tparam     T     Any type with default constructor, copy constructor, equal operator and assignment operator.
+                   \tparam     M     The number of rows of the matrix (fixed unsigned value).
+                   \tparam     N     The number of columns of the matrix (fixed unsigned value).
+                   \see        dense2D, vector_fixed.
+        </member>
+    <member name="T:devDept.Meshing.matrix_fixed`1.segment_type">
+                       A segment_type is a view to a column of a matrix. \n
+                       It is equipped with members such as begin(), end() and size() which make it a candidate
+                       for most of the STL algorithms and cm2::vecscal, cm2::vecvec functions.
+            
+                       A segment_type is also an iterator through the segments (i.e. columns) of a matrix. \n
+                       A segment_type can be incremented and decremented to view the next or the previous segment
+                       in a matrix.
+        </member>
+    <member name="M:devDept.Meshing.matrix_fixed`1.#ctor">
+                       Default constructor.
+            
+                       Elements are uninitialized.
+        </member>
+    <member name="M:devDept.Meshing.matrix_fixed`1.#ctor(System.UInt32,System.UInt32)">
+                       Constructor without any initializing value.
+            
+                       Elements are uninitialized.
+            
+                       \pre  rows == ROWS
+                       \pre  cols == COLS
+        </member>
+    <member name="M:devDept.Meshing.matrix_fixed`1.#ctor(`0,System.UInt32,System.UInt32)">
+                       Constructor from pre-allocated memory (deep copy).
+            
+                       N * M elements starting from pointer \p d are copied to the vector.
+            
+                       \pre  The N * M elements from pointer \p d must be valid.
+        </member>
+    <member name="M:devDept.Meshing.matrix_fixed`1.CopyFrom(devDept.Meshing.matrix_fixed{`0})">
+            @name Operators 
+            Copy operator (copy data).
+        </member>
+    <member name="M:devDept.Meshing.matrix_fixed`1.rows">
+            @name Size members 
+            Number of rows (constant static value = M).
+        </member>
+    <member name="M:devDept.Meshing.matrix_fixed`1.cols">
+            Number of columns (constant static value = N).
+        </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.matrix_fixed`1.seg(System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.matrix_fixed`1.data_col(System.UInt32)" -->
+    <member name="M:devDept.Meshing.matrix_fixed`1.functorMethod(System.UInt32,System.UInt32)">
+            **
+        </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.vecscal.GlobalMembersvecscal.max_index``1(devDept.Meshing.vector_fixed{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.vecscal.GlobalMembersvecscal.min_index``1(devDept.Meshing.dense1D{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.vecscal.GlobalMembersvecscal.mean``1(devDept.Meshing.dense1D{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.vecscal.GlobalMembersvecscal.inc_range_n``1(System.UInt32,devDept.Meshing.dense1D{``0},System.UInt32,System.Tuple{``0,``0}@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.vecscal.GlobalMembersvecscal.inc_range``1(devDept.Meshing.vector_fixed{``0},System.Tuple{``0,``0}@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.vecscal.GlobalMembersvecscal.range``1(devDept.Meshing.dense1D{``0})" -->
+    <member name="T:devDept.Meshing.vector_fixed`1">
+                   Template vector with compile-time fixed size.
+            
+                   Template type `T` can be a POD (`unsigned`, `double`, `char`...) or a user-defined class
+                   (with visible default constructor, copy constructor, destructor and assignment operator).
+            
+                   This class is simpler and more efficient than dense1D (no smart pointer overhead)
+                   but the size must be known at compile time and cannot be changed. \n
+                   Another major difference with dense1D concerns the copy constructors and operators. \n
+                   The copies here are _hard_ copies, not _shallow_ copies.
+            
+                   \tparam     T     Any type with default constructor, copy constructor, equal operator and assignment operator.
+                   \tparam     N     The size of the vector (fixed unsigned value).
+                   \note       Similar to STL `std::array` containers (STL C++ 11).
+                   \see        dense1D, matrix_fixed, symmetric_fixed.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.#ctor">
+                        Default constructor.
+                        Elements are uninitialized.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.initialize(`0)">
+                       Constructor with a common initializing value.
+                       All the `N` elements are initialized to \p v.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.#ctor(`0,`0)">
+                       Constructor with 2 initializing values.
+                       Range check performed in DEBUG mode only.
+            
+                       \pre N = 2.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.#ctor(`0,`0,`0)">
+                       Constructor with 3 initializing values.
+                       Range check performed in DEBUG mode only.
+            
+                       \pre N = 3.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.#ctor(`0,`0,`0,`0)">
+                       Constructor with 4 initializing values.
+                       Range check performed in DEBUG mode only.
+            
+                       \pre N = 4.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.#ctor(`0,`0,`0,`0,`0)">
+                       Constructor with 5 initializing values.
+                       Range check performed in DEBUG mode only.
+            
+                       \pre N = 5.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.#ctor(`0,`0,`0,`0,`0,`0)">
+                       Constructor with 6 initializing values.
+                       Range check performed in DEBUG mode only.
+            
+                       \pre N = 6.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.#ctor(System.UInt32,devDept.Meshing.vector_fixed{`0}@)">
+                       Copy constructor. Hard copy.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.#ctor(`0)">
+                       Constructor from pre-allocated memory (deep copy).
+            
+                       \p N elements starting from pointer \p p are copied to the vector.
+            
+                       \pre  The N elements from \p p to \p p+N-1 must be valid.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.end">
+            STL-compatible end. Pointer to the past-the-end element.
+        </member>
+    <!-- Badly formed XML comment ignored for member "P:devDept.Meshing.vector_fixed`1.Item(System.UInt32)" -->
+    <member name="M:devDept.Meshing.vector_fixed`1.front">
+            Returns the front element. 
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.back">
+            Returns the last element. 
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.CopyFrom(`0)">
+            Scalar assignment.
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.CopyFrom(devDept.Meshing.vector_fixed{`0})">
+            Copy operator (copy data).
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.entries">
+            @name Size members 
+                       The number of elements stored in the vector (same as size).
+                       This is a constant static value (= N).
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.size">
+                       The number of elements in the vector.
+                       This is a constant static value (= N).
+        </member>
+    <member name="M:devDept.Meshing.vector_fixed`1.empty">
+            True when the vector is empty.
+        </member>
+    <member name="T:devDept.Meshing.vector_num`1">
+                   STL-style vector class modified for high performance. 
+            
+                   Internal use only.
+            
+                   \tparam     T     Any type with default constructor, copy constructor and assignment operator.
+            
+                   \warning    VEC_ALIGNMENT should be a power of 2. \n
+                               The actual alignment is `max(VEC_ALIGNMENT, alignof(T))`
+                               (i.e. at least aligned on `alignof(T)` boundaries).
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.#ctor">
+            Default constructor.
+        </member>
+    <member name="P:devDept.Meshing.vector_num`1.Item(System.UInt32)">
+                       Preallocated memory constructor.
+            
+                       The user remains responsible for memory management. \n
+                       The vector is not allowed to delete the pointer even in case of destruction or 
+                       reallocation (through \ref reserve or \ref push_back).
+            
+                       \param   n        The number of elements to consider starting from \p data.
+                       \param   data     The data array as a continuous vector.
+                                         Must have at least n elements.
+                                         Needs not to be aligned on a VEC_ALIGNMENT boundary.
+            @name Element Access Methods 
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.capacity">
+            Capacity.
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.size">
+            Size.
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.overlaps(System.UInt32,System.UInt32)">
+            Returns true when data overlap.
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.overlaps(System.UInt32,System.UInt32,System.UInt32)">
+            Returns true when data[i..i+sz( overlaps with [p..p+sz(.
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.reserve(System.UInt32,System.UInt32,System.UInt32)">
+                       Reserve memory.
+            
+                       \return     The actual size of the array (greater or equal to the requested value).
+                       \warning    A returned value lesser than the requested size indicates a memory allocation error.
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.assign(System.UInt32,`0)">
+            Assign a single val.
+            
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.assign(System.UInt32,`0,`0)">
+            Assign two vals.
+            
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.assign(System.UInt32,`0,`0,`0)">
+            Assign three vals.
+            
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.assign(System.UInt32,`0,`0,`0,`0)">
+            Assign four vals.
+            
+        </member>
+    <member name="M:devDept.Meshing.vector_num`1.__grow(System.UInt32,System.UInt32,System.UInt32)">
+            Effective size (starting from _p).
+        </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools1d.GlobalMembers.extrude_translate``2(devDept.Meshing.dense2D{``0},System.UInt32,devDept.Meshing.vector_fixed{``0},System.UInt32,devDept.Meshing.dense1D{``1})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools1d.GlobalMembers.mesh_line``2(devDept.Meshing.dense2D{``0},devDept.Meshing.dense1D{``1},devDept.Meshing.dense1D{``0},devDept.Meshing.dense1D{``0},System.Boolean,System.UInt32,System.UInt32,System.Double,System.Double,devDept.Meshing.dense1D{``1},devDept.Meshing.dense1D{``0},devDept.Meshing.dense1D{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools1d.GlobalMembers.mesh_straight``2(devDept.Meshing.dense2D{``0},System.UInt32,System.UInt32,System.UInt32,devDept.Meshing.dense1D{``1})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools1d.GlobalMembers.mesh_straight``2(devDept.Meshing.dense2D{``0},System.UInt32,System.UInt32,System.Double,System.Double,System.Boolean,devDept.Meshing.dense1D{``1})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.elfes.edge2`1.sqr_distance_``1(devDept.Meshing.vector_fixed{``0},devDept.Meshing.vector_fixed{``0},devDept.Meshing.vector_fixed{``0},System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.elfes.edge2`1.sqr_distance``1(devDept.Meshing.dense2D{``0},System.UInt32,devDept.Meshing.vector_fixed{`0},devDept.Meshing.vector_fixed{``0},System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.elfes.tetra4`1.get_opposite_edge_node_IDs(System.UInt32,System.UInt32,System.UInt32@,System.UInt32@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.elfes.tetra4`1.Delaunay_measure``1(devDept.Meshing.dense2D{``0},System.UInt32,devDept.Meshing.dense2D{`0},devDept.Meshing.vector_fixed{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools.GlobalMembers.change_indices``1(devDept.Meshing.dense2D{``0},devDept.Meshing.dense1D{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools.meshtools_misc.GlobalMembersmeshtools_misc.permutation``1(devDept.Meshing.dense1D{``0},devDept.Meshing.dense1D{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools.optimization1d.GlobalMembersoptimization1d.equal_step_max(System.Double@,System.Double@,System.Double@,System.Object,System.UInt32,System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools.optimization1d.GlobalMembersoptimization1d.equal_step_min(System.Double@,System.Double@,System.Double@,System.Object,System.UInt32,System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools.optimization1d.GlobalMembersoptimization1d.equal_step_min(System.Double@,System.Double@,System.Double@,System.Object,System.String,System.UInt32,System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools.optimization1d.GlobalMembersoptimization1d.dichotomic_max``2(System.Double@,System.Double@,System.Double@,devDept.Meshing.optimal_tetra.__quality_adaptor{``0,``1},System.Double,System.Double,System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools.optimization1d.GlobalMembersoptimization1d.dichotomic_min(System.Double@,System.Double@,System.Double@,System.Object,System.String,System.Double,System.Double,System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.meshtools.optimization1d.GlobalMembersoptimization1d.dichotomic_min(System.Double@,System.Double@,System.Double@,System.Object,System.Double,System.Double,System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.metric_isotropic.interpolation(System.Double,System.Double,System.Double,System.Double@)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.metric_isotropic.interpolation(System.Double,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.metric_isotropic.interpolation(System.Double,System.Double,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.metric_isotropic.interpolation(System.Double,System.Double,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.metric_isotropic.interpolation(System.Double,System.Double,System.Double,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic,devDept.Meshing.metric_isotropic)" -->
+    <!-- Badly formed XML comment ignored for member "T:devDept.Meshing.Q_tree`2" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.tagger_array.is_tagged(System.UInt32,System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.tagger_array.is_tagged(System.UInt32,System.UInt32,System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.tagger_array.is_tagged(System.UInt32,System.UInt32,System.UInt32,System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.GlobalMembers_tools.change_indices_vec``1(devDept.Meshing.dense1D{``0},devDept.Meshing.dense1D{``0})" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Meshing.GlobalMembers_tools.change_indices_mat``2(devDept.Meshing.dense2D{``1},devDept.Meshing.dense1D{``0})" -->
+    <member name="T:devDept.Meshing.histogram`2">
+                       Histogram.
+            
+                       An histogram is made up of B bins (`unsigned` counters), separated with B + 1 boundaries (`double`).
+                       For each value processed, the bins in which it belongs is incremented by one.
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.#ctor">
+                           Default constructor.
+                           No bins, no hits.
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.#ctor(System.UInt32,devDept.Meshing.dense1D{`0})">
+                           Histogram with N bins.
+                           N bins are created, whose boundaries are scaled with the min and max of D. 
+                           Data in D are then processed in the histogram. \p D.size() hits.
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.#ctor(devDept.Meshing.dense1D{`0})">
+                           Histogram with boundaries given by B. 
+                           Constructs an histogram with \p B.size() - 1 bins.
+            
+                           \note    B values are sorted internally.
+                           \pre     B.size() &gt;= 2
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.#ctor(devDept.Meshing.histogram{`0,`1})">
+            Copy constructor (hard copy).
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.CopyFrom(devDept.Meshing.histogram{`0,`1})">
+            Copy operator (hard copy).
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.reinit(System.UInt32,devDept.Meshing.dense1D{`0})">
+                           Clears and reinitializes the histogram with N bins.
+                           N bins are created, whose boundaries are scaled with the min and max of D. 
+                           Data in D are then processed in the histogram. \p D.size() hits.
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.reinit(devDept.Meshing.dense1D{`0})">
+                           Clears and reinitializes the histogram with boundaries \p B. 
+                           Constructs an histogram with \p B.size() - 1 bins.
+            
+                           \note    B values are sorted internally.
+                           \pre     B.size() &gt;= 2
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.clear">
+                           Clears the histogram (hits and boundaries).
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.bins">
+            Returns the number of bins (N bins).
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.bin_boundaries">
+            Returns the bins boundaries (N+1 boundaries).
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.lower_bin_bound(System.UInt32)">
+            Returns the lower boundary of bin \p i = upper boundary of bin \p i - 1.
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.all_hits">
+            Returns the hits in all bins (N values).
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.hits(System.UInt32)">
+            Returns the hits in bin \p i.
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.total_hits">
+            Returns the total number of hits (included larger and smaller).
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.larger">
+            Returns the hits over the largest bin.
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.max_value">
+            Returns the largest value processed.
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.smaller">
+            Returns the hits under the smallest bin.
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.min_value">
+            Returns the smallest value processed.
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.mean_value">
+            Returns the average of all the processed values.
+            The average of all the processed values.
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.clear_hits">
+            Resets all hits to zero (but do not change the bin bounds).
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.process(System.Double)">
+            Processes \p val in the histogram.
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.process(System.Double,System.UInt32)">
+            Processes \p val \p N times in the histogram.
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.process(devDept.Meshing.dense1D{`0})">
+            Processes the values in vector \p vals.
+            
+        </member>
+    <member name="M:devDept.Meshing.histogram`2.print(devDept.Meshing.histogram{`0,`1},System.IO.StreamWriter)">
+            Formatted print of the histogram onto a stream.
+        </member>
+    <!-- Badly formed XML comment ignored for member "T:devDept.Meshing.elfe_algo.edges_visitor`2" -->
+    <member name="T:devDept.Meshing.Tetramesh">
+                      Unstructured tetrahedral %mesher.
+            
+                      \image html engine_t.png 
+            
+                      Instances of this class generate tetrahedron meshes on 3-D domains defined by boundary triangle meshes and 
+                      possibly some embedded nodes, edges and faces. 
+            
+                      They can also be used as optimizers of already existing tetrahedron meshes.
+            
+                      All the data to be passed to the %mesher are gathered in a single 
+                      structure of type tetramesh::mesher::data_type.
+            
+                      \note       Upon entry, the boundary faces in \p data.connectB need to be oriented the same way
+                                  when there are several subdomains to be meshed simultaneously, 
+                                  or when internal cavities are present. 
+                      \note       Thread safe.
+                      \see        triamesh::mesher, tetramesh_aniso::mesher.
+            <summary><para>Unstructured tetrahedral mesher.</para><para>Instances of this class generate tetrahedron meshes on 3D domains defined
+            by boundary triangle meshes and possibly some embedded nodes, edges and
+            faces.</para></summary></member>
+    <member name="T:devDept.Meshing.Tetramesh.settings_type">
+                       The settings of tetramesh::mesher.
+            
+                       This structure gathers flags and parameters to control the way the tetramesh::mesher works.
+        </member>
+    <member name="T:devDept.Meshing.Tetramesh.data_type`2.warning_type">
+            The display handler type.
+        </member>
+    <member name="M:devDept.Meshing.Tetramesh.data_type`2.#ctor">
+            Default constructor.
+        </member>
+    <member name="M:devDept.Meshing.Tetramesh.data_type`2.#ctor(devDept.Meshing.Tetramesh.data_type{`0,`1})">
+            *
+        </member>
+    <member name="M:devDept.Meshing.Tetramesh.data_type`2.extract(devDept.Meshing.dense2D{`0},devDept.Meshing.dense2D{`1})">
+            Shallow copy.
+        </member>
+    <member name="M:devDept.Meshing.Tetramesh.data_type`2.error_raised">
+            Checks if an error has been raised.
+        </member>
+    <member name="F:devDept.Meshing.Tetramesh.data_type`2.hard_nodes_in">
+                           The number of initial hard nodes.
+            
+                           Mode = OUT.
+        </member>
+    <member name="F:devDept.Meshing.Tetramesh.data_type`2.hard_faces_in">
+                           The number of initial hard faces. 
+            
+                           Mode = OUT.
+        </member>
+    <member name="F:devDept.Meshing.Tetramesh.data_type`2.Qmin_in">
+                           Minimum shape quality of the elements upon entry. 
+            
+                           Mode = OUT in settings_type::REGULARIZE_MODE only.
+        </member>
+    <member name="F:devDept.Meshing.Tetramesh.data_type`2.max_box">
+                           The bounding box's max corner. 
+            
+                           Mode = OUT.
+        </member>
+    <member name="M:devDept.Meshing.Tetramesh.#ctor(System.String)">
+      <summary>
+            Standard constructor
+            </summary>
+    </member>
+    <member name="M:devDept.Meshing.Tetramesh.run``2(devDept.Meshing.Tetramesh.data_type{``0,``1},devDept.Meshing.Tetramesh.UpdateProgressDelegate,System.String[],System.Text.StringBuilder)">
+    </member>
+    <!-- Badly formed XML comment ignored for member "T:devDept.Meshing.topo_quality" -->
+    <!-- Badly formed XML comment ignored for member "M:FortranLibrary.FortranLib.Sign(System.Int32,System.Int32)" -->
+    <!-- Badly formed XML comment ignored for member "M:FortranLibrary.FortranLib.Sign(System.Single,System.Single)" -->
+    <!-- Badly formed XML comment ignored for member "M:FortranLibrary.FortranLib.Sign(System.Double,System.Double)" -->
+    <!-- Badly formed XML comment ignored for member "M:Delaunay_TH4_bdry_h.delaunay_th4_bdry`2.__correct_node(System.UInt32,devDept.Meshing.dense1D{`1},devDept.Meshing.dense1D{`1},devDept.Meshing.elfes.edge2{`1},System.Double,devDept.Meshing.dense2D{`1},devDept.Meshing.dense1D{`0})" -->
+    <!-- Badly formed XML comment ignored for member "M:Delaunay_TH4_REG.Delaunay_TH4_reg`2.set_frozen_tetras(System.Collections.Generic.List{System.Boolean})" -->
+    <!-- Badly formed XML comment ignored for member "T:log_barrier" -->
+    <!-- Badly formed XML comment ignored for member "T:maxmin_distance" -->
+  </members>
+</doc>

@@ -2245,6 +2245,11 @@
             Gets the motion end point.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.Motion.Length">
+      <summary>
+            Gets the motion length.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Toolpath.Tool">
       <summary>
             Gets or sets tool number.
@@ -2281,6 +2286,12 @@
       <summary>
             Gets or sets next 3D point.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.LinearMotion.Length">
+      <summary>
+            Gets linear motion length.
+            </summary>
+      <returns>A value representing the linear motion length.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Toolpath.CircularMotion">
       <summary>
@@ -2332,6 +2343,12 @@
       <summary>
             Gets or sets arc angle.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.CircularMotion.Length">
+      <summary>
+            Gets the circular motion length
+            </summary>
+      <returns>A value representing the circular motion length</returns>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Toolpath.MotionList">
       <summary>
@@ -5753,14 +5770,23 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Intersection(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep)">
       <summary>
-             Compute the Intersection of the solidA with the solidB. 
-            </summary>
-      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method</seealso>
-      <param name="solidA">
-      </param>
-      <param name="solidB">
-      </param>
-      <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
+        <para>Compute the Intersection of the solidA (gray in the sample picture below)
+            with the solidB (blue), and return the resulting array of <see cref="T:devDept.Eyeshot.Entities.Brep" />
+            (green). The returned array may have more than one element if multiple disjoint
+            intersections are found.</para>
+        <para>
+          <img src="intersection.png" />
+        </para>
+      </summary>
+      <param name="solidA">First solid</param>
+      <param name="solidB">Second solid</param>
+      <returns>
+            An array of <see cref="T:devDept.Eyeshot.Entities.Brep" /> containing the intersections if the operation is
+            successful. If the operation is successful but no intersections are found, an
+            empty array is returned. Otherwise, if due to an error the algorithm fails to
+            compute the intersections, null/Nothing is returned.
+            </returns>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)">FixTopology method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Union(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep)">
       <summary>
@@ -5797,6 +5823,7 @@
       <param name="solid">The Brep entity to mirror</param>
       <returns> The resulting Brep union between the original input Brep and the mirrored one.</returns>
     </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Entities.Brep.MergeAndKeepFaces(devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.Entities.Brep,devDept.Eyeshot.MaterialKeyedCollection)" -->
     <member name="M:devDept.Eyeshot.Entities.Brep.MergeFaces">
       <summary>
             Merges coplanar faces when possible.
@@ -5856,12 +5883,12 @@
     </member>
     <member name="F:devDept.Eyeshot.Entities.Brep.Edge.ShellIndex">
       <summary>
-            Index of the owner shell (available only after entity regeneration). Zero represents outer shell.
+            Index of the owner shell. Zero represents outer shell.
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.Entities.Brep.Edge.Parents">
       <summary>
-            Parent faces (available only after entity regeneration). Can be an array of one or two items. To be used in conjunction with <see cref="F:devDept.Eyeshot.Entities.Brep.Edge.ShellIndex" />.
+            Parent faces. Can be an array of one or two items. To be used in conjunction with <see cref="F:devDept.Eyeshot.Entities.Brep.Edge.ShellIndex" />.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Edge.#ctor(devDept.Eyeshot.Entities.ICurve,System.Int32,System.Int32)">
@@ -10715,6 +10742,33 @@
       <param name="seg">The 3D segment representing the viewing direction</param>
       <returns>The sorted list of triangles intersecting the provided segment.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.FemMesh.GetNodesByFace(System.Int32,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Returns nodes on the specified Brep face.
+            </summary>
+      <param name="index">The face index</param>
+      <param name="brep">The originating Brep entity</param>
+      <returns>Te array of FEM nodes</returns>
+      <seealso cref="!:VolumeMesher" />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.FemMesh.GetNodesByEdge(System.Int32,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Returns nodes on the specified Brep edge.
+            </summary>
+      <param name="index">The edge index</param>
+      <param name="brep">The originating Brep entity</param>
+      <returns>The array of FEM nodes</returns>
+      <seealso cref="!:VolumeMesher" />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.FemMesh.GetNodesByVertex(System.Int32,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Returns nodes on the specified Brep vertex.
+            </summary>
+      <param name="index">The vertex index</param>
+      <param name="brep">The originating Brep entity</param>
+      <returns>The array of FEM nodes</returns>
+      <seealso cref="!:VolumeMesher" />
+    </member>
     <member name="M:devDept.Eyeshot.Entities.FemMesh.ComputePlot(devDept.Eyeshot.Environment,devDept.Eyeshot.Legend,System.Boolean)">
       <summary>
             Computes results according to plotMode settings.
@@ -12135,8 +12189,9 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.FemMesh.Skin">
       <summary>
-            Gets the underlying Mesh.
+            Gets the boundary <see cref="T:devDept.Eyeshot.Entities.Mesh" />. The mesh will contain the same array of FemMesh vertices and the array of triangles that lay on the FemMesh surface.
             </summary>
+      <see cref="M:devDept.Eyeshot.Entities.FemMesh.ConvertToMesh(System.Boolean)" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.FemMesh.MergeWith(devDept.Eyeshot.Entities.FemMesh,System.Boolean)">
       <summary>
@@ -12171,6 +12226,7 @@
             </summary>
       <param name="includeDisplacements">When true, the mesh will include displacements</param>
       <returns>The resulting Mesh object.</returns>
+      <seealso cref="P:devDept.Eyeshot.Entities.FemMesh.Skin" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.FemMesh.Slice(devDept.Geometry.Plane,devDept.Eyeshot.Legend,System.Double)">
       <summary>
@@ -14495,11 +14551,24 @@
       <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.Intersection``1(``0,``0,System.Double)">
-      <summary>Boolean Intersection between two solids.</summary>
-      <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
+      <summary>
+        <para>Boolean Intersection between two solids. The method will compute the
+            intersection between the two specified solids (gray and blue in the image below)
+            and return an array with the result (green). The returned array may have more
+            than one element if multiple disjoint intersections are found.</para>
+        <para>
+          <img src="intersection.png" />
+        </para>
+      </summary>
       <param name="a">First operand</param>
       <param name="b">Second operand</param>
       <param name="tol">Optional tolerance, start with domain size * 1e-6</param>
+      <returns>
+            An array of solids if the operation is successful. If the operation is
+            successful but no intersections are found, an empty array is returned.
+            Otherwise, if due to an error the algorithm fails to compute the
+            intersections, null/Nothing is returned.
+            </returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.Intersection``1(``0,``0,System.Boolean,System.Double)">
       <summary>Boolean Intersection between two solids.</summary>
@@ -16052,10 +16121,12 @@
             Gets or sets the Autodesk miscellaneous properties of the entity. 
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.AutodeskMiscProperties.#ctor">
+    <member name="T:devDept.Eyeshot.Entities.AutodeskMiscProperties">
       <summary>
-             The AutodeskMiscProperties class stores some of the data that are specific to AutoCAD entities, such as XData and curves thickness.
+             Class that stores some data specific to AutoCAD entities, such as XData and curves thickness.
              </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.AutodeskMiscProperties.#ctor">
       <summary>
             Empty constructor
             </summary>
@@ -16094,11 +16165,13 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.AutodeskMiscProperties.ExtrusionDir">
       <summary>
-            Gets or sets the normal (unit length) for the extrusion by the Thickness value.
-            </summary>
-      <summary>
             Gets or sets the extrusion direction (unit length).
              </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.AutodeskMiscProperties.UnparsedDimensionText">
+      <summary>
+            Gets or sets the unparsed dimension text. It is meaningful just for dimension entities.
+            </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.AutodeskMiscProperties.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -17546,6 +17619,17 @@
       <param name="tol">The tessellation tolerance</param>
       <returns>The resulting array of closed contours. Use planeNormal only for lines.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.LinearPath.Inflate(System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+      <summary>
+            Inflates a LinearPath in 3D given an elliptical section.
+            </summary>
+      <param name="rX">X radius of the elliptical section</param>
+      <param name="rY">Y radius of the elliptical section</param>
+      <param name="angleLimit">Limit that controls the stretching of the section while it follows curves along the path. Under this tolerance no stretch is applied.</param>
+      <param name="smoothingAngle">Smoothing angles using in the process  of mesh creation</param>
+      <param name="fillCaps">True if ends of opened linear paths must be filled with triangles fan</param>
+      <returns>A mesh representing the inflation of the LinearPath</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.LinearPath.Offset(System.Double)">
       <summary>
             Offsets the curve of the specified amount.
@@ -18421,7 +18505,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.Ellipse.FocalDistance">
       <summary>
-            Distance between foci, commonly called "2c".
+            Distance from the center to a focus, commonly called "c".
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Ellipse.GetFoci(devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
@@ -24885,6 +24969,14 @@
             Manufacture control definition.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Manufacture.ShortcutKeys">
+      <summary>
+            Gets or sets the keyboard shortcuts.
+            </summary>
+      <remarks>
+            For the manufacture environment they include also the Start, Pause, Next and Previous shortcut. 
+            </remarks>
+    </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationTimeLine">
       <summary>
             The simulation timeline.
@@ -25019,6 +25111,11 @@
             Gets or sets the "Cutting stock..." text string.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Manufacture.ResetTimeLine">
+      <summary>
+            Resets the simulation timeline.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Manufacture.ClearancePlane">
       <summary>
             Gets or sets the machining clearance plane.
@@ -25112,6 +25209,15 @@
       <param name="stepDown">The step down</param>
       <param name="stepOver">The step over</param>
     </member>
+    <member name="M:devDept.Eyeshot.Milling.Pocket3D.GetRawPasses(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Computes the polygonal regions representing the area to be pocketed for each level.
+            </summary>
+      <param name="worker">The work unit background worker</param>
+      <param name="doWorkEventArgs">The work unit even arguments</param>
+      <returns>The resulting array of tuples.</returns>
+      <seealso cref="T:devDept.Eyeshot.WorkUnit" />
+    </member>
     <member name="T:devDept.Eyeshot.Milling.Contour3D">
       <summary>
         <para>Z-Level finishing class definition.</para>
@@ -25139,10 +25245,14 @@
       <param name="zAxis">The Z axis range</param>
       <param name="stepDown">The step down amount</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Contour3D.DiscardLoopsOutsideBoundary(devDept.Geometry.Point3D[][][],devDept.Eyeshot.Entities.Region)">
+    <member name="M:devDept.Eyeshot.Milling.Contour3D.GetRawPasses(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
       <summary>
-            Discards loops completely outside the boundary.
+            Computes the polygonal loops representing the contours.
             </summary>
+      <param name="worker">The work unit background worker</param>
+      <param name="doWorkEventArgs">The work unit even arguments</param>
+      <returns>The resulting array of tuples.</returns>
+      <seealso cref="T:devDept.Eyeshot.WorkUnit" />
     </member>
     <member name="T:devDept.Eyeshot.Milling.EndMill">
       <summary>
@@ -25471,6 +25581,11 @@
             2D contour class definition.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Milling.Contour2D.Flips">
+      <summary>
+            Gets or sets the array of booleans you need to flip contour direction/side.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Milling.Contour2D.OrderByDepth">
       <summary>
             When true, the passes are ordered top down.
@@ -25509,6 +25624,16 @@
       <param name="zRange">The z range interval</param>
       <param name="stepDown">The step down</param>
       <param name="stepOver">The step over</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Pocket2D.GetRawPass(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Computes the polygonal regions representing the area to be pocketed.
+            </summary>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+      <returns>The resulting array of polygonal regions.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Milling.Parallel2D">
       <summary>
@@ -26473,10 +26598,20 @@
       <param name="zRange">The z range interval</param>
       <param name="stepDown">The step down</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Machining.GetOuterRegion(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Entities.Region,System.Double,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Milling.Machining.GetOuterRegion(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Entities.Region,devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double,System.Boolean)">
       <summary>
-            Returns a regenerated stock region or the geometry bounding rectangle (with offset by radius if requested).
+            Returns a regenerated stock region or the geometry bounding rectangle (with offset by cutter radius if requested).
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Machining.GetOuterRegion(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Milling.GeometryBase)">
+      <summary>
+            Gets the outer region following this order boundary, stock, geometry bounding rectangle.
+            </summary>
+      <param name="cutter">The cutter</param>
+      <param name="boundary">The boundary, can be null/Nothing</param>
+      <param name="stock">The boundary, can be null/Nothing</param>
+      <param name="geometry">The machining geometry</param>
+      <returns>The resulting region.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Machining.GetRetractPlane(devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.String)">
       <summary>
@@ -26632,7 +26767,7 @@
       <param name="tol">The maximum acceptable difference between the two values</param>
       <returns>True if the two numbers can be considered equal, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Machining.GetTransformedBoundary(devDept.Eyeshot.Entities.Region)">
+    <member name="M:devDept.Eyeshot.Milling.Machining.GetTransformedBoundary(devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Milling.GeometryBase)">
       <summary>
             Returns a copy of the specified <see cref="T:devDept.Eyeshot.Entities.Region" /> transformed by setup inverse matrix.
             </summary>
@@ -26854,7 +26989,7 @@
             Gets Z heights for all flat areas.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Geometry3D.GetInsideFlatZ(devDept.Eyeshot.Entities.Region,System.Double,devDept.Eyeshot.Model)">
+    <member name="M:devDept.Eyeshot.Milling.Geometry3D.GetInsideFlatZ(devDept.Geometry.PolyRegion2D,System.Double,devDept.Eyeshot.Model)">
       <summary>
             Computes Z heights for flat areas overlapping with the specified boundary.
             </summary>
@@ -27009,7 +27144,7 @@
     </member>
     <member name="F:devDept.Eyeshot.Translators.ReadPDF.Pages">
       <summary>
-            Gets the entities resulting from file reading for each page.
+            Gets the pages read from file.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadPDF.PagesToLoad">
@@ -27031,6 +27166,26 @@
             </summary>
       <param name="environment">The Environment used to add the entities.</param>
       <param name="ro">Asynchronous regeneration settings.</param>
+    </member>
+    <member name="T:devDept.Eyeshot.Translators.PdfPage">
+      <summary>
+            This class represent a page of the PDF document. It contains all the entities in the page, as well as its viewports and their relative scale factor.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.PdfPage.Size">
+      <summary>
+            Gets or sets the size of the page in millimeters.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.PdfPage.Entities">
+      <summary>
+            Gets the list of the entities contained in the page.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.PdfPage.Viewports">
+      <summary>
+            Gets the list of the extents of the PDF viewports in millimeters contained in the page, as well as their custom scale factor.
+            </summary>
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteFileParams">
       <summary>
@@ -27405,6 +27560,16 @@
             Gets or sets the deviation used to build the geometry.
             </summary>
       <remarks>If zero the deviation is computed based on the elements size.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadIFC.ImportGrids">
+      <summary>
+            Gets or sets if to import the grids.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadIFC.ImportAnnotations">
+      <summary>
+            Gets or sets if to import the annotations.
+            </summary>
     </member>
     <member name="T:devDept.Eyeshot.Translators.IEyeIfcObject">
       <summary>
@@ -36074,6 +36239,10 @@
       <exclude />
       <excludetoc />
     </member>
+    <member name="T:devDept.Eyeshot.Converters.ManufactureShortcutKeysSettingsConverter">
+      <exclude />
+      <excludetoc />
+    </member>
     <member name="T:devDept.Eyeshot.Converters.ZoomConverter">
       <exclude />
       <excludetoc />
@@ -36744,6 +36913,11 @@
       <param name="smoothingMode">The smoothing mode</param>
       <param name="smoothingPasses">Number of smoothing passes</param>
     </member>
+    <member name="M:devDept.Eyeshot.Triangulation.Mesher.AddPointsAlongEdge(devDept.Geometry.IndexLine,System.Int32@)">
+      <summary>
+            Adds points along the edge if possible (not too close to the others).
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.Triangulation.VolumeMesher">
       <summary>
             Unstructured tetrahedral mesher class definition. Generates tetrahedron meshes on 3D domains defined by boundary triangle meshes and possibly some embedded nodes, edges and faces.
@@ -36802,7 +36976,8 @@
             </summary>
       <param name="boundary">The boundary triangle mesh</param>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Triangulation.VolumeMesher.#ctor(devDept.Eyeshot.Entities.Brep,System.Double,System.Boolean)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Triangulation.VolumeMesher.#ctor(devDept.Eyeshot.Entities.Brep,System.Double,System.Boolean,devDept.Eyeshot.MaterialKeyedCollection)" -->
+    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Triangulation.VolumeMesher.#ctor(devDept.Eyeshot.Entities.Brep,System.Double[],System.Boolean,devDept.Eyeshot.MaterialKeyedCollection)" -->
     <member name="M:devDept.Eyeshot.Triangulation.VolumeMesher.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
       <summary>
             Boundary vertices and triangles mesh constructor.
@@ -41342,6 +41517,80 @@
       <param name="navigationForward">The forward navigation movement shortcut</param>
       <param name="navigationBackward">The backward navigation movement shortcut</param>
     </member>
+    <member name="T:devDept.Eyeshot.ManufactureShortcutKeysSettings">
+      <summary>
+            Additional Manufacture keyboard shortcut settings.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.ManufactureShortcutKeysSettings.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.ManufactureShortcutKeysSettings.#ctor(System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys)">
+      <summary>
+            Constructor.
+            </summary>
+      <param name="start"> The start simulation shortcut</param>
+      <param name="pause">The pause simulation shortcut</param>
+      <param name="next">The go to next shortcut</param>
+      <param name="previous">The go to previous  shortcut</param>
+    </member>
+    <member name="M:devDept.Eyeshot.ManufactureShortcutKeysSettings.#ctor(System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys,System.Windows.Forms.Keys)">
+      <summary>
+            Constructor.
+            </summary>
+      <param name="selectAll">The select all shortcut</param>
+      <param name="invertSelection">The invert selection shortcut</param>
+      <param name="deleteSelection">The delete selection shortcut</param>
+      <param name="zoomFit">The zoom fit shortcut</param>
+      <param name="zoomIn">The zoom in shortcut</param>
+      <param name="zoomOut">The zoom out shortcut</param>
+      <param name="copySelection">The copy selection shortcut</param>
+      <param name="pasteSelection">The paste selection shortcut</param>
+      <param name="cutSelection">The cut selection shortcut</param>
+      <param name="groupSelection">The group selection shortcut</param>
+      <param name="ungroupSelection">The ungroup selection shortcut</param>
+      <param name="rotateRight">The rotate right shortcut</param>
+      <param name="rotateUp">The rotate up shortcut</param>
+      <param name="rotateLeft">The rotate left shortcut</param>
+      <param name="rotateDown">The rotate down shortcut</param>
+      <param name="panRight">The pan right shortcut</param>
+      <param name="panUp">The pan up shortcut</param>
+      <param name="panLeft">The pan left shortcut</param>
+      <param name="panDown">The pan down shortcut</param>
+      <param name="cancelBackgroundWork">The cancel background work shortcut</param>
+      <param name="navigationRight">The right navigation movement shortcut</param>
+      <param name="navigationLeft">The left navigation movement shortcut</param>
+      <param name="navigationUp">The up navigation movement shortcut</param>
+      <param name="navigationDown">The down navigation movement shortcut</param>
+      <param name="navigationForward">The forward navigation movement shortcut</param>
+      <param name="navigationBackward">The backward navigation movement shortcut</param>
+      <param name="start"> The start simulation shortcut</param>
+      <param name="pause">The pause simulation shortcut</param>
+      <param name="next">The go to next shortcut</param>
+      <param name="previous">The go to previous  shortcut</param>
+    </member>
+    <member name="P:devDept.Eyeshot.ManufactureShortcutKeysSettings.Start">
+      <summary>
+            Gets or sets the start shortcut.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ManufactureShortcutKeysSettings.Pause">
+      <summary>
+            Gets or sets the pause shortcut.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ManufactureShortcutKeysSettings.Previous">
+      <summary>
+            Gets or sets the previous shortcut.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.ManufactureShortcutKeysSettings.Next">
+      <summary>
+            Gets or sets the next shortcut.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.ZoomSettings">
       <summary>Zoom command settings.</summary>
     </member>
@@ -42196,6 +42445,13 @@
       <param name="dashedHiddenLinesPattern">Pattern used to draw the dashed hidden lines</param>
       <param name="wireColorMethod">Wires color method</param>
       <param name="polygonColor">Color used to draw the polygons when <paramref name="colorMethod" /> is <see cref="F:devDept.Eyeshot.hiddenLinesColorMethodType.SingleColor" /></param>
+    </member>
+    <member name="T:devDept.Eyeshot.MinimumDistance">
+      <summary>
+            Utility class to computes the minimum distance between BRep's vertices, edges, faces and BRep themselves.
+            </summary>
+      <remarks>As a side effect, you can use this class to compute minumum distance even between curves and points.</remarks>
+      <seealso cref="T:devDept.Eyeshot.ComputeDistances" />
     </member>
     <member name="T:devDept.Eyeshot.GfxDrawForSelectionParams">
       <summary>
@@ -49103,11 +49359,10 @@
             Empty constructor.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.SimulationTimeLine.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Double,System.Boolean,System.Double)">
+    <member name="M:devDept.Eyeshot.SimulationTimeLine.#ctor(System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Drawing.Color,System.Double,System.Boolean,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="backGroundColor">The SimulationTimeLine background color</param>
       <param name="thumbColor">The timeline thumb color</param>
       <param name="cursorLocationColor">The color used to highlight the cursor location</param>
       <param name="safeMovementsColor">The SimulationTimeLine color of the movements with no collisions</param>
@@ -49128,17 +49383,17 @@
             Gets or sets SimulationTimeLine thickness factor (range 0-1).
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.SimulationTimeLine.Init">
+      <summary>
+            Initialize the TimeLine
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.SimulationTimeLine.Visible">
       <summary>
             Gets or sets the SimulationTimeLine visibility.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.SimulationTimeLine.HoveringColor">
-      <summary>
-            Gets or sets the SimulationTimeLine background color.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.SimulationTimeLine.BackgroundColor">
       <summary>
             Gets or sets the SimulationTimeLine background color.
             </summary>
@@ -49167,6 +49422,15 @@
       <summary>
             Gets or sets the scale of the SimulationTimeLine.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SimulationTimeLine.GetToolTipText(devDept.Eyeshot.Entities.Toolpath.Motion,System.Int32,System.Boolean)">
+      <summary>
+            Gets the tooltip Text.
+            </summary>
+      <param name="motion">The motion.</param>
+      <param name="operationIndex">The operation index.</param>
+      <param name="collision">True if the holder collides with the simulation stock.</param>
+      <returns>The text of the ToolTip referred to the motion of the timeline under the mouse cursor.</returns>
     </member>
     <member name="P:devDept.Eyeshot.SimulationTimeLine.ViewportIndex">
       <summary>
@@ -49576,13 +49840,13 @@
             </summary>
       <returns>The resulting trimmed surface(s).</returns>
     </member>
-    <member name="M:devDept.Geometry.AnalyticSurf.GetUntrimmed(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,System.Boolean)">
+    <member name="M:devDept.Geometry.AnalyticSurf.GetUntrimmed(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,devDept.Eyeshot.Entities.Surface@)">
       <summary>
-            Gets the untrimmed parametric surface.
+            Gets the untrimmed parametric surface. Seams can be relocated to avoid the intersection with edge curves.
             </summary>
       <param name="edgeCurves">A collection of individual edge curves not organized into composite curves</param>
       <param name="sense">The surface sense, true for same sense.</param>
-      <param name="safePeriodical">When true, the periodical surface is rotated to avoid trim curves near the seam.</param>
+      <param name="notRotated">The original untrimmed surface (as defined in STEP file).</param>
       <returns>The resulting untrimmed surface.</returns>
     </member>
     <member name="M:devDept.Geometry.AnalyticSurf.TransformBy(devDept.Geometry.Transformation)">
@@ -49934,6 +50198,22 @@
       <param name="point">The 2D point</param>
       <returns>True if the given point is inside the PolyRegion2D, false otherwise.</returns>
       <remarks>Takes for granted that the first (index = 0) polygon is the outer one.</remarks>
+      <seealso cref="!:SortAndOrient()" />
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.IsPolygonInside(devDept.Geometry.Polygon2D)">
+      <summary>
+            Check if the specified 2D polygon is inside the PolyRegion2D.
+            </summary>
+      <param name="poly">The 2D polygon</param>
+      <returns>True if the given 2D polygon is inside the PolyRegion2D, false otherwise.</returns>
+      <seealso cref="!:SortAndOrient()" />
+    </member>
+    <member name="M:devDept.Geometry.PolyRegion2D.IsPolygonOutside(devDept.Geometry.Polygon2D)">
+      <summary>
+            Check if the specified 2D polygon is outside the PolyRegion2D.
+            </summary>
+      <param name="poly">The 2D polygon</param>
+      <returns>True if the given 2D polygon is outside the PolyRegion2D, false otherwise.</returns>
       <seealso cref="!:SortAndOrient()" />
     </member>
     <member name="M:devDept.Geometry.PolyRegion2D.IsPointInside(devDept.Geometry.Point2D,System.Double)">
@@ -50637,6 +50917,10 @@
       <summary>
             See <see cref="P:devDept.Eyeshot.Entities.AutodeskMiscProperties.ExtrusionDir" />.
             </summary>
+    </member>
+    <member name="P:devDept.Serialization.AutodeskMiscPropertiesSurrogate.UnparsedDimensionText">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.AutodeskMiscProperties.UnparsedDimensionText" /></summary>
     </member>
     <member name="M:devDept.Serialization.AutodeskMiscPropertiesSurrogate.ConvertToObject">
       <inheritdoc />
@@ -54353,6 +54637,11 @@
     <member name="F:devDept.Serialization.FemMeshSurrogate.IsoEdges">
       <summary>
             See <see cref="F:devDept.Eyeshot.Entities.FemMesh.isoEdges" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.FemMeshSurrogate.SkinMinEdgeLen">
+      <summary>
+            The boundary mesh minimum edge length.
             </summary>
     </member>
     <member name="M:devDept.Serialization.FemMeshSurrogate.ConvertToObject">

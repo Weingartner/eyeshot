@@ -2364,6 +2364,12 @@
             Tells if the planar reflections are supported by the graphics system.
             </summary>
     </member>
+    <member name="M:devDept.Graphics.RenderContextBase.DrawLinesOnTheFly(devDept.Geometry.Point3D[])">
+      <summary>
+            Draws the specified lines on the fly.
+            </summary>
+      <param name="lines">An array of 3D points that define the lines start and end vertices</param>
+    </member>
     <member name="M:devDept.Graphics.RenderContextBase.DrawLinesAndPointsOnTheFly(devDept.Geometry.Point3D[],devDept.Geometry.Point3D[])">
       <summary>
             Draws the specified lines and points on the fly.

@@ -1421,7 +1421,7 @@
       <summary>
             Transforms the collection of normals with the given transformation.
             </summary>
-      <param name="transform">The transformation</param>
+      <param name="t">The transformation</param>
       <param name="normals">The collection of normals vectors</param>
       <remarks>The normals are transformed by the inverse transpose of the upper 3x3 matrix.</remarks>
     </member>
