@@ -6062,6 +6062,16 @@
             </summary>
       <returns>A value representing the toolpath length.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.ConvertToLinearPath(System.Double)">
+      <summary>
+            Convert the toolpath to a <see cref="T:devDept.Geometry.Entities.GLinearPath" />.
+            </summary>
+      <param name="deviation">The maximum deviation (used to convert curvilinear
+            motions such as <see cref="T:devDept.Eyeshot.Entities.Toolpath.CircularMotion" /> into segments).</param>
+      <returns>
+            The newly created linear path.
+            </returns>
+    </member>
     <member name="T:devDept.Eyeshot.Entities.PointCL">
       <summary>
             Cutter location point definition.
@@ -8839,6 +8849,7 @@
              to correctly perform operations like Section/Intersection and Booleans.
             </summary>
       <param name="theFixedSolid">The Brep entity equivalent to the original with additional data. The original one if the operation failed.</param>
+      <remarks>The original brep is modified when the operation is successful.</remarks>
       <returns> Return true if the operation is successful, false otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.FixTopology">
@@ -8846,7 +8857,7 @@
             If the geometry is not created inside Eyeshot, it could be necessary call this method to check and fix/add(if needed) missing data,
              to correctly perform operations like Section/Intersection and Booleans.
             </summary>
-      <remarks>The original brep is modified with the operation is successful.</remarks>
+      <remarks>The original brep is modified when the operation is successful.</remarks>
       <returns> Return true if the operation is successful, false otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Smash(devDept.Eyeshot.Workspace,System.Int32)">
@@ -8868,7 +8879,7 @@
       <param name="width">Box's width</param>
       <param name="depth">Box's depth</param>
       <param name="height">Box's height</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CreateCylinder(System.Double,System.Double,System.Double)">
@@ -8877,7 +8888,7 @@
              </summary>
       <param name="radius">Cylinder's radius</param>
       <param name="height">Cylinder's height</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CreateCone(System.Double,System.Double)">
@@ -8891,7 +8902,7 @@
       <param name="baseRadius">Cone's base radius</param>
       <param name="topRadius">Cone's top radius</param>
       <param name="height">The cone's height</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CreateCone(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
@@ -8904,7 +8915,7 @@
       <param name="topInnerRadius">Cone's top internal radius. 0 if the eccentric cone hasn't an internal offset</param>
       <param name="height">The cone's height</param>
       <param name="distance">Distance between circle centers</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CreateSphere(System.Double,System.Double)">
@@ -8912,7 +8923,7 @@
              Creates a Sphere primitive.
              </summary>
       <param name="radius">Sphere's radius</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.CreateTorus(System.Double,System.Double,System.Double)">
@@ -8921,7 +8932,7 @@
              </summary>
       <param name="majorRadius">Torus radius</param>
       <param name="minorRadius">Torus section radius</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Ruled(devDept.Eyeshot.Entities.Surface,devDept.Eyeshot.Entities.Surface,System.Double)">
@@ -8931,7 +8942,7 @@
       <remarks> The two surfaces must have the same orientation, with the normal of the first one pointing towards the inside of the resulting brep, and the same number of curves in the same order.</remarks>
       <param name="bottom">the bottom surface to connect</param>
       <param name="top">the top surface to connect</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
       <remarks> The two surfaces should not have collapsed edges.</remarks>
     </member>
@@ -8952,7 +8963,7 @@
       <param name="endCaps">if true, it creates a closed Brep</param>
       <param name="speedChange"> Works only when splitAtCorners is true. If true, when the tangents have the same direction but different lengths, the curve will be split. 
                 If false, it won't be split.</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep if the operation succeeds, null/Nothing otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeWithTwist(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Double,System.Boolean)">
@@ -8977,7 +8988,7 @@
       <param name="angle">Twist angle in radians</param>
       <param name="numberOfSections">Number of internal sections to be interpolated, it corresponds to the number of distinct internal knots in the extrusion surface's U direction.</param>
       <param name="endCaps">If true, creates a closed Brep</param>
-      <param name="rebuildTol">The regeneration tolerance</param>
+      <param name="rebuildTol">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep if the operation succeeds, null/Nothing otherwise.</returns>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Brep.RebuildTolerance">
@@ -13524,7 +13535,7 @@
             Extrudes this curve along the specified direction.
             </summary>
       <param name="line">Extrusion direction and length as <see cref="T:devDept.Eyeshot.Entities.Line" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.ExtrudeAsBrep(System.Double,System.Double,System.Double,System.Double)">
@@ -13534,7 +13545,7 @@
       <param name="dx">Extrusion amount along the X axis</param>
       <param name="dy">Extrusion amount along the Y axis</param>
       <param name="dz">Extrusion amount along the Z axis</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.ExtrudeAsBrep(devDept.Geometry.Vector3D,System.Double,System.Double)">
@@ -13543,7 +13554,7 @@
             </summary>
       <param name="amount">Extrusion direction and lenght</param>
       <param name="draftAngleInRadians">Signed draft angle in radians</param>
-      <param name="tolerance">The regeneration tolerance. Required for non-perpendicular extrusion directions</param>
+      <param name="tolerance">The regeneration tolerance. Required for non-perpendicular extrusion directions. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
@@ -13583,7 +13594,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Revolution axis direction</param>
       <param name="center">Revolution axis origin</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
@@ -13594,7 +13605,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axisStart">Revolution axis start point</param>
       <param name="axisEnd">Revolution axis end point</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.RevolveAsBrep(System.Double,System.Double,devDept.Eyeshot.Entities.Line,System.Double)">
@@ -13604,7 +13615,7 @@
       <param name="startAngle">Revolution start angle in radians</param>
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Revolution axis</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsSurface(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
@@ -18781,11 +18792,6 @@
             The size used to display the construction curves during the Sketch editing.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.ConstructionCurvesPattern">
-      <summary>
-            The pattern used for the construction curves during the Sketch editing.
-            </summary>
-    </member>
     <member name="F:devDept.Eyeshot.SketchManager.ConstructionCurvesColor">
       <summary>
             The color used to display construction curves during the Sketch editing.
@@ -23041,6 +23047,12 @@
             </summary>
       <remarks>Each key press of the navigation keys starts a small animation to move the camera. Subscribe to this event do something each time the camera is moved.</remarks>
       <seealso cref="P:devDept.Eyeshot.Workspace.ShortcutKeys" />
+    </member>
+    <member name="M:devDept.Eyeshot.TrialPopup.Dispose(System.Boolean)">
+      <summary>
+            Clean up any resources being used.
+            </summary>
+      <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
     </member>
     <member name="T:devDept.Eyeshot.Manufacture">
       <summary>
@@ -33523,137 +33535,6 @@
       <typeparam name="T">The handler type</typeparam>
       <param name="hWnd">The Windows handle that need touch or gesture events</param>
       <returns>TouchHandler or Gesture Handler</returns>
-    </member>
-    <member name="P:devDept.Eyeshot.QuadEntityDataNode.Children">
-      <summary>
-            Gets the children of the current octant.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.QuadEntityDataNode.ElementsIndices">
-      <summary>
-            Gets the indices of the elements stored in the current node (the elements in the children are not included).
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.QuadEntityDataNode.HasChildren">
-      <summary>
-            True if the current node has children.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.QuadEntityDataNode.IsElemInsideNode(System.Int32)">
-      <summary>
-            Checks when the element at elemIndex is inside the Quad node
-            </summary>
-      <param name="elemIndex">the index of the element in the source entity element list(vertices or triangles)</param>
-      <returns>true if the element is completly inside the quad node. False otherwise.</returns>
-    </member>
-    <member name="T:devDept.Eyeshot.QuadTree">
-      <summary>
-            This class help divide the Mesh's space in 8 parts, each one with a definite number of Triangles.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.QuadTree.Root">
-      <summary>
-            The first node of the tree. It can be a <see cref="T:devDept.Eyeshot.QuadEntityDataNode" /> for <see cref="T:devDept.Eyeshot.QuadTree" /> or <see cref="T:devDept.Eyeshot.Octant" /> for <see cref="T:devDept.Eyeshot.Octree" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.QuadTree.#ctor(devDept.Eyeshot.Entities.Entity)">
-      <summary>
-            Initializes a new instance of the <see cref="T:devDept.Eyeshot.Octree" /> class.
-            Standard Constructor that defines the maximum number of triangles per Octant as (Mesh.Triangles.Length / 100).
-            </summary>
-      <param name="mesh">The mesh.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.QuadTree.#ctor(devDept.Eyeshot.QuadTree)">
-      <summary>
-            Build Octree from other (to build OrientedOctree quickly). The resulting Octree should be Read Only.
-            (For internal use only)
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.QuadTree.#ctor(devDept.Eyeshot.Entities.Entity,System.Int32)">
-      <summary>
-            Initializes a new instance of the <see cref="T:devDept.Eyeshot.QuadTree" /> class.
-            Constructor with possibility to define an integer for maximum number of element per Quad node.
-            </summary>
-      <param name="entity">The 2D entity source to subdivide</param>
-      <param name="limit">Maximum number of element per Quad node</param>
-    </member>
-    <member name="M:devDept.Eyeshot.QuadTree.DoWork(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
-      <summary>
-            Does the work.
-            </summary>
-      <param name="worker">The worker.</param>
-      <param name="doWorkEventArgs">The <see cref="T:System.ComponentModel.DoWorkEventArgs" /> instance containing the event data.</param>
-    </member>
-    <member name="T:devDept.Eyeshot.Octree">
-      <summary>
-            This class help divide the Mesh's space in 8 parts, each one with a definite number of Triangles.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Octree.Root">
-      <summary>
-            The first node of the tree.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Octree.#ctor(devDept.Eyeshot.Entities.Mesh)">
-      <summary>
-            Initializes a new instance of the <see cref="T:devDept.Eyeshot.Octree" /> class.
-            Standard Constructor that defines the maximum number of triangles per Octant as (Mesh.Triangles.Length / 100).
-            </summary>
-      <param name="mesh">The mesh.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Octree.#ctor">
-      <summary>
-            Empty constructor - for internal use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Octree.#ctor(devDept.Eyeshot.Octree)">
-      <summary>
-            Build Octree from other (to build OrientedOctree quickly). The resulting Octree should be Read Only.
-            (For internal use only)
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Octree.#ctor(devDept.Eyeshot.Entities.Mesh,System.Int32)">
-      <summary>
-            Initializes a new instance of the <see cref="T:devDept.Eyeshot.Octree" /> class.
-            Constructor with possibility to define an integer for maximum number of triangles per Octant.
-            </summary>
-      <param name="mesh">The mesh.</param>
-      <param name="limit">Maximum number of triangles per Octant.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Octree.DoWork(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
-      <summary>
-            Does the work.
-            </summary>
-      <param name="worker">The worker.</param>
-      <param name="doWorkEventArgs">The <see cref="T:System.ComponentModel.DoWorkEventArgs" /> instance containing the event data.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Octree.FindClosestTriangle(devDept.Geometry.Segment3D,devDept.Geometry.Transformation,System.Collections.Generic.SortedList{System.Double,devDept.Geometry.Entities.HitTriangle})">
-      <summary>
-            Find intersection between Ray and Octant's Mesh.
-            </summary>
-      <param name="seg">The segment to check if intersect with the Triangles of the Octant Mesh </param>
-      <param name="transf">The transformation applied to the Points of intersection</param>
-      <param name="triList">Sorted list (distance related between segment's Start Point and HitPoint) of hit triangles</param>
-    </member>
-    <member name="T:devDept.Eyeshot.Octant">
-      <summary>
-            One of the eight space containing a definite number of Triangles per Mesh
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Octant.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Eyeshot.Octree)">
-      <summary>
-            Bounding box min/max constructor.
-            </summary>
-      <param name="boxMin">Bounding box min corner</param>
-      <param name="boxMax">Bounding box max corner</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Octant.IsPointInside(devDept.Geometry.Point3D)">
-      <summary>
-            Checks if a point is inside the BoundingBox of the current node.
-            </summary>
-      <param name="point">
-      </param>
-      <returns>True if it's inside or onto the boundary of the BoundingBox, false otherwise.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Viewport">
       <summary>
@@ -44368,15 +44249,6 @@
             If you get wrong display results or artifacts, you can use this method to check out shared elements.
             </remarks>
     </member>
-    <member name="M:devDept.Geometry.UtilityEx.GetCpuCount(System.Int32,System.Int32[]@,System.Int32[]@)">
-      <summary>
-            Gets the number of logical processors.
-            </summary>
-      <param name="len">Total number of the items to process</param>
-      <param name="startIndex">Array of start indices</param>
-      <param name="endIndex">Array of end indices</param>
-      <returns>The number of logical processors</returns>
-    </member>
     <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.UtilityEx.ReplaceString(System.String,System.String,System.String,System.StringComparison)" -->
     <member name="M:devDept.Geometry.UtilityEx.GetFont(System.Windows.Media.FontFamily,System.Windows.FontStyle,System.Windows.FontWeight,System.Double,System.Single)">
       <summary>
@@ -44492,15 +44364,6 @@
       <param name="averageRadius">The radius that each arc of revision cloud should have</param>
       <returns>The resulting revision cloud as a CompositeCurve of arcs.</returns>
       <remarks>The input curve should lie on the input Plane.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.UtilityEx.RotationMinimizingFrames(devDept.Geometry.Plane,devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[])">
-      <summary>
-            Computes a set of planes along the curve that are perpendicular to the curve and are oriented in a way that avoids abrupt changes in the directions of the X and Y axes.
-            </summary>
-      <param name="prevFrame">The plane at the beginning of the curve. It can be null</param>
-      <param name="x">The array of points along the curve where the planes will be computed</param>
-      <param name="t">The array of tangents at each point</param>
-      <returns>The array of planes.</returns>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.ComputeMinMax(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -44619,7 +44482,7 @@
             Gets a new name for layer adding a number as suffix to the original name to avoid duplicates layer names.
             </summary>
       <param name="name">The original name to start from.</param>
-      <param name="blocks">The layers collection.</param>
+      <param name="layers">The layers collection.</param>
       <param name="addCounterOnlyIfNeeded">When true, the original name is preserved if not used yet, otherwise, the new name counter starts from 1 searching for a non duplicated name.</param>
       <returns>The name that can be used to create a new layer not already contained in the layers collection.</returns>
     </member>
@@ -44866,17 +44729,6 @@
       <param name="closestPt">Outputs the closest point on the curve</param>
       <param name="closestParam">Outputs the parameter along the curve corresponding to the closest point</param>
       <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Geometry.PointExtender.EqualsExact(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-      <summary>
-            Performs an exact double comparison between the XYZ coordinates of two points.
-            </summary>
-      <param name="point">The first point to compare</param>
-      <param name="other">The second point to compare</param>
-      <returns>
-            True if the X, Y, Z coordinates of the two points are exactly
-            equal (evaluated using the equality operator '==').
-            </returns>
     </member>
     <member name="T:devDept.Serialization.AutodeskMiscPropertiesSurrogate">
       <summary>

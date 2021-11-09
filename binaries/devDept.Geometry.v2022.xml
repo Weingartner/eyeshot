@@ -1902,261 +1902,6 @@
       <param name="angle">Rotation angle in radians</param>
       <param name="inscribed">When true, the radius is considered of the inscribed circle</param>
     </member>
-    <member name="T:devDept.Geometry.Entities.GRectagularCompositeCurve">
-      <summary>
-            Rectangular composite igCurve definition.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GRectagularCompositeCurve.#ctor(System.Double,System.Double,System.Boolean)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="width">Width</param>
-      <param name="height">Height</param>
-      <param name="centered">When true, the rectangle is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GRectagularCompositeCurve.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Position constructor.
-            </summary>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="width">Width</param>
-      <param name="height">Height</param>
-      <param name="angle">Rotation angle in radians</param>
-      <param name="centered">When true, the rectangle is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GRectagularCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Plane constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="width">Width</param>
-      <param name="height">Height</param>
-      <param name="centered">When true, the rectangle is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GRectagularCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Plane and position constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="width">Width</param>
-      <param name="height">Height</param>
-      <param name="angle">Rotation angle in radians</param>
-      <param name="centered">When true, the rectangle is built centered on the origin.</param>
-    </member>
-    <member name="T:devDept.Geometry.Entities.GRoundedRectangleShapedCompositeCurve">
-      <summary>
-            Utility class to build a rounded rectangle shaped composite igCurve.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GRoundedRectangleShapedCompositeCurve.#ctor(System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="width">Width</param>
-      <param name="height">Height</param>
-      <param name="radius">Corner radius</param>
-      <param name="centered">When true, the rectangle is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GRoundedRectangleShapedCompositeCurve.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Position constructor.
-            </summary>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="width">Width</param>
-      <param name="height">Height</param>
-      <param name="radius">Corner radius</param>
-      <param name="angle">Rotation angle in radians</param>
-      <param name="centered">When true, the rectangle is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GRoundedRectangleShapedCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Plane constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="width">Width</param>
-      <param name="height">Height</param>
-      <param name="radius">Corner radius</param>
-      <param name="centered">When true, the rectangle is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GRoundedRectangleShapedCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Plane and position constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="width">Width</param>
-      <param name="height">Height</param>
-      <param name="radius">Corner radius</param>
-      <param name="angle">Rotation angle in radians</param>
-      <param name="centered">When true, the rectangle is built centered on the origin.</param>
-    </member>
-    <member name="T:devDept.Geometry.Entities.GSlotShapedCompositeCurve">
-      <summary>
-            Utility class to build a composite igCurve with the shape of a slot.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSlotShapedCompositeCurve.#ctor(System.Double,System.Double,System.Boolean)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="length">Center to center length</param>
-      <param name="radius">Radius</param>
-      <param name="centered">When true, the slot is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSlotShapedCompositeCurve.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Position constructor.
-            </summary>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="length">Center to center length</param>
-      <param name="radius">Radius</param>
-      <param name="angle">Rotation angle in radians</param>
-      <param name="centered">When true, the slot is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSlotShapedCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Plane constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="length">Center to center length</param>
-      <param name="radius">Radius</param>
-      <param name="centered">When true, the slot is built centered on the origin.</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSlotShapedCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Plane and position constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="length">Center to center length</param>
-      <param name="radius">Radius</param>
-      <param name="angle">Rotation angle in radians</param>
-      <param name="centered">When true, the slot is built centered on the origin.</param>
-    </member>
-    <member name="T:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve">
-      <summary>
-            Utility class to build a composite igCurve with the shape of a circular slot.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve.#ctor(System.Double,System.Double,System.Double)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="angle">Angle in radians</param>
-      <param name="radius">GCircle radius</param>
-      <param name="slotRadius">Slot radius</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Position constructor.
-            </summary>
-      <param name="angle">Angle in radians</param>
-      <param name="radius">GCircle radius</param>
-      <param name="slotRadius">Slot radius</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double)">
-      <summary>
-            Plane constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="angle">Angle in radians</param>
-      <param name="radius">GCircle radius</param>
-      <param name="slotRadius">Slot radius</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Plane and position constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="angle">Angle in radians</param>
-      <param name="radius">GCircle radius</param>
-      <param name="slotRadius">Slot radius</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Plane, position and start angle constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="startAngle">Start angle in radians</param>
-      <param name="deltaAngle">Delta angle in radians</param>
-      <param name="radius">GCircle radius</param>
-      <param name="slotRadius">Slot radius</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve.#ctor(System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Start angle constructor.
-            </summary>
-      <param name="startAngle">Start angle in radians</param>
-      <param name="deltaAngle">Delta angle in radians</param>
-      <param name="radius">GCircle radius</param>
-      <param name="slotRadius">Slot radius</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Position and start angle constructor.
-            </summary>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="startAngle">Start angle in radians</param>
-      <param name="deltaAngle">Delta angle in radians</param>
-      <param name="radius">GCircle radius</param>
-      <param name="slotRadius">Slot radius</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCircularSlotShapedCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Plane, position and start angle constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="startAngle">Start angle in radians</param>
-      <param name="deltaAngle">Delta angle in radians</param>
-      <param name="radius">GCircle radius</param>
-      <param name="slotRadius">Slot radius</param>
-    </member>
-    <member name="T:devDept.Geometry.Entities.GHexagonalCompositeCurve">
-      <summary>
-            Hexagonal composite igCurve definition.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GHexagonalCompositeCurve.#ctor(System.Double,System.Boolean)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="radius">Radius</param>
-      <param name="inscribed">When true, the radius is considered of the inscribed circle</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GHexagonalCompositeCurve.#ctor(System.Double,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Position constructor.
-            </summary>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="radius">Radius</param>
-      <param name="angle">Rotation angle in radians</param>
-      <param name="inscribed">When true, the radius is considered of the inscribed circle</param>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GHexagonalCompositeCurve.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
-      <summary>
-            Plane and position constructor.
-            </summary>
-      <param name="sketchPlane">Sketch plane</param>
-      <param name="x">Position along the plane X axis</param>
-      <param name="y">Position along the plane Y axis</param>
-      <param name="radius">Radius</param>
-      <param name="angle">Rotation angle in radians</param>
-      <param name="inscribed">When true, the radius is considered of the inscribed circle</param>
-    </member>
     <member name="T:devDept.Geometry.Entities.GEllipse">
       <summary>
             GEllipse entity.
@@ -2256,6 +2001,16 @@
             </summary>
       <param name="t">The parameter</param>
       <returns>The unit tangent.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GEllipse.PointOnEllipseAt(System.Double,devDept.Geometry.Plane,System.Double,System.Double)">
+      <summary>
+            Evaluates a point on the ellipse using the trigonometric parameterization.
+            </summary>
+      <param name="t">The parameter.</param>
+      <param name="plane">The ellipse plane.</param>
+      <param name="r0">The ellipse's X radius.</param>
+      <param name="r1">The ellipse's Y radius.</param>
+      <returns>The 3D point.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GEllipse.CurvatureAt(System.Double)">
       <summary>
@@ -3200,7 +2955,7 @@
             Extrudes this igCurve along the specified direction.
             </summary>
       <param name="gLine">Extrusion direction and length as <see cref="T:devDept.Geometry.Entities.GLine" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.IGCurve.ExtrudeAsBrep(System.Double,System.Double,System.Double,System.Double)">
@@ -3210,7 +2965,7 @@
       <param name="dx">Extrusion amount along the X axis</param>
       <param name="dy">Extrusion amount along the Y axis</param>
       <param name="dz">Extrusion amount along the Z axis</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.IGCurve.ExtrudeAsBrep(devDept.Geometry.Vector3D,System.Double,System.Double)">
@@ -3219,7 +2974,7 @@
             </summary>
       <param name="amount">Extrusion direction and lenght</param>
       <param name="draftAngleInRadians">Signed draft angle in radians</param>
-      <param name="tolerance">The regeneration tolerance. Required for non-perpendicular extrusion directions</param>
+      <param name="tolerance">The regeneration tolerance. Required for non-perpendicular extrusion directions. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.IGCurve.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
@@ -3259,7 +3014,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Revolution axis direction</param>
       <param name="center">Revolution axis origin</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.IGCurve.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
@@ -3270,7 +3025,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axisStart">Revolution axis start point</param>
       <param name="axisEnd">Revolution axis end point</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.IGCurve.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Entities.GLine,System.Double)">
@@ -3280,7 +3035,7 @@
       <param name="startAngle">Revolution start angle in radians</param>
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Revolution axis</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.IGCurve.SweepAsSurface(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
@@ -4429,7 +4184,7 @@
       <summary>
             For interal use only.
             </summary>
-            TODO Geo: rivedere per machining
+            TODO Geo Cam: rivedere per machining
         </member>
     <member name="M:devDept.Geometry.Entities.GRegion.Pocket(System.Double,System.Double)">
       <summary>
@@ -4579,7 +4334,7 @@
             </summary>
       <param name="amount">The extrusion amount</param>
       <param name="angleInRadians">The draft angle in radians</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>&gt;The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsBrep(devDept.Geometry.Interval,System.Double,System.Double)">
@@ -4588,7 +4343,7 @@
             </summary>
       <param name="amount">The extrusion amount</param>
       <param name="angleInRadians">The draft angle in radians</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>&gt;The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsBrep(devDept.Geometry.Vector3D,System.Double,System.Double)">
@@ -4597,7 +4352,7 @@
             </summary>
       <param name="amount">The extrusion amount</param>
       <param name="angleInRadians">The draft angle in radians</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>&gt;The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsSolid(System.Double,System.Double,System.Double,System.Double)">
@@ -4782,7 +4537,7 @@
       <param name="deltaAngle">Revolution angle in radians</param>
       <param name="axis">Axis direction</param>
       <param name="center">Axis start point</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">the regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GRegion.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
@@ -6272,36 +6027,6 @@
       <returns>The created mesh.</returns>
       <exception cref="!:EyeshotException">Countours must be closed</exception>
     </member>
-    <member name="M:devDept.Geometry.Entities.GMesh.CreatePlanar(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="tolerance">The chordal error</param>
-      <param name="meshNature">Nature of the GMesh</param>
-      <returns>The created mesh.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GMesh.CreatePlanar``1(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="tolerance">The chordal error</param>
-      <param name="meshNature">Nature of the GMesh</param>
-      <returns>The created mesh.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GMesh.CreatePlanar(devDept.Geometry.Entities.IGCurve,System.Collections.Generic.IList{devDept.Geometry.Entities.IGCurve},System.Double,devDept.Geometry.Entities.GMesh.natureType)">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="inners">The inner contour list oriented clockwise</param>
-      <param name="tolerance">The chordal error</param>
-      <param name="meshNature">Nature of the GMesh</param>
-      <returns>The created mesh.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GMesh.CreatePlanar``1(devDept.Geometry.Entities.IGCurve,System.Collections.Generic.IList{devDept.Geometry.Entities.IGCurve},System.Double,devDept.Geometry.Entities.GMesh.natureType)">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="inners">The inner contour list oriented clockwise</param>
-      <param name="tolerance">The chordal error</param>
-      <param name="meshNature">Nature of the GMesh</param>
-      <returns>The created mesh.</returns>
-    </member>
     <member name="P:devDept.Geometry.Entities.GMesh.R">
             Color red component.
         </member>
@@ -6420,6 +6145,11 @@
     <member name="M:devDept.Geometry.Entities.GMesh.WeldFast(System.Double)">
       <summary>
             Does not clean degenerate triangles. For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GMesh.Weld(devDept.Geometry.Point3D[]@,devDept.Geometry.IndexTriangle[]@,devDept.Geometry.IndexLine[],System.Double)">
+      <summary>
+            For internal use only.
             </summary>
     </member>
     <member name="M:devDept.Geometry.Entities.GMesh.WeldVectors(devDept.Geometry.Point3D[],System.Int32@,System.Double,System.Int32[]@)">
@@ -6824,7 +6554,7 @@
       <param name="meshNature">Nature of the mesh</param>
       <returns>The created mesh.</returns>
     </member>
-    <member name="M:devDept.Geometry.Entities.GMesh.MergeMeshes(devDept.Geometry.Entities.GMesh[],devDept.Geometry.Entities.GMesh.natureType)">
+    <member name="M:devDept.Geometry.Entities.GMesh.MergeMeshes(devDept.Geometry.Entities.GMesh[],devDept.Geometry.Entities.GMesh.natureType,System.Boolean)">
       <summary>
             For internal use only.
             </summary>
@@ -8429,54 +8159,6 @@
       <returns>The created GSolid.</returns>
       <exception cref="!:EyeshotException">Countours must be closed</exception>
     </member>
-    <member name="M:devDept.Geometry.Entities.GSolid.CreatePlanar(System.Collections.Generic.IList{devDept.Geometry.Point3D})">
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <returns>The created GSolid.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSolid.CreatePlanar``1(System.Collections.Generic.IList{devDept.Geometry.Point3D})">
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <returns>The created GSolid.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSolid.CreatePlanar(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}})">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="inners">The inner contour list oriented clockwise</param>
-      <returns>The created GSolid.</returns>
-      <exception cref="!:EyeshotException">Countours must be closed</exception>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSolid.CreatePlanar``1(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}})">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="inners">The inner contour list oriented clockwise</param>
-      <returns>The created GSolid.</returns>
-      <exception cref="!:EyeshotException">Countours must be closed</exception>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSolid.CreatePlanar(devDept.Geometry.Entities.IGCurve,System.Double)">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="deviation">The maximum deviation</param>
-      <returns>The created GSolid.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSolid.CreatePlanar``1(devDept.Geometry.Entities.IGCurve,System.Double)">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="deviation">The maximum deviation</param>
-      <returns>The created GSolid.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSolid.CreatePlanar(devDept.Geometry.Entities.IGCurve,System.Collections.Generic.IList{devDept.Geometry.Entities.IGCurve},System.Double)">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="inners">The inner contour list oriented clockwise</param>
-      <param name="deviation">The maximum deviation</param>
-      <returns>The created GSolid.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GSolid.CreatePlanar``1(devDept.Geometry.Entities.IGCurve,System.Collections.Generic.IList{devDept.Geometry.Entities.IGCurve},System.Double)">
-      <summary>Triangulates the specified 3D region.</summary>
-      <param name="outer">Outer contour of the region oriented counter-clockwise</param>
-      <param name="inners">The inner contour list oriented clockwise</param>
-      <param name="deviation">The maximum deviation</param>
-      <returns>The created GSolid.</returns>
-    </member>
     <member name="M:devDept.Geometry.Entities.GSolid.CreateCylinder(System.Double,System.Double,System.Int32)">
       <summary>
              Creates a Cylinder primitive.
@@ -9326,7 +9008,7 @@
       <summary>
             Extrudes the specified region and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="reg">The region</param>
       <param name="amount">The extrusion amount</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
@@ -9335,7 +9017,7 @@
       <summary>
             Extrudes the specified region and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="reg">The region</param>
       <param name="amount">The extrusion amount</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
@@ -9353,7 +9035,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="spacingX">The spacing between pattern instances for plane X direction</param>
@@ -9366,7 +9048,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="spacingX">The spacing between pattern instances for plane X direction</param>
@@ -9379,7 +9061,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="patternPln">The plane used to create the rectangular pattern</param>
@@ -9393,7 +9075,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="patternPln">The plane used to create the rectangular pattern</param>
@@ -9407,7 +9089,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="angleInRadians">The draft angle in radians</param>
@@ -9421,7 +9103,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="angleInRadians">The draft angle in radians</param>
@@ -9435,7 +9117,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="angleInRadians">The draft angle in radians</param>
@@ -9450,7 +9132,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="angleInRadians">The draft angle in radians</param>
@@ -9465,7 +9147,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="spacingX">The spacing between pattern instances for plane X direction</param>
@@ -9478,7 +9160,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="spacingX">The spacing between pattern instances for plane X direction</param>
@@ -9491,7 +9173,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="patternPln">The plane used to create the rectangular pattern</param>
@@ -9505,7 +9187,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="patternPln">The plane used to create the rectangular pattern</param>
@@ -9519,7 +9201,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9533,7 +9215,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9547,7 +9229,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9562,7 +9244,7 @@
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9577,7 +9259,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="center">The circular pattern center</param>
@@ -9589,7 +9271,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="center">The circular pattern center</param>
@@ -9601,7 +9283,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="axis">The circular pattern axis</param>
@@ -9614,7 +9296,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="axis">The circular pattern axis</param>
@@ -9627,7 +9309,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9640,7 +9322,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9653,7 +9335,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9667,7 +9349,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">The extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9681,7 +9363,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">Extrusion amount</param>
       <param name="center">Circular pattern center</param>
@@ -9693,7 +9375,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">Extrusion amount</param>
       <param name="center">Circular pattern center</param>
@@ -9705,7 +9387,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">Extrusion amount</param>
       <param name="axis">Circular pattern axis</param>
@@ -9718,7 +9400,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">Extrusion amount</param>
       <param name="axis">Circular pattern axis</param>
@@ -9731,7 +9413,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">Extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9744,7 +9426,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">Extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9757,7 +9439,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">Extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9771,7 +9453,7 @@
       <summary>
             Creates a circular pattern by extruding the specified region multiples times and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="region">The region to extrude</param>
       <param name="amount">Extrusion amount</param>
       <param name="draftAngleInRadians">The draft angle in radians</param>
@@ -9785,7 +9467,7 @@
       <summary>
             Extrudes the specified region, overriding the original GBrep with the result of the cut and adds it to the original GBrep object.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="reg">The region</param>
       <param name="amount">The extrusion amount</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
@@ -9915,7 +9597,7 @@
       <summary>
             Compute the difference of the solidA with the solidB.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="solidB">
       </param>
       <returns>An array of solids if the operation is successful, null/Nothing otherwise.</returns>
@@ -9938,13 +9620,13 @@
             empty array is returned. Otherwise, if due to an error the algorithm fails to
             compute the intersections, null/Nothing is returned.
             </returns>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)">FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology">FixTopology method</seealso>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.Union(devDept.Geometry.Entities.GBrep,devDept.Geometry.Entities.GBrep)">
       <summary>
              Compute the Union of the solidA with the solidB.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="solidA">
       </param>
       <param name="solidB">
@@ -9988,7 +9670,7 @@
       <param name="width">Box's width</param>
       <param name="depth">Box's depth</param>
       <param name="height">Box's height</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">the regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.CreateCylinder(System.Double,System.Double,System.Double)">
@@ -9997,7 +9679,7 @@
              </summary>
       <param name="radius">Cylinder's radius</param>
       <param name="height">Cylinder's height</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">the regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.CreateCone(System.Double,System.Double)">
@@ -10011,7 +9693,7 @@
       <param name="baseRadius">Cone's base radius</param>
       <param name="topRadius">Cone's top radius</param>
       <param name="height">The cone's height</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">the regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.CreateCone(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
@@ -10024,7 +9706,7 @@
       <param name="topInnerRadius">Cone's top internal radius. 0 if the eccentric cone hasn't an internal offset</param>
       <param name="height">The cone's height</param>
       <param name="distance">Distance between GCircle centers</param>
-      <param name="tolerance">The regeneration tolerance</param>
+      <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.CreateSphere(System.Double,System.Double)">
@@ -10032,7 +9714,7 @@
              Creates a Sphere primitive.
              </summary>
       <param name="radius">Sphere's radius</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">the regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.CreateTorus(System.Double,System.Double,System.Double)">
@@ -10041,7 +9723,7 @@
              </summary>
       <param name="majorRadius">Torus radius</param>
       <param name="minorRadius">Torus section radius</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">the regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.Ruled(devDept.Geometry.Entities.GSurface,devDept.Geometry.Entities.GSurface,System.Double)">
@@ -10051,7 +9733,7 @@
       <remarks> The two gSurfaces must have the same orientation, with the normal of the first one pointing towards the inside of the resulting brep, and the same number of igCurves in the same order.</remarks>
       <param name="bottom">the bottom gSurface to connect</param>
       <param name="top">the top gSurface to connect</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">the regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep object.</returns>
       <remarks> The two gSurfaces should not have collapsed edges.</remarks>
     </member>
@@ -10072,7 +9754,7 @@
       <param name="endCaps">if true, it creates a closed GBrep</param>
       <param name="speedChange"> Works only when splitAtCorners is true. If true, when the tangents have the same direction but different lengths, the curve will be split. 
                 If false, it won't be split.</param>
-      <param name="tolerance">the regeneration tolerance</param>
+      <param name="tolerance">the regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep if the operation succeeds, null/Nothing otherwise.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeWithTwist(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Double,System.Boolean)">
@@ -10097,7 +9779,7 @@
       <param name="angle">Twist angle in radians</param>
       <param name="numberOfSections">Number of internal sections to be interpolated, it corresponds to the number of distinct internal knots in the extrusion gSurface's U direction.</param>
       <param name="endCaps">If true, creates a closed GBrep</param>
-      <param name="rebuildTol">The regeneration tolerance</param>
+      <param name="rebuildTol">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting GBrep if the operation succeeds, null/Nothing otherwise.</returns>
     </member>
     <member name="P:devDept.Geometry.Entities.GBrep.Vertices">
@@ -10154,7 +9836,7 @@
       <param name="inners">The inner shells face array</param>
       <param name="splitEdgesOnSeams">If yes, it splits all the edges that intersect the seams of the faces</param>
       <param name="tolerance">The rebuild tolerance</param>
-            TODo Geo translaror: rimettere internal dopo conversione translator
+            TODO Geo TRS: rimettere internal dopo conversione translator
         </member>
     <member name="M:devDept.Geometry.Entities.GBrep.#ctor(devDept.Geometry.Entities.GBrep.Face[],devDept.Geometry.Entities.GBrep.Face[][])">
       <summary>
@@ -10248,14 +9930,6 @@
       <param name="closest">The closest 3D point to P</param>
       <returns>The signed distance with this GBrep object.</returns>
     </member>
-    <member name="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)">
-      <summary>
-            If the geometry is not created inside Eyeshot, it could be necessary call this method to check and fix/add(if needed) missing data,
-             to correctly perform operations like Section/Intersection and Booleans.
-            </summary>
-      <param name="theFixedSolid">The GBrep entity equivalent to the original with additional data. The original one if the operation failed.</param>
-      <returns> Return true if the operation is successful, false otherwise.</returns>
-    </member>
     <member name="M:devDept.Geometry.Entities.GBrep.FixTopology">
       <summary>
             If the geometry is not created inside Eyeshot, it could be necessary call this method to check and fix/add(if needed) missing data,
@@ -10268,7 +9942,7 @@
       <summary>
             Splits this solid with the specified plane.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="pln">The cutting plane</param>
       <param name="left">The resulting set of left GBrep objects</param>
       <param name="right">The resulting set of right GBrep objects</param>
@@ -10279,7 +9953,7 @@
       <summary>
             Splits this solid with the specified plane.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="G">The cutting GSurface</param>
       <param name="left">The resulting set of left GBrep objects</param>
       <param name="right">The resulting set of right GBrep objects</param>
@@ -10290,7 +9964,7 @@
       <summary>
             Cut the GBrep with the Plane, overriding the original GBrep with the result of the cut.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="pln"> cutting plane</param>
       <param name="flip">When true the cut direction is inverted</param>
       <returns>The intersection failure type.</returns>
@@ -10300,7 +9974,7 @@
       <summary>
             Cut the GBrep with the Plane, overriding the original GBrep with the result of the cut.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="pln">The cutting plane</param>
       <param name="leftOvers">The possible left over solid objects</param>
       <param name="flip">When true the cut direction is inverted</param>
@@ -10319,7 +9993,7 @@
       <summary>
             Cuts this solid with the specified plane, overriding the original GBrep with the result of the cut.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="gSurface">The cutting gSurface</param>
       <param name="leftOvers">The possible left over solid objects</param>
       <param name="flip">When true the cut direction is inverted</param>
@@ -10541,26 +10215,6 @@
             For internal use only.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.Entities.GBrep.Face.SubdivideBy(devDept.Geometry.Plane,devDept.Geometry.Entities.GBrep)">
-      <summary>
-            Subdivide the face in two or more distinct faces by the plane provided.
-            </summary>
-      <param name="plane">The plane reference to subdivide the face</param>
-      <param name="parent">The Brep that contains the current face</param>
-      <returns>The result of the operation of type <see cref="T:devDept.Geometry.booleanFailureType" />.</returns>
-      <remarks>The usage of SubdivideBy is suggested at the end of the model construction, for example to perform FEM analysis.</remarks>
-      <remarks>The resulting Brep can't be used to perform Boolean operations anymore.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GBrep.Face.SubdivideBy(System.Collections.Generic.IList{devDept.Geometry.Entities.IGCurve},devDept.Geometry.Entities.GBrep)">
-      <summary>
-            Subdivide the face in two or more distinct faces by the curve list provided.
-            </summary>
-      <param name="contours">The list of disjoint contours (lying on the selected face) to subdivide the face</param>
-      <param name="parent">The Brep that contains the current face</param>
-      <returns>The result of the operation of type <see cref="T:devDept.Geometry.booleanFailureType" />.</returns>
-      <remarks>The usage of SubdivideBy is suggested at the end of the model construction, for example to perform FEM analysis.</remarks>
-      <remarks>The resulting Brep can't be used to perform Boolean operations anymore.</remarks>
-    </member>
     <member name="T:devDept.Geometry.Entities.GBrep.Loop">
       <summary>
             Brep face loop definition.
@@ -10658,7 +10312,7 @@
       <summary>
             Intersect the GBrep with the plane.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="pln"> the plane to intersect</param>
       <param name="tol">the tolerance</param>
       <returns>the list of the resulting intersection curves</returns>
@@ -10667,7 +10321,7 @@
       <summary>
             Intersect the GBrep with a generic GSurface.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="G"> the GSurface to intersect</param>
       <returns>the list of the resulting intersection curves</returns>
     </member>
@@ -10675,7 +10329,7 @@
       <summary>
             Computes the intersection loops between two GBrep objects.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="solidA"> The first GSolid to intersect</param>
       <param name="solidB"> The second GSolid to intersect</param>
       <param name="intCurves">The resulting intersection curves as a list of GCompositeIgCurve</param>
@@ -10685,7 +10339,7 @@
       <summary>
             Checks if two brep intersect each other.
             </summary>
-      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology(devDept.Geometry.Entities.GBrep@)"> FixTopology method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
       <param name="solidA"> The first Solid to intersect</param>
       <param name="solidB"> The second Solid to intersect</param>
       <param name="intersectionPoints">The resulting first intersection points found, when available</param>
@@ -10921,7 +10575,7 @@
       <summary>
             For internal use only.
             </summary>
-            TODO Geo Transaltor: rimettere internal
+            TODO Geo TRS: rimettere internal
         </member>
     <member name="T:devDept.Geometry.Entities.GSurface">
       <summary>
@@ -11041,11 +10695,6 @@
       <param name="tol">Tolerance</param>
       <returns>The resulting gSurface array if the operation succeeds, null/Nothing otherwise.</returns>
     </member>
-    <member name="M:devDept.Geometry.Entities.GSurface.CreatePlanar(devDept.Geometry.Entities.IGCurve)">
-      <summary>Creates a planar gSurface bounded by the contour provided.</summary>
-      <param name="outerContour">The outer contour of the region</param>
-      <returns>The planar gSurface if the operation succeeded, null/Nothing otherwise.</returns>
-    </member>
     <member name="M:devDept.Geometry.Entities.GSurface.CreatePlanar(devDept.Geometry.Plane,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
       <summary>Creates a planar rectangular gSurface parallel to the specified plane.</summary>
       <param name="pln">The plane (determines the gSurface orientation)</param>
@@ -11125,7 +10774,7 @@
       <param name="uSpan">The segment U span</param>
       <param name="vSpan">The segment V span</param>
       <param name="b">The power basis coefficients as an array of 3D vectors</param>
-            TODO Geo: rimettere internal?
+            TODO Geo TRS: rimettere internal
         </member>
     <member name="M:devDept.Geometry.Entities.GSurface.Clone">
       <summary>
@@ -11250,7 +10899,7 @@
       <summary>
             For internal use only.
             </summary>
-            TODO Geo: rimettere internal una volta spostato translator in geometry
+            TODO Geo TRS: rimettere internal
         </member>
     <member name="M:devDept.Geometry.Entities.GSurface.Blend(devDept.Geometry.Entities.GSurface,devDept.Geometry.Entities.GSurface,System.Int32,System.Int32,System.Double,System.Boolean,System.Boolean)">
       <summary>
@@ -11752,7 +11401,7 @@
       <summary>
             FOr internal use only.
             </summary>
-            TODO Geo: translator iges
+            TODO Geo TRS: rimettere internal
         </member>
     <member name="M:devDept.Geometry.Entities.GSurface.GetEmptyRegion(devDept.Geometry.Entities.GSurface.regionInflateType)">
       <summary>
@@ -12153,7 +11802,7 @@
       <summary>
             Prepare contours for planar gSurfaces. For internal use only.
             </summary>
-            TODo Geo Translator
+            TODO Geo TRS
         </member>
     <member name="T:devDept.Geometry.Entities.GSurface.PolygonPoint">
       <summary>
@@ -12356,6 +12005,11 @@
       <param name="curveList">Must be already oriented and sorted</param>
       <returns>
       </returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GSurface.Reparametrize(devDept.Geometry.Entities.GSurface,System.Double@,System.Double@,devDept.Geometry.Entities.GSurface@)">
+      <summary>
+            For internal use only.
+            </summary>
     </member>
     <member name="M:devDept.Geometry.Entities.GSurface.TrimBy(devDept.Geometry.Entities.GSurface,System.Double,System.Boolean)">
       <summary>
@@ -12679,6 +12333,148 @@
       <param name="domainU">Domain U length</param>
       <returns>True if the line is horizontal, false otherwise.</returns>
     </member>
+    <member name="P:devDept.Geometry.QuadEntityDataNode.TreeSource">
+      <summary>
+            Gets the reference to the entire tree on which this node belongs to.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.QuadEntityDataNode.Children">
+      <summary>
+            Gets the children of the current octant.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.QuadEntityDataNode.ElementsIndices">
+      <summary>
+            Gets the indices of the elements stored in the current node (the elements in the children are not included).
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.QuadEntityDataNode.HasChildren">
+      <summary>
+            True if the current node has children.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.QuadEntityDataNode.IsElemInsideNode(System.Int32)">
+      <summary>
+            Checks when the element at elemIndex is inside the Quad node
+            </summary>
+      <param name="elemIndex">the index of the element in the source entity element list(vertices or triangles)</param>
+      <returns>true if the element is completly inside the quad node. False otherwise.</returns>
+    </member>
+    <member name="T:devDept.Geometry.QuadTree">
+      <summary>
+            This class help divide the GMesh's space in 8 parts, each one with a definite number of Triangles.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.QuadTree.OriginalDataSource">
+      <summary>
+            The original <see cref="T:devDept.Geometry.Entities.GEntity" /> on which the tree subdivision data refers to.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.QuadTree.Root">
+      <summary>
+            The first node of the tree. It can be a <see cref="T:devDept.Geometry.QuadEntityDataNode" /> for <see cref="T:devDept.Geometry.QuadTree" /> or <see cref="T:devDept.Geometry.Octant" /> for <see cref="T:devDept.Geometry.Octree" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.QuadTree.#ctor(devDept.Geometry.Entities.GEntity,System.Double)">
+      <summary>
+            Initializes a new instance of the <see cref="T:devDept.Geometry.Octree" /> class.
+            Standard Constructor that defines the maximum number of triangles per Octant as (GMesh.Triangles.Length / 100).
+            </summary>
+      <param name="entity">The GEntity to be subdivided</param>
+      <param name="chordalError">The chordalError needed to regenerate the input entity (if curved type)</param>
+    </member>
+    <member name="M:devDept.Geometry.QuadTree.#ctor(devDept.Geometry.QuadTree)">
+      <summary>
+            Build Octree from other (to build OrientedOctree quickly). The resulting Octree should be Read Only.
+            (For internal use only)
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.QuadTree.#ctor(devDept.Geometry.Entities.GEntity,System.Int32)">
+      <summary>
+            Initializes a new instance of the <see cref="T:devDept.Geometry.QuadTree" /> class.
+            Constructor with possibility to define an integer for maximum number of element per Quad node.
+            </summary>
+      <param name="GEntity">The 2D GEntity source to subdivide</param>
+      <param name="limit">Maximum number of element per Quad node</param>
+    </member>
+    <member name="M:devDept.Geometry.QuadTree.DoWork(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Does the work.
+            </summary>
+      <param name="worker">The worker.</param>
+      <param name="doWorkEventArgs">The <see cref="T:System.ComponentModel.DoWorkEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="T:devDept.Geometry.Octree">
+      <summary>
+            This class help divide the GMesh's space in 8 parts, each one with a definite number of Triangles.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.Octree.Root">
+      <summary>
+            The first node of the tree.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Octree.#ctor(devDept.Geometry.Entities.GMesh)">
+      <summary>
+            Initializes a new instance of the <see cref="T:devDept.Geometry.Octree" /> class.
+            Standard Constructor that defines the maximum number of triangles per Octant as (GMesh.Triangles.Length / 100).
+            </summary>
+      <param name="mesh">The mesh.</param>
+    </member>
+    <member name="M:devDept.Geometry.Octree.#ctor">
+      <summary>
+            Empty constructor - for internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Octree.#ctor(devDept.Geometry.Octree)">
+      <summary>
+            Build Octree from other (to build OrientedOctree quickly). The resulting Octree should be Read Only.
+            (For internal use only)
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Octree.#ctor(devDept.Geometry.Entities.GMesh,System.Int32)">
+      <summary>
+            Initializes a new instance of the <see cref="T:devDept.Geometry.Octree" /> class.
+            Constructor with possibility to define an integer for maximum number of triangles per Octant.
+            </summary>
+      <param name="mesh">The mesh.</param>
+      <param name="limit">Maximum number of triangles per Octant.</param>
+    </member>
+    <member name="M:devDept.Geometry.Octree.DoWork(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+      <summary>
+            Does the work.
+            </summary>
+      <param name="worker">The worker.</param>
+      <param name="doWorkEventArgs">The <see cref="T:System.ComponentModel.DoWorkEventArgs" /> instance containing the event data.</param>
+    </member>
+    <member name="M:devDept.Geometry.Octree.FindClosestTriangle(devDept.Geometry.Segment3D,devDept.Geometry.Transformation,System.Collections.Generic.SortedList{System.Double,devDept.Geometry.Entities.HitTriangle})">
+      <summary>
+            Find intersection between Ray and Octant's GMesh.
+            </summary>
+      <param name="seg">The segment to check if intersect with the Triangles of the Octant GMesh </param>
+      <param name="transf">The transformation applied to the Points of intersection</param>
+      <param name="triList">Sorted list (distance related between segment's Start Point and HitPoint) of hit triangles</param>
+    </member>
+    <member name="T:devDept.Geometry.Octant">
+      <summary>
+            One of the eight space containing a definite number of Triangles per GMesh
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Octant.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Octree)">
+      <summary>
+            Bounding box min/max constructor.
+            </summary>
+      <param name="boxMin">Bounding box min corner</param>
+      <param name="boxMax">Bounding box max corner</param>
+    </member>
+    <member name="M:devDept.Geometry.Octant.IsPointInside(devDept.Geometry.Point3D)">
+      <summary>
+            Checks if a point is inside the BoundingBox of the current node.
+            </summary>
+      <param name="point">
+      </param>
+      <returns>True if it's inside or onto the boundary of the BoundingBox, false otherwise.</returns>
+    </member>
     <member name="T:devDept.Geometry.Utility">
       <summary>
             Contains a collection of utility methods and constants for internal use.
@@ -12727,11 +12523,11 @@
     </member>
     <member name="M:devDept.Geometry.Utility.SmartAdd(System.Collections.Generic.IList{devDept.Geometry.Entities.IGCurve},System.Boolean)">
       <summary>
-            Returns a GCompositeIgCurve if the number of igCurves is bigger than one.
+            Returns a GCompositeCurve if the number of igCurves is bigger than one.
             </summary>
       <param name="curveList">The list of igCurves</param>
       <param name="sortAndOrient">When true, the igCurves are properly sorted and oriented.</param>
-      <returns>The igCurve itself or a GCompositeIgCurve if the igCurve number is bigger than one.</returns>
+      <returns>The igCurve itself or a GCompositeCurve if the igCurve number is bigger than one.</returns>
     </member>
     <member name="M:devDept.Geometry.Utility.GetCpuCount(System.Int32,System.Int32[]@,System.Int32[]@)">
       <summary>
@@ -12742,16 +12538,10 @@
       <param name="endIndex">Array of end indices</param>
       <returns>The number of logical processors</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Utility.ReplaceString(System.String,System.String,System.String,System.StringComparison)" -->
-    <member name="M:devDept.Geometry.Utility.GetRevisionCloud(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Plane,System.Double)">
+    <member name="M:devDept.Geometry.Utility.FlipTriangles(System.Collections.Generic.IList{devDept.Geometry.IndexTriangle})">
       <summary>
-            Builds a revision cloud from the specified IGCurve.
+            For internal use only.
             </summary>
-      <param name="sourceIgCurve">The input igCurve</param>
-      <param name="plane">The plane used to build the revision cloud</param>
-      <param name="averageRadius">The radius that each arc of revision cloud should have</param>
-      <returns>The resulting revision cloud as a GCompositeIgCurve of arcs.</returns>
-      <remarks>The input igCurve should lie on the input Plane.</remarks>
     </member>
     <member name="M:devDept.Geometry.Utility.RotationMinimizingFrames(devDept.Geometry.Plane,devDept.Geometry.Point3D[],devDept.Geometry.Vector3D[])">
       <summary>
@@ -12783,6 +12573,16 @@
       <param name="reverseVertices">If vertices are present and the igCurve needs to be reversed the vertices array is reversed as well</param>
       <param name="assumeClosed">In case you already know that the contour is/has to be closed.</param>
       <param name="closureTol">Use zero if you know that the contour is/has to be closed</param>
+    </member>
+    <member name="M:devDept.Geometry.Utility.FixLoopEdgeOrderAndOrientation(devDept.Geometry.Entities.GBrep)">
+      <summary>
+            For internal use only. Loops over every face's loop and check edge order and orientation. If inconsistent we rebuild it correctly.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Utility.FixLoopNestingOrder(devDept.Geometry.Entities.GBrep,System.Double)">
+      <summary>
+            For internal use only. Loops over every face's loop and check edge order and orientation. If inconsistent we rebuild it correctly.
+            </summary>
     </member>
     <member name="M:devDept.Geometry.Utility.SplitEdgeOnSurfaceSeams(devDept.Geometry.Entities.GBrep)">
       <summary>
@@ -12844,6 +12644,65 @@
             </summary>
       <param name="loops">The list of 2D contours</param>
       <returns>The outer loop index</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.CreateCone(devDept.Geometry.Entities.GMesh.natureType,System.Double,System.Double,System.Double,System.Int32,System.Boolean,System.Int32@,System.Int32@,devDept.Geometry.Point3D[]@,devDept.Geometry.IndexTriangle[]@,devDept.Geometry.Vector3D[]@)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Utility.CreateTriangle(devDept.Geometry.Entities.GMesh.natureType,System.Int32,System.Int32,System.Int32)">
+      <summary>
+            Create a triangle according to the <see cref="!:meshNature" />.
+            </summary>
+      <param name="meshNature">Nature of the mesh</param>
+      <param name="v1">Index of the first triangle vertex</param>
+      <param name="v2">Index of the second triangle vertex</param>
+      <param name="v3">Index of the third triangle vertex</param>
+      <returns>The created triangle.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.CreateTriangle(devDept.Geometry.Entities.GMesh.natureType,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+      <summary>
+            Create a triangle according to the <see cref="!:meshNature" />.
+            </summary>
+      <param name="meshNature">Nature of the mesh</param>
+      <param name="v1">Index of the first triangle vertex</param>
+      <param name="v2">Index of the second triangle vertex</param>
+      <param name="v3">Index of the third triangle vertex</param>
+      <param name="n1">Index of the first vertex normal</param>
+      <param name="n2">Index of the second vertex normal</param>
+      <param name="n3">Index of the third vertex normal</param>
+      <returns>The created triangle.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.CreateTriangle(devDept.Geometry.Entities.GMesh.natureType,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+      <summary>
+            Create a triangle according to the <see cref="!:meshNature" />.
+            </summary>
+      <param name="meshNature">Nature of the mesh</param>
+      <param name="v1">Index of the first triangle vertex</param>
+      <param name="v2">Index of the second triangle vertex</param>
+      <param name="v3">Index of the third triangle vertex</param>
+      <param name="n1">Index of the first vertex normal</param>
+      <param name="n2">Index of the second vertex normal</param>
+      <param name="n3">Index of the third vertex normal</param>
+      <param name="t1">Index of the first vertex texture</param>
+      <param name="t2">Index of the second vertex texture</param>
+      <param name="t3">Index of the third vertex texture</param>
+      <returns>The created triangle.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.CreateVertex(devDept.Geometry.Entities.GMesh.natureType,System.Double,System.Double,System.Double)">
+      <summary>
+            Create a vertex according to the <see cref="!:meshNature" />.
+            </summary>
+      <param name="meshNature">Nature of the mesh</param>
+      <param name="x">X coordinate value</param>
+      <param name="y">Y coordinate value</param>
+      <param name="z">Z coordinate value</param>
+      <returns>The created vertex.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Utility.CreateSphere(devDept.Geometry.Entities.GMesh.natureType,System.Double,System.Int32,System.Int32,System.Boolean,System.Boolean,devDept.Geometry.Point3D[]@,devDept.Geometry.IndexTriangle[]@,devDept.Geometry.Vector3D[]@,devDept.Geometry.PointF[]@)">
+      <summary>
+            For internal use only.
+            </summary>
     </member>
     <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Utility.NeedToFlipTrianglesForExtrusion(System.Collections.Generic.IList{devDept.Geometry.IndexTriangle},System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.Vector3D)" -->
     <member name="M:devDept.Geometry.Utility.ConvexHull(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double,System.Boolean,System.Boolean)">
@@ -12911,15 +12770,8 @@
       <param name="rs">The revolved gSurface</param>
       <param name="trimLoops">The trim loops</param>
       <param name="angle">The rotation angle</param>
-            TODO Geo: translator
+            TODO Geo TRS
         </member>
-    <member name="M:devDept.Geometry.Utility.GetUnitsToMmFactor(devDept.Geometry.linearUnitsType)">
-      <summary>
-            Gets the factor to convert from units to mm.
-            </summary>
-      <param name="units">The model units</param>
-      <returns>The conversion factor.</returns>
-    </member>
     <member name="M:devDept.Geometry.Utility.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Collections.Generic.IList{devDept.Geometry.Segment3D})">
       <summary>
             Triangulates a set of contours/points.
@@ -12929,6 +12781,10 @@
       <param name="points">The list of Steiner points, can be null/Nothing.</param>
       <param name="segments">The internal constraint segments, can be null/Nothing.</param>
       <returns>The resulting Mesh, null/Nothing in case of failure.</returns>
+      <remarks>
+            Please note that this method ignores the points Z coordinates. The provided contours
+            should be planar and lie on the XY plane.
+            </remarks>
     </member>
     <member name="M:devDept.Geometry.Utility.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point2D},System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point2D}},System.Boolean,devDept.Geometry.Point2D[]@,devDept.Geometry.IndexTriangle[]@)">
       <summary>
@@ -14808,28 +14664,37 @@
             The original point in the 2D Profile (on the plane)
             </summary>
     </member>
-    <member name="T:devDept.Geometry.lineWeightPrintingUnitsType">
-      <summary>
-            GLine weight unit system type used for printing.
-            </summary>
-      <seealso cref="!:HiddenLinesViewOnPaper" />
-      <seealso cref="!:HiddenLinesViewOnPaperPreview" />
-      <see cref="!:GEntity.LineWeight" />
+    <member name="T:devDept.Geometry.PointExtender">
+      <summary>Point3D Extender.</summary>
     </member>
-    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Inches">
+    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Geometry.Entities.IGCurve,System.Double)">
       <summary>
-            The gLine weight is treated as inches
+            Checks if the point is on the specified IGCurve.
             </summary>
+      <param name="igCurve">The igCurve to test</param>
+      <param name="maxGap">The maximum accepted distance to consider the point on the igCurve</param>
+      <returns>True if the distance between the point and the igCurve is smaller than maxGap, false otherwise.</returns>
     </member>
-    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Millimeters">
+    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Point3D@,System.Double@)">
       <summary>
-            The gLine weight is treated as millimeters
+            Checks if the point is on the specified IGCurve.
             </summary>
+      <param name="igCurve">The igCurve to test</param>
+      <param name="maxGap">The maximum accepted distance to consider the point on the igCurve</param>
+      <param name="closestPt">Outputs the closest point on the igCurve</param>
+      <param name="closestParam">Outputs the parameter along the igCurve corresponding to the closest point</param>
+      <returns>True if the distance between the point and the igCurve is smaller than maxGap, false otherwise.</returns>
     </member>
-    <member name="F:devDept.Geometry.lineWeightPrintingUnitsType.Pixels">
+    <member name="M:devDept.Geometry.PointExtender.EqualsExact(devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
       <summary>
-            The gLine weight is treated as pixels
+            Performs an exact double comparison between the XYZ coordinates of two points.
             </summary>
+      <param name="point">The first point to compare</param>
+      <param name="other">The second point to compare</param>
+      <returns>
+            True if the X, Y, Z coordinates of the two points are exactly
+            equal (evaluated using the equality operator '==').
+            </returns>
     </member>
     <member name="T:devDept.Geometry.booleanFailureType">
       <summary>
@@ -15011,26 +14876,6 @@
             When true the Text entities are not regenerated.
             </summary>
       <remarks>This can be useful when the Workspace is null.</remarks>
-    </member>
-    <member name="T:devDept.Geometry.elementType">
-      <summary>
-            2D finite element method type.
-            </summary>
-    </member>
-    <member name="F:devDept.Geometry.elementType.PlaneStrain">
-      <summary>
-            Plane strain
-            </summary>
-    </member>
-    <member name="F:devDept.Geometry.elementType.PlaneStress">
-      <summary>
-            Plane stress
-            </summary>
-    </member>
-    <member name="F:devDept.Geometry.elementType.Axisymmetric">
-      <summary>
-            Axisymetric
-            </summary>
     </member>
     <member name="T:devDept.Geometry.TessellationData">
       <summary>
@@ -15421,155 +15266,6 @@
       <param name="v4">Index of the first mid-side vertex</param>
       <param name="v5">Index of the second mid-side vertex</param>
       <param name="v6">Index of the third mid-side vertex</param>
-    </member>
-    <member name="T:devDept.Geometry.GMaterial">
-      <summary>
-            GMaterial definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.Name">
-      <summary>
-            Gets or sets material name.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.Description">
-      <summary>Gets or sets the material description.</summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.Young">
-      <summary>
-            Gets or sets material modulus of elasticity.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.Poisson">
-      <summary>
-            Gets or sets material Poisson's ratio.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.YieldStrength">
-      <summary>
-            Gets or sets material yield strength.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.Density">
-      <summary>
-            Gets or sets material density.
-            </summary>
-      <remarks>The default system of measurement for the density is kilograms per cubic meters.</remarks>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.CoeffOfThermalExp">
-      <summary>
-            Gets or sets material coefficient of thermal expansion.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.ElementType">
-      <summary>
-            Gets or sets the 2D FEM element type (FEM).
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.Matrix">
-      <summary>
-            Gets or sets the material Matrix (FEM).
-            </summary>
-    </member>
-    <member name="F:devDept.Geometry.GMaterial.D">
-      <summary>
-            D material matrix (FEM)
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.ElementThickness">
-      <summary>
-            Gets or sets the 2D FEM element thickness.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.LinearUnits">
-      <summary>Gets or sets the material linear units type for the material density.</summary>
-      <remarks>The default unit of measurement is the meter.</remarks>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.MassUnits">
-      <summary>Gets or sets the material mass units type for the material density.</summary>
-      <remarks>The default unit of measurement is the kilogram.</remarks>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.#ctor(System.String)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="name">The material name.</param>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.#ctor(System.String,System.Double,System.Double,System.Double,System.Double,System.Double,devDept.Geometry.elementType,System.Double)">
-      <summary>
-            For internal graphics use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.#ctor(System.String,System.Double,System.Double,System.Double,System.Double,System.Double)">
-      <summary>
-            Fem constructor.
-            </summary>
-      <param name="name">The material name.</param>
-      <param name="diffuse">Material diffuse intensity</param>
-      <param name="poisson">Material modulus of elasticity</param>
-      <param name="young">Material Poisson's ratio</param>
-      <param name="yield">Material yield strength</param>
-      <param name="density">Material density</param>
-      <param name="coeffOfThermExp">Material coefficient of thermal expansion</param>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.#ctor(System.String,System.Double,devDept.Geometry.linearUnitsType,devDept.Geometry.massUnitsType)">
-      <summary>
-            Density constructor.
-            </summary>
-      <param name="name">The material name.</param>
-      <param name="density">The material density.</param>
-      <param name="massUnits">The linear units type for density computation.</param>
-      <param name="linearUnits">The mass units type for density computation.</param>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Constructor for deserializing objects.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.Clone">
-      <summary>
-            Creates a deep copy of this material.
-            </summary>
-      <returns>The new material object.</returns>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.ToString">
-      <summary>Converts this Material to a human readable string.</summary>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.CalcMaterialPropertyMatrix(System.Int32,devDept.Geometry.elementType)">
-      <summary>
-            Updates the D matrix for this material (FEM).
-            </summary>
-      <param name="numberOfDimensions">Number of dimensions</param>
-      <param name="elType">2D element type</param>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.Equals(devDept.Geometry.GMaterial)">
-      <summary>
-            Compares material names ignoring cases.
-            </summary>
-      <param name="other">The other material</param>
-      <returns>True if the two material names are the same, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.GetHashCode">
-      <inehrit />
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
-    <member name="P:devDept.Geometry.GMaterial.ShearModulus">
-      <summary>
-            Gets the shear modulus using the material Young and Poisson constants.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.GMaterial.GetPoissonFromShearModulus(System.Double,System.Double)">
-      <summary>
-            Computes the Poisson ratio that needs to be set to have the desired shear modulus.
-            </summary>
     </member>
     <member name="T:devDept.Geometry.Converters.IndexTriangleConverter">
       <exclude />
@@ -22521,87 +22217,6 @@
             Converts the object to the related surrogate during the serialization process.
             </summary>
     </member>
-    <member name="T:devDept.Serialization.GMaterialSurrogate">
-      <summary>
-            Defines the <see cref="T:devDept.Geometry.GMaterial" /> surrogate.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.GMaterialSurrogate.#ctor(devDept.Geometry.GMaterial)">
-      <summary>
-            Standard constructor.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.Name">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.Name" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.Description">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.Description" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.CoeffOfThermalExp">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.CoeffOfThermalExp" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.Density">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.Density" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.ElementThickness">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.ElementThickness" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.ElementType">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.ElementType" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.Poisson">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.Poisson" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.YieldStrength">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.YieldStrength" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.Young">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.Young" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.LinearUnits">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.LinearUnits" />.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.GMaterialSurrogate.MassUnits">
-      <summary>
-            See <see cref="P:devDept.Geometry.GMaterial.MassUnits" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.GMaterialSurrogate.ConvertToObject">
-      <inheritdoc />
-      <remarks>
-             This method uses the <see cref="M:devDept.Geometry.GMaterial.#ctor(System.String)" /> constructor to create the object.        
-             </remarks>
-    </member>
-    <member name="M:devDept.Serialization.GMaterialSurrogate.op_Implicit(devDept.Serialization.GMaterialSurrogate)~devDept.Geometry.GMaterial">
-      <summary>
-            Converts the surrogate to the related object during the deserialization process.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.GMaterialSurrogate.op_Implicit(devDept.Geometry.GMaterial)~devDept.Serialization.GMaterialSurrogate">
-      <summary>
-            Converts the object to the related surrogate during the serialization process.
-            </summary>
-    </member>
     <member name="T:devDept.Serialization.GEntitySurrogate">
       <summary>
             Defines the base class for gEntity surrogates.
@@ -23337,7 +22952,7 @@
     </member>
     <member name="F:devDept.Serialization.GPortionSurrogate.Vertices">
       <summary>
-            See <see cref="!:GEntity.Vertices" />.
+            See <see cref="P:devDept.Geometry.Entities.GSolid.Portion.Vertices" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.GPortionSurrogate.Triangles">
@@ -24285,6 +23900,11 @@
             Occurs when the background work has failed.
             </summary>
     </member>
+    <member name="E:devDept.ISupportWorkManager.ProgressChanged">
+      <summary>
+            Occurs when the background work is running.
+            </summary>
+    </member>
     <member name="P:devDept.ISupportWorkManager.IsBusy">
       <summary>
             Gets background worker thread status.
@@ -24465,6 +24085,11 @@
       <param name="sender">The source of the event.</param>
       <param name="e">A <see cref="T:devDept.WorkUnitEventArgs" /> that contains the event data.</param>
     </member>
+    <member name="T:devDept.WorkManager`1.WorkUnitProgressChangedEventHandler">
+      <summary>Represents the method that will handle the <see cref="E:devDept.WorkManager`1.WorkUnitProgressChanged" /> event.</summary>
+      <param name="sender">The source of the event.</param>
+      <param name="e">A <see cref="T:devDept.WorkUnit.ProgressChangedEventArgs" /> that contains the event data.</param>
+    </member>
     <member name="E:devDept.WorkManager`1.QueueCompleted">
       <summary>
             Occurs when the background work of a single WorkUnit is completed.
@@ -24485,30 +24110,15 @@
     </member>
     <member name="E:devDept.WorkManager`1.WorkUnitFailed">
       <summary>
-            Occurs when the background work of a single WorkUnit is completed.
+            Occurs when the background work of a single WorkUnit fails.
             </summary>
       <remarks>It is raised every time a WorkUnit in the queue fails its work.</remarks>
     </member>
-    <member name="T:PointExtender">
-      <summary>Point3D Extender.</summary>
-    </member>
-    <member name="M:PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Geometry.Entities.IGCurve,System.Double)">
+    <member name="E:devDept.WorkManager`1.WorkUnitProgressChanged">
       <summary>
-            Checks if the point is on the specified IGCurve.
+            Occurs during the single WorkUnit work.
             </summary>
-      <param name="igCurve">The igCurve to test</param>
-      <param name="maxGap">The maximum accepted distance to consider the point on the igCurve</param>
-      <returns>True if the distance between the point and the igCurve is smaller than maxGap, false otherwise.</returns>
-    </member>
-    <member name="M:PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Point3D@,System.Double@)">
-      <summary>
-            Checks if the point is on the specified IGCurve.
-            </summary>
-      <param name="igCurve">The igCurve to test</param>
-      <param name="maxGap">The maximum accepted distance to consider the point on the igCurve</param>
-      <param name="closestPt">Outputs the closest point on the igCurve</param>
-      <param name="closestParam">Outputs the parameter along the igCurve corresponding to the closest point</param>
-      <returns>True if the distance between the point and the igCurve is smaller than maxGap, false otherwise.</returns>
+      <seealso cref="E:devDept.WorkUnit.ProgressChanged" />
     </member>
   </members>
 </doc>

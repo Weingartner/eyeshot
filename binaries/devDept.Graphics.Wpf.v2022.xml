@@ -4431,6 +4431,9 @@
     <member name="M:devDept.Graphics.Material.SetKey(System.String)">
       <inheritdoc />
     </member>
+    <member name="P:devDept.Graphics.Material.Description">
+      <summary>Gets or sets the material description.</summary>
+    </member>
     <member name="P:devDept.Graphics.Material.Ambient">
       <summary>Gets or sets the ambient reflectance of the material.</summary>
     </member>
@@ -4445,6 +4448,52 @@
     </member>
     <member name="P:devDept.Graphics.Material.Shininess">
       <summary>Gets or sets the specular exponent of the material (range 0-1).</summary>
+    </member>
+    <member name="P:devDept.Graphics.Material.Young">
+      <summary>
+            Gets or sets material modulus of elasticity.
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.Material.Poisson">
+      <summary>
+            Gets or sets material Poisson's ratio.
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.Material.YieldStrength">
+      <summary>
+            Gets or sets material yield strength.
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.Material.Density">
+      <summary>
+            Gets or sets material density.
+            </summary>
+      <remarks>The default system of measurement for the density is kilograms per cubic meters.</remarks>
+    </member>
+    <member name="P:devDept.Graphics.Material.CoeffOfThermalExp">
+      <summary>
+            Gets or sets material coefficient of thermal expansion.
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.Material.ElementType">
+      <summary>
+            Gets or sets the 2D FEM element type (FEM).
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.Material.Matrix">
+      <summary>
+            Gets or sets the material Matrix (FEM).
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.Material.D">
+      <summary>
+            D material matrix (FEM)
+            </summary>
+    </member>
+    <member name="P:devDept.Graphics.Material.ElementThickness">
+      <summary>
+            Gets or sets the 2D FEM element thickness.
+            </summary>
     </member>
     <member name="P:devDept.Graphics.Material.WireColor">
       <summary>
@@ -4484,6 +4533,14 @@
     <member name="P:devDept.Graphics.Material.EnvironmentMappingImage">
       <summary>Gets or sets the material environment mapping image.</summary>
       <remarks>If the material is already added to the Workspace control call <see cref="M:devDept.Graphics.Material.LoadTexture(devDept.Graphics.RenderContextBase)" /> to make it effective.</remarks>
+    </member>
+    <member name="P:devDept.Graphics.Material.LinearUnits">
+      <summary>Gets or sets the material linear units type for the material density.</summary>
+      <remarks>The default unit of measurement is the meter.</remarks>
+    </member>
+    <member name="P:devDept.Graphics.Material.MassUnits">
+      <summary>Gets or sets the material mass units type for the material density.</summary>
+      <remarks>The default unit of measurement is the kilogram.</remarks>
     </member>
     <member name="P:devDept.Graphics.Material.TextureLength">
       <summary>Gets or sets the material texture length in material's <see cref="T:devDept.Geometry.linearUnitsType" />.</summary>
@@ -4600,7 +4657,7 @@
       <param name="density">Material density</param>
       <param name="coeffOfThermExp">Material coefficient of thermal expansion</param>
     </member>
-    <member name="M:devDept.Graphics.Material.#ctor(System.String,System.Drawing.Color,System.Double,System.Double,System.Double,System.Double,System.Double,devDept.Geometry.elementType,System.Double)">
+    <member name="M:devDept.Graphics.Material.#ctor(System.String,System.Drawing.Color,System.Double,System.Double,System.Double,System.Double,System.Double,devDept.Graphics.elementType,System.Double)">
       <summary>
             2D FEM constructor.
             </summary>
@@ -4676,7 +4733,7 @@
       <param name="density">Material density</param>
       <param name="coeffOfThermExp">Material coefficient of thermal expansion</param>
     </member>
-    <member name="M:devDept.Graphics.Material.#ctor(System.Drawing.Color,System.Double,System.Double,System.Double,System.Double,System.Double,devDept.Geometry.elementType,System.Double)">
+    <member name="M:devDept.Graphics.Material.#ctor(System.Drawing.Color,System.Double,System.Double,System.Double,System.Double,System.Double,devDept.Graphics.elementType,System.Double)">
       <summary>
             Obsolete 2D FEM constructor.
             </summary>
@@ -4722,7 +4779,7 @@
             </summary>
       <remarks>If the <see cref="P:devDept.Graphics.Material.TextureImage" /> or <see cref="P:devDept.Graphics.Material.EnvironmentMappingImage" /> are changed, this method needs to be called to update the graphics data.</remarks>
     </member>
-    <member name="M:devDept.Graphics.Material.CalcMaterialPropertyMatrix(System.Int32,devDept.Geometry.elementType)">
+    <member name="M:devDept.Graphics.Material.CalcMaterialPropertyMatrix(System.Int32,devDept.Graphics.elementType)">
       <summary>
             Updates the D matrix for this material (FEM).
             </summary>
@@ -4786,6 +4843,26 @@
             Tells if the material has a <see cref="P:devDept.Graphics.Material.AlphaMapImage" /> or if its <see cref="P:devDept.Graphics.Material.Diffuse" /> has alpha &lt; 255.
             </summary>
       <returns>True if the material is transparent, false otherwise.</returns>
+    </member>
+    <member name="T:devDept.Graphics.elementType">
+      <summary>
+            2D finite element method type.
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.elementType.PlaneStrain">
+      <summary>
+            Plane strain
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.elementType.PlaneStress">
+      <summary>
+            Plane stress
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.elementType.Axisymmetric">
+      <summary>
+            Axisymetric
+            </summary>
     </member>
     <member name="T:devDept.Graphics.IEnvironment">
       <summary>
@@ -5063,7 +5140,7 @@
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.Description">
       <summary>
-            See <see cref="!:Material.Description" />.
+            See <see cref="P:devDept.Graphics.Material.Description" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.AlphaMapImage">
@@ -5108,22 +5185,22 @@
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.CoeffOfThermalExp">
       <summary>
-            See <see cref="!:Material.CoeffOfThermalExp" />.
+            See <see cref="P:devDept.Graphics.Material.CoeffOfThermalExp" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.Density">
       <summary>
-            See <see cref="!:Material.Density" />.
+            See <see cref="P:devDept.Graphics.Material.Density" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.ElementThickness">
       <summary>
-            See <see cref="!:Material.ElementThickness" />.
+            See <see cref="P:devDept.Graphics.Material.ElementThickness" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.ElementType">
       <summary>
-            See <see cref="!:Material.ElementType" />.
+            See <see cref="P:devDept.Graphics.Material.ElementType" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.MagnifyingFunction">
@@ -5138,7 +5215,7 @@
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.Poisson">
       <summary>
-            See <see cref="!:Material.Poisson" />.
+            See <see cref="P:devDept.Graphics.Material.Poisson" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.RepeatX">
@@ -5153,22 +5230,22 @@
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.YieldStrength">
       <summary>
-            See <see cref="!:Material.YieldStrength" />.
+            See <see cref="P:devDept.Graphics.Material.YieldStrength" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.Young">
       <summary>
-            See <see cref="!:Material.Young" />.
+            See <see cref="P:devDept.Graphics.Material.Young" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.LinearUnits">
       <summary>
-            See <see cref="!:Material.LinearUnits" />.
+            See <see cref="P:devDept.Graphics.Material.LinearUnits" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.MassUnits">
       <summary>
-            See <see cref="!:Material.MassUnits" />.
+            See <see cref="P:devDept.Graphics.Material.MassUnits" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.MaterialSurrogate.TextureLength">
