@@ -854,6 +854,10 @@
       <summary>
             Gets or sets the name of the referenced <see cref="T:devDept.Eyeshot.Layer" />.
             </summary>
+      <remarks>
+            When the layer of an <see cref="T:devDept.Eyeshot.Entities.ICurve" /> already added to the <see cref="T:devDept.Eyeshot.Workspace" /> is changed, the <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> must be called
+            if the <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" /> is <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byLayer" />.
+            </remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Entity.AutodeskProperties">
       <summary>
@@ -932,7 +936,10 @@
       <summary>
             Gets or sets the entity custom data.
             </summary>
-      <remarks>If the type implements ICloneable it will be cloned when the Entity is cloned.</remarks>
+      <remarks>
+        <para>If the type implements ICloneable it will be cloned when the Entity is cloned.</para>
+        <para>If the entity has got the Primitive property, this property is shared with the <see cref="P:devDept.Geometry.Entities.GEntity.EntityData" /> one.</para>
+      </remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.InitGraphicsData">
       <summary>
@@ -1443,17 +1450,7 @@
       <param name="data">
       </param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Entity.GetXElement(System.Boolean)">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.GetXAttributes(System.Boolean)">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Entity.AddVerticesToXElement(System.Xml.Linq.XElement)">
       <summary>
             For internal use only.
             </summary>
@@ -2210,7 +2207,7 @@
             Convert the Sketch into a list of ICurve. 
             </summary>
       <param name="sketcher">The Sketch</param>
-      <param name="keepConstructionCurves">Indicates wether the construction curves must be keep or not.</param>
+      <param name="keepConstructionCurves">Indicates whether the construction curves must be keep or not.</param>
       <returns>The list of ICurve</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Sketch.GetVisualRep(System.Nullable{System.Drawing.Color},System.Nullable{System.Drawing.Color},System.Single)">
@@ -2608,127 +2605,6 @@
       <param name="tol">The tolerance</param>
       <param name="plane">The plane where the curve lies</param>
       <returns>True if the curve is planar within tolerance, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,devDept.Geometry.Point3D@)">
-      <summary>
-            Finds the intersection between two coplanar Line entities
-            </summary>
-      <param name="line1">The first line entity</param>
-      <param name="line2">The second line entity</param>
-      <param name="pln">The plane where the two entities lay</param>
-      <param name="i0">The intersection point (when it exists)</param>
-      <returns>True if the intersection is found and inside to both the lines, false when the two entities don't touch.</returns>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
-      <seealso cref="!:Curve.Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">
-      <summary>
-            Finds the intersection between two Line entities
-            </summary>
-      <param name="line1">The first line entity</param>
-      <param name="line2">The second line entity</param>
-      <param name="i0">The intersection point (when it exists)</param>
-      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
-      <seealso cref="!:Curve.Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
-      <summary>
-            Finds the intersection between an Arc/Circle and a Line entity.
-            </summary>
-      <param name="line">The line entity</param>
-      <param name="arc">The arc/circle entity</param>
-      <param name="pln">The plane where the two entities lay</param>
-      <param name="i0">The first intersection point (when it exists)</param>
-      <param name="i1">The second intersection point (when it exists)</param>
-      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
-      <summary>
-            Finds the intersection between an Arc/Circle and a Line entity.
-            </summary>
-      <param name="line">The line entity</param>
-      <param name="arc">The arc/circle entity</param>
-      <param name="pln">The plane where the two entities lay</param>
-      <param name="infiniteLine">If true, we look for intersections even outside the boundaries of the line.</param>
-      <param name="i0">The first intersection point (when it exists)</param>
-      <param name="i1">The second intersection point (when it exists)</param>
-      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
-      <seealso cref="!:Curve.Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
-      <summary>
-            Finds the intersection between an Arc/Circle and a Line entity.
-            </summary>
-      <param name="line">The line entity</param>
-      <param name="circ">The arc/circle entity</param>
-      <param name="i0">The first intersection point (when it exists)</param>
-      <param name="i1">The second intersection point (when it exists)</param>
-      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
-      <seealso cref="!:Curve.Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
-      <summary>
-            Finds the intersection between two Arc/Circle entities.
-            </summary>
-      <param name="arc1">The first arc/circle entity</param>
-      <param name="arc2">The second arc/circle entity</param>
-      <param name="pln">The plane where the two entities lay</param>
-      <param name="i0">The first intersection point (when it exists)</param>
-      <param name="i1">The second intersection point (when it exists)</param>
-      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
-      <seealso cref="!:Curve.Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
-      <summary>
-            Finds the intersection between two Arc/Circle entities.
-            </summary>
-      <param name="arc1">The first arc/circle entity</param>
-      <param name="arc2">The second arc/circle entity</param>
-      <param name="i0">The first intersection point (when it exists)</param>
-      <param name="i1">The second intersection point (when it exists)</param>
-      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
-      <seealso cref="!:Curve.Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.SortAndOrient">
       <summary>
@@ -4616,6 +4492,17 @@
             Removes duplicated vertices and degenerated triangles in the Mesh with a given tolerance.
             </summary>
       <param name="maxGap">The maximum distance for considering two vertices equal.</param>
+      <seealso cref="M:devDept.Eyeshot.Entities.Mesh.WeldFreeEdges(System.Double)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Mesh.WeldFreeEdges(System.Double)">
+      <summary>
+            Removes duplicated vertices and degenerated triangles in the Mesh skipping internal vertices.
+            </summary>
+      <remarks>The <see cref="P:devDept.Eyeshot.Entities.Mesh.Edges" /> array must contain the list of free edges.</remarks>
+      <param name="maxGap">The maximum distance for considering two vertices equal.</param>
+      <seealso cref="M:devDept.Eyeshot.Entities.Mesh.Weld(System.Double)" />
+      <seealso cref="M:devDept.Eyeshot.Entities.Mesh.ComputeEdges" />
+      <seealso cref="P:devDept.Geometry.Entities.GMesh.EdgeStyle" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.FindClosestTriangle(devDept.Geometry.Transformation,devDept.Geometry.Segment3D)">
       <summary>
@@ -7011,21 +6898,6 @@
       <param name="smoothingPasses">The number of smoothing passes</param>
       <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Region.WriteXML(System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Region})">
-      <summary>
-            Write a list of regions to an XML file.
-            </summary>
-      <param name="fileName">The name of the file to save</param>
-      <param name="regions">The list of regions to save</param>
-      <remarks>For debugging purposes only!</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Region.WriteXML(System.String)">
-      <summary>
-            Write the region to an XML file. For debugging purposes only.
-            </summary>
-      <param name="fileName">The name of the file to save</param>
-      <remarks>For debugging purposes only!</remarks>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Region.IsPointOnContour(devDept.Geometry.Point3D,System.Double)">
       <summary>
             Tests if a 3D point is on one of the region's contours.
@@ -8862,14 +8734,14 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Smash(devDept.Eyeshot.Workspace,System.Int32)">
       <summary>
-            Shows sequentially all the trimming regions for each face with the corrispondent index for each face and the index for each edge.
+            Shows sequentially all the trimming regions for each face with the correspondent index for each face and the index for each edge.
             </summary>
       <param name="ws">The <see cref="T:devDept.Eyeshot.Workspace" /> control.</param>
       <param name="layerIndex">The index of the layer</param>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Smash(devDept.Eyeshot.Workspace,System.String)">
       <summary>
-            Shows sequentially all the trimming regions for each face with the corrispondent index for each face and the index for each edge.
+            Shows sequentially all the trimming regions for each face with the correspondent index for each face and the index for each edge.
             </summary>
       <param name="ws">The <see cref="T:devDept.Eyeshot.Workspace" /> control.</param>
       <param name="layerName">The layer name</param>
@@ -8910,11 +8782,11 @@
             Creates an Eccentric Cone primitive.
             </summary>
       <param name="baseRadius">Cone's base radius</param>
-      <param name="baseInnerRadius">Cone's base internal radius. 0 if the eccentric cone hasn't an internal offset</param>
+      <param name="baseInnerRadius">Cone's base inner radius. 0 if the eccentric cone hasn't an inner offset</param>
       <param name="topRadius">Cone's top radius</param>
-      <param name="topInnerRadius">Cone's top internal radius. 0 if the eccentric cone hasn't an internal offset</param>
+      <param name="topInnerRadius">Cone's top inner radius. 0 if the eccentric cone hasn't an inner offset</param>
       <param name="height">The cone's height</param>
-      <param name="distance">Distance between circle centers</param>
+      <param name="distance">Distance between circle centers, both projected on the base plane</param>
       <param name="tolerance">The regeneration tolerance. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
     </member>
@@ -9064,6 +8936,20 @@
       <param name="b">The second Brep object</param>
       <param name="materials">The materials collection. When defined, the resulting Brep faces colors will conserve the input objects colors.</param>
       <returns>A single Brep with only one copy of -internal- duplicated faces when successful. Null/Nothing otherwise.</returns>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.Rebuild(System.Double,System.Boolean)" />
+      <seealso cref="!:Triangulation.VolumeMesher" />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.MergeAndKeepFaces(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Brep},devDept.Eyeshot.MaterialKeyedCollection)">
+      <summary>
+            Merges a list of Brep objects preserving only one copy of duplicated face.
+            </summary>
+      <remarks>
+        <para>Original objects must <b>not</b> intersect and faces must be compatible (equal and opposite).</para>
+        <para>You may need to call <see cref="M:devDept.Eyeshot.Entities.Brep.Rebuild(System.Double,System.Boolean)" /> on original objects to rebuild parametric faces.</para>
+      </remarks>
+      <param name="breps">The list of Breps objects to merge</param>
+      <param name="materials">The materials collection. When defined, the resulting Brep faces colors will conserve the input objects colors.</param>
+      <returns>A single Breps, with only one copy of -internal- duplicated faces when successfully merged. Null/Nothing otherwise.</returns>
       <seealso cref="M:devDept.Eyeshot.Entities.Brep.Rebuild(System.Double,System.Boolean)" />
       <seealso cref="!:Triangulation.VolumeMesher" />
     </member>
@@ -9473,39 +9359,6 @@
       <param name="startTang">The start 3D tangent vector, magnitude matters (total chord length of the point set can be a reasonable value).</param>
       <param name="endTang">The end 3D tangent vector, magnitude matters (total chord length of the point set can be a reasonable value).</param>
       <returns>The interpolated curve if the operation succeeded, null/Nothing otherwise.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">
-      <summary>
-            Finds all 3D points where the provided curves intersect.
-            </summary>
-      <returns>The list of intersection points.</returns>
-      <param name="C1">The first curve</param>
-      <param name="C2">The second curve</param>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
-      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">
-      <summary>
-            Finds all 3D points where the provided curves intersect within the specified gap.
-            </summary>
-      <returns>The list of intersection points.</returns>
-      <param name="C1">The first curve</param>
-      <param name="C2">The second curve</param>
-      <param name="maxGap">Maximum distance between curves</param>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
-      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.ControlBoundingBox(System.Double,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -13247,14 +13100,14 @@
             Finds all 3D points where the curve intersects another given curve.
             </summary>
       <param name="C2">The other curve</param>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.Curve.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="!:Curve.Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Curve.Intersection(ICurve, ICurve, double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Curve.Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.CompositeCurve.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="!:CompositeCurve.IntersectionLineLine(ICurve, ICurve, out Point3D)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="!:CompositeCurve.IntersectionCircleCircle(Circle, Circle, Plane, out Point3D, out Point3D)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="!:CompositeCurve.IntersectionCircleCircle3D(Circle, Circle, out Point3D, out Point3D)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="!:CompositeCurve.IntersectionLineCircle(Line, Circle, Plane, bool, out Point3D, out Point3D)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="!:CompositeCurve.IntersectionLineCircle3D(Line, Circle, out Point3D, out Point3D)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.ClosestPointTo(devDept.Geometry.Point3D,System.Double@)">
       <summary>
@@ -13471,18 +13324,44 @@
       <returns>The mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Sweeps this curve along the provided trajectory.
+            </summary>
+      <param name="rail">Sweep trajectory</param>
+      <param name="tol">Surface trim tolerance</param>
+      <param name="methodType">The sweep method, affects only GCurve <paramref name="rail" /> segments.</param>
       <param name="meshNature">Nature of the resulting mesh entity</param>
       <returns>The resulting merged surface.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh``1(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Sweeps this curve along the provided trajectory.
+            </summary>
+      <param name="rail">Sweep trajectory</param>
+      <param name="tol">Surface trim tolerance</param>
+      <param name="methodType">The sweep method, affects only GCurve <paramref name="rail" /> segments.</param>
       <param name="meshNature">Nature of the resulting mesh entity</param>
       <returns>The resulting merged surface.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Sweeps this curve along the provided trajectory.
+            </summary>
+      <param name="rail">Sweep trajectory</param>
+      <param name="tol">Surface trim tolerance</param>
+      <param name="merge">When true, it merges al the trimmed pieces when possible. It Keeps them as separated objects otherwise.</param>
+      <param name="methodType">The sweep method, affects only GCurve <paramref name="rail" /> segments.</param>
       <param name="meshNature">Nature of the resulting mesh entity</param>
       <returns>The list of resulting surfaces.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsMesh``1(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Sweeps this curve along the provided trajectory.
+            </summary>
+      <param name="rail">Sweep trajectory</param>
+      <param name="tol">Surface trim tolerance</param>
+      <param name="merge">When true, it merges al the trimmed pieces when possible. It Keeps them as separated objects otherwise.</param>
+      <param name="methodType">The sweep method, affects only GCurve <paramref name="rail" /> segments.</param>
       <param name="meshNature">Nature of the resulting mesh entity</param>
       <returns>The list of resulting surfaces.</returns>
     </member>
@@ -13518,14 +13397,14 @@
       <summary>
             Extrudes this curve along the specified direction.
             </summary>
-      <param name="amount">Extrusion direction and lenght</param>
+      <param name="amount">Extrusion direction and length</param>
       <returns>The list of resulting surfaces.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.ExtrudeAsSurface(devDept.Geometry.Vector3D,System.Double,System.Double)">
       <summary>
             Extrudes this curve along the specified direction with a draft angle.
             </summary>
-      <param name="amount">Extrusion direction and lenght</param>
+      <param name="amount">Extrusion direction and length</param>
       <param name="draftAngleInRadians">Signed draft angle in radians</param>
       <param name="tolerance">Required for non-perpendicular extrusion directions</param>
       <returns>The list of resulting surfaces.</returns>
@@ -13552,7 +13431,7 @@
       <summary>
             Extrudes this curve along the specified direction with a draft angle.
             </summary>
-      <param name="amount">Extrusion direction and lenght</param>
+      <param name="amount">Extrusion direction and length</param>
       <param name="draftAngleInRadians">Signed draft angle in radians</param>
       <param name="tolerance">The regeneration tolerance. Required for non-perpendicular extrusion directions. 0 for default value</param>
       <returns>The resulting Brep object.</returns>
@@ -13631,7 +13510,7 @@
       <summary>Creates a Brep sweeping the contour on the rail.</summary>
       <param name="rail">Sweep trajectory</param>
       <param name="tolerance">The trim tolerance</param>
-      <param name="methodType">The sweep method, affects only <see cref="T:devDept.Eyeshot.Entities.Curve" /> rail segments.</param>
+      <param name="methodType">The sweep method, affects only <paramref name="rail" /> segments.</param>
       <returns>The resulting merged Brep if the operation succeeded, null/Nothing otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsBrep(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType)">
@@ -13639,7 +13518,7 @@
       <param name="rail">Sweep trajectory</param>
       <param name="tolerance">The trim tolerance</param>
       <param name="merge">When true, it merges al the trimmed pieces when possible. It Keeps them as separated objects otherwise.</param>
-      <param name="methodType">The sweep method, affects only <see cref="T:devDept.Eyeshot.Entities.Curve" /> rail segments.</param>
+      <param name="methodType">The sweep method, affects only <paramref name="rail" /> segments.</param>
       <returns>The resulting Brep array if the operation succeeded, null/Nothing otherwise.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.ExtrudeAsSolid(devDept.Geometry.Vector3D,System.Double)">
@@ -13685,16 +13564,23 @@
       <returns>The resulting solid object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsSolid(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this entity along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tol">The regeneration tolerance</param>
+      <param name="sweepMethod">The sweep method, affects only <paramref name="rail" /> segments.</param>
       <returns>The resulting merged Solid object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.ICurve.SweepAsSolid(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType)">
-      <returns>The resulting Solid array objects.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.ICurve.WriteXml(System.Xml.XmlTextWriter)">
       <summary>
-            Writes the object in Xml format.
+            Sweeps this entity along the provided trajectory.
             </summary>
-      <param name="writer">The writer object</param>
+      <param name="rail">The rail curve</param>
+      <param name="tol">The regeneration tolerance</param>
+      <param name="merge">When true, it merges al the trimmed pieces when possible. It Keeps them as separated objects otherwise.</param>
+      <param name="sweepMethod">The sweep method, affects only <paramref name="rail" /> segments.</param>
+      <returns>The resulting Solid array objects.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Entities.IFace">
       <summary>
@@ -16443,6 +16329,17 @@
         </para>
       </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.PointCloud.Primitive">
+      <summary>
+            Gets the primitive object.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.PointCloud.#ctor(devDept.Geometry.Entities.GPointCloud)">
+      <summary>
+            Constructor with primitive.
+            </summary>
+      <param name="primitive">The primitive object.</param>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.PointCloud.Nature">
       <summary>
             Gets point cloud nature.
@@ -16462,7 +16359,7 @@
       <param name="points">The collection of 3D points</param>
       <param name="pointSize">On screen point size</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.PointCloud.#ctor(System.Int32,System.Single,devDept.Eyeshot.Entities.PointCloud.natureType)">
+    <member name="M:devDept.Eyeshot.Entities.PointCloud.#ctor(System.Int32,System.Single,devDept.Geometry.Entities.GPointCloud.natureType)">
       <summary>Point list, point size and point cloud nature constructor.</summary>
       <param name="numPoints">Number of point the point cloud will hold</param>
       <param name="pointSize">On screen point size</param>
@@ -16506,38 +16403,11 @@
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.PointCloud.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-      <summary>
-            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
-            </summary>
-      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
-      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.PointCloud.ConvertToFastPointCloud">
       <summary>
             Converts this point cloud into a FastPointCloud.
             </summary>
       <returns>The resulting FastPointCloud.</returns>
-    </member>
-    <member name="T:devDept.Eyeshot.Entities.PointCloud.natureType">
-      <summary>
-            Point cloud nature type.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.PointCloud.natureType.Undefined">
-      <summary>
-            Not yet defined
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.PointCloud.natureType.Plain">
-      <summary>
-            Plain, all the points of the same color.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.PointCloud.natureType.Multicolor">
-      <summary>
-            Multicolor, one color for each point.
-            </summary>
     </member>
     <member name="T:devDept.Eyeshot.Entities.PointCloud.drawingStyleType">
       <summary>
@@ -18085,11 +17955,6 @@
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Layer.GetXElement">
-      <summary>
-            For internal use only.
-            </summary>
     </member>
     <member name="T:devDept.Eyeshot.LayerKeyedCollection">
       <summary>
@@ -20148,13 +20013,20 @@
       <seealso cref="P:devDept.Eyeshot.Workspace.AntiAliasing" />
       <seealso cref="P:devDept.Eyeshot.Workspace.AskForAntiAliasing" />
       <seealso cref="P:devDept.Eyeshot.Workspace.AntiAliasingSamples" />
-      <remarks>This value is written during viewport initialization, so it must be read after the control is correctly loaded.</remarks>
+      <remarks>This value is written during the control's initialization, so it must be read after the control is correctly loaded.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Workspace.ForceHardwareAcceleration">
       <summary>Forces accelerated hardware modes. By default, Eyeshot automatically disables hardware acceleration on some embedded
             GPUs to obtain the maximum level of graphical output consistency between all hardware. In these cases, enabling this property 
             will forcibly activate hardware acceleration, though the resulting graphics output may be unpredictable.</summary>
       <seealso cref="P:devDept.Eyeshot.Workspace.AskForAntiAliasing" />
+    </member>
+    <member name="P:devDept.Eyeshot.Workspace.IsBestAdapterAvailable">
+      <summary>Indicates whether the best adapter is available for the renderer initialization or not.</summary>
+      <remarks>
+        <para>This value is written during the control's initialization, so it must be read after the control is correctly loaded.</para>
+        <para>This property is not valid when the <see cref="!:EnvironmentBase.Renderer" /> is <see cref="F:devDept.Eyeshot.rendererType.OpenGL" />.</para>
+      </remarks>
     </member>
     <member name="P:devDept.Eyeshot.Workspace.Entities">
       <summary>
@@ -25324,7 +25196,7 @@
       <summary>
             Class with parameter for <see cref="T:devDept.Eyeshot.Translators.WriteFile" /></summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Design,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Design,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean,System.Boolean)">
       <summary>
             Constructor with the <see cref="T:devDept.Eyeshot.Design" />.
             </summary>
@@ -25333,9 +25205,10 @@
       <param name="serializationType">The serialization type.</param>
       <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <param name="saveThumbnail">When true, a thumbnail picture is stored.</param>
+      <param name="openBlockOnly">If true, only the open block is written with the <see cref="P:devDept.Eyeshot.Translators.WriteFileParams.Purge" /> forced to true.</param>
       <remarks>Use this constructor to save both Thumbnail and Camera for the Design control.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Design,devDept.Eyeshot.Drawing,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Design,devDept.Eyeshot.Drawing,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean,System.Boolean)">
       <summary>
             Constructor with the <see cref="T:devDept.Eyeshot.Design" /> and the <see cref="T:devDept.Eyeshot.Drawing" />.
             </summary>
@@ -25345,6 +25218,7 @@
       <param name="serializationType">The serialization type.</param>
       <param name="selectedOnly">When true, only selected entities at root level are written.</param>
       <param name="saveThumbnail">When true, a thumbnail picture is stored.</param>
+      <param name="openBlockOnly">If true, only the open block is written with the <see cref="P:devDept.Eyeshot.Translators.WriteFileParams.Purge" /> forced to true.</param>
       <remarks>Use this constructor to save both Thumbnail and Camera for the Design control.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Serialization.contentType,devDept.Serialization.serializationType,devDept.Geometry.linearUnitsType,System.Boolean,devDept.Eyeshot.Drawing,devDept.Eyeshot.HatchPatternKeyedCollection)">
@@ -25405,7 +25279,7 @@
       <remarks>
             To save the thumbnail the graphics rendering context must have already been initialized.
             </remarks>
-      <seealso cref="M:devDept.Eyeshot.Translators.WriteFileParams.#ctor(devDept.Eyeshot.Design,devDept.Serialization.contentType,devDept.Serialization.serializationType,System.Boolean,System.Boolean)" />
+      <seealso cref="!:WriteFileParams.WriteFileParams(Design, contentType, serializationType, bool, bool)" />
       <seealso cref="P:devDept.Eyeshot.Translators.WriteFileParams.ThumbnailBackgroundColor" />
       <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set the property equal true without using the constructor that accepts the Workspace as parameter.</exception>
     </member>
@@ -25473,12 +25347,13 @@
             Base class for <see cref="T:devDept.Eyeshot.Translators.WriteFileAsync" /> classes.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteParams.#ctor(devDept.Eyeshot.Workspace,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteParams.#ctor(devDept.Eyeshot.Workspace,System.Boolean,System.Boolean)">
       <summary>
             Constructor with the <see cref="T:devDept.Eyeshot.Workspace" />.
             </summary>
       <param name="workspace">The Workspace control.</param>
       <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="openBlockOnly">If true, only the open block is written.</param>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteParams.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,System.Boolean)">
       <summary>
@@ -25510,17 +25385,24 @@
             </summary>
       <remarks>When true, only selected entities at root level are written.</remarks>
     </member>
+    <member name="P:devDept.Eyeshot.Translators.WriteParams.OpenBlockName">
+      <summary>
+            Indicates the name of the current open block whether it must be considered as the root block for the export.
+            </summary>
+      <remarks>This property is internally initialized only by constructors accepting a workspace as a parameter with an opened block.</remarks>
+    </member>
     <member name="T:devDept.Eyeshot.Translators.WriteParamsWithMaterials">
       <summary>
             Class for <see cref="T:devDept.Eyeshot.Translators.WriteFileAsync" /> classes that use also <see cref="T:devDept.Graphics.Material" />s.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithMaterials.#ctor(devDept.Eyeshot.Workspace,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithMaterials.#ctor(devDept.Eyeshot.Workspace,System.Boolean,System.Boolean)">
       <summary>
             Constructor with the <see cref="T:devDept.Eyeshot.Workspace" />.
             </summary>
-      <param name="ws">The Workspace.</param>
+      <param name="workspace">The Workspace.</param>
       <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="openBlockOnly">If true, only the open block is written.</param>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteParamsWithMaterials.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Geometry.linearUnitsType,System.Boolean)">
       <summary>
@@ -25543,12 +25425,13 @@
             Class for <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithMaterials" /> classes that use all the Workspace master collections.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithTextStyles.#ctor(devDept.Eyeshot.Workspace,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithTextStyles.#ctor(devDept.Eyeshot.Workspace,System.Boolean,System.Boolean)">
       <summary>
             Constructor with the <see cref="T:devDept.Eyeshot.Workspace" /> control.
             </summary>
-      <param name="ws">The Workspace.</param>
+      <param name="workspace">The Workspace.</param>
       <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="openBlockOnly">If true, only the open block is written.</param>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteParamsWithTextStyles.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Geometry.linearUnitsType,System.Boolean,devDept.Eyeshot.HatchPatternKeyedCollection)">
       <summary>
@@ -25584,13 +25467,14 @@
             Class for <see cref="T:devDept.Eyeshot.Translators.WriteParamsWithTextStyles" /> classes that use drawing control.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithDrawing.#ctor(devDept.Eyeshot.Workspace,devDept.Eyeshot.Drawing,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithDrawing.#ctor(devDept.Eyeshot.Workspace,devDept.Eyeshot.Drawing,System.Boolean,System.Boolean)">
       <summary>
             Constructor with the Design.
             </summary>
       <param name="design">The Design control.</param>
       <param name="drawing">The Drawing control.</param>
       <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="openBlockOnly">If true, only the open block is written.</param>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteParamsWithDrawing.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Eyeshot.MaterialKeyedCollection,devDept.Eyeshot.TextStyleKeyedCollection,devDept.Eyeshot.LineTypeKeyedCollection,devDept.Geometry.linearUnitsType,System.Boolean,devDept.Eyeshot.Drawing,devDept.Eyeshot.HatchPatternKeyedCollection)">
       <summary>
@@ -25617,12 +25501,13 @@
             Class for <see cref="T:devDept.Eyeshot.Translators.WriteFileAsyncWithUnits" /> classes.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithUnits.#ctor(devDept.Eyeshot.Workspace,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Translators.WriteParamsWithUnits.#ctor(devDept.Eyeshot.Workspace,System.Boolean,System.Boolean)">
       <summary>
             Constructor with the <see cref="T:devDept.Eyeshot.Workspace" />.
             </summary>
       <param name="workspace">The Workspace control.</param>
       <param name="selectedOnly">If true, only selected entities at root level are written.</param>
+      <param name="openBlockOnly">If true, only the open block is written.</param>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteParamsWithUnits.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Eyeshot.LayerKeyedCollection,devDept.Eyeshot.BlockKeyedCollection,devDept.Geometry.linearUnitsType,System.Boolean)">
       <summary>
@@ -27895,6 +27780,13 @@
             When true only the selected entities will be written.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.OpenBlockName">
+      <summary>
+            Indicates the name of the current open block whether it must be considered as the root block for the export.
+            </summary>
+      <remarks>This property is internally initialized by <see cref="P:devDept.Eyeshot.Translators.WriteParams.OpenBlockName" />.</remarks>
+      <seealso cref="M:devDept.Eyeshot.Translators.WriteFileAsync.PurgeCollectionsForOpenBlock(devDept.Eyeshot.MaterialKeyedCollection@,devDept.Eyeshot.TextStyleKeyedCollection@,devDept.Eyeshot.LineTypeKeyedCollection@,devDept.Eyeshot.HatchPatternKeyedCollection@)" />
+    </member>
     <member name="P:devDept.Eyeshot.Translators.WriteFileAsync.Deviation">
       <summary>
             Gets or sets the maximum deviation, zero for current tessellation.
@@ -27964,6 +27856,12 @@
       <param name="writeParams">The <see cref="T:devDept.Eyeshot.Translators.WriteParams" /></param>
       <param name="stream">The file stream</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.WriteFileAsync.PurgeCollectionsForOpenBlock(devDept.Eyeshot.MaterialKeyedCollection@,devDept.Eyeshot.TextStyleKeyedCollection@,devDept.Eyeshot.LineTypeKeyedCollection@,devDept.Eyeshot.HatchPatternKeyedCollection@)">
+      <summary>
+            Common method to call for exporting the open block only.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Translators.WriteFileAsync.OpenBlockName" />
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteFileAsync.SynchronizeAttributeReference(devDept.Eyeshot.Workspace)">
       <summary>
@@ -28761,7 +28659,7 @@
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteFileAsyncWithUnits">
       <summary>
-            Base class for file asynchronous writing supporting author, organization and originating system attributes.
+            Base class for file asynchronous writing supporting units, author, organization and originating system attributes.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteFileAsyncWithUnits.#ctor(System.String,System.Boolean)">
@@ -28825,7 +28723,7 @@
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteFileAsyncWithTextStyles">
       <summary>
-            Base class for file asynchronous writing supporting author, organization and originating system attributes.
+            Base class for file asynchronous writing supporting units, author, organization, originating system attributes, line types, hatch patterns and text styles.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteFileAsyncWithTextStyles.#ctor(devDept.Eyeshot.Translators.WriteParamsWithTextStyles,System.String)">
@@ -28845,7 +28743,7 @@
     </member>
     <member name="T:devDept.Eyeshot.Translators.WriteFileAsyncWithDrawings">
       <summary>
-            Base class for file asynchronous writing supporting author, organization and originating system attributes.
+            Base class for file asynchronous writing supporting units, author, organization, originating system attributes, line types, hatch patterns, text styles and Drawing control data.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Translators.WriteFileAsyncWithDrawings.#ctor(devDept.Eyeshot.Translators.WriteParamsWithDrawing,System.String)">
@@ -41504,11 +41402,6 @@
     <member name="M:devDept.Eyeshot.Block.GetHashCode">
       <inehrit />
     </member>
-    <member name="M:devDept.Eyeshot.Block.GetXElement(System.String,System.Text.StringBuilder)">
-      <summary>
-            For internal use only.
-            </summary>
-    </member>
     <member name="T:devDept.Eyeshot.Camera">
       <summary>
             35 mm camera definition.
@@ -41701,6 +41594,20 @@
             Creates a deep copy of this camera.
             </summary>
       <returns>The new camera object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Camera.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Camera.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="P:devDept.Eyeshot.Camera.Anaglyph3D">
       <summary>
@@ -44378,6 +44285,7 @@
             Chains curves using the minimum distance between individual curve ends.
             </summary>
       <param name="curveList">The list of curves</param>
+      <remarks>The curves are not cloned</remarks>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
       <summary>
@@ -44385,6 +44293,7 @@
             </summary>
       <param name="curveList">The list of curves</param>
       <param name="closureTol">The max distance between the contour start and end points to assume the curve as closed.</param>
+      <remarks>The curves are not cloned</remarks>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.SortAndOrient(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Boolean,System.Boolean,System.Double)">
       <summary>
@@ -44394,6 +44303,7 @@
       <param name="reverseVertices">If vertices are present and the curve needs to be reversed the vertices array is reversed as well</param>
       <param name="assumeClosed">In case you already know that the contour is/has to be closed.</param>
       <param name="closureTol">Use zero if you know that the contour is/has to be closed</param>
+      <remarks>The curves are not cloned</remarks>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.GetConnectedCurves(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Double)">
       <summary>
@@ -44653,6 +44563,160 @@
       <param name="step">The step</param>
       <param name="angle">The line angle in radians</param>
       <returns>An array of array of lines. Each array contains all the segments of the same line.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,devDept.Geometry.Point3D@)">
+      <summary>
+            Finds the intersection between two coplanar Line entities
+            </summary>
+      <param name="line1">The first line entity</param>
+      <param name="line2">The second line entity</param>
+      <param name="pln">The plane where the two entities lay</param>
+      <param name="i0">The intersection point (when it exists)</param>
+      <returns>True if the intersection is found and inside to both the lines, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">
+      <summary>
+            Finds the intersection between two Line entities
+            </summary>
+      <param name="line1">The first line entity</param>
+      <param name="line2">The second line entity</param>
+      <param name="i0">The intersection point (when it exists)</param>
+      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+      <summary>
+            Finds the intersection between an Arc/Circle and a Line entity.
+            </summary>
+      <param name="line">The line entity</param>
+      <param name="arc">The arc/circle entity</param>
+      <param name="pln">The plane where the two entities lay</param>
+      <param name="i0">The first intersection point (when it exists)</param>
+      <param name="i1">The second intersection point (when it exists)</param>
+      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+      <summary>
+            Finds the intersection between an Arc/Circle and a Line entity.
+            </summary>
+      <param name="line">The line entity</param>
+      <param name="arc">The arc/circle entity</param>
+      <param name="pln">The plane where the two entities lay</param>
+      <param name="infiniteLine">If true, we look for intersections even outside the boundaries of the line.</param>
+      <param name="i0">The first intersection point (when it exists)</param>
+      <param name="i1">The second intersection point (when it exists)</param>
+      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+      <summary>
+            Finds the intersection between an Arc/Circle and a Line entity.
+            </summary>
+      <param name="line">The line entity</param>
+      <param name="circ">The arc/circle entity</param>
+      <param name="i0">The first intersection point (when it exists)</param>
+      <param name="i1">The second intersection point (when it exists)</param>
+      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+      <summary>
+            Finds the intersection between two Arc/Circle entities.
+            </summary>
+      <param name="arc1">The first arc/circle entity</param>
+      <param name="arc2">The second arc/circle entity</param>
+      <param name="pln">The plane where the two entities lay</param>
+      <param name="i0">The first intersection point (when it exists)</param>
+      <param name="i1">The second intersection point (when it exists)</param>
+      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+      <summary>
+            Finds the intersection between two Arc/Circle entities.
+            </summary>
+      <param name="arc1">The first arc/circle entity</param>
+      <param name="arc2">The second arc/circle entity</param>
+      <param name="i0">The first intersection point (when it exists)</param>
+      <param name="i1">The second intersection point (when it exists)</param>
+      <returns>True if the intersection is found, false when the two entities don't touch.</returns>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">
+      <summary>
+            Finds all 3D points where the provided curves intersect.
+            </summary>
+      <returns>The list of intersection points.</returns>
+      <param name="C1">The first curve</param>
+      <param name="C2">The second curve</param>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">
+      <summary>
+            Finds all 3D points where the provided curves intersect within the specified gap.
+            </summary>
+      <returns>The list of intersection points.</returns>
+      <param name="C1">The first curve</param>
+      <param name="C2">The second curve</param>
+      <param name="maxGap">Maximum distance between curves</param>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
     </member>
     <member name="M:devDept.Geometry.LockBitmap.LockBits">
       <summary>
@@ -44976,11 +45040,10 @@
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SketchSurrogate.SketchXML">
+    <member name="F:devDept.Serialization.SketchSurrogate.GSketch">
       <summary>
-            The <see cref="T:devDept.Geometry.ConstraintSolver.Sketch" /> serialized via XML.
+            See <see cref="F:devDept.Eyeshot.Entities.Sketch.gSketch" />.
             </summary>
-      <remarks>This is a temporary solution for Beta.</remarks>
     </member>
     <member name="F:devDept.Serialization.SketchSurrogate.Vertices">
       <summary>
@@ -46791,7 +46854,7 @@
     </member>
     <member name="M:devDept.Serialization.FastPointCloudSurrogate.ConvertToObject">
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.FastPointCloud.#ctor(System.Single[],System.Byte[])" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.FastPointCloud.#ctor(System.Single[],System.Byte[])" /> constructor to create the object.                
              </remarks>
     </member>
     <member name="T:devDept.Serialization.JointSurrogate">
@@ -47246,12 +47309,12 @@
     </member>
     <member name="F:devDept.Serialization.PointCloudSurrogate.Vertices">
       <summary>
-            See <see cref="P:devDept.Eyeshot.Entities.Entity.Vertices" />.
+            Obsolete starting from version 10. 
             </summary>
     </member>
     <member name="F:devDept.Serialization.PointCloudSurrogate.Nature">
       <summary>
-            See <see cref="P:devDept.Eyeshot.Entities.PointCloud.Nature" />.
+            Obsolete starting from version 10. 
             </summary>
     </member>
     <member name="F:devDept.Serialization.PointCloudSurrogate.DrawingStyle">
@@ -47259,10 +47322,15 @@
             See <see cref="P:devDept.Eyeshot.Entities.PointCloud.DrawingStyle" />.
             </summary>
     </member>
+    <member name="F:devDept.Serialization.PointCloudSurrogate.Primitive">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.PointCloud.Primitive" />.
+            </summary>
+    </member>
     <member name="M:devDept.Serialization.PointCloudSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.PointCloud.#ctor(System.Collections.Generic.IList{devDept.Geometry.Point3D})" /> constructor to create the object.        
+             This method uses the <see cref="T:devDept.Eyeshot.Entities.PointCloud" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.PointSurrogate">

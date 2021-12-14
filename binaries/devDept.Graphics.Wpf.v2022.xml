@@ -834,6 +834,11 @@
             Gets a values indicating whether the multitexturing is supported.
             </summary>
     </member>
+    <member name="P:devDept.Graphics.RenderContextBase.IsControlMinimized">
+      <summary>
+            Indicates whether the Eyeshot control is minimized or not.
+            </summary>
+    </member>
     <member name="P:devDept.Graphics.RenderContextBase.CurrentPointSize">
       <summary>
             Gets the current point size (in pixels).
@@ -4015,6 +4020,10 @@
       <summary>
             Antialiasing samples effectively used.
             </summary>
+    </member>
+    <member name="P:devDept.Graphics.ControlData.IsBestAdapterAvailable">
+      <summary>Indicates whether the best adapter is available for the renderer initialization or not.</summary>
+      <remarks>This property is not valid for OpenGL renderer.</remarks>
     </member>
     <member name="P:devDept.Graphics.ControlData.InstanceId">
       <summary>
