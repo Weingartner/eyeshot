@@ -2157,6 +2157,26 @@
             </summary>
       <param name="gSketch">The geometrical sketch.</param>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Sketch.ExtrudeRemove(devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the sketch and removes it from the original Brep object.
+            </summary>
+      <param name="amount">The extrusion amount</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Sketch.Extrude(devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the sketch to create a new Brep.
+            </summary>
+      <param name="amount">The extrusion amount interval</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Sketch.ExtrudeAdd(devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the sketch and adds it to the original Brep object.
+            </summary>
+      <param name="amount">The extrusion amount interval</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Sketch.Plane">
       <summary>Gets or sets the planar entity supporting plane.</summary>
     </member>
@@ -9714,18 +9734,18 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.ConvertToArcsAndLines">
       <summary>
-            Convert the curve with a sequence of arcs and lines.
+            Converts the curve with a sequence of arcs and lines.
             </summary>
-      <returns>List of lines and arcs that approcimates the curve</returns>
+      <returns>List of lines and arcs that approximates the curve</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.ConvertToArcsAndLines(System.Double,System.Double,System.Double)">
       <summary>
-            Convert the curve with a sequence of arcs and lines.
+            Converts the curve with a sequence of arcs and lines.
             </summary>
       <param name="epsDs">Tolerance regarding the curve length approximation</param>
-      <param name="epsLc">Tolerance regarding the cordal error</param>
-      <param name="epsAt">Tolearnce regarding the curve tangent approximation</param>
-      <returns>List of lines and arcs that approcimates the curve</returns>
+      <param name="epsLc">Tolerance regarding the chordal error</param>
+      <param name="epsAt">Tolerance regarding the curve tangent approximation</param>
+      <returns>List of lines and arcs that approximates the curve</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.Length">
       <summary>
@@ -13095,11 +13115,12 @@
       <param name="length">Length along the curve</param>
       <returns>True if the operation is successful, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">
+    <member name="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">
       <summary>
             Finds all 3D points where the curve intersects another given curve.
             </summary>
       <param name="C2">The other curve</param>
+      <param name="computeParameters">When true intersection points array is filled with InterPoints. False, for a quick computation without curves' paramters data.</param>
       <seealso cref="!:Curve.Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
       <seealso cref="!:Curve.Intersection(ICurve, ICurve, double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Curve.Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
@@ -18672,6 +18693,12 @@
             The Sketch plane.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.SketchManager.DrawingPlane">
+      <summary>
+             The plane where the constraint labels and the entities are drawn in overlay during the sketch editing.
+             </summary>
+      <remarks>It takes in account also the <see cref="P:devDept.Eyeshot.Workspace.CurrentTransformation" />.</remarks>
+    </member>
     <member name="P:devDept.Eyeshot.SketchManager.DOF">
       <summary>
             The degrees of freedom of the constrained entities of the Sketch
@@ -18689,9 +18716,14 @@
             </summary>
       <seealso cref="P:devDept.Eyeshot.SketchManager.Sketch" />
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.textHeight">
+    <member name="F:devDept.Eyeshot.SketchManager.TextHeight">
       <summary>
             The text height. 
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.AutomaticTextHeight">
+      <summary>
+            If true, the text height of the dimensions is computed based on the entities boundingbox.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.SketchManager.Constraints">
@@ -19271,13 +19303,13 @@
             The collinear lines constraint
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.CollinearVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Tangent)">
+    <member name="M:devDept.Eyeshot.CollinearVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Collinear)">
       <summary>
             Standard constructor
             </summary>
       <param name="viewport">The Viewport.</param>
       <param name="constraintLabels">the constraint labels.</param>
-      <param name="tangentConstrain">The sketch constraint.</param>
+      <param name="collinearConstraint">The sketch constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.ValueVisualConstraint">
       <summary>
@@ -21253,7 +21285,7 @@
       <param name="ent">The entity</param>
       <param name="data">The draw parameters</param>
     </member>
-    <member name="M:devDept.Eyeshot.Workspace.ComputeNonCurrentEntityColor(devDept.Eyeshot.Entities.Entity,System.Drawing.Color,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Workspace.ComputeNonCurrentEntityColor(devDept.Eyeshot.Entities.Entity,System.Drawing.Color,System.Boolean,System.Boolean)">
       <summary>
             Gets the color used to draw the given non-current entity.
             </summary>
@@ -29876,6 +29908,27 @@
       <returns>A DataTable containing the Bill of Materials data.</returns>
     </member>
     <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.Design.SketchManager" -->
+    <member name="M:devDept.Eyeshot.Design.NewSketch(devDept.Geometry.Plane)">
+      <summary>
+            Sets the sketch entity for editing. 
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="parents">The parents stack of the sketch.</param>
+      <returns>
+      </returns>
+      <seealso cref="E:devDept.Eyeshot.SketchManager.EditStarted" />
+      <seealso cref="E:devDept.Eyeshot.SketchManager.EditEnded" />
+      <seealso cref="E:devDept.Eyeshot.SketchManager.SystemSolved" />
+    </member>
+    <member name="M:devDept.Eyeshot.Design.NewSketch(devDept.Eyeshot.Entities.Brep,devDept.Geometry.Entities.GBrep.Face)">
+      <summary>
+            Creates a new sketch on the Brep face.
+            </summary>
+      <param name="face">The brep face.</param>
+      <seealso cref="E:devDept.Eyeshot.SketchManager.EditStarted" />
+      <seealso cref="E:devDept.Eyeshot.SketchManager.EditEnded" />
+      <seealso cref="E:devDept.Eyeshot.SketchManager.SystemSolved" />
+    </member>
     <member name="M:devDept.Eyeshot.Design.EditSketch(devDept.Eyeshot.Entities.Sketch,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
       <summary>
             Sets the sketch entity for editing. 
@@ -40206,12 +40259,12 @@
       <param name="entity">The sketch entity.</param>
       <param name="collinearConstraint">The collinear constraint.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.CollinearLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Tangent)">
+    <member name="M:devDept.Eyeshot.Labels.CollinearLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Collinear)">
       <summary>
-             Standard constructor
-            </summary>
+            Standard constructor
+             </summary>
       <param name="entity">The sketch entity.</param>
-      <param name="tangentConstraint">The tangent constraint.</param>
+      <param name="collinearConstraint">The tangent constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.MidPointLabel">
       <summary>
@@ -44577,10 +44630,10 @@
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">
       <summary>
@@ -44594,10 +44647,10 @@
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -44625,10 +44678,10 @@
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -44643,10 +44696,10 @@
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
-      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -44662,10 +44715,10 @@
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -44680,21 +44733,22 @@
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
-      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
     </member>
-    <member name="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">
+    <member name="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Boolean)">
       <summary>
             Finds all 3D points where the provided curves intersect.
             </summary>
       <returns>The list of intersection points.</returns>
       <param name="C1">The first curve</param>
       <param name="C2">The second curve</param>
+      <param name="computeParameters">When true intersection points array is filled with InterPoints. False, for a quick computation without curves' paramters data.</param>
       <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
@@ -44709,9 +44763,25 @@
       <param name="C1">The first curve</param>
       <param name="C2">The second curve</param>
       <param name="maxGap">Maximum distance between curves</param>
-      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
+      <seealso cref="!:Intersection(ICurve, ICurve)">Curve.Intersection(ICurve, ICurve) Method</seealso>
       <seealso cref="!:Intersection2D(ICurve, ICurve, Plane)">Curve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,System.Boolean,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle Method</seealso>
+      <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineCircle3D(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineCircle3D Method</seealso>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.Intersection2D(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Plane)">
+      <summary>
+            Finds all 3D points where the provided coplanar curves intersect.
+            </summary>
+      <returns>The list of intersection points.</returns>
+      <param name="C1">The first curve</param>
+      <param name="C2">The second curve</param>
+      <param name="plane">The plane where the two curves lay</param>
+      <seealso cref="M:devDept.Geometry.UtilityEx.Intersection(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,System.Double)">Curve.Intersection(ICurve, ICurve, double) Method</seealso>
+      <seealso cref="M:devDept.Eyeshot.Entities.ICurve.IntersectWith(devDept.Eyeshot.Entities.ICurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionLineLine(devDept.Eyeshot.Entities.ICurve,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.UtilityEx.IntersectionCircleCircle3D(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>

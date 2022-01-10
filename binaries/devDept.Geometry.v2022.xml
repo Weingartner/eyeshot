@@ -4,6 +4,11 @@
     <name>devDept.Geometry.v2022</name>
   </assembly>
   <members>
+    <member name="T:devDept.Geometry.ConstraintSolver.Collinear">
+      <summary>
+            Tangent constraint definition.
+            </summary>
+    </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchCurve">
       <summary>
             Sketch curve entity.
@@ -14,15 +19,78 @@
             Gets or sets the curve control point array.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="P:devDept.Geometry.ConstraintSolver.ICADObject.ObjectId">
       <summary>
             Gets the sketch object Id.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.CADObject.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.CADObject.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchObject.IsDestroyed">
       <summary>
             Tells if the entity was destroyed.
             </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchObject.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchObject.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.AngleConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.AngleConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.CollinearPoints.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchEntity.ParentEntity">
       <summary>
@@ -58,6 +126,20 @@
       <param name="t">The parameters.</param>
       <returns>The tangent vector.</returns>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchEntity.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchEntity.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Constraint.Destroy">
       <summary>
             Deletes the constraint from the sketch.
@@ -68,6 +150,20 @@
             Gets all constrained entities.
             </summary>
       <returns>A enumerable containing all entities.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Constraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Constraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.ValueConstraint.Reference">
       <summary>
@@ -95,16 +191,72 @@
             For internal use only. Maintains the position of the dimension.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.ValueConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.ValueConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Diameter.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Equal.IsEqualLength">
       <summary>
             Tells if the equal constraints refers to the entity length.
             </summary>
       <returns>Returns true if the equal constraint refers to the length, false otherwise.</returns>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Equal.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Equal.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="P:devDept.Geometry.ConstraintSolver.HVConstraint.IsHorizontal">
       <summary>
             Tells if the constraint is an horizontal constraint.
             </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.HVConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.HVConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Length.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.LineCircleDistance.Line">
       <summary>
@@ -136,10 +288,66 @@
             Gets/sets the second constrained line.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.LinesDistance.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Mirror.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Parallel.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Parallel.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Perpendicular.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Perpendicular.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="P:devDept.Geometry.ConstraintSolver.PointFixed.Point">
       <summary>
             Gets/sets the constrained point.
             </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointFixed.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointFixed.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.PointLineDistance.Point">
       <summary>
@@ -151,6 +359,20 @@
             Gets/sets the constrained line.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointLineDistance.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointLineDistance.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="P:devDept.Geometry.ConstraintSolver.PointOn.Point">
       <summary>
             Gets/sets the constrained point.
@@ -160,6 +382,27 @@
       <summary>
             Gets/sets the curve where the point lies.
             </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointOn.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointAt.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.MidPoint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.PointsCoincident.FirstPoint">
       <summary>
@@ -171,12 +414,40 @@
             Gets/sets the second constrained point.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointsCoincident.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointsDistance.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Tangent.GetTangentParameters(System.Double@,System.Double@)">
       <summary>
             Gets the two parameters of the tangent point on the respective curve.
             </summary>
       <param name="s0">The parameter on the first entity.</param>
       <param name="s1">The parameter on the second entity.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Tangent.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Tangent.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchArc">
       <summary>
@@ -193,6 +464,20 @@
             Gets or sets the sketch arc's radius.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchArc.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchArc.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchCircle">
       <summary>
             Sketch circle entity.
@@ -207,6 +492,20 @@
       <summary>
             Gets or sets the sketch circle's center.
             </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCircle.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCircle.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchEllipse.Plane">
       <summary>
@@ -223,10 +522,38 @@
             Gets or sets ellipse's Y radius.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchEllipse.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchEllipse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchLine">
       <summary>
             Sketch line entity.
             </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchLine.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchLine.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchPoint">
       <summary>
@@ -264,6 +591,20 @@
             Converts this sketch point to a human readable string.
             </summary>
       <returns>A string that represents this sketch point.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchPoint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchPoint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.ISketchCurve.StartPoint">
       <summary>
@@ -695,6 +1036,20 @@
       <param name="content">The string content as XML</param>
       <seealso cref="M:devDept.Geometry.ConstraintSolver.Sketch.WriteToString" />
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintLength(devDept.Geometry.ConstraintSolver.SketchEntity)">
       <summary>
             Adds a length constraint to the given entity (either arc, line or circle).
@@ -1039,7 +1394,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintCollinear(devDept.Geometry.ConstraintSolver.SketchLine,devDept.Geometry.ConstraintSolver.SketchLine)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintCollinear(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.SketchEntity)">
       <summary>
             Adds a collinear constraint between two lines.
             </summary>
@@ -2500,11 +2855,12 @@
       <param name="length">Length along the igCurve</param>
       <returns>True if the operation is successful, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">
+    <member name="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">
       <summary>
             Finds all 3D points where the igCurve intersects another given igCurve.
             </summary>
       <param name="C2">The other curve</param>
+      <param name="computeParameters">When true intersection points array is filled with InterPoints. False, for a quick computation without curves' parameters data.</param>
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve, double)">GCurve.Intersection(IGCurve, IGCurve, double) Method</seealso>
       <seealso cref="!:GCurve.Intersection2D(IGCurve, IGCurve, Plane)">GCurve.Intersection2D Method</seealso>
@@ -4096,12 +4452,6 @@
       <param name="tol">Regeneration tolerance</param>
       <returns>An array of curves.</returns>
     </member>
-    <member name="M:devDept.Geometry.Entities.GRegion.QuickOffsetInternal(System.Double,devDept.Geometry.Entities.cornerType,System.Double,System.Double,devDept.Geometry.IntegerGrid@)">
-      <summary>
-            For interal use only.
-            </summary>
-            TODO Geo Cam: rivedere per machining
-        </member>
     <member name="M:devDept.Geometry.Entities.GRegion.QuickOffsetInternal(System.Double,System.Double,devDept.Geometry.IntegerGrid@)">
       <summary>
             For internal use only.
@@ -6062,6 +6412,12 @@
             </summary>
       <seealso cref="M:devDept.Geometry.Entities.GMesh.Weld(System.Double,System.Boolean)" />
     </member>
+    <member name="M:devDept.Geometry.Entities.GMesh.WeldFreeEdges">
+      <summary>
+            Removes duplicated vertices and degenerated triangles in the GMesh skipping internal vertices.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GMesh.Weld(System.Double,System.Boolean)" />
+    </member>
     <member name="M:devDept.Geometry.Entities.GMesh.WeldVectors(devDept.Geometry.Point3D[],System.Int32@,System.Double,System.Int32[]@)">
       <summary>
             Welds the array of Point3ds.
@@ -6965,18 +7321,18 @@
     </member>
     <member name="M:devDept.Geometry.Entities.GCurve.ConvertToArcsAndLines">
       <summary>
-            Convert the curve with a sequence of arcs and lines.
+            Converts the curve with a sequence of arcs and lines.
             </summary>
-      <returns>List of lines and arcs that approcimates the curve</returns>
+      <returns>List of lines and arcs that approximates the curve</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GCurve.ConvertToArcsAndLines(System.Double,System.Double,System.Double)">
       <summary>
-            Convert the curve with a sequence of arcs and lines.
+            Converts the curve with a sequence of arcs and lines.
             </summary>
       <param name="epsDs">Tolerance regarding the curve length approximation</param>
-      <param name="epsLc">Tolerance regarding the cordal error</param>
-      <param name="epsAt">Tolearnce regarding the curve tangent approximation</param>
-      <returns>List of lines and arcs that approcimates the curve</returns>
+      <param name="epsLc">Tolerance regarding the chordal error</param>
+      <param name="epsAt">Tolerance regarding the curve tangent approximation</param>
+      <returns>List of lines and arcs that approximates the curve</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GCurve.Length">
       <summary>
@@ -12638,16 +12994,6 @@
       <remarks>Takes for granted that the first (index = 0) polygon is the outer one.</remarks>
       <seealso cref="!:SortAndOrient()" />
     </member>
-    <member name="P:devDept.Geometry.PolyBooleans.VertexNodeOnGrid.Inside">
-      <summary>
-            Tells if the vertex is inside the other polygon.
-            </summary>
-    </member>
-    <member name="F:devDept.Geometry.PolyBooleans.VertexNodeOnGrid.Pt2D">
-      <summary>
-            The original point in the 2D Profile (on the plane)
-            </summary>
-    </member>
     <member name="T:devDept.Geometry.Utility">
       <summary>
             Contains a collection of utility methods and constants for internal use.
@@ -12672,7 +13018,7 @@
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve, double)">GCurve.Intersection(IGCurve, IGCurve, double) Method</seealso>
       <seealso cref="!:GCurve.Intersection2D(IGCurve, IGCurve, Plane)">GCurve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">IGCurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">IGCurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.Utility.IntersectionLineLine(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Point3D@)">
       <summary>
@@ -12689,7 +13035,7 @@
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve, double)">GCurve.Intersection(IGCurve, IGCurve, double) Method</seealso>
       <seealso cref="!:GCurve.Intersection2D(IGCurve, IGCurve, Plane)">GCurve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">IGCurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">IGCurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.Utility.IntersectionLineCircle(devDept.Geometry.Entities.GLine,devDept.Geometry.Entities.GCircle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -12720,7 +13066,7 @@
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve, double)">GCurve.Intersection(IGCurve, IGCurve, double) Method</seealso>
       <seealso cref="!:GCurve.Intersection2D(IGCurve, IGCurve, Plane)">GCurve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">IGCurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">IGCurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.Utility.IntersectionLineCircle3D(devDept.Geometry.Entities.GLine,devDept.Geometry.Entities.GCircle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -12738,7 +13084,7 @@
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve, double)">GCurve.Intersection(IGCurve, IGCurve, double) Method</seealso>
       <seealso cref="!:GCurve.Intersection2D(IGCurve, IGCurve, Plane)">GCurve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">IGCurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">IGCurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.Utility.IntersectionCircleCircle(devDept.Geometry.Entities.GCircle,devDept.Geometry.Entities.GCircle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -12757,7 +13103,7 @@
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve, double)">GCurve.Intersection(IGCurve, IGCurve, double) Method</seealso>
       <seealso cref="!:GCurve.Intersection2D(IGCurve, IGCurve, Plane)">GCurve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">IGCurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">IGCurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.Utility.IntersectionCircleCircle3D(devDept.Geometry.Entities.GCircle,devDept.Geometry.Entities.GCircle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
@@ -12775,7 +13121,7 @@
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
       <seealso cref="!:GCurve.Intersection(IGCurve, IGCurve, double)">GCurve.Intersection(IGCurve, IGCurve, double) Method</seealso>
       <seealso cref="!:GCurve.Intersection2D(IGCurve, IGCurve, Plane)">GCurve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">IGCurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">IGCurve.IntersectWith Method</seealso>
     </member>
     <member name="M:devDept.Geometry.Utility.Intersection2D(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Plane)">
       <summary>
@@ -12787,16 +13133,17 @@
       <param name="plane">The plane where the two igCurves lay</param>
       <remarks>For PROFESSIONAL edition, this method doesn't work for Ellipses, Elliptical Arcs and GCompositeIgCurve containing Ellipses or Elliptical Arcs.</remarks>
     </member>
-    <member name="M:devDept.Geometry.Utility.Intersection(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve)">
+    <member name="M:devDept.Geometry.Utility.Intersection(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,System.Boolean)">
       <summary>
             Finds all 3D points where the provided curves intersect.
             </summary>
       <returns>The list of intersection points.</returns>
       <param name="C1">The first curve</param>
       <param name="C2">The second curve</param>
+      <param name="computeParameters">When true intersection points array is filled with InterPoints. False, for a quick computation without curves' paramters data.</param>
       <seealso cref="M:devDept.Geometry.Utility.Intersection(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,System.Double)">GCurve.Intersection(ICurve, ICurve, double) Method</seealso>
       <seealso cref="M:devDept.Geometry.Utility.Intersection2D(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Plane)">GCurve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">ICurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">ICurve.IntersectWith Method</seealso>
       <seealso cref="M:devDept.Geometry.Utility.IntersectionLineLine(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionLineLine Method</seealso>
       <seealso cref="M:devDept.Geometry.Utility.IntersectionCircleCircle(devDept.Geometry.Entities.GCircle,devDept.Geometry.Entities.GCircle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.Utility.IntersectionCircleCircle3D(devDept.Geometry.Entities.GCircle,devDept.Geometry.Entities.GCircle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">CompositeCurve.IntersectionCircleCircle3D Method</seealso>
@@ -12811,9 +13158,9 @@
       <param name="C1">The first curve</param>
       <param name="C2">The second curve</param>
       <param name="maxGap">Maximum distance between curves</param>
-      <seealso cref="M:devDept.Geometry.Utility.Intersection(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
+      <seealso cref="M:devDept.Geometry.Utility.Intersection(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,System.Boolean)">GCurve.Intersection(IGCurve, IGCurve) Method</seealso>
       <seealso cref="M:devDept.Geometry.Utility.Intersection2D(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Plane)">GCurve.Intersection2D Method</seealso>
-      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve)">IGCurve.IntersectWith Method</seealso>
+      <seealso cref="M:devDept.Geometry.Entities.IGCurve.IntersectWith(devDept.Geometry.Entities.IGCurve,System.Boolean)">IGCurve.IntersectWith Method</seealso>
       <seealso cref="M:devDept.Geometry.Utility.IntersectionLineLine(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Point3D@)">GCompositeCurve.IntersectionLineLine Method</seealso>
       <seealso cref="M:devDept.Geometry.Utility.IntersectionCircleCircle(devDept.Geometry.Entities.GCircle,devDept.Geometry.Entities.GCircle,devDept.Geometry.Plane,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">GCompositeCurve.IntersectionCircleCircle Method</seealso>
       <seealso cref="M:devDept.Geometry.Utility.IntersectionCircleCircle3D(devDept.Geometry.Entities.GCircle,devDept.Geometry.Entities.GCircle,devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">GCompositeCurve.IntersectionCircleCircle3D Method</seealso>
@@ -15199,7 +15546,22 @@
     </member>
     <member name="T:devDept.Geometry.QuadraticTriangle">
       <summary>
-            Six noded triangle class definition.
+            Six-noded triangle class definition.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.QuadraticTriangle.V4">
+      <summary>
+            The first mid-side vertex (between <see cref="F:devDept.Geometry.IndexLine.V1" /> and <see cref="F:devDept.Geometry.IndexLine.V2" />)
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.QuadraticTriangle.V5">
+      <summary>
+            The second mid-side vertex (between <see cref="F:devDept.Geometry.IndexLine.V2" /> and <see cref="F:devDept.Geometry.IndexTriangle.V3" />)
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.QuadraticTriangle.V6">
+      <summary>
+            The third mid-side vertex (between <see cref="F:devDept.Geometry.IndexTriangle.V3" /> and <see cref="F:devDept.Geometry.IndexLine.V1" />)
             </summary>
     </member>
     <member name="M:devDept.Geometry.QuadraticTriangle.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -15209,9 +15571,9 @@
       <param name="v1">Index of the first triangle vertex</param>
       <param name="v2">Index of the second triangle vertex</param>
       <param name="v3">Index of the third triangle vertex</param>
-      <param name="v4">Index of the first mid-side vertex</param>
-      <param name="v5">Index of the second mid-side vertex</param>
-      <param name="v6">Index of the third mid-side vertex</param>
+      <param name="v4">Index of the first mid-side vertex (between <paramref name="v1" /> and <paramref name="v2" />)</param>
+      <param name="v5">Index of the second mid-side vertex (between <paramref name="v2" /> and <paramref name="v3" />)</param>
+      <param name="v6">Index of the third mid-side vertex (between <paramref name="v3" /> and <paramref name="v1" />)</param>
     </member>
     <member name="T:devDept.Geometry.Converters.IndexTriangleConverter">
       <exclude />
@@ -20356,6 +20718,22 @@
       <inheritdoc />
       <remarks>
              This method uses the <see cref="!:CollinearPoints.CollinearPoints(sketchInternal)" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.CollinearSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Collinear" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.CollinearSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Collinear)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.CollinearSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.Collinear" /> constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.ConstraintSurrogate">

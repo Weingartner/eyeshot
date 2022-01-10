@@ -1185,14 +1185,13 @@
       <param name="repeatX">If true, the texture is repeated in the X direction</param>
       <returns>The texture</returns>
     </member>
-    <member name="M:devDept.Graphics.RenderContextBase.ReadSurface(System.Drawing.Size,System.Boolean,System.Boolean,System.Boolean)">
+    <member name="M:devDept.Graphics.RenderContextBase.ReadSurface(System.Drawing.Size,System.Boolean,System.Boolean)">
       <summary>
             Reads the whole control and stores it in internal data.
             </summary>
       <param name="controlSize">The size of the control</param>
       <param name="backBuffer">If true, captures the backbuffer, else the front buffer</param>
       <param name="antialiasing">Tells if the antialiasing is enabled or not</param>
-      <param name="readDepth">If true, also captures the depth buffer</param>
       <remarks>For internal use only.</remarks>
     </member>
     <member name="M:devDept.Graphics.RenderContextBase.ReadColorBuffer(devDept.Graphics.IViewport,System.Drawing.Rectangle,System.Int32@,System.Int32@)">
@@ -2639,6 +2638,24 @@
       <param name="linearAttenuation">Linear attenuation (point and spot lights only)</param>
       <param name="quadraticAttenuation">Quadratic attenuation (point and spot lights only)</param>
     </member>
+    <member name="T:devDept.Graphics.ProgDrawCompositingBase">
+      <summary>
+            Helper class for compositing during ProgressiveDrawing frames.
+            </summary>
+      <remarks>For internal use only.</remarks>
+    </member>
+    <member name="T:devDept.Graphics.ProgDrawCompositingBase.CompositingOperation">
+      <summary>
+            Compositing operations definition.
+            </summary>
+      <remarks>For internal use only.</remarks>
+    </member>
+    <member name="T:devDept.Graphics.ProgDrawCompositingBase.ProgDrawFrameBuffer">
+      <summary>
+            Graphical buffers for progressive drawing definition.
+            </summary>
+      <remarks>For internal use only.</remarks>
+    </member>
     <member name="T:devDept.Graphics.primitiveType">
       <summary>
             Drawing primitive type.
@@ -2780,6 +2797,11 @@
             No shader
             </summary>
     </member>
+    <member name="F:devDept.Graphics.shaderType.BlendFrozenOverOpaque">
+      <summary>
+            Post-processing operation for ProgressiveDrawing
+            </summary>
+    </member>
     <member name="F:devDept.Graphics.shaderType.BlurVert">
       <summary>
             Applies a gaussian blur to a texture in the vertical direction
@@ -2788,6 +2810,11 @@
     <member name="F:devDept.Graphics.shaderType.BlurHor">
       <summary>
             Applies a gaussian blur to a texture in the horizontal direction
+            </summary>
+    </member>
+    <member name="F:devDept.Graphics.shaderType.MinDepth">
+      <summary>
+            Post-processing operation for ProgressiveDrawing
             </summary>
     </member>
     <member name="F:devDept.Graphics.shaderType.NoLights">
