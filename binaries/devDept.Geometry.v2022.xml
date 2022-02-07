@@ -4,72 +4,107 @@
     <name>devDept.Geometry.v2022</name>
   </assembly>
   <members>
-    <member name="T:devDept.Geometry.ConstraintSolver.Collinear">
+    <member name="T:devDept.Geometry.ConstraintSolver.CollinearConstraint">
       <summary>
-            Tangent constraint definition.
+            Collinear constraint (between lines) definition.
             </summary>
     </member>
-    <member name="T:devDept.Geometry.ConstraintSolver.SketchCurve">
+    <member name="T:devDept.Geometry.ConstraintSolver.SketchSpline">
       <summary>
-            Sketch curve entity.
+            Sketch spline definition.
             </summary>
     </member>
-    <member name="F:devDept.Geometry.ConstraintSolver.SketchCurve.ControlPoints">
+    <member name="F:devDept.Geometry.ConstraintSolver.SketchSpline.ControlPoints">
       <summary>
             Gets or sets the curve control point array.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchSpline.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchSpline.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.ICADObject.ObjectId">
+    <member name="T:devDept.Geometry.ConstraintSolver.Id">
+      <summary>
+            The Id of sketch items.
+            </summary>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.IdGenerator">
+      <summary>
+            Contains methods to generate and assign Id when a Sketch item is created.
+            </summary>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.IdPath">
+      <summary>
+            IdPath class definition. The IdPath contains references between a sketch curve and its child.
+            </summary>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.ISketchBase">
+      <summary>
+            Common properties of sketch items.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.ISketchBase.ObjectId">
       <summary>
             Gets the sketch object Id.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.CADObject.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.SketchBase">
+      <summary>
+            Base class for the sketch.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchBase.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.CADObject.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchBase.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.SketchObject.IsDestroyed">
+    <member name="T:devDept.Geometry.ConstraintSolver.SketchItem">
+      <summary>
+            Base class for sketch curves and constraints. 
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.SketchItem.IsDestroyed">
       <summary>
             Tells if the entity was destroyed.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchObject.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchItem.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchObject.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchItem.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.AngleConstraint">
+      <summary>
+            Angle constraint definition.
+            </summary>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.AngleConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -85,60 +120,112 @@
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.CollinearPoints.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistanceConstraint">
+      <summary>
+            Concentric circle distance constraint.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistanceConstraint.FirstCircle">
+      <summary>
+            Gets/sets the first constrained circle.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistanceConstraint.SecondCircle">
+      <summary>
+            Gets/sets the second constrained circle.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistanceConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.SketchEntity.ParentEntity">
+    <member name="T:devDept.Geometry.ConstraintSolver.CollinearPointsConstraint">
+      <summary>
+            Collinear points constraint definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.CollinearPointsConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.SketchCurve">
+      <summary>
+            Base class for all sketch entities.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.Projected">
+      <summary>
+            True when the curve is the projection of an existing edge of a Brep.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.Construction">
+      <summary>
+            Wen true, the sketch curve is marked as for construction prupose.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.ParentCurve">
       <summary>
             Gets the parent entity of this sketch entity.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.SketchEntity.Constraints">
+    <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.Constraints">
       <summary>
             Gets the constraints in which this entity is involved.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.SketchEntity.Vertices">
+    <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.Vertices">
       <summary>
             Gets the entity vertices.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.SketchEntity.EntityType">
+    <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.EntityType">
       <summary>
             Gets the sketch entity type.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchEntity.PointAt(System.Double)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.PointAt(System.Double)">
       <summary>
             Evaluates a point on the sketch entity.
             </summary>
       <param name="t">Evaluation parameters</param>
       <returns>The point on the entity.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchEntity.TangentAt(System.Double)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.TangentAt(System.Double)">
       <summary>
             Computes the tangent vector of the entity corresponding to the input parameter. 
             </summary>
       <param name="t">The parameters.</param>
       <returns>The tangent vector.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchEntity.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchEntity.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.Constraint">
+      <summary>
+            Constraint class definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.Constraint.Visible">
+      <summary>
+            Gets or sets the constraint visibility.
+            </summary>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Constraint.Destroy">
       <summary>
@@ -164,6 +251,11 @@
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.ValueConstraint">
+      <summary>
+            Value constraint definition.
+            </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.ValueConstraint.Reference">
       <summary>
@@ -205,32 +297,72 @@
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Diameter.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.RadiusConstraint">
+      <summary>
+            Radius constraint definition.
+            </summary>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.DiameterConstraint">
+      <summary>
+            Diameter constraint definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.DiameterConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Equal.IsEqualLength">
+    <member name="T:devDept.Geometry.ConstraintSolver.EqualConstraint">
+      <summary>
+            Equal constraint definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.EqualConstraint.IsEqualLength">
       <summary>
             Tells if the equal constraints refers to the entity length.
             </summary>
       <returns>Returns true if the equal constraint refers to the length, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Equal.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.EqualConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Equal.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.EqualConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.pointsDistanceOrientationType">
+      <summary>
+            PointsDistance constraint orientation type.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.pointsDistanceOrientationType.Aligned">
+      <summary>
+            Aligned
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.pointsDistanceOrientationType.Horizontal">
+      <summary>
+            Horizontal
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.pointsDistanceOrientationType.Vertical">
+      <summary>
+            Vertical
+            </summary>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.HVConstraint">
+      <summary>
+            Horizontal (Vertical) constraint definition.
+            </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.HVConstraint.IsHorizontal">
       <summary>
@@ -251,198 +383,269 @@
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Length.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.LengthConstraint">
+      <summary>
+            Length constraint definition. Allows to constraint the length of a sketch curve.
+            </summary>
+      <remarks>This constraint is not implemented for SketchEllipse and SketchSpline.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.LengthConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.LineCircleDistance.Line">
+    <member name="T:devDept.Geometry.ConstraintSolver.LinesDistanceConstraint">
       <summary>
-            Gets/sets the constrained line.
+            Lines distance constraint.
             </summary>
+      <remarks>This constraint is meaningful only for parallel lines.</remarks>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.LineCircleDistance.Circle">
-      <summary>
-            Gets/sets the constrained circle.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistance.FirstCircle">
-      <summary>
-            Gets/sets the first constrained circle.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistance.SecondCircle">
-      <summary>
-            Gets/sets the second constrained circle.
-            </summary>
-    </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.LinesDistance.FirstLine">
+    <member name="P:devDept.Geometry.ConstraintSolver.LinesDistanceConstraint.FirstLine">
       <summary>
             Gets/sets the first constrained line.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.LinesDistance.SecondLine">
+    <member name="P:devDept.Geometry.ConstraintSolver.LinesDistanceConstraint.SecondLine">
       <summary>
             Gets/sets the second constrained line.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.LinesDistance.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.LinesDistanceConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Mirror.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.MirrorConstraint">
+      <summary>
+            Mirror constraint definition
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.MirrorConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Parallel.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.ParallelConstraint">
+      <summary>
+            Parallel constraint definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.ParallelConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Parallel.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.ParallelConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Perpendicular.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.PerpendicularConstraint">
+      <summary>
+            Perpendicular constraint definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PerpendicularConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Perpendicular.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.PerpendicularConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.PointFixed.Point">
+    <member name="T:devDept.Geometry.ConstraintSolver.PointFixedConstraint">
+      <summary>
+            Point fixed constraint definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.PointFixedConstraint.Point">
       <summary>
             Gets/sets the constrained point.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.PointFixed.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.PointFixedConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.PointFixed.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.PointFixedConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.PointLineDistance.Point">
+    <member name="T:devDept.Geometry.ConstraintSolver.PointLineDistanceConstraint">
+      <summary>
+            Point-line distance constraint definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.PointLineDistanceConstraint.Point">
       <summary>
             Gets/sets the constrained point.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.PointLineDistance.Line">
+    <member name="P:devDept.Geometry.ConstraintSolver.PointLineDistanceConstraint.Line">
       <summary>
             Gets/sets the constrained line.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.PointLineDistance.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.PointLineDistanceConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.PointLineDistance.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.PointLineDistanceConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.PointOn.Point">
+    <member name="T:devDept.Geometry.ConstraintSolver.PointOnConstraint">
+      <summary>
+            Point on curve constraint definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.PointOnConstraint.Point">
       <summary>
             Gets/sets the constrained point.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.PointOn.Entity">
+    <member name="P:devDept.Geometry.ConstraintSolver.PointOnConstraint.Curve">
       <summary>
             Gets/sets the curve where the point lies.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.PointOn.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.PointOnConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.PointAt.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.PointAtConstraint">
+      <summary>
+            PointAt constraint definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointAtConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.MidPoint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.MidPointConstraint">
+      <summary>
+            Mid point constraint definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.MidPointConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.PointsCoincident.FirstPoint">
+    <member name="T:devDept.Geometry.ConstraintSolver.CoincidentConstraint">
+      <summary>
+            Coincident constraint definition.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.CoincidentConstraint.FirstPoint">
       <summary>
             Gets/sets the first constrained point.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.PointsCoincident.SecondPoint">
+    <member name="P:devDept.Geometry.ConstraintSolver.CoincidentConstraint.SecondPoint">
       <summary>
             Gets/sets the second constrained point.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.PointsCoincident.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.CoincidentConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.PointsDistance.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="T:devDept.Geometry.ConstraintSolver.PointsDistanceConstraint">
+      <summary>
+            Aligned distance constraint between two points.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.PointsDistanceConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Tangent.GetTangentParameters(System.Double@,System.Double@)">
+    <member name="T:devDept.Geometry.ConstraintSolver.HorizontalPointsDistanceConstraint">
+      <summary>
+            Horizontal distance constraint between two points.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.HorizontalPointsDistanceConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.VerticalPointsDistanceConstraint">
+      <summary>
+            Vertical distance constraint between two points.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.VerticalPointsDistanceConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.TangentConstraint">
+      <summary>
+            Tangent constraint definition.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.TangentConstraint.GetTangentParameters(System.Double@,System.Double@)">
       <summary>
             Gets the two parameters of the tangent point on the respective curve.
             </summary>
       <param name="s0">The parameter on the first entity.</param>
       <param name="s1">The parameter on the second entity.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Tangent.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.TangentConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Tangent.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.TangentConstraint.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
@@ -451,7 +654,7 @@
     </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchArc">
       <summary>
-            Sketch arc entity.
+            Sketch arc definition.
             </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchArc.Clockwise">
@@ -480,7 +683,7 @@
     </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchCircle">
       <summary>
-            Sketch circle entity.
+            Sketch circle definition.
             </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchCircle.Radius">
@@ -506,6 +709,11 @@
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.SketchEllipse">
+      <summary>
+            Sketch ellipse definition.
+            </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchEllipse.Plane">
       <summary>
@@ -538,7 +746,7 @@
     </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchLine">
       <summary>
-            Sketch line entity.
+            Sketch line definition.
             </summary>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.SketchLine.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
@@ -557,7 +765,7 @@
     </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchPoint">
       <summary>
-            Sketch point entity.
+            Sketch point definition.
             </summary>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.SketchPoint.FixToOrigin">
@@ -566,7 +774,7 @@
             </summary>
       <returns>This point.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchPoint.FixToOrigin(devDept.Geometry.ConstraintSolver.PointFixed@)">
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchPoint.FixToOrigin(devDept.Geometry.ConstraintSolver.PointFixedConstraint@)">
       <summary>
             Add a PointFixed constraint to this sketch point.
             </summary>
@@ -605,6 +813,46 @@
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.IEntityType">
+      <summary>
+            Sketch curve type
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.IEntityType.Point">
+      <summary>
+            Point.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.IEntityType.Line">
+      <summary>
+            Line.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.IEntityType.Arc">
+      <summary>
+            Arc.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.IEntityType.Circle">
+      <summary>
+            Circle.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.IEntityType.Spline">
+      <summary>
+            Spline.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.IEntityType.Ellipse">
+      <summary>
+            Ellipse.
+            </summary>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.ISketchCurve">
+      <summary>
+            Common properties of sketch curve entities.
+            </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.ISketchCurve.StartPoint">
       <summary>
@@ -648,12 +896,12 @@
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.DragEnd">
       <summary>
             Stops the dragging process (clears the drag equations from the sketch). This
-            method should be invoked after <see cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchEntity[])" />.
+            method should be invoked after <see cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchCurve[])" />.
             </summary>
-      <seealso cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchEntity[])" />
+      <seealso cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchCurve[])" />
       <seealso cref="M:devDept.Geometry.ConstraintSolver.Sketch.Drag(System.Double,System.Double)" />
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchEntity[])">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchCurve[])">
       <summary>
         <para>Starts dragging the specified entities (adds two drag equations to the
             system for each given entity). This method may be called multiple times with
@@ -670,11 +918,11 @@
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.Drag(System.Double,System.Double)">
       <summary>
             Drags the entities using the specified delta values. This method should be called
-            after <see cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchEntity[])" />.
+            after <see cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchCurve[])" />.
             </summary>
       <param name="dx">The delta x value</param>
       <param name="dy">The delta y value</param>
-      <seealso cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchEntity[])" />
+      <seealso cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragStart(devDept.Geometry.ConstraintSolver.SketchCurve[])" />
       <seealso cref="M:devDept.Geometry.ConstraintSolver.Sketch.DragEnd" />
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.#ctor(devDept.Geometry.Plane)">
@@ -1050,54 +1298,54 @@
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintLength(devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintLength(devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
             Adds a length constraint to the given entity (either arc, line or circle).
             </summary>
-      <param name="entity">The entity to be constrained (either arc, line or circle)</param>
+      <param name="curve">The sketch curve to be constrained (either arc, line or circle)</param>
       <returns>The newly created length constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintLength(devDept.Geometry.ConstraintSolver.SketchEntity,System.Double)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintLength(devDept.Geometry.ConstraintSolver.SketchCurve,System.Double)">
       <summary>
             Adds a length constraint to the given entity (either arc, line or circle).
             </summary>
-      <param name="entity">The entity to be constrained (either arc, line or circle)</param>
+      <param name="curve">The sketch curve to be constrained (either arc, line or circle)</param>
       <param name="length">The desired length</param>
       <returns>The newly created length constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintDiameter(devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintDiameter(devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
             Adds a diameter constraint of the specified value to the given entity,
             fixing the diameter to its current value.
             </summary>
-      <param name="entity">The entity to be constrained (arc or circle)</param>
+      <param name="curve">The sketch curve to be constrained (arc or circle)</param>
       <returns>The newly created diameter constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintDiameter(devDept.Geometry.ConstraintSolver.SketchEntity,System.Double)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintDiameter(devDept.Geometry.ConstraintSolver.SketchCurve,System.Double)">
       <summary>
             Adds a diameter constraint of the specified value to the given entity.
             </summary>
-      <param name="entity">The entity to be constrained (arc or circle)</param>
+      <param name="curve">The sketch curve to be constrained (arc or circle)</param>
       <param name="diameter">The value for the diameter constraint</param>
       <returns>The newly created diameter constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintRadius(devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintRadius(devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
             Adds a radius constraint of the specified value to the given entity,
             fixing the radius to its current value.
             </summary>
-      <param name="entity">The entity to be constrained (arc or circle)</param>
+      <param name="curve">The sketch curve to be constrained (arc or circle)</param>
       <returns>The newly created radius constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintRadius(devDept.Geometry.ConstraintSolver.SketchEntity,System.Double)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintRadius(devDept.Geometry.ConstraintSolver.SketchCurve,System.Double)">
       <summary>
             Adds a radius constraint of the specified value to the given entity.
             </summary>
-      <param name="entity">The entity to be constrained (arc or circle)</param>
+      <param name="curve">The sketch curve to be constrained (arc or circle)</param>
       <param name="radius">The value for the radius constraint</param>
       <returns>The newly created radius constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintEqualLength(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintEqualLength(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
             Adds an equal-length constraint between two entities.
             </summary>
@@ -1141,39 +1389,39 @@
       <param name="b">The second point.</param>
       <returns>The added constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPointOn(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPointOn(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
             Adds a point-on-entity constraint. 
             </summary>
       <param name="point">The point.</param>
-      <param name="entity">The entity.</param>
+      <param name="curve">The sketch curve.</param>
       <returns> The added constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPointAt(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchEntity,System.Double)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPointAt(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchCurve,System.Double)">
       <summary>
              Adds a point-at-entity constraint. 
             </summary>
       <param name="point">The sketch point.</param>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="value">The parametric value.</param>
       <returns>
       </returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintMidPoint(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintMidPoint(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
             Adds a mid point constraint. 
             </summary>
       <param name="point">The point.</param>
-      <param name="entity">The entity.</param>
+      <param name="curve">The sketch curve.</param>
       <returns> The added constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPointOn(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchEntity,System.Double)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPointOn(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchCurve,System.Double)">
       <summary>
             Adds a point-on-entity constraint and fix the position of the point on the curve
             to a certain position specified by the value parameter.
             </summary>
       <param name="point">The point that will lie on the curve</param>
-      <param name="entity">The curve entity where the point will lie</param>
+      <param name="curve">The curve entity where the point will lie</param>
       <param name="value">Value relative to the curve domain identifying the position
             of the point</param>
       <returns>
@@ -1241,7 +1489,7 @@
       <param name="angle">The desired angle between the lines</param>
       <returns>The newly created angle constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintParallel(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintParallel(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
       </summary>
       <param name="entity1">
@@ -1250,7 +1498,7 @@
       </param>
       <returns>The newly </returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPerpendicular(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPerpendicular(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
       </summary>
       <param name="entity1">
@@ -1266,6 +1514,22 @@
       <param name="p2">The second point. </param>
       <param name="p3">The third point.</param>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddHorizontalConstraintDistance(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchPoint)">
+      <summary>
+            Adds a distance constraint for the two specified points.
+            </summary>
+      <param name="point1">The first point</param>
+      <param name="point2">The second point</param>
+      <returns>The newly created line distance constraint.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddVerticalConstraintDistance(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchPoint)">
+      <summary>
+            Adds a distance constraint for the two specified points.
+            </summary>
+      <param name="point1">The first point</param>
+      <param name="point2">The second point</param>
+      <returns>The newly created line distance constraint.</returns>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintDistance(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchPoint)">
       <summary>
             Adds a distance constraint for the two specified points.
@@ -1275,6 +1539,24 @@
       <returns>The newly created line distance constraint.</returns>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintDistance(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchPoint,System.Double)">
+      <summary>
+            Adds a distance constraint for the two specified points.
+            </summary>
+      <param name="point1">The first point</param>
+      <param name="point2">The second point</param>
+      <param name="distance">The desired distance between the points</param>
+      <returns>The newly created line distance constraint.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddHorizontalConstraintDistance(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchPoint,System.Double)">
+      <summary>
+            Adds a distance constraint for the two specified points.
+            </summary>
+      <param name="point1">The first point</param>
+      <param name="point2">The second point</param>
+      <param name="distance">The desired distance between the points</param>
+      <returns>The newly created line distance constraint.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddVerticalConstraintDistance(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchPoint,System.Double)">
       <summary>
             Adds a distance constraint for the two specified points.
             </summary>
@@ -1343,10 +1625,10 @@
       <param name="circle2">The second arc/circle</param>
       <returns>The newly created point coincidence constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddFixedPointConstraint(devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddFixedPointConstraint(devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
       </summary>
-      <param name="sketchEntity">
+      <param name="sketchCurve">
       </param>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintJoin(devDept.Geometry.ConstraintSolver.ISketchCurve[])">
@@ -1374,7 +1656,7 @@
       <param name="entityB">The second curve</param>
       <returns>The newly created constraint.</returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddMirrorConstraint(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.SketchLine)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddMirrorConstraint(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchLine)">
       <summary>
             Adds a mirror constraint between two entities
             </summary>
@@ -1384,7 +1666,7 @@
       <returns>The newly created constraint</returns>
       <remarks>The two entities must be of the same type.</remarks>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintTangent(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintTangent(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
       </summary>
       <param name="ent1">
@@ -1394,7 +1676,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintCollinear(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintCollinear(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
             Adds a collinear constraint between two lines.
             </summary>
@@ -2526,9 +2808,9 @@
       </param>
       <returns>True if the entity is valid, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Geometry.Entities.GEntity.EstimateBoundingBox">
+    <member name="M:devDept.Geometry.Entities.GEntity.GetCoarseSampling">
       <summary>
-            Returns a small set of points that gives an idea of the primitive bounding box.
+            Returns a small set of points that gives a coarse idea of the 3D extent of the primitive.
             </summary>
       <returns>An array of 3D points.</returns>
     </member>
@@ -2537,9 +2819,9 @@
             Resets needed primitive's geometrical attributes to recompute.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.Entities.GEntity.ComputeBoundingBox(devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
+    <member name="M:devDept.Geometry.Entities.GEntity.ComputeApproximatedBoundingBox(devDept.Geometry.Point3D@,devDept.Geometry.Point3D@)">
       <summary>
-            Computes the primitive's bounding box.
+            Computes the primitive's approximated bounding box.
             </summary>
       <param name="min">The minimum 3D extent of the primitive.</param>
       <param name="max">The maximum 3D extent of the primitive.</param>
@@ -12016,7 +12298,6 @@
       <summary>
         <see cref="P:devDept.Geometry.Entities.GSurface.PolyRegion" /> 2D point definition.
             </summary>
-      <seealso cref="!:GBrep.RecycleTessellation" />
     </member>
     <member name="P:devDept.Geometry.Entities.GSurface.PolygonPoint.TrimCurveIndex">
       <summary>
@@ -12159,7 +12440,6 @@
       <summary>
             Gets or sets surface tessellation polygonal region.
             </summary>
-      <seealso cref="!:Brep.RecycleTessellation" />
     </member>
     <member name="M:devDept.Geometry.Entities.GSurface.ConvertToMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType,System.Boolean)">
       <summary>
@@ -20704,36 +20984,52 @@
              This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.AngleConstraint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.CollinearPointsSurrogate">
+    <member name="T:devDept.Serialization.CollinearPointsConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.CollinearPoints" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.CollinearPointsConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.CollinearPointsSurrogate.#ctor(devDept.Geometry.ConstraintSolver.CollinearPoints)">
+    <member name="M:devDept.Serialization.CollinearPointsConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.CollinearPointsConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.CollinearPointsSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.CollinearPointsConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="!:CollinearPoints.CollinearPoints(sketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:CollinearPointsConstraint.CollinearPoints(sketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.CollinearSurrogate">
+    <member name="T:devDept.Serialization.CollinearConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Collinear" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.CollinearConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.CollinearSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Collinear)">
+    <member name="M:devDept.Serialization.CollinearConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.CollinearConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.CollinearSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.CollinearConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.Collinear" /> constructor to create the object.
+             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.CollinearConstraint" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.ConcentricCirclesDistanceConstraintSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistanceConstraint" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.ConcentricCirclesDistanceConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.ConcentricCirclesDistanceConstraint)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.ConcentricCirclesDistanceConstraintSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistanceConstraint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.ConstraintSurrogate">
@@ -20750,72 +21046,76 @@
       <summary>
             See <see cref="F:devDept.Geometry.ConstraintSolver.Constraint._ids" /></summary>
     </member>
-    <member name="T:devDept.Serialization.DiameterSurrogate">
+    <member name="F:devDept.Serialization.ConstraintSurrogate.Visible">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Diameter" /> surrogate.
+            See <see cref="P:devDept.Geometry.ConstraintSolver.Constraint.Visible" /></summary>
+    </member>
+    <member name="T:devDept.Serialization.DiameterConstraintSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.DiameterConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.DiameterSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Diameter)">
-      <summary>
-            Standard constructor.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.DiameterSurrogate.ConvertToObject">
-      <inheritdoc />
-      <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.Diameter.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
-             </remarks>
-    </member>
-    <member name="T:devDept.Serialization.EqualSurrogate">
-      <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Equal" /> surrogate.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.EqualSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Equal)">
+    <member name="M:devDept.Serialization.DiameterConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.DiameterConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.EqualSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.DiameterConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.Equal" /> constructor to create the object.
+             This method uses the <see cref="!:DiameterConstraint.Diameter(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.GeometricSketchSurrogate">
+    <member name="T:devDept.Serialization.EqualConstraintSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.EqualConstraint" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.EqualConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.EqualConstraint)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.EqualConstraintSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.EqualConstraint" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.SketchSurrogate">
       <summary>
             Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Sketch" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.GeometricSketchSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Sketch)">
+    <member name="M:devDept.Serialization.SketchSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Sketch)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.GeometricSketchSurrogate.Entities">
+    <member name="F:devDept.Serialization.SketchSurrogate.Entities">
       <summary>
             See <see cref="P:devDept.Geometry.ConstraintSolver.Sketch.Entities" /></summary>
     </member>
-    <member name="F:devDept.Serialization.GeometricSketchSurrogate.Constraints">
+    <member name="F:devDept.Serialization.SketchSurrogate.Constraints">
       <summary>
             See <see cref="P:devDept.Geometry.ConstraintSolver.Sketch.Constraints" /></summary>
     </member>
-    <member name="F:devDept.Serialization.GeometricSketchSurrogate.Plane">
+    <member name="F:devDept.Serialization.SketchSurrogate.Plane">
       <summary>
             See <see cref="!:Sketch.Plane" /></summary>
     </member>
-    <member name="M:devDept.Serialization.GeometricSketchSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.SketchSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
              This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.Sketch.#ctor(devDept.Geometry.Plane)" /> constructor to create the object.        
              </remarks>
     </member>
-    <member name="M:devDept.Serialization.GeometricSketchSurrogate.op_Implicit(devDept.Serialization.GeometricSketchSurrogate)~devDept.Geometry.ConstraintSolver.Sketch">
+    <member name="M:devDept.Serialization.SketchSurrogate.op_Implicit(devDept.Serialization.SketchSurrogate)~devDept.Geometry.ConstraintSolver.Sketch">
       <summary>
             Converts the surrogate to the related object during the deserialization process.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.GeometricSketchSurrogate.op_Implicit(devDept.Geometry.ConstraintSolver.Sketch)~devDept.Serialization.GeometricSketchSurrogate">
+    <member name="M:devDept.Serialization.SketchSurrogate.op_Implicit(devDept.Geometry.ConstraintSolver.Sketch)~devDept.Serialization.SketchSurrogate">
       <summary>
             Converts the object to the related surrogate during the serialization process.
             </summary>
@@ -20897,220 +21197,220 @@
             Converts the object to the related surrogate during the serialization process.
             </summary>
     </member>
-    <member name="T:devDept.Serialization.LengthSurrogate">
+    <member name="T:devDept.Serialization.LengthConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Length" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.LengthConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.LengthSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Length)">
+    <member name="M:devDept.Serialization.LengthConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.LengthConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.LengthSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.LengthConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.Length.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:LengthConstraint.Length(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.LinesDistanceSurrogate">
+    <member name="T:devDept.Serialization.LinesDistanceConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.LinesDistance" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.LinesDistanceConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.LinesDistanceSurrogate.#ctor(devDept.Geometry.ConstraintSolver.LinesDistance)">
+    <member name="M:devDept.Serialization.LinesDistanceConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.LinesDistanceConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.LinesDistanceSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.LinesDistanceConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.LinesDistance.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:LinesDistanceConstraint.LinesDistance(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.MidPointSurrogate">
+    <member name="T:devDept.Serialization.MidPointConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.MidPoint" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.MidPointConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.MidPointSurrogate.#ctor(devDept.Geometry.ConstraintSolver.MidPoint)">
+    <member name="M:devDept.Serialization.MidPointConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.MidPointConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.MidPointSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.MidPointConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.MidPoint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:MidPointConstraint.MidPoint(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.MirrorSurrogate">
+    <member name="T:devDept.Serialization.MirrorConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Mirror" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.MirrorConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.MirrorSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Mirror)">
+    <member name="M:devDept.Serialization.MirrorConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.MirrorConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.MirrorSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.MirrorConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.Mirror.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:MirrorConstraint.Mirror(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.ParallelSurrogate">
+    <member name="T:devDept.Serialization.ParallelConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Parallel" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.ParallelConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.ParallelSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Parallel)">
+    <member name="M:devDept.Serialization.ParallelConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.ParallelConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.ParallelSurrogate.Option">
+    <member name="F:devDept.Serialization.ParallelConstraintSurrogate.Option">
       <summary>
-            See <see cref="T:devDept.Geometry.ConstraintSolver.Parallel.Option" /></summary>
+            See <see cref="T:devDept.Geometry.ConstraintSolver.ParallelConstraint.Option" /></summary>
     </member>
-    <member name="M:devDept.Serialization.ParallelSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.ParallelConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.Parallel.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:ParallelConstraint.Parallel(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.PerpendicularSurrogate">
+    <member name="T:devDept.Serialization.PerpendicularConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Perpendicular" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PerpendicularConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PerpendicularSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Perpendicular)">
+    <member name="M:devDept.Serialization.PerpendicularConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PerpendicularConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.PerpendicularSurrogate.Option">
+    <member name="F:devDept.Serialization.PerpendicularConstraintSurrogate.Option">
       <summary>
-            See <see cref="T:devDept.Geometry.ConstraintSolver.Perpendicular.Option" /></summary>
+            See <see cref="T:devDept.Geometry.ConstraintSolver.PerpendicularConstraint.Option" /></summary>
     </member>
-    <member name="M:devDept.Serialization.PerpendicularSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.PerpendicularConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.Perpendicular.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:PerpendicularConstraint.Perpendicular(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.PointAtSurrogate">
+    <member name="T:devDept.Serialization.PointAtConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointAt" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointAtConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointAtSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointAt)">
+    <member name="M:devDept.Serialization.PointAtConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointAtConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointAtSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.PointAtConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.PointAt.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:PointAtConstraint.PointAt(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.PointFixedSurrogate">
+    <member name="T:devDept.Serialization.PointFixedConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointFixed" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointFixedConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointFixedSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointFixed)">
+    <member name="M:devDept.Serialization.PointFixedConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointFixedConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointFixedSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.PointFixedConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="!:PointFixed.PointFixed(sketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:PointFixedConstraint.PointFixed(sketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.PointLineDistanceSurrogate">
+    <member name="T:devDept.Serialization.PointLineDistanceConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointLineDistance" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointLineDistanceConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointLineDistanceSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointLineDistance)">
+    <member name="M:devDept.Serialization.PointLineDistanceConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointLineDistanceConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointLineDistanceSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.PointLineDistanceConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.PointLineDistance.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:PointLineDistanceConstraint.PointLineDistance(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.PointOnSurrogate">
+    <member name="T:devDept.Serialization.PointOnConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointOn" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointOnConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointOnSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointOn)">
+    <member name="M:devDept.Serialization.PointOnConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointOnConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointOnSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.PointOnConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.PointOn.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:PointOnConstraint.PointOn(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.PointsCoincidentSurrogate">
+    <member name="T:devDept.Serialization.CoincidentConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointsCoincident" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.CoincidentConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointsCoincidentSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointsCoincident)">
+    <member name="M:devDept.Serialization.CoincidentConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.CoincidentConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointsCoincidentSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.CoincidentConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.PointsCoincident.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.CoincidentConstraint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.PointsDistanceSurrogate">
+    <member name="T:devDept.Serialization.PointsDistanceConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointsDistance" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PointsDistanceConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointsDistanceSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointsDistance)">
+    <member name="M:devDept.Serialization.PointsDistanceConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PointsDistanceConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.PointsDistanceSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.PointsDistanceConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.PointsDistance.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:PointsDistanceConstraint.PointsDistance(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.RadiusSurrogate">
+    <member name="T:devDept.Serialization.RadiusConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Radius" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.RadiusConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.RadiusSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Radius)">
+    <member name="M:devDept.Serialization.RadiusConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.RadiusConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.RadiusSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.RadiusConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.Radius.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:RadiusConstraint.Radius(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.SketchArcSurrogate">
@@ -21165,22 +21465,22 @@
              This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.SketchCircle.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.        
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.SketchCurveSurrogate">
+    <member name="T:devDept.Serialization.SketchSplineSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchCurve" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchSpline" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.SketchCurveSurrogate.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve)">
+    <member name="M:devDept.Serialization.SketchSplineSurrogate.#ctor(devDept.Geometry.ConstraintSolver.SketchSpline)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SketchCurveSurrogate.ControlPoints">
+    <member name="F:devDept.Serialization.SketchSplineSurrogate.ControlPoints">
       <summary>
-            See <see cref="F:devDept.Geometry.ConstraintSolver.SketchCurve.ControlPoints" />.
+            See <see cref="F:devDept.Geometry.ConstraintSolver.SketchSpline.ControlPoints" />.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.SketchCurveSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.SketchSplineSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
              This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.SketchCircle" /> constructor to create the object.        
@@ -21217,19 +21517,24 @@
              This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.SketchEllipse.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.        
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.SketchEntitySurrogate">
+    <member name="T:devDept.Serialization.SketchCurveSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchEntity" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchCurve" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.SketchEntitySurrogate.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity)">
+    <member name="M:devDept.Serialization.SketchCurveSurrogate.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SketchEntitySurrogate.Construction">
+    <member name="F:devDept.Serialization.SketchCurveSurrogate.Construction">
       <summary>
-            See <see cref="P:devDept.Geometry.ConstraintSolver.SketchEntity.Construction" />.
+            See <see cref="P:devDept.Geometry.ConstraintSolver.SketchCurve.Construction" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.SketchCurveSurrogate.Projected">
+      <summary>
+            See <see cref="P:devDept.Geometry.ConstraintSolver.SketchCurve.Projected" />.
             </summary>
     </member>
     <member name="T:devDept.Serialization.SketchLineSurrogate">
@@ -21258,29 +21563,29 @@
              This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.SketchPoint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.        
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.SketchObjectSurrogate">
+    <member name="T:devDept.Serialization.SketchItemSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchObject" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchItem" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.SketchObjectSurrogate.#ctor(devDept.Geometry.ConstraintSolver.SketchObject)">
+    <member name="M:devDept.Serialization.SketchItemSurrogate.#ctor(devDept.Geometry.ConstraintSolver.SketchItem)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.SketchObjectSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.SketchItemSurrogate.ConvertToObject">
       <summary>
             Creates the entity related to the surrogate.
             </summary>
       <remarks>When this method is called, the <see cref="!:Content" /> field is already initialized.</remarks>
       <returns>The entity created.</returns>
     </member>
-    <member name="M:devDept.Serialization.SketchObjectSurrogate.op_Implicit(devDept.Serialization.SketchObjectSurrogate)~devDept.Geometry.ConstraintSolver.SketchObject">
+    <member name="M:devDept.Serialization.SketchItemSurrogate.op_Implicit(devDept.Serialization.SketchItemSurrogate)~devDept.Geometry.ConstraintSolver.SketchItem">
       <summary>
             Converts the surrogate to the related object during the deserialization process.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.SketchObjectSurrogate.op_Implicit(devDept.Geometry.ConstraintSolver.SketchObject)~devDept.Serialization.SketchObjectSurrogate">
+    <member name="M:devDept.Serialization.SketchItemSurrogate.op_Implicit(devDept.Geometry.ConstraintSolver.SketchItem)~devDept.Serialization.SketchItemSurrogate">
       <summary>
             Converts the object to the related surrogate during the serialization process.
             </summary>
@@ -21295,9 +21600,9 @@
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SketchPointSurrogate.Position">
+    <member name="F:devDept.Serialization.SketchPointSurrogate.PlanePosition">
       <summary>
-            See <see cref="P:devDept.Geometry.ConstraintSolver.SketchPoint.Position" />. 
+            See <see cref="P:devDept.Geometry.ConstraintSolver.SketchPoint.PlanePosition" />. 
             </summary>
     </member>
     <member name="M:devDept.Serialization.SketchPointSurrogate.ConvertToObject">
@@ -21306,24 +21611,24 @@
              This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.SketchPoint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.        
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.TangentSurrogate">
+    <member name="T:devDept.Serialization.TangentConstraintSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Tangent" /> surrogate.
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.TangentConstraint" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.TangentSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Tangent)">
+    <member name="M:devDept.Serialization.TangentConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.TangentConstraint)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.TangentSurrogate.Option">
+    <member name="F:devDept.Serialization.TangentConstraintSurrogate.Option">
       <summary>
-            See <see cref="T:devDept.Geometry.ConstraintSolver.Tangent.Option" /></summary>
+            See <see cref="T:devDept.Geometry.ConstraintSolver.TangentConstraint.Option" /></summary>
     </member>
-    <member name="M:devDept.Serialization.TangentSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.TangentConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="!:Tangent.Tangent(sketchInternal)" /> constructor to create the object.
+             This method uses the <see cref="!:TangentConstraint.Tangent(sketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.ValueConstraintSurrogate">
@@ -21479,6 +21784,38 @@
       <inheritdoc />
       <remarks>        
              This method uses the <see cref="M:devDept.Geometry.Entities.GRegion.#ctor(System.Collections.Generic.IList{devDept.Geometry.Entities.IGCurve})" /> constructor with an empty list. (The <see cref="P:devDept.Geometry.Entities.GRegion.ContourList" /> is filled with the <see cref="M:devDept.Serialization.GRegionSurrogate.CopyDataToObject(devDept.Geometry.Entities.GEntity)" /> method.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.VerticalPointsDistanceConstraintSurrogate">
+      <summary>
+            Defines the <see cref="!:VerticalPointsDistance" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.VerticalPointsDistanceConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.VerticalPointsDistanceConstraint)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.VerticalPointsDistanceConstraintSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="!:VerticalPointsDistance.VerticalPointsDistance(SketchInternal)" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.HorizontalPointsDistanceConstraintSurrogate">
+      <summary>
+            Defines the <see cref="!:HorizontalPointsDistance" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.HorizontalPointsDistanceConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.HorizontalPointsDistanceConstraint)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.HorizontalPointsDistanceConstraintSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="!:HorizontalPointsDistance.HorizontalPointsDistance(SketchInternal)" /> constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.SystemPointSurrogate">
@@ -24437,6 +24774,31 @@
     <member name="T:devDept.workUnitStatus">
       <summary>
             WorkUnit progress status during <see cref="T:devDept.WorkManager`1" /> queue handling.
+            </summary>
+    </member>
+    <member name="F:devDept.workUnitStatus.Idle">
+      <summary>
+            Idle.
+            </summary>
+    </member>
+    <member name="F:devDept.workUnitStatus.InProgress">
+      <summary>
+            In progress.
+            </summary>
+    </member>
+    <member name="F:devDept.workUnitStatus.Cancelled">
+      <summary>
+            Cancelled.
+            </summary>
+    </member>
+    <member name="F:devDept.workUnitStatus.Failed">
+      <summary>
+            Failed.
+            </summary>
+    </member>
+    <member name="F:devDept.workUnitStatus.Completed">
+      <summary>
+            Completed.
             </summary>
     </member>
     <member name="T:devDept.WorkUnit">

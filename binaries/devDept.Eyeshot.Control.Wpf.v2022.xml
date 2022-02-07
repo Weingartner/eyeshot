@@ -2146,46 +2146,31 @@
             </summary>
       <returns>The array of individual entities, null if the hatch is Solid</returns>
     </member>
-    <member name="T:devDept.Eyeshot.Entities.Sketch">
+    <member name="T:devDept.Eyeshot.Entities.SketchEntity">
       <summary>
             Sketch entity definition.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.#ctor(devDept.Geometry.ConstraintSolver.Sketch)">
+    <member name="P:devDept.Eyeshot.Entities.SketchEntity.CurveList">
+      <summary>
+            Gets the sketch curve list.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.#ctor(devDept.Geometry.ConstraintSolver.Sketch)">
       <summary>
             Standard constructor.
             </summary>
       <param name="gSketch">The geometrical sketch.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.ExtrudeRemove(devDept.Geometry.Interval)">
-      <summary>
-            Extrudes the sketch and removes it from the original Brep object.
-            </summary>
-      <param name="amount">The extrusion amount</param>
-      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.Extrude(devDept.Geometry.Interval)">
-      <summary>
-            Extrudes the sketch to create a new Brep.
-            </summary>
-      <param name="amount">The extrusion amount interval</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.ExtrudeAdd(devDept.Geometry.Interval)">
-      <summary>
-            Extrudes the sketch and adds it to the original Brep object.
-            </summary>
-      <param name="amount">The extrusion amount interval</param>
-      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Sketch.Plane">
+    <member name="P:devDept.Eyeshot.Entities.SketchEntity.Plane">
       <summary>Gets or sets the planar entity supporting plane.</summary>
     </member>
-    <member name="P:devDept.Eyeshot.Entities.Sketch.Constraints">
+    <member name="P:devDept.Eyeshot.Entities.SketchEntity.Constraints">
       <summary>
             Gets the sketch constraints.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.RemoveConstraint(devDept.Geometry.ConstraintSolver.Constraint)">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RemoveConstraint(devDept.Geometry.ConstraintSolver.Constraint)">
       <summary>
             Removes the specific constraint from the sketch.
             </summary>
@@ -2195,34 +2180,34 @@
             You need to call <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)" /> to see the effect of this command.
             </remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.Explode(System.Boolean)">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.Explode(System.Boolean)">
       <summary>
             Returns the list of curves as array of entities.
             </summary>
       <param name="propagateAttributes">If true, propagates the attributes of the composite curve (<see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.Color" />, <see cref="P:devDept.Eyeshot.Entities.Entity.MaterialName" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeName" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeightMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeight" />) to the exploded curves</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.ConvertToRegion">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ConvertToRegion">
       <summary>
             Convert the Sketch into a Region entity. 
             </summary>
       <param name="sketcher">The sketch. </param>
       <returns>The region.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.ConvertToCurves(System.Boolean)">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ConvertToCurves(System.Boolean)">
       <summary>
             Convert the Sketch into a list of ICurve. 
             </summary>
@@ -2230,27 +2215,348 @@
       <param name="keepConstructionCurves">Indicates whether the construction curves must be keep or not.</param>
       <returns>The list of ICurve</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.GetVisualRep(System.Nullable{System.Drawing.Color},System.Nullable{System.Drawing.Color},System.Single)">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.GetVisualRep(System.Nullable{System.Drawing.Color},System.Nullable{System.Drawing.Color},System.Single)">
       <summary>
             Convert the Sketch into a list of ICurve. 
             </summary>
       <param name="sketcher">The Sketch</param>
       <returns>The list of ICurve</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.Read(System.String)">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.Read(System.String)">
       <summary>
             Reads the sketch from the specified file.
             </summary>
       <param name="fileName">Name of the file to read</param>
-      <seealso cref="M:devDept.Eyeshot.Entities.Sketch.Write(System.String,System.Xml.Formatting)" />
+      <seealso cref="M:devDept.Eyeshot.Entities.SketchEntity.Write(System.String,System.Xml.Formatting)" />
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Sketch.Write(System.String,System.Xml.Formatting)">
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.Write(System.String,System.Xml.Formatting)">
       <summary>
             Writes the sketch to the specified file.
             </summary>
       <param name="fileName">Name of the file to write</param>
       <param name="formatting">The output format</param>
-      <seealso cref="M:devDept.Eyeshot.Entities.Sketch.Read(System.String)" />
+      <seealso cref="M:devDept.Eyeshot.Entities.SketchEntity.Read(System.String)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> along plane's Z-axis.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsMesh``1(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> along plane's Z-axis.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsMesh(devDept.Geometry.Vector3D,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsMesh``1(devDept.Geometry.Vector3D,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSurface(devDept.Geometry.Vector3D)">
+      <summary>
+            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Surface" />.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <returns>&gt;The resulting Surface array.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSurface(System.Double)">
+      <summary>
+            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Surface" />.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <returns>&gt;The resulting Surface array.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsBrep(System.Double,System.Double,System.Double)">
+      <summary>
+            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Brep" />.
+            </summary>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>&gt;The resulting Brep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsBrep(devDept.Geometry.Interval,System.Double,System.Double)">
+      <summary>
+            Extrudes the region to create a new Brep.
+            </summary>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>&gt;The resulting Brep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsBrep(devDept.Geometry.Vector3D,System.Double,System.Double)">
+      <summary>
+            Extrudes the region to create a new Brep.
+            </summary>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>&gt;The resulting Brep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSolid(System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Extrudes this region.
+            </summary>
+      <param name="x">Extrusion amount along the axis X</param>
+      <param name="y">Extrusion amount along the axis Y</param>
+      <param name="z">Extrusion amount along the axis Z</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSolid``1(System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Extrudes this region.
+            </summary>
+      <param name="x">Extrusion amount along the axis X</param>
+      <param name="y">Extrusion amount along the axis Y</param>
+      <param name="z">Extrusion amount along the axis Z</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSolid(System.Double,System.Double)">
+      <summary>
+            Extrudes this region.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSolid``1(System.Double,System.Double)">
+      <summary>
+            Extrudes this region.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSolid(devDept.Geometry.Vector3D,System.Double)">
+      <summary>
+            Extrudes this region.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSolid``1(devDept.Geometry.Vector3D,System.Double)">
+      <summary>
+            Extrudes this region.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsSolid(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this region along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsSolid``1(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this region along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsSolid(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this region along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="merge">
+      </param>
+      <param name="sweepMethod">
+      </param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsSolid``1(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this region along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="merge">
+      </param>
+      <param name="sweepMethod">
+      </param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this region around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axisStart">The axis start point</param>
+      <param name="axisEnd">The axis end point</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh``1(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this region around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axisStart">The axis start point</param>
+      <param name="axisEnd">The axis end point</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this region around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh``1(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this region around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves this region around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <returns>The resulting Surface array object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves this region around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axisStart">The axis start point</param>
+      <param name="axisEnd">The axis end point</param>
+      <returns>The resulting Surface array object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this region around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <param name="tolerance">the regeneration tolerance</param>
+      <returns>The resulting Brep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this region around an axis.
+            </summary>
+      <param name="deltaAngle">Revolution angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <param name="tolerance">the regeneration tolerance</param>
+      <returns>The resulting Brep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this region around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axisStart">The axis start point</param>
+      <param name="axisEnd">The axis end point</param>
+      <param name="tolerance">the regeneration tolerance</param>
+      <returns>The resulting Brep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this region around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axisStart">The axis start point</param>
+      <param name="axisEnd">The axis end point</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid``1(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this region around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axisStart">The axis start point</param>
+      <param name="axisEnd">The axis end point</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this region around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid``1(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this region around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians</param>
+      <param name="deltaAngle">Revolution delta angle in radians</param>
+      <param name="axis">Axis direction</param>
+      <param name="center">Axis start point</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting Solid object.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Entities.CompositeCurve">
       <summary>
@@ -8516,12 +8822,12 @@
     </member>
     <member name="P:devDept.Eyeshot.Entities.Brep.TessellationFaces">
       <summary>
-            Gets or sets outer shell face array.
+            Gets tessellated representation of outer shell face array. One-to-one correspondence with <see cref="P:devDept.Eyeshot.Entities.Brep.Faces" />.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Brep.TessellationInners">
       <summary>
-            Gets or sets inner (void) shells face array.
+            Gets tessellated representation of inner (void) shells face array. One-to-one correspondence with <see cref="P:devDept.Eyeshot.Entities.Brep.Inners" />.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Brep.Faces">
@@ -8979,11 +9285,6 @@
             </summary>
       <remarks>Rebuild() method could be necessary before to call this.</remarks>
       <returns>then number of the removed faces after merge. -1 if an error occured.</returns>
-    </member>
-    <member name="F:devDept.Eyeshot.Entities.Brep.Tessellation">
-      <summary>
-            Tessellated representation of this face.
-            </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.ConvertFaceToMesh(System.Int32,System.Int32,devDept.Geometry.Entities.GMesh.natureType,System.Boolean,System.Single)">
       <summary>
@@ -10116,12 +10417,6 @@
       <param name="legend">The legend.</param>
       <param name="type">The curvature map type.</param>
       <seealso cref="P:devDept.Eyeshot.Entities.Surface.ShowCurvature" />
-    </member>
-    <member name="P:devDept.Eyeshot.Entities.Surface.PolyRegion">
-      <summary>
-            Gets or sets surface tessellation polygonal region.
-            </summary>
-      <seealso cref="!:Brep.RecycleTessellation" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.Surface.ConvertToMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType,System.Boolean)">
       <summary>
@@ -15479,11 +15774,6 @@
             Base class for all planar entities.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Entities.PlanarEntity.Primitive">
-      <summary>
-            Gets the primitive object.
-            </summary>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.PlanarEntity.#ctor(devDept.Geometry.Entities.GPlanarEntity)">
       <summary>
             Constructor with primitive.
@@ -18613,79 +18903,129 @@
             Removes all items from the dictionary.
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.DrawConstraintsParams">
-      <summary>
-            Data for Constraint.Draw 
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.DrawConstraintsParams.Workspace">
-      <summary>
-            The workspace.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.DrawConstraintsParams.Camera">
-      <summary>
-            The camera.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.DrawConstraintsParams.ViewFrame">
-      <summary>
-            The view frame.
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.DrawConstraintsParams.SketchPlane">
-      <summary>
-            The sketch plane.
-            </summary>
-    </member>
     <member name="T:devDept.Eyeshot.SketchManager">
       <summary>
             Class Manager that handles the synchronization between the eyeshot entities and the Sketch entities.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.CurvesSize">
+    <member name="P:devDept.Eyeshot.SketchManager.EqualConstraintImage">
       <summary>
-            The size used to display curves for Sketch
+            Gets or sets the equal constraint image.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.PointsSize">
+    <member name="P:devDept.Eyeshot.SketchManager.MirrorConstraintImage">
       <summary>
-            The size used to display points during the Sketch editing.
+            Gets or sets the mirror constraint image.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.PointsColor">
+    <member name="P:devDept.Eyeshot.SketchManager.EqualRadiusConstraintImage">
       <summary>
-            The color used to display points during the Sketch editing.
+            Gets or sets the equal radius constraint image.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.DimensionsSize">
+    <member name="P:devDept.Eyeshot.SketchManager.PointOnConstraintImage">
       <summary>
-            The size used to display dimensions during the Sketch editing.
+            Gets or sets the point on constraint image.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.DimensionsColor">
+    <member name="P:devDept.Eyeshot.SketchManager.PointAtConstraintImage">
       <summary>
-            The color used to display dimensions during the Sketch editing.
+            Gets or sets the join constraint image.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.DimensionsReferenceColor">
+    <member name="P:devDept.Eyeshot.SketchManager.JoinConstraintImage">
       <summary>
-            The color used to display dimensions with reference during the Sketch editing.
+            Gets or sets the join constraint image.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.ConstructionCurvesSize">
+    <member name="P:devDept.Eyeshot.SketchManager.HorizontalConstraintImage">
       <summary>
-            The size used to display the construction curves during the Sketch editing.
+            Gets or sets the vertical constraint image.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.ConstructionCurvesColor">
+    <member name="P:devDept.Eyeshot.SketchManager.VerticalConstraintImage">
       <summary>
-            The color used to display construction curves during the Sketch editing.
+            Gets or sets the vertical constraint image.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.HoveringColor">
+    <member name="P:devDept.Eyeshot.SketchManager.PerpendicularConstraintImage">
       <summary>
-            The color used to display the entities when the mouse is over a constraint label.
+            Gets or sets the perpendicular constraint image.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.FixConstraintImage">
+      <summary>
+            Gets or sets the fix constraint image.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.ParallelConstraintImage">
+      <summary>
+            Gets or sets the parallel constraint image.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.TangentConstraintImage">
+      <summary>
+            Gets or sets the tangent constraint image.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.CollinearConstraintImage">
+      <summary>
+            Gets or sets the collinear constraint image.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.MidPointConstraintImage">
+      <summary>
+            Gets or sets the mid point constraint image.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.CurvesThickness">
+      <summary>
+            Gets or sets the size used to display curves for Sketch.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.PointsThickness">
+      <summary>
+            Gets or sets the size used to display points during the Sketch editing.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.PointsColor">
+      <summary>
+            Gets or sets the color used to display points during the Sketch editing.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.DimensionsThickness">
+      <summary>
+            Gets or sets the size used to display dimensions during the Sketch editing.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.DimensionsColor">
+      <summary>
+            Gets or sets the color used to display dimensions during the Sketch editing.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.DimensionsReferenceColor">
+      <summary>
+            Gets or sets the color used to display dimensions with reference during the Sketch editing.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.ConstructionCurvesThickness">
+      <summary>
+            Gets or sets the size used to display the construction curves during the Sketch editing.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.ConstructionCurvesColor">
+      <summary>
+            Gets or sets the color used to display construction curves during the Sketch editing.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.ProjectedCurvesColor">
+      <summary>
+            Gets or sets the color used to display the curve that are been projected from an existing edge.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.HoveringColor">
+      <summary>
+            Gets or sets the color used to display the entities when the mouse is over a constraint label.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.SketchManager.SketchPlane">
@@ -18704,9 +19044,9 @@
             The degrees of freedom of the constrained entities of the Sketch
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.SketchManager.Sketch">
+    <member name="P:devDept.Eyeshot.SketchManager.SketchEntity">
       <summary>
-            The Sketch opened for editing. Can be null/Nothing
+            The Sketch opened for editing. Can be null/Nothing.
             </summary>
       <seealso cref="P:devDept.Eyeshot.SketchManager.Editing" />
     </member>
@@ -18714,11 +19054,11 @@
       <summary>
             True when editing a sketch, otherwise false.
             </summary>
-      <seealso cref="P:devDept.Eyeshot.SketchManager.Sketch" />
+      <seealso cref="P:devDept.Eyeshot.SketchManager.SketchEntity" />
     </member>
-    <member name="F:devDept.Eyeshot.SketchManager.TextHeight">
+    <member name="P:devDept.Eyeshot.SketchManager.TextHeight">
       <summary>
-            The text height. 
+            Gets or sets the text height. 
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.SketchManager.AutomaticTextHeight">
@@ -18736,6 +19076,33 @@
             Gets the array of entities related to the sketch.
             </summary>
       <seealso cref="M:devDept.Eyeshot.SketchManager.IsSketchEntity(devDept.Eyeshot.Entities.Entity)" />
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.ShowFilledRegion">
+      <summary>
+            If true, a semitransparent region that represents the Sketch is displayed. 
+            </summary>
+      <remarks> The region is drawn only if it is valid.</remarks>
+    </member>
+    <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.SketchManager.AnimateCamera" -->
+    <member name="M:devDept.Eyeshot.SketchManager.EnableEdgeSelection">
+      <summary>
+            Enables the edge selection for the current Brep
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.DisableEdgeSelection">
+      <summary>
+            Disables the edge selection for the current Brep
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.EditExit(System.Boolean)">
+      <summary>
+            Exits and regenerates and compiles the sketch entity.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.RedundantConstraints">
+      <summary>
+            Returns the collection of the redundant constraints of the active sketch.
+            </summary>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.DisplayConstraintEntities(devDept.Eyeshot.Labels.StackedLabel)">
       <summary>
@@ -18869,9 +19236,22 @@
       <param name="newLocation">The new location of the point in world
             coordinates</param>
     </member>
-    <member name="M:devDept.Eyeshot.SketchManager.AddSketchCurveFromCurveEntity(devDept.Eyeshot.Entities.Curve)">
+    <member name="M:devDept.Eyeshot.SketchManager.DrawOverlay(devDept.Eyeshot.Workspace.DrawSceneParams)">
       <summary>
-            Creates a sketch curve starting from the curve entity and adds it to the sketch.
+            Draws overlaying the filled region.
+            </summary>
+      <param name="data">The draw data</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddPoint(devDept.Geometry.Point2D)">
+      <summary>
+            Creates a sketch spline starting from the curve entity and adds it to the sketch.
+            </summary>
+      <param name="point">The point.</param>
+      <returns>A Point entity at the specified location.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddSketchSplineFromCurveEntity(devDept.Eyeshot.Entities.Curve)">
+      <summary>
+            Creates a sketch spline starting from the curve entity and adds it to the sketch.
             </summary>
       <param name="curve">the curve entity.</param>
     </member>
@@ -18885,6 +19265,113 @@
             A list of Bézier curves, with <see cref="P:devDept.Eyeshot.Entities.Curve.Degree">degree</see> equal to 3
             and 4 <see cref="P:devDept.Eyeshot.Entities.Curve.ControlPoints">control points</see>.
             </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddEllipse(devDept.Geometry.Point2D,System.Double,System.Double)">
+      <summary>
+            Adds an ellipse to the sketch.
+            </summary>
+      <param name="center">The center.</param>
+      <param name="radiusX">The X-radius.</param>
+      <param name="radiusY">The Y-radius.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddEllipse(devDept.Eyeshot.Entities.Ellipse)">
+      <summary>
+            Adds the ellipse to the sketch.
+            </summary>
+      <param name="ellipse">The ellipse.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddLine(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            Adds a line to the sketch.
+            </summary>
+      <param name="start">The start point.</param>
+      <param name="end">The end point.</param>
+      <returns>The newly added line.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.ProjectCurve(devDept.Geometry.Entities.IGCurve,System.Boolean)">
+      <summary>
+            Project the selected edge into the sketch and updates and invalidates the sketch.
+            </summary>
+      <param name="igcurve">The curve.</param>
+      <returns>The projected entity</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddLine(devDept.Eyeshot.Entities.Line)">
+      <summary>
+            Adds the line to the sketch.
+            </summary>
+      <param name="line">The line.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddCircle(devDept.Eyeshot.Entities.Circle)">
+      <summary>
+            Adds the circle to the sketch.
+            </summary>
+      <param name="circle">the circle.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddCircle(devDept.Geometry.Point2D,System.Double)">
+      <summary>
+            Adds a circle to the sketch.
+            </summary>
+      <param name="center">The center.</param>
+      <param name="radius">The radius.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddCircle(devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            Adds a circle to the sketch.
+            </summary>
+      <param name="center">The center.</param>
+      <param name="pointOnCircle">The point from which the circle must pass. </param>
+      <returns>The newly added circle.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddArc(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            Adds an arc to the sketch.
+            </summary>
+      <param name="centerPoint">The center.</param>
+      <param name="startPoint">The start point.</param>
+      <param name="endPoint">The end point.</param>
+      <returns>The newly added arc.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.PreparesEntitiesForMirror(System.Collections.Generic.List{devDept.Eyeshot.Entities.Entity})">
+      <summary>
+            Prepares the input list of entities for the mirror constraint. 
+            </summary>
+      <param name="selectedEntities">The selected entities.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddEntity(devDept.Eyeshot.Entities.Entity)">
+      <summary>
+            Adds the entity to the sketch.
+            </summary>
+      <param name="ent">The entity.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddPoint(devDept.Eyeshot.Entities.Point)">
+      <summary>
+            Adds the point to the sketch.
+            </summary>
+      <param name="point">
+      </param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddArc(devDept.Eyeshot.Entities.Arc)">
+      <summary>
+            Adds the arc to the sketch.
+            </summary>
+      <param name="arc">The arc.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddSlot(System.Double,System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Adds a slot to the sketch.
+            </summary>
+      <param name="x">Left arc center X position</param>
+      <param name="y">Left arc center Y position</param>
+      <param name="length">The distance between arcs centers</param>
+      <param name="radius">The arc radius</param>
+      <param name="angle">The slot angle in radians from X axis. When zero, the horizontal constraint is added.</param>
+      <returns>The array of sketch entities representing the slot: bottom line, right arc, top line, left arc.</returns>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.AddCircularSlot(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
       <summary>
@@ -18923,9 +19410,14 @@
             Get all constrained entities.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.SketchManager.UpdateAndInvalidate(System.Boolean)">
+      <summary>
+            Solves the sketch and regens and compiles the entities.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.SketchManager.Solve">
       <summary>
-            Solves the system, updates the graphical entities, and updates history.
+            Solves the system.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.ClearHistory">
@@ -19033,13 +19525,122 @@
             </summary>
       <param name="entity">The entity representing a specific constraint</param>
     </member>
-    <member name="M:devDept.Eyeshot.SketchManager.CreateAngleConstraint(devDept.Eyeshot.Entities.Arc)">
+    <member name="M:devDept.Eyeshot.SketchManager.CreateLengthConstraint(devDept.Eyeshot.Entities.Line,System.Double,System.Boolean)">
       <summary>
-            Adds an angle constraint to the specified arc.
+            Adds a line constraint on the input line.
             </summary>
-      <param name="arc">Arc to be constrained</param>
+      <param name="line">the line.</param>
+      <param name="value">Optional, the desired length value.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
     </member>
-    <member name="M:devDept.Eyeshot.SketchManager.CreateAngleConstraint(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Line,devDept.Geometry.Point2D)">
+    <member name="M:devDept.Eyeshot.SketchManager.CreateDiameterConstraint(devDept.Eyeshot.Entities.Circle,System.Double,System.Boolean)">
+      <summary>
+            Adds a diameter/radius constraint on the input circle.
+            </summary>
+      <param name="circle">the circle.</param>
+      <param name="value">Optional, the desired diameter/radius value.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateJoinConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Entity)">
+      <summary>
+            Adds a point on entity constraint.
+            </summary>
+      <param name="p">The point.</param>
+      <param name="ent">The entity.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreatePointFixedConstraint(devDept.Eyeshot.Entities.Point)">
+      <summary>
+            Adds a point fixed constraint for the input point.
+            </summary>
+      <param name="p1">the point.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateHorizontalConstraint(devDept.Eyeshot.Entities.Line)">
+      <summary>
+            Create an horizontal constraint on the input line.
+            </summary>
+      <param name="l1">The line.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateHorizontalConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Point)">
+      <summary>
+            Adds an horizontal constraints between two points.
+            </summary>
+      <param name="p1">The first point.</param>
+      <param name="p2">The second point.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateVerticalConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Point)">
+      <summary>
+            Adds a vertical constraints between two points.
+            </summary>
+      <param name="p1">The first point.</param>
+      <param name="p2">The second point.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateVerticalConstraint(devDept.Eyeshot.Entities.Line)">
+      <summary>
+            Adds a vertical constraint for the input line.
+            </summary>
+      <param name="l1">The line.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateParallelLinesConstraint(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Line)">
+      <summary>
+            Adds a parallel constraint between two lines.
+            </summary>
+      <param name="l1">The first line.</param>
+      <param name="l2">The second line.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreatePerpendicularConstraint(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Line)">
+      <summary>
+            Adds a perpendicular constraint between two lines.
+            </summary>
+      <param name="l1">The first line.</param>
+      <param name="l2">The second line.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateEqualConstraint(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity,System.Boolean)">
+      <summary>
+            Adds an equal-length constraint between two entities.
+            </summary>
+      <param name="e1">The first entity.</param>
+      <param name="e2">The second entity.</param>
+      <param name="eqRadius">Optional, if true the radius length is considered.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateCollinearPointsConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Point)">
+      <summary>
+            Adds a collinear constraint between points.
+            </summary>
+      <param name="p1">The first point.</param>
+      <param name="p2">The second point.</param>
+      <param name="p3">The third point.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateTangentConstraint(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity)">
+      <summary>
+            Adds a tangent constraint between two entities.
+            </summary>
+      <param name="e1">The first entity.</param>
+      <param name="e2">The second entity.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateCollinearConstraint(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Line)">
+      <summary>
+            Adds a collinear constraint between two lines.
+            </summary>
+      <param name="l1">The first line.</param>
+      <param name="l2">The second line.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateMirrorConstraint(devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Entity,devDept.Eyeshot.Entities.Line)">
+      <summary>
+            Adds a mirror constraint between  two entites.
+            </summary>
+      <param name="e1">The first entity.</param>
+      <param name="e2">The second entity.</param>
+      <param name="axis">The symmetry axis.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateAngleConstraint(devDept.Eyeshot.Entities.Arc,System.Double,System.Boolean)">
+      <summary>
+            Adds an angle constraint on the input arc.
+            </summary>
+      <param name="arc">The arc.</param>
+      <param name="value">Optional, the desired distance value.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateAngleConstraint(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Line,devDept.Geometry.Point2D,System.Double,System.Boolean)">
       <summary>
             Adds an angle constraint between the two specified lines. The quadrant point
             allows to choose where to apply the constraint.
@@ -19049,6 +19650,61 @@
       <param name="quadrantPoint">A point in one of the four sectors formed by the two
             lines (considering them as infinite). The angle constraint will be applied in
             the quadrant where the point lies.</param>
+      <param name="value">Optional, the desired distance value.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreatePointLineDistanceConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Line,System.Double,System.Boolean)">
+      <summary>
+            Adds a point-line distance constraint.
+            </summary>
+      <param name="p">The point.</param>
+      <param name="l">The line.</param>
+      <param name="value">Optional, the desired distance value.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateAlignedPointsDistanceConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Point,System.Double,System.Boolean)">
+      <summary>
+            Adds a points distance constraint.
+            </summary>
+      <param name="p1">The first point.</param>
+      <param name="p2">the second point.</param>
+      <param name="value">Optional, the desired distance value.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateHorizontalPointsDistanceConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Point,System.Double,System.Boolean)">
+      <summary>
+            Adds a horizontal points distance constraint.
+            </summary>
+      <param name="p1">The first point.</param>
+      <param name="p2">the second point.</param>
+      <param name="value">Optional, the desired distance value.</param>
+      <param name="reference">Optional,when true the constraint is considered only as reference.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateVerticalPointsDistanceConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Point,System.Double,System.Boolean)">
+      <summary>
+            Adds a vertical points distance constraint.
+            </summary>
+      <param name="p1">The first point.</param>
+      <param name="p2">the second point.</param>
+      <param name="value">Optional, the desired distance value.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateLinesDistanceConstraint(devDept.Eyeshot.Entities.Line,devDept.Eyeshot.Entities.Line,System.Double,System.Boolean)">
+      <summary>
+            Adds a distance constraint between two lines.
+            </summary>
+      <param name="l1">The first line.</param>
+      <param name="l2">The second line.</param>
+      <param name="value">Optional, the desired distance value.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.CreateConcentricDistanceConstraint(devDept.Eyeshot.Entities.Circle,devDept.Eyeshot.Entities.Circle,System.Boolean)">
+      <summary>
+            Adds a distance constraint between two concentric circles.
+            </summary>
+      <param name="c1">The first circle.</param>
+      <param name="c2">The second circle.</param>
+      <param name="reference">Optional, when true the constraint is considered only as reference.</param>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.CreatePointOnConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Entity)">
       <summary>
@@ -19066,29 +19722,45 @@
             </summary>
       <param name="point">The point that should lie on the curve</param>
       <param name="entity">The curve where the point should lie</param>
-      <param name="value">Optional, position of the point in the curve domain.</param>
-      <param name="reference">
-      </param>
+      <param name="value">Position of the point in the curve domain.</param>
     </member>
-    <member name="M:devDept.Eyeshot.SketchManager.CreateMidPointConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Entity,System.Nullable{System.Boolean})">
+    <member name="M:devDept.Eyeshot.SketchManager.CreateMidPointConstraint(devDept.Eyeshot.Entities.Point,devDept.Eyeshot.Entities.Entity)">
       <summary>
             Adds a point on constraint, forcing the specified point to stay on the given curve.
             </summary>
       <param name="point">The point that should lie on the curve</param>
       <param name="entity">The curve where the point should lie</param>
-      <param name="value">Optional, position of the point in the curve domain.</param>
-      <param name="reference">
-      </param>
+    </member>
+    <member name="T:devDept.Eyeshot.SketchManager.SolveEventHandler">
+      <summary>
+            Represents the method that will handle the <see cref="E:devDept.Eyeshot.SketchManager.SystemSolved" /> event.
+            </summary>
+      <param name="source">The source of the event.</param>
+      <param name="e">An object that contains the event data.</param>
     </member>
     <member name="E:devDept.Eyeshot.SketchManager.SystemSolved">
       <summary>
             Occurs every time that the equation system of the sketch is solved.
             </summary>
     </member>
+    <member name="T:devDept.Eyeshot.SketchManager.EditEndedEventHandler">
+      <summary>
+            Represents the method that will handle the <see cref="E:devDept.Eyeshot.SketchManager.EditEnded" /> event.
+            </summary>
+      <param name="source">The source of the event.</param>
+      <param name="e">An object that contains the event data.</param>
+    </member>
     <member name="E:devDept.Eyeshot.SketchManager.EditEnded">
       <summary>
             Occurs when the SketchManager exits from the current editing sketch.
             </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.SketchManager.EditStartedEventHandler">
+      <summary>
+            Represents the method that will handle the <see cref="E:devDept.Eyeshot.SketchManager.EditStarted" /> event.
+            </summary>
+      <param name="source">The source of the event.</param>
+      <param name="e">An object that contains the event data.</param>
     </member>
     <member name="E:devDept.Eyeshot.SketchManager.EditStarted">
       <summary>
@@ -19204,7 +19876,7 @@
             The tangent constraint
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.TangentVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Tangent)">
+    <member name="M:devDept.Eyeshot.TangentVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.TangentConstraint)">
       <summary>
             Standard constructor.
             </summary>
@@ -19238,20 +19910,20 @@
             The circle diameter constraint
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.DiameterVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Entities.Dimension,devDept.Geometry.ConstraintSolver.Radius)">
+    <member name="M:devDept.Eyeshot.DiameterVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Entities.Dimension,devDept.Geometry.ConstraintSolver.RadiusConstraint)">
       <summary>
             Standard constructor.
             </summary>
       <param name="viewport">The Viewport.</param>
-      <param name="radiusConstrain">
+      <param name="radiusConstraintConstrain">
       </param>
     </member>
-    <member name="T:devDept.Eyeshot.PointsCoincidentVisualConstraint">
+    <member name="T:devDept.Eyeshot.CoincidentVisualConstraint">
       <summary>
             The Constraint that represents the coincidence between points 
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.PointsCoincidentVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Constraint)">
+    <member name="M:devDept.Eyeshot.CoincidentVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Constraint)">
       <summary>
             Standard constructor.
             </summary>
@@ -19264,12 +19936,12 @@
             The point fixed constraint.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.PointFixedVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.PointFixed)">
+    <member name="M:devDept.Eyeshot.PointFixedVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.PointFixedConstraint)">
       <summary>
             Standard constructor.
             </summary>
       <param name="viewport">The Viewport.</param>
-      <param name="pointFixed">
+      <param name="pointFixedConstraint">
       </param>
     </member>
     <member name="T:devDept.Eyeshot.HvVisualConstraint">
@@ -19290,20 +19962,20 @@
             The collinear points constraint
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.CollinearPointsVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.CollinearPoints)">
+    <member name="M:devDept.Eyeshot.CollinearPointsVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.CollinearPointsConstraint)">
       <summary>
             Standard constructor
             </summary>
       <param name="viewport">The Viewport.</param>
       <param name="constraintLabels">the constraint labels.</param>
-      <param name="collinearPoints">The sketch constraint.</param>
+      <param name="collinearPointsConstraint">The sketch constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.CollinearVisualConstraint">
       <summary>
             The collinear lines constraint
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.CollinearVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Collinear)">
+    <member name="M:devDept.Eyeshot.CollinearVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.CollinearConstraint)">
       <summary>
             Standard constructor
             </summary>
@@ -19339,12 +20011,12 @@
             Equal constraint
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.EqualVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Equal)">
+    <member name="M:devDept.Eyeshot.EqualVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.EqualConstraint)">
       <summary>
             Standard constructor.
             </summary>
       <param name="viewport">The Viewport.</param>
-      <param name="equalConstrain">
+      <param name="equalConstraintConstrain">
       </param>
     </member>
     <member name="T:devDept.Eyeshot.PerpendicularVisualConstraint">
@@ -19352,12 +20024,12 @@
             The perpendicular constraint
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.PerpendicularVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Perpendicular)">
+    <member name="M:devDept.Eyeshot.PerpendicularVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.PerpendicularConstraint)">
       <summary>
             Standard constructor.
             </summary>
       <param name="viewport">The Viewport.</param>
-      <param name="perpendicularConstrain">
+      <param name="perpendicularConstraintConstrain">
       </param>
     </member>
     <member name="T:devDept.Eyeshot.MirrorVisualConstraint">
@@ -19370,12 +20042,12 @@
             The parallel constraint
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.ParallelLinesVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.Parallel)">
+    <member name="M:devDept.Eyeshot.ParallelLinesVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.ParallelConstraint)">
       <summary>
             Standard constructor.
             </summary>
       <param name="viewport">The Viewport.</param>
-      <param name="parallelConstrain">
+      <param name="parallelConstraintConstrain">
       </param>
     </member>
     <member name="T:devDept.Eyeshot.Converters.HistogramConverter">
@@ -22427,7 +23099,7 @@
             Returns the index of the first label under the mouse cursor.
             </summary>
       <param name="mousePos">Mouse position in screen coordinates</param>
-      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
+      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Labels.Label.Selectable" /> property, otherwise no.</param>
       <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.Workspace.PickBoxSize" /> parameter.</remarks>
       <returns>The index of the label, -1 otherwise.</returns>
       <seealso cref="M:devDept.Eyeshot.Workspace.GetEntityUnderMouseCursor(System.Drawing.Point,System.Boolean)" />
@@ -22513,7 +23185,7 @@
             Returns all the visible labels under the mouse cursor in the active viewport.
             </summary>
       <param name="mousePos">Mouse position in screen coordinates</param>
-      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
+      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Labels.Label.Selectable" /> property, otherwise no.</param>
       <remarks>The sensitivity is affected by the <see cref="P:devDept.Eyeshot.Workspace.PickBoxSize" /> parameter.
             Only the labels that are visible on screen and in the selectionBox are considered, the ones covered by other labels are not considered.</remarks>
       <returns>The list of label indices.</returns>
@@ -22563,7 +23235,7 @@
             Returns the list of all visible labels in the specified selection box.
             </summary>
       <param name="selectionBox">Selection rectangle in screen coordinates</param>
-      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Entities.Entity.Selectable" /> property, otherwise no.</param>
+      <param name="selectableOnly">When true, checks the <see cref="P:devDept.Eyeshot.Labels.Label.Selectable" /> property, otherwise no.</param>
       <returns>The list of label indices in the selection box.</returns>
       <seealso cref="M:devDept.Eyeshot.Workspace.GetAllVisibleEntities(System.Drawing.Rectangle,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.Workspace.GetAllVisibleItems(System.Drawing.Rectangle,System.Boolean)" />
@@ -22978,7 +23650,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationToolpath">
       <summary>
-            Gets or set the simulation toolpath entity.
+            Gets or set the simulation toolpath entity. When set, the toolpath is added to the scene.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Manufacture.CanSimulate">
@@ -22986,19 +23658,19 @@
             Returns true if the tool and simulation toolpath are defined, false otherwise.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Manufacture.SimulationTool">
+    <member name="P:devDept.Eyeshot.Manufacture.ToolBlockRef">
       <summary>
-            Gets the simulation tool entity.
+            Gets the simulation tool block reference.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Manufacture.Tool">
+    <member name="P:devDept.Eyeshot.Manufacture.SimulationTool">
       <summary>
-            Gets or set the cutter.
+            Gets or set the simulation tool. When set, the <see cref="P:devDept.Eyeshot.Manufacture.ToolBlockRef" /> is reset.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationStock">
       <summary>
-            Gets or set the simulation stock entity.
+            Gets or set the simulation stock entity. When set, the stock is added to the scene.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.StopOnCollision">
@@ -23095,9 +23767,9 @@
             </summary>
       <param name="factor">Positive factor multiplying the initial speed.</param>
     </member>
-    <member name="P:devDept.Eyeshot.Manufacture.Setup">
+    <member name="P:devDept.Eyeshot.Manufacture.SimulationSetup">
       <summary>
-            Gets or sets machining setup.
+            Gets or sets simulation setup.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.CuttingStockText">
@@ -23130,9 +23802,9 @@
             Gets or sets the machining bottom plane.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Manufacture.Geometry">
+    <member name="P:devDept.Eyeshot.Manufacture.SimulationGeometry">
       <summary>
-            Gets or sets the machining geometry.
+            Gets or sets the machining geometry. When set, the machining geometry is added to the scene.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Milling.Clearing3D">
@@ -23147,25 +23819,26 @@
             If enabled, the strategy attempts to detect the heights of flat areas and machine at these levels.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Clearing3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Clearing3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Geometry.Interval,System.Double,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="cutter">The end mill</param>
-      <param name="stock">The stock definition, can be null/Nothing.</param>
       <param name="setup">The machining setup</param>
-      <param name="zRange">The Z range</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down</param>
       <param name="stepOver">The step over</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Clearing3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Clearing3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Double)">
       <summary>
             Boundary region constructor.
             </summary>
+      <param name="setup">The machining setup</param>
       <param name="cutter">The end mill</param>
-      <param name="setup">The geometry to be machined</param>
+      <param name="geometry">The machining geometry</param>
       <param name="boundary">Tool containment boundary, can be null/nothing.</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down</param>
       <param name="stepOver">The step over</param>
     </member>
@@ -23181,25 +23854,26 @@
             If enabled, the strategy attempts to detect the heights of flat areas and machine at these levels.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Pocket3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Pocket3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Geometry.Interval,System.Double,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="cutter">The end mill</param>
-      <param name="stock">The stock definition, can be null/Nothing.</param>
       <param name="setup">The machining setup</param>
-      <param name="zRange">The Z range</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down</param>
       <param name="stepOver">The step over</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Pocket3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Pocket3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double,System.Double)">
       <summary>
             Boundary region constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="boundary">Tool containment boundary, can be null/nothing.</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down</param>
       <param name="stepOver">The step over</param>
     </member>
@@ -23220,23 +23894,25 @@
             is performed. Here, the cutter finishes in constant Z planes.</para>
       </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Contour3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Contour3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Geometry.Interval,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
-      <param name="zRange">The Z axis range</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down amount</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Contour3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Contour3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,devDept.Geometry.Interval,System.Double)">
       <summary>
             Boundary region constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="boundary">The tool containment region</param>
-      <param name="zAxis">The Z axis range</param>
+      <param name="zAxis">The machining Z range</param>
       <param name="stepDown">The step down amount</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Contour3D.GetRawPasses(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
@@ -23534,13 +24210,14 @@
             </summary>
       <remarks>If the <see cref="P:devDept.Eyeshot.Milling.Setup.Stock">stock</see> is defined, the computation takes it in account.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Clearing2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Clearing2D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry2D,devDept.Geometry.Interval,System.Double,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
-      <param name="zRange">The Z range</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepOver">The step over</param>
       <param name="stepDown">The step down</param>
     </member>
@@ -23549,23 +24226,25 @@
             2D facing (to prepare raw stock for machining) class definition.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Face2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,System.Double,System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Face2D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.GeometryBase,System.Double,System.Double,System.Double,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="zHeight">The Z height</param>
       <param name="stepOver">The step over</param>
       <param name="angleInRadians">The pass angle in radians</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Face2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Face2D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.GeometryBase,System.Double,System.Double,System.Double)">
       <summary>
             Max geometry Z constructor.
             </summary>
-      <param name="cutter">The cutter</param>
-      <param name="setup">The stock</param>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="stepOver">The step over</param>
       <param name="angleInRadians">The pass angle in radians</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
@@ -23573,11 +24252,6 @@
     <member name="T:devDept.Eyeshot.Milling.Contour2D">
       <summary>
             2D contour class definition.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Milling.Contour2D.Flips">
-      <summary>
-            Gets or sets the array of booleans you need to flip contour direction/side.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Milling.Contour2D.OrderByDepth">
@@ -23590,13 +24264,14 @@
             Gets or sets the array of entry points.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Contour2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Contour2D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry2D,devDept.Geometry.Interval,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
-      <param name="zRange">The z range interval</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down</param>
     </member>
     <member name="T:devDept.Eyeshot.Milling.Pocket2D">
@@ -23609,13 +24284,14 @@
             When true, the passes are ordered top down.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Pocket2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Pocket2D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry2D,devDept.Geometry.Interval,System.Double,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
-      <param name="zRange">The z range interval</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down</param>
       <param name="stepOver">The step over</param>
     </member>
@@ -23644,26 +24320,28 @@
             Pass angle in radians, zero means along X axis.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Parallel2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,System.Double,System.Double,devDept.Geometry.Interval,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Parallel2D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry2D,System.Double,System.Double,devDept.Geometry.Interval,System.Double)">
       <summary>
             Range Z constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="stepOver">The step over</param>
       <param name="angleInRad">The passes angle in radians</param>
-      <param name="zRange">The z range interval</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Parallel2D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Parallel2D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry2D,System.Double,System.Double,System.Double)">
       <summary>
             Height Z constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="stepOver">The step over</param>
       <param name="angleInRad">The passes angle in radians</param>
-      <param name="zHeight">The z height</param>
+      <param name="zHeight">The Z height</param>
     </member>
     <member name="T:devDept.Eyeshot.Milling.Stock">
       <summary>
@@ -23681,14 +24359,14 @@
             Primitive and Z range constructor.
             </summary>
       <param name="primitive">The primitive object.</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Interval)">
       <summary>
             Contour and Z range constructor.
             </summary>
       <param name="outer">The outer contour</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane,devDept.Geometry.Interval)">
       <summary>
@@ -23696,7 +24374,7 @@
             </summary>
       <param name="outer">The outer contour</param>
       <param name="pln">The plane</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.Clone">
       <summary>
@@ -23709,7 +24387,7 @@
             List of nested contours and Z range constructor.
             </summary>
       <param name="outer">The list of nested contours</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Geometry.Plane,devDept.Geometry.Interval)">
       <summary>
@@ -23717,7 +24395,7 @@
             </summary>
       <param name="outer">The list of nested contours</param>
       <param name="pln">The plane</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},devDept.Geometry.Plane,System.Double,System.Double)">
       <summary>
@@ -23779,7 +24457,7 @@
             </summary>
       <param name="width">The box width</param>
       <param name="depth">The box depth</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateBox(devDept.Geometry.Plane,System.Double,System.Double,devDept.Geometry.Interval)">
@@ -23789,7 +24467,7 @@
       <param name="pln">The sketch plane</param>
       <param name="width">The box width</param>
       <param name="depth">The box depth</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateBox(System.Double,System.Double,System.Double,System.Double,System.Double)">
@@ -23823,7 +24501,7 @@
       <param name="y">Position along the Y axis</param>
       <param name="width">The box width</param>
       <param name="depth">The box depth</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateBox(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double,devDept.Geometry.Interval)">
@@ -23835,7 +24513,7 @@
       <param name="y">Position along the Y axis</param>
       <param name="width">The box width</param>
       <param name="depth">The box depth</param>
-      <param name="zRange">The Z range</param>
+      <param name="zRange">The stock Z range</param>
       <returns>A stock object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.CreateCylinder(System.Double,System.Double)">
@@ -24319,7 +24997,7 @@
     </member>
     <member name="T:devDept.Eyeshot.Milling.Setup">
       <summary>
-            Machining setup class definition.
+            Machining setup class definition. Covers 2-axis and 3-axis milling.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Milling.Setup.Transformation">
@@ -24342,37 +25020,21 @@
             Gets or sets the setup name.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Milling.Setup.Geometry">
-      <summary>
-            Gets setup geometry.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Milling.Setup.#ctor(System.String,devDept.Geometry.linearUnitsType,devDept.Geometry.Plane,devDept.Eyeshot.Milling.GeometryBase)">
+    <member name="M:devDept.Eyeshot.Milling.Setup.#ctor(System.String,devDept.Geometry.linearUnitsType,devDept.Geometry.Plane)">
       <summary>
             Geometry only constructor.
             </summary>
       <param name="name">The setup name</param>
       <param name="units">The setup units (Affects <see cref="P:devDept.Eyeshot.Milling.Machining.Tolerance" /> default values)</param>
       <param name="workPln">The setup work plane</param>
-      <param name="geometry">The setup geometry (whether 2D or 3D)</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Setup.#ctor(System.String,devDept.Geometry.linearUnitsType,devDept.Geometry.Plane,devDept.Eyeshot.Milling.Stock)">
       <summary>
-            Stock only constructor.
+            Stock constructor.
             </summary>
       <param name="name">The setup name</param>
       <param name="units">The setup units (Affects <see cref="P:devDept.Eyeshot.Milling.Machining.Tolerance" /> default values)</param>
       <param name="workPln">The setup work plane</param>
-      <param name="stock">The setup stock</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Milling.Setup.#ctor(System.String,devDept.Geometry.linearUnitsType,devDept.Geometry.Plane,devDept.Eyeshot.Milling.GeometryBase,devDept.Eyeshot.Milling.Stock)">
-      <summary>
-            Stock and geometry constructor.
-            </summary>
-      <param name="name">The setup name</param>
-      <param name="units">The setup units (Affects <see cref="P:devDept.Eyeshot.Milling.Machining.Tolerance" /> default values)</param>
-      <param name="workPln">The setup work plane</param>
-      <param name="geometry">The setup geometry (whether 2D or 3D)</param>
       <param name="stock">The setup stock</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Setup.AddUserInterfaceElementTo(devDept.Eyeshot.Workspace,System.Int32)">
@@ -24430,11 +25092,6 @@
     <member name="F:devDept.Eyeshot.Milling.Machining.geometry">
       <summary>
             The machining geometry (whether 2D or 3D).
-            </summary>
-    </member>
-    <member name="F:devDept.Eyeshot.Milling.Machining.units">
-      <summary>
-            The machining units.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Milling.Machining.Tessellation">
@@ -24581,28 +25238,30 @@
             Gets or sets the "Computing offsets..." text string.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Machining.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup)">
+    <member name="M:devDept.Eyeshot.Milling.Machining.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.GeometryBase)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="endMill">The cutter</param>
-      <param name="setup">The geometry</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Milling.Machining.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="endMill">The end mill</param>
       <param name="setup">The machining setup</param>
-      <param name="zRange">The z range interval</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Machining.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.GeometryBase,devDept.Geometry.Interval,System.Double)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="zRange">The machining Z range</param>
       <param name="stepDown">The step down</param>
+      <param name="geometry">The machining geometry</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Machining.GetOuterRegion(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Entities.Region,devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double,System.Boolean)">
       <summary>
             Returns a regenerated stock region or the geometry bounding rectangle (with offset by cutter radius if requested).
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Machining.GetOuterRegion(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Milling.GeometryBase)">
+    <member name="M:devDept.Eyeshot.Milling.Machining.GetOuterRegion(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Milling.GeometryBase,devDept.Eyeshot.Milling.Setup)">
       <summary>
             Gets the outer region following this order boundary, stock, geometry bounding rectangle.
             </summary>
@@ -24766,7 +25425,7 @@
       <param name="tol">The maximum acceptable difference between the two values</param>
       <returns>True if the two numbers can be considered equal, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Machining.GetTransformedBoundary(devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Milling.GeometryBase)">
+    <member name="M:devDept.Eyeshot.Milling.Machining.GetTransformedBoundary(devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Milling.Setup)">
       <summary>
             Returns a copy of the specified <see cref="T:devDept.Eyeshot.Entities.Region" /> transformed by setup inverse matrix.
             </summary>
@@ -24798,19 +25457,23 @@
             Gets or sets the "Preparing geometry..." text.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Machining3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup)">
+    <member name="M:devDept.Eyeshot.Milling.Machining3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="endMill">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="endMill">The end mill</param>
+      <param name="geometry">The machining geometry</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Machining3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Geometry.Interval,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Machining3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Geometry.Interval,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="endMill">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="endMill">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="zRange">The machining Z range</param>
+      <param name="stepDown">The step down</param>
     </member>
     <member name="P:devDept.Eyeshot.Milling.Machining3D.AxialStockToLeave">
       <summary>
@@ -24887,27 +25550,22 @@
             Base class for machining geometry.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Milling.GeometryBase.BoxMin">
+    <member name="M:devDept.Eyeshot.Milling.GeometryBase.GetBoxMin(devDept.Eyeshot.Milling.Setup)">
       <summary>
             Gets geometry bounding box minimum 2D point.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Milling.GeometryBase.BoxMax">
+    <member name="M:devDept.Eyeshot.Milling.GeometryBase.GetBoxMax(devDept.Eyeshot.Milling.Setup)">
       <summary>
             Gets geometry bounding box maximum 2D point.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Milling.GeometryBase.BoxSize">
+    <member name="M:devDept.Eyeshot.Milling.GeometryBase.GetBoxSize(devDept.Eyeshot.Milling.Setup)">
       <summary>
             Gets geometry bounding box size.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Milling.GeometryBase.tessObjectList">
-      <summary>
-            The list of tessellated objects.
-            </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Milling.GeometryBase.GetTessellation(System.Drawing.Color)">
+    <member name="M:devDept.Eyeshot.Milling.GeometryBase.GetTessellation(devDept.Eyeshot.Milling.Setup,System.Drawing.Color)">
       <summary>
             Gets the actual machining geometry.
             </summary>
@@ -24934,6 +25592,11 @@
       <param name="deviation">The tessellation tolerance, zero for existing tessellation (may not be available).</param>
       <param name="angleInRadians">The tessellation maximum angular deflection. Ignored when zero.</param>
     </member>
+    <member name="M:devDept.Eyeshot.Milling.Geometry2D.GetPolylines(devDept.Eyeshot.Milling.Setup)">
+      <summary>
+            Gets transformed polylines.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Milling.Geometry2D.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity},System.Double,System.Double)">
       <summary>
             Multiple curve constructor.
@@ -24946,7 +25609,7 @@
       <summary>
             Multiple curve constructor.
             </summary>
-      <param name="geometry">The curve list</param>
+      <param name="curveList">The curve list</param>
       <param name="deviation">The tessellation tolerance, zero for existing tessellation (may not be available).</param>
       <param name="angleInRadians">The tessellation maximum angular deflection. Ignored when zero.</param>
       <remarks>Primitives of input curves are cloned.</remarks>
@@ -24955,10 +25618,15 @@
       <summary>
             Multiple primitive constructor.
             </summary>
-      <param name="geometry">The primitive list</param>
+      <param name="curveList">The primitive list</param>
       <param name="deviation">The tessellation tolerance, zero for existing tessellation (may not be available).</param>
       <param name="angleInRadians">The tessellation maximum angular deflection. Ignored when zero.</param>
       <remarks>Primitives of input curves are cloned.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.Geometry2D.Flip">
+      <summary>
+            Gets or sets the curves flip direction status.
+            </summary>
     </member>
     <member name="T:devDept.Eyeshot.Milling.Geometry3D">
       <summary>
@@ -25014,12 +25682,12 @@
       <param name="br">The block reference</param>
       <param name="blocks">The blocks collection</param>
     </member>
-    <member name="P:devDept.Eyeshot.Milling.Geometry3D.FlatZ">
+    <member name="M:devDept.Eyeshot.Milling.Geometry3D.GetFlatZ(devDept.Eyeshot.Milling.Setup)">
       <summary>
             Gets Z heights for all flat areas.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Geometry3D.GetInsideFlatZ(devDept.Geometry.PolyRegion2D,System.Double,devDept.Eyeshot.Design)">
+    <member name="M:devDept.Eyeshot.Milling.Geometry3D.GetInsideFlatZ(devDept.Eyeshot.Milling.Setup,devDept.Geometry.PolyRegion2D,System.Double,devDept.Eyeshot.Design)">
       <summary>
             Computes Z heights for flat areas overlapping with the specified boundary.
             </summary>
@@ -25027,22 +25695,27 @@
       <param name="tol">The Z values comparison tolerance</param>
       <returns>The array of Z values.</returns>
     </member>
-    <member name="F:devDept.Eyeshot.Milling.Geometry3D.IsReadyParallel">
+    <member name="M:devDept.Eyeshot.Milling.Geometry3D.GetVertices(devDept.Eyeshot.Milling.Setup)">
       <summary>
-            Tells if the geometry for parallel still needs to be prepared.
+            Gets transformed vertices.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Milling.Geometry3D.IsReadyWaterline">
+    <member name="M:devDept.Eyeshot.Milling.Geometry3D.IsReadyParallel(devDept.Eyeshot.Milling.Setup)">
       <summary>
-            Tells if the geometry for waterline still needs to be prepared.
+            Tells if the geometry for parallel machining still needs to be prepared.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Geometry3D.PreProcessParallel">
+    <member name="M:devDept.Eyeshot.Milling.Geometry3D.IsReadyWaterline(devDept.Eyeshot.Milling.Setup)">
+      <summary>
+            Tells if the geometry for waterline machining still needs to be prepared.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Geometry3D.PreProcessParallel(devDept.Eyeshot.Milling.Setup)">
       <summary>
             Prepares geometry for <see cref="T:devDept.Eyeshot.Milling.Machining3D">3D machining</see> operations.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Geometry3D.PreProcessWaterline">
+    <member name="M:devDept.Eyeshot.Milling.Geometry3D.PreProcessWaterline(devDept.Eyeshot.Milling.Setup)">
       <summary>
             Prepares geometry for <see cref="T:devDept.Eyeshot.Milling.Machining3D">3D machining</see> operations.
             </summary>
@@ -25070,44 +25743,48 @@
             Gets or sets the maximum stay down distance.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,System.Double,System.Double,System.Double)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="stepOver">The step over amount</param>
       <param name="angleInRadians">The passes angle in radians</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,System.Double,System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,System.Double,System.Double,System.Double,System.Double)">
       <summary>
             Bottom plane constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="stepOver">The step over amount</param>
       <param name="angleInRadians">The passes angle in radians</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
       <param name="zLow">The bottom plane Z height</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double)">
       <summary>
             Boundary region constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="boundary">The tool containment region</param>
       <param name="stepOver">The step over amount</param>
       <param name="angleInRadians">The passes angle in radians</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
     </member>
-    <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double,System.Double)">
+    <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double,System.Double)">
       <summary>
             Boundary region and bottom plane constructor.
             </summary>
-      <param name="cutter">The end mill</param>
       <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
       <param name="boundary">The tool containment region</param>
       <param name="stepOver">The step over amount</param>
       <param name="angleInRadians">The passes angle in radians</param>
@@ -26266,8 +26943,7 @@
             units.
             </remarks>
       <param name="workspace">The workspace control.</param>
-      <param name="replaceRootBlock">When true, the root block of the Workspace is
-            replaced with the imported root block, if it exists.</param>
+      <param name="replaceRootBlock">When true, the root block of the Workspace is replaced with the imported root block, if it exists.</param>
       <param name="ro">Asynchronous regeneration options used for entities of the root
             block if it's replaced.</param>
       <param name="addBlockReference">When true and the root block of the Workspace is
@@ -26291,7 +26967,7 @@
             Items contained previously in the Workspace are merged.
             </summary>
       <param name="workspace">The Workspace control used to add entities and other collections.</param>
-      <param name="replaceRootBlock">When true, the root block is replaced with the one loaded from the file, if it exists.</param>
+      <param name="replaceRootBlock">When true, the root block is replaced with the one loaded from the file, if it exists. The same for Default layer and Default text style as well.</param>
       <param name="ro">Asynchronous regeneration options.</param>
       <seealso cref="!:ReadFileAsync.FillBlocks" />
       <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to add to the Workspace a file with a root block but that also contains <see cref="P:devDept.Eyeshot.Translators.ReadFileAsync.Entities" /> not belonging to any block.</exception>
@@ -26313,11 +26989,12 @@
             Gets or sets the list of layers resulting from file reading.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocksAndLayers.FillLayers(devDept.Eyeshot.Workspace)">
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithBlocksAndLayers.FillLayers(devDept.Eyeshot.Workspace,System.Boolean)">
       <summary>
             Automatically merges layers with existing ones.
             </summary>
       <param name="workspace">The workspace control.</param>
+      <param name="replaceDefaultLayer">When true, the Default layer of the Workspace is replaced with the imported one, if present.</param>
     </member>
     <member name="T:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing">
       <summary>
@@ -26394,11 +27071,12 @@
       <param name="design">The Design control</param>
       <remarks>Materials with the same name of the ones in the workspace will be skipped.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing.FillTextStyles(devDept.Eyeshot.Workspace)">
+    <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing.FillTextStyles(devDept.Eyeshot.Workspace,System.Boolean)">
       <summary>
             Automatically merges text styles with existing ones.
             </summary>
       <param name="workspace">The workspace control.</param>
+      <param name="replaceDefaultTextStyle">When true, the Default text style of the Workspace is replaced with the imported one, if present.</param>
       <remarks>Text styles with the same name of the ones in the workspace will be skipped.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing.FillLineTypes(devDept.Eyeshot.Workspace)">
@@ -29929,26 +30607,22 @@
       <seealso cref="E:devDept.Eyeshot.SketchManager.EditEnded" />
       <seealso cref="E:devDept.Eyeshot.SketchManager.SystemSolved" />
     </member>
-    <member name="M:devDept.Eyeshot.Design.EditSketch(devDept.Eyeshot.Entities.Sketch,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
+    <member name="M:devDept.Eyeshot.Design.EditSketch(devDept.Eyeshot.Entities.SketchEntity,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
       <summary>
             Sets the sketch entity for editing. 
             </summary>
-      <param name="sketch">The sketch.</param>
+      <param name="sketchEntity">The sketch.</param>
       <param name="parents">The parents stack of the sketch.</param>
-      <returns>
-      </returns>
       <seealso cref="E:devDept.Eyeshot.SketchManager.EditStarted" />
       <seealso cref="E:devDept.Eyeshot.SketchManager.EditEnded" />
       <seealso cref="E:devDept.Eyeshot.SketchManager.SystemSolved" />
     </member>
-    <member name="M:devDept.Eyeshot.Design.OpenSketch(devDept.Eyeshot.Entities.Sketch,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
+    <member name="M:devDept.Eyeshot.Design.OpenSketch(devDept.Eyeshot.Entities.SketchEntity,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})">
       <summary>
             Opens the sketch entity for editing. 
             </summary>
-      <param name="sketch">The sketch.</param>
+      <param name="sketchEntity">The sketch.</param>
       <param name="parents">The parents stack of the sketch.</param>
-      <returns>
-      </returns>
       <seealso cref="E:devDept.Eyeshot.SketchManager.EditStarted" />
       <seealso cref="E:devDept.Eyeshot.SketchManager.EditEnded" />
       <seealso cref="E:devDept.Eyeshot.SketchManager.SystemSolved" />
@@ -33945,7 +34619,6 @@
             </summary>
       <returns>True if the camera is performing an animation</returns>
       <seealso cref="M:devDept.Eyeshot.Viewport.SetView(devDept.Eyeshot.viewType,System.Boolean,System.Boolean,System.Int32,System.Boolean,System.Int32)" />
-      <seealso cref="M:devDept.Eyeshot.Viewport.IsCameraAnimating" />
       <seealso cref="M:devDept.Eyeshot.Viewport.StopCameraAnimation" />
     </member>
     <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Quaternion,devDept.Geometry.Point3D,System.Double,System.Double)">
@@ -40111,11 +40784,11 @@
             Equal label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.EqualLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Equal)">
+    <member name="M:devDept.Eyeshot.Labels.EqualLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.EqualConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="equalConstraint">The equal constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.MirrorLabel">
@@ -40123,11 +40796,11 @@
             Mirror label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.MirrorLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Mirror)">
+    <member name="M:devDept.Eyeshot.Labels.MirrorLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.MirrorConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="mirrorConstraint">The mirror constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.EqualRadiusLabel">
@@ -40135,25 +40808,25 @@
             Equal radius label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.EqualRadiusLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Equal)">
+    <member name="M:devDept.Eyeshot.Labels.EqualRadiusLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.EqualConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="equalConstraint">The equal constraint.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.PointOnLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.PointOn)">
+    <member name="M:devDept.Eyeshot.Labels.PointOnLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.PointOnConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="pointOnConstraint">The PointOn constraint</param>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.PointAtLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.PointAt)">
+    <member name="M:devDept.Eyeshot.Labels.PointAtLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.PointAtConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="pointAtConstraint">The PointAt constraint</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.JoinLabel">
@@ -40161,30 +40834,23 @@
             Join constraint label
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.JoinLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.PointsCoincident)">
+    <member name="M:devDept.Eyeshot.Labels.JoinLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.CoincidentConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
-      <param name="joinConstraint">The PointsCoincident constraint.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Labels.JoinLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.PointOn)">
-      <summary>
-            Standard constructor.
-            </summary>
-      <param name="entity">The sketch entity.</param>
-      <param name="pointOnConstraint">The pointOn constraint.</param>
+      <param name="curve">The sketch curve.</param>
+      <param name="joinConstraint">The Coincident constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.HorizontalLabel">
       <summary>
             Horizontal constraint label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.HorizontalLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.HVConstraint)">
+    <member name="M:devDept.Eyeshot.Labels.HorizontalLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.HVConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="horConstraint">The horizontal constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.VerticalLabel">
@@ -40192,11 +40858,11 @@
             Vertical constraint label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.VerticalLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.HVConstraint)">
+    <member name="M:devDept.Eyeshot.Labels.VerticalLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.HVConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="horConstraint">the horizontal constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.ParallelLabel">
@@ -40204,11 +40870,11 @@
             Parallel constraint label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.ParallelLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Parallel)">
+    <member name="M:devDept.Eyeshot.Labels.ParallelLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.ParallelConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="parallelConstraint">The parallel constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.PerpendicularLabel">
@@ -40216,11 +40882,11 @@
             Perpendicular label constraint.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.PerpendicularLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Perpendicular)">
+    <member name="M:devDept.Eyeshot.Labels.PerpendicularLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.PerpendicularConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="perpendicularConstraint">The perpendicular constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.FixLabel">
@@ -40228,42 +40894,42 @@
             Fix constraint label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.FixLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.PointFixed)">
+    <member name="M:devDept.Eyeshot.Labels.FixLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.PointFixedConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
-      <param name="pointFixed">the PointFixed constraint.</param>
+      <param name="curve">The sketch curve.</param>
+      <param name="pointFixedConstraint">the PointFixed constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.TangentLabel">
       <summary>
             Tangent constraint label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.TangentLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Tangent)">
+    <member name="M:devDept.Eyeshot.Labels.TangentLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.TangentConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
-      <param name="tangent">The tangent constraint.</param>
+      <param name="curve">The sketch curve.</param>
+      <param name="tangentConstraint">The tangent constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.CollinearLabel">
       <summary>
             Collinear constraint label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.CollinearLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.CollinearPoints)">
+    <member name="M:devDept.Eyeshot.Labels.CollinearLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.CollinearPointsConstraint)">
       <summary>
             Standard constructor
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="collinearConstraint">The collinear constraint.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.CollinearLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.Collinear)">
+    <member name="M:devDept.Eyeshot.Labels.CollinearLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.CollinearConstraint)">
       <summary>
             Standard constructor
              </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="collinearConstraint">The tangent constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.MidPointLabel">
@@ -40271,11 +40937,11 @@
             MidPoint constraint label.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Labels.MidPointLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchEntity,devDept.Geometry.ConstraintSolver.MidPoint)">
+    <member name="M:devDept.Eyeshot.Labels.MidPointLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.MidPointConstraint)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="entity">The sketch entity.</param>
+      <param name="curve">The sketch curve.</param>
       <param name="midPointConstraint">The mid-point constraint</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.LeaderAndImage">
@@ -45100,35 +45766,35 @@
              When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> or a <see cref="T:devDept.Eyeshot.Entities.PointCloud" />.
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.SketchSurrogate">
+    <member name="T:devDept.Serialization.SketchEntitySurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Eyeshot.Entities.Sketch" /> surrogate.
+            Defines the <see cref="T:devDept.Eyeshot.Entities.SketchEntity" /> surrogate.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.SketchSurrogate.#ctor(devDept.Eyeshot.Entities.Sketch)">
+    <member name="M:devDept.Serialization.SketchEntitySurrogate.#ctor(devDept.Eyeshot.Entities.SketchEntity)">
       <summary>
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SketchSurrogate.GSketch">
+    <member name="F:devDept.Serialization.SketchEntitySurrogate.GSketch">
       <summary>
-            See <see cref="F:devDept.Eyeshot.Entities.Sketch.gSketch" />.
+            See <see cref="F:devDept.Eyeshot.Entities.SketchEntity.gSketch" />.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SketchSurrogate.Vertices">
+    <member name="F:devDept.Serialization.SketchEntitySurrogate.Vertices">
       <summary>
             See <see cref="P:devDept.Eyeshot.Entities.Entity.Vertices" />.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SketchSurrogate.CurveList">
+    <member name="F:devDept.Serialization.SketchEntitySurrogate.CurveList">
       <summary>
             The Curve list.
             </summary>
     </member>
-    <member name="M:devDept.Serialization.SketchSurrogate.ConvertToObject">
+    <member name="M:devDept.Serialization.SketchEntitySurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="!:Sketch.Sketch(GSketch)" /> constructor to create the object.
+             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.Sketch" /> constructor to create the object.
              When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /></remarks>
     </member>
     <member name="T:devDept.Serialization.HatchPatternLineSurrogate">
@@ -47358,7 +48024,7 @@
     </member>
     <member name="F:devDept.Serialization.PlanarEntitySurrogate.Primitive">
       <summary>
-            See <see cref="P:devDept.Eyeshot.Entities.PlanarEntity.Primitive" />.
+            See <see cref="!:PlanarEntity.Primitive" />.
             </summary>
     </member>
     <member name="M:devDept.Serialization.PlanarEntitySurrogate.ConvertToObject">

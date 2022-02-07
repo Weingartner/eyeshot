@@ -2644,13 +2644,13 @@
             </summary>
       <remarks>For internal use only.</remarks>
     </member>
-    <member name="T:devDept.Graphics.ProgDrawCompositingBase.CompositingOperation">
+    <member name="T:devDept.Graphics.ProgDrawCompositingBase.compositingOperation">
       <summary>
             Compositing operations definition.
             </summary>
       <remarks>For internal use only.</remarks>
     </member>
-    <member name="T:devDept.Graphics.ProgDrawCompositingBase.ProgDrawFrameBuffer">
+    <member name="T:devDept.Graphics.ProgDrawCompositingBase.progDrawFrameBuffer">
       <summary>
             Graphical buffers for progressive drawing definition.
             </summary>
@@ -2963,11 +2963,6 @@
             Draws with Phong lighting specifying a normal and color per vertex
             </summary>
     </member>
-    <member name="F:devDept.Graphics.shaderType.MultiColorFEM">
-      <summary>
-            Draws with Phong lighting specifying a normal and color per vertex, but clamps the diffuse value between 0 and 1 before applying the color, so it behaves similar to a texture
-            </summary>
-    </member>
     <member name="F:devDept.Graphics.shaderType.MultiColorSelected">
       <summary>
             Draws with Phong lighting specifying a normal and color (unused) per vertex but using the <see cref="P:devDept.Graphics.RenderContextBase.CurrentMaterial" /></summary>
@@ -2975,11 +2970,6 @@
     <member name="F:devDept.Graphics.shaderType.EnvironmentMulticolor">
       <summary>
             Draws with Phong lighting and environment mapping specifying a normal and color per vertex
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.shaderType.EnvironmentMulticolorFEM">
-      <summary>
-            Draws with Phong lighting and environment mapping specifying a normal and color per vertex, but clamps the diffuse value between 0 and 1 before applying the color, so it behaves similar to a texture
             </summary>
     </member>
     <member name="F:devDept.Graphics.shaderType.Texture1D">
@@ -3019,19 +3009,9 @@
             Draws with Phong lighting and shadow mapping specifying one color per vertex
             </summary>
     </member>
-    <member name="F:devDept.Graphics.shaderType.MultiColorShadowFEM">
-      <summary>
-            Draws with Phong lighting and shadow mapping specifying one color per vertex, but clamps the diffuse value between 0 and 1 before applying the color, so it behaves similar to a texture
-            </summary>
-    </member>
     <member name="F:devDept.Graphics.shaderType.EnvironmentMulticolorShadow">
       <summary>
             Draws with Phong lighting, environment mapping and shadow mapping specifying one color per vertex
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.shaderType.EnvironmentMulticolorShadowFEM">
-      <summary>
-            Draws with Phong lighting, environment mapping and shadow mapping specifying one color per vertex, but clamps the diffuse value between 0 and 1 before applying the color, so it behaves similar to a texture
             </summary>
     </member>
     <member name="F:devDept.Graphics.shaderType.Texture1DShadow">
@@ -3824,26 +3804,6 @@
     <member name="M:devDept.Graphics.ExtensionMethodsGL.DrawInvGL(devDept.Geometry.PointNormalUv)">
       <summary>
             Calls glNormal3d(-Nx, -Ny, -Nz) and glVertex3d(X, Y, Z) 
-            </summary>
-    </member>
-    <member name="T:devDept.Graphics.multiColorType">
-      <summary>
-            Multicolor enum type.
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.multiColorType.Off">
-      <summary>
-            Multicolor disabled
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.multiColorType.On">
-      <summary>
-            Color per vertex
-            </summary>
-    </member>
-    <member name="F:devDept.Graphics.multiColorType.FEM">
-      <summary>
-            Clamps the total diffuse color before multiplying by the color, to simulate the texture color computation (for brighter colors), used by FemMesh 
             </summary>
     </member>
     <member name="T:devDept.Graphics.GLShader">
