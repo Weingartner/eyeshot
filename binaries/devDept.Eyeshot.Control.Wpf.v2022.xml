@@ -822,8 +822,20 @@
       <returns>The new array created.</returns>
       <seealso cref="M:devDept.Eyeshot.Entities.Entity.CreateEntityFromPrimitive(devDept.Geometry.Entities.GEntity)" />
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Entities.Entity.GetPrimitivesFromEntities``1(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity})" -->
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Entities.Entity.GetPrimitivesFromEntities(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.ICurve})" -->
+    <member name="M:devDept.Eyeshot.Entities.Entity.GetPrimitivesFromEntities``1(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.Entity})">
+      <summary>
+            Gets the primitives related to an entity's collection.
+            </summary>
+      <param name="entities">The entities for which you need the related primitives.</param>
+      <returns>The primitives related to the entities.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Entity.GetPrimitivesFromEntities(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.ICurve})">
+      <summary>
+            Gets the primitives related to an ICurve's collection.
+            </summary>
+      <param name="iCurves">The <see cref="T:devDept.Eyeshot.Entities.ICurve" />s for which you need the related primitives.</param>
+      <returns>The primitives related to the ICurves.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.GetPrimitiveFromEntity(devDept.Eyeshot.Entities.Entity)">
       <summary>
             Gets the primitive related to an Entity.
@@ -989,7 +1001,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.CopyAttributesFast(devDept.Eyeshot.Entities.Entity)">
       <summary>
-            Copies the following attributes to this entity: <see cref="P:devDept.Eyeshot.Entities.Entity.Visible" />, <see cref="P:devDept.Eyeshot.Entities.Entity.InstanceVisibilityInfo" />, <see cref="P:devDept.Eyeshot.Entities.Entity.Color" />, <see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LayerName" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.MaterialName" /> attributes.
+            Copies the following attributes to this entity: <see cref="P:devDept.Eyeshot.Entities.Entity.Visible" />, <see cref="P:devDept.Eyeshot.Entities.Entity.Color" />, <see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LayerName" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.MaterialName" /> attributes.
             </summary>
       <param name="source">The source entity</param>
     </member>
@@ -1570,7 +1582,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.DrawFlatSelected(devDept.Eyeshot.DrawParams)">
       <summary>
-            Draws entity selected in <see cref="F:devDept.Eyeshot.displayType.Flat" /><see cref="!:Design.DisplayMode" />.
+            Draws entity selected in <see cref="F:devDept.Eyeshot.displayType.Flat" /><see cref="P:devDept.Eyeshot.Viewport.DisplayMode" />.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.DrawWireframeSelected(devDept.Eyeshot.DrawParams)">
@@ -1599,7 +1611,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.Entity.DrawFlat(devDept.Eyeshot.DrawParams)">
       <summary>
-            Draws entity in <see cref="F:devDept.Eyeshot.displayType.Flat" /><see cref="!:Design.DisplayMode" />.
+            Draws entity in <see cref="F:devDept.Eyeshot.displayType.Flat" /><see cref="P:devDept.Eyeshot.Viewport.DisplayMode" />.
             </summary>
       <param name="data">Draw parameters</param>
     </member>
@@ -1980,7 +1992,7 @@
             <description>1 byte per vertex is applied as a modulation factor (0-255) to
             the <see cref="T:System.Drawing.Color" /> of the entity. This requires the use of shaders so the
             graphics acceleration must be turned on, <see cref="P:devDept.Eyeshot.Workspace.UseShaders" />
-            must be true (WinForms control only) and the <see cref="!:Design.DisplayMode" /> must be <see cref="F:devDept.Eyeshot.displayType.Rendered" /></description>
+            must be true (WinForms control only) and the <see cref="P:devDept.Eyeshot.Viewport.DisplayMode" /> must be <see cref="F:devDept.Eyeshot.displayType.Rendered" /></description>
           </item>
           <item>
             <description>3 bytes per vertex are applied as RGB colors </description>
@@ -2960,6 +2972,13 @@
       <returns>True if the composite curve is oriented clockwise, false otherwise.</returns>
       <remarks>The curve must not have null Vertices.</remarks>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.CompositeCurve.#ctor(devDept.Serialization.CompositeCurveSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.CompositeCurveSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.CompositeCurveSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.CompositeCurve.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -3053,7 +3072,7 @@
              
              namespace MeshSamples
              {
-                 internal class Mesh
+                 internal class MeshFactory
                  {
                      private static int rows = 8;
                      private static int cols = 8;
@@ -3063,71 +3082,75 @@
                      {
                          List<Point3D> vertices = new List<Point3D>(rows * cols);
                          Mesh surface = new Mesh();
-                         surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged;
+                         surface.NormalAveragingMode = GMesh.normalAveragingType.Averaged;
                          for (int j = 0; j < rows; j++)
-                             for (int i = 0; i < cols; i++)
-                             {
-                                 double x = -i / 5.0 - 2;
-                                 double y = -j / 5.0 - 2;
-                                 double f = 0;
-                                 double den = Math.Sqrt(x * x + y * y);
-                                 if (den != 0)
-                                     f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
-                                 vertices.Add(new Point3D(x, y, f));
-                             }
+                         for (int i = 0; i < cols; i++)
+                         {
+                             double x = -i / 5.0 - 2;
+                             double y = -j / 5.0 - 2;
+                             double f = 0;
+                             double den = Math.Sqrt(x * x + y * y);
+                             if (den != 0)
+                                 f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
+                             vertices.Add(new Point3D(x, y, f));
+                         }
+             
                          List<IndexTriangle> triangles = new List<IndexTriangle>((rows - 1) * (cols - 1) * 2);
                          for (int j = 0; j < (rows - 1); j++)
-                             for (int i = 0; i < (cols - 1); i++)
-                             {
-                                 triangles.Add(new IndexTriangle(i + j * cols,
-                                                                 i + j * cols + 1,
-                                                                 i + (j + 1) * cols + 1));
-                                 triangles.Add(new IndexTriangle(i + j * cols,
-                                                                 i + (j + 1) * cols + 1,
-                                                                 i + (j + 1) * cols));
-                             }
+                         for (int i = 0; i < (cols - 1); i++)
+                         {
+                             triangles.Add(new IndexTriangle(i + j * cols,
+                                 i + j * cols + 1,
+                                 i + (j + 1) * cols + 1));
+                             triangles.Add(new IndexTriangle(i + j * cols,
+                                 i + (j + 1) * cols + 1,
+                                 i + (j + 1) * cols));
+                         }
+             
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
-                         design.Entities.Add(surface, 0, Color.Green);
+                         design.Entities.Add(surface, System.Drawing.Color.Green);
                      }
              
                      public static void ColoredPlain(Design design)
                      {
-                         List<Point3D> vertices = new List<Point3D>(rows*cols);
+                         List<Point3D> vertices = new List<Point3D>(rows * cols);
                          Mesh surface = new Mesh();
                          for (int j = 0; j < rows; j++)
-                             for (int i = 0; i < cols; i++)
-                             {
-                                 double x = -i/5.0 - 2;
-                                 double y = -j/5.0 - 2;
-                                 double f = 0;
-                                 double den = Math.Sqrt(x*x + y*y);
-                                 if (den != 0)
-                                     f = scale*Math.Sin(Math.Sqrt(x*x + y*y))/den;
-                                 vertices.Add(new Point3D(x, y, f));
-                             }
-                         List<ColorTriangle> triangles = new List<ColorTriangle>((rows - 1)*(cols - 1)*2);
+                         for (int i = 0; i < cols; i++)
+                         {
+                             double x = -i / 5.0 - 2;
+                             double y = -j / 5.0 - 2;
+                             double f = 0;
+                             double den = Math.Sqrt(x * x + y * y);
+                             if (den != 0)
+                                 f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
+                             vertices.Add(new Point3D(x, y, f));
+                         }
+             
+                         List<ColorTriangle> triangles = new List<ColorTriangle>((rows - 1) * (cols - 1) * 2);
                          for (int j = 0; j < (rows - 1); j++)
-                             for (int i = 0; i < (cols - 1); i++)
-                             {
-                                 // generates a random color
-                                 int red = (int) (255 - i*100);
-                                 int green = (int) (255 - j*50);
-                                 int blue = 127;
-                                 // clamps color values lat 0-255
-                                 Utility.LimitRange<int>(0, ref red, 255);
-                                 Utility.LimitRange<int>(0, ref green, 255);
-                                 Utility.LimitRange<int>(0, ref blue, 255);
-                                 triangles.Add(new ColorTriangle(i + j*cols,
-                                                                 i + j*cols + 1,
-                                                                 i + (j + 1)*cols + 1, (byte) red, (byte) green, (byte) blue));
-                                 triangles.Add(new ColorTriangle(i + j*cols,
-                                                                 i + (j + 1)*cols + 1,
-                                                                 i + (j + 1)*cols, (byte) red, (byte) green, (byte) blue));
-                             }
+                         for (int i = 0; i < (cols - 1); i++)
+                         {
+                             // generates a random color
+                             int red = (int) (255 - i * 100);
+                             int green = (int) (255 - j * 50);
+                             int blue = 127;
+                             // clamps color values lat 0-255
+                             Utility.LimitRange<int>(0, ref red, 255);
+                             Utility.LimitRange<int>(0, ref green, 255);
+                             Utility.LimitRange<int>(0, ref blue, 255);
+                             triangles.Add(new ColorTriangle(i + j * cols,
+                                 i + j * cols + 1,
+                                 i + (j + 1) * cols + 1, (byte) red, (byte) green, (byte) blue));
+                             triangles.Add(new ColorTriangle(i + j * cols,
+                                 i + (j + 1) * cols + 1,
+                                 i + (j + 1) * cols, (byte) red, (byte) green, (byte) blue));
+                         }
+             
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
-                         design.Entities.Add(surface, 0);
+                         design.Entities.Add(surface);
                      }
              
                      public static void MulticolorPlain(Design design)
@@ -3135,35 +3158,37 @@
                          List<PointRGB> vertices = new List<PointRGB>(rows * cols);
                          Mesh surface = new Mesh();
                          for (int j = 0; j < rows; j++)
-                             for (int i = 0; i < cols; i++)
-                             {
-                                 double x = -i / 5.0 - 2;
-                                 double y = -j / 5.0 - 2;
-                                 double f = 0;
-                                 double den = Math.Sqrt(x * x + y * y);
-                                 if (den != 0)
-                                     f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
-                                 // generates a random color
-                                 int red = (int)(y * y * 30);
-                                 int green = (int)(x * x * 30);
-                                 int blue = (int)(255 - f * f * 1000);
-                                 // clamps color values lat 0-255
-                                 Utility.LimitRange<int>(0, ref red, 255);
-                                 Utility.LimitRange<int>(0, ref green, 255);
-                                 Utility.LimitRange<int>(0, ref blue, 255);
-                                 vertices.Add(new PointRGB(x, y, f, (byte)red, (byte)green, (byte)blue));
-                             }
+                         for (int i = 0; i < cols; i++)
+                         {
+                             double x = -i / 5.0 - 2;
+                             double y = -j / 5.0 - 2;
+                             double f = 0;
+                             double den = Math.Sqrt(x * x + y * y);
+                             if (den != 0)
+                                 f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
+                             // generates a random color
+                             int red = (int) (y * y * 30);
+                             int green = (int) (x * x * 30);
+                             int blue = (int) (255 - f * f * 1000);
+                             // clamps color values lat 0-255
+                             Utility.LimitRange<int>(0, ref red, 255);
+                             Utility.LimitRange<int>(0, ref green, 255);
+                             Utility.LimitRange<int>(0, ref blue, 255);
+                             vertices.Add(new PointRGB(x, y, f, (byte) red, (byte) green, (byte) blue));
+                         }
+             
                          List<IndexTriangle> triangles = new List<IndexTriangle>((rows - 1) * (cols - 1) * 2);
                          for (int j = 0; j < (rows - 1); j++)
-                             for (int i = 0; i < (cols - 1); i++)
-                             {
-                                 triangles.Add(new IndexTriangle(i + j * cols,
-                                                                 i + j * cols + 1,
-                                                                 i + (j + 1) * cols + 1));
-                                 triangles.Add(new IndexTriangle(i + j * cols,
-                                                                 i + (j + 1) * cols + 1,
-                                                                 i + (j + 1) * cols));
-                             }
+                         for (int i = 0; i < (cols - 1); i++)
+                         {
+                             triangles.Add(new IndexTriangle(i + j * cols,
+                                 i + j * cols + 1,
+                                 i + (j + 1) * cols + 1));
+                             triangles.Add(new IndexTriangle(i + j * cols,
+                                 i + (j + 1) * cols + 1,
+                                 i + (j + 1) * cols));
+                         }
+             
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
                          design.Entities.Add(surface);
@@ -3172,48 +3197,50 @@
                      public static void TexturedPlain(Design design)
                      {
                          List<Point3D> vertices = new List<Point3D>(rows * cols);
-                         List<Point2D> texCoords = new List<Point2D>(rows * cols);
+                         List<PointF> texCoords = new List<PointF>(rows * cols);
                          Mesh surface = new Mesh();
                          for (int j = 0; j < rows; j++)
-                             for (int i = 0; i < cols; i++)
-                             {
-                                 double x = -i / 5.0 - 2;
-                                 double y = -j / 5.0 - 2;
-                                 double f = 0;
-                                 double den = Math.Sqrt(x * x + y * y);
-                                 if (den != 0)
-                                     f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
-                                 vertices.Add(new Point3D(x, y, f));
-                                 texCoords.Add(new Point2D((-x * 5) / (rows - 1), (-y * 5) / (cols - 1)));
-                             }
+                         for (int i = 0; i < cols; i++)
+                         {
+                             double x = -i / 5.0 - 2;
+                             double y = -j / 5.0 - 2;
+                             double f = 0;
+                             double den = Math.Sqrt(x * x + y * y);
+                             if (den != 0)
+                                 f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
+                             vertices.Add(new Point3D(x, y, f));
+                             texCoords.Add(new PointF((float)(-x * 5) / (rows - 1), (float)(-y * 5) / (cols - 1)));
+                         }
+             
                          Bitmap bmp = new Bitmap(Properties.Resources.Smiley);
-                         Material mat = new Material(bmp);
-                         design.Materials.Add("test", mat);
+                         Material mat = new Material("test", bmp);
+                         design.Materials.Add(mat);
                          List<RichTriangle> triangles = new List<RichTriangle>((rows - 1) * (cols - 1) * 2);
                          for (int j = 0; j < (rows - 1); j++)
-                             for (int i = 0; i < (cols - 1); i++)
-                             {
-                                 RichTriangle tri = new RichTriangle(i + j * cols,
-                                                                     i + j * cols + 1,
-                                                                     i + (j + 1) * cols + 1);
-                                 tri.T1 = tri.V1;
-                                 tri.T2 = tri.V2;
-                                 tri.T3 = tri.V3;
-                                 triangles.Add(tri);
-                                 tri = new RichTriangle(i + j * cols,
-                                                        i + (j + 1) * cols + 1,
-                                                        i + (j + 1) * cols);
-                                 tri.T1 = tri.V1;
-                                 tri.T2 = tri.V2;
-                                 tri.T3 = tri.V3;
-                                 triangles.Add(tri);
-                             }
+                         for (int i = 0; i < (cols - 1); i++)
+                         {
+                             RichTriangle tri = new RichTriangle(i + j * cols,
+                                 i + j * cols + 1,
+                                 i + (j + 1) * cols + 1);
+                             tri.T1 = tri.V1;
+                             tri.T2 = tri.V2;
+                             tri.T3 = tri.V3;
+                             triangles.Add(tri);
+                             tri = new RichTriangle(i + j * cols,
+                                 i + (j + 1) * cols + 1,
+                                 i + (j + 1) * cols);
+                             tri.T1 = tri.V1;
+                             tri.T2 = tri.V2;
+                             tri.T3 = tri.V3;
+                             triangles.Add(tri);
+                         }
+             
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
                          surface.TextureCoords = texCoords.ToArray();
              
                          surface.ColorMethod = colorMethodType.byEntity;
-                         surface.MaterialName = "test";
+                         surface.MaterialName = mat.Name;
              
                          design.Entities.Add(surface);
                      }
@@ -3222,32 +3249,34 @@
                      {
                          List<Point3D> vertices = new List<Point3D>(rows * cols);
                          Mesh surface = new Mesh();
-                         surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged;
+                         surface.NormalAveragingMode = GMesh.normalAveragingType.Averaged;
                          for (int j = 0; j < rows; j++)
-                             for (int i = 0; i < cols; i++)
-                             {
-                                 double x = -i / 5.0 - 2;
-                                 double y = -j / 5.0 - 2;
-                                 double f = 0;
-                                 double den = Math.Sqrt(x * x + y * y);
-                                 if (den != 0)
-                                     f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
-                                 vertices.Add(new Point3D(x, y, f));
-                             }
+                         for (int i = 0; i < cols; i++)
+                         {
+                             double x = -i / 5.0 - 2;
+                             double y = -j / 5.0 - 2;
+                             double f = 0;
+                             double den = Math.Sqrt(x * x + y * y);
+                             if (den != 0)
+                                 f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
+                             vertices.Add(new Point3D(x, y, f));
+                         }
+             
                          List<SmoothTriangle> triangles = new List<SmoothTriangle>((rows - 1) * (cols - 1) * 2);
                          for (int j = 0; j < (rows - 1); j++)
-                             for (int i = 0; i < (cols - 1); i++)
-                             {
-                                 triangles.Add(new SmoothTriangle(i + j * cols,
-                                                                  i + j * cols + 1,
-                                                                  i + (j + 1) * cols + 1));
-                                 triangles.Add(new SmoothTriangle(i + j * cols,
-                                                                  i + (j + 1) * cols + 1,
-                                                                  i + (j + 1) * cols));
-                             }
+                         for (int i = 0; i < (cols - 1); i++)
+                         {
+                             triangles.Add(new SmoothTriangle(i + j * cols,
+                                 i + j * cols + 1,
+                                 i + (j + 1) * cols + 1));
+                             triangles.Add(new SmoothTriangle(i + j * cols,
+                                 i + (j + 1) * cols + 1,
+                                 i + (j + 1) * cols));
+                         }
+             
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
-                         design.Entities.Add(surface, 0, Color.Green);
+                         design.Entities.Add(surface, System.Drawing.Color.Green);
                      }
              
                      public static void ColoredSmooth(Design design)
@@ -3255,130 +3284,137 @@
                          List<Point3D> vertices = new List<Point3D>(rows * cols);
                          Mesh surface = new Mesh();
                          for (int j = 0; j < rows; j++)
-                             for (int i = 0; i < cols; i++)
-                             {
-                                 double x = -i / 5.0 - 2;
-                                 double y = -j / 5.0 - 2;
-                                 double f = 0;
-                                 double den = Math.Sqrt(x * x + y * y);
-                                 if (den != 0)
-                                     f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
-                                 vertices.Add(new Point3D(x, y, f));
-                             }
+                         for (int i = 0; i < cols; i++)
+                         {
+                             double x = -i / 5.0 - 2;
+                             double y = -j / 5.0 - 2;
+                             double f = 0;
+                             double den = Math.Sqrt(x * x + y * y);
+                             if (den != 0)
+                                 f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
+                             vertices.Add(new Point3D(x, y, f));
+                         }
+             
                          List<ColorSmoothTriangle> triangles = new List<ColorSmoothTriangle>((rows - 1) * (cols - 1) * 2);
                          for (int j = 0; j < (rows - 1); j++)
-                             for (int i = 0; i < (cols - 1); i++)
-                             {
-                                 // generates a random color
-                                 int red = (255 - i * 100);
-                                 int green = (255 - j * 50);
-                                 int blue = 127;
-                                 // clamps color values lat 0-255
-                                 Utility.LimitRange<int>(0, ref red, 255);
-                                 Utility.LimitRange<int>(0, ref green, 255);
-                                 Utility.LimitRange<int>(0, ref blue, 255);
-                                 triangles.Add(new ColorSmoothTriangle(i + j * cols,
-                                                                       i + j * cols + 1,
-                                                                       i + (j + 1) * cols + 1, (byte)red, (byte)green, (byte)blue));
-                                 triangles.Add(new ColorSmoothTriangle(i + j * cols,
-                                                                       i + (j + 1) * cols + 1,
-                                                                       i + (j + 1) * cols, (byte)red, (byte)green, (byte)blue));
-                             }
+                         for (int i = 0; i < (cols - 1); i++)
+                         {
+                             // generates a random color
+                             int red = (255 - i * 100);
+                             int green = (255 - j * 50);
+                             int blue = 127;
+                             // clamps color values lat 0-255
+                             Utility.LimitRange<int>(0, ref red, 255);
+                             Utility.LimitRange<int>(0, ref green, 255);
+                             Utility.LimitRange<int>(0, ref blue, 255);
+                             triangles.Add(new ColorSmoothTriangle(i + j * cols,
+                                 i + j * cols + 1,
+                                 i + (j + 1) * cols + 1, (byte) red, (byte) green, (byte) blue));
+                             triangles.Add(new ColorSmoothTriangle(i + j * cols,
+                                 i + (j + 1) * cols + 1,
+                                 i + (j + 1) * cols, (byte) red, (byte) green, (byte) blue));
+                         }
+             
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
-                         design.Entities.Add(surface, 0);
+                         design.Entities.Add(surface);
                      }
              
                      public static void MulticolorSmooth(Design design)
                      {
                          List<PointRGB> vertices = new List<PointRGB>(rows * cols);
                          Mesh surface = new Mesh();
-                         surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged;
+                         surface.NormalAveragingMode = GMesh.normalAveragingType.Averaged;
                          for (int j = 0; j < rows; j++)
-                             for (int i = 0; i < cols; i++)
-                             {
-                                 double x = -i / 5.0 - 2;
-                                 double y = -j / 5.0 - 2;
-                                 double f = 0;
-                                 double den = Math.Sqrt(x * x + y * y);
-                                 if (den != 0)
-                                     f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
-                                 // generates a random color
-                                 int red = (int)(y * y * 30);
-                                 int green = (int)(x * x * 30);
-                                 int blue = (int)(255 - f * f * 1000);
-                                 // clamps color values lat 0-255
-                                 Utility.LimitRange<int>(0, ref red, 255);
-                                 Utility.LimitRange<int>(0, ref green, 255);
-                                 Utility.LimitRange<int>(0, ref blue, 255);
-                                 vertices.Add(new PointRGB(x, y, f, (byte)red, (byte)green, (byte)blue));
-                             }
+                         for (int i = 0; i < cols; i++)
+                         {
+                             double x = -i / 5.0 - 2;
+                             double y = -j / 5.0 - 2;
+                             double f = 0;
+                             double den = Math.Sqrt(x * x + y * y);
+                             if (den != 0)
+                                 f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
+                             // generates a random color
+                             int red = (int) (y * y * 30);
+                             int green = (int) (x * x * 30);
+                             int blue = (int) (255 - f * f * 1000);
+                             // clamps color values lat 0-255
+                             Utility.LimitRange<int>(0, ref red, 255);
+                             Utility.LimitRange<int>(0, ref green, 255);
+                             Utility.LimitRange<int>(0, ref blue, 255);
+                             vertices.Add(new PointRGB(x, y, f, (byte) red, (byte) green, (byte) blue));
+                         }
+             
                          List<SmoothTriangle> triangles = new List<SmoothTriangle>((rows - 1) * (cols - 1) * 2);
                          for (int j = 0; j < (rows - 1); j++)
-                             for (int i = 0; i < (cols - 1); i++)
-                             {
-                                 triangles.Add(new SmoothTriangle(i + j * cols,
-                                                                  i + j * cols + 1,
-                                                                  i + (j + 1) * cols + 1));
-                                 triangles.Add(new SmoothTriangle(i + j * cols,
-                                                                  i + (j + 1) * cols + 1,
-                                                                  i + (j + 1) * cols));
-                             }
+                         for (int i = 0; i < (cols - 1); i++)
+                         {
+                             triangles.Add(new SmoothTriangle(i + j * cols,
+                                 i + j * cols + 1,
+                                 i + (j + 1) * cols + 1));
+                             triangles.Add(new SmoothTriangle(i + j * cols,
+                                 i + (j + 1) * cols + 1,
+                                 i + (j + 1) * cols));
+                         }
+             
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
-                         design.Entities.Add(surface, 0);
+                         design.Entities.Add(surface);
                      }
              
                      public static void TexturedSmooth(Design design)
                      {
                          List<Point3D> vertices = new List<Point3D>(rows * cols);
-                         List<Point2D> texCoords = new List<Point2D>(rows * cols);
+                         List<PointF> texCoords = new List<PointF>(rows * cols);
                          Mesh surface = new Mesh();
                          for (int j = 0; j < rows; j++)
-                             for (int i = 0; i < cols; i++)
-                             {
-                                 double x = -i / 5.0 - 2;
-                                 double y = -j / 5.0 - 2;
-                                 double f = 0;
-                                 double den = Math.Sqrt(x * x + y * y);
-                                 if (den != 0)
-                                     f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
-                                 vertices.Add(new Point3D(x, y, f));
-                                 texCoords.Add(new Point2D((-x * 5) / (rows - 1), (-y * 5) / (cols - 1)));
-                             }
+                         for (int i = 0; i < cols; i++)
+                         {
+                             double x = -i / 5.0 - 2;
+                             double y = -j / 5.0 - 2;
+                             double f = 0;
+                             double den = Math.Sqrt(x * x + y * y);
+                             if (den != 0)
+                                 f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den;
+                             vertices.Add(new Point3D(x, y, f));
+                             texCoords.Add(new PointF((float)(-x * 5) / (rows - 1), (float)(-y * 5) / (cols - 1)));
+                         }
+             
                          Bitmap bmp = new Bitmap(Properties.Resources.Smiley);
-                         Material mat = new Material(bmp);
-                         design.Materials.Add("test", mat);
+                         Material mat = new Material("test", bmp);
+                         design.Materials.Add(mat);
                          List<RichSmoothTriangle> triangles = new List<RichSmoothTriangle>((rows - 1) * (cols - 1) * 2);
                          for (int j = 0; j < (rows - 1); j++)
-                             for (int i = 0; i < (cols - 1); i++)
-                             {
-                                 RichSmoothTriangle tri = new RichSmoothTriangle(i + j * cols,
-                                                                                 i + j * cols + 1,
-                                                                                 i + (j + 1) * cols + 1);
-                                 tri.T1 = tri.V1;
-                                 tri.T2 = tri.V2;
-                                 tri.T3 = tri.V3;
-                                 triangles.Add(tri);
-                                 tri = new RichSmoothTriangle(i + j * cols,
-                                                              i + (j + 1) * cols + 1,
-                                                              i + (j + 1) * cols);
-                                 tri.T1 = tri.V1;
-                                 tri.T2 = tri.V2;
-                                 tri.T3 = tri.V3;
-                                 triangles.Add(tri);
-                             }
+                         for (int i = 0; i < (cols - 1); i++)
+                         {
+                             RichSmoothTriangle tri = new RichSmoothTriangle(i + j * cols,
+                                 i + j * cols + 1,
+                                 i + (j + 1) * cols + 1);
+                             tri.T1 = tri.V1;
+                             tri.T2 = tri.V2;
+                             tri.T3 = tri.V3;
+                             triangles.Add(tri);
+                             tri = new RichSmoothTriangle(i + j * cols,
+                                 i + (j + 1) * cols + 1,
+                                 i + (j + 1) * cols);
+                             tri.T1 = tri.V1;
+                             tri.T2 = tri.V2;
+                             tri.T3 = tri.V3;
+                             triangles.Add(tri);
+                         }
+             
                          surface.Vertices = vertices.ToArray();
                          surface.Triangles = triangles.ToArray();
                          surface.TextureCoords = texCoords.ToArray();
              
-                         surface.MaterialName = "test";
+                         surface.MaterialName = mat.Name;
                          surface.ColorMethod = colorMethodType.byEntity;
              
-                         design.Entities.Add(surface, 0);
+                         design.Entities.Add(surface);
                      }
              
                  }
+             }
             ]]></code><code lang="VB"><![CDATA[
              Imports System
              Imports System.Collections.Generic
@@ -3386,300 +3422,301 @@
              Imports devDept.Eyeshot
              Imports devDept.Eyeshot.Entities
              Imports devDept.Geometry
+             Imports devDept.Geometry.Entities
              Namespace MeshSamples
-                 Friend Class Mesh
-                 	Private Shared rows As Integer = 8
-                 	Private Shared cols As Integer = 8
-                 	Private Shared scale As Double = 4
-             
-                 	Public Shared Sub Plain(design As Design)
-                 		Dim vertices As New List(Of Point3D)(rows * cols)
-                 		Dim surface As New Mesh()
-                 		surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged
-                 		For j As Integer = 0 To rows - 1
-                 			For i As Integer = 0 To cols - 1
-                 				Dim x As Double = -i / 5.0 - 2
-                 				Dim y As Double = -j / 5.0 - 2
-                 				Dim f As Double = 0
-                 				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den <> 0 Then
-                 					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
-                 				End If
-                 				vertices.Add(New Point3D(x, y, f))
-                 			Next
-                 		Next
-                 		Dim triangles As New List(Of IndexTriangle)((rows - 1) * (cols - 1) * 2)
-                 		For j As Integer = 0 To (rows - 1) - 1
-                 			For i As Integer = 0 To (cols - 1) - 1
-                 				triangles.Add(New IndexTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1))
-                 				triangles.Add(New IndexTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols))
-                 			Next
-                 		Next
-                 		surface.Vertices = vertices.ToArray()
-                 		surface.Triangles = triangles.ToArray()
-                 		design.Entities.Add(surface, 0, Color.Green)
-                 	End Sub
-             
-                 	Public Shared Sub ColoredPlain(design As Design)
-                 		Dim vertices As New List(Of Point3D)(rows * cols)
-                 		Dim surface As New Mesh()
-                 		For j As Integer = 0 To rows - 1
-                 			For i As Integer = 0 To cols - 1
-                 				Dim x As Double = -i / 5.0 - 2
-                 				Dim y As Double = -j / 5.0 - 2
-                 				Dim f As Double = 0
-                 				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den <> 0 Then
-                 					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
-                 				End If
-                 				vertices.Add(New Point3D(x, y, f))
-                 			Next
-                 		Next
-                 		Dim triangles As New List(Of ColorTriangle)((rows - 1) * (cols - 1) * 2)
-                 		For j As Integer = 0 To (rows - 1) - 1
-                 			For i As Integer = 0 To (cols - 1) - 1
-                 				' generates a random color
-                 				Dim red As Integer = CInt(255 - i * 100)
-                 				Dim green As Integer = CInt(255 - j * 50)
-                 				Dim blue As Integer = 127
-                 				' clamps color values lat 0-255
-                 				Utility.LimitRange(Of Integer)(0, red, 255)
-                 				Utility.LimitRange(Of Integer)(0, green, 255)
-                 				Utility.LimitRange(Of Integer)(0, blue, 255)
-                 				triangles.Add(New ColorTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1, CByte(red), CByte(green), CByte(blue)))
-                 				triangles.Add(New ColorTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols, CByte(red), CByte(green), CByte(blue)))
-                 			Next
-                 		Next
-                 		surface.Vertices = vertices.ToArray()
-                 		surface.Triangles = triangles.ToArray()
-                 		design.Entities.Add(surface, 0)
-                 	End Sub
-             
-                 	Public Shared Sub MulticolorPlain(design As Design)
-                 		Dim vertices As New List(Of PointRGB)(rows * cols)
-                 		Dim surface As New Mesh()
-                 		For j As Integer = 0 To rows - 1
-                 			For i As Integer = 0 To cols - 1
-                 				Dim x As Double = -i / 5.0 - 2
-                 				Dim y As Double = -j / 5.0 - 2
-                 				Dim f As Double = 0
-                 				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den <> 0 Then
-                 					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
-                 				End If
-                 				' generates a random color
-                 				Dim red As Integer = CInt(y * y * 30)
-                 				Dim green As Integer = CInt(x * x * 30)
-                 				Dim blue As Integer = CInt(255 - f * f * 1000)
-                 				' clamps color values lat 0-255
-                 				Utility.LimitRange(Of Integer)(0, red, 255)
-                 				Utility.LimitRange(Of Integer)(0, green, 255)
-                 				Utility.LimitRange(Of Integer)(0, blue, 255)
-                 				vertices.Add(New PointRGB(x, y, f, CByte(red), CByte(green), CByte(blue)))
-                 			Next
-                 		Next
-                 		Dim triangles As New List(Of IndexTriangle)((rows - 1) * (cols - 1) * 2)
-                 		For j As Integer = 0 To (rows - 1) - 1
-                 			For i As Integer = 0 To (cols - 1) - 1
-                 				triangles.Add(New IndexTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1))
-                 				triangles.Add(New IndexTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols))
-                 			Next
-                 		Next
-                 		surface.Vertices = vertices.ToArray()
-                 		surface.Triangles = triangles.ToArray()
-                 		design.Entities.Add(surface)
-                 	End Sub
-             
-                 	Public Shared Sub TexturedPlain(design As Design)
-                 		Dim vertices As New List(Of Point3D)(rows * cols)
-                 		Dim texCoords As New List(Of Point2D)(rows * cols)
-                 		Dim surface As New Mesh()
-                 		For j As Integer = 0 To rows - 1
-                 			For i As Integer = 0 To cols - 1
-                 				Dim x As Double = -i / 5.0 - 2
-                 				Dim y As Double = -j / 5.0 - 2
-                 				Dim f As Double = 0
-                 				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den <> 0 Then
-                 					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
-                 				End If
-                 				vertices.Add(New Point3D(x, y, f))
-                 				texCoords.Add(New Point2D((-x * 5) / (rows - 1), (-y * 5) / (cols - 1)))
-                 			Next
-                 		Next
-                 		Dim bmp As New Bitmap(Properties.Resources.Smiley)
-                 		Dim mat As New Material(bmp)
-                 		design.Materials.Add("test", mat)
-                 		Dim triangles As New List(Of RichTriangle)((rows - 1) * (cols - 1) * 2)
-                 		For j As Integer = 0 To (rows - 1) - 1
-                 			For i As Integer = 0 To (cols - 1) - 1
-                 				Dim tri As New RichTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1)
-                 				tri.T1 = tri.V1
-                 				tri.T2 = tri.V2
-                 				tri.T3 = tri.V3
-                 				triangles.Add(tri)
-                 				tri = New RichTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols)
-                 				tri.T1 = tri.V1
-                 				tri.T2 = tri.V2
-                 				tri.T3 = tri.V3
-                 				triangles.Add(tri)
-                 			Next
-                 		Next
-                 		surface.Vertices = vertices.ToArray()
-                 		surface.Triangles = triangles.ToArray()
-                 		surface.TextureCoords = texCoords.ToArray()
-             
-                 		surface.ColorMethod = colorMethodType.byEntity
-                 		surface.MaterialName = "test"
-             
-                 		design.Entities.Add(surface)
-                 	End Sub
-             
-                 	Public Shared Sub Smooth(design As Design)
-                 		Dim vertices As New List(Of Point3D)(rows * cols)
-                 		Dim surface As New Mesh()
-                 		surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged
-                 		For j As Integer = 0 To rows - 1
-                 			For i As Integer = 0 To cols - 1
-                 				Dim x As Double = -i / 5.0 - 2
-                 				Dim y As Double = -j / 5.0 - 2
-                 				Dim f As Double = 0
-                 				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den <> 0 Then
-                 					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
-                 				End If
-                 				vertices.Add(New Point3D(x, y, f))
-                 			Next
-                 		Next
-                 		Dim triangles As New List(Of SmoothTriangle)((rows - 1) * (cols - 1) * 2)
-                 		For j As Integer = 0 To (rows - 1) - 1
-                 			For i As Integer = 0 To (cols - 1) - 1
-                 				triangles.Add(New SmoothTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1))
-                 				triangles.Add(New SmoothTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols))
-                 			Next
-                 		Next
-                 		surface.Vertices = vertices.ToArray()
-                 		surface.Triangles = triangles.ToArray()
-                 		design.Entities.Add(surface, 0, Color.Green)
-                 	End Sub
-             
-                 	Public Shared Sub ColoredSmooth(design As Design)
-                 		Dim vertices As New List(Of Point3D)(rows * cols)
-                 		Dim surface As New Mesh()
-                 		For j As Integer = 0 To rows - 1
-                 			For i As Integer = 0 To cols - 1
-                 				Dim x As Double = -i / 5.0 - 2
-                 				Dim y As Double = -j / 5.0 - 2
-                 				Dim f As Double = 0
-                 				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den <> 0 Then
-                 					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
-                 				End If
-                 				vertices.Add(New Point3D(x, y, f))
-                 			Next
-                 		Next
-                 		Dim triangles As New List(Of ColorSmoothTriangle)((rows - 1) * (cols - 1) * 2)
-                 		For j As Integer = 0 To (rows - 1) - 1
-                 			For i As Integer = 0 To (cols - 1) - 1
-                 				' generates a random color
-                 				Dim red As Integer = (255 - i * 100)
-                 				Dim green As Integer = (255 - j * 50)
-                 				Dim blue As Integer = 127
-                 				' clamps color values lat 0-255
-                 				Utility.LimitRange(Of Integer)(0, red, 255)
-                 				Utility.LimitRange(Of Integer)(0, green, 255)
-                 				Utility.LimitRange(Of Integer)(0, blue, 255)
-                 				triangles.Add(New ColorSmoothTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1, CByte(red), CByte(green), CByte(blue)))
-                 				triangles.Add(New ColorSmoothTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols, CByte(red), CByte(green), CByte(blue)))
-                 			Next
-                 		Next
-                 		surface.Vertices = vertices.ToArray()
-                 		surface.Triangles = triangles.ToArray()
-                 		design.Entities.Add(surface, 0)
-                 	End Sub
-             
-                 	Public Shared Sub MulticolorSmooth(design As Design)
-                 		Dim vertices As New List(Of PointRGB)(rows * cols)
-                 		Dim surface As New Mesh()
-                 		surface.NormalAveragingMode = Mesh.normalAveragingType.Averaged
-                 		For j As Integer = 0 To rows - 1
-                 			For i As Integer = 0 To cols - 1
-                 				Dim x As Double = -i / 5.0 - 2
-                 				Dim y As Double = -j / 5.0 - 2
-                 				Dim f As Double = 0
-                 				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den <> 0 Then
-                 					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
-                 				End If
-                 				' generates a random color
-                 				Dim red As Integer = CInt(y * y * 30)
-                 				Dim green As Integer = CInt(x * x * 30)
-                 				Dim blue As Integer = CInt(255 - f * f * 1000)
-                 				' clamps color values lat 0-255
-                 				Utility.LimitRange(Of Integer)(0, red, 255)
-                 				Utility.LimitRange(Of Integer)(0, green, 255)
-                 				Utility.LimitRange(Of Integer)(0, blue, 255)
-                 				vertices.Add(New PointRGB(x, y, f, CByte(red), CByte(green), CByte(blue)))
-                 			Next
-                 		Next
-                 		Dim triangles As New List(Of SmoothTriangle)((rows - 1) * (cols - 1) * 2)
-                 		For j As Integer = 0 To (rows - 1) - 1
-                 			For i As Integer = 0 To (cols - 1) - 1
-                 				triangles.Add(New SmoothTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1))
-                 				triangles.Add(New SmoothTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols))
-                 			Next
-                 		Next
-                 		surface.Vertices = vertices.ToArray()
-                 		surface.Triangles = triangles.ToArray()
-                 		design.Entities.Add(surface, 0)
-                 	End Sub
-             
-                 	Public Shared Sub TexturedSmooth(design As Design)
-                 		Dim vertices As New List(Of Point3D)(rows * cols)
-                 		Dim texCoords As New List(Of Point2D)(rows * cols)
-                 		Dim surface As New Mesh()
-                 		For j As Integer = 0 To rows - 1
-                 			For i As Integer = 0 To cols - 1
-                 				Dim x As Double = -i / 5.0 - 2
-                 				Dim y As Double = -j / 5.0 - 2
-                 				Dim f As Double = 0
-                 				Dim den As Double = Math.Sqrt(x * x + y * y)
-                 				If den <> 0 Then
-                 					f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
-                 				End If
-                 				vertices.Add(New Point3D(x, y, f))
-                 				texCoords.Add(New Point2D((-x * 5) / (rows - 1), (-y * 5) / (cols - 1)))
-                 			Next
-                 		Next
-                 		Dim bmp As New Bitmap(Properties.Resources.Smiley)
-                 		Dim mat As New Material(bmp)
-                 		design.Materials.Add("test", mat)
-                 		Dim triangles As New List(Of RichSmoothTriangle)((rows - 1) * (cols - 1) * 2)
-                 		For j As Integer = 0 To (rows - 1) - 1
-                 			For i As Integer = 0 To (cols - 1) - 1
-                 				Dim tri As New RichSmoothTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1)
-                 				tri.T1 = tri.V1
-                 				tri.T2 = tri.V2
-                 				tri.T3 = tri.V3
-                 				triangles.Add(tri)
-                 				tri = New RichSmoothTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols)
-                 				tri.T1 = tri.V1
-                 				tri.T2 = tri.V2
-                 				tri.T3 = tri.V3
-                 				triangles.Add(tri)
-                 			Next
-                 		Next
-                 		surface.Vertices = vertices.ToArray()
-                 		surface.Triangles = triangles.ToArray()
-                 		surface.TextureCoords = texCoords.ToArray()
-             
-                 		surface.MaterialName = "test"
-                 		surface.ColorMethod = colorMethodType.byEntity
-             
-                 		design.Entities.Add(surface, 0)
-                 	End Sub
-             
-                 End Class
+               Friend Class MeshFactory
+                   Private Shared rows As Integer = 8
+                   Private Shared cols As Integer = 8
+                   Private Shared scale As Double = 4
+            
+                   Public Shared Sub Plain(design As Design)
+                       Dim vertices As New List(Of Point3D)(rows * cols)
+                       Dim surface As New Mesh()
+                       surface.NormalAveragingMode = GMesh.normalAveragingType.Averaged
+                       For j As Integer = 0 To rows - 1
+                           For i As Integer = 0 To cols - 1
+                               Dim x As Double = -i / 5.0 - 2
+                               Dim y As Double = -j / 5.0 - 2
+                               Dim f As Double = 0
+                               Dim den As Double = Math.Sqrt(x * x + y * y)
+                               If den <> 0 Then
+                                   f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
+                               End If
+                               vertices.Add(New Point3D(x, y, f))
+                           Next
+                       Next
+                       Dim triangles As New List(Of IndexTriangle)((rows - 1) * (cols - 1) * 2)
+                       For j As Integer = 0 To (rows - 1) - 1
+                           For i As Integer = 0 To (cols - 1) - 1
+                               triangles.Add(New IndexTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1))
+                               triangles.Add(New IndexTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols))
+                           Next
+                       Next
+                       surface.Vertices = vertices.ToArray()
+                       surface.Triangles = triangles.ToArray()
+                       design.Entities.Add(surface, System.Drawing.Color.Green)
+                   End Sub
+            
+                   Public Shared Sub ColoredPlain(design As Design)
+                       Dim vertices As New List(Of Point3D)(rows * cols)
+                       Dim surface As New Mesh()
+                       For j As Integer = 0 To rows - 1
+                           For i As Integer = 0 To cols - 1
+                               Dim x As Double = -i / 5.0 - 2
+                               Dim y As Double = -j / 5.0 - 2
+                               Dim f As Double = 0
+                               Dim den As Double = Math.Sqrt(x * x + y * y)
+                               If den <> 0 Then
+                                   f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
+                               End If
+                               vertices.Add(New Point3D(x, y, f))
+                           Next
+                       Next
+                       Dim triangles As New List(Of ColorTriangle)((rows - 1) * (cols - 1) * 2)
+                       For j As Integer = 0 To (rows - 1) - 1
+                           For i As Integer = 0 To (cols - 1) - 1
+                               ' generates a random color
+                               Dim red As Integer = CInt(255 - i * 100)
+                               Dim green As Integer = CInt(255 - j * 50)
+                               Dim blue As Integer = 127
+                               ' clamps color values lat 0-255
+                               Utility.LimitRange(Of Integer)(0, red, 255)
+                               Utility.LimitRange(Of Integer)(0, green, 255)
+                               Utility.LimitRange(Of Integer)(0, blue, 255)
+                               triangles.Add(New ColorTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1, CByte(red), CByte(green), CByte(blue)))
+                               triangles.Add(New ColorTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols, CByte(red), CByte(green), CByte(blue)))
+                           Next
+                       Next
+                       surface.Vertices = vertices.ToArray()
+                       surface.Triangles = triangles.ToArray()
+                       design.Entities.Add(surface)
+                   End Sub
+            
+                   Public Shared Sub MulticolorPlain(design As Design)
+                       Dim vertices As New List(Of PointRGB)(rows * cols)
+                       Dim surface As New Mesh()
+                       For j As Integer = 0 To rows - 1
+                           For i As Integer = 0 To cols - 1
+                               Dim x As Double = -i / 5.0 - 2
+                               Dim y As Double = -j / 5.0 - 2
+                               Dim f As Double = 0
+                               Dim den As Double = Math.Sqrt(x * x + y * y)
+                               If den <> 0 Then
+                                   f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
+                               End If
+                               ' generates a random color
+                               Dim red As Integer = CInt(y * y * 30)
+                               Dim green As Integer = CInt(x * x * 30)
+                               Dim blue As Integer = CInt(255 - f * f * 1000)
+                               ' clamps color values lat 0-255
+                               Utility.LimitRange(Of Integer)(0, red, 255)
+                               Utility.LimitRange(Of Integer)(0, green, 255)
+                               Utility.LimitRange(Of Integer)(0, blue, 255)
+                               vertices.Add(New PointRGB(x, y, f, CByte(red), CByte(green), CByte(blue)))
+                           Next
+                       Next
+                       Dim triangles As New List(Of IndexTriangle)((rows - 1) * (cols - 1) * 2)
+                       For j As Integer = 0 To (rows - 1) - 1
+                           For i As Integer = 0 To (cols - 1) - 1
+                               triangles.Add(New IndexTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1))
+                               triangles.Add(New IndexTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols))
+                           Next
+                       Next
+                       surface.Vertices = vertices.ToArray()
+                       surface.Triangles = triangles.ToArray()
+                       design.Entities.Add(surface)
+                   End Sub
+            
+                   Public Shared Sub TexturedPlain(design As Design)
+                       Dim vertices As New List(Of Point3D)(rows * cols)
+                       Dim texCoords As New List(Of devDept.Geometry.PointF)(rows * cols)
+                       Dim surface As New Mesh()
+                       For j As Integer = 0 To rows - 1
+                           For i As Integer = 0 To cols - 1
+                               Dim x As Double = -i / 5.0 - 2
+                               Dim y As Double = -j / 5.0 - 2
+                               Dim f As Double = 0
+                               Dim den As Double = Math.Sqrt(x * x + y * y)
+                               If den <> 0 Then
+                                   f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
+                               End If
+                               vertices.Add(New Point3D(x, y, f))
+                               texCoords.Add(New devDept.Geometry.PointF((-x * 5) / (rows - 1), (-y * 5) / (cols - 1)))
+                           Next
+                       Next
+                       Dim bmp As New Bitmap(Properties.Resources.Smiley)
+                       Dim mat As New Material("test", bmp)
+                       design.Materials.Add(mat)
+                       Dim triangles As New List(Of RichTriangle)((rows - 1) * (cols - 1) * 2)
+                       For j As Integer = 0 To (rows - 1) - 1
+                           For i As Integer = 0 To (cols - 1) - 1
+                               Dim tri As New RichTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1)
+                               tri.T1 = tri.V1
+                               tri.T2 = tri.V2
+                               tri.T3 = tri.V3
+                               triangles.Add(tri)
+                               tri = New RichTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols)
+                               tri.T1 = tri.V1
+                               tri.T2 = tri.V2
+                               tri.T3 = tri.V3
+                               triangles.Add(tri)
+                           Next
+                       Next
+                       surface.Vertices = vertices.ToArray()
+                       surface.Triangles = triangles.ToArray()
+                       surface.TextureCoords = texCoords.ToArray()
+            
+                       surface.ColorMethod = colorMethodType.byEntity
+                       surface.MaterialName = mat.Name
+            
+                       design.Entities.Add(surface)
+                   End Sub
+            
+                   Public Shared Sub Smooth(design As Design)
+                       Dim vertices As New List(Of Point3D)(rows * cols)
+                       Dim surface As New Mesh()
+                       surface.NormalAveragingMode = GMesh.normalAveragingType.Averaged
+                       For j As Integer = 0 To rows - 1
+                           For i As Integer = 0 To cols - 1
+                               Dim x As Double = -i / 5.0 - 2
+                               Dim y As Double = -j / 5.0 - 2
+                               Dim f As Double = 0
+                               Dim den As Double = Math.Sqrt(x * x + y * y)
+                               If den <> 0 Then
+                                   f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
+                               End If
+                               vertices.Add(New Point3D(x, y, f))
+                           Next
+                       Next
+                       Dim triangles As New List(Of SmoothTriangle)((rows - 1) * (cols - 1) * 2)
+                       For j As Integer = 0 To (rows - 1) - 1
+                           For i As Integer = 0 To (cols - 1) - 1
+                               triangles.Add(New SmoothTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1))
+                               triangles.Add(New SmoothTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols))
+                           Next
+                       Next
+                       surface.Vertices = vertices.ToArray()
+                       surface.Triangles = triangles.ToArray()
+                       design.Entities.Add(surface, System.Drawing.Color.Green)
+                   End Sub
+            
+                   Public Shared Sub ColoredSmooth(design As Design)
+                       Dim vertices As New List(Of Point3D)(rows * cols)
+                       Dim surface As New Mesh()
+                       For j As Integer = 0 To rows - 1
+                           For i As Integer = 0 To cols - 1
+                               Dim x As Double = -i / 5.0 - 2
+                               Dim y As Double = -j / 5.0 - 2
+                               Dim f As Double = 0
+                               Dim den As Double = Math.Sqrt(x * x + y * y)
+                               If den <> 0 Then
+                                   f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
+                               End If
+                               vertices.Add(New Point3D(x, y, f))
+                           Next
+                       Next
+                       Dim triangles As New List(Of ColorSmoothTriangle)((rows - 1) * (cols - 1) * 2)
+                       For j As Integer = 0 To (rows - 1) - 1
+                           For i As Integer = 0 To (cols - 1) - 1
+                               ' generates a random color
+                               Dim red As Integer = (255 - i * 100)
+                               Dim green As Integer = (255 - j * 50)
+                               Dim blue As Integer = 127
+                               ' clamps color values lat 0-255
+                               Utility.LimitRange(Of Integer)(0, red, 255)
+                               Utility.LimitRange(Of Integer)(0, green, 255)
+                               Utility.LimitRange(Of Integer)(0, blue, 255)
+                               triangles.Add(New ColorSmoothTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1, CByte(red), CByte(green), CByte(blue)))
+                               triangles.Add(New ColorSmoothTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols, CByte(red), CByte(green), CByte(blue)))
+                           Next
+                       Next
+                       surface.Vertices = vertices.ToArray()
+                       surface.Triangles = triangles.ToArray()
+                       design.Entities.Add(surface)
+                   End Sub
+            
+                   Public Shared Sub MulticolorSmooth(design As Design)
+                       Dim vertices As New List(Of PointRGB)(rows * cols)
+                       Dim surface As New Mesh()
+                       surface.NormalAveragingMode = GMesh.normalAveragingType.Averaged
+                       For j As Integer = 0 To rows - 1
+                           For i As Integer = 0 To cols - 1
+                               Dim x As Double = -i / 5.0 - 2
+                               Dim y As Double = -j / 5.0 - 2
+                               Dim f As Double = 0
+                               Dim den As Double = Math.Sqrt(x * x + y * y)
+                               If den <> 0 Then
+                                   f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
+                               End If
+                               ' generates a random color
+                               Dim red As Integer = CInt(y * y * 30)
+                               Dim green As Integer = CInt(x * x * 30)
+                               Dim blue As Integer = CInt(255 - f * f * 1000)
+                               ' clamps color values lat 0-255
+                               Utility.LimitRange(Of Integer)(0, red, 255)
+                               Utility.LimitRange(Of Integer)(0, green, 255)
+                               Utility.LimitRange(Of Integer)(0, blue, 255)
+                               vertices.Add(New PointRGB(x, y, f, CByte(red), CByte(green), CByte(blue)))
+                           Next
+                       Next
+                       Dim triangles As New List(Of SmoothTriangle)((rows - 1) * (cols - 1) * 2)
+                       For j As Integer = 0 To (rows - 1) - 1
+                           For i As Integer = 0 To (cols - 1) - 1
+                               triangles.Add(New SmoothTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1))
+                               triangles.Add(New SmoothTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols))
+                           Next
+                       Next
+                       surface.Vertices = vertices.ToArray()
+                       surface.Triangles = triangles.ToArray()
+                       design.Entities.Add(surface)
+                   End Sub
+            
+                   Public Shared Sub TexturedSmooth(design As Design)
+                       Dim vertices As New List(Of Point3D)(rows * cols)
+                       Dim texCoords As New List(Of devDept.Geometry.PointF)(rows * cols)
+                       Dim surface As New Mesh()
+                       For j As Integer = 0 To rows - 1
+                           For i As Integer = 0 To cols - 1
+                               Dim x As Double = -i / 5.0 - 2
+                               Dim y As Double = -j / 5.0 - 2
+                               Dim f As Double = 0
+                               Dim den As Double = Math.Sqrt(x * x + y * y)
+                               If den <> 0 Then
+                                   f = scale * Math.Sin(Math.Sqrt(x * x + y * y)) / den
+                               End If
+                               vertices.Add(New Point3D(x, y, f))
+                               texCoords.Add(New devDept.Geometry.PointF((-x * 5) / (rows - 1), (-y * 5) / (cols - 1)))
+                           Next
+                       Next
+                       Dim bmp As New Bitmap(Properties.Resources.Smiley)
+                       Dim mat As New Material("test", bmp)
+                       design.Materials.Add(mat)
+                       Dim triangles As New List(Of RichSmoothTriangle)((rows - 1) * (cols - 1) * 2)
+                       For j As Integer = 0 To (rows - 1) - 1
+                           For i As Integer = 0 To (cols - 1) - 1
+                               Dim tri As New RichSmoothTriangle(i + j * cols, i + j * cols + 1, i + (j + 1) * cols + 1)
+                               tri.T1 = tri.V1
+                               tri.T2 = tri.V2
+                               tri.T3 = tri.V3
+                               triangles.Add(tri)
+                               tri = New RichSmoothTriangle(i + j * cols, i + (j + 1) * cols + 1, i + (j + 1) * cols)
+                               tri.T1 = tri.V1
+                               tri.T2 = tri.V2
+                               tri.T3 = tri.V3
+                               triangles.Add(tri)
+                           Next
+                       Next
+                       surface.Vertices = vertices.ToArray()
+                       surface.Triangles = triangles.ToArray()
+                       surface.TextureCoords = texCoords.ToArray()
+            
+                       surface.MaterialName = mat.Name
+                       surface.ColorMethod = colorMethodType.byEntity
+            
+                       design.Entities.Add(surface)
+                   End Sub
+            
+               End Class
              End Namespace]]></code></example>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.ExtrudePlanar(devDept.Geometry.Vector3D)">
@@ -4844,6 +4881,13 @@
             </summary>
       <param name="v">A list of triangle vertices</param>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Mesh.#ctor(devDept.Serialization.MeshSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.MeshSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.MeshSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.GetPolygonMeshes">
       <summary>
             Gets a number of meshes representing this object.
@@ -5709,6 +5753,13 @@
             Get the sharp edges of this solid portion.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid.Portion.#ctor(devDept.Serialization.PortionSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.PortionSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.PortionSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Solid.SmoothingAngle">
       <summary>
             Gets or sets the angle in radians that determines solid sharp edges. 
@@ -5801,13 +5852,6 @@
       <param name="textureMapping">Texture mapping data</param>
       <param name="portions">Portions list</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Solid.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.Solid.Portion})">
-      <summary>
-            Proprietary file format constructor.
-            </summary>
-      <param name="portions">The portions stored in the file.</param>
-      <seealso cref="M:devDept.Serialization.SolidSurrogate.ConvertToObject" />
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Solid.Clone">
       <summary>
             Creates a deep copy of this solid.
@@ -5880,6 +5924,13 @@
       <param name="transf">The transformation applied to the entity (necessary if the entity is inside a Block to propagate the BlockReference transformation)</param>
       <param name="seg">The 3D segment representing the viewing direction</param>
       <returns>The sorted list of triangles intersecting the provided segment.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Solid.#ctor(devDept.Serialization.SolidSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.SolidSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.SolidSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.Solid.IsClosed">
       <summary>
@@ -6289,6 +6340,13 @@
       <summary>
             Cutter location point definition.
             </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Entities.PointCL.MotionIndex">
+      <summary>
+            Gets the index of the parent motion.
+            </summary>
+      <remarks>The last point of the <see cref="T:devDept.Eyeshot.Entities.Toolpath" /> will contain an invalid index.</remarks>
+      <seealso cref="T:devDept.Eyeshot.Entities.Toolpath.Motion" />
     </member>
     <member name="P:devDept.Eyeshot.Entities.PointCL.Tool">
       <summary>
@@ -6856,7 +6914,7 @@
             </summary>
       <remarks>The size of the array determines how the colors are applied to the entity: 
             1 byte per vertex is applied as a modulation factor (0-255) to the <see cref="T:System.Drawing.Color" /> of the entity. This requires the use of shaders so the 
-            graphics acceleration must be turned on, <see cref="P:devDept.Eyeshot.Workspace.UseShaders" /> must be true (Winforms Eyeshot control only) and the <see cref="!:Design.DisplayMode" /> must be <see cref="F:devDept.Eyeshot.displayType.Rendered" />
+            graphics acceleration must be turned on, <see cref="P:devDept.Eyeshot.Workspace.UseShaders" /> must be true (Winforms Eyeshot control only) and the <see cref="P:devDept.Eyeshot.Viewport.DisplayMode" /> must be <see cref="F:devDept.Eyeshot.displayType.Rendered" />
             3 bytes per vertex are applied as RGB colors
             4 bytes per vertex are applied as RGBA colors (in order for the alpha transparency to work, the entity must also have a 
             <see cref="T:System.Drawing.Color" /> with alpha &lt; 255 and <see cref="P:devDept.Eyeshot.Workspace.AccurateTransparency" /> must be set to false).</remarks>
@@ -7216,12 +7274,13 @@
             Returns true when the number of contours is bigger than zero.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Region.Triangulate(System.Double,System.Int32)">
+    <member name="M:devDept.Eyeshot.Entities.Region.Triangulate(System.Double,System.Int32,System.Collections.Generic.IList{devDept.Geometry.Entities.GLinearPath})">
       <summary>
             Triangulates this Region.
             </summary>
       <param name="elementSize">The desired element size</param>
       <param name="smoothingPasses">The number of smoothing passes</param>
+      <param name="hardEdges">The internal constraint segments as a list of linear paths, can be null/Nothing.</param>
       <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Region.IsPointOnContour(devDept.Geometry.Point3D,System.Double)">
@@ -7341,6 +7400,13 @@
       <param name="curves">The curves intersecting the region profiles</param>
       <param name="result">The resulting list of regions</param>
       <returns>True if the operation was successful, false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Region.#ctor(devDept.Serialization.RegionSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.RegionSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.RegionSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Region.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -9027,6 +9093,13 @@
       <param name="seg">The 3D segment representing the viewing direction</param>
       <returns>The sorted list of triangles intersecting the provided segment.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.#ctor(devDept.Serialization.BrepSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.BrepSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.BrepSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.Brep.IsClosed">
       <summary>
             Gets the shell closure status.
@@ -10089,6 +10162,13 @@
       <summary>
             Gets the squared length of the curve's control polygon.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Curve.#ctor(devDept.Serialization.CurveSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.CurveSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.CurveSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Curve.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -11540,6 +11620,13 @@
       <returns>The blend surface.</returns>
       <remarks>It only works for edges of the outer contour of the surfaces.</remarks>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.#ctor(devDept.Serialization.SurfaceSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.SurfaceSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.SurfaceSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Surface.GetPerimeter">
       <summary>
             Computes the sum of the lengths of all the surface's edges.
@@ -12883,6 +12970,13 @@
       <param name="nurbsArc">The arc in Nurbs form</param>
       <returns>True if the operation succeeded, false otherwise.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Arc.#ctor(devDept.Serialization.ArcSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.ArcSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.ArcSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Arc.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -13104,6 +13198,13 @@
       <param name="flipSide">The flip side flag</param>
       <returns>True if the operation is successful, false otherwise.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Circle.#ctor(devDept.Serialization.CircleSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.CircleSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.CircleSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Circle.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -13274,7 +13375,7 @@
     </member>
     <member name="F:devDept.Eyeshot.Entities.HitVertex.FaceIndex">
       <summary>
-        <see cref="T:devDept.Eyeshot.Entities.Brep.Face" />, <see cref="T:devDept.Eyeshot.Entities.Solid.Portion" /> or <see cref="!:Element.Face" /> index.
+        <see cref="T:devDept.Geometry.Entities.GBrep.Face" />, <see cref="T:devDept.Eyeshot.Entities.Solid.Portion" /> or <see cref="!:Element.Face" /> index.
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.Entities.HitVertex.ShellOrElementIndex">
@@ -14048,6 +14149,11 @@
             Gets or sets text string.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.IText.StyleName">
+      <summary>
+            Gets or sets the text style name.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.Entities.entityNatureType">
       <summary>
             Entity nature type.
@@ -14401,6 +14507,13 @@
             </summary>
       <seealso cref="P:devDept.Eyeshot.Entities.Line.Tangent" />
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Line.#ctor(devDept.Serialization.LineSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.LineSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.LineSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Line.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -14523,6 +14636,13 @@
       <summary>
             Gets or sets the Point position.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Point.#ctor(devDept.Serialization.PointSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.PointSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.PointSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Point.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -14801,6 +14921,13 @@
       <returns>A Brep object representing the resulting sheet metal. Null/Nothing if an error occured.</returns>
       <remarks>The linear path must be planar.</remarks>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.LinearPath.#ctor(devDept.Serialization.LinearPathSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.LinearPathSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.LinearPathSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.LinearPath.IsOrientedClockwise(devDept.Geometry.Plane)">
       <summary>
             Checks if the closed curve orientation is clockwise.
@@ -14950,6 +15077,13 @@
       <param name="convertedDensity">The density according to the mass units.</param>
       <returns>The mass amount.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Quad.#ctor(devDept.Serialization.QuadSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.QuadSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.QuadSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="T:devDept.Eyeshot.Entities.Triangle">
       <summary>
             Triangular face entity.
@@ -15058,6 +15192,13 @@
       <param name="p2">Second vertex</param>
       <param name="p3">Third vertex</param>
       <returns>The 3D centroid position.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Triangle.#ctor(devDept.Serialization.TriangleSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.TriangleSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.TriangleSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Triangle.GetPerimeter">
       <summary>
@@ -15267,23 +15408,18 @@
             Gets the base plane.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Plane)">
-      <summary>
-            Deserialization constructor.
-            </summary>
-      <param name="uDegree">Degree in the U parametric direction</param>
-      <param name="uKnotVector">Knot vector in the U parametric direction</param>
-      <param name="vDegree">Degree in the V parametric direction</param>
-      <param name="vKnotVector">Knot vector in the V parametric direction</param>
-      <param name="ctrlPoints">Control points grid</param>
-      <param name="generatrix">Generatrix curve</param>
-      <param name="seamPlane">Seam plane</param>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.Clone">
       <summary>
             Creates a deep copy of this revolution surface.
             </summary>
       <returns>The new revolution surface object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.RevolvedSurface.#ctor(devDept.Serialization.RevolvedSurfaceSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.RevolvedSurfaceSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.RevolvedSurfaceSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Entities.CylindricalSurface">
       <summary>
@@ -15306,24 +15442,18 @@
             Gets the cone radius.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.CylindricalSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Plane)">
-      <summary>
-            Deserialization constructor.
-            </summary>
-      <param name="uDegree">Degree in the U parametric direction</param>
-      <param name="uKnotVector">Knot vector in the U parametric direction</param>
-      <param name="vDegree">Degree in the V parametric direction</param>
-      <param name="vKnotVector">Knot vector in the V parametric direction</param>
-      <param name="ctrlPoints">Control points grid</param>
-      <param name="generatrix">Generatrix curve</param>
-      <param name="radius">Cylinder radius</param>
-      <param name="seamPlane">Revolved surface seam plane</param>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.CylindricalSurface.Clone">
       <summary>
             Creates a deep copy of this cylindrical surface.
             </summary>
       <returns>The new cylindrical surface object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.CylindricalSurface.#ctor(devDept.Serialization.CylindricalSurfaceSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.CylindricalSurfaceSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.CylindricalSurfaceSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Entities.SphericalSurface">
       <summary>
@@ -15341,19 +15471,6 @@
             </summary>
       <param name="primitive">The primitive object.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.SphericalSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Plane)">
-      <summary>
-            Deserialization constructor.
-            </summary>
-      <param name="uDegree">Degree in the U parametric direction</param>
-      <param name="uKnotVector">Knot vector in the U parametric direction</param>
-      <param name="vDegree">Degree in the V parametric direction</param>
-      <param name="vKnotVector">Knot vector in the V parametric direction</param>
-      <param name="ctrlPoints">Control points grid</param>
-      <param name="generatrix">Revolved surface generatrix curve</param>
-      <param name="radius">Sphere radius</param>
-      <param name="seamPlane">Revolved surface seam plane</param>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.SphericalSurface.Clone">
       <summary>
             Creates a deep copy of this spherical surface.
@@ -15364,6 +15481,13 @@
       <summary>
             Gets sphere radius
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SphericalSurface.#ctor(devDept.Serialization.SphericalSurfaceSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.SphericalSurfaceSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.SphericalSurfaceSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Entities.ConicalSurface">
       <summary>
@@ -15381,21 +15505,6 @@
             </summary>
       <param name="primitive">The primitive object.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.ConicalSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Plane,System.Double,devDept.Geometry.Point3D)">
-      <summary>
-            Deserialization constructor.
-            </summary>
-      <param name="uDegree">Degree in the U parametric direction</param>
-      <param name="uKnotVector">Knot vector in the U parametric direction</param>
-      <param name="vDegree">Degree in the V parametric direction</param>
-      <param name="vKnotVector">Knot vector in the V parametric direction</param>
-      <param name="ctrlPoints">Control points grid</param>
-      <param name="generatrix">Revolved surface generatrix curve</param>
-      <param name="radius">Cone radius</param>
-      <param name="seamPlane">Revolved surface seam plane</param>
-      <param name="halfAngle">Cone half angle</param>
-      <param name="coneTip">Cone tip</param>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.ConicalSurface.Clone">
       <summary>
             Creates a deep copy of this conical surface.
@@ -15412,6 +15521,13 @@
             Gets cone's tip.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.ConicalSurface.#ctor(devDept.Serialization.ConicalSurfaceSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.ConicalSurfaceSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.ConicalSurfaceSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="T:devDept.Eyeshot.Entities.ToroidalSurface">
       <summary>
             Toroidal surface definition.
@@ -15427,20 +15543,6 @@
             Constructor with primitive.
             </summary>
       <param name="primitive">The primitive object.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.ToroidalSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Eyeshot.Entities.ICurve,System.Double,System.Double,devDept.Geometry.Plane)">
-      <summary>
-            Deserialization constructor.
-            </summary>
-      <param name="uDegree">Degree in the U parametric direction</param>
-      <param name="uKnotVector">Knot vector in the U parametric direction</param>
-      <param name="vDegree">Degree in the V parametric direction</param>
-      <param name="vKnotVector">Knot vector in the V parametric direction</param>
-      <param name="ctrlPoints">Control points grid</param>
-      <param name="generatrix">Revolved surface generatrix curve</param>
-      <param name="major">Major radius</param>
-      <param name="minor">Minor radius</param>
-      <param name="seamPlane">Revolved surface seam plane</param>
     </member>
     <member name="P:devDept.Eyeshot.Entities.ToroidalSurface.Type">
       <summary>
@@ -15489,23 +15591,18 @@
             Gets the tabulated surface generatrix.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.TabulatedSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Geometry.Vector3D,devDept.Eyeshot.Entities.ICurve)">
-      <summary>
-            Deserialization constructor.
-            </summary>
-      <param name="uDegree">Degree in the U parametric direction</param>
-      <param name="uKnotVector">Knot vector in the U parametric direction</param>
-      <param name="vDegree">Degree in the V parametric direction</param>
-      <param name="vKnotVector">Knot vector in the V parametric direction</param>
-      <param name="ctrlPoints">Control points grid</param>
-      <param name="theGeneratrix">Generatrix 3D vector</param>
-      <param name="theDirectrix">Directrix curve</param>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.TabulatedSurface.Clone">
       <summary>
             Creates a deep copy of this revolution surface.
             </summary>
       <returns>The new revolution surface object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.TabulatedSurface.#ctor(devDept.Serialization.TabulatedSurfaceSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.TabulatedSurfaceSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.TabulatedSurfaceSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.TabulatedSurface.IsOrthogonal">
       <summary>
@@ -15642,12 +15739,6 @@
             </summary>
       <param name="primitive">The primitive object.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Ellipse.#ctor">
-      <summary>
-            Empty constructor.
-            </summary>
-      <remarks>Derived classes calling this constructor must initialize <see cref="F:devDept.Eyeshot.Entities.Entity.gEntity" /> property (mandatory).</remarks>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.Ellipse.#ctor(devDept.Geometry.Point3D,System.Double,System.Double)">
       <summary>Ellipse parallel to XY plane constructor.</summary>
       <param name="center">3D center point</param>
@@ -15750,6 +15841,13 @@
       <param name="t">Evaluation parameter</param>
       <returns>The 3D curvature vector.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Ellipse.#ctor(devDept.Serialization.EllipseSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.EllipseSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.EllipseSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Ellipse.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -15843,6 +15941,13 @@
             </summary>
       <param name="amount">Extrusion amount</param>
       <returns>The resulting surface.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.PlanarEntity.#ctor(devDept.Serialization.PlanarEntitySurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.PlanarEntitySurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.PlanarEntitySurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.PlanarEntity.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -16358,6 +16463,13 @@
             </summary>
       <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a domain smaller than <see cref="F:devDept.Geometry.Utility.ZERO_TOLERANCE" />.</exception>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.EllipticalArc.#ctor(devDept.Serialization.EllipticalArcSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.EllipticalArcSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.EllipticalArcSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.EllipticalArc.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -16706,6 +16818,13 @@
             Fits a plane to the point cloud vertices.
             </summary>
       <returns>The plane.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.PointCloud.#ctor(devDept.Serialization.PointCloudSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.PointCloudSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.PointCloudSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.PointCloud.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -17218,7 +17337,7 @@
             This allows to keep the Attribute visible when editing a <see cref="T:devDept.Eyeshot.Entities.BlockReference" /> (with <see cref="M:devDept.Eyeshot.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />), so it can be selected and
             the <see cref="P:devDept.Eyeshot.Entities.Attribute.Invisible" /> property can be set to true or false without affecting its visibility on screen that would prevent to select it again. 
             Then the <see cref="M:devDept.Eyeshot.EntityList.SynchronizeAttributes(System.String)" /> will propagate the Invisible property to the AttributeReferences and make them invisible
-            (after the current BlockReference is reset with <see cref="M:devDept.Eyeshot.Workspace.ResetCurrentBlockReference(System.Boolean)" />).
+            (after the current BlockReference is reset).
             </remarks>
     </member>
     <member name="T:devDept.Eyeshot.Entities.AttributeBase">
@@ -17318,22 +17437,18 @@
             Gets the planar surface plane.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.PlanarSurface.#ctor(System.Int32,System.Double[],System.Int32,System.Double[],devDept.Geometry.Point4D[0:,0:],devDept.Geometry.Plane)">
-      <summary>
-            Deserialization constructor.
-            </summary>
-      <param name="uDegree">Degree in the U parametric direction</param>
-      <param name="uKnotVector">Knot vector in the U parametric direction</param>
-      <param name="vDegree">Degree in the V parametric direction</param>
-      <param name="vKnotVector">Knot vector in the V parametric direction</param>
-      <param name="ctrlPoints">Control points grid</param>
-      <param name="plane">Surface plane</param>
-    </member>
     <member name="M:devDept.Eyeshot.Entities.PlanarSurface.Clone">
       <summary>
             Creates a deep copy of this revolution surface.
             </summary>
       <returns>The new revolution surface object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.PlanarSurface.#ctor(devDept.Serialization.PlanarSurfaceSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.PlanarSurfaceSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.PlanarSurfaceSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.VisibleChangedEventHandler">
       <summary>
@@ -18908,6 +19023,27 @@
             Class Manager that handles the synchronization between the eyeshot entities and the Sketch entities.
             </summary>
     </member>
+    <member name="T:devDept.Eyeshot.SketchManager.zoomFitType">
+      <summary>
+            Sketch edit zoom fit type.
+            </summary>
+      <seealso cref="P:devDept.Eyeshot.Workspace.CurrentBlock" />
+    </member>
+    <member name="F:devDept.Eyeshot.SketchManager.zoomFitType.Face">
+      <summary>
+            Fits the specified face with a margin.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.SketchManager.zoomFitType.Body">
+      <summary>
+            Fits the specified object.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.SketchManager.zoomFitType.Block">
+      <summary>
+            Fits current block entities.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.SketchManager.EqualConstraintImage">
       <summary>
             Gets or sets the equal constraint image.
@@ -18956,6 +19092,11 @@
     <member name="P:devDept.Eyeshot.SketchManager.FixConstraintImage">
       <summary>
             Gets or sets the fix constraint image.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.PolygonConstraintImage">
+      <summary>
+            Gets or sets the polygon constraint image.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.SketchManager.ParallelConstraintImage">
@@ -19050,6 +19191,11 @@
             </summary>
       <seealso cref="P:devDept.Eyeshot.SketchManager.Editing" />
     </member>
+    <member name="P:devDept.Eyeshot.SketchManager.FilledRegionColor">
+      <summary>
+            Gets or sets the color of the sketch region.
+            <seealso cref="P:devDept.Eyeshot.SketchManager.ShowFilledRegion" /></summary>
+    </member>
     <member name="P:devDept.Eyeshot.SketchManager.Editing">
       <summary>
             True when editing a sketch, otherwise false.
@@ -19064,6 +19210,11 @@
     <member name="P:devDept.Eyeshot.SketchManager.AutomaticTextHeight">
       <summary>
             If true, the text height of the dimensions is computed based on the entities boundingbox.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.TextScaleFactor">
+      <summary>
+            Gets or sets the text height scale factor for the sketch's dimensions.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.SketchManager.Constraints">
@@ -19082,8 +19233,37 @@
             If true, a semitransparent region that represents the Sketch is displayed. 
             </summary>
       <remarks> The region is drawn only if it is valid.</remarks>
+      <seealso cref="P:devDept.Eyeshot.SketchManager.FilledRegionColor" />
     </member>
-    <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.SketchManager.AnimateCamera" -->
+    <member name="P:devDept.Eyeshot.SketchManager.AnimateCamera">
+      <summary>
+             When true, animates the camera when the <see cref="M:devDept.Eyeshot.Design.EditSketch(devDept.Eyeshot.Entities.SketchEntity,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})" /> or <see cref="M:devDept.Eyeshot.SketchManager.EditExit(System.Boolean)" /> methods are called.
+             </summary>
+      <remarks>Meaningful when <see cref="P:devDept.Eyeshot.SketchManager.RotateToPlane" /> is true.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.RotateToPlane">
+      <summary>
+            When true, aligns the camera with the sketch plane when a new sketch is created or an existing one is edited.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.Fit">
+      <summary>
+            When true, fits the current block entities when a new sketch is created or an existing one is edited.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.Margin">
+      <summary>
+            Zoom fit margin in pixels, if <see cref="P:devDept.Eyeshot.SketchManager.Fit" /> is true.
+            </summary>
+      <remarks>
+            0 by default. In this case the margin is computed internally based on the viewport size. 
+            </remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.ZoomFitMode">
+      <summary>
+            Gets or sets the SketchManager zoom fit mode when a new sketch is created.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.SketchManager.EnableEdgeSelection">
       <summary>
             Enables the edge selection for the current Brep
@@ -19405,10 +19585,31 @@
       <param name="ent">An entity not related to the sketch</param>
       <returns>The geometrical constraint.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.SketchManager.GetVisualConstraint(devDept.Geometry.ConstraintSolver.Constraint)">
+      <summary>
+            Gets the corresponding visual constraint given a sketch constraint.
+            </summary>
+      <param name="constraint">the sketch constraint</param>
+      <returns>The visual constraint.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.GetParentEntity(devDept.Eyeshot.Entities.Point)">
+      <summary>
+            Gets the parent entity of which the input point is a vertex.
+            </summary>
+      <param name="point">The point.</param>
+      <returns>
+      </returns>
+    </member>
     <member name="M:devDept.Eyeshot.SketchManager.GetConstrained(devDept.Eyeshot.VisualConstraint)">
       <summary>
             Get all constrained entities.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.GetAllConstraintsFromEntity(devDept.Eyeshot.Entities.Entity)">
+      <summary>
+            Returns all the constraints in which the entity is involved.
+            </summary>
+      <param name="entity">The entity.</param>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.UpdateAndInvalidate(System.Boolean)">
       <summary>
@@ -19462,6 +19663,11 @@
         <see langword="true" /> if at least one redo operation can be performed;
             otherwise, <see langword="false" />.
             </value>
+    </member>
+    <member name="P:devDept.Eyeshot.SketchManager.PasteOffset">
+      <summary>
+            Gets or sets the offset along the X-axis and Y-axis of the sketch plane for the pasted entities.
+            </summary>
     </member>
     <member name="P:devDept.Eyeshot.SketchManager.Dragging">
       <summary>
@@ -19767,6 +19973,17 @@
             Occurs when the SketchManager enters in the edit mode.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddPolygon(devDept.Geometry.Point2D,System.Double,System.Int32,devDept.Eyeshot.Entities.Point@,devDept.Eyeshot.Entities.Point@,System.Double)">
+      <summary>
+            Adds a regular polygon to the sketch.
+            </summary>
+      <param name="center">The center.</param>
+      <param name="radius">The radius of the circle circumscribed to the polygon.</param>
+      <param name="numOfVertices">The number of vertices.</param>
+      <param name="polygonCenter">The polygon center.</param>
+      <param name="angle">The angle of rotation of the polygon with respect its center.</param>
+      <returns>The array of lines representing the polygon.</returns>
+    </member>
     <member name="T:devDept.Eyeshot.SolveEventArgs">
       <summary>
             Event args for the <see cref="E:devDept.Eyeshot.SketchManager.SystemSolved" /> event.
@@ -19782,7 +19999,6 @@
             True if the sketch is in an over-constrained state, meaning at least
             one redundant constraint exists.
             </summary>
-      <see cref="!:SketchInternal.RedundantConstraints" />
     </member>
     <member name="F:devDept.Eyeshot.SolveEventArgs.Dragging">
       <summary>
@@ -19943,6 +20159,18 @@
       <param name="viewport">The Viewport.</param>
       <param name="pointFixedConstraint">
       </param>
+    </member>
+    <member name="T:devDept.Eyeshot.PolygonVisualConstraint">
+      <summary>
+            The polygon constraint.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.PolygonVisualConstraint.#ctor(devDept.Eyeshot.Viewport,devDept.Eyeshot.Labels.StackedLabel[],devDept.Geometry.ConstraintSolver.PolygonConstraint)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="viewport">The Viewport.</param>
+      <param name="polygonConstraint">The polygon constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.HvVisualConstraint">
       <summary>
@@ -20532,7 +20760,7 @@
         <para>Shadow is updated only if it is visible and if the design has the bounding box height bigger than zero.</para>
         <para>It's important to call this method when the visibility status of some entities changes.</para>
         <para>
-          <see cref="M:devDept.Eyeshot.Workspace.GetVisualRefinementDeviation">Visual refinement deviation</see> is updated as well but you need to set <see cref="P:devDept.Eyeshot.Entities.Entity.RegenMode" /> as <see cref="F:devDept.Eyeshot.Entities.regenType.RegenAndCompile" /> for all entities and call <see cref="!:Workspace.Entities.Regen(RegenOptions)" /> to see objects with new tessellation.</para>
+          <see cref="M:devDept.Eyeshot.Workspace.GetVisualRefinementDeviation">Visual refinement deviation</see> is updated as well but you need to set <see cref="P:devDept.Eyeshot.Entities.Entity.RegenMode" /> as <see cref="F:devDept.Eyeshot.Entities.regenType.RegenAndCompile" /> for all entities and call <see cref="M:devDept.Eyeshot.EntityList.Regen(devDept.Eyeshot.RegenOptions)">Workspace.Entities.Regen()</see> method to see objects with new tessellation.</para>
       </remarks>
       <seealso cref="P:devDept.Eyeshot.Workspace.BoundingBox" />
       <seealso cref="M:devDept.Eyeshot.EntityList.UpdateBoundingBox" />
@@ -20729,7 +20957,7 @@
       <summary>Indicates whether the best adapter is available for the renderer initialization or not.</summary>
       <remarks>
         <para>This value is written during the control's initialization, so it must be read after the control is correctly loaded.</para>
-        <para>This property is not valid when the <see cref="!:EnvironmentBase.Renderer" /> is <see cref="F:devDept.Eyeshot.rendererType.OpenGL" />.</para>
+        <para>This property is not valid when the <see cref="P:devDept.Eyeshot.WorkspaceBase.Renderer" /> is <see cref="F:devDept.Eyeshot.rendererType.OpenGL" />.</para>
       </remarks>
     </member>
     <member name="P:devDept.Eyeshot.Workspace.Entities">
@@ -20837,9 +21065,9 @@
     </member>
     <member name="M:devDept.Eyeshot.Workspace.InitializeViewports">
       <summary>
-            Ensures that at least one <see cref="T:devDept.Eyeshot.Viewport" /> is present in the <see cref="P:devDept.Eyeshot.Workspace.Viewports" /> collection.
+            Ensures that at least one <see cref="T:devDept.Eyeshot.Viewport" /> is present in the <see cref="P:devDept.Eyeshot.Design.Viewports" /> collection.
             </summary>
-      <remarks>This method must be called only when creating the <see cref="T:devDept.Eyeshot.Workspace" /> object at run time. It must not be called when creating the object at design time.</remarks>
+      <remarks>This method must be called only when creating the <see cref="T:devDept.Eyeshot.Design" /> object at run time. It must not be called when creating the object at design time.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Workspace.CompileUserInterfaceElements">
       <summary>
@@ -21429,13 +21657,13 @@
       <summary>
             Gets or sets the color of selected entities, shared by all viewports.
             </summary>
-      <remarks>The <see cref="P:devDept.Graphics.Material.Ambient" />, <see cref="P:devDept.Graphics.Material.Specular" /> and <see cref="P:devDept.Graphics.Material.Shininess" /> components are taken from the <see cref="P:devDept.Eyeshot.Workspace.DefaultMaterial" />.</remarks>
+      <remarks>The <see cref="P:devDept.Graphics.Material.Ambient" />, <see cref="P:devDept.Graphics.Material.Specular" /> and <see cref="P:devDept.Graphics.Material.Shininess" /> components are taken from the <see cref="P:devDept.Eyeshot.Design.DefaultMaterial" />.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Workspace.SelectionColorDynamic">
       <summary>
             Gets or sets the color for the dynamic selection, shared by all viewports.
             </summary>
-      <remarks>The <see cref="P:devDept.Graphics.Material.Ambient" />, <see cref="P:devDept.Graphics.Material.Specular" /> and <see cref="P:devDept.Graphics.Material.Shininess" /> components are taken from the <see cref="P:devDept.Eyeshot.Workspace.DefaultMaterial" />.</remarks>
+      <remarks>The <see cref="P:devDept.Graphics.Material.Ambient" />, <see cref="P:devDept.Graphics.Material.Specular" /> and <see cref="P:devDept.Graphics.Material.Shininess" /> components are taken from the <see cref="P:devDept.Eyeshot.Design.DefaultMaterial" />.</remarks>
       <see cref="F:devDept.Eyeshot.actionType.SelectVisibleByPickDynamic" />
     </member>
     <member name="P:devDept.Eyeshot.Workspace.SelectionLineWeightScaleFactor">
@@ -21948,7 +22176,7 @@
       <summary>
             Draws the vertices of the entities.
             </summary>
-      <remarks>When <see cref="!:ShowVertices" /> is true.</remarks>
+      <remarks>When <see cref="P:devDept.Eyeshot.Viewport.ShowVertices" /> is true.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Workspace.DrawForSelectionEntityDelegate">
       <summary>
@@ -22010,7 +22238,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Workspace.SortEntitiesForTransparency(devDept.Eyeshot.Viewport,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
       <summary>
-            Sorts the transparent entities from the farthest to the nearest to the camera for better rendering.
+            Sorts the transparent entities from the farthest to the nearest to the camera for better rendering. Don't use if <see cref="P:devDept.Eyeshot.Design.MinimumFramerate" /> is enabled.
             </summary>
       <param name="viewport">The viewport</param>
       <returns>The sorted list of entities.</returns>
@@ -23002,9 +23230,9 @@
       <returns>True if the point is closer, false otherwise.</returns>
       <remarks>This method is used by the <see cref="M:devDept.Eyeshot.Workspace.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Geometry.Point3D@)" /> to compute the closest vertex to the mouse in 2D. Override this method to consider also the Z of the <paramref name="projectedPt" />.</remarks>
       <seealso cref="M:devDept.Eyeshot.Workspace.FindClosestVertex(System.Drawing.Point,System.Double,devDept.Geometry.Point3D@)" />
-      <see cref="M:devDept.Eyeshot.Workspace.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,devDept.Geometry.Point3D@)" />
-      <see cref="M:devDept.Eyeshot.Workspace.FindClosestVertex(System.Drawing.Point,System.Double,System.Int32@)" />
-      <see cref="M:devDept.Eyeshot.Workspace.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,System.Int32@)" />
+      <seealso cref="M:devDept.Eyeshot.Workspace.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,devDept.Geometry.Point3D@)" />
+      <seealso cref="M:devDept.Eyeshot.Workspace.FindClosestVertex(System.Drawing.Point,System.Double,System.Int32@)" />
+      <seealso cref="M:devDept.Eyeshot.Workspace.FindClosestVertex(System.Drawing.Point,System.Double,System.Type,System.Int32@)" />
     </member>
     <member name="M:devDept.Eyeshot.Workspace.UpdateVisibleSelection">
       <summary>
@@ -23501,15 +23729,14 @@
     </member>
     <member name="T:devDept.Eyeshot.Workspace.SelectionInfoSubItemsArray">
       <summary>
-            Class that holds the informations of the selected sub items (Brep inners).
+            Class that holds the information of the selected sub items (Brep inners).
             </summary>
       <seealso cref="E:devDept.Eyeshot.Workspace.SelectionChanged" />
     </member>
     <member name="M:devDept.Eyeshot.Workspace.SelectionInfoSubItemsArray.InitSubItemsArray(System.Object[][])">
       <summary>
-            Initializes the <see cref="P:devDept.Eyeshot.Workspace.SelectionInfoSubItemsArray.SubItems" /> with the same size of the given <param name="inners"></param></summary>
-      <param name="inners">
-      </param>
+            Initializes the internal sub items with the same size of the given <param name="inners"></param></summary>
+      <param name="inners">The Brep inners.</param>
     </member>
     <member name="T:devDept.Eyeshot.Workspace.SelectionInfo">
       <summary>
@@ -23554,12 +23781,12 @@
     </member>
     <member name="M:devDept.Eyeshot.Workspace.CopyTo(devDept.Eyeshot.Workspace,System.Boolean)">
       <summary>
-            Copies all items inside control master collections (<see cref="P:devDept.Eyeshot.Viewport.Labels" />, <see cref="P:devDept.Eyeshot.Workspace.Blocks" />, <see cref="P:devDept.Eyeshot.Workspace.Layers" />, <see cref="P:devDept.Eyeshot.Workspace.Materials" />, <see cref="P:devDept.Eyeshot.Workspace.TextStyles" />, <see cref="P:devDept.Eyeshot.Workspace.LineTypes" />, <see cref="P:devDept.Eyeshot.Workspace.HatchPatterns" />)) to the specified Workspace control.
+            Copies all items inside control master collections (<see cref="P:devDept.Eyeshot.Viewport.Labels" />, <see cref="P:devDept.Eyeshot.Workspace.Blocks" />, <see cref="P:devDept.Eyeshot.Workspace.Layers" />, <see cref="P:devDept.Eyeshot.Design.Materials" />, <see cref="P:devDept.Eyeshot.Workspace.TextStyles" />, <see cref="P:devDept.Eyeshot.Workspace.LineTypes" />, <see cref="P:devDept.Eyeshot.Workspace.HatchPatterns" />)) to the specified Workspace control.
             </summary>
       <param name="destination">The Workspace control that is the destination of the elements copied.</param>
       <param name="replaceRootBlock">&gt;When true the root block of the destination Workspace is replaced.</param>
       <remarks>
-            If the <see cref="P:devDept.Eyeshot.Workspace.Viewports" /> collection is empty then a new <see cref="T:devDept.Eyeshot.Viewport" /> is added to it.
+            If the <see cref="P:devDept.Eyeshot.Design.Viewports" /> collection is empty then a new <see cref="T:devDept.Eyeshot.Viewport" /> is added to it.
             You need to call <see cref="M:devDept.Eyeshot.Workspace.Invalidate" /> to see the effect of this command in the destination Workspace control.
             </remarks>
     </member>
@@ -23689,9 +23916,21 @@
             Provides data for the <see cref="E:devDept.Eyeshot.Manufacture.PositionChanged" /> event.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Manufacture.PositionChangedEventArgs.#ctor(devDept.Eyeshot.Entities.PointCL,System.Int32)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="cl">The cutter location point</param>
+      <param name="direction">The simulation direction</param>
+    </member>
     <member name="P:devDept.Eyeshot.Manufacture.PositionChangedEventArgs.CutterLocation">
       <summary>
             Gets the simulation tool position.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Manufacture.PositionChangedEventArgs.Direction">
+      <summary>
+            Gets the simulation direction: +1 for forward, -1 for backward, 0 for undetermined.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Manufacture.PositionChangedEventHandler">
@@ -23766,6 +24005,43 @@
             the end mill, use <see cref="P:devDept.Eyeshot.Manufacture.SimulationSpeed" />.
             </summary>
       <param name="factor">Positive factor multiplying the initial speed.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.GoToBeginning">
+      <summary>
+            Moves the tool to the first <see cref="P:devDept.Eyeshot.Manufacture.SimulationToolpath" /> motion.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.GoToPrevious">
+      <summary>
+            Moves the tool to the previous <see cref="P:devDept.Eyeshot.Manufacture.SimulationToolpath" /> motion.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.Start">
+      <summary>
+            Starts simulation execution.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.Pause">
+      <summary>
+            Pauses simulation execution.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.GoToNext">
+      <summary>
+            Moves the tool to the next <see cref="P:devDept.Eyeshot.Manufacture.SimulationToolpath" /> motion.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.GoToMotion(System.Int32)">
+      <summary>
+            Moves the tool at the beginning of the <see cref="P:devDept.Eyeshot.Manufacture.SimulationToolpath" />.
+            </summary>
+      <param name="index">The motion index</param>
+      <seealso cref="M:devDept.Eyeshot.Workspace.Invalidate" />
+    </member>
+    <member name="M:devDept.Eyeshot.Manufacture.GoToEnd">
+      <summary>
+            Moves the tool at the end of the <see cref="P:devDept.Eyeshot.Manufacture.SimulationToolpath" />.
+            </summary>
     </member>
     <member name="P:devDept.Eyeshot.Manufacture.SimulationSetup">
       <summary>
@@ -24626,6 +24902,13 @@
             Returns true if the stock is not a simple box. Currently supports CompositeCurve of 4 lines and rectangular LinearPath.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(devDept.Serialization.StockSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.StockSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.StockSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Milling.Stock.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -24810,8 +25093,8 @@
             or a ramp that always has the same height. On the contrary, initializing the
             motions in the <see cref="M:devDept.Eyeshot.Milling.LeadBase.Init(System.Double)" /> method permits to change the lead based on the
             required parameters (e.g., lead-in or lead-out, ramp layer height).</para>
-        <para>Please note that the properties <see cref="!:Motion.Feed" /> and
-            <see cref="!:Motion.Speed" /> of motions will be ignored and overwritten. To set these
+        <para>Please note that the properties <see cref="P:devDept.Eyeshot.Entities.Toolpath.Motion.Feed" /> and
+            <see cref="P:devDept.Eyeshot.Entities.Toolpath.Motion.Speed" /> of motions will be ignored and overwritten. To set these
             properties, please use <see cref="F:devDept.Eyeshot.Milling.LeadBase.Feed">LeadBase.Feed</see> or
             <see cref="P:devDept.Eyeshot.Milling.Machining.Feed">Machining.Feed</see> for the feed rate,
             <see cref="P:devDept.Eyeshot.Milling.Machining.Speed">Machining.Speed</see> for the speed. </para>
@@ -25831,6 +26114,12 @@
       <param name="dogLeg">When true, rapid movements are drawn with dog leg style.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadGCode.Blocks">
+      <summary>
+            Gets all the file blocks.
+            </summary>
+      <remarks>A G-code program is made up of one or more lines of code. Each line of code is called a block, and can include commands to the machine. Blocks are collected into a file, which makes a program.</remarks>
+    </member>
     <member name="T:devDept.Eyeshot.Translators.ReadJT">
       <summary>
              Utility class for loading JT files asynchronously.
@@ -26299,6 +26588,12 @@
             </summary>
       <remarks>If zero the deviation is computed based on the elements size.</remarks>
     </member>
+    <member name="P:devDept.Eyeshot.Translators.ReadIFC.OpeningsDeviation">
+      <summary>
+            Gets or sets the deviation used for openings.
+            </summary>
+      <remarks>If zero the deviation is computed based on the <see cref="P:devDept.Eyeshot.Translators.ReadIFC.Deviation" /> property.</remarks>
+    </member>
     <member name="P:devDept.Eyeshot.Translators.ReadIFC.ImportGrids">
       <summary>
             Gets or sets if to import the grids.
@@ -26519,6 +26814,13 @@
     <member name="P:devDept.Eyeshot.Translators.IfcMesh.Openings">
       <inheritdoc />
     </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcMesh.#ctor(devDept.Serialization.IfcMeshSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.IfcMeshSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.IfcMeshSurrogate.ConvertToObject" /> method.</remarks>
+    </member>
     <member name="M:devDept.Eyeshot.Translators.IfcMesh.ConvertToSurrogate">
       <inheritdoc />
     </member>
@@ -26574,6 +26876,13 @@
     </member>
     <member name="P:devDept.Eyeshot.Translators.IfcLinearPath.Openings">
       <inheritdoc />
+    </member>
+    <member name="M:devDept.Eyeshot.Translators.IfcLinearPath.#ctor(devDept.Serialization.IfcLinearPathSurrogate)">
+      <summary>
+            Proprietary file format constructor.
+            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.IfcLinearPathSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.IfcLinearPathSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Translators.IfcLinearPath.ConvertToSurrogate">
       <inheritdoc />
@@ -27441,7 +27750,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFile.RestoreCamera">
       <summary>
-            Indicates whether the <see cref="P:devDept.Eyeshot.Translators.ReadFile.Camera" /> will be restored when calling <see cref="!:ReadFileAsync.AddToScene(Workspace,devDept.Eyeshot.RegenOptions,bool,string)" /> method. Default value is true.
+            Indicates whether the <see cref="P:devDept.Eyeshot.Translators.ReadFile.Camera" /> will be restored when calling <see cref="M:devDept.Eyeshot.Translators.ReadFile.AddToScene(devDept.Eyeshot.Workspace,devDept.Eyeshot.RegenOptions)" /> method. Default value is true.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Translators.ReadFile.FileHeader">
@@ -29524,6 +29833,11 @@
       <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineWeight" />
       <seealso cref="P:devDept.Eyeshot.Layer.LineWeight" />
     </member>
+    <member name="P:devDept.Eyeshot.Drawing.ZoomFactor">
+      <summary>
+            Gets the camera zoom factor.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Drawing.Zoom">
       <summary>
             Gets or sets the Zoom settings.
@@ -30585,7 +30899,14 @@
       <param name="maxLevel">The maximum depth level of the Bill of Materials.  </param>
       <returns>A DataTable containing the Bill of Materials data.</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "P:devDept.Eyeshot.Design.SketchManager" -->
+    <member name="P:devDept.Eyeshot.Design.SketchManager">
+      <summary>
+            The <see cref="T:devDept.Eyeshot.SketchManager" /> for <see cref="T:devDept.Eyeshot.Entities.SketchEntity" /> editing.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Design.EditSketch(devDept.Eyeshot.Entities.SketchEntity,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})" />
+      <seealso cref="M:devDept.Eyeshot.Design.OpenSketch(devDept.Eyeshot.Entities.SketchEntity,System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference})" />
+      <seealso cref="M:devDept.Eyeshot.Workspace.ResetOpenBlocks(System.Boolean)" />
+    </member>
     <member name="M:devDept.Eyeshot.Design.NewSketch(devDept.Geometry.Plane)">
       <summary>
             Sets the sketch entity for editing. 
@@ -30603,6 +30924,16 @@
             Creates a new sketch on the Brep face.
             </summary>
       <param name="face">The brep face.</param>
+      <seealso cref="E:devDept.Eyeshot.SketchManager.EditStarted" />
+      <seealso cref="E:devDept.Eyeshot.SketchManager.EditEnded" />
+      <seealso cref="E:devDept.Eyeshot.SketchManager.SystemSolved" />
+    </member>
+    <member name="M:devDept.Eyeshot.Design.NewSketch(System.Int32,devDept.Eyeshot.Entities.Brep)">
+      <summary>
+            Creates a new sketch on the Brep face.
+            </summary>
+      <param name="faceIndex">The brep face index.</param>
+      <param name="brep">The brep.</param>
       <seealso cref="E:devDept.Eyeshot.SketchManager.EditStarted" />
       <seealso cref="E:devDept.Eyeshot.SketchManager.EditEnded" />
       <seealso cref="E:devDept.Eyeshot.SketchManager.SystemSolved" />
@@ -30861,8 +31192,8 @@
             <description>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</description>
           </item>
           <item>
-            <description>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and return true without calling the base to avoid undesired clipping. 
-            		It might be necessary to override also the <see cref="!:BoundingBox.OverrideSceneExtents">bounding box scene extents</see></description>
+            <description>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">Entity.IsInFrustum()</see> method of the class at point 3) and return true without calling the base to avoid undesired clipping. 
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBoxSettings.OverrideSceneExtents">bounding box scene extents</see></description>
           </item>
           <item>
             <description>Add the block references created at point 3) to the <see cref="!:Design.Entities" /> collection</description>
@@ -30906,7 +31237,7 @@
           </item>
           <item>
             <description>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and return true without calling the base to avoid undesired clipping. 
-            		It might be necessary to override also the <see cref="!:BoundingBox.OverrideSceneExtents">bounding box scene extents</see></description>
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBoxSettings.OverrideSceneExtents">bounding box scene extents</see></description>
           </item>
           <item>
             <description>Add the block references created at point 3) to the <see cref="!:Design.Entities" /> collection</description>
@@ -30950,8 +31281,8 @@
             <description>Override the <see cref="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">BlockReference.MoveTo()</see> method of the class at point 3) and add the code to move the objects on the GPU</description>
           </item>
           <item>
-            <description>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">BlockReference.IsInFrustum()</see> method of the class at point 3) and return true without calling the base to avoid undesired clipping. 
-            		It might be necessary to override also the <see cref="!:BoundingBox.OverrideSceneExtents">bounding box scene extents</see></description>
+            <description>Override the <see cref="M:devDept.Eyeshot.Entities.Entity.IsInFrustum(devDept.Eyeshot.FrustumParams,devDept.Geometry.Point3D,System.Double)">Entity.IsInFrustum()</see> method of the class at point 3) and return true without calling the base to avoid undesired clipping. 
+            		It might be necessary to override also the <see cref="P:devDept.Eyeshot.BoundingBoxSettings.OverrideSceneExtents">bounding box scene extents</see></description>
           </item>
           <item>
             <description>Add the block references created at point 3) to the <see cref="!:Design.Entities" /> collection</description>
@@ -31214,7 +31545,7 @@
             The <see cref="F:devDept.Eyeshot.CollisionDetection2D.CollisionResult.CollisionItems" /> is filled with the list of the intersection volumes found.
             </summary>
       <returns>The log of the single operation.</returns>
-      <remarks> When the complex volumes computation fails, an easier accessible <see cref="!:intersectionVolumeType" /> data is returned anyway if available.</remarks>
+      <remarks>When the volumes computation fails, a simpler intersection data is returned anyway if available.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.CollisionDetection2D.ComputeOrientedBoundings(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
       <summary>
@@ -35434,7 +35765,7 @@
       <remarks>The orientation of the camera is performed with an animation if <see cref="!:Design.AnimateCamera" /> is true</remarks>
       <remarks>The direction points outside the screen, so the Camera is actually looking in the opposite direction.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Boolean,System.Boolean,System.Int32,System.Boolean)">
+    <member name="M:devDept.Eyeshot.Viewport.SetView(devDept.Geometry.Vector3D,devDept.Geometry.Vector3D,System.Boolean,System.Boolean,System.Int32,System.Boolean,System.Collections.Generic.IList{devDept.Eyeshot.Entities.Entity})">
       <summary>Sets the view direction of the camera to the specified direction.</summary>
       <param name="direction">The new camera direction</param>
       <param name="upVector">The camera up vector</param>
@@ -35442,6 +35773,7 @@
       <param name="animate">If true performs an animation when changing the view</param>
       <param name="margin">Pixels margin from the border, if <paramref name="fit" /> is true</param>
       <param name="selectedOnly">If <paramref name="fit" /> is true, fits only the selected entities</param>
+      <param name="entList">When <paramref name="fit" /> is true, the list of entities to fit.</param>
       <remarks>The direction points outside the screen, so the Camera is actually looking in the opposite direction.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Viewport.RotateCamera(System.Drawing.Point)">
@@ -37417,6 +37749,14 @@
       <seealso cref="P:devDept.Eyeshot.BoundingBoxSettings.OverrideSceneExtents" />
       <seealso cref="P:devDept.Eyeshot.BoundingBoxSettings.Min" />
     </member>
+    <member name="P:devDept.Eyeshot.BoundingBoxSettings.FormatString">
+      <summary>
+            Gets or sets the format string used for the bounding box's label.
+            </summary>
+      <remarks>
+            The supported placeholders are <c>{0}</c>, <c>{1}</c>, <c>{2}</c>, and <c>{3}</c>. They are meant to be used for the bounding box's width, depth, height, and unit of measurement.
+            </remarks>
+    </member>
     <member name="P:devDept.Eyeshot.BoundingBoxSettings.NotApplicableText">
       <summary>
             Gets or sets the text displayed when the <see cref="P:devDept.Eyeshot.Workspace.Entities" /> collection is empty.
@@ -37513,7 +37853,7 @@
       <param name="overrideSceneExtents">IF true, considers the BoundingBox.Min and BoundingBox.Max as the extension of the scene</param>
       <param name="min">Defines the minimum extension of the scene</param>
       <param name="max">Defines the maximum extension of the scene</param>
-      <param name="textSuffix">Text label suffix</param>
+      <param name="formatString">An initializer for the format string used in the bounding box's label.</param>
       <param name="notApplicableText">The text showed when the <see cref="T:devDept.Eyeshot.EntityList" /> is empty.</param>
     </member>
     <member name="M:devDept.Eyeshot.BoundingBoxSettings.Draw(devDept.Eyeshot.Viewport,devDept.Graphics.RenderContextBase,System.Single,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
@@ -40492,7 +40832,7 @@
             </summary>
       <param name="renderContext">The render context</param>
       <param name="drawScale">The drawing scale</param>
-      <remarks>It must be called explicitly only for labels that are not in the <see cref="!:Design.Labels" /> list.</remarks>
+      <remarks>It must be called explicitly only for labels that are not in the <see cref="P:devDept.Eyeshot.Viewport.Labels" /> list.</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Labels.Label.Color">
       <summary>
@@ -40577,6 +40917,12 @@
       <param name="dy">Vertical distance</param>
       <param name="g">Active GDI+ drawing surface</param>
       <param name="scaleFactor">Scale factor</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Labels.Label.ConvertToSurrogate">
+      <summary>
+            Converts the label to its surrogate, for serialization purpose.
+            </summary>
+      <returns>The label surrogate.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Labels.Label.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -40778,7 +41124,12 @@
             Gets or sets the stack alignment method.
             </summary>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Eyeshot.Labels.StackedLabel.Draw(devDept.Graphics.RenderContextBase)" -->
+    <member name="M:devDept.Eyeshot.Labels.StackedLabel.Draw(devDept.Graphics.RenderContextBase)">
+      <summary>
+            Standard draw method.
+            </summary>
+      <param name="renderContext">The render context.</param>
+    </member>
     <member name="T:devDept.Eyeshot.Labels.EqualLabel">
       <summary>
             Equal label.
@@ -40900,6 +41251,18 @@
             </summary>
       <param name="curve">The sketch curve.</param>
       <param name="pointFixedConstraint">the PointFixed constraint.</param>
+    </member>
+    <member name="T:devDept.Eyeshot.Labels.PolygonLabel">
+      <summary>
+            Polygon label.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Labels.PolygonLabel.#ctor(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.PolygonConstraint)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="curve">The sketch curve.</param>
+      <param name="polygonConstraint">The polygon constraint.</param>
     </member>
     <member name="T:devDept.Eyeshot.Labels.TangentLabel">
       <summary>
@@ -42356,7 +42719,7 @@
       <param name="setGraphics">When true, the <see cref="!:devDept.Graphics.RenderContextBase.SetModelView()" /> is called.</param>
       <param name="reflection">When true, reflection is active.</param>
       <param name="cameraEyePos">The camera position</param>
-      <param name="applySceneTransformation">When true, <see cref="M:devDept.Eyeshot.Camera.ApplySceneTransformation" /> is called.</param>
+      <param name="applySceneTransformation">When true, the scene transformation is applied as well.</param>
       <example>
         <code lang="C#"><![CDATA[public class myCamera : devDept.Eyeshot.Camera
                {
@@ -44144,7 +44507,7 @@
     </member>
     <member name="P:devDept.Eyeshot.ObjectManipulator.BallActionMode">
       <summary>
-            Gets or sets the action mode applyed to the orgin sphere of the manipulator. 
+            Gets or sets the action mode applied to the origin sphere of the manipulator. 
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.ObjectManipulator.ObjectManipulatorEventArgs">
@@ -45509,27 +45872,6 @@
             The line weight is treated as pixels
             </summary>
     </member>
-    <member name="T:devDept.Geometry.PointExtender">
-      <summary>Point3D Extender.</summary>
-    </member>
-    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Eyeshot.Entities.ICurve,System.Double)">
-      <summary>
-            Checks if the point is on the specified ICurve.
-            </summary>
-      <param name="curve">The curve to test</param>
-      <param name="maxGap">The maximum accepted distance to consider the point on the curve</param>
-      <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Geometry.PointExtender.IsOnCurve(devDept.Geometry.Point3D,devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Point3D@,System.Double@)">
-      <summary>
-            Checks if the point is on the specified ICurve.
-            </summary>
-      <param name="curve">The curve to test</param>
-      <param name="maxGap">The maximum accepted distance to consider the point on the curve</param>
-      <param name="closestPt">Outputs the closest point on the curve</param>
-      <param name="closestParam">Outputs the parameter along the curve corresponding to the closest point</param>
-      <returns>True if the distance between the point and the curve is smaller than maxGap, false otherwise.</returns>
-    </member>
     <member name="T:devDept.Serialization.AutodeskMiscPropertiesSurrogate">
       <summary>
             Defines the <see cref="T:devDept.Eyeshot.Entities.AutodeskMiscProperties" /> surrogate.
@@ -45637,9 +45979,11 @@
             </summary>
     </member>
     <member name="M:devDept.Serialization.StockSurrogate.ConvertToObject">
+      <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Milling.Stock.#ctor(devDept.Geometry.Entities.GRegion,devDept.Geometry.Interval)" /> constructor to create the object.        
-             </remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Milling.Stock.#ctor(devDept.Serialization.StockSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Milling.Stock" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.SimulationStockSurrogate">
       <summary>
@@ -45762,9 +46106,9 @@
     <member name="M:devDept.Serialization.HatchSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Hatch.#ctor(System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Geometry.Plane)" /> constructor with an empty list. (The <see cref="!:Hatch.ContoursList" /> is filled with the <see cref="M:devDept.Serialization.HatchSurrogate.CopyDataToObject(devDept.Eyeshot.Entities.Entity)" /> method.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> or a <see cref="T:devDept.Eyeshot.Entities.PointCloud" />.
-             </remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Hatch.#ctor(System.String,System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},devDept.Geometry.Plane)" /> constructor with an empty list. (The <see cref="!:Hatch.ContoursList" /> is filled with the <see cref="M:devDept.Serialization.HatchSurrogate.CopyDataToObject(devDept.Eyeshot.Entities.Entity)" /> method.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> or a <see cref="T:devDept.Eyeshot.Entities.PointCloud" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.SketchEntitySurrogate">
       <summary>
@@ -45794,8 +46138,9 @@
     <member name="M:devDept.Serialization.SketchEntitySurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.Sketch" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /></remarks>
+        <para>This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.Sketch" /> constructor to create the object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.HatchPatternLineSurrogate">
       <summary>
@@ -45950,7 +46295,7 @@
     <member name="M:devDept.Serialization.IfcLinearPathSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Translators.IfcLinearPath.#ctor(devDept.Eyeshot.Entities.LinearPath)" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Translators.IfcLinearPath.#ctor(devDept.Serialization.IfcLinearPathSurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.AttributeBaseSurrogate">
@@ -45985,13 +46330,13 @@
     </member>
     <member name="T:devDept.Serialization.AttributeReferenceDataSurrogate">
       <summary>
-            Defines the <see cref="T:devDept.Eyeshot.Entities.AttributeReferenceData" /> surrogate.
+            Defines the surrogate for the internal class AttributeReferenceData.
             </summary>
     </member>
     <member name="M:devDept.Serialization.AttributeReferenceDataSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.AttributeReferenceData.#ctor(devDept.Geometry.Plane,devDept.Geometry.Point3D,System.String,System.Double)" /> constructor to create the object.       
+             This method uses an internal constructor to create the object.       
              </remarks>
     </member>
     <member name="T:devDept.Serialization.AttributeReferenceSurrogate">
@@ -46966,8 +47311,9 @@
     <member name="M:devDept.Serialization.ArcSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Arc.#ctor(devDept.Geometry.Entities.GArc)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Arc.#ctor(devDept.Serialization.ArcSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Arc" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.BarSurrogate">
       <summary>
@@ -47048,8 +47394,9 @@
     <member name="M:devDept.Serialization.CircleSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Circle.#ctor(devDept.Geometry.Entities.GCircle)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Circle.#ctor(devDept.Serialization.CircleSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Circle" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.CompositeCurveSurrogate">
       <summary>
@@ -47073,14 +47420,15 @@
     </member>
     <member name="F:devDept.Serialization.CompositeCurveSurrogate.Primitive">
       <summary>
-            See <see cref="!:GCompositeCurve.Primitive" />.
+            See <see cref="P:devDept.Eyeshot.Entities.CompositeCurve.Primitive" />.
             </summary>
     </member>
     <member name="M:devDept.Serialization.CompositeCurveSurrogate.ConvertToObject">
       <inheritdoc />
-      <remarks>        
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.CompositeCurve.#ctor(System.Collections.Generic.IEnumerable{devDept.Eyeshot.Entities.ICurve},System.Boolean)" /> constructor with the latest param equal to false to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /></remarks>
+      <remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.CompositeCurve.#ctor(devDept.Serialization.CompositeCurveSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.CompositeCurve" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.ConicalBarSurrogate">
       <summary>
@@ -47280,8 +47628,9 @@
     <member name="M:devDept.Serialization.EllipseSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Ellipse.#ctor(devDept.Geometry.Entities.GEllipse)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Ellipse.#ctor(devDept.Serialization.EllipseSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Ellipse" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.EllipticalArcSurrogate">
       <summary>
@@ -47296,8 +47645,9 @@
     <member name="M:devDept.Serialization.EllipticalArcSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.EllipticalArc.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Double,System.Double)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.EllipticalArc.#ctor(devDept.Serialization.EllipticalArcSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.EllipticalArc" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.EntitySurrogate">
       <summary>
@@ -47754,9 +48104,9 @@
     </member>
     <member name="M:devDept.Serialization.LinearPathSurrogate.ConvertToObject">
       <inheritdoc />
-      <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.LinearPath.#ctor(devDept.Geometry.Entities.GLinearPath)" /> constructor to create the object.        
-             </remarks>
+      <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.LinearPath.#ctor(devDept.Serialization.LinearPathSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> object.</para>
+      <para>Whether the tessellation data is missing a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity is created instead.</para>
+      <seealso cref="!:CreateLinearPathOrGhostEntity" />
     </member>
     <!-- Badly formed XML comment ignored for member "M:devDept.Serialization.LinearPathSurrogate.CopyDataFromObject(devDept.Eyeshot.Entities.Entity)" -->
     <member name="T:devDept.Serialization.LineSurrogate">
@@ -47784,7 +48134,7 @@
     <member name="M:devDept.Serialization.LineSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Line.#ctor(devDept.Geometry.Entities.GLine)" /> constructor to create the object.
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.Line.#ctor(devDept.Serialization.LineSurrogate)" /> constructor to create the object.
              </remarks>
     </member>
     <member name="M:devDept.Serialization.LineSurrogate.CopyDataFromObject(devDept.Eyeshot.Entities.Entity)">
@@ -47856,8 +48206,10 @@
     <member name="M:devDept.Serialization.MeshSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Mesh.#ctor(devDept.Geometry.Entities.GMesh)" /> constructor to create the object.        
-             </remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Mesh.#ctor(devDept.Serialization.MeshSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.</para>
+        <para>Whether the tessellation data is missing a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity is created instead.</para>
+      </remarks>
+      <seealso cref="M:devDept.Serialization.MeshSurrogate.CheckSurrogateData(System.String)" />
     </member>
     <member name="T:devDept.Serialization.MultilineTextSurrogate">
       <summary>
@@ -47993,7 +48345,7 @@
     <member name="M:devDept.Serialization.PictureSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Picture.#ctor(devDept.Geometry.Plane,System.Double,System.Double,System.Drawing.Image,System.Boolean)" /> constructor to create the object.        
+             This method uses the <see cref="!:Picture.Picture(Geometry.Plane, double, double, Image)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.PlanarEntitySurrogate">
@@ -48030,7 +48382,7 @@
     <member name="M:devDept.Serialization.PlanarEntitySurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.PlanarEntity.#ctor(devDept.Geometry.Entities.GPlanarEntity)" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.PlanarEntity.#ctor(devDept.Serialization.PlanarEntitySurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.PointCloudSurrogate">
@@ -48066,7 +48418,7 @@
     <member name="M:devDept.Serialization.PointCloudSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="T:devDept.Eyeshot.Entities.PointCloud" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.PointCloud.#ctor(devDept.Serialization.PointCloudSurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.PointSurrogate">
@@ -48092,7 +48444,7 @@
     <member name="M:devDept.Serialization.PointSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Point.#ctor(devDept.Geometry.Entities.GPoint)" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.Point.#ctor(devDept.Serialization.PointSurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.QuadSurrogate">
@@ -48128,7 +48480,7 @@
     <member name="M:devDept.Serialization.QuadSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Quad.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.Quad.#ctor(devDept.Serialization.QuadSurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.RadialDimSurrogate">
@@ -48209,9 +48561,10 @@
     </member>
     <member name="M:devDept.Serialization.RegionSurrogate.ConvertToObject">
       <inheritdoc />
-      <remarks>        
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Region.#ctor(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve})" /> constructor with an empty list. (The <see cref="P:devDept.Eyeshot.Entities.Region.ContourList" /> is filled with the <see cref="M:devDept.Serialization.RegionSurrogate.CopyDataToObject(devDept.Eyeshot.Entities.Entity)" /> method.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+      <remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Region.#ctor(devDept.Serialization.RegionSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Region" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.TableSurrogate">
       <summary>
@@ -48363,7 +48716,7 @@
     <member name="M:devDept.Serialization.TriangleSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Triangle.#ctor(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.Triangle.#ctor(devDept.Serialization.TriangleSurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.DiametricDimSurrogate">
@@ -48510,7 +48863,7 @@
     <member name="M:devDept.Serialization.PortionSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Solid.Portion.#ctor(devDept.Geometry.Entities.GSolid.Portion)" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.Solid.Portion.#ctor(devDept.Serialization.PortionSurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.SolidSurrogate">
@@ -48557,9 +48910,9 @@
     <member name="M:devDept.Serialization.SolidSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="T:devDept.Eyeshot.Entities.Solid" /> constructor to create the object when the content is <see cref="F:devDept.Serialization.contentType.GeometryAndTessellation" /> 
-             and the <see cref="T:devDept.Eyeshot.Entities.Solid" /> constructor when the content is <see cref="F:devDept.Serialization.contentType.Geometry" />
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Solid.#ctor(devDept.Serialization.SolidSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Solid" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.GhostSurrogate">
       <summary>
@@ -48605,8 +48958,9 @@
     <member name="M:devDept.Serialization.ConicalSurfaceSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.ConicalSurface.#ctor(devDept.Geometry.Entities.GConicalSurface)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.ConicalSurface.#ctor(devDept.Serialization.ConicalSurfaceSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.ConicalSurface" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.CylindricalSurfaceSurrogate">
       <summary>
@@ -48626,8 +48980,9 @@
     <member name="M:devDept.Serialization.CylindricalSurfaceSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.CylindricalSurface.#ctor(devDept.Geometry.Entities.GCylindricalSurface)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.CylindricalSurface.#ctor(devDept.Serialization.CylindricalSurfaceSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.CylindricalSurface" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.PlanarSurfaceSurrogate">
       <summary>
@@ -48647,8 +49002,9 @@
     <member name="M:devDept.Serialization.PlanarSurfaceSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.PlanarSurface.#ctor(devDept.Geometry.Entities.GPlanarSurface)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.PlanarSurface.#ctor(devDept.Serialization.PlanarSurfaceSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.PlanarSurface" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.RevolvedSurfaceSurrogate">
       <summary>
@@ -48673,8 +49029,9 @@
     <member name="M:devDept.Serialization.RevolvedSurfaceSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.RevolvedSurface.#ctor(devDept.Geometry.Entities.GRevolvedSurface)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.RevolvedSurface.#ctor(devDept.Serialization.RevolvedSurfaceSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.RevolvedSurface" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.SphericalSurfaceSurrogate">
       <summary>
@@ -48694,8 +49051,9 @@
     <member name="M:devDept.Serialization.SphericalSurfaceSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.SphericalSurface.#ctor(devDept.Geometry.Entities.GSphericalSurface)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.SphericalSurface.#ctor(devDept.Serialization.SphericalSurfaceSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.SphericalSurface" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.TabulatedSurfaceSurrogate">
       <summary>
@@ -48720,8 +49078,9 @@
     <member name="M:devDept.Serialization.TabulatedSurfaceSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.TabulatedSurface.#ctor(devDept.Geometry.Entities.GTabulatedSurface)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.TabulatedSurface.#ctor(devDept.Serialization.TabulatedSurfaceSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.TabulatedSurface" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.ToroidalSurfaceSurrogate">
       <summary>
@@ -48741,8 +49100,9 @@
     <member name="M:devDept.Serialization.ToroidalSurfaceSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.ToroidalSurface.#ctor(devDept.Geometry.Entities.GToroidalSurface)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.ToroidalSurface.#ctor(devDept.Serialization.ToroidalSurfaceSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.ToroidalSurface" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.SurfaceSurrogate">
       <summary>
@@ -48808,8 +49168,9 @@
     <member name="M:devDept.Serialization.SurfaceSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Surface.#ctor(devDept.Geometry.Entities.GSurface)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="!:Surface.Surface(GSurfaceSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Surface" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.CurveSurrogate">
       <summary>
@@ -48828,14 +49189,15 @@
     </member>
     <member name="F:devDept.Serialization.CurveSurrogate.Primitive">
       <summary>
-            See <see cref="!:GCurve.Primitive" />.
+            See <see cref="P:devDept.Eyeshot.Entities.Curve.Primitive" />.
             </summary>
     </member>
     <member name="M:devDept.Serialization.CurveSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.Curve.#ctor(devDept.Geometry.Entities.GCurve)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Curve.#ctor(devDept.Serialization.CurveSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Curve" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.LinearPath" />.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.NurbsBaseSurrogate">
       <summary>
@@ -48920,8 +49282,9 @@
     <member name="M:devDept.Serialization.BrepSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="!:Brep.Brep(Point3D[], Edge[], Face[], Face[][], bool, double)" /> constructor to create the object.
-             When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /></remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Entities.Brep.#ctor(devDept.Serialization.BrepSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Entities.Brep" /> object.</para>
+        <para>When the content is <see cref="F:devDept.Serialization.contentType.Tessellation" /> the resulting object is a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> or a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.IfcBlockReferenceSurrogate">
       <summary>
@@ -49119,8 +49482,9 @@
     <member name="M:devDept.Serialization.IfcMeshSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Translators.IfcMesh.#ctor" /> constructor to create the object.        
-             </remarks>
+        <para>This method uses the <see cref="M:devDept.Eyeshot.Translators.IfcMesh.#ctor(devDept.Serialization.IfcMeshSurrogate)" /> constructor to create the <see cref="T:devDept.Eyeshot.Translators.IfcMesh" /> object.</para>
+        <para>Whether the tessellation data is missing a <see cref="T:devDept.Eyeshot.Entities.Ghost" /> entity is created instead.</para>
+      </remarks>
     </member>
     <member name="T:devDept.Serialization.IfcLayerSurrogate">
       <summary>
@@ -49732,6 +50096,267 @@
       <remarks>
              This method uses the <see cref="M:devDept.Eyeshot.Entities.Toolpath.#ctor(System.Collections.Generic.ICollection{devDept.Eyeshot.Entities.Toolpath.Motion},System.Int32)" /> constructor to create the object.        
              </remarks>
+    </member>
+    <member name="T:devDept.Serialization.LeaderAndTextSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Labels.LeaderAndText" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.LeaderAndTextSurrogate.#ctor(devDept.Eyeshot.Labels.LeaderAndText)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.LeaderAndTextSurrogate.Offset">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.LeaderAndText.Offset" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.LeaderAndTextSurrogate.ConvertToObject">
+      <remarks>
+             This method uses the <see cref="M:devDept.Eyeshot.Labels.LeaderAndText.#ctor(devDept.Geometry.Point3D,System.String,System.Drawing.Font,System.Drawing.Color,devDept.Geometry.Vector2D)" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.OutlinedTextSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Labels.OutlinedText" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.OutlinedTextSurrogate.#ctor(devDept.Eyeshot.Labels.OutlinedText)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.OutlinedTextSurrogate.ConvertToObject">
+      <remarks>
+             This method uses the <see cref="M:devDept.Eyeshot.Labels.OutlinedText.#ctor(devDept.Geometry.Point3D,System.String,System.Drawing.Font,System.Drawing.Color)" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.TextOnlySurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Labels.TextOnly" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.TextOnlySurrogate.#ctor(devDept.Eyeshot.Labels.TextOnly)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.TextOnlySurrogate.Text">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.TextOnly.Text" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.TextOnlySurrogate.Font">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.TextOnly.Font" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.TextOnlySurrogate.Vertical">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.TextOnly.Vertical" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.TextOnlySurrogate.FillColor">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.TextOnly.FillColor" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.TextOnlySurrogate.ColorForSelection">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.TextOnly.ColorForSelection" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.TextOnlySurrogate.FillColorForSelection">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.TextOnly.FillColorForSelection" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.TextOnlySurrogate.CornerRadius">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.TextOnly.CornerRadius" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.TextOnlySurrogate.ConvertToObject">
+      <remarks>
+             This method uses the <see cref="M:devDept.Eyeshot.Labels.TextOnly.#ctor(devDept.Geometry.Point3D,System.String,System.Drawing.Font,System.Drawing.Color)" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.LeaderAndImageSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Labels.LeaderAndImage" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.LeaderAndImageSurrogate.#ctor(devDept.Eyeshot.Labels.LeaderAndImage)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.LeaderAndImageSurrogate.Offset">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.LeaderAndImage.Offset" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.LeaderAndImageSurrogate.ConvertToObject">
+      <remarks>
+             This method uses the <see cref="M:devDept.Eyeshot.Labels.LeaderAndImage.#ctor(devDept.Geometry.Point3D,System.Drawing.Bitmap,System.Drawing.Color,System.Int32,System.Int32,devDept.Geometry.Vector2D)" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.ImageOnlySurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Eyeshot.Labels.ImageOnly" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.ImageOnlySurrogate.#ctor(devDept.Eyeshot.Labels.ImageOnly)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.ImageOnlySurrogate.HotSpot">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.ImageOnly.HotSpot" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.ImageOnlySurrogate.ImageForSelection">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.ImageOnly.ImageForSelection" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.ImageOnlySurrogate.ConvertToObject">
+      <remarks>
+             This method uses the <see cref="M:devDept.Eyeshot.Labels.ImageOnly.#ctor(devDept.Geometry.Point3D,System.Drawing.Bitmap,System.Int32,System.Int32)" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.LabelSurrogate">
+      <summary>
+            Defines the base class for label surrogates.
+            </summary>
+      <remarks>This class is not declared as abstract to handle not supported label.</remarks>
+    </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.#ctor(devDept.Eyeshot.Labels.Label)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.LabelSurrogate.Color">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.Label.Color" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.LabelSurrogate.AnchorPoint">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.Label.AnchorPoint" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.LabelSurrogate.Image">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.Label.Image" />.
+            </summary>
+      <remarks>Stored only for <see cref="T:devDept.Eyeshot.Labels.ImageOnly" /> labels.</remarks>
+    </member>
+    <member name="F:devDept.Serialization.LabelSurrogate.Visible">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.Label.Visible" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.LabelSurrogate.LabelData">
+      <summary>
+            The <see cref="P:devDept.Eyeshot.Labels.Label.LabelData" /> as <see cref="T:devDept.Serialization.ProtoObject" />.
+            </summary>
+      <remarks>ProtoBuf does not support serializing/deserializing object.</remarks>
+      <seealso cref="T:devDept.Serialization.ProtoObject" />
+    </member>
+    <member name="F:devDept.Serialization.LabelSurrogate.Selectable">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.Label.Selectable" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.LabelSurrogate.Alignment">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Labels.Label.Alignment" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.LabelSurrogate.Type">
+      <summary>
+            Gets the label type for logging purpose (Not supported label type, i.e. different Eyeshot editions).        
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.ConvertToObject">
+      <summary>
+            Creates the label related to the surrogate.
+            </summary>
+      <remarks>When this method is called, the <see cref="!:Content" /> field is already initialized.</remarks>
+      <returns>The label created.</returns>
+    </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.CopyDataToObject(devDept.Eyeshot.Labels.Label)">
+      <summary>
+            Copies common data from surrogate to object when reading data.
+            </summary>
+      <remarks>
+        <para>This method is called by <see cref="M:devDept.Serialization.LabelSurrogate.ConvertToObject" /> method after the creation of the object instance.</para>
+        <para>When this method is called, the <see cref="!:Content" /> field is already initialized.</para>
+      </remarks>
+      <seealso cref="M:devDept.Serialization.LabelSurrogate.ConvertToObject" />
+    </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.CopyDataFromObject(devDept.Eyeshot.Labels.Label)">
+      <summary>
+            Copies all data from the object to its surrogate when writing data.
+            </summary>
+      <remarks>
+        <para>Use this method to fill ALL the properties of this surrogate. It is called by the empty constructor to initialize the surrogates properties.</para>
+        <para>Beware, when this method is called, both <see cref="P:devDept.Serialization.Surrogate`1.Version" /> and <see cref="!:Content" /> fields are not initialized yet.</para>
+      </remarks>
+      <seealso cref="M:devDept.Serialization.LabelSurrogate.BeforeSerialize(ProtoBuf.SerializationContext)" />
+    </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.CheckSurrogateData(System.String)">
+      <summary>
+            Integrity check according to the <see cref="T:devDept.Serialization.contentType" />.
+            </summary>
+      <remarks>
+        <para>Use this method to add check/warning messages to the <see cref="P:devDept.Serialization.Surrogate`1.Log" />.</para>
+        <para>During the serialization process, it is called internally before serializing the surrogate.</para>
+        <para>During the deserialization process, you can use it for your custom surrogate checks in <see cref="M:devDept.Serialization.LabelSurrogate.ConvertToObject" /> or in <see cref="M:devDept.Serialization.LabelSurrogate.CopyDataToObject(devDept.Eyeshot.Labels.Label)" /> methods in conjunction with the <see cref="!:Content" />.</para>
+      </remarks>
+      <seealso cref="M:devDept.Serialization.Surrogate`1.WriteLog(System.String)" />.
+            <seealso cref="M:devDept.Serialization.Surrogate`1.ConvertToObject" />.
+            <seealso cref="M:devDept.Serialization.Surrogate`1.CopyDataToObject(`0)" />.
+            <seealso cref="M:devDept.Serialization.Surrogate`1.CopyDataFromObject(`0)" />.  
+            <seealso cref="M:devDept.Serialization.LabelSurrogate.BeforeSerialize(ProtoBuf.SerializationContext)" />.
+            <seealso cref="T:devDept.Eyeshot.Translators.WriteFile" />.
+            <seealso cref="T:devDept.Eyeshot.Translators.ReadFile" />.
+        </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.op_Implicit(devDept.Serialization.LabelSurrogate)~devDept.Eyeshot.Labels.Label">
+      <summary>
+            Converts the surrogate to the related object during the deserialization process.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.op_Implicit(devDept.Eyeshot.Labels.Label)~devDept.Serialization.LabelSurrogate">
+      <summary>
+            Converts the object to the related surrogate during the serialization process.
+            </summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the <see cref="M:devDept.Eyeshot.Labels.Label.ConvertToSurrogate" /> method returns null value.</exception>
+    </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.BeforeDeserialize(ProtoBuf.SerializationContext)">
+      <summary>
+            Called before the object deserialization.
+            </summary>
+      <param name="serializationContext">The serialization context</param>
+      <remarks>
+        <para>The override of this method must always call the base at the beginning.</para>
+        <para>This method initializes the <see cref="!:Content" /> field when reading data.</para>
+      </remarks>
+      <exception cref="T:System.ArgumentException">Thrown when the serialization context is not a valid <see cref="T:devDept.Serialization.FileSerializer" /> object.</exception>
+    </member>
+    <member name="M:devDept.Serialization.LabelSurrogate.BeforeSerialize(ProtoBuf.SerializationContext)">
+      <summary>
+            Called before the object serialization.
+            </summary>
+      <param name="serializationContext">The serialization context</param>
+      <remarks>
+        <para>The override of this method must always call the base at the beginning.</para>
+        <para>This method initializes the <see cref="!:Content" /> field when writing data.</para>
+      </remarks>
+      <exception cref="T:System.ArgumentException">Thrown when the serialization context is not a valid <see cref="T:devDept.Serialization.FileSerializer" /> object.</exception>
     </member>
   </members>
 </doc>

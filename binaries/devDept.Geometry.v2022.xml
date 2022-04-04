@@ -9,6 +9,23 @@
             Collinear constraint (between lines) definition.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.CollinearConstraint.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.PolygonConstraint">
+      <summary>
+            Polygon constraint definition. Constrains a set of disjoint lines to form a regular closed polygon.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.PolygonConstraint.Center">
+      <summary>
+            The polygon center.
+            </summary>
+    </member>
     <member name="T:devDept.Geometry.ConstraintSolver.SketchSpline">
       <summary>
             Sketch spline definition.
@@ -167,6 +184,11 @@
     <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.Construction">
       <summary>
             Wen true, the sketch curve is marked as for construction prupose.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.ClearConstraints">
+      <summary>
+            For internal use only.
             </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.ParentCurve">
@@ -783,9 +805,7 @@
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchPoint.Position">
       <summary>
-            Sets and gets the position of the point relative to Eyeshot
-            world (and not to the sketch plane). This accessor should
-            be used from outside the library instead of <see cref="P:devDept.Geometry.ConstraintSolver.SketchPoint.pos" />.
+            Gets or sets the position of the point in world coordinates (and not related to the sketch plane).
             </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchPoint.PlanePosition">
@@ -868,9 +888,6 @@
       <summary>
             Sketch class definition. Allows to create 2D Sketch with constraints between entities.
             </summary>
-      <summary>
-            Sketch class definition. Allows to create 2D Sketch with constraints between entities.
-            </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.Sketch.RankExcess">
       <summary>
@@ -942,6 +959,16 @@
             </summary>
       <param name="constraint">The constraint</param>
       <returns>True if the constraint is successfully removed; false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraint(devDept.Geometry.ConstraintSolver.Constraint)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddEntity(devDept.Geometry.ConstraintSolver.SketchCurve)">
+      <summary>
+            For internal use only.
+            </summary>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.Sketch.Entities">
       <summary>
@@ -1228,7 +1255,7 @@
       <param name="radius">The circle radius</param>
       <param name="inscribed">When true, the hexagon is inscribed in the construction circle. When false the hexagon side are tangent to the construction circle.</param>
       <param name="center">The construction circle center point</param>
-      <param name="angle">The slot angle in radians from X axis. When zero, the horizontal constraint is added.</param>
+      <param name="angle">The angle of rotation of the polygon with respect its center.</param>
       <returns>The array of hexagon segments.</returns>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddInscribedPolygon(System.Int32,System.Double,System.Boolean,devDept.Geometry.ConstraintSolver.SketchPoint@,System.Double)">
@@ -1239,7 +1266,18 @@
       <param name="radius">The circle radius</param>
       <param name="inscribed">When true, the polygon is inscribed in the construction circle. When false the polygon side are tangent to the construction circle.</param>
       <param name="center">The circle center 2D point</param>
-      <param name="angle">The slot angle in radians from X axis. When zero, the horizontal constraint is added.</param>
+      <param name="angle">The angle of rotation of the polygon with respect its center.</param>
+      <returns>The array of polygon segments.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddPolygon(devDept.Geometry.Point2D,System.Int32,System.Double,System.Double,devDept.Geometry.ConstraintSolver.SketchPoint@)">
+      <summary>
+            Adds a regular polygon of n sides to the sketch.
+            </summary>
+      <param name="center">The polygon center.</param>
+      <param name="sides">The number of sides.</param>
+      <param name="radius">The radius of the circumscribed circle.</param>
+      <param name="angle">The angle of rotation of the polygon with respect its center.</param>
+      <param name="polyCenter">The sketch point representing the polygon center.</param>
       <returns>The array of polygon segments.</returns>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.Solve">
@@ -1488,6 +1526,15 @@
             </param>
       <param name="angle">The desired angle between the lines</param>
       <returns>The newly created angle constraint.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintPolygon(devDept.Geometry.ConstraintSolver.SketchLine[],devDept.Geometry.ConstraintSolver.SketchPoint@)">
+      <summary>
+            Add a polygon constraint between a set of disjoint lines.
+            </summary>
+      <param name="sides">The polygon sides.</param>
+      <param name="polygonCenter">The polygon center.</param>
+      <returns>
+      </returns>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddConstraintParallel(devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve)">
       <summary>
@@ -1905,7 +1952,15 @@
       <param name="radianParameter">The arc radian parameter</param>
       <returns>True if the operation succeeded, false otherwise.</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Entities.GArc.GetRadianFromNurbFormParameter(System.Double,System.Double@,devDept.Geometry.Entities.GCurve)" -->
+    <member name="M:devDept.Geometry.Entities.GArc.GetRadianFromNurbFormParameter(System.Double,System.Double@,devDept.Geometry.Entities.GCurve)">
+      <summary>
+            Converts a Nurbs igCurve arc parameter to an arc radian parameter.
+            </summary>
+      <param name="nurbParameter">The Nurbs igCurve arc parameter</param>
+      <param name="radianParameter">The arc radian parameter </param>
+      <param name="nurbsArc">The arc in Nurbs form</param>
+      <returns>True if the operation succeeded, false otherwise.</returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GArc.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
@@ -2126,7 +2181,6 @@
       <summary>
             Returns the list of igCurves as array of entities.
             </summary>
-      <param name="propagateAttributes">If true, propagates the attributes of the composite igCurve (<see cref="!:GEntity.ColorMethod" />, <see cref="!:Color" />, <see cref="!:GEntity.MaterialName" />, <see cref="!:GEntity.LineTypeMethod" />, <see cref="!:GEntity.LineTypeName" />, <see cref="!:GEntity.LineWeightMethod" />, <see cref="!:GEntity.LineWeight" />) to the exploded igCurves</param>
     </member>
     <member name="M:devDept.Geometry.Entities.GCompositeCurve.GetPointsByLength(System.Double)">
       <summary>
@@ -2795,10 +2849,8 @@
     </member>
     <member name="M:devDept.Geometry.Entities.GEntity.#ctor">
       <summary>
-            Color and nature constructor.
+            Empty constructor.
             </summary>
-      <param name="color">A <see cref="!:Color" /> structure that indicates the color of this entity.</param>
-      <param name="nature">The entity nature</param>
     </member>
     <member name="M:devDept.Geometry.Entities.GEntity.IsValid(devDept.Geometry.Point3D[])">
       <summary>
@@ -2856,18 +2908,12 @@
       <summary>
             Transforms all the entity's vertices by the specified transformation.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="transform">The transformation to be applied</param>
     </member>
     <member name="M:devDept.Geometry.Entities.GEntity.Translate(System.Double,System.Double,System.Double)">
       <summary>
             Translates the entity.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="dx">Amount in X</param>
       <param name="dy">Amount in Y</param>
       <param name="dz">Amount in Z</param>
@@ -2876,18 +2922,12 @@
       <summary>
             Translates the entity.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="v">Displacement vector</param>
     </member>
     <member name="M:devDept.Geometry.Entities.GEntity.Rotate(System.Double,devDept.Geometry.Vector3D)">
       <summary>
             Rotates the entity around an arbitray axis by the specified angle.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="angleInRadians">The angle in radians</param>
       <param name="axis">The rotation axis</param>
     </member>
@@ -2895,9 +2935,6 @@
       <summary>
             Rotates the entity around an arbitrary axis by the specified angle.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="angleInRadians">The angle in radians</param>
       <param name="axis">The rotation axis' direction</param>
       <param name="center">The rotation axis' origin</param>
@@ -2906,9 +2943,6 @@
       <summary>
             Rotates the entity around an arbitray axis by the specified angle.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="angleInRadians">The angle in radians</param>
       <param name="axisStart">The rotation axis' start point</param>
       <param name="axisEnd">The rotation axis' end point</param>
@@ -2917,18 +2951,12 @@
       <summary>
             Scales the entity of the specified scale factor.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="factor">Scale factor</param>
     </member>
     <member name="M:devDept.Geometry.Entities.GEntity.Scale(devDept.Geometry.Point3D,System.Double)">
       <summary>
             Scales the entity of the specified scale factor.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="fixedPoint">Base point</param>
       <param name="factor">Scale factor</param>
     </member>
@@ -2936,9 +2964,6 @@
       <summary>
             Scales the entity of the specified scale factor.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="fixedPoint">Base point</param>
       <param name="sx">Scale factor along X-axis</param>
       <param name="sy">Scale factor along Y-axis</param>
@@ -2948,9 +2973,6 @@
       <summary>
             Scales the entity of the specified scale factor.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="sx">Scale factor along X-axis</param>
       <param name="sy">Scale factor along Y-axis</param>
       <param name="sz">Scale factor along Z-axis</param>
@@ -2959,9 +2981,6 @@
       <summary>
             Scales the entity of the specified scale factor.
             </summary>
-      <remarks>
-            You need to call <see cref="!:EntityList.Regen" /> to see the effect of this command.
-            </remarks>
       <param name="sv">Scale vector</param>
     </member>
     <member name="M:devDept.Geometry.Entities.GEntity.Dump">
@@ -3001,12 +3020,12 @@
     </member>
     <member name="F:devDept.Geometry.Entities.HitTriangle.FaceIndex">
       <summary>
-        <see cref="T:devDept.Geometry.Entities.GBrep.Face" />, <see cref="T:devDept.Geometry.Entities.GSolid.Portion" /> or <see cref="!:Element.Face" /> index.
+        <see cref="T:devDept.Geometry.Entities.GBrep.Face" />, <see cref="T:devDept.Geometry.Entities.GSolid.Portion" /> or <see cref="!:devDept.Eyeshot.Fem.Element.Face" /> index.
             </summary>
     </member>
     <member name="F:devDept.Geometry.Entities.HitTriangle.ShellOrElementIndex">
       <summary>
-            Shell or <see cref="!:Element" /> index.
+            Shell or <see cref="!:devDept.Eyeshot.Fem.Element" /> index.
             </summary>
     </member>
     <member name="T:devDept.Geometry.Entities.IEvaluable">
@@ -3583,7 +3602,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Revolution axis direction</param>
       <param name="center">Revolution axis origin</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">If some entities need to be regenerated, this is the regeneration tolerance (chordal error).</param>
       <returns>The resulting solid object.</returns>
     </member>
@@ -3595,7 +3614,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axisStart">The axis start point</param>
       <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">If some entities need to be regenerated, this is the regeneration tolerance (chordal error).</param>
       <returns>The resulting solid object.</returns>
     </member>
@@ -4123,13 +4142,6 @@
             </summary>
       <param name="pln">The plane</param>
     </member>
-    <member name="M:devDept.Geometry.Entities.GPlanarEntity.#ctor(devDept.Geometry.Plane,System.Single)">
-      <summary>
-            Plane and symbol size constructor.
-            </summary>
-      <param name="pln">The plane</param>
-      <param name="symbolSize">The plane symbol size</param>
-    </member>
     <member name="M:devDept.Geometry.Entities.GPlanarEntity.Update(devDept.Geometry.Entities.GPlanarEntity)">
       <summary>
             Updates the contents of this entity with the contents of another entity.
@@ -4570,11 +4582,19 @@
     </member>
     <member name="M:devDept.Geometry.Entities.GRegion.ConvertToMesh(System.Double,devDept.Geometry.Entities.GMesh.natureType)">
       <summary>
-            Converts this region to a <see cref="T:TriangleNet.Mesh" /> object.
+            Converts this region to a <see cref="T:devDept.Geometry.Entities.GMesh" /> object.
             </summary>
       <param name="deviation">The maximum deviation, zero for current tessellation.</param>
       <param name="meshNature">The desired Mesh nature.</param>
       <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GRegion.ConvertToMesh``1(devDept.Geometry.ComputeTessellationParams,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Converts this region to a <see cref="T:devDept.Geometry.Entities.GMesh" /> object.
+            </summary>
+      <param name="data">The regeneration params</param>
+      <param name="meshNature">The desired GMesh nature.</param>
+      <returns>The resulting GMesh object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GRegion.ConvertToMesh``1(System.Double,devDept.Geometry.Entities.GMesh.natureType)">
       <summary>
@@ -4676,12 +4696,13 @@
             Returns true when the number of contours is bigger than one.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.Entities.GRegion.Triangulate(System.Double,System.Int32)">
+    <member name="M:devDept.Geometry.Entities.GRegion.Triangulate(System.Double,System.Int32,System.Collections.Generic.IList{devDept.Geometry.Entities.GLinearPath})">
       <summary>
             Triangulates this GRegion.
             </summary>
       <param name="elementSize">The desired element size</param>
       <param name="smoothingPasses">The number of smoothing passes</param>
+      <param name="hardEdges">The internal constraint segments, can be null/Nothing.</param>
       <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GRegion.IsPointOnContour(devDept.Geometry.Point3D,System.Double)">
@@ -4849,12 +4870,30 @@
       <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object</param>
       <returns>The resulting Mesh object.</returns>
     </member>
+    <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsMesh(devDept.Geometry.Vector3D,devDept.Geometry.ComputeTessellationParams,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Extrudes a region creating a new <see cref="T:devDept.Geometry.Entities.GMesh" />.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="data">The regeneration params</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsMesh(devDept.Geometry.Vector3D,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
       <summary>
              Extrudes a region creating a new <see cref="T:devDept.Geometry.Entities.GMesh" />.
             </summary>
       <param name="amount">Extrusion amount</param>
       <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsMesh``1(devDept.Geometry.Vector3D,devDept.Geometry.ComputeTessellationParams,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Extrudes a region creating a new <see cref="T:devDept.Geometry.Entities.GMesh" />.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="data">The regeneration params</param>
       <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object</param>
       <returns>The resulting Mesh object.</returns>
     </member>
@@ -4952,12 +4991,28 @@
       <param name="tolerance">The regeneration tolerance</param>
       <returns>The resulting GSolid object.</returns>
     </member>
+    <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsSolid(devDept.Geometry.Vector3D,devDept.Geometry.ComputeTessellationParams)">
+      <summary>
+            Extrudes this region.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="data">The regeneration params</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsSolid``1(devDept.Geometry.Vector3D,System.Double)">
       <summary>
             Extrudes this region.
             </summary>
       <param name="amount">Extrusion amount</param>
       <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GRegion.ExtrudeAsSolid``1(devDept.Geometry.Vector3D,devDept.Geometry.ComputeTessellationParams)">
+      <summary>
+            Extrudes this region.
+            </summary>
+      <param name="amount">Extrusion amount</param>
+      <param name="data">The regeneration params</param>
       <returns>The resulting GSolid object.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GRegion.SweepAsSolid(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
@@ -5112,7 +5167,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axisStart">The axis start point</param>
       <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">The regeneration tolerance</param>
       <returns>The resulting GSolid object.</returns>
     </member>
@@ -5124,7 +5179,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axisStart">The axis start point</param>
       <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">The regeneration tolerance</param>
       <returns>The resulting GSolid object.</returns>
     </member>
@@ -5136,7 +5191,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Axis direction</param>
       <param name="center">Axis start point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">The regeneration tolerance</param>
       <returns>The resulting GSolid object.</returns>
     </member>
@@ -5148,7 +5203,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Axis direction</param>
       <param name="center">Axis start point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">The regeneration tolerance</param>
       <returns>The resulting GSolid object.</returns>
     </member>
@@ -7308,14 +7363,14 @@
             </summary>
       <param name="plane">The plane</param>
       <param name="tol">The tolerance</param>
-      <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Geometry.Entities.IGCurve" /> (that are all <see cref="!:LinearPath" />) belong to. Null if the mesh has octree's data.</param>
+      <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Geometry.Entities.IGCurve" /> (that are all <see cref="T:devDept.Geometry.Entities.GLinearPath" />) belong to. Null if the mesh has octree's data.</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GMesh.Section(devDept.Geometry.PlaneEquation,devDept.Geometry.SharedEdge[][]@)">
       <summary>Computes the contours resulting from the intersection of the GMesh and the given plane.
             </summary>
       <param name="planeEquation">The cutting plane equation</param>
-      <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Geometry.Entities.IGCurve" /> (that are all <see cref="!:LinearPath" />) belong to. Null if the mesh has octree's data.</param>
+      <param name="edges">The shared edges to which the vertices of the returned <see cref="T:devDept.Geometry.Entities.IGCurve" /> (that are all <see cref="T:devDept.Geometry.Entities.GLinearPath" />) belong to. Null if the mesh has octree's data.</param>
       <returns>An array of curves representing each section contour.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GMesh.SplitDisjoint">
@@ -7996,21 +8051,6 @@
       <param name="s">Initial guess on G curve domain</param>
       <param name="distance">The resulting minimum distance</param>
       <returns>True if the operation was successful, false otherwise.</returns>
-    </member>
-    <member name="M:devDept.Geometry.Entities.GCurve.length">
-      <summary>
-            Computes an approximation of the length of the igCurve
-            using a numerical automatic integrator.
-            That integrator uses a Chebyshev Series Expansion
-            to perform its approximation. This is why you can
-            change the value n which sets the number of 
-            elements in the series. 
-            The method is simple, integrate between each span.
-            This is necessary in case the tangent of a point
-            at u_i is undefined. Add the result and return
-            this as the approximation.
-            </summary>
-      <returns>The length of the NURBS igCurve</returns>
     </member>
     <member name="F:devDept.Geometry.Entities.GCurve.seam">
       <summary>
@@ -8853,7 +8893,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axisStart">The axis start point</param>
       <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">GEntity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GSolid" />, this is the conversion tolerance</param>
       <returns>True if the operation is successful, false otherwise.</returns>
     </member>
@@ -8864,7 +8904,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axisStart">The axis start point</param>
       <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">GEntity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GSolid" />, this is the conversion tolerance</param>
       <param name="leftOvers">The other solids that may result from the add operation</param>
       <returns>True if the operation is successful, false otherwise.</returns>
@@ -8876,7 +8916,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Axis direction</param>
       <param name="center">Axis start point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="tolerance">GEntity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GSolid" />, this is the conversion tolerance</param>
       <returns>True if the operation is successful, false otherwise.</returns>
     </member>
@@ -8888,7 +8928,7 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Axis direction</param>
       <param name="center">Axis start point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="!:Utility.NumberOfSegments(double, double, double)" /></param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
       <param name="leftOvers">The other solids that may result from the add operation</param>
       <returns>True if the operation is successful, false otherwise.</returns>
     </member>
@@ -9972,7 +10012,14 @@
       <param name="amount">The extrusion amount interval</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Entities.GBrep.ExtrudeFace(System.Int32,System.Double)" -->
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeFace(System.Int32,System.Double)">
+      <summary>
+             Extrudes the specified Face, overriding the original GBrep.
+             </summary>
+      <param name="faceIndex">the face index</param>
+      <param name="amount">The extrusion amount</param>
+      <remarks>For this operation in particular, the specified face index will be kept along all the ExtrudeFace()(/RevolveFace() subsequent operations to make easier sheet metal part modeling.</remarks>
+    </member>
     <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeFace(System.Int32,devDept.Geometry.Vector3D,System.Double)">
       <summary>
              Extrudes the specified Face, overriding the original GBrep.
@@ -10088,7 +10135,7 @@
     <member name="M:devDept.Geometry.Entities.GBrep.Intersection(devDept.Geometry.Entities.GBrep,devDept.Geometry.Entities.GBrep)">
       <summary>
         <para>Compute the Intersection of the solidA (gray in the sample picture below)
-            with the solidB (blue), and return the resulting array of <see cref="!:Brep" />
+            with the solidB (blue), and return the resulting array of <see cref="T:devDept.Geometry.Entities.GBrep" />
             (green). The returned array may have more than one element if multiple disjoint
             intersections are found.</para>
         <para>
@@ -10098,7 +10145,7 @@
       <param name="solidA">First solid</param>
       <param name="solidB">Second solid</param>
       <returns>
-            An array of <see cref="!:Brep" /> containing the intersections if the operation is
+            An array of <see cref="T:devDept.Geometry.Entities.GBrep" /> containing the intersections if the operation is
             successful. If the operation is successful but no intersections are found, an
             empty array is returned. Otherwise, if due to an error the algorithm fails to
             compute the intersections, null/Nothing is returned.
@@ -10140,8 +10187,31 @@
       <param name="solid">The GBrep entity to mirror</param>
       <returns> The resulting GBrep union between the original input GBrep and the mirrored one.</returns>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Entities.GBrep.MergeAndKeepFaces(devDept.Geometry.Entities.GBrep,devDept.Geometry.Entities.GBrep)" -->
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Entities.GBrep.MergeAndKeepFaces(System.Collections.Generic.IList{devDept.Geometry.Entities.GBrep},devDept.Geometry.Entities.GBrep@)" -->
+    <member name="M:devDept.Geometry.Entities.GBrep.MergeAndKeepFaces(devDept.Geometry.Entities.GBrep,devDept.Geometry.Entities.GBrep)">
+      <summary>
+            Merges two GBrep objects preserving only one copy of duplicated face.
+            </summary>
+      <remarks>
+        <para>Original objects must <b>not</b> intersect and faces must be compatible (equal and opposite).</para>
+        <para>You may need to call <see cref="M:devDept.Geometry.Entities.GBrep.Rebuild(System.Double,System.Boolean)" /> on original objects to rebuild parametric faces.</para>
+      </remarks>
+      <param name="a">The first Brep object</param>
+      <param name="b">The second Brep object</param>
+      <returns>A single GBrep with only one copy of -internal- duplicated faces when successful. Null/Nothing otherwise.</returns>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.Rebuild(System.Double,System.Boolean)" />
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.MergeAndKeepFaces(System.Collections.Generic.IList{devDept.Geometry.Entities.GBrep},devDept.Geometry.Entities.GBrep@)">
+      <summary>
+            Merges two GBrep objects preserving only one copy of duplicated face.
+            </summary>
+      <remarks>
+        <para>Original objects must <b>not</b> intersect and faces must be compatible (equal and opposite).</para>
+        <para>You may need to call <see cref="M:devDept.Geometry.Entities.GBrep.Rebuild(System.Double,System.Boolean)" /> on original objects to rebuild parametric faces.</para>
+      </remarks>
+      <param name="gBreps">The list of BReps to be merged.</param>
+      <param name="merged">The resulting merged Breps.</param>
+      <returns>True if all pieces can be merged into a single Brep.</returns>
+            /// <seealso cref="M:devDept.Geometry.Entities.GBrep.Rebuild(System.Double,System.Boolean)" /></member>
     <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Entities.GBrep.MergeAndKeepFaces(System.Collections.Generic.IList{devDept.Geometry.Entities.GBrep})" -->
     <member name="M:devDept.Geometry.Entities.GBrep.MergeFaces">
       <summary>
@@ -10376,7 +10446,7 @@
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.ConvertToSolid(System.Double,System.Double)">
       <summary>
-            Converts this Brep to <see cref="!:Solid" /> using the specified tolerance.
+            Converts this GBrep to <see cref="T:devDept.Geometry.Entities.GSolid" /> using the specified tolerance.
             </summary>
       <param name="deviation">The maximum deviation, zero for current tessellation.</param>
       <param name="angle">The maximum angular deflection, ignored when zero.</param>
@@ -10695,10 +10765,11 @@
             Flips the face normal.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.Entities.GBrep.Face.GetPlane(System.Boolean)">
+    <member name="M:devDept.Geometry.Entities.GBrep.Face.IsPlanar">
       <summary>
-            For internal use only.
+            Checks if the surface is flat on a Plane and set the found plane internally.
             </summary>
+      <returns>The resulting plane, null/Nothing otherwise.</returns>
     </member>
     <member name="T:devDept.Geometry.Entities.GBrep.Loop">
       <summary>
@@ -12443,11 +12514,11 @@
     </member>
     <member name="M:devDept.Geometry.Entities.GSurface.ConvertToMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType,System.Boolean)">
       <summary>
-            Converts this Surface to a <see cref="!:Mesh" /> object.
+            Converts this Surface to a <see cref="T:devDept.Geometry.Entities.GMesh" /> object.
             </summary>
       <param name="deviation">The maximum deviation, zero for current tessellation.</param>
       <param name="angle">The maximum angular deflection, ignored when zero.</param>
-      <param name="meshNature">The desired Mesh <see cref="!:Mesh.natureType">nature</see></param>
+      <param name="meshNature">The desired Mesh <see cref="T:devDept.Geometry.Entities.GMesh.natureType">nature</see></param>
       <param name="skipEdges">If true, skips the Edges computation</param>
       <returns>The resulting Mesh object.</returns>
     </member>
@@ -12460,7 +12531,7 @@
     </member>
     <member name="M:devDept.Geometry.Entities.GSurface.ConvertToSolid(System.Double,System.Double)">
       <summary>
-            Converts this Surface to a <see cref="!:Mesh" /> object.
+            Converts this Surface to a <see cref="T:devDept.Geometry.Entities.GMesh" /> object.
             </summary>
       <param name="deviation">The maximum deviation, zero for current tessellation.</param>
       <param name="angle">The maximum angular deflection, ignored when zero.</param>
@@ -12765,6 +12836,7 @@
       <summary>
             Associated 3D edge of this trim curve (model space).
             </summary>
+      <remarks>3D edge need to be an individual curve. It cannot be of type <seealso cref="T:devDept.Geometry.Entities.GLinearPath" /> or <seealso cref="T:devDept.Geometry.Entities.GCompositeCurve" />.</remarks>
     </member>
     <member name="M:devDept.Geometry.Entities.GTrimCurve.#ctor(System.Int32,System.Double[],devDept.Geometry.Point4D[],devDept.Geometry.Entities.IGCurve)">
       <summary>
@@ -13276,9 +13348,6 @@
     </member>
     <member name="T:devDept.Geometry.Utility">
       <summary>
-            Contains a collection of utility methods and constants for internal use.
-            </summary>
-      <summary>
             Contains a collection of utility methods and constants.
             </summary>
     </member>
@@ -13588,7 +13657,7 @@
     </member>
     <member name="M:devDept.Geometry.Utility.CreateTriangle(devDept.Geometry.Entities.GMesh.natureType,System.Int32,System.Int32,System.Int32)">
       <summary>
-            Create a triangle according to the <see cref="!:meshNature" />.
+            Create a triangle according to the <paramref name="meshNature" />.
             </summary>
       <param name="meshNature">Nature of the mesh</param>
       <param name="v1">Index of the first triangle vertex</param>
@@ -13598,7 +13667,7 @@
     </member>
     <member name="M:devDept.Geometry.Utility.CreateTriangle(devDept.Geometry.Entities.GMesh.natureType,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
       <summary>
-            Create a triangle according to the <see cref="!:meshNature" />.
+            Create a triangle according to the <paramref name="meshNature" />.
             </summary>
       <param name="meshNature">Nature of the mesh</param>
       <param name="v1">Index of the first triangle vertex</param>
@@ -13611,7 +13680,7 @@
     </member>
     <member name="M:devDept.Geometry.Utility.CreateTriangle(devDept.Geometry.Entities.GMesh.natureType,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
       <summary>
-            Create a triangle according to the <see cref="!:meshNature" />.
+            Create a triangle according to the <paramref name="meshNature" />.
             </summary>
       <param name="meshNature">Nature of the mesh</param>
       <param name="v1">Index of the first triangle vertex</param>
@@ -13627,7 +13696,7 @@
     </member>
     <member name="M:devDept.Geometry.Utility.CreateVertex(devDept.Geometry.Entities.GMesh.natureType,System.Double,System.Double,System.Double)">
       <summary>
-            Create a vertex according to the <see cref="!:meshNature" />.
+            Create a vertex according to the <paramref name="meshNature" />.
             </summary>
       <param name="meshNature">Nature of the mesh</param>
       <param name="x">X coordinate value</param>
@@ -13733,13 +13802,14 @@
       <param name="triangles">The resulting triangulation triangles</param>
       <returns>True if the operation succeeds, false otherwise.</returns>
     </member>
-    <member name="M:devDept.Geometry.Utility.Triangulate(devDept.Geometry.Entities.GRegion,System.Double,System.Int32)">
+    <member name="M:devDept.Geometry.Utility.Triangulate(devDept.Geometry.Entities.GRegion,System.Double,System.Int32,System.Collections.Generic.IList{devDept.Geometry.Entities.GLinearPath})">
       <summary>
             Triangulates (meshes) the specified GRegion.
             </summary>
       <param name="region">The region to be meshed</param>
       <param name="elementSize">The desired element size</param>
       <param name="smoothingPasses">The number of smoothing passes</param>
+      <param name="hardEdges">The internal constraint segments as a list of linear paths, can be null/Nothing.</param>
       <returns>The resulting Mesh object, null/Nothing in case of failure.</returns>
     </member>
     <member name="M:devDept.Geometry.Utility.Triangulate(System.Collections.Generic.IList{devDept.Geometry.Point3D},devDept.Geometry.Entities.GMesh.natureType)">
@@ -13803,6 +13873,16 @@
             For Internal use only.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.Utility.AreCurvesEqualsOrOpposite(devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,System.Boolean,System.Boolean)">
+      <summary>
+            For internal use only.
+            </summary>
+      <param name="first">first curve to check</param>
+      <param name="second">second curve to check</param>
+      <param name="checkOpposite">when true it checks if the curve are opposite, when false checks if the curve are equal with the same direction.</param>
+      <param name="anyDir">When true, it ignores the param checkOpposite and both directions are valid.</param>
+      <returns>Returns true if the curves are equal.</returns>
+    </member>
     <member name="M:devDept.Geometry.Utility.RefineLoop(devDept.Geometry.Point2D[])">
       <summary>
             For internal use only.
@@ -13863,7 +13943,70 @@
             The tangent gLines are directed from the point toward the GCircle. 
             </remarks>
     </member>
-    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.Utility.GetLinesTangentToCircleFromPoint(devDept.Geometry.Entities.GCircle,devDept.Geometry.Point3D)" -->
+    <member name="M:devDept.Geometry.Utility.GetLinesTangentToCircleFromPoint(devDept.Geometry.Entities.GCircle,devDept.Geometry.Point3D)">
+      <summary>
+            Computes the tangent gLines from a point to a GCircle. 
+            </summary>
+      <param name="c"> The GCircle.</param>
+      <param name="pt"> The point on the GCircle's plane and outside it. </param>
+      <returns> Returns a GLine-type array of length 2 containing the tangent gLines from the point to the GCircle.
+            A Null array if the point is inside the GCircle or if the point does not lie on the GCircle's plane.
+            </returns>
+      <remarks>
+            For arcs, it returns even the tangent gLine that do not touch the arc. For a different result use <see cref="M:devDept.Geometry.Utility.GetLinesTangentToCircleFromPoint(devDept.Geometry.Entities.GCircle,devDept.Geometry.Point3D,devDept.Geometry.Entities.GLine[]@)" />.
+            The tangent gLines are directed from the point toward the GCircle. 
+            </remarks>
+    </member>
+    <member name="M:devDept.Geometry.Utility.TetrahedronVolume(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Computes the volume of a tetrahedron from its vertices' coordinates.
+            </summary>
+      <remarks>
+            The order used to specify the vertices does not matter.
+            </remarks>
+      <returns>The computed value of the volume.</returns>
+      <param name="p1">The first vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p2">The second vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p3">The third vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p4">The fourth vertex's coordinates. It is assumed to be non-null.</param>
+    </member>
+    <member name="M:devDept.Geometry.Utility.PentahedronVolume(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Computes the volume of a pentahedron from its vertices' coordinates.
+            </summary>
+      <remarks>
+        <paramref name="p1" />, <paramref name="p2" />, and <paramref name="p3" /> are the vertices of one of the two bases,
+            while <paramref name="p4" />, <paramref name="p5" />, and <paramref name="p6" /> are the vertices of the other one,
+            respectively linked to <paramref name="p1" />, <paramref name="p2" />, and <paramref name="p3" />.
+            </remarks>
+      <returns>The computed value of the volume.</returns>
+      <param name="p1">The first vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p2">The second vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p3">The third vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p4">The fourth vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p5">The fifth vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p6">The sixth vertex's coordinates. It is assumed to be non-null.</param>
+    </member>
+    <member name="M:devDept.Geometry.Utility.HexahedronVolume(devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Computes the volume of a hexahedron from its vertices' coordinates.
+            </summary>
+      <returns>The computed value of the volume.</returns>
+      <remarks>
+        <paramref name="p1" />, <paramref name="p2" />, <paramref name="p3" />, and <paramref name="p4" /> are the vertices of one
+            of the two bases (either in clockwise or counterclockwise order), while <paramref name="p5" />, <paramref name="p6" />,
+            <paramref name="p7" />, and <paramref name="p8" /> are the vertices of the other one, respectively linked to
+            <paramref name="p1" />, <paramref name="p2" />, <paramref name="p3" />, and <paramref name="p4" />.
+            </remarks>
+      <param name="p1">The first vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p2">The second vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p3">The third vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p4">The fourth vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p5">The fifth vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p6">The sixth vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p7">The seventh vertex's coordinates. It is assumed to be non-null.</param>
+      <param name="p8">The eighth vertex's coordinates. It is assumed to be non-null.</param>
+    </member>
     <member name="M:devDept.Geometry.Utility.MakeFace(devDept.Geometry.Plane,System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{System.Collections.Generic.IList{System.Int32}},System.Collections.Generic.IList{devDept.Geometry.Point3D})">
       <summary>
             Triangulates the specific region.
@@ -20783,6 +20926,14 @@
       <param name="vKnotVector">Knot vector in the V parametric direction</param>
       <param name="ctrlPoints">GSurface control points</param>
     </member>
+    <member name="M:devDept.Geometry.NurbsSurf.IsPlanar(System.Double,devDept.Geometry.Plane@)">
+      <summary>
+            Checks if the surface is planar.
+            </summary>
+      <param name="tol">The tolerance</param>
+      <param name="plane">The surface plane</param>
+      <returns>True if the surface is planar within tolerance, false otherwise.</returns>
+    </member>
     <member name="T:devDept.Geometry.PlanarSurf">
       <summary>
             Analytic planar gSurface definition.
@@ -20975,13 +21126,13 @@
     </member>
     <member name="F:devDept.Serialization.AngleConstraintSurrogate.Supplementary">
       <summary>
-            See <see cref="P:devDept.Geometry.ConstraintSolver.AngleConstraint.Supplementary" />.
+            An internal field.
             </summary>
     </member>
     <member name="M:devDept.Serialization.AngleConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.AngleConstraint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses an internal constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.CollinearPointsConstraintSurrogate">
@@ -20997,7 +21148,7 @@
     <member name="M:devDept.Serialization.CollinearPointsConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="!:CollinearPointsConstraint.CollinearPoints(sketchInternal)" /> constructor to create the object.
+             This method uses an internal constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.CollinearConstraintSurrogate">
@@ -21029,7 +21180,7 @@
     <member name="M:devDept.Serialization.ConcentricCirclesDistanceConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.ConcentricCirclesDistanceConstraint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses an internal constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.ConstraintSurrogate">
@@ -21044,7 +21195,8 @@
     </member>
     <member name="F:devDept.Serialization.ConstraintSurrogate.Ids">
       <summary>
-            See <see cref="F:devDept.Geometry.ConstraintSolver.Constraint._ids" /></summary>
+            An internal field.
+            </summary>
     </member>
     <member name="F:devDept.Serialization.ConstraintSurrogate.Visible">
       <summary>
@@ -21063,7 +21215,7 @@
     <member name="M:devDept.Serialization.DiameterConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="!:DiameterConstraint.Diameter(SketchInternal)" /> constructor to create the object.
+             This method uses an internal constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.EqualConstraintSurrogate">
@@ -21080,6 +21232,27 @@
       <inheritdoc />
       <remarks>
              This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.EqualConstraint" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.PolygonConstraintSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.PolygonConstraint" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.PolygonConstraintSurrogate.#ctor(devDept.Geometry.ConstraintSolver.PolygonConstraint)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.PolygonConstraintSurrogate.Center">
+      <summary>
+            See <see cref="F:devDept.Geometry.ConstraintSolver.PolygonConstraint.Center" />. 
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.PolygonConstraintSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses an internal constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.SketchSurrogate">
@@ -21378,7 +21551,7 @@
     <member name="M:devDept.Serialization.CoincidentConstraintSurrogate.ConvertToObject">
       <inheritdoc />
       <remarks>
-             This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.CoincidentConstraint.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.
+             This method uses an internal constructor to create the object.
              </remarks>
     </member>
     <member name="T:devDept.Serialization.PointsDistanceConstraintSurrogate">
