@@ -7,7 +7,7 @@ open Fake.NuGetHelper
 let assemblyPattern = "*.dll"
 let nugetSpecFilePath = "devDept.Eyeshot.nuspec"
 
-let assemblyFile = FindFirstMatchingFile assemblyPattern "binaries"
+let assemblyFile = FindFirstMatchingFile assemblyPattern @"binaries\net472"
 let version = GetAssemblyVersionString assemblyFile
 
 TeamCityHelper.SetBuildNumber version
