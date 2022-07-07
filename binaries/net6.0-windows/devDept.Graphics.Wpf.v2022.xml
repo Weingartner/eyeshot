@@ -4206,6 +4206,13 @@
             Gets the texture unit where the Texture is applied.
             </summary>
     </member>
+    <member name="M:devDept.Graphics.TextureBase.BitmapFromColors(System.Drawing.Color[])">
+      <summary>
+            Returns a bitmap with a single row of pixels of the specified color array.
+            </summary>
+      <param name="colorTable">The color array</param>
+      <returns>The resulting Bitmap.</returns>
+    </member>
     <member name="M:devDept.Graphics.TextureBase.AllocateMemory(devDept.Graphics.RenderContextBase,System.Boolean,System.Int32,System.Int32,devDept.Graphics.textureFilteringFunctionType,devDept.Graphics.textureFilteringFunctionType,System.Boolean,System.Boolean,System.IntPtr,System.Boolean)">
       <summary>
             Allocates memory for a texture.

@@ -4491,6 +4491,11 @@
             GRegion entity definition. By convention the first contour in the list is the outer and has counterclockwise orientation. Inners are oriented clockwise.
             </summary>
     </member>
+    <member name="T:devDept.Geometry.Entities.GRegion.booleanOperationType">
+      <summary>
+            The GRegion boolean operation type used.
+            </summary>
+    </member>
     <member name="P:devDept.Geometry.Entities.GRegion.ContourList">
       <summary>
             Gets o sets the list of contours inside the region.
@@ -7698,7 +7703,7 @@
       <summary>
             Test a curve to see if the locus of its points is a gLine segment.
             </summary>
-      <param name="tolerance">The tolerance</param>
+      <param name="tol">The tolerance</param>
       <param name="line">The gLine where the curve lays</param>
       <returns>True if the ends of the curve are farther than tolerance apart
             and the maximum distance from any point on the curve to
@@ -18530,7 +18535,7 @@
             Defines a point in homogeneous coordinates. 
             </summary>
     </member>
-    <member name="P:devDept.Geometry.Point4D.W">
+    <member name="F:devDept.Geometry.Point4D.W">
       <summary>
             W term.
             </summary>
@@ -19073,6 +19078,11 @@
       <param name="y0">The Y value of start point</param>
       <param name="x1">The X value of end point</param>
       <param name="y1">The Y value of end point</param>
+    </member>
+    <member name="P:devDept.Geometry.Segment2D.LengthSquared">
+      <summary>
+            Gets the 2D segment length squared.
+            </summary>
     </member>
     <member name="M:devDept.Geometry.Segment2D.Clone">
       <summary>
@@ -23079,7 +23089,7 @@
     </member>
     <member name="F:devDept.Serialization.Point4DSurrogate.W">
       <summary>
-            See <see cref="P:devDept.Geometry.Point4D.W" />.
+            See <see cref="F:devDept.Geometry.Point4D.W" />.
             </summary>
     </member>
     <member name="M:devDept.Serialization.Point4DSurrogate.ConvertToObject">

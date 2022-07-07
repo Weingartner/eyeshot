@@ -25992,6 +25992,7 @@
             Returns a copy of the specified <see cref="T:devDept.Eyeshot.Entities.Region" /> transformed by setup inverse matrix.
             </summary>
       <param name="reg">The region</param>
+      <param name="setup">The machining setup</param>
       <returns>The transformed region object.</returns>
     </member>
     <member name="T:devDept.Eyeshot.Milling.Machining3D">
@@ -32190,6 +32191,30 @@
             Sets the display mode to Shaded.
             </summary>
     </member>
+    <member name="F:devDept.Eyeshot.UIAutomation.Actions.GetShadowMode">
+      <summary>
+            Gets the current ShadowMode.
+            </summary>
+      <remarks> Only meaningful for Shaded and Rendered display modes. </remarks>
+    </member>
+    <member name="F:devDept.Eyeshot.UIAutomation.Actions.SetShadowModeRealistic">
+      <summary>
+            Sets the ShadowMode to Realistic.
+            </summary>
+      <remarks> Only affects Shaded and Rendered display modes. </remarks>
+    </member>
+    <member name="F:devDept.Eyeshot.UIAutomation.Actions.SetShadowModePlanar">
+      <summary>
+            Sets the ShadowMode to Planar.
+            </summary>
+      <remarks> Only affects Shaded and Rendered display modes. </remarks>
+    </member>
+    <member name="F:devDept.Eyeshot.UIAutomation.Actions.SetShadowModeNone">
+      <summary>
+            Sets the ShadowMode to None.
+            </summary>
+      <remarks> Only affects Shaded and Rendered display modes. </remarks>
+    </member>
     <member name="F:devDept.Eyeshot.UIAutomation.Actions.GetActionMode">
       <summary>
             Gets the action mode.
@@ -32780,6 +32805,21 @@
     <member name="F:devDept.Eyeshot.UIAutomation.Actions.SetSmallSizeRatioPerc5">
       <summary>
             Set SmallSizeRatioMoving value to 5% of the shortest viewport's dimension.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.UIAutomation.Actions.SetColorDynamic0xFFFF4500">
+      <summary>
+            Sets SelectionColorDynamic to 0xFFFF4500 (ARGB).
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.UIAutomation.Actions.SetColorDynamic0x50FF4500">
+      <summary>
+            Sets SelectionColorDynamic to 0x50FF4500 (ARGB).
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.UIAutomation.Actions.GetColorDynamic">
+      <summary>
+            Gets a string representing the current value (hex) of SelectionColorDynamic (ARGB).
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.UIAutomation.Actions.EnableTurbo">
@@ -40959,6 +40999,7 @@
             </summary>
       <param name="sender">The source of the event</param>
       <param name="e">The event data</param>
+      <remarks>When the event is marked as Handled, no built-in behaviors take place.</remarks>
     </member>
     <member name="E:devDept.Eyeshot.ToolBarButton.Click">
       <summary>
