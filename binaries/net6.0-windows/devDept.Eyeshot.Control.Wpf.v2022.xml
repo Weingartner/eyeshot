@@ -9,6 +9,12 @@
             Blocks collection.
             </summary>
     </member>
+    <member name="F:devDept.Eyeshot.BlockKeyedCollection.DefaultRootBlockName">
+      <summary>
+            The default name used for the root block. 
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.BlockKeyedCollection.Clear(System.Boolean)" />
+    </member>
     <member name="M:devDept.Eyeshot.BlockKeyedCollection.#ctor">
       <summary>
             Standard constructor.
@@ -29,10 +35,11 @@
       <summary>
             Clears this collection.
             </summary>
-      <param name="addRootBlock">When true the collection is initialized with the "Default" root block.</param>
+      <param name="addRootBlock">When true the collection is initialized with the default root block.</param>
       <remarks>        
             When the collection is linked to a Workspace the root block is always added.
             </remarks>
+      <seealso cref="F:devDept.Eyeshot.BlockKeyedCollection.DefaultRootBlockName" />
     </member>
     <member name="T:devDept.Eyeshot.BlockKeyedCollection`1">
       <summary>
@@ -2206,6 +2213,11 @@
             Sketch entity definition.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.SketchEntity.Sketch">
+      <summary>
+            Gets the geometric sketch of the entity.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Entities.SketchEntity.CurveList">
       <summary>
             Gets the sketch curve list.
@@ -2216,11 +2228,16 @@
             Gets the sketch point list.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.SketchEntity.SketchCurves">
+      <summary>
+            Gets the geometrical sketch curves.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.#ctor(devDept.Geometry.ConstraintSolver.Sketch)">
       <summary>
             Standard constructor.
             </summary>
-      <param name="gSketch">The geometrical sketch.</param>
+      <param name="sketch">The geometrical sketch.</param>
     </member>
     <member name="P:devDept.Eyeshot.Entities.SketchEntity.Plane">
       <summary>Gets or sets the planar entity supporting plane.</summary>
@@ -2308,53 +2325,71 @@
     </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
       <summary>
-            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> along plane's Z-axis.
+            Extrudes a sketch creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> along plane's Z-axis.
             </summary>
-      <param name="amount">Extrusion amount</param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsMesh``1(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
       <summary>
-            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> along plane's Z-axis.
+            Extrudes a sketch creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> along plane's Z-axis.
             </summary>
-      <param name="amount">Extrusion amount</param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsMesh(devDept.Geometry.Vector3D,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
       <summary>
-             Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
+             Extrudes a sketch creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
             </summary>
-      <param name="amount">Extrusion amount</param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsMesh``1(devDept.Geometry.Vector3D,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
       <summary>
-             Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
+             Extrudes a sketch creating a new <see cref="T:devDept.Eyeshot.Entities.Mesh" />.
             </summary>
-      <param name="amount">Extrusion amount</param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSurface(devDept.Geometry.Vector3D)">
       <summary>
-            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Surface" />.
+            Extrudes a sketch creating a new <see cref="T:devDept.Eyeshot.Entities.Surface" />.
             </summary>
-      <param name="amount">Extrusion amount</param>
+      <param name="amount">Extrusion amount.</param>
       <returns>&gt;The resulting Surface array.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSurface(System.Double)">
       <summary>
-            Extrudes a region creating a new <see cref="T:devDept.Eyeshot.Entities.Surface" />.
+            Extrudes a sketch creating a new <see cref="T:devDept.Eyeshot.Entities.Surface" />.
             </summary>
-      <param name="amount">Extrusion amount</param>
+      <param name="amount">Extrusion amount.</param>
       <returns>&gt;The resulting Surface array.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSurface(devDept.Geometry.Vector3D,System.Double,System.Double)">
+      <summary>
+            Extrudes a sketch creating a new <see cref="T:devDept.Eyeshot.Entities.Surface" />.
+            </summary>
+      <param name="amount">Extrusion direction.</param>
+      <param name="draftAngleInRadians">Angle of draft in radians.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting Surface array.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsSurface(System.Double,System.Double,System.Double)">
+      <summary>
+            Extrudes a sketch creating a new <see cref="T:devDept.Eyeshot.Entities.Surface" />.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">Angle of draft in radians.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting Surface array.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.ExtrudeAsBrep(System.Double,System.Double,System.Double)">
       <summary>
@@ -2435,6 +2470,228 @@
       <param name="tolerance">The regeneration tolerance</param>
       <returns>The resulting Solid object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh``1(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh``1(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>The resulting GSurface array object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <returns>The resulting GSurface array object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="tolerance">the regeneration tolerance.</param>
+      <returns>The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="deltaAngle">Revolution angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="tolerance">the regeneration tolerance.</param>
+      <returns>The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="tolerance">the regeneration tolerance.</param>
+      <returns>The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid``1(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid``1(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsSurface(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Creates a surface by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <returns>The resulting Surface array.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsBrep(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Creates a <see cref="T:devDept.Eyeshot.Entities.Brep" /> by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <returns>The resulting Brep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsBrep(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Creates a <see cref="T:devDept.Eyeshot.Entities.Brep" /> by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <returns>The resulting Brep object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="natureType">The desired mesh nature.</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsMesh``1(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="natureType">The desired mesh nature.</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsMesh(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="natureType">The desired mesh nature.</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsMesh``1(devDept.Eyeshot.Entities.ICurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="natureType">The desired mesh nature.</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.SweepAsSolid(devDept.Eyeshot.Entities.ICurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
       <summary>
             Sweeps this region along the provided trajectory.
@@ -2473,158 +2730,6 @@
       </param>
       <param name="sweepMethod">
       </param>
-      <returns>The resulting Solid object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
-      <summary>
-             Revolves this region around an axis.
-             </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axisStart">The axis start point</param>
-      <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
-      <returns>The resulting Mesh object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh``1(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
-      <summary>
-             Revolves this region around an axis.
-             </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axisStart">The axis start point</param>
-      <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
-      <returns>The resulting Mesh object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
-      <summary>
-             Revolves this region around an axis.
-             </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
-      <returns>The resulting Mesh object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsMesh``1(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
-      <summary>
-             Revolves this region around an axis.
-             </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <param name="meshNature">Entity region needs to be converted to <see cref="T:devDept.Eyeshot.Entities.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object</param>
-      <returns>The resulting Mesh object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
-      <summary>
-            Revolves this region around an axis.
-            </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <returns>The resulting Surface array object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
-      <summary>
-            Revolves this region around an axis.
-            </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axisStart">The axis start point</param>
-      <param name="axisEnd">The axis end point</param>
-      <returns>The resulting Surface array object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double)">
-      <summary>
-            Revolves this region around an axis.
-            </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <param name="tolerance">the regeneration tolerance</param>
-      <returns>The resulting Brep object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double)">
-      <summary>
-            Revolves this region around an axis.
-            </summary>
-      <param name="deltaAngle">Revolution angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <param name="tolerance">the regeneration tolerance</param>
-      <returns>The resulting Brep object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
-      <summary>
-            Revolves this region around an axis.
-            </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axisStart">The axis start point</param>
-      <param name="axisEnd">The axis end point</param>
-      <param name="tolerance">the regeneration tolerance</param>
-      <returns>The resulting Brep object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
-      <summary>
-             Revolves this region around an axis.
-             </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axisStart">The axis start point</param>
-      <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <returns>The resulting Solid object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid``1(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
-      <summary>
-             Revolves this region around an axis.
-             </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axisStart">The axis start point</param>
-      <param name="axisEnd">The axis end point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <returns>The resulting Solid object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
-      <summary>
-             Revolves this region around an axis.
-             </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
-      <returns>The resulting Solid object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Entities.SketchEntity.RevolveAsSolid``1(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
-      <summary>
-             Revolves this region around an axis.
-             </summary>
-      <param name="startAngle">Revolution start angle in radians</param>
-      <param name="deltaAngle">Revolution delta angle in radians</param>
-      <param name="axis">Axis direction</param>
-      <param name="center">Axis start point</param>
-      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" /></param>
-      <param name="tolerance">The regeneration tolerance</param>
       <returns>The resulting Solid object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.SketchEntity.IsAnySketchPointSelected">
@@ -6197,6 +6302,12 @@
       <param name="feed">Feed rate</param>
       <param name="codeLine">Full code line</param>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Toolpath.Motion.CopyFrom(devDept.Eyeshot.Entities.Toolpath.Motion)">
+      <summary>
+            Copies all attributes from the specified motion into this motion (code, speed, feed, etc.).
+            </summary>
+      <param name="another">The motion to copy from.</param>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Toolpath.Motion.Clone">
       <summary>
             Creates a deep copy of this motion.
@@ -8292,6 +8403,33 @@
       <param name="angleInRadians">The draft angle in radians</param>
       <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemove(devDept.Eyeshot.Entities.SketchEntity,System.Double)">
+      <summary>
+            Extrudes the specified sketch and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemove(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the specified sketch and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemove(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double)">
+      <summary>
+            Extrudes the specified sketch with a draft angle and removes it from the original Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original Brep object.
@@ -8724,6 +8862,438 @@
       <param name="number">Number of instances</param>
       <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="axis">Circular pattern axis.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="axis">Circular pattern axis.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="axis">Circular pattern axis.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAddPattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="axis">Circular pattern axis.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="axis">The circular pattern axis.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="axis">The circular pattern axis.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="axis">The circular pattern axis.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeRemovePattern(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="axis">The circular pattern axis.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAdd(devDept.Eyeshot.Entities.Region,System.Double)">
       <summary>
             Extrudes the specified region, overriding the original Brep with the result of the cut and adds it to the original Brep object.
@@ -8750,6 +9320,32 @@
       <param name="amount">The extrusion amount interval</param>
       <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAdd(devDept.Eyeshot.Entities.SketchEntity,System.Double)">
+      <summary>
+            Extrudes the specified sketch, overriding the original Brep with the result of the cut and adds it to the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAdd(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double)">
+      <summary>
+            Extrudes the specified sketch and adds it to the original Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeAdd(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the specified sketch and adds it to the original Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount interval.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeIntersect(devDept.Eyeshot.Entities.Region,System.Double)">
       <summary>
              Extrudes the specified region and intersects it with the original Brep object.
@@ -8773,6 +9369,34 @@
             Extrudes the specified region and intersects it with the original Brep object.
             </summary>
       <param name="reg">The region</param>
+      <param name="amount">The extrusion amount interval</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeIntersect(devDept.Eyeshot.Entities.SketchEntity,System.Double)">
+      <summary>
+             Extrudes the specified sketch and intersects it with the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeIntersect(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double)">
+      <summary>
+            Extrudes the specified region and intersects it with the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.ExtrudeIntersect(devDept.Eyeshot.Entities.SketchEntity,devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the specified region and intersects it with the original Brep object.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology(devDept.Eyeshot.Entities.Brep@)"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
       <param name="amount">The extrusion amount interval</param>
       <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
     </member>
@@ -8834,6 +9458,27 @@
       <param name="center">Axis start point</param>
       <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.RevolveRemove(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and removes it from the Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="angle">Revolution angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.RevolveRemove(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and removes it from the Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.RevolveAdd(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
       <summary>
             Revolves the specified region and adds it to the Brep object.
@@ -8853,6 +9498,27 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Axis direction</param>
       <param name="center">Axis start point</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.RevolveAdd(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and adds it to the Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="angle">Revolution angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.RevolveAdd(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and adds it to the Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
       <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.RevolveIntersect(devDept.Eyeshot.Entities.Region,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
@@ -8875,6 +9541,87 @@
       <param name="axis">Axis direction</param>
       <param name="center">Axis start point</param>
       <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.RevolveIntersect(devDept.Eyeshot.Entities.SketchEntity,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and intersects it with the Brep.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="angle">Revolution angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.RevolveIntersect(devDept.Eyeshot.Entities.SketchEntity,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified region and intersects it to the Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the Brep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.SweepAdd(devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and adds it to the original Brep object.
+            </summary>
+      <param name="reg">The region.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.SweepAdd(devDept.Eyeshot.Entities.SketchEntity,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and adds it to the original Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.SweepIntersect(devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and intersects it with the original Brep object.
+            </summary>
+      <param name="reg">The region.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.SweepIntersect(devDept.Eyeshot.Entities.SketchEntity,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and intersects it with the original Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.SweepRemove(devDept.Eyeshot.Entities.Region,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and removes it from the original Brep object.
+            </summary>
+      <param name="reg">The region.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Brep.SweepRemove(devDept.Eyeshot.Entities.SketchEntity,devDept.Eyeshot.Entities.ICurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and removes it from the original Brep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Brep.Remove(devDept.Eyeshot.Entities.Brep[])">
       <summary>
@@ -10667,6 +11414,17 @@
       <param name="deviation">The maximum deviation, zero for current tessellation.</param>
       <param name="angle">The maximum angular deflection, ignored when zero.</param>
       <param name="meshNature">The desired Mesh <see cref="T:devDept.Geometry.Entities.GMesh.natureType">nature</see></param>
+      <param name="weld">Ignored, the resulting mesh has no duplicated points.</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.ConvertToMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType,System.Boolean,System.Boolean)">
+      <summary>
+            Converts this Surface to a <see cref="T:devDept.Eyeshot.Entities.Mesh" /> object.
+            </summary>
+      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="angle">The maximum angular deflection, ignored when zero.</param>
+      <param name="meshNature">The desired Mesh <see cref="T:devDept.Geometry.Entities.GMesh.natureType">nature</see></param>
+      <param name="weld">Ignored, the resulting mesh has no duplicated points.</param>
       <param name="skipEdges">If true, skips the Edges computation</param>
       <returns>The resulting Mesh object.</returns>
     </member>
@@ -19205,6 +19963,9 @@
       <summary>
             Class Manager that handles the synchronization between the eyeshot entities and the Sketch entities.
             </summary>
+      <summary>
+            Class Manager that handles the synchronization between the eyeshot entities and the Sketch entities.
+            </summary>
     </member>
     <member name="T:devDept.Eyeshot.SketchManager.zoomFitType">
       <summary>
@@ -19342,11 +20103,6 @@
             Gets or sets the color used to display construction curves during the Sketch editing.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.SketchManager.ProjectedCurvesColor">
-      <summary>
-            Gets or sets the color used to display the curve that are been projected from an existing edge.
-            </summary>
-    </member>
     <member name="P:devDept.Eyeshot.SketchManager.HoveringColor">
       <summary>
             Gets or sets the color used to display the entities when the mouse is over a constraint label.
@@ -19423,6 +20179,14 @@
       <remarks> The region is drawn only if it is valid.</remarks>
       <seealso cref="P:devDept.Eyeshot.SketchManager.FilledRegionColor" />
     </member>
+    <member name="M:devDept.Eyeshot.SketchManager.IsFixed(devDept.Eyeshot.Entities.Entity)">
+      <summary>
+            Tells if the curve is fixed.
+            </summary>
+      <param name="entity">The entity.</param>
+      <returns>True if the entity is fixed, false otherwise.</returns>
+      <remarks>When the entity is fixed, it is ignored when solving the equation system.</remarks>
+    </member>
     <member name="P:devDept.Eyeshot.SketchManager.AnimateCamera">
       <summary>
              When true, animates the camera when the <see cref="M:devDept.Eyeshot.Design.EditSketch(devDept.Eyeshot.Entities.SketchEntity)" /> or <see cref="M:devDept.Eyeshot.SketchManager.EditExit(System.Boolean)" /> methods are called.
@@ -19462,7 +20226,17 @@
             Disables the edge selection for the current Brep
             </summary>
     </member>
+    <member name="T:devDept.Eyeshot.SketchManager.exitType">
+      <summary>
+            It represents what to do when exiting the sketch.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.SketchManager.EditExit(System.Boolean)">
+      <summary>
+            Exits and regenerates and compiles the sketch entity.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.EditExit(devDept.Eyeshot.SketchManager.exitType)">
       <summary>
             Exits and regenerates and compiles the sketch entity.
             </summary>
@@ -19471,6 +20245,30 @@
       <summary>
             Returns the collection of the redundant constraints of the active sketch.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.Map``1(devDept.Eyeshot.Entities.Entity)">
+      <summary>
+            Maps the given graphical entity to its geometrical counterpart (Eyeshot -&gt;
+            Sketch). Throws an exception if the geometrical counterpart does not exist or if it is
+            not of the specified type.
+            </summary>
+      <typeparam name="T">The type required for the sketch entity</typeparam>
+      <param name="ent">Eyeshot entity to map</param>
+      <returns>
+            The sketch entity.
+            </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.Map``1(devDept.Geometry.ConstraintSolver.SketchCurve)">
+      <summary>
+            Maps the given geometrical entity to its graphical counterpart (Sketch -&gt;
+            Eyeshot). Throws an exception if the graphical counterpart does not exist or if it is
+            not of the specified type.
+            </summary>
+      <typeparam name="T">The type required for the eyeshot entity</typeparam>
+      <param name="ent">Sketch entity to map</param>
+      <returns>
+            The graphical entity.
+            </returns>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.DisplayConstraintEntities(devDept.Eyeshot.Labels.StackedLabel)">
       <summary>
@@ -19504,6 +20302,24 @@
             </summary>
       <param name="stackedLabel">The constraint label.</param>
       <returns>The array containing the entities associated with the constraint label.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.StartPoint(devDept.Eyeshot.Entities.EllipticalArc)">
+      <summary>
+            Returns the start point of the specified elliptical arc.
+            </summary>
+      <param name="ellipticalArc">The elliptical arc.</param>
+      <returns>
+            The <see cref="T:devDept.Eyeshot.Entities.Point" /> entity linked to the start point of the elliptical arc.
+            </returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.EndPoint(devDept.Eyeshot.Entities.EllipticalArc)">
+      <summary>
+            Returns the end point of the specified elliptical arc.
+            </summary>
+      <param name="ellipticalArc">The elliptical arc</param>
+      <returns>
+            The <see cref="T:devDept.Eyeshot.Entities.Point" /> entity linked to the end point of the elliptical arc.
+            </returns>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.StartPoint(devDept.Eyeshot.Entities.Arc)">
       <summary>
@@ -19658,12 +20474,20 @@
       <param name="end">The end point.</param>
       <returns>The newly added line.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.SketchManager.FixEntity(devDept.Eyeshot.Entities.Entity,System.Boolean)">
+      <summary>
+            Fix the entity and its children.
+            </summary>
+      <param name="ent">The entity to fix.</param>
+      <param name="fix">When true, the entity is ignored when solving the equation system.</param>
+    </member>
     <member name="M:devDept.Eyeshot.SketchManager.ProjectCurve(devDept.Geometry.Entities.IGCurve,System.Boolean)">
       <summary>
-            Project the selected edge into the sketch and updates and invalidates the sketch.
+            Project the given IGCurve into the sketch.
             </summary>
-      <param name="igcurve">The curve.</param>
-      <returns>The projected entities</returns>
+      <param name="igcurve">The iGCurve </param>
+      <param name="fix">when true, the entity is fixed.</param>
+      <returns>The projected ICurve array.</returns>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.AddLine(devDept.Eyeshot.Entities.Line)">
       <summary>
@@ -19723,6 +20547,13 @@
             </summary>
       <param name="point">
       </param>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.AddEllipticalArc(devDept.Eyeshot.Entities.EllipticalArc)">
+      <summary>
+            Adds the elliptical arc to the sketch.
+            </summary>
+      <param name="ellipticalArc">The elliptical arc.</param>
+      <returns>the four quadrant points of the elliptical arc.</returns>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.AddArc(devDept.Eyeshot.Entities.Arc)">
       <summary>
@@ -20157,6 +20988,30 @@
             Occurs when the SketchManager enters in the edit mode.
             </summary>
     </member>
+    <member name="T:devDept.Eyeshot.SketchManager.SketchCurveLinkedEventHandler">
+      <summary>
+            Represents the method that will handle the <see cref="E:devDept.Eyeshot.SketchManager.SketchCurveLinked" /> event.
+            </summary>
+      <param name="source">The source of the event.</param>
+      <param name="e">An object that contains the event data.</param>
+    </member>
+    <member name="E:devDept.Eyeshot.SketchManager.SketchCurveLinked">
+      <summary>
+            Occurs when the SketchManager links a new SketchCurve with its graphical representation into the current editing sketch.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.SketchManager.SketchCurveDeletedEventHandler">
+      <summary>
+            Represents the method that will handle the <see cref="E:devDept.Eyeshot.SketchManager.SketchCurveDeleted" /> event.
+            </summary>
+      <param name="source">The source of the event.</param>
+      <param name="e">An object that contains the event data.</param>
+    </member>
+    <member name="E:devDept.Eyeshot.SketchManager.SketchCurveDeleted">
+      <summary>
+            Occurs when the SketchManager links a new SketchCurve with its graphical representation into the current editing sketch.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.SketchManager.AddPolygon(devDept.Geometry.Point2D,System.Double,System.Int32,devDept.Eyeshot.Entities.Point@,devDept.Eyeshot.Entities.Point@,System.Double)">
       <summary>
             Adds a regular polygon to the sketch.
@@ -20167,6 +21022,30 @@
       <param name="polygonCenter">The polygon center.</param>
       <param name="angle">The angle of rotation of the polygon with respect its center.</param>
       <returns>The array of lines representing the polygon.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.IsValid(devDept.Geometry.ConstraintSolver.Constraint)">
+      <summary>
+            Tells if the constraint is consistent with the others sketch constraints.
+            </summary>
+      <param name="constraint">The constraint.</param>
+      <returns>True if the constraint is consistent with the others sketch constraints,false otherwise.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.TrimPreview(System.Drawing.Point,System.Collections.Generic.List{devDept.Eyeshot.Entities.Entity}@)">
+      <summary>
+            Generates the entities that would be created due to trim
+            </summary>
+      <param name="mousePos">The mouse position.</param>
+      <param name="leftOvers">The entities.</param>
+      <returns>True if successful, false otherwise.</returns>
+      <remarks>Trims only non-construction curves.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.Trim(System.Drawing.Point)">
+      <summary>
+            Trims the entity under the mouse cursor at its intersection points.
+            </summary>
+      <param name="mousePos">The mouse position.</param>
+      <returns>True if successful, false otherwise.</returns>
+      <remarks>Trims only non-construction curves.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.SolveEventArgs">
       <summary>
@@ -25387,7 +26266,8 @@
             the less points the faster the process is, the more points the more precise the
             algorithm is in attaching the leads. In most cases, a lollipop approximation
             (that can be achieved by invoking <see cref="M:devDept.Eyeshot.Milling.LeadBase.BuildAsLollipop(System.Double,System.Double)" />) is enough to
-            obtain satisfactory results.
+            obtain satisfactory results. When <see cref="P:devDept.Eyeshot.Milling.LeadBase.InterPoints" /> is an empty array,
+            intersections are not computed and the lead can always be attached to the stroke.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Milling.LeadBase.Init(System.Double)">
@@ -25923,6 +26803,15 @@
       <param name="name">The plane name</param>
       <returns>A <see cref="T:devDept.Eyeshot.Milling.MachiningPlane" /> object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Milling.Machining.AppendLine(devDept.Eyeshot.Entities.Line,System.Double,devDept.Eyeshot.Entities.Region,System.Collections.Generic.List{System.Collections.Generic.IList{devDept.Eyeshot.Entities.Line}})">
+      <summary>
+            Adds a 2D segment and trims it according to the specified region.
+            </summary>
+      <param name="line">The line</param>
+      <param name="zh">Z height</param>
+      <param name="reg">The machining region</param>
+      <param name="lnList">The list of resulting trimmed lines</param>
+    </member>
     <member name="M:devDept.Eyeshot.Milling.Machining.GetDefaultHelixRampRadius(devDept.Eyeshot.Milling.EndMill)">
       <summary>
             Computes the default helix ramp radius based on tool diameter.
@@ -26283,6 +27172,165 @@
             Prepares geometry for <see cref="T:devDept.Eyeshot.Milling.Machining3D">3D machining</see> operations.
             </summary>
     </member>
+    <member name="T:devDept.Eyeshot.Milling.Project3D">
+      <summary>
+        <para>Project class definition.</para>
+        <para>Project is a finishing strategy that allows you to machine along contours
+            with the center of the tool. The provided contours are always projected onto the surface
+            and therefore do not have to be on the surface. By default, the tip of the tool follows along
+            the surface. The tool is moved into the surface by either entering an axial offset or a
+            negative stock to leave.</para>
+      </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Milling.Project3D.vertLeadAmount">
+      <summary>
+            The vertical lead amount.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.Project3D.ContactOnly">
+      <summary>
+            Controls whether or not toolpaths are generated where the tool is not in contact with the machining surface. When disabled, toolpaths are extended to the limits of the containment boundary and across openings in the workpiece.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.Project3D.StayDownDistance">
+      <summary>
+            Gets or sets the maximum stay down distance.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double)">
+      <summary>
+            List of <see cref="T:devDept.Geometry.Point3D" /> constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="pattern">The pattern as a list of <see cref="T:devDept.Geometry.Point3D" /></param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double,System.Double)">
+      <summary>
+            List of <see cref="T:devDept.Geometry.Point3D" /> and bottom plane constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="pattern">The pattern as a list of <see cref="T:devDept.Geometry.Point3D" /></param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+      <param name="zLow">The bottom plane Z height</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.LinearPath,System.Double)">
+      <summary>
+            LinearPath constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="pattern">The pattern as a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> entity</param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.LinearPath,System.Double,System.Double)">
+      <summary>
+            LinearPath and bottom plane constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="pattern">The pattern as a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> entity</param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+      <param name="zLow">The bottom plane Z height</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Double)">
+      <summary>
+            List of list of <see cref="T:devDept.Geometry.Point3D" /> constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="pattern">The list of strokes to be projected</param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Double,System.Double)">
+      <summary>
+            List of list of <see cref="T:devDept.Geometry.Point3D" /> and bottom plane constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="pattern">The pattern as a list of list of <see cref="T:devDept.Geometry.Point3D" /></param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+      <param name="zLow">The bottom plane Z height</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double)">
+      <summary>
+            List of <see cref="T:devDept.Geometry.Point3D" /> and boundary region constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="boundary">The tool containment region</param>
+      <param name="pattern">The pattern as a list of <see cref="T:devDept.Geometry.Point3D" /></param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double,System.Double)">
+      <summary>
+            List of <see cref="T:devDept.Geometry.Point3D" />, boundary region and bottom plane constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="boundary">The tool containment region</param>
+      <param name="pattern">The pattern as a list of <see cref="T:devDept.Geometry.Point3D" /></param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+      <param name="zLow">The bottom plane Z height</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Double)">
+      <summary>
+            List of list of <see cref="T:devDept.Geometry.Point3D" /> and boundary region constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="boundary">The tool containment region</param>
+      <param name="pattern">The pattern as a list of list of <see cref="T:devDept.Geometry.Point3D" /></param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Double,System.Double)">
+      <summary>
+            List of list of <see cref="T:devDept.Geometry.Point3D" />, boundary region and bottom plane constructor.
+            </summary>
+      <param name="setup">The machining setup</param>
+      <param name="cutter">The end mill</param>
+      <param name="geometry">The machining geometry</param>
+      <param name="boundary">The tool containment region</param>
+      <param name="verticalLeadAmount">The vertical lead distance</param>
+      <param name="pattern">The pattern as a list of list of <see cref="T:devDept.Geometry.Point3D" /></param>
+      <param name="zLow">The bottom plane Z height</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.GetRawPasses(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs,System.Int32[]@,devDept.Eyeshot.Entities.Region[]@)">
+      <summary>
+            Gives the chance to overriders to get raw passes data.
+            </summary>
+      <param name="worker">
+      </param>
+      <param name="doWorkEventArgs">
+      </param>
+      <param name="startIndices">
+      </param>
+      <param name="actualRegions">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.Project3D.ProjectingLinksText">
+      <summary>
+            Gets or sets the "Projecting links..." text string.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Milling.Project3D.InitRangeZ(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.Geometry3D,System.Double)">
+      <summary>
+            Default Z range for parallel with Z low specified.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.Milling.Parallel3D">
       <summary>
         <para>Parallel finish class definition.</para>
@@ -26294,16 +27342,6 @@
     <member name="F:devDept.Eyeshot.Milling.Parallel3D.angle">
       <summary>
             Pass angle in radians, zero means along X axis.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Milling.Parallel3D.ContactOnly">
-      <summary>
-            Controls whether or not toolpaths are generated where the tool is not in contact with the machining surface. When disabled, toolpaths are extended to the limits of the containment boundary and across openings in the workpiece.
-            </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Milling.Parallel3D.StayDownDistance">
-      <summary>
-            Gets or sets the maximum stay down distance.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,System.Double,System.Double,System.Double)">
@@ -26353,26 +27391,6 @@
       <param name="angleInRadians">The passes angle in radians</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
       <param name="zLow">The bottom plane Z height</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Milling.Parallel3D.GetRawPasses(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs,System.Int32[]@,devDept.Eyeshot.Entities.Region[]@)">
-      <summary>
-            Gives the chance to overriders to get raw passes data.
-            </summary>
-      <param name="worker">
-      </param>
-      <param name="doWorkEventArgs">
-      </param>
-      <param name="startIndices">
-      </param>
-      <param name="actualRegions">
-      </param>
-      <returns>
-      </returns>
-    </member>
-    <member name="P:devDept.Eyeshot.Milling.Parallel3D.ProjectingLinksText">
-      <summary>
-            Gets or sets the "Projecting links..." text string.
-            </summary>
     </member>
     <member name="T:devDept.Eyeshot.Translators.ReadGCode">
       <summary>
@@ -36581,13 +37599,6 @@
             </summary>
       <seealso cref="P:devDept.Eyeshot.HiddenLinesView.Regions" />
     </member>
-    <member name="M:devDept.Eyeshot.HiddenLinesViewSettings.ScaleTrianglesToWorld(System.Collections.Generic.IList{devDept.Eyeshot.SilhoWireAndTriangleData},System.Single)">
-      <summary>
-            Scales the computed lines to world coordinates and applies an extra scale factor.
-            </summary>
-      <param name="scale">The extra scale factor applied to the lines once they are converted to world coordinates.</param>
-      <remarks>The <see cref="P:devDept.Eyeshot.HiddenLinesViewSettings.Camera" /> ProjectionMode must be <see cref="F:devDept.Graphics.projectionType.Orthographic" /> to convert the lines to world.</remarks>
-    </member>
     <member name="T:devDept.Eyeshot.ViewCubeIcon">
       <summary>View Cube icon settings. This user interface element will never be added to images and printouts.</summary>
     </member>
@@ -40555,7 +41566,7 @@
     </member>
     <member name="P:devDept.Eyeshot.HiddenLinesView.HdlText.RectangleText">
       <summary>
-            Gets the rectangle surrounding the text.
+            Gets the rectangle surrounding the text. See also <seealso cref="M:devDept.Eyeshot.HiddenLinesView.HdlText.GetAngle" />.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.HiddenLinesView.HdlText.IsFlipped">
@@ -40566,6 +41577,12 @@
       <remarks>
             This is relevant for radial, diametrical and angular dimensions.
             </remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.HiddenLinesView.HdlText.GetAngle">
+      <summary>
+            Returns the rotation angle (in degrees) of the rectangle enclosing the text.
+            </summary>
+      <returns>The angle.</returns>
     </member>
     <member name="T:devDept.Eyeshot.HiddenLinesView.HdlPicture">
       <summary>
@@ -40707,7 +41724,15 @@
             </summary>
       <param name="scale">The extra scale factor applied to the lines once they are converted to world coordinates.</param>
       <remarks>The <see cref="T:devDept.Eyeshot.Camera" /> ProjectionMode must be <see cref="F:devDept.Graphics.projectionType.Orthographic" /> to convert the lines to world.</remarks>
-      <seealso cref="!:ViewToWorldConversion" />
+      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.ViewToWorldConversion" />
+    </member>
+    <member name="M:devDept.Eyeshot.HiddenLinesView.ScaleTrianglesToWorld(System.Single)">
+      <summary>
+            Scales the computed triangles to world coordinates and applies an extra scale factor.
+            </summary>
+      <param name="scale">The extra scale factor applied to the lines once they are converted to world coordinates.</param>
+      <remarks>The <see cref="T:devDept.Eyeshot.Camera" /> ProjectionMode must be <see cref="F:devDept.Graphics.projectionType.Orthographic" /> to convert the lines to world.</remarks>
+      <seealso cref="M:devDept.Eyeshot.HiddenLinesViewSettings.ViewToWorldConversion" />
     </member>
     <member name="F:devDept.Eyeshot.HiddenLinesView.HdlViewSettings">
       <summary>
@@ -41276,6 +42301,26 @@
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.ShareToolBarButton.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.UndoToolBarButton">
+      <summary>
+            The UndoToolBarButton default class.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.UndoToolBarButton.#ctor">
+      <summary>
+            Empty constructor.
+            </summary>
+    </member>
+    <member name="T:devDept.Eyeshot.RedoToolBarButton">
+      <summary>
+            The RedoToolBarButton default class.
+            </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.RedoToolBarButton.#ctor">
       <summary>
             Empty constructor.
             </summary>
@@ -42956,6 +44001,16 @@
     </member>
     <member name="M:devDept.Eyeshot.Block.SetKey(System.String)">
       <inheritdoc />
+    </member>
+    <member name="F:devDept.Eyeshot.Block.DefaultUnits">
+      <summary>
+            The default <see cref="T:devDept.Geometry.linearUnitsType" /> used when a new Block is created. 
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Block.DefaultMassUnits">
+      <summary>
+            The default <see cref="T:devDept.Geometry.massUnitsType" /> used when a new Block is created. 
+            </summary>
     </member>
     <member name="P:devDept.Eyeshot.Block.IsResolved">
       <summary>If true, the block is resolved. In DWG/DXF import the Block could be defined as an external reference (XRef), when true it was successfully located.</summary>
@@ -45866,6 +46921,17 @@
              Draws a preview of the radial dimension for the specific circle.
             </summary>
       <param name="workSpace">The workspace.</param>
+      <param name="circle">The circle. The dimension is considered to be lying in its plane.</param>
+      <param name="mouseLocation">The mouse location.</param>
+      <param name="previewDrawParams">The preview parameters.</param>
+      <returns>The radial dimension.</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.DrawRadialDimPreview(devDept.Eyeshot.Workspace,devDept.Geometry.Plane,devDept.Eyeshot.Entities.Circle,System.Drawing.Point,devDept.Eyeshot.DimensionPreviewDrawParams)">
+      <summary>
+             Draws a preview of the radial dimension for the specific circle.
+            </summary>
+      <param name="workSpace">The workspace.</param>
+      <param name="dimPlane">The plane in which the dimension lies.</param>
       <param name="circle">The circle.</param>
       <param name="mouseLocation">The mouse location.</param>
       <param name="previewDrawParams">The preview parameters.</param>
@@ -45876,7 +46942,18 @@
              Draws a preview of the diametric dimension for the specific circle.
             </summary>
       <param name="workSpace">The workspace.</param>
+      <param name="circle">The circle. The dimension is considered to be lying in its plane.</param>
+      <param name="mouseLocation">The mouse location.</param>
+      <param name="previewDrawParams">The preview parameters.</param>
+      <returns>The diametric dimension</returns>
+    </member>
+    <member name="M:devDept.Geometry.UtilityEx.DrawDiametricDimPreview(devDept.Eyeshot.Workspace,devDept.Geometry.Plane,devDept.Eyeshot.Entities.Circle,System.Drawing.Point,devDept.Eyeshot.DimensionPreviewDrawParams)">
+      <summary>
+             Draws a preview of the diametric dimension for the specific circle.
+            </summary>
+      <param name="workSpace">The workspace.</param>
       <param name="circle">The circle.</param>
+      <param name="dimPlane">The plane in which the dimension lies.</param>
       <param name="mouseLocation">The mouse location.</param>
       <param name="previewDrawParams">The preview parameters.</param>
       <returns>The diametric dimension</returns>
@@ -46864,9 +47941,9 @@
             Standard constructor.
             </summary>
     </member>
-    <member name="F:devDept.Serialization.SketchEntitySurrogate.GSketch">
+    <member name="F:devDept.Serialization.SketchEntitySurrogate.Sketch">
       <summary>
-            See <see cref="F:devDept.Eyeshot.Entities.SketchEntity.gSketch" />.
+            See <see cref="P:devDept.Eyeshot.Entities.SketchEntity.Sketch" />.
             </summary>
     </member>
     <member name="F:devDept.Serialization.SketchEntitySurrogate.Vertices">
@@ -50011,6 +51088,11 @@
     <member name="F:devDept.Serialization.BrepSurrogate.Primitive">
       <summary>
             See <see cref="P:devDept.Eyeshot.Entities.Brep.Primitive" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.BrepSurrogate.GraphicalEdges">
+      <summary>
+            Graphical edges.
             </summary>
     </member>
     <member name="F:devDept.Serialization.BrepSurrogate.TessellationFaces">

@@ -26,24 +26,19 @@
             The polygon center.
             </summary>
     </member>
-    <member name="T:devDept.Geometry.ConstraintSolver.SketchSpline">
+    <member name="T:devDept.Geometry.ConstraintSolver.Entities.SketchEllipticalArc">
       <summary>
-            Sketch spline definition.
+            Sketch elliptical arc definition.
             </summary>
     </member>
-    <member name="F:devDept.Geometry.ConstraintSolver.SketchSpline.ControlPoints">
-      <summary>
-            Gets or sets the curve control point array.
-            </summary>
-    </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchSpline.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Entities.SketchEllipticalArc.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
             </summary>
       <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
       <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
-    <member name="M:devDept.Geometry.ConstraintSolver.SketchSpline.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+    <member name="M:devDept.Geometry.ConstraintSolver.Entities.SketchEllipticalArc.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
             </summary>
@@ -176,10 +171,16 @@
             Base class for all sketch entities.
             </summary>
     </member>
-    <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.Projected">
+    <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.Fixed">
       <summary>
-            True when the curve is the projection of an existing edge of a Brep.
+            When true, the sketch curve is fixed. 
             </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.SketchCurve.SketchCurveData">
+      <summary>
+            It holds custom information about the sketch curve.
+            </summary>
+      <remarks>It is not serialized.</remarks>
     </member>
     <member name="P:devDept.Geometry.ConstraintSolver.SketchCurve.Construction">
       <summary>
@@ -211,12 +212,44 @@
             Gets the sketch entity type.
             </summary>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.IntersectWith(devDept.Geometry.ConstraintSolver.SketchCurve)">
+      <summary>
+             Finds all 3D points where the sketch curve intersects another given sketch curve.
+            </summary>
+      <param name="skCurve">The other curve</param>
+      <returns>The intersection points array.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.GetGeometricEntity">
+      <summary>
+            For internal use only
+            </summary>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.PointAt(System.Double)">
       <summary>
             Evaluates a point on the sketch entity.
             </summary>
       <param name="t">Evaluation parameters</param>
       <returns>The point on the entity.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.AddChild``1(``0)">
+      <summary>
+            For internal use only
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.GetLinkedCurves">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.AddLinkedCurve``1(``0)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.DeleteLinkedCurve(devDept.Geometry.ConstraintSolver.SketchCurve)">
+      <summary>
+            For internal use only.
+            </summary>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.TangentAt(System.Double)">
       <summary>
@@ -653,6 +686,16 @@
             Tangent constraint definition.
             </summary>
     </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.TangentConstraint.FirstParam">
+      <summary>
+            Gets the parameter on the first sketch curve.
+            </summary>
+    </member>
+    <member name="P:devDept.Geometry.ConstraintSolver.TangentConstraint.SecondParam">
+      <summary>
+            Gets the parameter on the second sketch curve.
+            </summary>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.TangentConstraint.GetTangentParameters(System.Double@,System.Double@)">
       <summary>
             Gets the two parameters of the tangent point on the respective curve.
@@ -869,6 +912,11 @@
             Ellipse.
             </summary>
     </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.IEntityType.EllipticalArc">
+      <summary>
+            EllipticalArc.
+            </summary>
+    </member>
     <member name="T:devDept.Geometry.ConstraintSolver.ISketchCurve">
       <summary>
             Common properties of sketch curve entities.
@@ -1014,6 +1062,11 @@
       <exception cref="T:System.ArgumentException">Thrown when the provided list is not of the
             required size.</exception>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddSpline(devDept.Geometry.Entities.GCurve,devDept.Geometry.ConstraintSolver.SketchPoint,System.Boolean)">
+      <summary>
+            For internal use only
+            </summary>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddRoundedRectangle(System.Double,System.Double,System.Double,System.Double,System.Double)">
       <summary>
             Adds a rounded rectangle to the sketch, with width, height and radius constraints.
@@ -1105,6 +1158,19 @@
       <param name="length">The line length</param>
       <returns>The resulting construction line.</returns>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddEllipticalArc(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Double,System.Double,System.Boolean)">
+      <summary>
+            Adds an elliptical arc to the sketch.
+            </summary>
+      <param name="center">The arc center</param>
+      <param name="startPoint">The arc start </param>
+      <param name="endPoint">The arc center</param>
+      <param name="rx">The arc x radius</param>
+      <param name="ry">The arc y radius</param>
+      <param name="construction">When true, the arc is added as a construction sketch entity.</param>
+      <returns>
+      </returns>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddArc(System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean,System.Boolean)">
       <summary>
             Adds an arc to the sketch.
@@ -1117,6 +1183,46 @@
       <param name="radConstraint">When true, the radius constraint is added.</param>
       <param name="construction">When true, the arc is added as a construction sketch entity.</param>
       <returns>The resulting sketch arc entity.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddLine(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.Point2D)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddLine(devDept.Geometry.Point2D,devDept.Geometry.ConstraintSolver.SketchPoint)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddEllipticalArc(devDept.Geometry.ConstraintSolver.SketchEllipse,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddEllipticalArc(devDept.Geometry.ConstraintSolver.SketchEllipse,devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.Point2D)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddEllipticalArc(devDept.Geometry.ConstraintSolver.SketchEllipse,devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.ConstraintSolver.SketchPoint)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddArc(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.Point2D,devDept.Geometry.Point2D)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddArc(devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.ConstraintSolver.SketchPoint,devDept.Geometry.Point2D)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddArc(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.ConstraintSolver.SketchPoint)">
+      <summary>
+            For internal use only.
+            </summary>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddArc(devDept.Geometry.Point2D,devDept.Geometry.Point2D,devDept.Geometry.Point2D,System.Boolean)">
       <summary>
@@ -1163,6 +1269,20 @@
       <param name="rx">The radius X.</param>
       <param name="ry">The radius Y.</param>
       <returns>The resulting SketchEllipse</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ProjectEllipticalArc(devDept.Geometry.Entities.GEllipticalArc)">
+      <summary>
+            Projects the gElliptical arc inside the sketch.
+            </summary>
+      <param name="gEllipticalArc">The gEllipticalArc.</param>
+      <returns>the projected sketch elliptical arc.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ProjectEllipse(devDept.Geometry.Entities.GEllipse)">
+      <summary>
+            Projects the elliptical arc inside the sketch.
+            </summary>
+      <param name="gEllipse">The gEllipse.</param>
+      <returns>The projected sketch ellipse.</returns>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.AddCircle(System.Double,System.Double,System.Double,System.Boolean,System.Boolean)">
       <summary>
@@ -1322,6 +1442,435 @@
             </summary>
       <param name="content">The string content as XML</param>
       <seealso cref="M:devDept.Geometry.ConstraintSolver.Sketch.WriteToString" />
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSurface(devDept.Geometry.Vector3D)">
+      <summary>
+            Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GSurface" />.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <returns>&gt;The resulting GSurface array.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSurface(System.Double)">
+      <summary>
+            Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GSurface" />.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <returns>&gt;The resulting GSurface array.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSurface(devDept.Geometry.Vector3D,System.Double,System.Double)">
+      <summary>
+            Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GSurface" />.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSurface array.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSurface(System.Double,System.Double,System.Double)">
+      <summary>
+            Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GSurface" />.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSurface array.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsBrep(System.Double,System.Double,System.Double)">
+      <summary>
+            Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GBrep" />.
+            </summary>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>&gt;The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsBrep(devDept.Geometry.Interval,System.Double,System.Double)">
+      <summary>
+            Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GBrep" />.
+            </summary>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>&gt;The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsBrep(devDept.Geometry.Vector3D,System.Double,System.Double)">
+      <summary>
+            Extrudes the sketch to create a new <see cref="T:devDept.Geometry.Entities.GBrep" />.
+            </summary>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>&gt;The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GMesh" /> along plane's Z-axis.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Sketch needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsMesh``1(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GMesh" /> along plane's Z-axis.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Sketch needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsMesh(devDept.Geometry.Vector3D,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GMesh" />.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Sketch needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsMesh``1(devDept.Geometry.Vector3D,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Extrudes the sketch creating a new <see cref="T:devDept.Geometry.Entities.GMesh" />.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Sketch needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object</param>
+      <returns>The resulting Mesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSolid(System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Extrudes this sketch.
+            </summary>
+      <param name="x">Extrusion amount along the axis X.</param>
+      <param name="y">Extrusion amount along the axis Y.</param>
+      <param name="z">Extrusion amount along the axis Z.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSolid``1(System.Double,System.Double,System.Double,System.Double)">
+      <summary>
+            Extrudes this sketch.
+            </summary>
+      <param name="x">Extrusion amount along the axis X.</param>
+      <param name="y">Extrusion amount along the axis Y.</param>
+      <param name="z">Extrusion amount along the axis Z.</param>
+      <param name="tolerance">The regeneration tolerance</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSolid(System.Double,System.Double)">
+      <summary>
+            Extrudes this sketch.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSolid``1(System.Double,System.Double)">
+      <summary>
+            Extrudes this sketch.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSolid(devDept.Geometry.Vector3D,System.Double)">
+      <summary>
+            Extrudes this sketch.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ExtrudeAsSolid``1(devDept.Geometry.Vector3D,System.Double)">
+      <summary>
+            Extrudes this sketch.
+            </summary>
+      <param name="amount">Extrusion amount.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)" -->
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsMesh``1(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Sketch needs to be converted to <see cref="T:devDept.Geometry.Entities.GMesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:devDept.Geometry.Entities.GMesh" /> object.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsMesh(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Sketch needs to be converted to <see cref="T:TriangleNet.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:TriangleNet.Mesh" /> object.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsMesh``1(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="meshNature">Sketch needs to be converted to <see cref="T:TriangleNet.Mesh" />, this is the <see cref="T:devDept.Geometry.Entities.GMesh.natureType" /> of the new <see cref="T:TriangleNet.Mesh" /> object.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>The resulting GSurface array object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsSurface(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <returns>The resulting Surface array object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="tolerance">the regeneration tolerance.</param>
+      <returns>The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsBrep(System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="deltaAngle">Revolution angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="tolerance">the regeneration tolerance.</param>
+      <returns>The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsBrep(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Double)">
+      <summary>
+            Revolves this sketch around an axis.
+            </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="tolerance">the regeneration tolerance.</param>
+      <returns>The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsSolid(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsSolid``1(System.Double,System.Double,devDept.Geometry.Point3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axisStart">The axis start point.</param>
+      <param name="axisEnd">The axis end point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsSolid(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.RevolveAsSolid``1(System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Int32,System.Double)">
+      <summary>
+             Revolves this sketch around an axis.
+             </summary>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <param name="slices">Number of slices generated. This value can be also found using <see cref="M:devDept.Geometry.Utility.NumberOfSegments(System.Double,System.Double,System.Double,System.Double)" />.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsSurface(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Creates a surface by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <returns>The resulting GSurface array.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsBrep(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Creates a <see cref="T:devDept.Geometry.Entities.GBrep" /> by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <returns>The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsBrep(devDept.Geometry.Entities.IGCurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Creates a <see cref="T:devDept.Geometry.Entities.GBrep" /> by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <returns>The resulting GBrep object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsMesh(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="natureType">The desired mesh nature.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsMesh``1(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="natureType">The desired mesh nature.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsMesh(devDept.Geometry.Entities.IGCurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="natureType">The desired mesh nature.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsMesh``1(devDept.Geometry.Entities.IGCurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType,devDept.Geometry.Entities.GMesh.natureType)">
+      <summary>
+            Creates a mesh by sweeping the sketch along a rail.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tol">The trim tolerance.</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <param name="methodType">The Sweep method.</param>
+      <param name="natureType">The desired mesh nature.</param>
+      <returns>The resulting GMesh object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsSolid(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this sketch along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsSolid``1(devDept.Geometry.Entities.IGCurve,System.Double,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this sketch along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsSolid(devDept.Geometry.Entities.IGCurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this sketch along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <param name="sweepMethod">The Sweep method.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.SweepAsSolid``1(devDept.Geometry.Entities.IGCurve,System.Double,System.Boolean,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps this sketch along the provided trajectory.
+            </summary>
+      <param name="rail">The rail curve.</param>
+      <param name="tolerance">The regeneration tolerance.</param>
+      <param name="merge">When true, it merges al the trimmed pieces. It Keeps them as separated objects otherwise.</param>
+      <param name="sweepMethod">The Sweep method.</param>
+      <returns>The resulting GSolid object.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ConvertToRegion">
+      <summary>
+            Convert the Sketch into a Region entity. 
+            </summary>
+      <param name="sketcher">The sketch. </param>
+      <returns>The region.</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ConvertToCurves(System.Boolean)">
+      <summary>
+            Convert the Sketch into a list of ICurve. 
+            </summary>
+      <param name="sketcher">The sketch.</param>
+      <param name="keepConstructionCurves">Indicates whether the construction curves must be keep or not.</param>
+      <returns>The list of IGCurve</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ConvertToCurves(System.Boolean,devDept.Geometry.ConstraintSolver.SketchCurve[]@)">
+      <summary>
+            Convert the Sketch into a list of ICurve. 
+            </summary>
+      <param name="sketcher">The sketch.</param>
+      <param name="keepConstructionCurves">Indicates whether the construction curves must be keep or not.</param>
+      <param name="curveSketch">The original SketchCurves aligned with the returned curves.</param>
+      <returns>The list of IGCurve</returns>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.ConvertToCurves(System.Boolean,System.Boolean,devDept.Geometry.Entities.IGCurve[]@,devDept.Geometry.Entities.IGCurve[]@,System.Int32[]@,devDept.Geometry.ConstraintSolver.SketchCurve[]@,devDept.Geometry.ConstraintSolver.SketchCurve[]@)">
+      <summary>
+            Retrieves the Sketch curve and point lists, as well as index of construction curves. 
+            </summary>
+      <param name="keepConstructionCurves">If true, construction curves are kept in the result.</param>
+      <param name="keepPoints">If true, points are kept in the result.</param>
+      <param name="curveList">The list of curves that compose the sketch.</param>
+      <param name="pointList">The list of points that compose the sketch.</param>
+      <param name="constructionCurvesIndices">The indices of the construction curves in the result.</param>
+      <param name="curveSketch">The original SketchCurves aligned with the returned curves.</param>
+      <param name="pointSketch">The original SketchPoints aligned with the returned points.</param>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -1742,6 +2291,13 @@
             decrease the number of redundant equations in the system.
             </returns>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.IsValid(devDept.Geometry.ConstraintSolver.Constraint)">
+      <summary>
+            Tells if the constraint is consistent with the others sketch constraints.
+            </summary>
+      <param name="constraint">The constraint.</param>
+      <returns>True if the constraint is consistent with the others sketch constraints,false otherwise.</returns>
+    </member>
     <member name="T:devDept.Geometry.ConstraintSolver.solveFailureType">
       <summary>
             The result of the Solve operation on the EquationSystem.
@@ -1761,6 +2317,30 @@
       <summary>
             Some redundant constraints found
             </summary>
+    </member>
+    <member name="T:devDept.Geometry.ConstraintSolver.SketchSpline">
+      <summary>
+            Sketch spline definition.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.ConstraintSolver.SketchSpline.ControlPoints">
+      <summary>
+            Gets or sets the curve control point array.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchSpline.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchSpline.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Geometry.Entities.GArc">
       <summary>
@@ -2860,12 +3440,10 @@
             Empty constructor.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.Entities.GEntity.IsValid(devDept.Geometry.Point3D[])">
+    <member name="M:devDept.Geometry.Entities.GEntity.IsValid">
       <summary>
             Returns true if all the entity fields contain reasonable information.
             </summary>
-      <param name="vertices">
-      </param>
       <returns>True if the entity is valid, false otherwise.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GEntity.GetCoarseSampling">
@@ -3681,7 +4259,7 @@
       <summary>
              Converts this object to a single mesh.
             </summary>
-      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="deviation">The maximum deviation.</param>
       <param name="angleInRadians">The maximum angular deflection, ignored when zero.</param>
       <param name="nature">The desired Mesh <see cref="T:devDept.Geometry.Entities.GMesh.natureType">nature</see></param>
       <param name="weld">If true, the resulting meshes are welded (no duplicated points).</param>
@@ -4491,11 +5069,6 @@
             GRegion entity definition. By convention the first contour in the list is the outer and has counterclockwise orientation. Inners are oriented clockwise.
             </summary>
     </member>
-    <member name="T:devDept.Geometry.Entities.GRegion.booleanOperationType">
-      <summary>
-            The GRegion boolean operation type used.
-            </summary>
-    </member>
     <member name="P:devDept.Geometry.Entities.GRegion.ContourList">
       <summary>
             Gets o sets the list of contours inside the region.
@@ -4597,7 +5170,7 @@
       <summary>
             Converts this region to a <see cref="T:devDept.Geometry.Entities.GMesh" /> object.
             </summary>
-      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="deviation">The maximum deviation.</param>
       <param name="meshNature">The desired Mesh nature.</param>
       <returns>The resulting Mesh object.</returns>
     </member>
@@ -8131,7 +8704,7 @@
             Gets or sets the curve degree.
             </summary>
       <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="!:IsValid()" />
+      <seealso cref="M:devDept.Geometry.Entities.GCurve.IsValid" />
     </member>
     <member name="P:devDept.Geometry.Entities.GCurve.IsClosed">
       <summary>
@@ -8148,14 +8721,14 @@
             Gets or sets the curve control point array.
             </summary>
       <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Geometry.Entities.GCurve.IsValid(devDept.Geometry.Point3D[])" />
+      <seealso cref="M:devDept.Geometry.Entities.GCurve.IsValid" />
     </member>
     <member name="P:devDept.Geometry.Entities.GCurve.KnotVector">
       <summary>
             Gets or sets the curve knot vector U.
             </summary>
       <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="!:IsValid()" />
+      <seealso cref="M:devDept.Geometry.Entities.GCurve.IsValid" />
     </member>
     <member name="P:devDept.Geometry.Entities.GCurve.IsLine">
       <summary>
@@ -9577,6 +10150,33 @@
       <param name="angleInRadians">The draft angle in radians</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemove(devDept.Geometry.ConstraintSolver.Sketch,System.Double)">
+      <summary>
+            Extrudes the specified sketch and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemove(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the specified sketch and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemove(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double)">
+      <summary>
+            Extrudes the specified sketch with a draft angle and removes it from the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.Entities.GRegion,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
       <summary>
             Creates a rectangular pattern by extruding the specified region multiples times and removes it from the original GBrep object.
@@ -10009,6 +10609,438 @@
       <param name="number">Number of instances</param>
       <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="axis">Circular pattern axis.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="axis">Circular pattern axis.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="axis">Circular pattern axis.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAddPattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">Extrusion amount.</param>
+      <param name="axis">Circular pattern axis.</param>
+      <param name="center">Circular pattern center.</param>
+      <param name="angleInRadians">Angle between each instance.</param>
+      <param name="number">Number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="axis">The circular pattern axis.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="axis">The circular pattern axis.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="draftAngleInRadians">The draft angle in radians.</param>
+      <param name="axis">The circular pattern axis.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,devDept.Geometry.Plane,System.Double,System.Int32,System.Double,System.Int32)">
+      <summary>
+            Creates a rectangular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="patternPln">The plane used to create the rectangular pattern.</param>
+      <param name="spacingX">The spacing between pattern instances for plane X direction.</param>
+      <param name="numberX">The number of pattern instances for plane X direction.</param>
+      <param name="spacingY">The spacing between pattern instances for plane Y direction.</param>
+      <param name="numberY">The number of pattern instances for plane Y direction.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeRemovePattern(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,System.Double,System.Int32)">
+      <summary>
+            Creates a circular pattern by extruding the specified sketch multiples times and removes it from the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch to extrude.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="axis">The circular pattern axis.</param>
+      <param name="center">The circular pattern center.</param>
+      <param name="angleInRadians">The angle between each instance.</param>
+      <param name="number">The number of instances.</param>
+      <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAdd(devDept.Geometry.Entities.GRegion,System.Double)">
       <summary>
             Extrudes the specified region, overriding the original GBrep with the result of the cut and adds it to the original GBrep object.
@@ -10035,6 +11067,32 @@
       <param name="amount">The extrusion amount interval</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAdd(devDept.Geometry.ConstraintSolver.Sketch,System.Double)">
+      <summary>
+            Extrudes the specified sketch, overriding the original GBrep with the result of the cut and adds it to the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAdd(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double)">
+      <summary>
+            Extrudes the specified sketch with a draft angle and adds it to the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <param name="angleInRadians">The draft angle in radians.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeAdd(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the specified sketch and adds it to the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount interval.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeIntersect(devDept.Geometry.Entities.GRegion,System.Double)">
       <summary>
             Extrudes the specified region and intersect it with the original GBrep object.
@@ -10059,6 +11117,32 @@
             </summary>
       <param name="reg">The region</param>
       <param name="amount">The extrusion amount interval</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeIntersect(devDept.Geometry.ConstraintSolver.Sketch,System.Double)">
+      <summary>
+            Extrudes the specified sketch and intersect it with the original GBrep object.
+            </summary>
+      <seealso cref="M:devDept.Geometry.Entities.GBrep.FixTopology"> FixTopology method.</seealso>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeIntersect(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double)">
+      <summary>
+            Extrudes the specified sketch and intersect it with the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch</param>
+      <param name="amount">The extrusion amount</param>
+      <param name="angleInRadians">The draft angle in radians</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeIntersect(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Interval)">
+      <summary>
+            Extrudes the specified sketch and intersect it with the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="amount">The extrusion amount interval.</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.ExtrudeFace(System.Int32,System.Double)">
@@ -10119,6 +11203,27 @@
       <param name="center">Axis start point</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.RevolveRemove(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and removes it from the GBrep object and removes it from the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="angle">Revolution angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.RevolveRemove(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and removes it from the GBrep object and removes it from the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GBrep.RevolveAdd(devDept.Geometry.Entities.GRegion,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
       <summary>
             Revolves the specified region and adds it to the GBrep object and adds it to the original GBrep object.
@@ -10138,6 +11243,27 @@
       <param name="deltaAngle">Revolution delta angle in radians</param>
       <param name="axis">Axis direction</param>
       <param name="center">Axis start point</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.RevolveAdd(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and adds it to the GBrep object and adds it to the original GBrep object.
+            </summary>
+      <param name="sketch">The region.</param>
+      <param name="angle">Revolution angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.RevolveAdd(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and adds it to the GBrep object and adds it to the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.RevolveIntersect(devDept.Geometry.Entities.GRegion,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
@@ -10161,6 +11287,27 @@
       <param name="center">Axis start point</param>
       <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.RevolveIntersect(devDept.Geometry.ConstraintSolver.Sketch,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and adds it to the GBrep object and adds it to the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="angle">Revolution angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.RevolveIntersect(devDept.Geometry.ConstraintSolver.Sketch,System.Double,System.Double,devDept.Geometry.Vector3D,devDept.Geometry.Point3D)">
+      <summary>
+            Revolves the specified sketch and adds it to the GBrep object and adds it to the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="startAngle">Revolution start angle in radians.</param>
+      <param name="deltaAngle">Revolution delta angle in radians.</param>
+      <param name="axis">Axis direction.</param>
+      <param name="center">Axis start point.</param>
+      <returns>True if the operation is successful, false otherwise keeping the GBrep object unmutated.</returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GBrep.Remove(devDept.Geometry.Entities.GBrep[])">
       <summary>
             Removes a list of non-intersecting solids from the original GBrep object.
@@ -10176,17 +11323,72 @@
       <param name="leftOvers">The resulting left overs of the operation (null if not present)</param>
       <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
     </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.SweepAdd(devDept.Geometry.Entities.GRegion,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and adds it to the original GBrep object.
+            </summary>
+      <param name="reg">The region.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.SweepAdd(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and adds it to the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.SweepIntersect(devDept.Geometry.Entities.GRegion,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and intersects it with the original GBrep object.
+            </summary>
+      <param name="reg">The region.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.SweepIntersect(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and intersects it with the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.SweepRemove(devDept.Geometry.Entities.GRegion,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and removes it from the original GBrep object.
+            </summary>
+      <param name="reg">The region.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:devDept.Geometry.Entities.GBrep.SweepRemove(devDept.Geometry.ConstraintSolver.Sketch,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.sweepMethodType)">
+      <summary>
+            Sweeps the specified region with a draft angle and removes it from the original GBrep object.
+            </summary>
+      <param name="sketch">The sketch.</param>
+      <param name="rail">The rail used to perform the sweep.</param>
+      <param name="methodType">The sweep method to use.</param>
+      <returns>
+      </returns>
+    </member>
     <member name="M:devDept.Geometry.Entities.GBrep.Add(devDept.Geometry.Entities.GBrep[])">
       <summary>
             Adds a list of non-intersecting solids to the original GBrep object.
             </summary>
       <param name="solids">The list of disjoint breps to add</param>
       <returns>True if the operation succeeded, false otherwise keeping the GBrep object unmutated.</returns>
-    </member>
-    <member name="T:devDept.Geometry.Entities.GBrep.booleanOperationType">
-      <summary>
-            Boolean operation type.
-            </summary>
     </member>
     <member name="P:devDept.Geometry.Entities.GBrep.RebuildTolerance">
       <summary>
@@ -10488,8 +11690,8 @@
             Builds parametric face representation using the specified tolerance.
             </summary>
       <param name="tol">Rebuild tolerance, zero for default.</param>
-      <param name="soft">When true, only faces without parametric surfaces are rebuilt.</param>
-      <remarks> Using soft = true with an input tolerance different from <see cref="P:devDept.Geometry.Entities.GBrep.RebuildTolerance" /> could generate a  not-watertight Brep.</remarks>
+      <param name="soft">When true, only faces that need it are rebuilt.</param>
+      <remarks> Using soft = true with an input tolerance different from <see cref="P:devDept.Geometry.Entities.GBrep.RebuildTolerance" /> could generate a not-watertight Brep.</remarks>
     </member>
     <member name="M:devDept.Geometry.Entities.GBrep.GetEdgeIndex(devDept.Geometry.Point3D,devDept.Geometry.Vector3D)">
       <summary>
@@ -10518,7 +11720,7 @@
       <summary>
             Converts this GBrep to <see cref="T:devDept.Geometry.Entities.GSolid" /> using the specified tolerance.
             </summary>
-      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="deviation">The maximum deviation.</param>
       <param name="angle">The maximum angular deflection, ignored when zero.</param>
       <returns>The resulting Solid object.</returns>
     </member>
@@ -10526,7 +11728,7 @@
       <summary>
             Converts this Brep to a <see cref="T:devDept.Geometry.Entities.GMesh" /> using the specified tolerance.
             </summary>
-      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="deviation">The maximum deviation.</param>
       <param name="angle">The maximum angular deflection, ignored when zero.</param>
       <param name="meshNature">The desired GMesh <see cref="T:devDept.Geometry.Entities.GMesh.natureType">nature</see></param>
       <param name="weldNow">When true, the resulting meshes are welded immediately.</param>
@@ -12516,35 +13718,35 @@
             Gets or sets the gSurface knot vector in the U parametric direction.
             </summary>
       <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid(devDept.Geometry.Point3D[])" />
+      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid" />
     </member>
     <member name="P:devDept.Geometry.Entities.GSurface.KnotVectorV">
       <summary>
             Gets or sets the gSurface knot vector in the V parametric direction.
             </summary>
       <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="!:IsValid()" />
+      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid" />
     </member>
     <member name="P:devDept.Geometry.Entities.GSurface.DegreeU">
       <summary>
             Gets gSurface degree in the U direction.
             </summary>
       <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid(devDept.Geometry.Point3D[])" />
+      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid" />
     </member>
     <member name="P:devDept.Geometry.Entities.GSurface.DegreeV">
       <summary>
             Gets gSurface degree in the V direction.
             </summary>
       <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid(devDept.Geometry.Point3D[])" />
+      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid" />
     </member>
     <member name="P:devDept.Geometry.Entities.GSurface.ControlPoints">
       <summary>
             Gets the gSurface control points array.
             </summary>
       <remarks>Not validated in setter. Use constructor if you are unsure of the correctness of your data.</remarks>
-      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid(devDept.Geometry.Point3D[])" />
+      <seealso cref="M:devDept.Geometry.Entities.GSurface.IsValid" />
     </member>
     <member name="P:devDept.Geometry.Entities.GSurface.IsTrimmed">
       <summary>
@@ -12586,13 +13788,14 @@
             Gets or sets surface tessellation polygonal region.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.Entities.GSurface.ConvertToMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType,System.Boolean)">
+    <member name="M:devDept.Geometry.Entities.GSurface.ConvertToMesh(System.Double,System.Double,devDept.Geometry.Entities.GMesh.natureType,System.Boolean,System.Boolean)">
       <summary>
             Converts this Surface to a <see cref="T:devDept.Geometry.Entities.GMesh" /> object.
             </summary>
-      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="deviation">The maximum deviation.</param>
       <param name="angle">The maximum angular deflection, ignored when zero.</param>
       <param name="meshNature">The desired Mesh <see cref="T:devDept.Geometry.Entities.GMesh.natureType">nature</see></param>
+      <param name="weld">If true, the resulting meshes are welded (no duplicated points).</param>
       <param name="skipEdges">If true, skips the Edges computation</param>
       <returns>The resulting Mesh object.</returns>
     </member>
@@ -14698,6 +15901,21 @@
       <param name="c">Third value</param>
       <returns>The maximum value.</returns>
     </member>
+    <member name="M:devDept.Geometry.Utility.CloneTangentConstraintAtRightParameterInternal(devDept.Geometry.ConstraintSolver.TangentConstraint,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Utility.ReplaceOldConstraints(devDept.Geometry.ConstraintSolver.Constraint[],devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.Constraint[]@)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
+    <member name="M:devDept.Geometry.Utility.CloneConstraintAtRightParameter(devDept.Geometry.ConstraintSolver.Constraint,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.Entities.IGCurve,devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve,devDept.Geometry.ConstraintSolver.SketchCurve)">
+      <summary>
+            For internal use only.
+            </summary>
+    </member>
     <member name="M:devDept.Geometry.Utility.Max``1(``0,``0,``0)">
       <summary>
             Returns the max of three values.
@@ -16224,6 +17442,21 @@
             Moments of inertia about Z coordinate axis.
             </summary>
     </member>
+    <member name="F:devDept.Geometry.MomentOfInertia.Iyx">
+      <summary>
+            Product moment XY.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.MomentOfInertia.Izy">
+      <summary>
+            Product moment YZ.
+            </summary>
+    </member>
+    <member name="F:devDept.Geometry.MomentOfInertia.Izx">
+      <summary>
+            Product moment XZ.
+            </summary>
+    </member>
     <member name="F:devDept.Geometry.MomentOfInertia.Rx">
       <summary>
             Radii of gyration about X coordinate axis.
@@ -16248,6 +17481,19 @@
       <summary>
             Gets centroid.
             </summary>
+    </member>
+    <member name="M:devDept.Geometry.AreaAndVolume.GetPrincipalAxes(System.Double,devDept.Geometry.Point3D,devDept.Geometry.Vector3D@,devDept.Geometry.Vector3D@,devDept.Geometry.Vector3D@,System.Double@,System.Double@,System.Double@)">
+      <summary>
+            This method is called to obtain the principal axes of inertia and their respective moments of inertia.
+            </summary>
+      <param name="volume">The volume.</param>
+      <param name="centroid">The centroid.</param>
+      <param name="axisX">The first principal axis.</param>
+      <param name="axisY">The second principal axis.</param>
+      <param name="axisZ">The third principal axis.</param>
+      <param name="ix">The moment of inertia with respect the first principal axis.</param>
+      <param name="iy">The moment of inertia with respect the second principal axis.</param>
+      <param name="iz">The moment of inertia with respect the third principal axis.</param>
     </member>
     <member name="M:devDept.Geometry.AreaAndVolume.GetResultsAboutWorld(System.Double,System.Double)">
       <summary>
@@ -18937,6 +20183,12 @@
       <param name="rotAxis">The rotation axis (normalized)</param>
       <param name="rotAngleInDegrees">The rotation angle in degrees</param>
     </member>
+    <member name="M:devDept.Geometry.Quaternion.#ctor(System.Double[0:,0:])">
+      <summary>
+            Rotation matrix constructor.
+            </summary>
+      <param name="rotMatrix">The 3x3 rotation matrix</param>
+    </member>
     <member name="M:devDept.Geometry.Quaternion.#ctor(System.Double,System.Double,System.Double)">
       <summary>
             Creates a new Quaternion from specified yaw, pitch, and roll angles. 
@@ -21322,6 +22574,27 @@
              This method uses an internal constructor to create the object.
              </remarks>
     </member>
+    <member name="M:devDept.Serialization.SketchEllipticalArcSurrogate.#ctor(devDept.Geometry.ConstraintSolver.Entities.SketchEllipticalArc)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.SketchEllipticalArcSurrogate.StartPoint">
+      <summary>
+            See <see cref="P:devDept.Geometry.ConstraintSolver.Entities.SketchEllipticalArc.StartPoint" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.SketchEllipticalArcSurrogate.EndPoint">
+      <summary>
+            See <see cref="P:devDept.Geometry.ConstraintSolver.Entities.SketchEllipticalArc.EndPoint" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.SketchEllipticalArcSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.SketchCircle" /> constructor to create the object.        
+             </remarks>
+    </member>
     <member name="T:devDept.Serialization.SketchSurrogate">
       <summary>
             Defines the <see cref="T:devDept.Geometry.ConstraintSolver.Sketch" /> surrogate.
@@ -21705,27 +22978,6 @@
              This method uses the <see cref="M:devDept.Geometry.ConstraintSolver.SketchCircle.#ctor(devDept.Geometry.ConstraintSolver.SketchInternal)" /> constructor to create the object.        
              </remarks>
     </member>
-    <member name="T:devDept.Serialization.SketchSplineSurrogate">
-      <summary>
-            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchSpline" /> surrogate.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.SketchSplineSurrogate.#ctor(devDept.Geometry.ConstraintSolver.SketchSpline)">
-      <summary>
-            Standard constructor.
-            </summary>
-    </member>
-    <member name="F:devDept.Serialization.SketchSplineSurrogate.ControlPoints">
-      <summary>
-            See <see cref="F:devDept.Geometry.ConstraintSolver.SketchSpline.ControlPoints" />.
-            </summary>
-    </member>
-    <member name="M:devDept.Serialization.SketchSplineSurrogate.ConvertToObject">
-      <inheritdoc />
-      <remarks>
-             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.SketchCircle" /> constructor to create the object.        
-             </remarks>
-    </member>
     <member name="T:devDept.Serialization.SketchEllipseSurrogate">
       <summary>
             Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchEllipse" /> surrogate.
@@ -21774,7 +23026,12 @@
     </member>
     <member name="F:devDept.Serialization.SketchCurveSurrogate.Projected">
       <summary>
-            See <see cref="P:devDept.Geometry.ConstraintSolver.SketchCurve.Projected" />.
+            See <see cref="!:SketchCurve.Projected" />.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.SketchCurveSurrogate.Fixed">
+      <summary>
+            See <see cref="P:devDept.Geometry.ConstraintSolver.SketchCurve.Fixed" />.
             </summary>
     </member>
     <member name="T:devDept.Serialization.SketchLineSurrogate">
@@ -24169,6 +25426,27 @@
       <inheritdoc />
       <remarks>
              This method uses the <see cref="M:devDept.Geometry.Entities.GSolid.#ctor(System.Boolean,System.Collections.Generic.IList{devDept.Geometry.Entities.GSolid.Portion})" /> constructor to create the object.
+             </remarks>
+    </member>
+    <member name="T:devDept.Serialization.SketchSplineSurrogate">
+      <summary>
+            Defines the <see cref="T:devDept.Geometry.ConstraintSolver.SketchSpline" /> surrogate.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.SketchSplineSurrogate.#ctor(devDept.Geometry.ConstraintSolver.SketchSpline)">
+      <summary>
+            Standard constructor.
+            </summary>
+    </member>
+    <member name="F:devDept.Serialization.SketchSplineSurrogate.ControlPoints">
+      <summary>
+            See <see cref="F:devDept.Geometry.ConstraintSolver.SketchSpline.ControlPoints" />.
+            </summary>
+    </member>
+    <member name="M:devDept.Serialization.SketchSplineSurrogate.ConvertToObject">
+      <inheritdoc />
+      <remarks>
+             This method uses the <see cref="T:devDept.Geometry.ConstraintSolver.SketchCircle" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.FemIndexLineExSurrogate">
