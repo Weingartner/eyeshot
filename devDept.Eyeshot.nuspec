@@ -9,20 +9,20 @@
         <description>Eyeshot WPF</description>
         <dependencies>
             <group targetFramework=".NETFramework4.7.2"/>
-            <group targetFramework="net6.0-windows7.0">
+            <group targetFramework="net6.0-windows">
                 <dependency id="System.Management" version="6.0.0" exclude="Build,Analyzers" />
                 <dependency id="System.ServiceModel.Primitives" version="4.5.3" exclude="Build,Analyzers" />
             </group>
         </dependencies>
         <frameworkReferences>
             <group targetFramework=".NETFramework4.7.2" />
-            <group targetFramework="net6.0-windows7.0">
+            <group targetFramework="net6.0-windows">
                 <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
             </group>
         </frameworkReferences>
     </metadata>
     <files>
         <file src="binaries\net472\*" target="lib\net472" />
-        <file src="binaries\net6.0-windows\*" target="lib\net6.0-windows7.0" />
+        <file src="binaries\net6.0-windows\*" target="lib\net6.0-windows" />
     </files>
 </package>
