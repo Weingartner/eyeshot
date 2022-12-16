@@ -1,1 +1,3 @@
-tools\FAKE\tools\fake.exe .\build.fsx
+dotnet tool restore
+
+fake run .\build.fsx
