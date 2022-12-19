@@ -25,11 +25,6 @@ Target.initEnvironment ()
 
 let baseDir = __SOURCE_DIRECTORY__
 let dllPath = baseDir @@ Constants.binDir
-let version = 
-    match Helpers.getAssemblySemVer dllPath with
-    | Some(ver) -> ver.AsString
-    | None -> failwith $"could not find dlls in path {dllPath} to get a version"
-
 let tfms = [Constants.frameworkTfm;Constants.coreTfm]
 
 let eyeshotFilePattern = 
@@ -68,6 +63,11 @@ Target.create "CopyFiles" (fun _ ->
 )
 
 Target.create "Commit" (fun _ ->
+    let version = 
+        match Helpers.getAssemblySemVer dllPath with
+        | Some(ver) -> ver.AsString
+        | None -> failwith $"could not find dlls in path {dllPath} to get a version"
+
     Trace.trace ("assembly version = " + version)
 
     let stageAllFilesIn = DirectoryInfo.ofPath 
