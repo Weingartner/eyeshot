@@ -12,20 +12,39 @@ nuget Fake.IO.FileSystem
 open Fake.BuildServer
 open Fake.Core
 open Fake.Core.TargetOperators
+open Fake.Core.CommandLineParsing
 open Fake.DotNet.NuGet
 open Fake.IO
-open Fake.IO.FileSystemOperators
 
-Target.initEnvironment ()
+let cli = """
+usage: build.fsx [options]
+
+options:
+  --beta      create a package with beta pre release tag
+"""
+let ctx = Context.forceFakeContext ()
+let args = ctx.Arguments
+let parser = Docopt(cli)
+let parsedArguments = parser.Parse(args)
+let isBetaBuild = DocoptResult.hasFlag "--beta" parsedArguments
 
 let dllPath = Constants.binDir
-let nuspecFilePath = "devDept.Eyeshot.nuspec"
 let nuspecTemplate = "template.nuspec"
 
 let assemblyVersion = 
-    match Helpers.getAssemblySemVer dllPath with
-    | Some(ver) -> ver.AsString
-    | None -> failwith $"could not find dlls in path {dllPath} to get a version"
+    let preTag = 
+      if isBetaBuild then PreRelease.TryParse "beta"
+      else None
+    let packageVersion =
+      Helpers.getAssemblySemVer dllPath
+      |> Option.map (fun v -> {v with PreRelease = preTag})
+
+    match packageVersion with
+      | Some(ver) -> 
+          match ver.PreRelease with
+            | Some(pre) -> sprintf "%d.%d.%d-%s" ver.Major ver.Minor ver.Patch pre.Name
+            | None -> ver.AsString
+      | None -> failwith "could not create package version"
 
 BuildServer.install [TeamCity.Installer]
 Trace.setBuildNumber assemblyVersion
@@ -43,7 +62,7 @@ Target.create "CreatePackage" (fun _ ->
           WorkingDir = "."
           Publish = false
           DependenciesByFramework = [
-            { FrameworkVersion = "net472"
+            { FrameworkVersion = ".NETFramework4.7.2"
               Dependencies = []}
             { FrameworkVersion = "net6.0-windows7.0"
               Dependencies = [
@@ -66,4 +85,4 @@ Target.create "All" (fun _ ->
   ==> "CreatePackage"
   ==> "All"
 
-Target.runOrDefault "All"
+Target.runOrDefaultWithArguments "All"
