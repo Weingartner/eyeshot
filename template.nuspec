@@ -9,6 +9,12 @@
         <description>Eyeshot WPF</description>
         <tags>devdept eyeshot cad wpf</tags>
         @dependencies@
+        <frameworkReferences>
+            <group targetFramework=".NETFramework4.7.2" />
+            <group targetFramework="net6.0-windows7.0">
+                <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+            </group>
+        </frameworkReferences>
         @references@
     </metadata>
     @files@
