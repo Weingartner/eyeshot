@@ -1,3 +1,3 @@
 dotnet tool restore
 
-fake run .\update.fsx
+dotnet fake run .\update.fsx
