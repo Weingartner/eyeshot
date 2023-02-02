@@ -12,6 +12,8 @@ nuget Fake.IO.FileSystem
 open Fake.BuildServer
 open Fake.Core
 open Fake.Core.TargetOperators
+open Fake.IO.FileSystemOperators
+open Fake.IO.Globbing.Operators
 open Fake.Core.CommandLineParsing
 open Fake.DotNet.NuGet
 open Fake.IO
@@ -29,7 +31,11 @@ let parsedArguments = parser.Parse(args)
 let isBetaBuild = DocoptResult.hasFlag "--beta" parsedArguments
 
 let dllPath = Constants.binDir
-let nuspecTemplate = "template.nuspec"
+let nuspecCoreTemplate = "template.nuspec"
+let nuspecWpfTemplate = "templateWpf.nuspec"
+let nuspecWinFormsTemplate = "templateWinForms.nuspec"
+
+let corePackageName = "devDept.Eyeshot"
 
 let assemblyVersion = 
     let preTag = 
@@ -53,7 +59,37 @@ Target.create "Clean" (fun _ ->
     Shell.cleanDir Constants.packageOutput
 )
 
-Target.create "CreatePackage" (fun _ ->
+Target.create "CreateCorePackage" (fun _ ->
+    Trace.trace ( "create nuget package version: " + assemblyVersion)
+    NuGet.NuGetPack (fun ps -> 
+      { ps with
+          Version = assemblyVersion
+          OutputPath = Constants.packageOutput
+          WorkingDir = "."
+          Publish = false
+          DependenciesByFramework = [
+            { FrameworkVersion = ".NETFramework4.7.2"
+              Dependencies = []}
+            { FrameworkVersion = "net6.0"
+              Dependencies = [
+                "System.Configuration.ConfigurationManager","6.0.0"
+                "System.Management","6.0.0"
+                "System.ServiceModel.Primitives","4.9.0"
+                "System.Runtime.CompilerServices.Unsafe","6.0.0"
+                "System.Text.Encoding.CodePages","6.0.0"
+                "System.Numerics.Vectors","4.5.0"
+                "System.Buffers","4.5.1"
+                "System.Memory","4.5.4"]}
+          ]
+          Files = [
+            ((@"binaries\net472\" @@ Constants.eyeshotCoreFiles), Some @"lib\net472", None)
+            ((@"binaries\net60\" @@ Constants.eyeshotCoreFiles), Some @"lib\net6.0", None)
+          ]
+      })
+      nuspecCoreTemplate
+)
+
+Target.create "CreateWpfPackage" (fun _ ->
     Trace.trace ( "create nuget package version: " + assemblyVersion)
     NuGet.NuGetPack (fun ps -> 
       { ps with
@@ -66,15 +102,36 @@ Target.create "CreatePackage" (fun _ ->
               Dependencies = []}
             { FrameworkVersion = "net6.0-windows7.0"
               Dependencies = [
-                "System.Management","6.0.0"
-                "System.ServiceModel.Primitives","4.5.3"]}
+                corePackageName,assemblyVersion]}
           ]
           Files = [
-            (@"binaries\net472\*.*", Some @"lib\net472", None)
-            (@"binaries\net6.0-windows\*.*", Some @"lib\net6.0-windows7.0", None)
+            ((@"binaries\net472\" @@ Constants.wpfFolder @@ Constants.eyeshotWpfFiles), Some @"lib\net472", None)
+            ((@"binaries\net60\" @@ Constants.wpfFolder @@ Constants.eyeshotWpfFiles), Some @"lib\net6.0-windows7.0", None)
           ]
       })
-      nuspecTemplate
+      nuspecWpfTemplate
+)
+Target.create "CreateWinFormsPackage" (fun _ ->
+    Trace.trace ( "create nuget package version: " + assemblyVersion)
+    NuGet.NuGetPack (fun ps -> 
+      { ps with
+          Version = assemblyVersion
+          OutputPath = Constants.packageOutput
+          WorkingDir = "."
+          Publish = false
+          DependenciesByFramework = [
+            { FrameworkVersion = ".NETFramework4.7.2"
+              Dependencies = []}
+            { FrameworkVersion = "net6.0-windows7.0"
+              Dependencies = [
+                corePackageName,assemblyVersion]}
+          ]
+          Files = [
+            ((@"binaries\net472\" @@ Constants.winFormsFolder @@ Constants.eyeshotWinFormsFiles), Some @"lib\net472", None)
+            ((@"binaries\net60\" @@ Constants.winFormsFolder @@ Constants.eyeshotWinFormsFiles), Some @"lib\net6.0-windows7.0", None)
+          ]
+      })
+      nuspecWinFormsTemplate
 )
 
 Target.create "All" (fun _ -> 
@@ -82,7 +139,9 @@ Target.create "All" (fun _ ->
 )
 
 "Clean"
-  ==> "CreatePackage"
+  ==> "CreateCorePackage"
+  ==> "CreateWpfPackage"
+  ==> "CreateWinFormsPackage"
   ==> "All"
 
 Target.runOrDefaultWithArguments "All"

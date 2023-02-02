@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>devDept.Eyeshot</id>
+        <id>devDept.Eyeshot.WinForms</id>
         <version>@build.number@</version>    
         <authors>Weingartner</authors>
         <owners>Weingartner</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>    
-        <description>Eyeshot Core</description>
+        <description>Eyeshot WindowsForms</description>
         <tags>devdept eyeshot cad wpf</tags>
         @dependencies@
         <frameworkReferences>
             <group targetFramework=".NETFramework4.7.2" />
-            <group targetFramework="net6.0" />
+            <group targetFramework="net6.0-windows7.0">
+                <frameworkReference name="Microsoft.WindowsDesktop.App.WindowsForms" />
+            </group>
         </frameworkReferences>
         @references@
     </metadata>
