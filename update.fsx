@@ -48,7 +48,19 @@ let copyToBuildFolder (tfm, sourceFilePaths) =
         Directory.ensure targetDir
         Shell.copyFile targetDir file
     )
+    let moveToSubFolders file folder =
+        Directory.ensure folder
+        Shell.moveFile folder file
     Seq.iter traceAndCopy sourceFilePaths
+
+    Trace.trace ("subdividing wpf and winforms")
+    !! Constants.eyeshotWpfFiles
+    |> GlobbingPattern.setBaseDir targetDir
+    |> Seq.iter (fun filename -> moveToSubFolders filename (targetDir @@ Constants.wpfFolder))
+
+    !! Constants.eyeshotWinFormsFiles
+    |> GlobbingPattern.setBaseDir targetDir
+    |> Seq.iter (fun filename -> moveToSubFolders filename (targetDir @@ Constants.winFormsFolder))
 
 // *****************************************************
 // ******************* T A R G E T S *******************
