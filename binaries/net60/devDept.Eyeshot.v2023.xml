@@ -258,6 +258,11 @@
       <param name="t">The parameters.</param>
       <returns>The tangent vector.</returns>
     </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.Reverse">
+      <summary>
+            Reverses the sketch curve direction.
+            </summary>
+    </member>
     <member name="M:devDept.Geometry.ConstraintSolver.SketchCurve.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
             Constructor for deserializing objects.
@@ -1464,6 +1469,12 @@
       <param name="factorX">The X scale factor.</param>
       <param name="factorY">The Y scale factor.</param>
       <remarks>This method removes all the constraints in sketch.</remarks>
+    </member>
+    <member name="M:devDept.Geometry.ConstraintSolver.Sketch.Mirror">
+      <summary>
+            Mirrors all the entities with respect the y-Axis of the sketch plane.
+            </summary>
+      <remarks>All the <see cref="T:devDept.Geometry.ConstraintSolver.TangentConstraint" />, <see cref="T:devDept.Geometry.ConstraintSolver.PerpendicularConstraint" /> and <see cref="T:devDept.Geometry.ConstraintSolver.AngleConstraint" /> are removed after the mirror.</remarks>
     </member>
     <member name="M:devDept.Geometry.ConstraintSolver.Sketch.Write(System.String,System.Xml.Formatting)">
       <summary>
@@ -52312,6 +52323,12 @@
       <param name="factorX">The X scale factor.</param>
       <param name="factorY">The Y scale factor.</param>
       <remarks>This method removes all the constraints in sketch.</remarks>
+    </member>
+    <member name="M:devDept.Eyeshot.SketchManager.Mirror">
+      <summary>
+            Mirrors all the entities with respect the y-Axis of the sketch plane.
+            </summary>
+      <remarks>All the <see cref="T:devDept.Geometry.ConstraintSolver.TangentConstraint" />, <see cref="T:devDept.Geometry.ConstraintSolver.PerpendicularConstraint" /> and <see cref="T:devDept.Geometry.ConstraintSolver.AngleConstraint" /> are removed after the mirror.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.SketchManager.PreparesEntitiesForMirror(System.Collections.Generic.List{devDept.Eyeshot.Entities.Entity})">
       <summary>
