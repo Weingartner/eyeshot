@@ -99,7 +99,8 @@ Target.create "CreateWpfPackage" (fun _ ->
           Publish = false
           DependenciesByFramework = [
             { FrameworkVersion = ".NETFramework4.7.2"
-              Dependencies = []}
+              Dependencies = [
+                corePackageName,assemblyVersion]}
             { FrameworkVersion = "net6.0-windows7.0"
               Dependencies = [
                 corePackageName,assemblyVersion]}
@@ -121,7 +122,8 @@ Target.create "CreateWinFormsPackage" (fun _ ->
           Publish = false
           DependenciesByFramework = [
             { FrameworkVersion = ".NETFramework4.7.2"
-              Dependencies = []}
+              Dependencies = [
+                corePackageName,assemblyVersion]}
             { FrameworkVersion = "net6.0-windows7.0"
               Dependencies = [
                 corePackageName,assemblyVersion]}
