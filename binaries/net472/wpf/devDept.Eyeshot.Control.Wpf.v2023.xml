@@ -16,12 +16,6 @@
             symbols of various sizes.            
             </summary>
     </member>
-    <member name="E:devDept.Eyeshot.Control.Viewport.UpdateGraphics">
-      <summary>
-            Occurs when graphics is updated.
-            </summary>
-      <remarks>For internal use only.</remarks>
-    </member>
     <member name="P:devDept.Eyeshot.Control.Viewport.InstanceId">
       <summary>
             For internal use only. Gets the instance id for the logging.
@@ -467,8 +461,8 @@
             Sets the specified view by doing an animation.
             </summary>
       <param name="rotation">The new camera rotation</param>
-      <param name="target">The new cameratarget</param>
-      <param name="distance">The new cameradistance</param>
+      <param name="target">The new camera target</param>
+      <param name="distance">The new camera distance</param>
       <param name="zoomFactor">The new camera zoomFactor</param>
     </member>
     <member name="M:devDept.Eyeshot.Control.Viewport.SetView(devDept.Geometry.Quaternion,devDept.Geometry.Point3D,System.Double,System.Double,System.Boolean)">
@@ -476,8 +470,8 @@
             Sets the specified view by doing an animation.
             </summary>
       <param name="rotation">The new camera rotation</param>
-      <param name="target">The new cameratarget</param>
-      <param name="distance">The new cameradistance</param>
+      <param name="target">The new camera target</param>
+      <param name="distance">The new camera distance</param>
       <param name="zoomFactor">The new camera zoomFactor</param>
       <param name="animate">If true performs an animation when changing the view</param>
     </member>
@@ -1487,6 +1481,11 @@
       <param name="sender">The source of the event.</param>
       <param name="e">The event data</param>
     </member>
+    <member name="P:devDept.Eyeshot.Control.Workspace.Document">
+      <summary>
+            Gets the <see cref="T:devDept.Eyeshot.Document" />.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.SetParentHandle(System.IntPtr)">
       <summary>
             Sets the handle of the parent control.
@@ -1587,6 +1586,7 @@
       </seealso>
       <seealso cref="T:devDept.Eyeshot.Entities.BlockReference">
       </seealso>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.RootBlock">
       <summary>
@@ -1613,23 +1613,27 @@
             Gets or sets the layers collection.       
             </summary>
       <remarks>If the collection is empty,  the "Default" layer is added.</remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.LineTypes">
       <summary>
             Gets or sets the line types collection.       
             </summary>
       <remarks>"ByBlock", "ByLayer", "Continuous" are reserved names and should not be used to avoid issues when exporting.</remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.HatchPatterns">
       <summary>
             Gets or sets the hatch patterns collection.       
             </summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.TextStyles">
       <summary>
             Gets or sets the text styles collection.
             </summary>
       <remarks>The "Default" text style is added if missing.</remarks>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="F:devDept.Eyeshot.Control.Workspace.hasFocus">
       <summary>
@@ -2788,7 +2792,7 @@
       <summary>
             Restores the previously saved view in the active viewport.
             </summary>
-      <param name="saved">The <see cref="T:devDept.Eyeshot.Camera" /> object previously initializiated by <see cref="M:devDept.Eyeshot.Control.Workspace.SaveView(devDept.Eyeshot.Camera@)" /></param>
+      <param name="saved">The <see cref="T:devDept.Eyeshot.Camera" /> object previously initialized by <see cref="M:devDept.Eyeshot.Control.Workspace.SaveView(devDept.Eyeshot.Camera@)" /></param>
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.SaveView(devDept.Eyeshot.Camera@)" />
       <remarks>If <see cref="P:devDept.Eyeshot.Control.Workspace.AnimateCamera" /> is true, the operation animates the Camera using the time interval specified by <see cref="P:devDept.Eyeshot.Control.Workspace.AnimateCameraDuration" />.</remarks>
     </member>
@@ -2869,7 +2873,7 @@
       <remarks>"OGL" stands <see cref="F:devDept.Eyeshot.Control.rendererType.OpenGL" /></remarks>
       <remarks>"WPF Native" stands for <see cref="F:devDept.Eyeshot.Control.rendererType.Native" /></remarks>
       <remarks>HW stands for Hardware accelerated rendering (OpenGL only)</remarks>
-      <remarks>SW stands for Sotware rendering (OpenGL only)</remarks>
+      <remarks>SW stands for Software rendering (OpenGL only)</remarks>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.WaitCursorMode">
       <summary>
@@ -3192,7 +3196,7 @@
       <summary>
             Saves a vectorial image of the current scene of the active viewport on disk in EMF format.
             </summary>
-      <param name="fit">If true captures the whole design control, else the current viewport</param>
+      <param name="fit">If true fits the entire model in the viewport area to captures the whole scene, else uses the current camera</param>
       <param name="fileName">The name of the file to save</param>
       <seealso cref="T:devDept.Eyeshot.Control.HiddenLinesViewOnFile" />
       <remarks>If the file exists, it's overwritten.</remarks>
@@ -3291,7 +3295,7 @@
       <summary>
             Copies a vectorial image of the current scene of the active viewport on the clipboard.
             </summary>
-      <param name="fit">If true captures the whole design control, else the current viewport</param>
+      <param name="fit">If true fits the entire model in the viewport area to captures the whole scene, else uses the current camera</param>
       <seealso cref="T:devDept.Eyeshot.Control.HiddenLinesViewOnClipboard" />
     </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.MakeLoop(System.Collections.Generic.IList{devDept.Eyeshot.Entities.ICurve},System.Int32,System.Double,System.Boolean)">
@@ -4193,7 +4197,7 @@
     </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.CopyTo(devDept.Eyeshot.Control.Workspace,System.Boolean)">
       <summary>
-            Copies all items inside control master collections (<see cref="P:devDept.Eyeshot.Control.Viewport.Labels" />, <see cref="P:devDept.Eyeshot.Control.Workspace.Blocks" />, <see cref="P:devDept.Eyeshot.Control.Workspace.Layers" />, <see cref="P:devDept.Eyeshot.Control.Design.Materials" />, <see cref="P:devDept.Eyeshot.Control.Workspace.TextStyles" />, <see cref="P:devDept.Eyeshot.Control.Workspace.LineTypes" />, <see cref="P:devDept.Eyeshot.Control.Workspace.HatchPatterns" />)) to the specified Workspace control.
+            Copies all items inside control master collections (<see cref="P:devDept.Eyeshot.Control.Viewport.Labels" />, <see cref="P:devDept.Eyeshot.Control.Workspace.Blocks" />, <see cref="P:devDept.Eyeshot.Control.Workspace.Layers" />, <see cref="P:devDept.Eyeshot.Control.Design.Materials" />, <see cref="P:devDept.Eyeshot.Control.Workspace.TextStyles" />, <see cref="P:devDept.Eyeshot.Control.Workspace.LineTypes" />, <see cref="P:devDept.Eyeshot.Control.Workspace.HatchPatterns" />) to the specified Workspace control.
             </summary>
       <param name="destination">The Workspace control that is the destination of the elements copied.</param>
       <param name="replaceRootBlock">&gt;When true the root block of the destination Workspace is replaced.</param>
@@ -6515,6 +6519,13 @@
       <seealso cref="P:devDept.Eyeshot.Control.Drawing.HiddenWiresLayerName" />
       <seealso cref="P:devDept.Eyeshot.Control.Drawing.CenterlinesLayerName" />
     </member>
+    <member name="M:devDept.Eyeshot.Control.ViewBuilderEx.AddToDrawing(devDept.Eyeshot.Control.Drawing)">
+      <summary>
+            Adds views and blocks to the drawing control.
+            </summary>
+      <param name="drawing">The drawing control.</param>
+      <remarks>If a block already exists its entities are replaced with the new one.</remarks>
+    </member>
     <member name="T:devDept.Eyeshot.Control.Labels.ImageOnly">
       <summary>
             Image only label.
@@ -7440,8 +7451,17 @@
     </member>
     <member name="T:devDept.Eyeshot.Control.Mouse3D.ButtonMask">
       <summary>
-            ButtonMask from device
+            A bitmask representing the state of the buttons of the Mouse 3D.
             </summary>
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Mouse3D.ButtonMask.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+      <summary>
+            Standard constructor.
+            </summary>
+      <param name="b1">The first byte.</param>
+      <param name="b2">The second byte.</param>
+      <param name="b3">The third byte.</param>
+      <param name="b4">The fourth byte.</param>
     </member>
     <member name="P:devDept.Eyeshot.Control.Mouse3D.ButtonMask.Pressed">
       <summary>
@@ -7468,9 +7488,20 @@
             Provides data for the <see cref="E:devDept.Eyeshot.Control.Workspace.Mouse3DButtonDown" /> and <see cref="E:devDept.Eyeshot.Control.Workspace.Mouse3DButtonUp" /> event.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.ButtonEventArgs.ButtonMask">
+      <summary>
+            A bitmask representing the state of the buttons of the Mouse 3D
+            sending the event.
+            </summary>
+    </member>
     <member name="P:devDept.Eyeshot.Control.Mouse3D.ButtonEventArgs.VirtualKey">
       <summary>
             The pressed virtual key.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.ButtonEventArgs.DeviceInfo">
+      <summary>
+            Device information of the Mouse 3D sending the event.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Control.Mouse3D.TranslationVector">
@@ -7478,14 +7509,274 @@
             Translation Vector from device.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Control.Mouse3D.TranslationVector.#ctor(System.Int32,System.Int32,System.Int32)">
+      <summary>
+            Per-component constructor.
+            </summary>
+      <param name="x">The x component.</param>
+      <param name="y">The y component.</param>
+      <param name="z">The z component.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Mouse3D.TranslationVector.#ctor(System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+      <summary>
+            Per-byte constructor.
+            </summary>
+      <param name="xl">Lower byte of the x component.</param>
+      <param name="xh">Higher byte of the y component.</param>
+      <param name="yl">Lower byte of the y component.</param>
+      <param name="yh">Higher byte of the y component.</param>
+      <param name="zl">Lower byte of the z component.</param>
+      <param name="zh">Higher byte of the z component.</param>
+    </member>
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.TranslationVector.X">
+      <summary>
+            The x component.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.TranslationVector.Y">
+      <summary>
+            The y component.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.TranslationVector.Z">
+      <summary>
+            The z component.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.Control.Mouse3D.RotationVector">
       <summary>
             Rotation Vector from device.
             </summary>
     </member>
+    <member name="M:devDept.Eyeshot.Control.Mouse3D.RotationVector.#ctor(System.Int32,System.Int32,System.Int32)">
+      <summary>
+            Per-component constructor.
+            </summary>
+      <param name="x">The x component.</param>
+      <param name="y">The y component.</param>
+      <param name="z">The z component.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Mouse3D.RotationVector.#ctor(System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+      <summary>
+            Per-byte constructor.
+            </summary>
+      <param name="xl">Lower byte of the x component.</param>
+      <param name="xh">Higher byte of the y component.</param>
+      <param name="yl">Lower byte of the y component.</param>
+      <param name="yh">Higher byte of the y component.</param>
+      <param name="zl">Lower byte of the z component.</param>
+      <param name="zh">Higher byte of the z component.</param>
+    </member>
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.RotationVector.X">
+      <summary>
+            The x component.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.RotationVector.Y">
+      <summary>
+            The y component.
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.RotationVector.Z">
+      <summary>
+            The z component.
+            </summary>
+    </member>
     <member name="T:devDept.Eyeshot.Control.Mouse3D.virtualKey">
       <summary>
-            A Mouse3D virtual key.
+            A Mouse3D virtual key. Some keys already have a default behavior,
+            while others can be freely programmed.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkInvalid">
+      <summary>
+            Represents an invalid button, or no button being pressed at all.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkMenu">
+      <summary>
+            The Menu Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkFit">
+      <summary>
+            The Fit Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkTop">
+      <summary>
+            The QuickView "Top view" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkLeft">
+      <summary>
+            The QuickView "Left view" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkRight">
+      <summary>
+            The QuickView "Right view" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkFront">
+      <summary>
+            The QuickView "Front view" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkBottom">
+      <summary>
+            The QuickView "Bottom view" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkBack">
+      <summary>
+            The QuickView "Back view" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkRollCw">
+      <summary>
+            The QuickView "Roll 90° Clockwise" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkRollCcw">
+      <summary>
+            The QuickView "Roll 90° Anti-Clockwise" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkIso1">
+      <summary>
+            The QuickView "Isometric View #1" Button. In the first isometric
+            view, the front, right, and top views are visible.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkIso2">
+      <summary>
+            The QuickView "Isometric View #2" Button. In the second isometric
+            view, the back, right, and bottom views are visible.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk1">
+      <summary>
+            Programmable function button #1.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk2">
+      <summary>
+            Programmable function button #2.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk3">
+      <summary>
+            Programmable function button #3.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk4">
+      <summary>
+            Programmable function button #4.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk5">
+      <summary>
+            Programmable function button #5.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk6">
+      <summary>
+            Programmable function button #6.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk7">
+      <summary>
+            Programmable function button #7.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk8">
+      <summary>
+            Programmable function button #8.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk9">
+      <summary>
+            Programmable function button #9.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3Dk10">
+      <summary>
+            Programmable function button #10.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkEsc">
+      <summary>
+            The programmable "Esc" Keyboard Modifier.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkAlt">
+      <summary>
+            The programmable "Alt" Keyboard Modifier.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkShift">
+      <summary>
+            The programmable "Shift" Keyboard Modifier.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkCtrl">
+      <summary>
+            The programmable "Control" Keyboard Modifier.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkRotate">
+      <summary>
+            The Rotation Toggle Button. Pressing it once locks the rotation
+            around all axes.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkPanzoom">
+      <summary>
+            The Pan/Zoom Toggle Button. Pressing it once disables the Mouse 3D.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkDominant">
+      <summary>
+            The Dominant Toggle Button. Pressing it once turns on the dominant
+            filter axis, which restricts pan, zoom and rotations to a single
+            axis at a time.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkPlus">
+      <summary>
+            A button for increasing the speed.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkMinus">
+      <summary>
+            A button for decreasing the speed.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkSpinCw">
+      <summary>
+            The QuickView "Spin 90° Clockwise" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkSpinCcw">
+      <summary>
+            The QuickView "Spin 90° Counter-Clockwise" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkTiltCw">
+      <summary>
+            The QuickView "Tilt 90° Clockwise" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkTiltCcw">
+      <summary>
+            The QuickView "Tilt 90° Counter-Clockwise" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkUser">
+      <summary>
+            The first available code for the user's custom keys. Not
+            implemented.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Control.MultiTouch.GestureHandler">
@@ -8982,7 +9273,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Control.RotateSettings.RotationCenter">
       <summary>
-            Rotation center mode.
+            Gets or sets the rotation center mode.
             </summary>
     </member>
     <member name="P:devDept.Eyeshot.Control.RotateSettings.Center">
@@ -13915,6 +14206,19 @@
             Design control definition.
             </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Control.Design.Document">
+      <summary>
+            Gets the <see cref="T:devDept.Eyeshot.DesignDocument" />.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Control.Design.LoadDocument(devDept.Eyeshot.DesignDocument)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Design.LoadDocument(devDept.Eyeshot.DesignDocument)">
+      <summary>
+            Loads a <see cref="T:devDept.Eyeshot.DesignDocument" /> to the control.
+            </summary>
+      <param name="designDocument">The <see cref="T:devDept.Eyeshot.DesignDocument" />.</param>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a <see cref="T:devDept.Eyeshot.Document" /> already linked to another <see cref="T:devDept.Eyeshot.Control.Workspace" />.</exception>
+    </member>
     <member name="P:devDept.Eyeshot.Control.Design.Viewports">
       <summary>
             Gets or sets the list of viewports.
@@ -13944,6 +14248,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Control.Design.Materials">
       <summary>Material collection. This collection contains material definitions.</summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Design.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Design.ZoomFitMode">
       <summary>
@@ -14212,7 +14517,7 @@
       <remarks>Refers to inaccurate transparency only.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Control.Design.PrintPreview(System.Drawing.Size,System.Boolean)">
-      <param name="extents">If true fits the design on view, else captures the whole viewport</param>
+      <param name="extents">If true fits the entire model in the viewport area to captures the whole scene, else uses the current camera</param>
       <remarks>For more options use the <see cref="T:devDept.Eyeshot.Control.HiddenLinesViewOnPaperPreview" /> class directly.</remarks>
       <seealso cref="!:SetPrinterSettings(PrinterSettings, bool)" />
       <seealso cref="!:PageSetup(bool, bool, int?, PaperSize, bool?)">
@@ -14223,7 +14528,7 @@
       <seealso cref="T:devDept.Eyeshot.Control.HiddenLinesViewOnPaperPreview" />
     </member>
     <member name="M:devDept.Eyeshot.Control.Design.Print(System.Boolean)">
-      <param name="extents">If true fits the design on view, else captures the whole viewport</param>
+      <param name="extents">If true fits the entire model in the viewport area to captures the whole scene, else uses the current camera</param>
       <remarks>For more options use the <see cref="T:devDept.Eyeshot.Control.HiddenLinesViewOnPaper" /> class directly.</remarks>
       <seealso cref="!:SetPrinterSettings(PrinterSettings, bool)" />
       <seealso cref="!:PageSetup(bool, bool, int?, PaperSize, bool?)">
@@ -14243,7 +14548,7 @@
       <param name="fileSerializer">The custom <see cref="T:devDept.Serialization.FileSerializer" /> where are defined custom objects. Can be null/Nothing.</param>
       <remarks>
         <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If the fileSerializer param is null, it skips your custom data.
                 If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Control.Workspace.StartWork(devDept.WorkUnit)" /> method.         
                 </para>
       </remarks>
@@ -14260,7 +14565,7 @@
       <param name="fileSerializer">The custom <see cref="T:devDept.Serialization.FileSerializer" /> where are defined custom objects. Can be null/Nothing.</param>
       <remarks>
         <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities/objects.
+                If the fileSerializer param is null, it skips your custom data.
                 If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Control.Workspace.StartWork(devDept.WorkUnit)" /> method instead.
                 </para>
       </remarks>
@@ -14276,7 +14581,7 @@
       <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
       <remarks>
         <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities/objects.
+                If the fileSerializer param is null, it skips your custom data.
                 If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Control.Workspace.StartWork(devDept.WorkUnit)" /> method instead.
                 </para>
       </remarks>
@@ -14292,7 +14597,7 @@
       <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
       <remarks>
         <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities/objects.
+                If the fileSerializer param is null, it skips your custom data.
                 If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Control.Workspace.StartWork(devDept.WorkUnit)" /> method.
                 </para>
       </remarks>
@@ -14788,6 +15093,19 @@
       <seealso cref="P:devDept.Eyeshot.Entities.Entity.LineWeight" />
       <seealso cref="P:devDept.Eyeshot.Layer.LineWeight" />
     </member>
+    <member name="P:devDept.Eyeshot.Control.Drawing.Document">
+      <summary>
+            Gets the <see cref="T:devDept.Eyeshot.DrawingDocument" />.
+            </summary>
+      <seealso cref="M:devDept.Eyeshot.Control.Drawing.LoadDocument(devDept.Eyeshot.DrawingDocument)" />
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Drawing.LoadDocument(devDept.Eyeshot.DrawingDocument)">
+      <summary>
+            Loads a <see cref="T:devDept.Eyeshot.DrawingDocument" /> to the control.
+            </summary>
+      <param name="drawingDocument">The <see cref="T:devDept.Eyeshot.DrawingDocument" />.</param>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a <see cref="T:devDept.Eyeshot.Document" /> already linked to another <see cref="T:devDept.Eyeshot.Control.Workspace" />.</exception>
+    </member>
     <member name="P:devDept.Eyeshot.Control.Drawing.ZoomFactor">
       <summary>
             Gets the camera zoom factor.
@@ -14903,7 +15221,6 @@
       <summary>
             Gets or sets the line type name for centerlines layer.
             </summary>
-      <seealso cref="!:CenterLinesLayerName" />
       <seealso cref="P:devDept.Eyeshot.Control.Workspace.Layers" />
       <seealso cref="T:devDept.Eyeshot.ViewBuilder" />
       <seealso cref="M:devDept.Eyeshot.Control.Drawing.Rebuild(devDept.Eyeshot.Control.Design,System.Boolean,System.Boolean)" />
@@ -14924,9 +15241,9 @@
             Rebuilds sheets on this drawing.
             </summary>
       <param name="design">The design control.</param>
-      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.IDrawingDocument)" />, otherwise they're built synchronously.</param>
+      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />, otherwise they're built synchronously.</param>
       <param name="changedOnly">When true only missing/changed views are built.</param>
-      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.IDrawingDocument)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkFailed" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCancelled" />
@@ -14957,17 +15274,12 @@
       <seealso cref="P:devDept.Eyeshot.Control.Drawing.HiddenSegmentsLineTypeName" />
       <seealso cref="P:devDept.Eyeshot.Control.Drawing.CenterlinesLineTypeName" />
     </member>
-    <member name="M:devDept.Eyeshot.Control.Drawing.Clear">
-      <summary>
-            Clears all the master collections: entities, blocks, layers, materials, text styles, line types, sheets and labels.
-            </summary>
-    </member>
     <member name="M:devDept.Eyeshot.Control.Drawing.CopyTo(devDept.Eyeshot.Control.Workspace,System.Boolean,System.Boolean)">
       <summary>
-            Copies all items inside control master collections (<see cref="P:devDept.Eyeshot.Control.Drawing.Sheets" />, <see cref="P:devDept.Eyeshot.Control.Viewport.Labels" />, <see cref="P:devDept.Eyeshot.Control.Workspace.Blocks" />, <see cref="P:devDept.Eyeshot.Control.Workspace.Layers" />, <see cref="P:devDept.Eyeshot.Control.Design.Materials" />, <see cref="P:devDept.Eyeshot.Control.Workspace.TextStyles" />, <see cref="P:devDept.Eyeshot.Control.Workspace.LineTypes" />) to the specified drawing.
+            Copies all items inside control master collections (<see cref="P:devDept.Eyeshot.Control.Drawing.Sheets" />, <see cref="P:devDept.Eyeshot.Control.Viewport.Labels" />, <see cref="P:devDept.Eyeshot.Control.Workspace.Blocks" />, <see cref="P:devDept.Eyeshot.Control.Workspace.Layers" />, <see cref="P:devDept.Eyeshot.Control.Design.Materials" />, <see cref="P:devDept.Eyeshot.Control.Workspace.TextStyles" />, <see cref="P:devDept.Eyeshot.Control.Workspace.LineTypes" />) to the specified Workspace.
             </summary>
-      <param name="destination">The Drawing that is the destination of the elements copied.</param>
-      <param name="replaceRootBlock">When true and the destination workspace is a <see cref="T:devDept.Eyeshot.Control.Design" /> control, its root block is replaced.</param>
+      <param name="destination">The Workspace that is the destination of the elements copied.</param>
+      <param name="replaceRootBlock">When true and <paramref name="destination" /> is a <see cref="T:devDept.Eyeshot.Control.Design" /> control, its root block is replaced.</param>
       <param name="skipSheets">When true and <paramref name="destination" /> is a <see cref="T:devDept.Eyeshot.Control.Drawing" /> control, the <see cref="P:devDept.Eyeshot.Control.Drawing.Sheets" /> collection is not copied.</param>
       <remarks>
             You need to call <see cref="M:devDept.Eyeshot.Control.Workspace.Invalidate" /> to see the effect of this command in the destination drawing.
@@ -14997,7 +15309,7 @@
       <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
       <remarks>
         <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If the fileSerializer param is null, it skips your custom data.
                 If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Control.Workspace.StartWork(devDept.WorkUnit)" /> method.
                 </para>
       </remarks>
@@ -15013,7 +15325,7 @@
       <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
       <remarks>
         <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If the fileSerializer param is null, it skips your custom data.
                 If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.WriteFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Control.Workspace.StartWork(devDept.WorkUnit)" /> method.
                 </para>
       </remarks>
@@ -15029,7 +15341,7 @@
       <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
       <remarks>
         <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If the fileSerializer param is null, it skips your custom data.
                 If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Control.Workspace.StartWork(devDept.WorkUnit)" /> method.
                 </para>
       </remarks>
@@ -15045,7 +15357,7 @@
       <param name="fileSerializer">The <see cref="T:devDept.Serialization.FileSerializer" />. Can be null/Nothing.</param>
       <remarks>
         <para>This command is based on Eyeshot proprietary file format.
-                If the fileSerializer param is null, it skips some particular Autodesk properties like XData and your custom entities.
+                If the fileSerializer param is null, it skips your custom data.
                 If you want to run the operation asynchronously, use the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class in conjunction with <see cref="M:devDept.Eyeshot.Control.Workspace.StartWork(devDept.WorkUnit)" /> method.
                 </para>
       </remarks>
@@ -15056,6 +15368,7 @@
       <summary>
             Gets or sets the sheets collection.
             </summary>
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Drawing.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Drawing.ActiveSheet">
       <summary>
@@ -15349,7 +15662,7 @@
             </summary>
       <param name="size">The element size, zero for a rough estimation.</param>
       <param name="quadratic">When true, quadratic elements are generated.</param>
-      <seealso cref="T:devDept.Geometry.Meshing.VolumeMesher" />
+      <seealso cref="T:devDept.Eyeshot.Meshing.VolumeMesher" />
       <seealso cref="T:devDept.Eyeshot.Entities.FemMesh" />
     </member>
     <member name="M:devDept.Eyeshot.Control.Simulation.Mesh(devDept.Eyeshot.Entities.Brep,System.Double,System.Boolean,System.Double,System.Double,System.Boolean)">
@@ -15359,10 +15672,10 @@
       <param name="brep">The entity that will be meshed</param>
       <param name="size">The element size. Use zero for a rough estimation.</param>
       <param name="quadratic">When true, quadratic elements are generated.</param>
-      <param name="maxGradation">Sets <see cref="P:devDept.Geometry.Meshing.VolumeMesher.MaxGradation" /></param>
-      <param name="shapeQualityWeight">Sets <see cref="P:devDept.Geometry.Meshing.VolumeMesher.ShapeQualityWeight" /></param>
-      <param name="computeEdgeQuality">Sets <see cref="P:devDept.Geometry.Meshing.VolumeMesher.ComputeEdgeQuality" /></param>
-      <seealso cref="T:devDept.Geometry.Meshing.VolumeMesher" />
+      <param name="maxGradation">Sets <see cref="P:devDept.Eyeshot.Meshing.VolumeMesher.MaxGradation" /></param>
+      <param name="shapeQualityWeight">Sets <see cref="P:devDept.Eyeshot.Meshing.VolumeMesher.ShapeQualityWeight" /></param>
+      <param name="computeEdgeQuality">Sets <see cref="P:devDept.Eyeshot.Meshing.VolumeMesher.ComputeEdgeQuality" /></param>
+      <seealso cref="T:devDept.Eyeshot.Meshing.VolumeMesher" />
       <seealso cref="T:devDept.Eyeshot.Entities.FemMesh" />
     </member>
     <member name="M:devDept.Eyeshot.Control.Simulation.Mesh(devDept.Eyeshot.Entities.Brep,System.Double[],System.Boolean,System.Double,System.Double,System.Boolean)">
@@ -15372,13 +15685,13 @@
       <param name="brep">The entity that will be meshed</param>
       <param name="sizeOnVertices">The elements sizes, one per BRep vertex.</param>
       <param name="quadratic">When true, quadratic elements are generated.</param>
-      <param name="maxGradation">Sets <see cref="P:devDept.Geometry.Meshing.VolumeMesher.MaxGradation" /></param>
-      <param name="shapeQualityWeight">Sets <see cref="P:devDept.Geometry.Meshing.VolumeMesher.ShapeQualityWeight" /></param>
-      <param name="computeEdgeQuality">Sets <see cref="P:devDept.Geometry.Meshing.VolumeMesher.ComputeEdgeQuality" /></param>
+      <param name="maxGradation">Sets <see cref="P:devDept.Eyeshot.Meshing.VolumeMesher.MaxGradation" /></param>
+      <param name="shapeQualityWeight">Sets <see cref="P:devDept.Eyeshot.Meshing.VolumeMesher.ShapeQualityWeight" /></param>
+      <param name="computeEdgeQuality">Sets <see cref="P:devDept.Eyeshot.Meshing.VolumeMesher.ComputeEdgeQuality" /></param>
       <remarks>
             The BRep object must be closed. On imported geometry you may need to use <see cref="M:devDept.Eyeshot.Entities.Brep.FixTopology" /> to fix topology.
             </remarks>
-      <seealso cref="T:devDept.Geometry.Meshing.VolumeMesher" />
+      <seealso cref="T:devDept.Eyeshot.Meshing.VolumeMesher" />
       <seealso cref="T:devDept.Eyeshot.Entities.FemMesh" />
       <seealso cref="M:devDept.Eyeshot.Entities.Brep.FixTopology" />
     </member>
@@ -15391,7 +15704,7 @@
       <param name="materials">A collection of materials</param>
       <param name="size">The element size</param>
       <param name="quadratic">When true, quadratic elements are generated.</param>
-      <seealso cref="T:devDept.Geometry.Meshing.VolumeMesher" />
+      <seealso cref="T:devDept.Eyeshot.Meshing.VolumeMesher" />
       <seealso cref="T:devDept.Eyeshot.Entities.FemMesh" />
     </member>
     <member name="P:devDept.Eyeshot.Control.Simulation.ForceSymbolColor">
@@ -16031,32 +16344,21 @@
             </summary>
       <param name="another">The other hiddenLinesViewSettings</param>
     </member>
-    <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Control.Workspace)">
-      <summary>Standard constructor.
+    <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Control.Workspace,devDept.Eyeshot.hiddenLinesViewType)">
+      <summary>
+            Standard constructor.
             </summary>
       <param name="workspace">The workspace control to process</param>
-      <remarks>Captures the active viewport using its camera, does not clip the area outside the viewport in orthographic.</remarks>
+      <param name="viewMode">The view type, determines the part of the scene to capture</param>
     </member>
-    <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Control.Viewport,devDept.Eyeshot.Control.Workspace)">
-      <summary>Standard constructor.
+    <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Control.Viewport,devDept.Eyeshot.Control.Workspace,devDept.Eyeshot.hiddenLinesViewType,System.Nullable{System.Drawing.RectangleF})">
+      <summary>
+            Standard constructor.
             </summary>
       <param name="viewport">The viewport to process</param>
       <param name="workspace">The workspace control to process</param>
-      <remarks>Uses the camera viewport, does not clip the area outside the viewport in orthographic.</remarks>
-    </member>
-    <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Control.Viewport,devDept.Eyeshot.Control.Workspace,System.Boolean)">
-      <summary>Extents Constructor.
-            </summary>
-      <param name="viewport">The viewport to process</param>
-      <param name="workspace">The workspace control to process</param>
-      <param name="extents">If true fits the design on view, else captures the whole viewport</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Control.Viewport,devDept.Eyeshot.Control.Workspace,System.Drawing.RectangleF)">
-      <summary>Window mode constructor.
-            </summary>
-      <param name="viewport">The viewport to process</param>
-      <param name="workspace">The workspace control to process</param>
-      <param name="window">The portion of the viewport to capture in screen coordinates (0 on top)</param>
+      <param name="viewMode">The view type, determines the part of the scene to capture</param>
+      <param name="window">The portion of the viewport to capture in screen coordinates (0 on top), the whole viewport if not specified. Meaningful only with <see cref="F:devDept.Eyeshot.hiddenLinesViewType.Window" /><paramref name="viewMode" />.</param>
     </member>
     <member name="M:devDept.Eyeshot.Control.TrialPopup.Dispose(System.Boolean)">
       <summary>
@@ -16115,14 +16417,14 @@
       <param name="cellSizeInY">Cell size in Y in pixels</param>
       <param name="makeGrayscale">When true the image is converted to grayscale.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Control.Extensions.ConvertToBytes(System.Drawing.Image)">
+    <member name="M:devDept.Eyeshot.Control.Extensions.ToByteArray(System.Drawing.Image)">
       <summary>
             Convert an image to a byte array.
             </summary>
       <param name="image">The image to convert.</param>
       <remarks>
-        <para> The image is converted to a byte array. The disposing of the image is delegated to you. </para>
-        <para> The supported pixel formats are: <see cref="F:System.Drawing.Imaging.PixelFormat.Format1bppIndexed" />, <see cref="F:System.Drawing.Imaging.PixelFormat.Format8bppIndexed" />, <see cref="F:System.Drawing.Imaging.PixelFormat.Format24bppRgb" />, <see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppArgb" /></para>
+        <para>The image is converted to a byte array. The disposing of the image is delegated to you.</para>
+        <para>The supported pixel formats are: <see cref="F:System.Drawing.Imaging.PixelFormat.Format1bppIndexed" />, <see cref="F:System.Drawing.Imaging.PixelFormat.Format8bppIndexed" />, <see cref="F:System.Drawing.Imaging.PixelFormat.Format24bppRgb" />, <see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppArgb" /></para>
       </remarks>
       <seealso cref="M:devDept.Geometry.UtilityEx.ConvertImageToBytes(System.Drawing.Image)" />
       <seealso cref="M:devDept.Geometry.UtilityEx.ConvertBytesToImage(System.Byte[])" />
@@ -16154,6 +16456,7 @@
         <para>The block is added only if it doesn't already exist.</para>
         <para>The view is not rebuilt.</para>
       </remarks>
+      <param name="sheet">The sheet.</param>
       <param name="view">The view.</param>
       <param name="design">The design control.</param>
       <param name="drawing">The drawing control containing the sheet.</param>
@@ -16164,26 +16467,70 @@
       <summary>
             Rebuilds blocks related to to this view.
             </summary>
+      <param name="rasterView">The raster view.</param>
       <param name="design">The design control.</param>
       <param name="sheet">The parent sheet of the view.</param>
       <param name="drawing">The parent drawing control.</param>
       <param name="async">When true the related block is built asynchronously and must be added at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event, otherwise it's built synchronously.</param>
       <returns>The rebuilt block.</returns>
-      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.IDrawingDocument)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />
       <seealso cref="P:devDept.Eyeshot.Entities.View.HasChanged" />
     </member>
     <member name="M:devDept.Eyeshot.Control.Extensions.Rebuild(devDept.Eyeshot.Sheet,devDept.Eyeshot.Control.Design,devDept.Eyeshot.Control.Drawing,System.Boolean,System.Boolean)">
       <summary>
             Rebuilds outdated views on this sheet.
             </summary>
+      <param name="sheet">The sheet.</param>
       <param name="design">The design control.</param>
       <param name="drawing">The drawing control.</param>
-      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.IDrawingDocument)" />, otherwise they're built synchronously.</param>
+      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />, otherwise they're built synchronously.</param>
       <param name="changedOnly">When true only missing/changed views are built.</param>
-      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.IDrawingDocument)" />
+      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkFailed" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCancelled" />
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Extensions.BuildBillOfMaterials(devDept.Eyeshot.Sheet,devDept.Eyeshot.Control.Design,devDept.Geometry.Point3D,System.String,System.String,System.String,System.String,devDept.Eyeshot.Block@,System.String,System.Boolean,devDept.Eyeshot.Entities.Table.flowDirection,System.Int32)">
+      <summary>
+            Creates a block with the Bill Of Materials table.
+            </summary>
+      <param name="sheet">The sheet.</param>
+      <param name="design">The design workspace. </param>
+      <param name="insertionPoint">The Table insertion point. </param>
+      <param name="itemNumberText">The item number text.</param>
+      <param name="partNumberText">The part number text. </param>
+      <param name="descriptionText">The description text. </param>
+      <param name="quantityText">The quantity text. </param>
+      <param name="block">The new block created. </param>
+      <param name="blockName">The block name. </param>
+      <param name="partsOnly">If true, only the blocks containing geometry are taken in account to construct the bill of materials. </param>
+      <param name="flowDirection">The table flow direction (up/down). </param>
+      <param name="maxLevel">The max deep used to navigate the assembly geometry to create the bill of materials.</param>
+      <returns>The resulting blockreference object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Extensions.AddToScene(devDept.Eyeshot.Translators.LazyLoading,devDept.Eyeshot.Control.Design)">
+      <summary>
+            Adds the loaded data to the scene.
+            </summary>
+      <param name="lazyLoading">The <see cref="T:devDept.Eyeshot.Translators.LazyLoading" /> work unit.</param>
+      <param name="design">The Design control where adding the loaded data.</param>
+      <seealso cref="M:devDept.Eyeshot.Translators.LazyLoading.SetBlockName(System.String)" />
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when this method is called before calling DoWork() method or when it is called before using a ReadMultiFile work unit to prepare the scene for lazy loading.</exception>
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Extensions.AddToDrawing(devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing,devDept.Eyeshot.Control.Drawing)">
+      <summary>
+            Adds sheets, blocks, layers, text styles, line types read from the file to the drawing control.
+            </summary>
+      <param name="readFileAsyncWithDrawing">The <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing" /> work unit.</param>
+      <param name="drawing">The drawing control.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Control.Extensions.FillMaterials(devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing,devDept.Eyeshot.Control.Design)">
+      <summary>
+            Automatically merges materials with existing ones.
+            </summary>
+      <param name="readFileAsyncWithDrawing">The <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing" /> work unit.</param>
+      <param name="design">The Design control</param>
+      <remarks>Materials with the same name of the ones in the workspace will be skipped.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Control.BackgroundSettings">
       <summary>
@@ -16351,14 +16698,14 @@
             Gets or sets the indices of the pages to load. If null, all pages are loaded.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadPDF.FillTextStyles(devDept.Eyeshot.IDocument)">
+    <member name="M:devDept.Eyeshot.Translators.ReadPDF.FillTextStyles(devDept.Eyeshot.Document)">
       <summary>
             Automatically merges text styles with existing ones.
             </summary>
       <param name="document"> The workspace control.</param>
       <remarks>Text styles with the same name of the ones in the workspace will be skipped.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadPDF.AddToScene(System.Int32,devDept.Eyeshot.IDocument,devDept.Eyeshot.RegenOptions)">
+    <member name="M:devDept.Eyeshot.Translators.ReadPDF.AddToScene(System.Int32,devDept.Eyeshot.Document,devDept.Eyeshot.RegenOptions)">
       <summary>
             Adds the entities of the specified page to the scene.
             </summary>
@@ -16366,7 +16713,7 @@
       <param name="document">The Workspace used to add the entities.</param>
       <param name="ro">Asynchronous regeneration settings.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadPDF.AddToScene(devDept.Eyeshot.IDocument,devDept.Eyeshot.RegenOptions)">
+    <member name="M:devDept.Eyeshot.Translators.ReadPDF.AddToScene(devDept.Eyeshot.Document,devDept.Eyeshot.RegenOptions)">
       <summary>
             Adds the entities of the first page to the scene.
             </summary>
@@ -16518,7 +16865,7 @@
             Convert an image to a byte array.
             </summary>
       <returns>The byte array that represent the given image.</returns>
-      <seealso cref="M:devDept.Eyeshot.Control.Extensions.ConvertToBytes(System.Drawing.Image)" />
+      <seealso cref="M:devDept.Eyeshot.Control.Extensions.ToByteArray(System.Drawing.Image)" />
     </member>
     <member name="M:devDept.Geometry.UtilityEx.ConvertBytesToImage(System.Byte[])">
       <summary>
