@@ -36,13 +36,14 @@
       <param name="camera">Camera settings</param>
       <param name="toolBars">Toolbars collection</param>
       <param name="legends">Legends collection</param>
+      <param name="histogram">The histogram</param>
       <param name="displayMode">Display mode</param>
       <param name="showLabels">Labels visibility status</param>
       <param name="autoHideLabels">If true, labels are hidden automatically when behind the model</param>
       <param name="showVertices">If true, the model vertices are displayed</param>
       <param name="showVertexIndices">If true and <see cref="P:devDept.Eyeshot.Control.Viewport.ShowVertices" /> is also true the model vertex indices are displayed</param>
       <param name="grids">Grids collection</param>
-      <param name="originSymbol">Origin symbol settings</param>
+      <param name="originSymbols">Origin symbols array</param>
       <param name="sortLabels">If true, sorts the Labels using the depth from the viewer</param>
       <param name="rotate">Rotate settings</param>
       <param name="zoom">Zoom settings</param>
@@ -2404,18 +2405,35 @@
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" />
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.SetParentAsCurrent(System.Boolean)" />
     </member>
+    <member name="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">
+      <summary>
+            Indicates whether the Isolate feature is currently available.
+            </summary>
+      <remarks>
+            The feature allows to focus on a part of the model while still seeing the rest
+            of the scene in a transparent. It may be not available due to hardware
+            limitations or when the <see cref="P:devDept.Eyeshot.Control.Design.MinimumFramerate" /> is disabled.
+            </remarks>
+      <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateBlocks(System.Collections.Generic.IReadOnlyCollection{devDept.Eyeshot.Block})" />
+      <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateInstances(System.Collections.Generic.IReadOnlyList{System.Tuple{System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.Entities.Entity}})" />
+      <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateSelected(System.Collections.Generic.IReadOnlyList{devDept.Eyeshot.SelectedItemBase})" />
+    </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.IsolateBlocks(System.Collections.Generic.IReadOnlyCollection{devDept.Eyeshot.Block})">
       <summary>
             Isolate a collection of blocks by showing the others in a transparent state.
             Pass null to unset the isolated blocks.
             </summary>
       <remarks>
-            This method is useful to focus on a part of the model while still seeing the
-            rest of the scene in a transparent state.
-            </remarks>
+        <para>This method is useful to focus on a part of the model while still seeing
+            the rest of the scene in a transparent state.</para>
+        <para>Check the <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable" /> property before calling this
+            method.</para>
+      </remarks>
       <param name="blocks">The blocks to isolate</param>
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateInstances(System.Collections.Generic.IReadOnlyList{System.Tuple{System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.Entities.Entity}})" />
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateSelected(System.Collections.Generic.IReadOnlyList{devDept.Eyeshot.SelectedItemBase})" />
+      <seealso cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable" />
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
       <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.IsolateInstances(System.Collections.Generic.IReadOnlyList{System.Tuple{System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.Entities.Entity}})">
@@ -2424,12 +2442,16 @@
             Pass null to unset the isolated entities.
             </summary>
       <remarks>
-            This method is useful to focus on a part of the model while still seeing the
-            rest of the scene in a transparent state.
-            </remarks>
+        <para>This method is useful to focus on a part of the model while still seeing
+            the rest of the scene in a transparent state.</para>
+        <para>Check the <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable" /> property before calling this
+            method.</para>
+      </remarks>
       <param name="instances">The entities instance to isolate</param>
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateBlocks(System.Collections.Generic.IReadOnlyCollection{devDept.Eyeshot.Block})" />
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateSelected(System.Collections.Generic.IReadOnlyList{devDept.Eyeshot.SelectedItemBase})" />
+      <seealso cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable" />
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
       <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.IsolateSelected(System.Collections.Generic.IReadOnlyList{devDept.Eyeshot.SelectedItemBase})">
@@ -2438,12 +2460,15 @@
             Pass null to unset the isolated entities.
             </summary>
       <remarks>
-            This method is useful to focus on a part of the model while still seeing the
-            rest of the scene in a transparent state.
-            </remarks>
+        <para>This method is useful to focus on a part of the model while still seeing
+            the rest of the scene in a transparent state.</para>
+        <para>Check the <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable" /> property before calling this
+            method.</para>
+      </remarks>
       <param name="instances">The entities instance to isolate</param>
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateBlocks(System.Collections.Generic.IReadOnlyCollection{devDept.Eyeshot.Block})" />
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateInstances(System.Collections.Generic.IReadOnlyList{System.Tuple{System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.Entities.Entity}})" />
+      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
       <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.UpdateBoundingBox">
@@ -15241,9 +15266,8 @@
             Rebuilds sheets on this drawing.
             </summary>
       <param name="design">The design control.</param>
-      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />, otherwise they're built synchronously.</param>
+      <param name="async">When true, the views are rebuilt asynchronously.</param>
       <param name="changedOnly">When true only missing/changed views are built.</param>
-      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkFailed" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCancelled" />

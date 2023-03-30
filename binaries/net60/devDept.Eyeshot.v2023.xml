@@ -994,12 +994,6 @@
       <param name="deviation">The deviation used to build the geometry. If zero it's computed based on the elements size.</param>
       <remarks>The closing of the stream is delegated to you.</remarks>
     </member>
-    <member name="P:devDept.Eyeshot.Translators.ReadIFC.Database">
-      <summary>
-            Gets the ifc database resulting from file reading.
-            </summary>
-      <remarks>Gives access to the original file structure with all IFC classes and properties</remarks>
-    </member>
     <member name="P:devDept.Eyeshot.Translators.ReadIFC.DefaultColors">
       <summary>
             Gets a dictionary with the default color for each ifc element type.
@@ -1041,13 +1035,6 @@
       <summary>
             Gets or sets if to import the annotations.
             </summary>
-    </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadIFC.ParseFile(System.IO.StreamReader)">
-      <summary>
-            Parses the file and returns a new ifc database.
-            </summary>
-      <remarks>Gives a chance to derived classes to check and edit the database before the conversion to Eyeshot entities.</remarks>
-      <param name="streamReader">The file stream.</param>
     </member>
     <member name="T:devDept.Eyeshot.Translators.IEyeIfcObject">
       <summary>
@@ -7113,9 +7100,9 @@
       <param name="destEntity">Destination entity</param>
       <param name="force">If false, propagates the attributes only if the attributes are ByParent</param>
     </member>
-    <member name="P:devDept.Eyeshot.Entities.Entity.DynamicSelectionHaloMode">
+    <member name="P:devDept.Eyeshot.Entities.Entity.HaloMode">
       <summary>
-            Gets or sets the entity halo drawing mode for dynamic selection.
+            Gets or sets the halo drawing mode for selection.
             </summary>
       <seealso cref="!:Workspace.Selection" />
       <seealso cref="!:SelectionSettings.ColorDynamic" />
@@ -12363,11 +12350,12 @@
             </summary>
       <remarks>Internal use only.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.Mesh.ConvertToFastMesh(System.Boolean)">
+    <member name="M:devDept.Eyeshot.Entities.Mesh.ConvertToFastMesh(System.Boolean,System.Boolean)">
       <summary>
             Converts this mesh into a <see cref="T:devDept.Eyeshot.Entities.FastMesh" /> object.
             </summary>
       <param name="indexed">When true, one normal per vertex is used.</param>
+      <param name="dynamic">When true, the resulting FastMesh is optimized for frequent data updates.</param>
       <returns>The resulting FastMesh object.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Entities.Mesh.GetTessellation">
@@ -19357,6 +19345,14 @@
       <param name="skipEdges">If true, skips the Edges computation</param>
       <returns>The resulting Mesh object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Entities.Surface.ConvertToFastMesh(System.Double,System.Double,System.Boolean)">
+      <summary>
+            Converts this Surface to a <see cref="T:devDept.Eyeshot.Entities.FastMesh" /> object.
+            </summary>
+      <param name="deviation">The maximum deviation, zero for current tessellation.</param>
+      <param name="angle">The maximum angular deflection, ignored when zero.</param>
+      <returns>The resulting FastMesh object.</returns>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.Surface.ConvertToBrep(System.Double)">
       <summary>
             Converts this Surface to a <see cref="T:devDept.Eyeshot.Entities.Brep" /> object.
@@ -20065,24 +20061,30 @@
         </list>
       </summary>
     </member>
+    <member name="P:devDept.Eyeshot.Entities.FastMesh.Dynamic">
+      <summary>
+            Gets dynamic flag. When true, the entity data is optimized for frequent updates.
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor">
       <summary>
             Empty constructor.
             </summary>
-      <seealso cref="!:PointsArray" />
-      <seealso cref="!:TrianglesArray" />
-      <seealso cref="!:NormalsArray" />
-      <seealso cref="!:ColorsArray" />
+      <seealso cref="P:devDept.Eyeshot.Entities.FastMesh.PointArray" />
+      <seealso cref="P:devDept.Eyeshot.Entities.FastMesh.TriangleArray" />
+      <seealso cref="P:devDept.Eyeshot.Entities.FastMesh.NormalArray" />
+      <seealso cref="P:devDept.Eyeshot.Entities.FastMesh.ColorArray" />
     </member>
-    <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[])">
+    <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[],System.Boolean)">
       <summary>
             Points, triangles and normals arrays constructor.
             </summary>
       <param name="points">The list of unrolled XYZ coordinates</param>
       <param name="triangles">The list of unrolled triangle vertex indices, can be null/Nothing.</param>
       <param name="normals">The list of unrolled triangles normals</param>
+      <param name="dynamic">When true, the entity data is optimized for frequent updates.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[],System.Byte[])">
+    <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[],System.Byte[],System.Boolean)">
       <summary>
             Points, triangles normals and colors arrays constructor.
             </summary>
@@ -20090,15 +20092,17 @@
       <param name="triangles">The list of unrolled triangle vertex indices, can be null/Nothing.</param>
       <param name="normals">The list of unrolled triangles normals</param>
       <param name="colors">The list of unrolled RGB colors, can be null/Nothing.</param>
+      <param name="dynamic">When true, the entity data is optimized for frequent updates.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[],System.Single[])">
+    <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[],System.Single[],System.Boolean)">
       <summary>
             Points, triangles, normals and texture coordinates arrays constructor.
             </summary>
       <param name="points">The list of unrolled XYZ coordinates</param>
       <param name="triangles">The list of unrolled triangle vertex indices, can be null/Nothing.</param>
       <param name="normals">The list of unrolled triangles normals</param>
-      <param name="uvs">The list of unrolled UV texture coordinates, can be null/Nothing.</param>
+      <param name="texCoords">The list of unrolled UV texture coordinates, can be null/Nothing.</param>
+      <param name="dynamic">When true, the entity data is optimized for frequent updates.</param>
     </member>
     <member name="P:devDept.Eyeshot.Entities.FastMesh.PointArray">
       <summary>
@@ -20139,6 +20143,8 @@
             false).</description>
           </item>
         </list>
+        <para>Ignored when <see cref="P:devDept.Eyeshot.Entities.Entity.MaterialName" /> and <see cref="P:devDept.Eyeshot.Entities.FastMesh.TextureCoordsArray" /> are defined.
+            </para>
       </remarks>
     </member>
     <member name="P:devDept.Eyeshot.Entities.FastMesh.TextureCoordsArray">
@@ -20146,12 +20152,12 @@
             Gets or sets UV texture array.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.FastMesh.CompileEdges(System.Double,devDept.Eyeshot.CompileParams)">
+    <member name="M:devDept.Eyeshot.Entities.FastMesh.#ctor(devDept.Serialization.FastMeshSurrogate)">
       <summary>
-            Compiles the graphics data for the edges.
+            Proprietary file format constructor.
             </summary>
-      <param name="ampFactor">The amplification factor (for <seealso cref="T:devDept.Eyeshot.Entities.FemMesh" /> only)</param>
-      <param name="data">The compile parameters</param>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.FastMeshSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.FastMeshSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Entities.FastMesh.GetTriangles">
       <summary>
@@ -25197,25 +25203,25 @@
             A maximum and a minimum value are displayed, one over the other.
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Entities.dynamicSelectionHaloType">
+    <member name="T:devDept.Eyeshot.Entities.haloType">
       <summary>
-            Dynamic selection halo type.
+            Halo type definition.
             </summary>
       <seealso cref="!:devDept.Eyeshot.Workspace.Selection" />.
         </member>
-    <member name="F:devDept.Eyeshot.Entities.dynamicSelectionHaloType.None">
+    <member name="F:devDept.Eyeshot.Entities.haloType.None">
       <summary>
             The entity is drawn with a solid color without halo effect.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Entities.dynamicSelectionHaloType.Slim">
+    <member name="F:devDept.Eyeshot.Entities.haloType.Slim">
       <summary>
-            The entity is drawn with an halo effect whose width is determined by <see cref="!:SelectionSettings.HaloWidthWires" />.
+            The entity is drawn with a halo effect whose width is determined by <see cref="!:SelectionSettings.HaloWidthWires" />.
             </summary>
     </member>
-    <member name="F:devDept.Eyeshot.Entities.dynamicSelectionHaloType.Thick">
+    <member name="F:devDept.Eyeshot.Entities.haloType.Thick">
       <summary>
-            The entity is drawn with an halo effect whose width is determined by <see cref="!:SelectionSettings.HaloWidthPolygons" />.
+            The entity is drawn with a halo effect whose width is determined by <see cref="!:SelectionSettings.HaloWidthPolygons" />.
             </summary>
     </member>
     <member name="T:devDept.Eyeshot.Entities.Joint">
@@ -25963,16 +25969,17 @@
       <param name="parentBlocks">The parent blocks collection</param>
       <returns>The entities of the referred block.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.Entities.BlockReference.Explode(devDept.Eyeshot.BlockKeyedCollection,System.Boolean,System.Boolean,devDept.Eyeshot.Document)">
+    <member name="M:devDept.Eyeshot.Entities.BlockReference.Explode(devDept.Eyeshot.BlockKeyedCollection,System.Boolean,System.Boolean,devDept.Eyeshot.Document,System.Boolean)">
       <summary>
             Returns the block reference individual entity list.
             </summary>
-      <param name="blocks">The <see cref="!:Workspace.Blocks" /> collection</param>
+      <param name="blocks">The <see cref="P:devDept.Eyeshot.Document.Blocks" /> collection</param>
       <param name="resolveByParent">If true, the <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeightMethod" /> are resolved propagating the BlockReference properties.</param>
       <param name="keepTessellation">When true, the tessellation of the original entity is preserved.</param>
       <param name="document">The document.</param>
+      <param name="burst">If true, the exploded attributes keep the value of the <see cref="P:devDept.Eyeshot.Entities.BlockReference.Attributes">AttributeReference</see>.</param>
       <returns>The list of individual entities.</returns>
-      <seealso cref="M:devDept.Eyeshot.EntityList.Explode(devDept.Eyeshot.Entities.BlockReference,System.Boolean,System.Boolean)" />
+      <seealso cref="!:EntityList.Explode(BlockReference, bool, bool)" />
     </member>
     <member name="M:devDept.Eyeshot.Entities.BlockReference.MoveTo(devDept.Eyeshot.DrawParams)">
       <summary>
@@ -28648,6 +28655,20 @@
             </summary>
       <returns>The new material object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeam.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeam.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="T:devDept.Eyeshot.Fem.MaterialBeamSquare">
       <summary>
             Material for beams with square section.
@@ -28695,6 +28716,20 @@
             Creates a deep copy of this material.
             </summary>
       <returns>The new material object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamSquare.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamSquare.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Eyeshot.Fem.MaterialBeamRect">
       <summary>
@@ -28752,6 +28787,20 @@
             </summary>
       <returns>The new material object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamRect.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamRect.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="T:devDept.Eyeshot.Fem.MaterialBeamHollowRect">
       <summary>
             Material for beams with rectangular hollow section.
@@ -28805,6 +28854,20 @@
             Creates a deep copy of this material.
             </summary>
       <returns>The new material object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamHollowRect.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamHollowRect.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Eyeshot.Fem.MaterialBeamI">
       <summary>
@@ -28868,6 +28931,20 @@
             </summary>
       <returns>The new material object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamI.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamI.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="T:devDept.Eyeshot.Fem.MaterialBeamCircle">
       <summary>
             Material for beams with circular section.
@@ -28915,6 +28992,20 @@
             Creates a deep copy of this material.
             </summary>
       <returns>The new material object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamCircle.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamCircle.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Eyeshot.Fem.MaterialBeamHollowCircle">
       <summary>
@@ -28966,6 +29057,20 @@
             Creates a deep copy of this material.
             </summary>
       <returns>The new material object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamHollowCircle.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamHollowCircle.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance with the data needed to serialize the target object.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Eyeshot.Fem.MaterialBeamT">
       <summary>
@@ -29019,6 +29124,13 @@
             </summary>
       <returns>The new material object.</returns>
     </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamT.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
+    </member>
     <member name="T:devDept.Eyeshot.Fem.MaterialBeamC">
       <summary>
             Material for 2D beams with C section.
@@ -29070,6 +29182,13 @@
             Creates a deep copy of this material.
             </summary>
       <returns>The new material object.</returns>
+    </member>
+    <member name="M:devDept.Eyeshot.Fem.MaterialBeamC.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Constructor for deserializing objects.
+            </summary>
+      <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> instance that defines the serialized data.</param>
+      <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> instance that contains the serialized data.</param>
     </member>
     <member name="T:devDept.Eyeshot.Fem.NodeBeam">
       <summary>
@@ -29739,21 +29858,24 @@
       <returns>The string with the count of each entity's type.</returns>
       <remarks>The entities inside the blocks are processed only for the counting of vertices and triangles.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.EntityList.Explode(devDept.Eyeshot.Entities.BlockReference,System.Boolean,System.Boolean)">
+    <member name="M:devDept.Eyeshot.EntityList.Explode(devDept.Eyeshot.Entities.BlockReference,System.Boolean,System.Boolean,System.Boolean)">
       <summary>
             Returns the block reference individual entity list.
             </summary>
       <param name="br">The block reference</param>
       <param name="resolveByParent">If true, the <see cref="F:devDept.Eyeshot.Entities.colorMethodType.byParent" /><see cref="P:devDept.Eyeshot.Entities.Entity.ColorMethod" />, <see cref="P:devDept.Eyeshot.Entities.Entity.LineTypeMethod" /> and <see cref="P:devDept.Eyeshot.Entities.Entity.LineWeightMethod" /> are resolved propagating the BlockReference properties</param>
       <param name="keepTessellation">When true, the tessellation of the original entity is preserved.</param>
+      <param name="burst">If true, the exploded attributes keep the value of the <see cref="P:devDept.Eyeshot.Entities.BlockReference.Attributes">AttributeReference</see>.</param>
       <returns>An array of entities.</returns>
     </member>
-    <member name="M:devDept.Eyeshot.EntityList.Explode(System.Boolean)">
+    <member name="M:devDept.Eyeshot.EntityList.Explode(System.Boolean,System.Boolean)">
       <summary>
             Recursively explodes all BlockReference objects and clears the collection.
             </summary>
       <remarks>
-        <see cref="!:Workspace.Blocks" /> dictionary is not automatically cleared.</remarks>
+        <see cref="P:devDept.Eyeshot.Document.Blocks" /> dictionary is not automatically cleared.</remarks>
+      <param name="keepTessellation">When true, the tessellation of the original entity is preserved.</param>
+      <param name="burst">If true, the exploded attributes keep the value of the <see cref="P:devDept.Eyeshot.Entities.BlockReference.Attributes">AttributeReference</see>.</param>
       <returns>The list of individual entities.</returns>
     </member>
     <member name="M:devDept.Eyeshot.EntityList.ConvertToLinearPaths(devDept.Eyeshot.Entities.Text,System.Double)">
@@ -33507,6 +33629,16 @@
             </summary>
       <returns>The new simulation stock object.</returns>
     </member>
+    <member name="P:devDept.Eyeshot.Milling.SimulationStock.RowCount">
+      <summary>
+            Gets the number of grid rows (cells in the Y direction).
+            </summary>
+    </member>
+    <member name="P:devDept.Eyeshot.Milling.SimulationStock.ColCount">
+      <summary>
+            Gets the number of grid columns (cells in the X direction).
+            </summary>
+    </member>
     <member name="M:devDept.Eyeshot.Milling.SimulationStock.Cut(devDept.Eyeshot.Entities.Toolpath.LinearMotion,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.CompileParams)">
       <summary>
             Cuts a linear motion in the stock.
@@ -33559,15 +33691,12 @@
       <param name="cp">Compile parameters. When defined, <see cref="M:devDept.Eyeshot.Entities.Entity.Compile(devDept.Eyeshot.CompileParams)">compilation</see> is performed as well.</param>
       <seealso cref="M:devDept.Eyeshot.Milling.SimulationStock.Cut(devDept.Eyeshot.Entities.Toolpath.LinearMotion,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.CompileParams)" />
     </member>
-    <member name="P:devDept.Eyeshot.Milling.SimulationStock.RowCount">
+    <member name="M:devDept.Eyeshot.Milling.SimulationStock.#ctor(devDept.Serialization.SimulationStockSurrogate)">
       <summary>
-            Gets the number of grid rows (cells in the Y direction).
+            Proprietary file format constructor.
             </summary>
-    </member>
-    <member name="P:devDept.Eyeshot.Milling.SimulationStock.ColCount">
-      <summary>
-            Gets the number of grid columns (cells in the X direction).
-            </summary>
+      <param name="surrogate">The <see cref="T:devDept.Serialization.SimulationStockSurrogate" />.</param>
+      <remarks>This constructor is used by <see cref="M:devDept.Serialization.SimulationStockSurrogate.ConvertToObject" /> method.</remarks>
     </member>
     <member name="M:devDept.Eyeshot.Milling.SimulationStock.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
       <summary>
@@ -34610,7 +34739,7 @@
       <param name="geometry">The machining geometry</param>
       <param name="pattern">The pattern as a list of <see cref="T:devDept.Geometry.Point3D" /></param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
-      <param name="zLow">The bottom plane Z height</param>
+      <param name="zLow">The bottom plane Z height. <paramref name="zLow" /> + <see cref="P:devDept.Eyeshot.Milling.Machining3D.AxialStockToLeave" /> gives the lowest Z height.</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.LinearPath,System.Double)">
       <summary>
@@ -34631,7 +34760,7 @@
       <param name="geometry">The machining geometry</param>
       <param name="pattern">The pattern as a <see cref="T:devDept.Eyeshot.Entities.LinearPath" /> entity</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
-      <param name="zLow">The bottom plane Z height</param>
+      <param name="zLow">The bottom plane Z height. <paramref name="zLow" /> + <see cref="P:devDept.Eyeshot.Milling.Machining3D.AxialStockToLeave" /> gives the lowest Z height.</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Double)">
       <summary>
@@ -34652,7 +34781,7 @@
       <param name="geometry">The machining geometry</param>
       <param name="pattern">The pattern as a list of list of <see cref="T:devDept.Geometry.Point3D" /></param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
-      <param name="zLow">The bottom plane Z height</param>
+      <param name="zLow">The bottom plane Z height. <paramref name="zLow" /> + <see cref="P:devDept.Eyeshot.Milling.Machining3D.AxialStockToLeave" /> gives the lowest Z height.</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Collections.Generic.IList{devDept.Geometry.Point3D},System.Double)">
       <summary>
@@ -34675,7 +34804,7 @@
       <param name="boundary">The tool containment region</param>
       <param name="pattern">The pattern as a list of <see cref="T:devDept.Geometry.Point3D" /></param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
-      <param name="zLow">The bottom plane Z height</param>
+      <param name="zLow">The bottom plane Z height. <paramref name="zLow" /> + <see cref="P:devDept.Eyeshot.Milling.Machining3D.AxialStockToLeave" /> gives the lowest Z height.</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Project3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Collections.Generic.IList{System.Collections.Generic.IList{devDept.Geometry.Point3D}},System.Double)">
       <summary>
@@ -34698,7 +34827,7 @@
       <param name="boundary">The tool containment region</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
       <param name="pattern">The pattern as a list of list of <see cref="T:devDept.Geometry.Point3D" /></param>
-      <param name="zLow">The bottom plane Z height</param>
+      <param name="zLow">The bottom plane Z height. <paramref name="zLow" /> + <see cref="P:devDept.Eyeshot.Milling.Machining3D.AxialStockToLeave" /> gives the lowest Z height.</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Project3D.GetRawPasses(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs,System.Int32[]@,devDept.Eyeshot.Entities.Region[]@)">
       <summary>
@@ -34759,7 +34888,7 @@
       <param name="stepOver">The step over amount</param>
       <param name="angleInRadians">The passes angle in radians</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
-      <param name="zLow">The bottom plane Z height</param>
+      <param name="zLow">The bottom plane Z height. <paramref name="zLow" /> + <see cref="P:devDept.Eyeshot.Milling.Machining3D.AxialStockToLeave" /> gives the lowest Z height.</param>
     </member>
     <member name="M:devDept.Eyeshot.Milling.Parallel3D.#ctor(devDept.Eyeshot.Milling.Setup,devDept.Eyeshot.Milling.EndMill,devDept.Eyeshot.Milling.Geometry3D,devDept.Eyeshot.Entities.Region,System.Double,System.Double,System.Double)">
       <summary>
@@ -34784,7 +34913,7 @@
       <param name="stepOver">The step over amount</param>
       <param name="angleInRadians">The passes angle in radians</param>
       <param name="verticalLeadAmount">The vertical lead distance</param>
-      <param name="zLow">The bottom plane Z height</param>
+      <param name="zLow">The bottom plane Z height. <paramref name="zLow" /> + <see cref="P:devDept.Eyeshot.Milling.Machining3D.AxialStockToLeave" /> gives the lowest Z height.</param>
     </member>
     <member name="T:devDept.Eyeshot.Sheet">
       <summary>
@@ -38624,11 +38753,6 @@
     <member name="F:devDept.Eyeshot.DrawSceneParams.Bpp">
       <summary>
             Bytes per pixel. Used by the <see cref="!:Workspace.RenderToBitmap" /></summary>
-    </member>
-    <member name="M:devDept.Eyeshot.DrawSceneParams.IsDesignMode">
-      <summary>
-            Gets a boolean indicating whether the control is running at design time.
-            </summary>
     </member>
     <member name="F:devDept.Eyeshot.DrawEntitiesParams.entList">
       <summary>
@@ -44035,7 +44159,7 @@
     </member>
     <member name="M:devDept.Serialization.SimulationStockSurrogate.ConvertToObject">
       <remarks>
-             This method uses the <see cref="T:devDept.Eyeshot.Milling.SimulationStock" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Milling.SimulationStock.#ctor(devDept.Serialization.SimulationStockSurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.FastMeshSurrogate">
@@ -44073,9 +44197,14 @@
             See <see cref="P:devDept.Eyeshot.Entities.FastMesh.TextureCoordsArray" />.
             </summary>
     </member>
+    <member name="F:devDept.Serialization.FastMeshSurrogate.Dynamic">
+      <summary>
+            See <see cref="P:devDept.Eyeshot.Entities.FastMesh.Dynamic" />.
+            </summary>
+    </member>
     <member name="M:devDept.Serialization.FastMeshSurrogate.ConvertToObject">
       <remarks>
-             This method uses the <see cref="M:devDept.Eyeshot.Entities.FastMesh.#ctor(System.Single[],System.Int32[],System.Single[])" /> constructor to create the object.        
+             This method uses the <see cref="M:devDept.Eyeshot.Entities.FastMesh.#ctor(devDept.Serialization.FastMeshSurrogate)" /> constructor to create the object.        
              </remarks>
     </member>
     <member name="T:devDept.Serialization.HatchSurrogate">
@@ -53195,12 +53324,13 @@
             Integer grid span.
             </summary>
     </member>
-    <member name="M:devDept.Geometry.Utility.DeepCopyVertices(devDept.Geometry.Point3D[])">
+    <member name="M:devDept.Geometry.Utility.DeepCopy``1(``0[])">
       <summary>
-            Point3D array deep copy.
+            Creates a deep copy of the specified array by cloning each element.
             </summary>
-      <param name="toCopy">The array of vertices to be copied</param>
-      <returns>The deeply copied array.</returns>
+      <typeparam name="T">Type of the array, must implement <see cref="T:System.ICloneable" />.</typeparam>
+      <param name="toCopy">The array to be copied.</param>
+      <returns>A deep copy of the array.</returns>
     </member>
     <member name="M:devDept.Geometry.Utility.GetDeviation(devDept.Geometry.Point3D,devDept.Geometry.Vector3D,devDept.Geometry.Point3D,devDept.Geometry.Vector3D,System.Double@)">
       <summary>
@@ -64962,43 +65092,6 @@
     <!-- Badly formed XML comment ignored for member "M:Delaunay_TH4_bdry_corrector.Delaunay_TH4_bdry_corrector.__treat_face_shell(System.Collections.Generic.List{System.Boolean})" -->
     <!-- Badly formed XML comment ignored for member "M:Delaunay_TH4_REG.Delaunay_TH4_reg.set_frozen_tetras(System.Collections.Generic.List{System.Boolean})" -->
     <!-- Badly formed XML comment ignored for member "T:log_barrier" -->
-    <member name="F:GeometryGym.Ifc.ReleaseVersion.IFC4X3_ADD1">
-      <summary>
-            Development version of Standard, not yet to be used for Production 
-            </summary>
-    </member>
-    <member name="F:GeometryGym.Ifc.ReleaseVersion.IFC4X4_DRAFT">
-      <summary>
-            Draft Release for IfcTunnel Deployment Testing, not to be used for Production
-            </summary>
-    </member>
-    <member name="F:GeometryGym.Ifc.ModelView.Ifc4X4NotAssigned">
-      <summary>
-            Draft Release for IfcTunnel Deployment Testing, not to be used for Production
-            </summary>
-    </member>
-    <member name="P:GeometryGym.Ifc.IfcControl.Identification">
-            : SET OF IfcRelAssignsToControl FOR RelatingControl;
-        </member>
-    <member name="P:GeometryGym.Ifc.IfcRepresentation`1.ContextOfItems">
-            IFC4 change	 : 	SET [0:n] OF IfcProductRepresentation FOR Representations;
-        </member>
-    <member name="M:GeometryGym.Ifc.ParserIfc.DecodeGlobalID(System.String)">
-      <summary>
-            Reconstruction of the GUID 
-            from an IFC GUID string (base64)
-            </summary>
-      <param name="guid">The GUID string to convert. Must be 22 characters int</param>
-      <returns>GUID correspondig to the string</returns>
-    </member>
-    <member name="M:GeometryGym.Ifc.ParserIfc.EncodeGuid(System.Guid)">
-      <summary>
-            Conversion of a GUID to a string 
-            representing the GUID 
-            </summary>
-      <param name="guid">The GUID to convert</param>
-      <returns>IFC (base64) encoded GUID string</returns>
-    </member>
     <!-- Badly formed XML comment ignored for member "T:Translators.JT.codec.arithmetic.AccumulatedProbabilityCounts" -->
     <!-- Badly formed XML comment ignored for member "T:Translators.JT.codec.arithmetic.ArithmeticDecoder" -->
     <!-- Badly formed XML comment ignored for member "T:Translators.JT.codec.bitlength.BitlengthDecoder" -->
