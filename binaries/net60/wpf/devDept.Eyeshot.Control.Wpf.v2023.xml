@@ -1587,7 +1587,7 @@
       </seealso>
       <seealso cref="T:devDept.Eyeshot.Entities.BlockReference">
       </seealso>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.RootBlock">
       <summary>
@@ -1614,27 +1614,27 @@
             Gets or sets the layers collection.       
             </summary>
       <remarks>If the collection is empty,  the "Default" layer is added.</remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.LineTypes">
       <summary>
             Gets or sets the line types collection.       
             </summary>
       <remarks>"ByBlock", "ByLayer", "Continuous" are reserved names and should not be used to avoid issues when exporting.</remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.HatchPatterns">
       <summary>
             Gets or sets the hatch patterns collection.       
             </summary>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Workspace.TextStyles">
       <summary>
             Gets or sets the text styles collection.
             </summary>
       <remarks>The "Default" text style is added if missing.</remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Workspace.Document" />.</exception>
     </member>
     <member name="F:devDept.Eyeshot.Control.Workspace.hasFocus">
       <summary>
@@ -2433,8 +2433,8 @@
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateInstances(System.Collections.Generic.IReadOnlyList{System.Tuple{System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.Entities.Entity}})" />
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateSelected(System.Collections.Generic.IReadOnlyList{devDept.Eyeshot.SelectedItemBase})" />
       <seealso cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable" />
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
+      <exception cref="T:devDept.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
+      <exception cref="T:devDept.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.IsolateInstances(System.Collections.Generic.IReadOnlyList{System.Tuple{System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.Entities.Entity}})">
       <summary>
@@ -2451,8 +2451,8 @@
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateBlocks(System.Collections.Generic.IReadOnlyCollection{devDept.Eyeshot.Block})" />
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateSelected(System.Collections.Generic.IReadOnlyList{devDept.Eyeshot.SelectedItemBase})" />
       <seealso cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable" />
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
+      <exception cref="T:devDept.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
+      <exception cref="T:devDept.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.IsolateSelected(System.Collections.Generic.IReadOnlyList{devDept.Eyeshot.SelectedItemBase})">
       <summary>
@@ -2468,8 +2468,8 @@
       <param name="instances">The entities instance to isolate</param>
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateBlocks(System.Collections.Generic.IReadOnlyCollection{devDept.Eyeshot.Block})" />
       <seealso cref="M:devDept.Eyeshot.Control.Workspace.IsolateInstances(System.Collections.Generic.IReadOnlyList{System.Tuple{System.Collections.Generic.Stack{devDept.Eyeshot.Entities.BlockReference},devDept.Eyeshot.Entities.Entity}})" />
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
+      <exception cref="T:devDept.EyeshotException">Throw when the feature is not <see cref="P:devDept.Eyeshot.Control.Workspace.IsolateAvailable">available</see></exception>
+      <exception cref="T:devDept.EyeshotException">Throw when a BlockReference is set as <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)">current</see>.</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.Workspace.UpdateBoundingBox">
       <summary>
@@ -4868,8 +4868,8 @@
       <summary>
             Project the given ICurve into the sketch.
             </summary>
-      <param name="igcurve">The iGCurve </param>
-      <param name="fix">when true, the entity is fixed.</param>
+      <param name="curve">The curve</param>
+      <param name="fix">When true, the entity is fixed.</param>
       <returns>The projected ICurve array.</returns>
     </member>
     <member name="M:devDept.Eyeshot.Control.SketchManager.AddLine(devDept.Eyeshot.Entities.Line)">
@@ -5086,14 +5086,14 @@
     <member name="M:devDept.Eyeshot.Control.SketchManager.Undo">
       <summary>
             Undo the last operation performed. If no record of previous operations is
-            available, an <see cref="T:devDept.Eyeshot.EyeshotException" /> is thrown. To check if this method
+            available, an <see cref="T:devDept.EyeshotException" /> is thrown. To check if this method
             is safe to call, use <see cref="P:devDept.Eyeshot.Control.SketchManager.UndoReady" />.
             </summary>
     </member>
     <member name="M:devDept.Eyeshot.Control.SketchManager.Redo">
       <summary>
             Redo the last operation undone. If no record of previous undone operations is
-            available, an <see cref="T:devDept.Eyeshot.EyeshotException" /> is thrown. To check if this method
+            available, an <see cref="T:devDept.EyeshotException" /> is thrown. To check if this method
             is safe to call, use <see cref="P:devDept.Eyeshot.Control.SketchManager.RedoReady" />.
             </summary>
     </member>
@@ -5141,7 +5141,7 @@
       <param name="entities">The entities to drag</param>
       <seealso cref="M:devDept.Eyeshot.Control.SketchManager.DragEnd" />
       <seealso cref="M:devDept.Eyeshot.Control.SketchManager.DragTo(devDept.Geometry.Point2D)" />
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when this method is called twice
+      <exception cref="T:devDept.EyeshotException">Thrown when this method is called twice
             without invoking <see cref="M:devDept.Eyeshot.Control.SketchManager.DragEnd" /> before the second call</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.SketchManager.DragTo(devDept.Geometry.Point2D)">
@@ -5151,7 +5151,7 @@
       <param name="to">New drag destination, relative to the sketch plane</param>
       <seealso cref="M:devDept.Eyeshot.Control.SketchManager.DragStart(devDept.Geometry.Point2D,devDept.Eyeshot.Entities.Entity[])" />
       <seealso cref="M:devDept.Eyeshot.Control.SketchManager.DragEnd" />
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when this method is called without
+      <exception cref="T:devDept.EyeshotException">Thrown when this method is called without
             calling <see cref="M:devDept.Eyeshot.Control.SketchManager.DragStart(devDept.Geometry.Point2D,devDept.Eyeshot.Entities.Entity[])" /> first</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.SketchManager.DragEnd">
@@ -5161,7 +5161,7 @@
             </summary>
       <seealso cref="M:devDept.Eyeshot.Control.SketchManager.DragStart(devDept.Geometry.Point2D,devDept.Eyeshot.Entities.Entity[])" />
       <seealso cref="M:devDept.Eyeshot.Control.SketchManager.DragTo(devDept.Geometry.Point2D)" />
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when this method is called without
+      <exception cref="T:devDept.EyeshotException">Thrown when this method is called without
             calling <see cref="M:devDept.Eyeshot.Control.SketchManager.DragStart(devDept.Geometry.Point2D,devDept.Eyeshot.Entities.Entity[])" /> first</exception>
     </member>
     <member name="M:devDept.Eyeshot.Control.SketchManager.DeleteEntity(devDept.Eyeshot.Entities.Entity)">
@@ -6544,7 +6544,7 @@
       <seealso cref="P:devDept.Eyeshot.Control.Drawing.HiddenWiresLayerName" />
       <seealso cref="P:devDept.Eyeshot.Control.Drawing.CenterlinesLayerName" />
     </member>
-    <member name="M:devDept.Eyeshot.Control.ViewBuilderEx.AddToDrawing(devDept.Eyeshot.Control.Drawing)">
+    <member name="M:devDept.Eyeshot.Control.ViewBuilderEx.AddTo(devDept.Eyeshot.Control.Drawing)">
       <summary>
             Adds views and blocks to the drawing control.
             </summary>
@@ -7474,12 +7474,12 @@
             Gets or sets the device information.
             </summary>
     </member>
-    <member name="T:devDept.Eyeshot.Control.Mouse3D.ButtonMask">
+    <member name="T:devDept.Eyeshot.Control.Mouse3D.Button">
       <summary>
             A bitmask representing the state of the buttons of the Mouse 3D.
             </summary>
     </member>
-    <member name="M:devDept.Eyeshot.Control.Mouse3D.ButtonMask.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+    <member name="M:devDept.Eyeshot.Control.Mouse3D.Button.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
       <summary>
             Standard constructor.
             </summary>
@@ -7488,7 +7488,7 @@
       <param name="b3">The third byte.</param>
       <param name="b4">The fourth byte.</param>
     </member>
-    <member name="P:devDept.Eyeshot.Control.Mouse3D.ButtonMask.Pressed">
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.Button.Pressed">
       <summary>
             Gets a mask representing the pressed button.
             </summary>
@@ -7513,7 +7513,7 @@
             Provides data for the <see cref="E:devDept.Eyeshot.Control.Workspace.Mouse3DButtonDown" /> and <see cref="E:devDept.Eyeshot.Control.Workspace.Mouse3DButtonUp" /> event.
             </summary>
     </member>
-    <member name="P:devDept.Eyeshot.Control.Mouse3D.ButtonEventArgs.ButtonMask">
+    <member name="P:devDept.Eyeshot.Control.Mouse3D.ButtonEventArgs.Button">
       <summary>
             A bitmask representing the state of the buttons of the Mouse 3D
             sending the event.
@@ -7796,6 +7796,36 @@
     <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkTiltCcw">
       <summary>
             The QuickView "Tilt 90° Counter-Clockwise" Button.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkCustomView1Loader">
+      <summary>
+            Loads the first custom view.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkCustomView2Loader">
+      <summary>
+            Loads the second custom view.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkCustomView3Loader">
+      <summary>
+            Loads the third custom view.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkCustomView1Saver">
+      <summary>
+            Saves the current view as the first custom view.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkCustomView2Saver">
+      <summary>
+            Saves the current view as the second custom view.
+            </summary>
+    </member>
+    <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkCustomView3Saver">
+      <summary>
+            Saves the current view as the third custom view.
             </summary>
     </member>
     <member name="F:devDept.Eyeshot.Control.Mouse3D.virtualKey.V3DkUser">
@@ -13344,19 +13374,19 @@
       <summary>
             Gets the bitmap of the button.
             </summary>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Control.DefaultToolBarButton.Image" /> property on default buttons.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Control.DefaultToolBarButton.Image" /> property on default buttons.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.DefaultToolBarButton.DownImage">
       <summary>
             Gets the Image for the down state.
             </summary>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Control.DefaultToolBarButton.DownImage" /> property on default buttons.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Control.DefaultToolBarButton.DownImage" /> property on default buttons.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.DefaultToolBarButton.HoverImage">
       <summary>
             Gets the Image for the mouse hover state.
             </summary>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Control.DefaultToolBarButton.HoverImage" /> property on default buttons.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when you try to set the <see cref="P:devDept.Eyeshot.Control.DefaultToolBarButton.HoverImage" /> property on default buttons.</exception>
     </member>
     <member name="T:devDept.Eyeshot.Control.ZoomFitToolBarButton">
       <summary>
@@ -14242,7 +14272,7 @@
             Loads a <see cref="T:devDept.Eyeshot.DesignDocument" /> to the control.
             </summary>
       <param name="designDocument">The <see cref="T:devDept.Eyeshot.DesignDocument" />.</param>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a <see cref="T:devDept.Eyeshot.Document" /> already linked to another <see cref="T:devDept.Eyeshot.Control.Workspace" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a <see cref="T:devDept.Eyeshot.Document" /> already linked to another <see cref="T:devDept.Eyeshot.Control.Workspace" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Design.Viewports">
       <summary>
@@ -14273,7 +14303,7 @@
     </member>
     <member name="P:devDept.Eyeshot.Control.Design.Materials">
       <summary>Material collection. This collection contains material definitions.</summary>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Design.Document" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Design.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Design.ZoomFitMode">
       <summary>
@@ -14540,6 +14570,12 @@
             When true, adds an extra pass to write transparent entities in the Z buffer.
             </summary>
       <remarks>Refers to inaccurate transparency only.</remarks>
+    </member>
+    <member name="P:devDept.Eyeshot.Control.Design.WriteDepthForFrozen">
+      <summary>
+            When true, frozen entities are drawn in the Z buffer.
+            </summary>
+      <remarks>See <see cref="M:devDept.Eyeshot.Control.Workspace.SetCurrent(devDept.Eyeshot.Entities.BlockReference,System.Boolean)" /></remarks>
     </member>
     <member name="M:devDept.Eyeshot.Control.Design.PrintPreview(System.Drawing.Size,System.Boolean)">
       <param name="extents">If true fits the entire model in the viewport area to captures the whole scene, else uses the current camera</param>
@@ -15129,7 +15165,7 @@
             Loads a <see cref="T:devDept.Eyeshot.DrawingDocument" /> to the control.
             </summary>
       <param name="drawingDocument">The <see cref="T:devDept.Eyeshot.DrawingDocument" />.</param>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a <see cref="T:devDept.Eyeshot.Document" /> already linked to another <see cref="T:devDept.Eyeshot.Control.Workspace" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a <see cref="T:devDept.Eyeshot.Document" /> already linked to another <see cref="T:devDept.Eyeshot.Control.Workspace" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Drawing.ZoomFactor">
       <summary>
@@ -15392,7 +15428,7 @@
       <summary>
             Gets or sets the sheets collection.
             </summary>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Drawing.Document" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when trying to set a new collection already linked to another <see cref="P:devDept.Eyeshot.Control.Drawing.Document" />.</exception>
     </member>
     <member name="P:devDept.Eyeshot.Control.Drawing.ActiveSheet">
       <summary>
@@ -15402,7 +15438,7 @@
         <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, its entities are shared with the Drawing one.</para>
         <para>Since the drawing collection is modified, this method can't be called inside a loop.</para>
       </remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
       <seealso cref="P:devDept.Eyeshot.Control.Drawing.ActiveSheetIndex" />
     </member>
     <member name="P:devDept.Eyeshot.Control.Drawing.ActiveSheetIndex">
@@ -15413,7 +15449,7 @@
         <para>When a <see cref="T:devDept.Eyeshot.Sheet" /> is set as active, its entities are shared with the Drawing one.</para>
         <para>Since the drawing collection is modified, this method can't be called inside a loop.</para>
       </remarks>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when an element with the specified name does not exist in the collection or the name is null.</exception>
       <seealso cref="P:devDept.Eyeshot.Control.Drawing.ActiveSheet" />
     </member>
     <member name="T:devDept.Eyeshot.Control.Manufacture">
@@ -16370,19 +16406,37 @@
     </member>
     <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Control.Workspace,devDept.Eyeshot.hiddenLinesViewType)">
       <summary>
-            Standard constructor.
+            Constructor with Workspace, it process the <see cref="P:devDept.Eyeshot.Control.Design.ActiveViewport" />.
             </summary>
       <param name="workspace">The workspace control to process</param>
       <param name="viewMode">The view type, determines the part of the scene to capture</param>
     </member>
     <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Control.Viewport,devDept.Eyeshot.Control.Workspace,devDept.Eyeshot.hiddenLinesViewType,System.Nullable{System.Drawing.RectangleF})">
       <summary>
-            Standard constructor.
+            Constructor with the Viewport to process.
             </summary>
       <param name="viewport">The viewport to process</param>
       <param name="workspace">The workspace control to process</param>
       <param name="viewMode">The view type, determines the part of the scene to capture</param>
       <param name="window">The portion of the viewport to capture in screen coordinates (0 on top), the whole viewport if not specified. Meaningful only with <see cref="F:devDept.Eyeshot.hiddenLinesViewType.Window" /><paramref name="viewMode" />.</param>
+    </member>
+    <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.Camera,devDept.Eyeshot.Document,devDept.Eyeshot.hiddenLinesViewType,System.Nullable{System.Drawing.Size},System.Nullable{System.Drawing.RectangleF})">
+      <summary>
+            Constructor with camera.
+            </summary>
+      <param name="camera">The camera used to process the hidden lines</param>
+      <param name="document">The Document to process</param>
+      <param name="viewMode">The view type, determines the part of the scene to capture</param>
+      <param name="viewportSize">The viewport size. Useful for Window viewType, in other types it just affects the size of the computed lines but is not needed in Orthographic projection mode if the <see cref="M:devDept.Eyeshot.HiddenLinesView.ScaleLinesToWorld(System.Single)" /> is called at the end of the computation.</param>
+      <param name="window">The portion of the viewport to capture in screen coordinates (0 on top), the whole viewport if not specified. Meaningful only with <see cref="F:devDept.Eyeshot.hiddenLinesViewType.Window" /><paramref name="viewMode" /></param>
+    </member>
+    <member name="M:devDept.Eyeshot.Control.HiddenLinesViewSettingsEx.#ctor(devDept.Eyeshot.viewType,devDept.Eyeshot.Document,System.Nullable{System.Drawing.Size})">
+      <summary>
+        <see cref="F:devDept.Eyeshot.hiddenLinesViewType.Extents" /> view mode constructor with the viewType.
+            </summary>
+      <param name="view">The view to set</param>
+      <param name="document">The Document to process</param>
+      <param name="viewportSize">The viewport size. Affects the size of the computed lines but is not needed in Orthographic projection mode if the <see cref="M:devDept.Eyeshot.HiddenLinesView.ScaleLinesToWorld(System.Single)" /> is called at the end of the computation.</param>
     </member>
     <member name="M:devDept.Eyeshot.Control.TrialPopup.Dispose(System.Boolean)">
       <summary>
@@ -16497,7 +16551,7 @@
       <param name="drawing">The parent drawing control.</param>
       <param name="async">When true the related block is built asynchronously and must be added at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event, otherwise it's built synchronously.</param>
       <returns>The rebuilt block.</returns>
-      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />
+      <seealso cref="!:ViewBuilder.AddToDrawing" />
       <seealso cref="P:devDept.Eyeshot.Entities.View.HasChanged" />
     </member>
     <member name="M:devDept.Eyeshot.Control.Extensions.Rebuild(devDept.Eyeshot.Sheet,devDept.Eyeshot.Control.Design,devDept.Eyeshot.Control.Drawing,System.Boolean,System.Boolean)">
@@ -16507,9 +16561,9 @@
       <param name="sheet">The sheet.</param>
       <param name="design">The design control.</param>
       <param name="drawing">The drawing control.</param>
-      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event by calling <see cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />, otherwise they're built synchronously.</param>
+      <param name="async">When true the blocks are built asynchronously and must be added/updated at the <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" /> event by calling <see cref="!:ViewBuilder.AddToDrawing" />, otherwise they're built synchronously.</param>
       <param name="changedOnly">When true only missing/changed views are built.</param>
-      <seealso cref="M:devDept.Eyeshot.ViewBuilder.AddToDrawing(devDept.Eyeshot.DrawingDocument)" />
+      <seealso cref="!:ViewBuilder.AddToDrawing" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCompleted" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkFailed" />
       <see cref="E:devDept.Eyeshot.Control.Workspace.WorkCancelled" />
@@ -16531,30 +16585,6 @@
       <param name="flowDirection">The table flow direction (up/down). </param>
       <param name="maxLevel">The max deep used to navigate the assembly geometry to create the bill of materials.</param>
       <returns>The resulting blockreference object.</returns>
-    </member>
-    <member name="M:devDept.Eyeshot.Control.Extensions.AddToScene(devDept.Eyeshot.Translators.LazyLoading,devDept.Eyeshot.Control.Design)">
-      <summary>
-            Adds the loaded data to the scene.
-            </summary>
-      <param name="lazyLoading">The <see cref="T:devDept.Eyeshot.Translators.LazyLoading" /> work unit.</param>
-      <param name="design">The Design control where adding the loaded data.</param>
-      <seealso cref="M:devDept.Eyeshot.Translators.LazyLoading.SetBlockName(System.String)" />
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when this method is called before calling DoWork() method or when it is called before using a ReadMultiFile work unit to prepare the scene for lazy loading.</exception>
-    </member>
-    <member name="M:devDept.Eyeshot.Control.Extensions.AddToDrawing(devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing,devDept.Eyeshot.Control.Drawing)">
-      <summary>
-            Adds sheets, blocks, layers, text styles, line types read from the file to the drawing control.
-            </summary>
-      <param name="readFileAsyncWithDrawing">The <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing" /> work unit.</param>
-      <param name="drawing">The drawing control.</param>
-    </member>
-    <member name="M:devDept.Eyeshot.Control.Extensions.FillMaterials(devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing,devDept.Eyeshot.Control.Design)">
-      <summary>
-            Automatically merges materials with existing ones.
-            </summary>
-      <param name="readFileAsyncWithDrawing">The <see cref="T:devDept.Eyeshot.Translators.ReadFileAsyncWithDrawing" /> work unit.</param>
-      <param name="design">The Design control</param>
-      <remarks>Materials with the same name of the ones in the workspace will be skipped.</remarks>
     </member>
     <member name="T:devDept.Eyeshot.Control.BackgroundSettings">
       <summary>
@@ -16729,19 +16759,19 @@
       <param name="document"> The workspace control.</param>
       <remarks>Text styles with the same name of the ones in the workspace will be skipped.</remarks>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadPDF.AddToScene(System.Int32,devDept.Eyeshot.Document,devDept.Eyeshot.RegenOptions)">
+    <member name="M:devDept.Eyeshot.Translators.ReadPDF.AddTo(System.Int32,devDept.Eyeshot.DesignDocument,devDept.Eyeshot.RegenOptions)">
       <summary>
             Adds the entities of the specified page to the scene.
             </summary>
       <param name="pageIndex">The index of the page to add.</param>
-      <param name="document">The Workspace used to add the entities.</param>
+      <param name="designDoc">The design document used to add the entities.</param>
       <param name="ro">Asynchronous regeneration settings.</param>
     </member>
-    <member name="M:devDept.Eyeshot.Translators.ReadPDF.AddToScene(devDept.Eyeshot.Document,devDept.Eyeshot.RegenOptions)">
+    <member name="M:devDept.Eyeshot.Translators.ReadPDF.AddTo(devDept.Eyeshot.DesignDocument,devDept.Eyeshot.RegenOptions)">
       <summary>
             Adds the entities of the first page to the scene.
             </summary>
-      <param name="document">The Workspace used to add the entities.</param>
+      <param name="designDoc">The design document used to add the entities.</param>
       <param name="ro">Asynchronous regeneration settings.</param>
     </member>
     <member name="T:devDept.Eyeshot.Translators.PdfPage">
@@ -17006,7 +17036,7 @@
       <summary>
             Constructor used in conjunction with the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class.
             </summary>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown if the content type is <see cref="F:devDept.Serialization.contentType.None" />.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown if the content type is <see cref="F:devDept.Serialization.contentType.None" />.</exception>
       <remarks>Use this constructor to define the serialization model for the <see cref="T:devDept.Eyeshot.Translators.ReadFile" /> class.</remarks>
     </member>
     <member name="M:devDept.Serialization.FileSerializerWithLabels.FillModel">
@@ -17147,7 +17177,7 @@
       <summary>
             Converts the object to the related surrogate during the serialization process.
             </summary>
-      <exception cref="T:devDept.Eyeshot.EyeshotException">Thrown when the <see cref="M:devDept.Eyeshot.Control.Labels.Label.ConvertToSurrogate" /> method returns null value.</exception>
+      <exception cref="T:devDept.EyeshotException">Thrown when the <see cref="M:devDept.Eyeshot.Control.Labels.Label.ConvertToSurrogate" /> method returns null value.</exception>
     </member>
     <member name="M:devDept.Serialization.LabelSurrogate.BeforeDeserialize(ProtoBuf.SerializationContext)">
       <summary>
