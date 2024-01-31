@@ -1,3 +1,7 @@
+## Since devDept provides nuget packages, this repository will no longer be maintained.
+How to set up devDept package source:
+[https://devdept.zendesk.com/hc/en-us/articles/12241415743772-NuGet-package-manual-installation](https://devdept.zendesk.com/hc/en-us/articles/12241415743772-NuGet-package-manual-installation)
+
 eyeshot
 =======
 
